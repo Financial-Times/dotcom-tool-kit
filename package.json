@@ -1,0 +1,19 @@
+{
+  "name": "dotcom-tool-kit",
+  "private": true,
+  "version": "1.0.0",
+  "description": "hewwo??? hello",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "athloi exec npm install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@financial-times/athloi": "^2.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
