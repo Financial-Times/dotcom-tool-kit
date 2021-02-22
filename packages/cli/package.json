@@ -7,14 +7,23 @@
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "devDependencies": {
+    "@oclif/command": "^1.8.0",
     "@oclif/dev-cli": "^1.26.0",
     "@types/node": "^10.17.54",
+    "@types/node-fetch": "^2.5.8",
     "eslint": "^5.16.0",
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-oclif-typescript": "^0.1.0",
     "globby": "^10.0.2",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.9"
+  },
+  "dependencies": {
+    "@oclif/config": "^1.17.0",
+    "@oclif/plugin-help": "^3.2.2",
+    "installation-plugins": "file:../installation-plugins",
+    "node-fetch": "^2.6.1",
+    "tslib": "^1.14.1"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -47,12 +56,5 @@
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md"
   },
-  "types": "lib/index.d.ts",
-  "dependencies": {
-    "@oclif/command": "^1.8.0",
-    "@oclif/config": "^1.17.0",
-    "@oclif/plugin-help": "^3.2.2",
-    "installation-plugins": "file:../installation-plugins",
-    "tslib": "^1.14.1"
-  }
+  "types": "lib/index.d.ts"
 }

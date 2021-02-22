@@ -15,5 +15,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@oclif/test": "^1.2.8"
+  }
 }
