@@ -11,7 +11,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "dotcom-tool-kit": "file:../cli",
-    "@dotcom-tool-kit/lmao": "file:../lmao"
+    "@dotcom-tool-kit/lmao": "file:../lmao",
+    "dotcom-tool-kit": "file:../cli"
   }
 }
