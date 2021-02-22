@@ -4,11 +4,12 @@
     "importHelpers": true,
     "module": "commonjs",
     "outDir": "lib",
-    "rootDir": "src",
+    "rootDirs": ["src", "test"],
     "strict": true,
     "target": "es2017"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*",
   ]
 }
