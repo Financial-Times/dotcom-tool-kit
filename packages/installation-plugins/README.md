@@ -19,7 +19,7 @@ $ npm install -g installation-plugins
 $ oclif-example COMMAND
 running command...
 $ oclif-example (-v|--version|version)
-installation-plugins/0.0.0 darwin-x64 node-v15.4.0
+installation-plugins/0.0.0 darwin-x64 node-v12.19.0
 $ oclif-example --help [COMMAND]
 USAGE
   $ oclif-example COMMAND
@@ -28,25 +28,5 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`oclif-example hello [FILE]`](#oclif-example-hello-file)
 
-## `oclif-example hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ oclif-example hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ oclif-example hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/financial-times/dotcom-tool-kit/blob/v0.0.0/src/commands/hello.ts)_
 <!-- commandsstop -->
