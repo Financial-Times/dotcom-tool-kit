@@ -1,15 +1,4 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "importHelpers": true,
-    "module": "commonjs",
-    "outDir": "lib",
-    "rootDirs": ["src", "test"],
-    "strict": true,
-    "target": "es2017"
-  },
-  "include": [
-    "src/**/*",
-    "test/**/*",
-  ]
+  "rootDir": "./src/",
+  "extends": "../../tsconfig.json"
 }
