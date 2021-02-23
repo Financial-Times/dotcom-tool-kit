@@ -1,11 +1,11 @@
-import { Hook, Plugin, IConfig, PJSON } from '@oclif/config'
+import { Hook, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
 import * as readPkgUp from 'read-pkg-up'
 
 // according to Oclif's type definitions, loadPlugins isn't there on
 // options.config. but we know it is. so tell Typescript it can use
 // it by using a type predicate function to make it into this interface
 interface PluginLoader {
-  loadPlugins(root: string, type: string, plugins: string[]): Promise<void>
+  loadPlugins(root: string, type: string, plugins: string[]): Promise<void> // eslint-disable-line no-unused-vars
 }
 
 interface AppPluginPJSON extends PJSON.Plugin {
@@ -38,9 +38,7 @@ const hook: Hook<'init'> = async function (options) {
   }
 
   const { devDependencies = {} } = result.packageJson
-  const plugins = Object.keys(devDependencies).filter((dep) =>
-    dep.startsWith(pjson.oclif['appPlugins'].prefix)
-  )
+  const plugins = Object.keys(devDependencies).filter((dep) => dep.startsWith(pjson.oclif.appPlugins.prefix))
 
   await options.config.loadPlugins(process.cwd(), 'app', plugins)
 }

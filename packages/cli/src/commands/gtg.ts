@@ -4,8 +4,8 @@ import fetch from 'node-fetch'
 const TWO_MINUTES = 2 * 60 * 1000
 
 function waitForOk(url: string) {
-  let timeout: NodeJS.Timeout // eslint-disable-line prefer-const
-  let checker: NodeJS.Timeout // eslint-disable-line prefer-const
+  let timeout: NodeJS.Timeout // eslint-disable-line no-undef
+  let checker: NodeJS.Timeout // eslint-disable-line no-undef
 
   async function checkGtg() {
     console.log(`⏳ polling: ${url}`) // eslint-disable-line no-console
