@@ -5,7 +5,8 @@
   "description": "hewwo??? hello",
   "main": "index.js",
   "scripts": {
-    "postinstall": "athloi exec npm install"
+    "postinstall": "athloi exec npm install && husky install",
+    "lint": "eslint --ext .ts packages/cli/src/commands"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@oclif/test": "^1.2.8"
+    "@oclif/test": "^1.2.8",
+    "husky": "^5.1.1"
   }
 }

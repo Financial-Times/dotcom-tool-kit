@@ -1,13 +1,13 @@
-import {Command, flags} from '@oclif/command'
+import {Command} from '@oclif/command'
 
 export default class Hello extends Command {
   // static description = 'describe the command here'
 
-//   static examples = [
-//     `$ dotcom-tool-kit hello
-// hello world from ./src/hello.ts!
-// `,
-//   ]
+  //   static examples = [
+  //     `$ dotcom-tool-kit hello
+  // hello world from ./src/hello.ts!
+  // `,
+  //   ]
 
   // static flags = {
   //   help: flags.help({char: 'h'}),
@@ -20,9 +20,6 @@ export default class Hello extends Command {
   // static args = [{name: 'file'}]
 
   async run() {
-    console.log('==========');
-    console.log('foo ***');
-    console.log('==========');
     // const {args, flags} = this.parse(Hello)
 
     // const name = flags.name ?? 'world'
