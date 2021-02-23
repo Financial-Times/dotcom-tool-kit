@@ -49,8 +49,11 @@
     "bin": "dotcom-tool-kit",
     "plugins": [
       "@oclif/plugin-help",
-      "installation-plugins"
-    ]
+      "@dotcom-tool-kit/installation-plugins"
+    ],
+    "installation-plugins": {
+      "prefix": "@dotcom-tool-kit/"
+    }
   },
   "repository": "financial-times/dotcom-tool-kit",
   "scripts": {
