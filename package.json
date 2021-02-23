@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@financial-times/athloi": "^2.0.0"
+    "@financial-times/athloi": "^2.0.0",
+    "eslint": "^7.20.0"
   },
   "workspaces": [
     "packages/*"
