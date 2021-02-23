@@ -1,6 +1,6 @@
 # oclif-plugin-app-plugins
 
-A [Oclif](https://oclif.io) plugin that loads other [Oclif](https://oclif.io) plugins. This lets apps install the `dotcom-tool-kit` CLI and separate plugins based on their use cases.
+An [Oclif](https://oclif.io) plugin that loads other [Oclif](https://oclif.io) plugins. This lets apps install the `dotcom-tool-kit` CLI and separate plugins based on their use cases.
 
 ## Using from an app
 
