@@ -1,7 +1,7 @@
 import {Hook, Plugin, IConfig} from '@oclif/config'
 import * as readPkgUp from 'read-pkg-up'
 
-async function loadPlugin(config: IConfig, plugin: string, root: string) {
+async function loadPlugin(config: IConfig, plugin: string, root: string, parent?: Plugin) {
    const instance = new Plugin({
       name: plugin,
       type: 'consumer',
@@ -10,9 +10,17 @@ async function loadPlugin(config: IConfig, plugin: string, root: string) {
 
    await instance.load()
    config.plugins.push(instance)
+
+   if (parent) {
+      instance.parent = parent
+      if (!parent.children) parent.children = []
+      parent.children.push(instance)
+    }
+
+    await loadPlugins(config, instance.pjson.oclif.plugins || [], instance.root, instance)
 }
 
-async function loadPlugins(config: IConfig, plugins: string[], root: string) {
+async function loadPlugins(config: IConfig, plugins: string[], root: string, parent?: Plugin) {
    await Promise.all(
       plugins.map(
          async plugin => {
