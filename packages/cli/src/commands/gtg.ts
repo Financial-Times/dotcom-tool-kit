@@ -1,4 +1,4 @@
-import {Command, flags} from '@oclif/command'
+import { Command, flags } from '@oclif/command'
 import fetch from 'node-fetch'
 
 const TWO_MINUTES = 2 * 60 * 1000
@@ -11,7 +11,7 @@ function waitForOk(url: string) {
     console.log(`⏳ polling: ${url}`) // eslint-disable-line no-console
 
     try {
-      const response = await fetch(url, {timeout: 2000, follow: 0})
+      const response = await fetch(url, { timeout: 2000, follow: 0 })
 
       if (response.ok) {
         console.log(`✅ ${url} ok!`) // eslint-disable-line no-console
@@ -22,7 +22,8 @@ function waitForOk(url: string) {
       console.log(`❌ ${url} not ok`) // eslint-disable-line no-console
     } catch (error) {
       if (error.type && error.type === 'request-timeout') {
-        console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that. You're amazing, by the way. I don't say that often enough. But you really are.`) // eslint-disable-line no-console
+        console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that.`) // eslint-disable-line no-console
+        console.log("You're amazing, by the way. I don't say that often enough. But you really are.") // eslint-disable-line no-console
       } else {
         return Promise.reject(new Error(`😿 ${url} Error: ${error}`))
         clearInterval(checker)
@@ -51,14 +52,16 @@ function getURL(appName: string) {
 export default class GoodToGo extends Command {
   static flags = {
     app: flags.string({
-      char: 'a', description: 'Runs gtg (\'good to go\') checks for an app', required: true,
-    }),
+      char: 'a',
+      description: "Runs gtg ('good to go') checks for an app",
+      required: true
+    })
   }
 
   async run() {
-    const {flags} = this.parse(GoodToGo)
+    const { flags } = this.parse(GoodToGo)
 
-    const {app} = flags
+    const { app } = flags
 
     const url = getURL(app)
 

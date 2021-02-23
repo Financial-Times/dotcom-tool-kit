@@ -1,14 +1,14 @@
+({
+  "name": "next-article",
+  "devDependencies": {
+    "dotcom-tool-kit": "0.0.0",
+    "@dotcom-tool-kit/webpack": "0.0.0"
+  }
+},
 {
-   "name": "next-article",
-   "devDependencies": {
-      "dotcom-tool-kit": "0.0.0",
-      "@dotcom-tool-kit/webpack": "0.0.0"
-   }
-}
-{
-   "name": "next-api",
-   "devDependencies": {
-      "dotcom-tool-kit": "0.0.0",
-      "@dotcom-tool-kit/eslint": "0.0.0"
-   }
-}
+  "name": "next-api",
+  "devDependencies": {
+    "dotcom-tool-kit": "0.0.0",
+    "@dotcom-tool-kit/eslint": "0.0.0"
+  }
+})

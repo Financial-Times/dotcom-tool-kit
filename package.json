@@ -5,15 +5,17 @@
   "description": "hewwo??? hello",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --ext .ts packages/cli/src/commands",
     "postinstall": "athloi exec npm install && husky install",
-    "lint": "eslint --ext .ts packages/cli/src/commands"
+    "prettier": "prettier --write '**/*.{ts,js,json}'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@financial-times/athloi": "^2.0.0",
-    "eslint": "^7.20.0"
+    "eslint": "^7.20.0",
+    "prettier": "2.2.1"
   },
   "workspaces": [
     "packages/*"

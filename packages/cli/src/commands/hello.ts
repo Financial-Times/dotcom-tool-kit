@@ -1,4 +1,4 @@
-import {Command} from '@oclif/command'
+import { Command } from '@oclif/command' // eslint-disable-line object-curly-spacing
 
 export default class Hello extends Command {
   // static description = 'describe the command here'
@@ -21,7 +21,6 @@ export default class Hello extends Command {
 
   async run() {
     // const {args, flags} = this.parse(Hello)
-
     // const name = flags.name ?? 'world'
     // this.log(`hello ${name} from ./src/commands/hello.ts`)
     // if (args.file && flags.force) {
