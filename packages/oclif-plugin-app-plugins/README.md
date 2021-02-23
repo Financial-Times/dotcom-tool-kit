@@ -25,15 +25,15 @@ Install `@dotcom-tool-kit/oclif-plugin-app-plugins` as a dependency of your CLI:
 npm install --save @dotcom-tool-kit/oclif-plugin-app-plugins
 ```
 
-In your `package.json`, add the plugin to `oclif.plugins`. You'll need to specify the prefix to load with the property `oclif.oclif-plugin-app-plugins.prefix`. Packages in an app's `devDependencies` starting with this prefix will be automatically loaded.
+In your `package.json`, add the plugin to `oclif.plugins`. You'll need to specify the prefix to load with the property `oclif.appPlugins.prefix`. Packages in an app's `devDependencies` starting with this prefix will be automatically loaded.
 
 ```json
 {
   "oclif": {
     "plugins": [
-      "@dotcom-tool-kit/installation-plugin"
+      "@dotcom-tool-kit/oclif-plugin-app-plugins"
     ],
-    "oclif-plugin-app-plugins": {
+    "appPlugins": {
       "prefix": "@dotcom-tool-kit/"
     }
   }
