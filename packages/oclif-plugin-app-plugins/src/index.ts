@@ -8,9 +8,9 @@ interface PluginLoader {
    loadPlugins(root: string, type: string, plugins: string[]): Promise<void>
 }
 
-interface InstallationPJSON extends PJSON.Plugin {
+interface AppPluginPJSON extends PJSON.Plugin {
    oclif: PJSON.Plugin['oclif'] & {
-      'installation-plugins': {
+      'appPlugins': {
          prefix: string
       }
    }
@@ -20,8 +20,8 @@ function canLoadPlugins(config: any): config is PluginLoader {
    return typeof config.loadPlugins === 'function'
 }
 
-function isInstallationPJSON(pjson: PJSON.Plugin): pjson is InstallationPJSON {
-   return 'installation-plugins' in pjson.oclif
+function isAppPluginPJSON(pjson: PJSON.Plugin): pjson is AppPluginPJSON {
+   return 'appPlugins' in pjson.oclif
 }
 
 const hook: Hook<'init'> = async function (options) {
@@ -31,16 +31,16 @@ const hook: Hook<'init'> = async function (options) {
    if (!result) return
 
    const {pjson} = options.config
-   if (!isInstallationPJSON(pjson)) {
-      throw new Error(`${pjson.name} doesn't have an oclif.installation-plugins.prefix property. this is required to load plugins with this plugin`)
+   if (!isAppPluginPJSON(pjson)) {
+      throw new Error(`${pjson.name} doesn't have an oclif.appPlugins.prefix property. this is required to load plugins with this plugin`)
    }
 
    const { devDependencies = {} } = result.packageJson
    const plugins = Object.keys(devDependencies).filter(
-      dep => dep.startsWith(pjson.oclif['installation-plugins'].prefix)
+      dep => dep.startsWith(pjson.oclif['appPlugins'].prefix)
    )
 
-   await options.config.loadPlugins(process.cwd(), 'consumer', plugins)
+   await options.config.loadPlugins(process.cwd(), 'app', plugins)
 }
 
 export default hook

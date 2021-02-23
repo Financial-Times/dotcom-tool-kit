@@ -6,7 +6,7 @@ Tool Kit is under active develpment. Anything can and probably will change.
 
 ## Development
 
-Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point, which uses [`packages/installation-plugins`](/packages/installation-plugins) to load the plugins required by a consumer.
+Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point, which uses [`packages/oclif-plugin-app-plugins`](/packages/oclif-plugin-app-plugins) to load the plugins required by a consumer.
 
 Tool Kit requires Node v12. To install the dependencies and link internal packages together, run:
 
