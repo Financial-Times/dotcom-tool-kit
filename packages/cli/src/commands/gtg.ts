@@ -1,72 +1,67 @@
 import {Command, flags} from '@oclif/command'
 import fetch from 'node-fetch'
 
-const TWO_MINUTES = 2 * 60 * 1000;
+const TWO_MINUTES = 2 * 60 * 1000
 
-function waitForOk (url: string) {
+function waitForOk(url: string) {
+  let timeout: NodeJS.Timeout // eslint-disable-line prefer-const
+  let checker: NodeJS.Timeout // eslint-disable-line prefer-const
 
-	let timeout: NodeJS.Timeout;
-	let checker: NodeJS.Timeout;
+  async function checkGtg() {
+    console.log(`⏳ polling: ${url}`) // eslint-disable-line no-console
 
-	async function checkGtg () {
+    try {
+      const response = await fetch(url, {timeout: 2000, follow: 0})
 
-		console.log(`⏳ polling: ${url}`);
+      if (response.ok) {
+        console.log(`✅ ${url} ok!`) // eslint-disable-line no-console
+        clearTimeout(timeout)
+        clearInterval(checker)
+        return Promise.resolve()
+      }
+      console.log(`❌ ${url} not ok`) // eslint-disable-line no-console
+    } catch (error) {
+      if (error.type && error.type === 'request-timeout') {
+        console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that. You're amazing, by the way. I don't say that often enough. But you really are.`) // eslint-disable-line no-console
+      } else {
+        return Promise.reject(new Error(`😿 ${url} Error: ${error}`))
+        clearInterval(checker)
+      }
+    }
+  }
 
-		try {
-			const response = await fetch(url, { timeout: 2000, follow: 0 })
+  checker = setInterval(checkGtg, 3000)
 
-			if (response.ok) {
-				console.log(`✅ ${url} ok!`);
-				clearTimeout(timeout);
-				clearInterval(checker);
-				return Promise.resolve();
-			} else {
-				console.log(`❌ ${url} not ok`);
-			}
-		} catch (error) {
-			if (error.type && error.type === 'request-timeout') {
-				console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that. You're amazing, by the way. I don't say that often enough. But you really are.`); // eslint-disable-line no-console
-			}
-			else {
-				return Promise.reject(`😿 ${url} Error: ${error}`);
-				clearInterval(checker);
-			}
-		}
-	}
+  timeout = setTimeout(function () {
+    return Promise.reject(new Error(`😢 ${url} did not respond with an ok response within two minutes.`))
+    clearInterval(checker)
+  }, TWO_MINUTES)
+}
 
-	checker = setInterval(checkGtg, 3000);
+function getURL(appName: string) {
+  let host = appName || 'http://local.ft.com:3002'
 
-	timeout = setTimeout(function () {
-		Promise.reject(`😢 ${url} did not respond with an ok response within two minutes.`);
-		clearInterval(checker);
-	}, TWO_MINUTES);
+  if (!/:|\./.test(host)) host += '.herokuapp.com/__gtg'
 
-};
+  if (!/https?:\/\//.test(host)) host = 'http://' + host
 
-function getURL (appName: string) {
-	let host = appName || 'http://local.ft.com:3002';
-
-	if (!/:|\./.test(host)) host += '.herokuapp.com/__gtg';
-
-	if (!/https?\:\/\//.test(host)) host = 'http://' + host;
-
-	return host;
+  return host
 }
 
 export default class GoodToGo extends Command {
   static flags = {
-	app: flags.string({
-		char: 'a', description: 'Runs gtg (\'good to go\') checks for an app', required: true
-	})
+    app: flags.string({
+      char: 'a', description: 'Runs gtg (\'good to go\') checks for an app', required: true,
+    }),
   }
 
-  async run () {
-  	const { flags } = this.parse(GoodToGo)
+  async run() {
+    const {flags} = this.parse(GoodToGo)
 
-  	const { app } = flags;
+    const {app} = flags
 
-  	const url = getURL(app);
+    const url = getURL(app)
 
-  	return waitForOk(url);
+    return waitForOk(url)
   }
 }
