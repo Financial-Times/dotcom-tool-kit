@@ -25,8 +25,8 @@
   "dependencies": {
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
-    "installation-plugins": "file:../installation-plugins",
     "node-fetch": "^2.6.1",
+    "oclif-plugin-app-plugins": "file:../oclif-plugin-app-plugins",
     "tslib": "^1.14.1"
   },
   "engines": {
@@ -49,8 +49,11 @@
     "bin": "dotcom-tool-kit",
     "plugins": [
       "@oclif/plugin-help",
-      "installation-plugins"
-    ]
+      "@dotcom-tool-kit/oclif-plugin-app-plugins"
+    ],
+    "appPlugins": {
+      "prefix": "@dotcom-tool-kit/"
+    }
   },
   "repository": "financial-times/dotcom-tool-kit",
   "scripts": {

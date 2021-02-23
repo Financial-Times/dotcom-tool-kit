@@ -1,5 +1,5 @@
 {
-  "name": "installation-plugins",
+  "name": "@dotcom-tool-kit/oclif-plugin-app-plugins",
   "version": "0.0.0",
   "author": "Platforms Team",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
