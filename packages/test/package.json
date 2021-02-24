@@ -12,6 +12,7 @@
   "description": "",
   "devDependencies": {
     "@dotcom-tool-kit/lmao-group": "file:../lmao-group",
+    "@dotcom-tool-kit/webpack": "file:../webpack",
     "dotcom-tool-kit": "file:../cli"
   }
 }
