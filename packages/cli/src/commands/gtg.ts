@@ -1,48 +1,50 @@
 import { Command, flags } from '@oclif/command'
 import fetch from 'node-fetch'
 
-const TWO_MINUTES = 2 * 60 * 1000
+const TWO_MINUTES = 5 * 1000
 
-function waitForOk(url: string) {
-  let timeout: NodeJS.Timeout // eslint-disable-line no-undef
-  let checker: NodeJS.Timeout // eslint-disable-line no-undef
+async function waitForOk(url: string) {
+  return new Promise(function (resolve, reject) {
+    let timeout: NodeJS.Timeout // eslint-disable-line prefer-const
+    let checker: NodeJS.Timeout // eslint-disable-line prefer-const
 
-  async function checkGtg() {
-    console.log(`⏳ polling: ${url}`) // eslint-disable-line no-console
+    async function checkGtg() {
+      console.log(`⏳ polling: ${url}`) // eslint-disable-line no-console
 
-    try {
-      const response = await fetch(url, { timeout: 2000, follow: 0 })
+      try {
+        const response = await fetch(url, { timeout: 2000, follow: 0 })
 
-      if (response.ok) {
-        console.log(`✅ ${url} ok!`) // eslint-disable-line no-console
-        clearTimeout(timeout)
-        clearInterval(checker)
-        return Promise.resolve()
-      }
-      console.log(`❌ ${url} not ok`) // eslint-disable-line no-console
-    } catch (error) {
-      if (error.type && error.type === 'request-timeout') {
-        console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that.`) // eslint-disable-line no-console
-        console.log("You're amazing, by the way. I don't say that often enough. But you really are.") // eslint-disable-line no-console
-      } else {
-        return Promise.reject(new Error(`😿 ${url} Error: ${error}`))
-        clearInterval(checker)
+        if (response.ok) {
+          console.log(`✅ ${url} ok!`) // eslint-disable-line no-console
+          clearTimeout(timeout)
+          clearInterval(checker)
+          return resolve()
+        }
+        console.log(`❌ ${url} not ok`) // eslint-disable-line no-console
+      } catch (error) {
+        if (error.type && error.type === 'request-timeout') {
+          console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that.`) // eslint-disable-line no-console
+          console.log("You're amazing, by the way. I don't say that often enough. But you really are.") // eslint-disable-line no-console
+        } else {
+          return reject(new Error(`😿 ${url} Error: ${error}`))
+          clearInterval(checker)
+        }
       }
     }
-  }
 
-  checker = setInterval(checkGtg, 3000)
+    checker = setInterval(checkGtg, 3000)
 
-  timeout = setTimeout(function () {
-    return Promise.reject(new Error(`😢 ${url} did not respond with an ok response within two minutes.`))
-    clearInterval(checker)
-  }, TWO_MINUTES)
+    timeout = setTimeout(function () {
+      return reject(new Error(`😢 ${url} did not respond with an ok response within two minutes.`))
+      clearInterval(checker)
+    }, TWO_MINUTES)
+  });
 }
 
 function getURL(appName: string) {
   let host = appName || 'http://local.ft.com:3002'
 
-  if (!/:|\./.test(host)) host += '.herokuapp.com:80/__gtg'
+  if (!/:|\./.test(host)) host += '.herokuapp.com/__gtg'
 
   if (!/https?:\/\//.test(host)) host = 'http://' + host
 
@@ -64,7 +66,9 @@ export default class GoodToGo extends Command {
     const { app } = flags
 
     const url = getURL(app)
-    console.log('url====', url)
-    return waitForOk(url)
+
+    const foo = await waitForOk(url)
+
+    return foo
   }
 }
