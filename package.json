@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "eslint --ext .ts packages",
     "postinstall": "athloi exec npm install",
-    "prettier": "prettier --write '**/*.{ts,js,json}'"
+    "prettier": "prettier --write '**/*.{ts,js,json}'",
+    "create-plugin": "./scripts/create-plugin.js"
   },
   "keywords": [],
   "author": "",
