@@ -7,7 +7,7 @@ const name = process.argv[2]
 const camelCaseName = name.replace(/(^|-)./g, char => char.slice(-1).toUpperCase())
 const dir = path.join('packages', name)
 
-console.log('📂 creating folder')
+console.log(`📂 creating folder ${dir}`)
 fs.mkdirSync(dir)
 process.chdir(dir)
 
@@ -22,7 +22,7 @@ const pkg = JSON.parse(fs.readFileSync('package.json'))
 pkg.oclif = { commands: './lib/commands' }
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
 
-console.log('🏗 scaffolding command')
+console.log(`🏗 scaffolding command ${camelCaseName}`)
 fs.mkdirSync('src/commands', {recursive: true})
 
 fs.writeFileSync(`src/commands/${name}.ts`,
