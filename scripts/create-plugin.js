@@ -4,7 +4,7 @@ const path = require('path')
 const { execSync } = require('child_process')
 
 const name = process.argv[2]
-const camelCaseName = name.replace(/(^|-)./g, char => char.toUpperCase())
+const camelCaseName = name.replace(/(^|-)./g, char => char.slice(-1).toUpperCase())
 const dir = path.join('packages', name)
 
 console.log('📂 creating folder')
