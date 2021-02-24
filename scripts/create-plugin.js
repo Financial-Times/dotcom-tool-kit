@@ -26,9 +26,9 @@ console.log(`🏗 scaffolding command ${camelCaseName}`)
 fs.mkdirSync('src/commands', {recursive: true})
 
 fs.writeFileSync(`src/commands/${name}.ts`,
-`import { Command } from '@oclif/command'
+`import BaseCommand from '@dotcom-tool-kit/base-command'
 
-export default class ${camelCaseName} extends Command {
+export default class ${camelCaseName} extends BaseCommand {
    static description = ''
    static flags = {}
    static args = []
