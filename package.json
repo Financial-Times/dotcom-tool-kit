@@ -5,7 +5,7 @@
   "description": "hewwo??? hello",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ext .ts packages/cli/src/commands",
+    "lint": "eslint --ext .ts packages",
     "postinstall": "athloi exec npm install",
     "prettier": "prettier --write '**/*.{ts,js,json}'"
   },
@@ -14,8 +14,13 @@
   "license": "ISC",
   "devDependencies": {
     "@financial-times/athloi": "^2.0.0",
+    "@financial-times/eslint-config-next": "^3.0.0",
+    "@typescript-eslint/parser": "^4.15.2",
     "eslint": "^7.20.0",
-    "prettier": "2.2.1"
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "prettier": "2.2.1",
+    "typescript": "^4.1.5"
   },
   "workspaces": [
     "packages/*"
