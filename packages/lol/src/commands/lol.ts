@@ -1,6 +1,6 @@
-import { Command, flags } from '@oclif/command'
+import BaseCommand, { flags } from '@dotcom-tool-kit/base-command'
 
-export default class lol extends Command {
+export default class lol extends BaseCommand {
   static description = 'describe the command here'
 
   static examples = [

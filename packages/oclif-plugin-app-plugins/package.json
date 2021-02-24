@@ -44,7 +44,7 @@
     "version": "oclif-dev readme && git add README.md"
   },
   "dependencies": {
-    "@oclif/command": "^1.8.0",
+    "@dotcom-tool-kit/base-command": "file:../base-command",
     "@oclif/config": "^1.17.0",
     "read-pkg-up": "^7.0.1",
     "tslib": "^1.14.1"

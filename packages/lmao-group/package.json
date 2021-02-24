@@ -11,7 +11,7 @@
   "dependencies": {
     "@dotcom-page-kit/lmao": "file:../lmao",
     "@dotcom-page-kit/lol": "file:../lol",
-    "@oclif/command": "^1.8.0"
+    "@dotcom-tool-kit/base-command": "file:../base-command"
   },
   "files": [],
   "oclif": {

@@ -4,9 +4,8 @@
   "author": "andygout @andygout",
   "bugs": "https://github.com/andygout/lol/issues",
   "dependencies": {
-    "@oclif/command": "^1.8.0"
+    "@dotcom-tool-kit/base-command": "file:../base-command"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=8.0.0"
   },

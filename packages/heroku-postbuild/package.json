@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@oclif/command": "^1.8.0"
+    "@dotcom-tool-kit/base-command": "file:../base-command"
   },
   "oclif": {
     "commands": "./lib/commands"

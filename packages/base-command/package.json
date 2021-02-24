@@ -1,0 +1,21 @@
+{
+  "name": "@dotcom-tool-kit/base-command",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "files": [
+    "/lib"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "oclif": {
+    "commands": "./lib/commands"
+  },
+  "dependencies": {
+    "@oclif/command": "^1.8.0"
+  }
+}

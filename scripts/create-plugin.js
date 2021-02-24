@@ -14,8 +14,8 @@ process.chdir(dir)
 console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
-console.log('📥 installing @oclif/command')
-execSync('npm install @oclif/command')
+console.log('📥 installing base command')
+execSync('npm install ../base-command')
 
 console.log('🔣 adding oclif metadata to package.json')
 const pkg = JSON.parse(fs.readFileSync('package.json'))
