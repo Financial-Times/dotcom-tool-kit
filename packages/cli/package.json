@@ -10,12 +10,16 @@
     "@oclif/command": "^1.8.0",
     "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "1.2.8",
-    "@types/jest": "26.0.20",
-    "@types/mocha": "8.2.1",
+    "@types/mocha": "^8.2.1",
     "@types/node": "^10.17.54",
     "@types/node-fetch": "^2.5.8",
+    "chai": "^4.3.0",
+    "eslint": "^5.16.0",
+    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-oclif-typescript": "^0.1.0",
     "globby": "^10.0.2",
     "mocha": "^8.3.0",
+    "nock": "^13.0.7",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.9"
   },
@@ -57,7 +61,7 @@
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "test": "mocha --forbid-only \"/**/*.test.ts\"",
+    "test": "TS_NODE_PROJECT=\"tsconfig.json\" mocha -r ts-node/register \"./test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts"

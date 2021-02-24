@@ -42,7 +42,7 @@ function waitForOk(url: string) {
 function getURL(appName: string) {
   let host = appName || 'http://local.ft.com:3002'
 
-  if (!/:|\./.test(host)) host += '.herokuapp.com/__gtg'
+  if (!/:|\./.test(host)) host += '.herokuapp.com:80/__gtg'
 
   if (!/https?:\/\//.test(host)) host = 'http://' + host
 
@@ -64,7 +64,7 @@ export default class GoodToGo extends Command {
     const { app } = flags
 
     const url = getURL(app)
-
+    console.log('url====', url)
     return waitForOk(url)
   }
 }
