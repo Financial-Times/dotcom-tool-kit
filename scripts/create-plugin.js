@@ -23,6 +23,9 @@ pkg.oclif = { commands: './lib/commands' }
 pkg.files = ['/lib']
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
 
+console.log('⛓ linking tsconfig')
+fs.symlinkSync('../../tsconfig.json', 'tsconfig.json')
+
 console.log(`🏗 scaffolding command ${camelCaseName}`)
 fs.mkdirSync('src/commands', {recursive: true})
 
