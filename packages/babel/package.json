@@ -1,0 +1,30 @@
+{
+  "name": "@dotcom-tool-kit/babel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "files": [
+    "./lib"
+  ],
+  "author": "",
+  "license": "ISC",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "oclif-example",
+    "topics": {
+      "build": {
+        "description": "builds things"
+      }
+    },
+    "devPlugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "dependencies": {
+    "@oclif/command": "^1.8.0"
+  }
+}
