@@ -7,8 +7,10 @@
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "devDependencies": {
+    "@oclif/command": "^1.8.0",
     "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "1.2.8",
+    "@types/jest": "26.0.20",
     "@types/mocha": "8.2.1",
     "@types/node": "^10.17.54",
     "@types/node-fetch": "^2.5.8",
@@ -18,7 +20,6 @@
     "typescript": "^3.9.9"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base-command": "file:../base-command",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
     "node-fetch": "^2.6.1",
@@ -45,7 +46,6 @@
     "bin": "dotcom-tool-kit",
     "plugins": [
       "@oclif/plugin-help",
-      "@dotcom-tool-kit/base-command",
       "@dotcom-tool-kit/oclif-plugin-app-plugins"
     ],
     "appPlugins": {

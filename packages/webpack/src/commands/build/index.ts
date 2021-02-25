@@ -1,6 +1,6 @@
-import BaseCommand from '@dotcom-tool-kit/base-command'
+import {Command} from '@oclif/command'
 
-export default class Development extends BaseCommand {
+export default class Development extends Command {
    static description = 'build development'
    static args = []
    static flags = {}

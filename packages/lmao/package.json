@@ -4,8 +4,9 @@
   "author": "andygout @andygout",
   "bugs": "https://github.com/andygout/lmao/issues",
   "dependencies": {
-    "@dotcom-tool-kit/base-command": "file:../base-command"
+    "@oclif/command": "^1.8.0"
   },
+  "devDependencies": {},
   "engines": {
     "node": ">=8.0.0"
   },

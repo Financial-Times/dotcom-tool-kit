@@ -1,4 +1,4 @@
-import BaseCommand, { flags } from '@dotcom-tool-kit/base-command'
+import { Command, flags } from '@oclif/command'
 import fetch from 'node-fetch'
 
 const TWO_MINUTES = 2 * 60 * 1000
@@ -49,7 +49,7 @@ function getURL(appName: string) {
   return host
 }
 
-export default class GoodToGo extends BaseCommand {
+export default class GoodToGo extends Command {
   static flags = {
     app: flags.string({
       char: 'a',

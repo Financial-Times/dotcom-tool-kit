@@ -14,8 +14,8 @@ process.chdir(dir)
 console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
-console.log('📥 installing base command')
-execSync('npm install ../base-command')
+console.log('📥 installing @oclif/command')
+execSync('npm install @oclif/command')
 
 console.log('🔣 adding oclif metadata to package.json')
 const pkg = JSON.parse(fs.readFileSync('package.json'))
@@ -26,9 +26,9 @@ console.log(`🏗 scaffolding command ${camelCaseName}`)
 fs.mkdirSync('src/commands', {recursive: true})
 
 fs.writeFileSync(`src/commands/${name}.ts`,
-`import BaseCommand from '@dotcom-tool-kit/base-command'
+`import { Command } from '@oclif/command'
 
-export default class ${camelCaseName} extends BaseCommand {
+export default class ${camelCaseName} extends Command {
    static description = ''
    static flags = {}
    static args = []

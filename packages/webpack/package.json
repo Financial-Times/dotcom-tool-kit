@@ -25,6 +25,6 @@
     ]
   },
   "dependencies": {
-    "@dotcom-tool-kit/base-command": "file:../base-command"
+    "@oclif/command": "^1.8.0"
   }
 }

@@ -1,6 +1,6 @@
-import BaseCommand from '@dotcom-tool-kit/base-command'
+import { Command } from '@oclif/command'
 
-export default class HerokuPostbuild extends BaseCommand {
+export default class HerokuPostbuild extends Command {
    static description = ''
    static flags = {}
    static args = []

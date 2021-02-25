@@ -1,6 +1,6 @@
-import BaseCommand from '@dotcom-tool-kit/base-command' // eslint-disable-line object-curly-spacing
+import { Command } from '@oclif/command' // eslint-disable-line object-curly-spacing
 
-export default class Hello extends BaseCommand {
+export default class Hello extends Command {
   // static description = 'describe the command here'
 
   //   static examples = [
