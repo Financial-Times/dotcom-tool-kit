@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "pinst --enable",
     "postpublish": "pinst --disable",
-    "postinstall": ""
+    "postinstall": "./bin/run heroku:install"
   },
   "files": [
     "/lib"
@@ -16,10 +16,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@financial-times/package-json": "^3.0.0",
     "@oclif/command": "^1.8.0",
     "pinst": "^2.1.6"
   },
   "oclif": {
-    "commands": "./lib/commands"
+    "commands": "./lib/commands",
+    "topics": {
+      "heroku": {
+        "description": "commands to do things for heroku"
+      }
+    },
+    "hooks": {
+      "init": "./lib"
+    }
   }
 }
