@@ -1,8 +1,6 @@
 dotcom-tool-kit
 ===============
 
-
-
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/dotcom-tool-kit.svg)](https://npmjs.org/package/dotcom-tool-kit)
 [![Downloads/week](https://img.shields.io/npm/dw/dotcom-tool-kit.svg)](https://npmjs.org/package/dotcom-tool-kit)
@@ -28,8 +26,33 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`dotcom-tool-kit gtg --app [APP]`](#dotcom-tool-kit-gtg---app-app)
 * [`dotcom-tool-kit hello [FILE]`](#dotcom-tool-kit-hello-file)
 * [`dotcom-tool-kit help [COMMAND]`](#dotcom-tool-kit-help-command)
+
+## `dotcom-tool-kit gtg --app [APP]`
+
+Runs gtg ('good to go') checks for a Heroku app by hitting its `/__gtg` endpoint every three seconds until it receives an OK response. If there is no OK response after two minutes then it will give up.
+
+```
+USAGE
+  $ dotcom-tool-kit gtg --app [APP]
+
+OPTIONS
+  -a, --app        Name of Heroku app to check
+
+EXAMPLE
+  $ dotcom-tool-kit gtg --app ft-next-health-eu
+
+  ⏳ polling: http://ft-next-health-eu.herokuapp.com/__gtg
+  ❌ http://ft-next-health-eu.herokuapp.com/__gtg not ok
+  ⏳ polling: http://ft-next-health-eu.herokuapp.com/__gtg
+  ❌ http://ft-next-health-eu.herokuapp.com/__gtg not ok
+  ⏳ polling: http://ft-next-health-eu.herokuapp.com/__gtg
+  ✅ http://ft-next-health-eu.herokuapp.com/__gtg ok!
+```
+
+_See code: [src/commands/gtg.ts](https://github.com/financial-times/dotcom-tool-kit/blob/v0.0.0/src/commands/gtg.ts)_
 
 ## `dotcom-tool-kit hello [FILE]`
 
