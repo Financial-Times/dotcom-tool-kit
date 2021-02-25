@@ -26,7 +26,6 @@ export function ensureHerokuPostbuildScript() {
 }
 
 const hook: Hook.Init = async function(options) {
-   console.log('HERE')
    const wroteScript = ensureHerokuPostbuildScript()
 
    if(wroteScript) {
