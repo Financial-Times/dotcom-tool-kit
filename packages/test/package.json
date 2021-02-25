@@ -4,15 +4,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "hello": ""
+    "hello": "",
+    "heroku-postbuild": "dotcom-tool-kit heroku:postbuild"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@dotcom-tool-kit/babel": "file:../babel",
+    "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
     "@dotcom-tool-kit/lmao-group": "file:../lmao-group",
-    "@dotcom-tool-kit/webpack": "file:../webpack",
     "dotcom-tool-kit": "file:../cli"
   }
 }

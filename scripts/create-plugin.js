@@ -20,6 +20,7 @@ execSync('npm install @oclif/command')
 console.log('🔣 adding oclif metadata to package.json')
 const pkg = JSON.parse(fs.readFileSync('package.json'))
 pkg.oclif = { commands: './lib/commands' }
+pkg.files = ['/lib']
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
 
 console.log(`🏗 scaffolding command ${camelCaseName}`)

@@ -4,15 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "pinst --enable",
+    "postpublish": "pinst --disable",
+    "postinstall": "./bin/run heroku:install"
   },
+  "files": [
+    "/lib"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@oclif/command": "^1.8.0"
+    "@financial-times/package-json": "^3.0.0",
+    "@oclif/command": "^1.8.0",
+    "pinst": "^2.1.6"
   },
   "oclif": {
-    "commands": "./lib/commands"
+    "commands": "./lib/commands",
+    "topics": {
+      "heroku": {
+        "description": "commands to do things for heroku"
+      }
+    },
+    "hooks": {
+      "init": "./lib"
+    }
   }
 }
