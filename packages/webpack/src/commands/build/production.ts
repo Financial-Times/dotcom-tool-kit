@@ -5,6 +5,6 @@ export default class Production extends Command {
    static args = []
    static flags = {}
    async run() {
-      this.log('i am building production')
+      this.log('i am building webpack production')
    }
 }

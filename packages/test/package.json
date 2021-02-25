@@ -13,6 +13,9 @@
   "devDependencies": {
     "@dotcom-tool-kit/lmao-group": "file:../lmao-group",
     "@dotcom-tool-kit/webpack": "file:../webpack",
+    "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
     "dotcom-tool-kit": "file:../cli"
+  },
+  "dependencies": {
   }
 }
