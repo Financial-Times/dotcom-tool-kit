@@ -10,6 +10,12 @@
     "prettier": "prettier --write '**/*.{ts,js,json}'",
     "create-plugin": "./scripts/create-plugin.js"
   },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "prettier --write '**/*.{ts,js,json}'",
+      "eslint --fix"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -20,6 +26,7 @@
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-import": "^2.22.1",
+    "lint-staged": "^10.5.4",
     "prettier": "2.2.1",
     "typescript": "^4.1.5"
   },
@@ -32,7 +39,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run prettier"
+      "pre-commit": "npm run lint && lint-staged"
     }
   }
 }
