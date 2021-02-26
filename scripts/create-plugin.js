@@ -4,7 +4,7 @@ const path = require('path')
 const { execSync } = require('child_process')
 
 const name = process.argv[2]
-const camelCaseName = name.replace(/(^|-)./g, char => char.slice(-1).toUpperCase())
+const camelCaseName = name.replace(/(^|-)./g, (char) => char.slice(-1).toUpperCase())
 const dir = path.join('packages', name)
 
 console.log(`📂 creating folder ${dir}`)
@@ -27,10 +27,11 @@ console.log('⛓ linking tsconfig')
 fs.symlinkSync('../../tsconfig.json', 'tsconfig.json')
 
 console.log(`🏗 scaffolding command ${camelCaseName}`)
-fs.mkdirSync('src/commands', {recursive: true})
+fs.mkdirSync('src/commands', { recursive: true })
 
-fs.writeFileSync(`src/commands/${name}.ts`,
-`import { Command } from '@oclif/command'
+fs.writeFileSync(
+  `src/commands/${name}.ts`,
+  `import { Command } from '@oclif/command'
 
 export default class ${camelCaseName} extends Command {
    static description = ''
@@ -40,6 +41,7 @@ export default class ${camelCaseName} extends Command {
    async run() {
 
    }
-}`)
+}`
+)
 
 console.log('🌊 byeee~')
