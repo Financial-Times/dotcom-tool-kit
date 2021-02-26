@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .ts packages",
-    "postinstall": "athloi exec npm install -- --no-package-lock",
+    "postinstall": "athloi exec -- npm install --no-package-lock",
     "prettier": "prettier --write '**/*.{ts,js,json}'",
     "create-plugin": "./scripts/create-plugin.js"
   },
