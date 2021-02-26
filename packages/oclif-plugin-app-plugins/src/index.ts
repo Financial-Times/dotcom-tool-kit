@@ -43,11 +43,11 @@ const hook: Hook.Init = async function ({ config, ...options }) {
   await config.loadPlugins(process.cwd(), 'app', plugins)
 
   const thisPlugin = config.plugins.find(
-    plugin => plugin.name === '@dotcom-tool-kit/oclif-plugin-app-plugins'
+    (plugin) => plugin.name === '@dotcom-tool-kit/oclif-plugin-app-plugins'
   )
 
   // remove this hook from our hooks so we don't infinitely recurse
-  if(thisPlugin) {
+  if (thisPlugin) {
     thisPlugin.hooks.init = []
   }
 

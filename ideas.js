@@ -1,43 +1,43 @@
 // a base command class that takes care of wrapping another tool, potentially handling default arguments, which should take care of boilerplate for these sorts of tasks
 
 class Lint extends Command {
-   async run() {
-      spawn('eslint', this.argv)
-   }
+  async run() {
+    spawn('eslint', this.argv)
+  }
 }
 
 class Build extends Command {
-   async run() {
-      // this.config.runHook('build')
-      spawn('webpack', this.argv)
-   }
+  async run() {
+    // this.config.runHook('build')
+    spawn('webpack', this.argv)
+  }
 }
 
 // user-facing-app-heroku-build-plugin
 class HerokuPostbuild extends Command {
-   async run() {
-      await Build.run(['--production'])
-      await DeployAssets.run()
-   }
+  async run() {
+    await Build.run(['--production'])
+    await DeployAssets.run()
+  }
 }
 
 // service-app-heroku-build-plugin
 class HerokuPostbuild extends Command {
-   async run() {
-      await Build.run(['--production'])
-   }
+  async run() {
+    await Build.run(['--production'])
+  }
 }
 
 // dtk heroku-postbuild
 
-{
-   "scripts": {
-      "heroku-postbuild": "dtk heroku-postbuild",
-      "start"
-      "lint"
-      "build"
-   }
-}
+// {
+//    "scripts": {
+//       "heroku-postbuild": "dtk heroku-postbuild",
+//       "start"
+//       "lint"
+//       "build"
+//    }
+// }
 
 // heroku-postbuil%:
 // 	npm update
