@@ -14,7 +14,6 @@
   "devDependencies": {
     "@dotcom-tool-kit/babel": "file:../babel",
     "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
-    "@dotcom-tool-kit/lmao-group": "file:../lmao-group",
     "dotcom-tool-kit": "file:../cli"
   }
 }
