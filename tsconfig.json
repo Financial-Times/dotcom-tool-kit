@@ -6,7 +6,8 @@
     "outDir": "lib",
     "rootDirs": ["src", "test"],
     "strict": true,
-    "target": "es2017"
+    "target": "es2017",
+    "esModuleInterop": true
   },
   "include": ["src/**/*", "test/**/*"]
 }
