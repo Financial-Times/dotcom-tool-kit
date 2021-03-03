@@ -5,7 +5,16 @@ export default class HerokuPostbuild extends Command {
   static flags = {}
   static args = []
 
+  async runCommand(name: string) {
+    const command = this.config.findCommand(name)
+
+    if(command) {
+      const plugin = await command.load()
+      return plugin.run()
+    }
+  }
+
   async run() {
-    await this.config.findCommand('build:production').load().run()
+    await this.runCommand('build:production')
   }
 }

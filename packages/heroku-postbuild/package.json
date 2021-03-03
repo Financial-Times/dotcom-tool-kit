@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "pinst --enable",
-    "postpublish": "pinst --disable",
-    "postinstall": "./bin/run heroku:install"
+    "install": "if is-installing-package; then ./bin/run heroku:install; else npm run build; fi",
+    "build": "tsc -b"
   },
   "files": [
     "/lib"
@@ -18,7 +17,7 @@
   "dependencies": {
     "@financial-times/package-json": "^3.0.0",
     "@oclif/command": "^1.8.0",
-    "pinst": "^2.1.6"
+    "@quarterto/is-installing-package": "^1.5.0"
   },
   "oclif": {
     "commands": "./lib/commands",
@@ -30,5 +29,8 @@
     "hooks": {
       "init": "./lib"
     }
+  },
+  "devDependencies": {
+    "typescript": "^4.2.2"
   }
 }
