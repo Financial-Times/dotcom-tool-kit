@@ -1,11 +1,12 @@
 import { Hook } from '@oclif/config'
-import * as loadPackageJson from '@financial-times/package-json'
-import * as path from 'path'
+import loadPackageJson from '@financial-times/package-json'
+import path from 'path'
 
 function getPackageJson() {
-  const filepath = path.resolve(process.cwd(), 'package.json')
+   const currentDirectory = process.env.INIT_CWD || process.cwd()
+   const filepath = path.resolve(currentDirectory, 'package.json')
 
-  return loadPackageJson({ filepath })
+   return loadPackageJson({ filepath })
 }
 
 export function ensureHerokuPostbuildScript() {
@@ -22,11 +23,14 @@ export function ensureHerokuPostbuildScript() {
   return willWrite
 }
 
-const hook: Hook.Init = async function () {
+const hook: Hook.Init = async function (options) {
+   // don't try the install when we're running the command that does it silently
+   if(options.id === 'heroku:install') return
+
   const wroteScript = ensureHerokuPostbuildScript()
 
   if (wroteScript) {
-    const name = getPackageJson().getField('name')
+    const name: String = getPackageJson().getField('name')
 
     this.error(
       new Error(
