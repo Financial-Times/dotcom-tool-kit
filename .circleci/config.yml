@@ -74,9 +74,6 @@ jobs:
       - run:
           name: Install project dependencies
           command: npm install
-      # - run:
-      #     name: Run build
-      #     command: npm run build
       - *create_cache
       - persist_to_workspace:
           root: *workspace_root
@@ -88,15 +85,24 @@ jobs:
     steps:
       - *attach_workspace
       - run:
-          name: Check code style
-          command: npm run prettier
-          # command: npm run prettier -- --list-different // is `npm run prettier -- --list-different` required here?
-      # - run:
-      #     name: Run package tests
-      #     command: npm run test -- --runInBand
+          name: Run package tests
+          command: npm run test
+
+  publish:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Set npm auth token
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ${HOME}/.npmrc
+      - run:
+          name: Bump version
+          command: npx athloi version ${CIRCLE_TAG}
+      - run:
+          name: NPM publish
+          command: npx athloi publish -- --access=public
 
 workflows:
-
   version: 2
 
   build-test:
@@ -107,11 +113,6 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
-          filters:
-            <<: *filters_only_main
-          requires:
-            - test
 
   renovate-nori-build-test:
     jobs:
