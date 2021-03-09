@@ -8,7 +8,8 @@
     "lint": "eslint --ext .ts packages",
     "postinstall": "athloi exec -- npm install --no-package-lock",
     "prettier": "prettier --write '**/*.{ts,js,json}'",
-    "create-plugin": "./scripts/create-plugin.js"
+    "create-plugin": "./scripts/create-plugin.js",
+    "test": "echo no tests yet"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
