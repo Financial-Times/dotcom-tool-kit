@@ -14,7 +14,8 @@
     "./lib"
   ],
   "scripts": {
-    "prepack": "tsc -b"
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "tsc -b && oclif-dev manifest"
   },
   "oclif": {
     "commands": "./lib/commands",
@@ -30,5 +31,9 @@
   },
   "dependencies": {
     "@oclif/command": "^1.8.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.26.0",
+    "typescript": "^4.2.3"
   }
 }

@@ -14,13 +14,18 @@ process.chdir(directory)
 console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
-console.log('📥 installing @oclif/command')
+console.log('📥 installing dependencies')
 execSync('npm install @oclif/command')
+execSync('npm install --save-dev @oclif/dev-cli typescript')
 
 console.log('🔣 adding metadata to package.json')
 
 const pkg = JSON.parse(fs.readFileSync('package.json'))
 
+pkg.scripts = {
+  prepack: 'tsc -b && oclif-dev manifest',
+  postpack: 'rm -f oclif.manifest.json'
+}
 pkg.oclif = { commands: './lib/commands' }
 pkg.files = ['/lib']
 pkg.version = '0.0.0-development'
