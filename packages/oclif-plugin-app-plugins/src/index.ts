@@ -16,6 +16,8 @@ interface AppPluginPJSON extends PJSON.Plugin {
   }
 }
 
+const lol: string = 5
+
 function canLoadPlugins(config: any): config is PluginLoader {
   return typeof config.loadPlugins === 'function'
 }
