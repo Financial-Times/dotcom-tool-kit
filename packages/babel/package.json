@@ -13,6 +13,9 @@
   "files": [
     "./lib"
   ],
+  "scripts": {
+    "prepack": "tsc -b"
+  },
   "oclif": {
     "commands": "./lib/commands",
     "bin": "oclif-example",

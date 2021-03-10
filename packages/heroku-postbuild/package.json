@@ -14,7 +14,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "if is-installing-package; then ./bin/run heroku:install; else npm run build; fi",
-    "build": "tsc -b"
+    "build": "tsc -b",
+    "prepack": "npm run build"
   },
   "files": [
     "/lib"

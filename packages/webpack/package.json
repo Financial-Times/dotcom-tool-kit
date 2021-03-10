@@ -12,7 +12,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/webpack",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepack": "tsc -b"
   },
   "keywords": [],
   "files": [

@@ -18,10 +18,8 @@
   },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
-    "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "test": "mocha --forbid-only \"/**/*.test.ts\"",
-    "version": "oclif-dev readme && git add README.md"
+    "prepack": "tsc -b && oclif-dev manifest",
+    "test": "mocha --forbid-only \"/**/*.test.ts\""
   },
   "devDependencies": {
     "@oclif/command": "^1.8.0",
