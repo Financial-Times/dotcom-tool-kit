@@ -11,7 +11,8 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/oclif-plugin-app-plugins",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "scripts": {
-    "prepack": "tsc -b",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "tsc -b && oclif-dev manifest",
     "test": "echo NO TESTS"
   },
   "dependencies": {

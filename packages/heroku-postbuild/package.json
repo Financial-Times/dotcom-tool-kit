@@ -15,7 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "if is-installing-package; then ./bin/run heroku:install; else npm run build; fi",
     "build": "tsc -b",
-    "prepack": "npm run build"
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "npm run build && oclif-dev manifest"
   },
   "files": [
     "/lib"
@@ -37,6 +38,7 @@
     }
   },
   "devDependencies": {
-    "typescript": "^4.2.2"
+    "@oclif/dev-cli": "^1.26.0",
+    "typescript": "^4.2.3"
   }
 }
