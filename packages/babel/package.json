@@ -11,8 +11,13 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/babel",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "files": [
-    "./lib"
+    "./lib",
+    "/oclif.manifest.json"
   ],
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "tsc -b && oclif-dev manifest"
+  },
   "oclif": {
     "commands": "./lib/commands",
     "bin": "oclif-example",
@@ -27,5 +32,9 @@
   },
   "dependencies": {
     "@oclif/command": "^1.8.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.26.0",
+    "typescript": "^4.2.3"
   }
 }
