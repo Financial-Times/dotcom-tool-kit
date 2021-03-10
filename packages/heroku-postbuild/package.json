@@ -39,7 +39,6 @@
     }
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.26.0",
-    "typescript": "^4.2.3"
+    "@oclif/dev-cli": "^1.26.0"
   }
 }

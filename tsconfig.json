@@ -9,5 +9,5 @@
     "target": "es2017",
     "esModuleInterop": true
   },
-  "include": ["src/**/*", "packages/**/*"]
+  "include": ["src/**/*"]
 }
