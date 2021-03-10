@@ -18,21 +18,19 @@
   },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "tsc -b && oclif-dev manifest",
+    "prepack": "oclif-dev manifest",
     "test": "mocha --forbid-only \"/**/*.test.ts\""
   },
   "devDependencies": {
     "@oclif/command": "^1.8.0",
     "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "1.2.8",
-    "@types/jest": "26.0.20",
     "@types/mocha": "8.2.1",
     "@types/node": "^10.17.54",
     "@types/node-fetch": "^2.5.8",
     "globby": "^10.0.2",
     "mocha": "^8.3.0",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.9"
+    "ts-node": "^8.10.2"
   },
   "dependencies": {
     "@oclif/config": "^1.17.0",

@@ -16,7 +16,7 @@ execSync('npm init -y --scope @dotcom-tool-kit')
 
 console.log('📥 installing dependencies')
 execSync('npm install @oclif/command')
-execSync('npm install --save-dev @oclif/dev-cli typescript')
+execSync('npm install --save-dev @oclif/dev-cli')
 
 console.log('🔣 adding metadata to package.json')
 
