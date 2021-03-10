@@ -7,7 +7,8 @@
     "postinstall": "athloi exec -- npm install --no-package-lock",
     "prettier": "prettier --write '**/*.{ts,js,json}'",
     "create-plugin": "./scripts/create-plugin.js",
-    "test": "echo no tests yet"
+    "check-types": "tsc --noEmit",
+    "test": "npm run check-types"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
