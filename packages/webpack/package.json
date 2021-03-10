@@ -1,8 +1,16 @@
 {
   "name": "@dotcom-tool-kit/webpack",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "",
-  "main": "index.js",
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "packages/webpack"
+  },
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/webpack",
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +18,6 @@
   "files": [
     "./lib"
   ],
-  "author": "",
-  "license": "ISC",
   "oclif": {
     "commands": "./lib/commands",
     "bin": "oclif-example",
