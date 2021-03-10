@@ -1,5 +1,5 @@
 import { Hook, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
-import * as readPkgUp from 'read-pkg-up'
+import readPkgUp from 'read-pkg-up'
 
 // according to Oclif's type definitions, loadPlugins isn't there on
 // options.config. but we know it is. so tell Typescript it can use
