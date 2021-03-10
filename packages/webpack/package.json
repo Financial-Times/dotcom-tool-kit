@@ -17,7 +17,8 @@
   },
   "keywords": [],
   "files": [
-    "./lib"
+    "./lib",
+    "/oclif.manifest.json"
   ],
   "oclif": {
     "commands": "./lib/commands",
