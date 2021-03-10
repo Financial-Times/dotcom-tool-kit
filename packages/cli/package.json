@@ -18,14 +18,14 @@
   },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "tsc -b && oclif-dev manifest",
+    "prepack": "oclif-dev manifest",
     "test": "TS_NODE_PROJECT=\"tsconfig.json\" mocha -r ts-node/register \"./test/**/*.test.ts\""
   },
   "devDependencies": {
     "@oclif/command": "^1.8.0",
     "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "1.2.8",
-    "@types/mocha": "^8.2.1",
+    "@types/mocha": "8.2.1",
     "@types/node": "^10.17.54",
     "@types/node-fetch": "^2.5.8",
     "chai": "^4.3.0",

@@ -74,6 +74,9 @@ jobs:
       - run:
           name: Install project dependencies
           command: npm install
+      - run:
+          name: Compile packages
+          command: npm run build
       - *create_cache
       - persist_to_workspace:
           root: *workspace_root
