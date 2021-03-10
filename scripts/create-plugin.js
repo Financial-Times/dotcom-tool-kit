@@ -5,11 +5,11 @@ const { execSync } = require('child_process')
 
 const name = process.argv[2]
 const camelCaseName = name.replace(/(^|-)./g, (char) => char.slice(-1).toUpperCase())
-const dir = path.join('packages', name)
+const directory = path.join('packages', name)
 
-console.log(`📂 creating folder ${dir}`)
-fs.mkdirSync(dir)
-process.chdir(dir)
+console.log(`📂 creating folder ${directory}`)
+fs.mkdirSync(directory)
+process.chdir(directory)
 
 console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
@@ -17,10 +17,22 @@ execSync('npm init -y --scope @dotcom-tool-kit')
 console.log('📥 installing @oclif/command')
 execSync('npm install @oclif/command')
 
-console.log('🔣 adding oclif metadata to package.json')
+console.log('🔣 adding metadata to package.json')
+
 const pkg = JSON.parse(fs.readFileSync('package.json'))
+
 pkg.oclif = { commands: './lib/commands' }
 pkg.files = ['/lib']
+pkg.version = '0.0.0-development'
+pkg.repository = {
+  type: 'git',
+  url: 'https://github.com/financial-times/dotcom-tool-kit.git',
+  directory
+}
+pkg.bugs = 'https://github.com/financial-times/dotcom-tool-kit/issues'
+pkg.homepage = `https://github.com/financial-times/dotcom-tool-kit/tree/main/${directory}`
+pkg.author = 'FT.com Platforms Team <platforms-team.customer-products@ft.com>'
+
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
 
 console.log('⛓ linking tsconfig')

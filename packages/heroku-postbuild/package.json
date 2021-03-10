@@ -1,8 +1,16 @@
 {
   "name": "@dotcom-tool-kit/heroku-postbuild",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "",
-  "main": "index.js",
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "packages/heroku-postbuild"
+  },
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/heroku-postbuild",
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "if is-installing-package; then ./bin/run heroku:install; else npm run build; fi",
@@ -11,9 +19,6 @@
   "files": [
     "/lib"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@financial-times/package-json": "^3.0.0",
     "@oclif/command": "^1.8.0",

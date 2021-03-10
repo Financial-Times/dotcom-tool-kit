@@ -1,17 +1,18 @@
 {
   "name": "@dotcom-tool-kit/babel",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.0-development",
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "packages/babel"
   },
-  "keywords": [],
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/babel",
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "files": [
     "./lib"
   ],
-  "author": "",
-  "license": "ISC",
   "oclif": {
     "commands": "./lib/commands",
     "bin": "oclif-example",
