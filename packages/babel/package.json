@@ -11,7 +11,8 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/babel",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "files": [
-    "./lib"
+    "./lib",
+    "/oclif.manifest.json"
   ],
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",

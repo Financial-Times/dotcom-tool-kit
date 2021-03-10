@@ -33,7 +33,8 @@
     "node": ">=8.0.0"
   },
   "files": [
-    "/lib"
+    "/lib",
+    "/oclif.manifest.json"
   ],
   "keywords": [
     "oclif-plugin"

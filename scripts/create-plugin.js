@@ -27,7 +27,7 @@ pkg.scripts = {
   postpack: 'rm -f oclif.manifest.json'
 }
 pkg.oclif = { commands: './lib/commands' }
-pkg.files = ['/lib']
+pkg.files = ['/lib', '/oclif.manifest.json']
 pkg.version = '0.0.0-development'
 pkg.repository = {
   type: 'git',

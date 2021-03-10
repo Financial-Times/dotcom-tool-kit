@@ -19,7 +19,8 @@
     "prepack": "npm run build && oclif-dev manifest"
   },
   "files": [
-    "/lib"
+    "/lib",
+    "/oclif.manifest.json"
   ],
   "dependencies": {
     "@financial-times/package-json": "^3.0.0",
