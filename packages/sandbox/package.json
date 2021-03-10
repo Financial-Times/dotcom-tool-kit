@@ -1,7 +1,7 @@
 {
   "name": "@dotcom-tool-kit/sandbox",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "dotcom-tool-kit heroku:postbuild"

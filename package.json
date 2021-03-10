@@ -1,9 +1,7 @@
 {
   "name": "dotcom-tool-kit",
   "private": true,
-  "version": "1.0.0",
-  "description": "hewwo??? hello",
-  "main": "index.js",
+  "version": "0.0.0-development",
   "scripts": {
     "lint": "eslint --ext .ts packages",
     "postinstall": "athloi exec -- npm install --no-package-lock",
@@ -18,7 +16,7 @@
     ]
   },
   "keywords": [],
-  "author": "",
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "devDependencies": {
     "@financial-times/athloi": "^2.0.0",

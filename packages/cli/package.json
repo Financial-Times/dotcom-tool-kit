@@ -1,11 +1,28 @@
 {
   "name": "dotcom-tool-kit",
-  "version": "0.0.0",
-  "author": "Platforms Team",
+  "version": "0.0.0-development",
+  "description": "modern, maintainable, modular developer tooling for FT.com projects",
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit",
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "bin": {
     "dotcom-tool-kit": "./bin/run"
   },
-  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "mocha --forbid-only \"/**/*.test.ts\"",
+    "version": "oclif-dev readme && git add README.md"
+  },
   "devDependencies": {
     "@oclif/command": "^1.8.0",
     "@oclif/dev-cli": "^1.26.0",
@@ -35,12 +52,6 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit",
-  "keywords": [
-    "oclif"
-  ],
-  "license": "MIT",
-  "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
     "bin": "dotcom-tool-kit",
@@ -51,14 +62,5 @@
     "appPlugins": {
       "prefix": "@dotcom-tool-kit/"
     }
-  },
-  "repository": "financial-times/dotcom-tool-kit",
-  "scripts": {
-    "postpack": "rm -f oclif.manifest.json",
-    "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "test": "mocha --forbid-only \"/**/*.test.ts\"",
-    "version": "oclif-dev readme && git add README.md"
-  },
-  "types": "lib/index.d.ts"
+  }
 }
