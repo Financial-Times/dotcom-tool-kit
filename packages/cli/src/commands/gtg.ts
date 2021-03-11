@@ -1,9 +1,9 @@
 import { Command, flags } from '@oclif/command'
-import fetch from 'node-fetch'
+require('node-fetch');
 
-const TWO_MINUTES = 5 * 1000
+const TWO_MINUTES = 1200
 
-async function waitForOk(url: string) {
+export async function waitForOk(url: string) {
   return new Promise(function (resolve, reject) {
     let timeout: NodeJS.Timeout // eslint-disable-line prefer-const
     let checker: NodeJS.Timeout // eslint-disable-line prefer-const
@@ -12,14 +12,15 @@ async function waitForOk(url: string) {
       console.log(`⏳ polling: ${url}`) // eslint-disable-line no-console
 
       try {
-        const response = await fetch(url, { timeout: 2000, follow: 0 })
+        const response = await fetch(url, { timeout: 2000, follow: 0 } as RequestInit)
 
         if (response.ok) {
           console.log(`✅ ${url} ok!`) // eslint-disable-line no-console
           clearTimeout(timeout)
           clearInterval(checker)
-          return resolve()
-        }
+          return resolve('ok')
+        } 
+
         console.log(`❌ ${url} not ok`) // eslint-disable-line no-console
       } catch (error) {
         if (error.type && error.type === 'request-timeout') {
@@ -35,8 +36,8 @@ async function waitForOk(url: string) {
     checker = setInterval(checkGtg, 3000)
 
     timeout = setTimeout(function () {
-      return reject(new Error(`😢 ${url} did not respond with an ok response within two minutes.`))
       clearInterval(checker)
+      return reject(new Error(`😢 ${url} did not respond with an ok response within two minutes.`))
     }, TWO_MINUTES)
   });
 }
