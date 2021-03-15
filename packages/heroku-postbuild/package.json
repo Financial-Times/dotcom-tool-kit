@@ -20,6 +20,7 @@
   },
   "files": [
     "/lib",
+    "/bin",
     "/oclif.manifest.json"
   ],
   "dependencies": {
