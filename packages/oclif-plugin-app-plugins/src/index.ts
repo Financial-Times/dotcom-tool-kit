@@ -1,4 +1,5 @@
 import { Hook, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
+import { cli } from 'cli-ux'
 import readPkgUp from 'read-pkg-up'
 
 // according to Oclif's type definitions, loadPlugins isn't there on
@@ -32,15 +33,45 @@ const hook: Hook.Init = async function ({ config, ...options }) {
 
   const { pjson } = config
   if (!isAppPluginPJSON(pjson)) {
-    throw new Error(
-      `${pjson.name} doesn't have an oclif.appPlugins.prefix property. this is required to load plugins with this plugin`
-    )
+     throw this.error(
+       new Error(
+        `${pjson.name} doesn't have an oclif.appPlugins.prefix property. this is required to load plugins with this plugin`
+      ),
+      { exit: 1 }
+     )
   }
 
   const { devDependencies = {} } = result.packageJson
   const plugins = Object.keys(devDependencies).filter((dep) => dep.startsWith(pjson.oclif.appPlugins.prefix))
 
   await config.loadPlugins(process.cwd(), 'app', plugins)
+
+  const pluginsByCommand = new Map()
+
+  for(const plugin of config.plugins) {
+    for(const command of plugin.commandIDs) {
+      if(!pluginsByCommand.has(command)) {
+        pluginsByCommand.set(command, [])
+      }
+
+      pluginsByCommand.get(command).push(plugin.name)
+    }
+  }
+
+  const duplicateCommands = Array.from(pluginsByCommand).filter(
+    ([command, plugins]) => plugins.length > 1
+  )
+
+  if(duplicateCommands.length !== 0) {
+    this.log(`Error: you have multiple plugins installed that have conflicting commands, which isn't allowed. remove all but one of these plugins from your app's package.json:\n`)
+
+    cli.table(duplicateCommands, {
+      plugins: { get: row => row[1].join(', ') + '   ' },
+      command: { get: row => row[0] },
+    })
+
+    this.exit(1)
+  }
 
   const thisPlugin = config.plugins.find(
     (plugin) => plugin.name === '@dotcom-tool-kit/oclif-plugin-app-plugins'
