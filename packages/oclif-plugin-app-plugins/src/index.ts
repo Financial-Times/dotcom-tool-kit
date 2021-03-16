@@ -1,5 +1,4 @@
 import { Hook, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
-import { command } from '@oclif/test'
 import { cli } from 'cli-ux'
 import readPkgUp from 'read-pkg-up'
 
