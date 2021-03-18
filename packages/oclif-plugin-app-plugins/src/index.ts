@@ -1,5 +1,6 @@
-import { Hook, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
+import { Hook, Hooks, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
 import { cli } from 'cli-ux'
+import { error, exit } from '@oclif/errors'
 import readPkgUp from 'read-pkg-up'
 
 // according to Oclif's type definitions, loadPlugins isn't there on
@@ -25,27 +26,17 @@ function isAppPluginPJSON(pjson: PJSON.Plugin): pjson is AppPluginPJSON {
   return 'appPlugins' in pjson.oclif
 }
 
-const hook: Hook.Init = async function ({ config, ...options }) {
-  if (!canLoadPlugins(config)) return
-
+async function findToolKitPlugins(pjson: AppPluginPJSON) {
   const result = await readPkgUp()
-  if (!result) return
-
-  const { pjson } = config
-  if (!isAppPluginPJSON(pjson)) {
-     throw this.error(
-       new Error(
-        `${pjson.name} doesn't have an oclif.appPlugins.prefix property. this is required to load plugins with this plugin`
-      ),
-      { exit: 1 }
-     )
-  }
+  if (!result) return []
 
   const { devDependencies = {} } = result.packageJson
   const plugins = Object.keys(devDependencies).filter((dep) => dep.startsWith(pjson.oclif.appPlugins.prefix))
 
-  await config.loadPlugins(process.cwd(), 'app', plugins)
+  return plugins
+}
 
+function validatePlugins(config: IConfig) {
   const pluginsByCommand = new Map()
 
   for(const plugin of config.plugins) {
@@ -63,16 +54,18 @@ const hook: Hook.Init = async function ({ config, ...options }) {
   )
 
   if(duplicateCommands.length !== 0) {
-    this.log(`Error: you have multiple plugins installed that have conflicting commands, which isn't allowed. remove all but one of these plugins from your app's package.json:\n`)
+    console.log(`Error: you have multiple plugins installed that have conflicting commands, which isn't allowed. remove all but one of these plugins from your app's package.json:\n`)
 
     cli.table(duplicateCommands, {
       plugins: { get: row => row[1].join(', ') + '   ' },
       command: { get: row => row[0] },
     })
 
-    this.exit(1)
+    exit(1)
   }
+}
 
+async function rerunInitHooks(config: IConfig, options: Hooks['init']) {
   const thisPlugin = config.plugins.find(
     (plugin) => plugin.name === '@dotcom-tool-kit/oclif-plugin-app-plugins'
   )
@@ -84,6 +77,27 @@ const hook: Hook.Init = async function ({ config, ...options }) {
 
   // ensure plugins' init hooks are also run
   await config.runHook('init', { ...options })
+}
+
+const hook: Hook.Init = async function ({ config, ...options }) {
+  if (!canLoadPlugins(config)) return
+
+  const { pjson } = config
+  if (!isAppPluginPJSON(pjson)) {
+     error(
+       new Error(
+        `${pjson.name} doesn't have an oclif.appPlugins.prefix property. this is required to load plugins with this plugin`
+      ),
+      { exit: 1 }
+     )
+  }
+
+  const plugins = await findToolKitPlugins(pjson)
+
+  await config.loadPlugins(process.cwd(), 'app', plugins)
+  validatePlugins(config)
+
+  await rerunInitHooks(config, options)
 }
 
 export default hook
