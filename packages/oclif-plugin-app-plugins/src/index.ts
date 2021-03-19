@@ -1,7 +1,9 @@
 import { Hook, Hooks, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
 import { cli } from 'cli-ux'
 import { error, exit } from '@oclif/errors'
-import readPkgUp from 'read-pkg-up'
+import { cosmiconfig } from 'cosmiconfig'
+
+const explorer = cosmiconfig('toolkit')
 
 // according to Oclif's type definitions, loadPlugins isn't there on
 // options.config. but we know it is. so tell Typescript it can use
@@ -27,13 +29,17 @@ function isAppPluginPJSON(pjson: PJSON.Plugin): pjson is AppPluginPJSON {
 }
 
 async function findToolKitPlugins(pjson: AppPluginPJSON) {
-  const result = await readPkgUp()
+  const result = await explorer.search()
   if (!result) return []
 
-  const { devDependencies = {} } = result.packageJson
-  const plugins = Object.keys(devDependencies).filter((dep) => dep.startsWith(pjson.oclif.appPlugins.prefix))
+  const { plugins = [] } = result.config
 
   return plugins
+}
+
+async function loadToolKitPlugins(pjson: AppPluginPJSON, config: PluginLoader) {
+  const plugins = await findToolKitPlugins(pjson)
+  await config.loadPlugins(process.cwd(), 'app', plugins)
 }
 
 function validatePlugins(config: IConfig) {
@@ -92,11 +98,8 @@ const hook: Hook.Init = async function ({ config, ...options }) {
      )
   }
 
-  const plugins = await findToolKitPlugins(pjson)
-
-  await config.loadPlugins(process.cwd(), 'app', plugins)
+  await loadToolKitPlugins(pjson, config)
   validatePlugins(config)
-
   await rerunInitHooks(config, options)
 }
 
