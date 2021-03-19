@@ -54,9 +54,6 @@
     "plugins": [
       "@oclif/plugin-help",
       "@dotcom-tool-kit/oclif-plugin-app-plugins"
-    ],
-    "appPlugins": {
-      "prefix": "@dotcom-tool-kit/"
-    }
+    ]
   }
 }

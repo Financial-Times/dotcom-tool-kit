@@ -12,23 +12,13 @@ interface PluginLoader {
   loadPlugins(root: string, type: string, plugins: string[]): Promise<void> // eslint-disable-line no-unused-vars
 }
 
-interface AppPluginPJSON extends PJSON.Plugin {
-  oclif: PJSON.Plugin['oclif'] & {
-    appPlugins: {
-      prefix: string
-    }
-  }
-}
+type PluginLoadingConfig = PluginLoader & IConfig
 
-function canLoadPlugins(config: any): config is PluginLoader {
+function canLoadPlugins(config: any): config is PluginLoadingConfig {
   return typeof config.loadPlugins === 'function'
 }
 
-function isAppPluginPJSON(pjson: PJSON.Plugin): pjson is AppPluginPJSON {
-  return 'appPlugins' in pjson.oclif
-}
-
-async function findToolKitPlugins(pjson: AppPluginPJSON) {
+async function findToolKitPlugins(): Promise<string[]> {
   const result = await explorer.search()
   if (!result) return []
 
@@ -37,8 +27,8 @@ async function findToolKitPlugins(pjson: AppPluginPJSON) {
   return plugins
 }
 
-async function loadToolKitPlugins(pjson: AppPluginPJSON, config: PluginLoader) {
-  const plugins = await findToolKitPlugins(pjson)
+async function loadToolKitPlugins(config: PluginLoadingConfig) {
+  const plugins = await findToolKitPlugins()
   await config.loadPlugins(process.cwd(), 'app', plugins)
 }
 
@@ -88,17 +78,7 @@ async function rerunInitHooks(config: IConfig, options: Hooks['init']) {
 const hook: Hook.Init = async function ({ config, ...options }) {
   if (!canLoadPlugins(config)) return
 
-  const { pjson } = config
-  if (!isAppPluginPJSON(pjson)) {
-     error(
-       new Error(
-        `${pjson.name} doesn't have an oclif.appPlugins.prefix property. this is required to load plugins with this plugin`
-      ),
-      { exit: 1 }
-     )
-  }
-
-  await loadToolKitPlugins(pjson, config)
+  await loadToolKitPlugins(config)
   validatePlugins(config)
   await rerunInitHooks(config, options)
 }
