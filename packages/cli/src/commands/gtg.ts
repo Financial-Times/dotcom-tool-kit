@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
-require('node-fetch');
+const fetch = require("node-fetch");
 
-const TWO_MINUTES = 1200
+const TWO_MINUTES = 12000
 
 export async function waitForOk(url: string) {
   return new Promise(function (resolve, reject) {
