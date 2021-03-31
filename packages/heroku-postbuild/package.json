@@ -16,8 +16,7 @@
     "install": "if is-installing-package; then ./bin/run heroku:install; else npm run build; fi",
     "build": "tsc -b",
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "npm run build && oclif-dev manifest",
-    "heroku-postbuild": "dotcom-tool-kit heroku:postbuild"
+    "prepack": "npm run build && oclif-dev manifest"
   },
   "files": [
     "/lib",
