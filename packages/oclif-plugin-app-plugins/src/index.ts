@@ -18,8 +18,8 @@ function canLoadPlugins(config: any): config is PluginLoadingConfig {
   return typeof config.loadPlugins === 'function'
 }
 
-async function findToolKitPlugins(): Promise<string[]> {
-  const result = await explorer.search()
+async function findToolKitPlugins(root: string): Promise<string[]> {
+  const result = await explorer.search(root)
   if (!result) return []
 
   const { plugins = [] } = result.config
@@ -27,9 +27,22 @@ async function findToolKitPlugins(): Promise<string[]> {
   return plugins
 }
 
-async function loadToolKitPlugins(config: PluginLoadingConfig) {
-  const plugins = await findToolKitPlugins()
+async function loadToolKitPlugins(config: IConfig, root = process.cwd()) {
+  if (!canLoadPlugins(config)) return
+  const plugins = await findToolKitPlugins(root)
+
+  if (plugins.length === 0) return
   await config.loadPlugins(process.cwd(), 'app', plugins)
+
+  // HACK: loadPlugins doesn't return the plugin instances it loaded, so grab them from
+  // the array; we know they're the last `plugins.length` plugins to have been loaded
+  const loadedPlugins = config.plugins.slice(-plugins.length)
+
+  await Promise.all(
+    loadedPlugins.map(async plugin =>
+      loadToolKitPlugins(config, plugin.root)
+    )
+  )
 }
 
 function validatePlugins(config: IConfig) {
@@ -76,8 +89,6 @@ async function rerunInitHooks(config: IConfig, options: Hooks['init']) {
 }
 
 const hook: Hook.Init = async function ({ config, ...options }) {
-  if (!canLoadPlugins(config)) return
-
   await loadToolKitPlugins(config)
   validatePlugins(config)
   await rerunInitHooks(config, options)
