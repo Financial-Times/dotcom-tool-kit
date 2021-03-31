@@ -40,8 +40,22 @@ pkg.author = 'FT.com Platforms Team <platforms-team.customer-products@ft.com>'
 
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
 
-console.log('⛓ linking tsconfig')
-fs.symlinkSync('../../tsconfig.json', 'tsconfig.json')
+console.log('⌨️ creating tsconfig')
+const tsconfig = {
+  extends: '../../tsconfig.settings.json',
+  compilerOptions: {
+     outDir: 'lib',
+     rootDir: 'src'
+  }
+}
+
+fs.writeFileSync('tsconfig.json', JSON.stringify(tsconfig, null, 2))
+
+console.log('🔗 adding reference to root tsconfig')
+const rootTsconfig = JSON.parse(fs.readFileSync('../../tsconfig.json'))
+rootTsconfig.references.push({ path: directory })
+
+fs.writeFileSync('../../tsconfig.json', JSON.stringify(rootTsconfig, null, 2))
 
 console.log(`🏗 scaffolding command ${camelCaseName}`)
 fs.mkdirSync('src/commands', { recursive: true })
