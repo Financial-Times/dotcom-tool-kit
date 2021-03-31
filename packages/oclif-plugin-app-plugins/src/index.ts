@@ -46,7 +46,7 @@ async function loadToolKitPlugins(config: IConfig, root = process.cwd()) {
   const loadedPlugins = config.plugins.slice(-unloadedPlugins.length)
 
   await Promise.all(
-    loadedPlugins.map(async plugin =>
+    loadedPlugins.map(plugin =>
       loadToolKitPlugins(config, plugin.root)
     )
   )
