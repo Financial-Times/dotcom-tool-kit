@@ -31,12 +31,19 @@ async function loadToolKitPlugins(config: IConfig, root = process.cwd()) {
   if (!canLoadPlugins(config)) return
   const plugins = await findToolKitPlugins(root)
 
-  if (plugins.length === 0) return
-  await config.loadPlugins(process.cwd(), 'app', plugins)
+  // don't reload plugins that have already been loaded
+  const unloadedPlugins = plugins.filter(
+    plugin => !config.plugins.some(
+      loadedPlugin => loadedPlugin.name === plugin
+    )
+  )
+
+  if (unloadedPlugins.length === 0) return
+  await config.loadPlugins(process.cwd(), 'app', unloadedPlugins)
 
   // HACK: loadPlugins doesn't return the plugin instances it loaded, so grab them from
   // the array; we know they're the last `plugins.length` plugins to have been loaded
-  const loadedPlugins = config.plugins.slice(-plugins.length)
+  const loadedPlugins = config.plugins.slice(-unloadedPlugins.length)
 
   await Promise.all(
     loadedPlugins.map(async plugin =>
