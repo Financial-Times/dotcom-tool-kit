@@ -1,13 +1,10 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "importHelpers": true,
-    "module": "commonjs",
-    "outDir": "lib",
-    "rootDirs": ["src", "test"],
-    "strict": true,
-    "target": "es2017",
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*"]
+   "files": [],
+   "references": [
+      { "path": "packages/babel" },
+      { "path": "packages/cli" },
+      { "path": "packages/heroku-postbuild" },
+      { "path": "packages/oclif-plugin-app-plugins" },
+      { "path": "packages/webpack" }
+   ]
 }
