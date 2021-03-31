@@ -14,11 +14,5 @@
     "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
     "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
     "dotcom-tool-kit": "file:../cli"
-  },
-  "toolkit": {
-    "plugins": [
-      "@dotcom-tool-kit/frontend-app",
-      "@dotcom-tool-kit/heroku-postbuild"
-    ]
   }
 }
