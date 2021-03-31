@@ -20,11 +20,6 @@
   "oclif": {
     "commands": "./lib/commands"
   },
-  "toolkit": {
-    "plugins": [
-      "@dotcom-tool-kit/webpack"
-    ]
-  },
   "files": [
     "/lib",
     "/oclif.manifest.json"
