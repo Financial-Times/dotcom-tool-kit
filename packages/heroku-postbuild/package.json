@@ -39,6 +39,7 @@
       "init": "./lib"
     }
   },
+  "toolkit": {},
   "devDependencies": {
     "@oclif/dev-cli": "^1.26.0"
   }

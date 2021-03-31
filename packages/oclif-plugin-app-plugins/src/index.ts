@@ -1,6 +1,9 @@
-import { Hook, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
+import { Hook, Hooks, Plugin, IConfig, PJSON } from '@oclif/config' // eslint-disable-line no-unused-vars
 import { cli } from 'cli-ux'
-import readPkgUp from 'read-pkg-up'
+import { error, exit } from '@oclif/errors'
+import { cosmiconfig } from 'cosmiconfig'
+
+const explorer = cosmiconfig('toolkit')
 
 // according to Oclif's type definitions, loadPlugins isn't there on
 // options.config. but we know it is. so tell Typescript it can use
@@ -9,43 +12,47 @@ interface PluginLoader {
   loadPlugins(root: string, type: string, plugins: string[]): Promise<void> // eslint-disable-line no-unused-vars
 }
 
-interface AppPluginPJSON extends PJSON.Plugin {
-  oclif: PJSON.Plugin['oclif'] & {
-    appPlugins: {
-      prefix: string
-    }
-  }
-}
+type PluginLoadingConfig = PluginLoader & IConfig
 
-function canLoadPlugins(config: any): config is PluginLoader {
+function canLoadPlugins(config: any): config is PluginLoadingConfig {
   return typeof config.loadPlugins === 'function'
 }
 
-function isAppPluginPJSON(pjson: PJSON.Plugin): pjson is AppPluginPJSON {
-  return 'appPlugins' in pjson.oclif
+async function findToolKitPlugins(root: string): Promise<string[]> {
+  const result = await explorer.search(root)
+  if (!result) return []
+
+  const { plugins = [] } = result.config
+
+  return plugins
 }
 
-const hook: Hook.Init = async function ({ config, ...options }) {
+async function loadToolKitPlugins(config: IConfig, root = process.cwd()) {
   if (!canLoadPlugins(config)) return
+  const plugins = await findToolKitPlugins(root)
 
-  const result = await readPkgUp()
-  if (!result) return
+  // don't reload plugins that have already been loaded
+  const unloadedPlugins = plugins.filter(
+    plugin => !config.plugins.some(
+      loadedPlugin => loadedPlugin.name === plugin
+    )
+  )
 
-  const { pjson } = config
-  if (!isAppPluginPJSON(pjson)) {
-     throw this.error(
-       new Error(
-        `${pjson.name} doesn't have an oclif.appPlugins.prefix property. this is required to load plugins with this plugin`
-      ),
-      { exit: 1 }
-     )
-  }
+  if (unloadedPlugins.length === 0) return
+  await config.loadPlugins(process.cwd(), 'app', unloadedPlugins)
 
-  const { devDependencies = {} } = result.packageJson
-  const plugins = Object.keys(devDependencies).filter((dep) => dep.startsWith(pjson.oclif.appPlugins.prefix))
+  // HACK: loadPlugins doesn't return the plugin instances it loaded, so grab them from
+  // the array; we know they're the last `plugins.length` plugins to have been loaded
+  const loadedPlugins = config.plugins.slice(-unloadedPlugins.length)
 
-  await config.loadPlugins(process.cwd(), 'app', plugins)
+  await Promise.all(
+    loadedPlugins.map(plugin =>
+      loadToolKitPlugins(config, plugin.root)
+    )
+  )
+}
 
+function validatePlugins(config: IConfig) {
   const pluginsByCommand = new Map()
 
   for(const plugin of config.plugins) {
@@ -63,16 +70,18 @@ const hook: Hook.Init = async function ({ config, ...options }) {
   )
 
   if(duplicateCommands.length !== 0) {
-    this.log(`Error: you have multiple plugins installed that have conflicting commands, which isn't allowed. remove all but one of these plugins from your app's package.json:\n`)
+    console.log(`Error: you have multiple plugins installed that have conflicting commands, which isn't allowed. remove all but one of these plugins from your app's package.json:\n`)
 
     cli.table(duplicateCommands, {
       plugins: { get: row => row[1].join(', ') + '   ' },
       command: { get: row => row[0] },
     })
 
-    this.exit(1)
+    exit(1)
   }
+}
 
+async function rerunInitHooks(config: IConfig, options: Hooks['init']) {
   const thisPlugin = config.plugins.find(
     (plugin) => plugin.name === '@dotcom-tool-kit/oclif-plugin-app-plugins'
   )
@@ -84,6 +93,12 @@ const hook: Hook.Init = async function ({ config, ...options }) {
 
   // ensure plugins' init hooks are also run
   await config.runHook('init', { ...options })
+}
+
+const hook: Hook.Init = async function ({ config, ...options }) {
+  await loadToolKitPlugins(config)
+  validatePlugins(config)
+  await rerunInitHooks(config, options)
 }
 
 export default hook

@@ -33,10 +33,10 @@
     "ts-node": "^8.10.2"
   },
   "dependencies": {
+    "@dotcom-tool-kit/oclif-plugin-app-plugins": "file:../oclif-plugin-app-plugins",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
     "node-fetch": "^2.6.1",
-    "@dotcom-tool-kit/oclif-plugin-app-plugins": "file:../oclif-plugin-app-plugins",
     "tslib": "^1.14.1"
   },
   "engines": {
@@ -54,9 +54,7 @@
     "plugins": [
       "@oclif/plugin-help",
       "@dotcom-tool-kit/oclif-plugin-app-plugins"
-    ],
-    "appPlugins": {
-      "prefix": "@dotcom-tool-kit/"
-    }
-  }
+    ]
+  },
+  "toolkit": {}
 }

@@ -11,7 +11,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@dotcom-tool-kit/babel": "file:../babel",
+    "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
     "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
     "dotcom-tool-kit": "file:../cli"
   }
