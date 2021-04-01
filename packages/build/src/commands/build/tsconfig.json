@@ -5,6 +5,6 @@
       "rootDir": "src"
    },
    "references": [
-      {"path": "../build"}
+      {"path": "../lifecycles"}
    ]
 }
