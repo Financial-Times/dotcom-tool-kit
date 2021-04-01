@@ -1,4 +1,6 @@
 import { Command } from '@oclif/command'
+import { Build } from '../../'
+import { runLifecycle } from '@dotcom-tool-kit/lifecycles'
 
 export default class BuildCI extends Command {
   static description = ''
@@ -6,6 +8,6 @@ export default class BuildCI extends Command {
   static args = []
 
   async run() {
-    this.log('running build:ci')
+    return runLifecycle(Build.CI, this.argv, this.config)
   }
 }

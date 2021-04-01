@@ -2,7 +2,7 @@
   "name": "@dotcom-tool-kit/build",
   "version": "0.0.0-development",
   "description": "",
-  "main": "index.js",
+  "main": "lib",
   "scripts": {
     "prepack": "tsc -b && oclif-dev manifest",
     "postpack": "rm -f oclif.manifest.json"
@@ -11,6 +11,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/lifecycles": "file:../lifecycles",
     "@oclif/command": "^1.8.0"
   },
   "devDependencies": {
