@@ -1,0 +1,39 @@
+{
+  "name": "@dotcom-tool-kit/test",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepack": "tsc -b && oclif-dev manifest",
+    "postpack": "rm -f oclif.manifest.json"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@dotcom-tool-kit/lifecycles": "file:../lifecycles",
+    "@oclif/command": "^1.8.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.26.0"
+  },
+  "oclif": {
+    "commands": "./lib/commands",
+    "topics": {
+      "test": {
+        "description": "app lifecycle commands to run automated tests"
+      }
+    }
+  },
+  "files": [
+    "/lib",
+    "/oclif.manifest.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "packages/test"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/test"
+}

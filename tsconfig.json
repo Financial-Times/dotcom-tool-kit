@@ -1,9 +1,23 @@
 {
-   "files": [],
-   "references": [
-      { "path": "packages/babel" },
-      { "path": "packages/cli" },
-      { "path": "packages/heroku-postbuild" },
-      { "path": "packages/webpack" }
-   ]
+  "files": [],
+  "references": [
+    {
+      "path": "packages/babel"
+    },
+    {
+      "path": "packages/build"
+    },
+    {
+      "path": "packages/cli"
+    },
+    {
+      "path": "packages/heroku-postbuild"
+    },
+    {
+      "path": "packages/webpack"
+    },
+    {
+      "path": "packages/test"
+    }
+  ]
 }
