@@ -6,12 +6,30 @@ import resolveFrom from 'resolve-from'
 
 const explorer = cosmiconfig('toolkit')
 
-const config = {
-   plugins: new Map
+type Config = {
+   plugins: { [id: string]: Plugin },
+   commands: { [id: string]: CommandClass },
+}
+
+const config: Config = {
+   plugins: {},
+   commands: {}
+}
+
+interface CommandClass {
+   new(): Command
+}
+
+interface Command {
+   run(): Promise<void>
 }
 
 interface Plugin {
+   id: string
    root: string
+   commands: {
+      [id: string]: CommandClass
+   }
 }
 
 async function findToolKitPlugins(root: string): Promise<string[]> {
@@ -23,25 +41,33 @@ async function findToolKitPlugins(root: string): Promise<string[]> {
   return plugins
 }
 
-async function loadPlugin(plugin: string, root: string): Promise<Plugin> {
-   // don't
-   if(config.plugins.has(plugin)) {
-      return config.plugins.get(plugin)
+async function loadPlugin(id: string, root: string): Promise<Plugin> {
+   // don't load duplicate commands
+   if(id in config.plugins) {
+      return config.plugins[id]
    }
 
    // load plugin relative to the app or parent plugin
-   const pluginRoot = resolveFrom(root, plugin)
-   const loaded = importFrom(root, plugin) as Plugin
+   const pluginRoot = resolveFrom(root, id)
+   const plugin = importFrom(root, id) as Plugin
 
-   config.plugins.set(plugin, loaded)
-   loaded.root = pluginRoot
+   config.plugins[id] = plugin
+   plugin.id = id
+   plugin.root = pluginRoot
+
+   // TODO check duplicate commands
+   // TODO lifecycles
+   Object.assign(
+      config.commands,
+      plugin.commands
+   )
 
    // load any plugins requested by this plugin
-   await loadPlugins(loaded.root)
+   await loadPlugins(plugin.root)
 
    // TODO run init hook(? or just put init code in the plugin entry point)
 
-   return loaded
+   return plugin
 }
 
 async function loadPlugins(root = process.cwd()) {
@@ -71,6 +97,13 @@ function validatePlugins() {
 export async function load() {
   await loadPlugins()
   validatePlugins()
+  return config
+}
+
+export async function runCommand(id: string) {
+   const Command = config.commands[id]
+   const command = new Command
+   return command.run()
 }
 
 // TODO register commands, command runner

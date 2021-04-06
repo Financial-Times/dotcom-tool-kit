@@ -1,5 +1,5 @@
-import { Hook } from '@oclif/config'
 import loadPackageJson from '@financial-times/package-json'
+import { error } from '@oclif/errors'
 import path from 'path'
 
 function getPackageJson() {
@@ -23,16 +23,13 @@ export function ensureHerokuPostbuildScript() {
   return willWrite
 }
 
-const hook: Hook.Init = async function (options) {
-   // don't try the install when we're running the command that does it silently
-   if(options.id === 'heroku:install') return
-
+export async function init() {
   const wroteScript = ensureHerokuPostbuildScript()
 
   if (wroteScript) {
     const name: String = getPackageJson().getField('name')
 
-    this.error(
+    error(
       new Error(
         `@dotcom-tool-kit/heroku-postbuild added a heroku-postbuild script to ${name}'s package.json. you should commit this.`
       )
@@ -40,4 +37,4 @@ const hook: Hook.Init = async function (options) {
   }
 }
 
-export default hook
+export { default as commands } from './commands'
