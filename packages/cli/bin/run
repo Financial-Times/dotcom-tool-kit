@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
-require('@oclif/command').run()
-.then(require('@oclif/command/flush'))
-.catch(require('@oclif/errors/handle'))
+const { load, runCommand } = require('../lib')
+
+const [command, ...argv] = process.argv.slice(2)
+
+load().then(() => {
+   runCommand(command, argv).then(
+      console.log,
+      console.error // TODO real error handling
+   )
+})

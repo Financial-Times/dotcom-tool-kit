@@ -17,7 +17,7 @@ const config: Config = {
 }
 
 interface CommandClass {
-   new(): Command
+   new(argv: string[]): Command
 }
 
 interface Command {
@@ -100,10 +100,9 @@ export async function load() {
   return config
 }
 
-export async function runCommand(id: string) {
+export async function runCommand(id: string, argv: string[]) {
+   // TODO checking command exists, running help
    const Command = config.commands[id]
-   const command = new Command
+   const command = new Command(argv)
    return command.run()
 }
-
-// TODO register commands, command runner
