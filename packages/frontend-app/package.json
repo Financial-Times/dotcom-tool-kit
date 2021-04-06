@@ -3,22 +3,11 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "prepack": "tsc -b && oclif-dev manifest",
-    "postpack": "rm -f oclif.manifest.json"
-  },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/webpack": "file:../webpack",
-    "@oclif/command": "^1.8.0"
-  },
-  "devDependencies": {
-    "@oclif/dev-cli": "^1.26.0"
-  },
-  "oclif": {
-    "commands": "./lib/commands"
+    "@dotcom-tool-kit/webpack": "file:../webpack"
   },
   "files": [
     "/lib",

@@ -22,8 +22,6 @@
     "test": "mocha --forbid-only \"/**/*.test.ts\""
   },
   "devDependencies": {
-    "@oclif/command": "^1.8.0",
-    "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "1.2.8",
     "@types/mocha": "8.2.1",
     "@types/node": "^10.17.54",
@@ -33,8 +31,6 @@
     "ts-node": "^8.10.2"
   },
   "dependencies": {
-    "@dotcom-tool-kit/oclif-plugin-app-plugins": "file:../oclif-plugin-app-plugins",
-    "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
     "import-from": "^3.0.0",
     "node-fetch": "^2.6.1",
@@ -50,13 +46,9 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "oclif": {
-    "commands": "./lib/commands",
-    "bin": "dotcom-tool-kit",
+  "toolkit": {
     "plugins": [
-      "@oclif/plugin-help",
       "@dotcom-tool-kit/oclif-plugin-app-plugins"
     ]
-  },
-  "toolkit": {}
+  }
 }

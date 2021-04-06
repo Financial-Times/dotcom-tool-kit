@@ -11,11 +11,7 @@
     "directory": "packages/webpack"
   },
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/webpack",
-  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "scripts": {
-    "postpack": "rm -f oclif.manifest.json",
-    "prepack": "oclif-dev manifest"
-  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",,
   "keywords": [],
   "files": [
     "./lib",
@@ -36,8 +32,5 @@
   "toolkit": {},
   "dependencies": {
     "@oclif/command": "^1.8.0"
-  },
-  "devDependencies": {
-    "@oclif/dev-cli": "^1.26.0"
   }
 }
