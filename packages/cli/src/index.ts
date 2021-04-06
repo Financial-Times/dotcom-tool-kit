@@ -7,21 +7,62 @@ import path from 'path'
 
 const explorer = cosmiconfig('toolkit')
 
+const coreRoot = path.resolve(__dirname, '../')
+const appRoot = process.cwd()
+
+class HelpCommand implements Command {
+   static description = 'show this help'
+
+   constructor(public argv: string[]) {}
+
+   showHelp() {
+      for(const [id, command] of Object.entries(config.commands)) {
+         console.log(`${id}\t${command.description}`)
+      }
+   }
+
+   showCommandHelp(id: string) {
+      const command = config.commands[id]
+
+      // TODO print argument help somehow?
+      console.log(`${id}\t${command.description}`)
+   }
+
+   async run() {
+      const [id] = this.argv
+
+      if(id) {
+         this.showCommandHelp(id)
+      } else {
+         this.showHelp()
+      }
+   }
+}
+
 type Config = {
+   root: string
+   findCommand(): boolean
    plugins: { [id: string]: Plugin },
    commands: { [id: string]: CommandClass },
 }
 
 const config: Config = {
+   root: coreRoot,
+   findCommand: () => false,
    plugins: {},
-   commands: {}
+   commands: {
+      help: HelpCommand
+   }
 }
 
 interface CommandClass {
+   description: string
    new(argv: string[]): Command
 }
 
 interface Command {
+   config?: Object
+   init?(): Promise<void>
    run(): Promise<void>
 }
 
@@ -95,9 +136,6 @@ function validatePlugins() {
    }
 }
 
-const coreRoot = path.resolve(__dirname, '../')
-const appRoot = process.cwd()
-
 export async function load() {
    await loadPlugins(coreRoot)
    await loadPlugins(appRoot)
@@ -107,8 +145,20 @@ export async function load() {
 }
 
 export async function runCommand(id: string, argv: string[]) {
-   // TODO checking command exists, running help
+   // TODO running help
+   if(!(id in config.commands)) {
+      throw new Error(`command "${id}" not found`)
+   }
+
    const Command = config.commands[id]
    const command = new Command(argv)
+
+   // dummy oclif config so @oclif/command's init doesn't crash
+   command.config = {}
+
+   if(command.init != null) {
+      await command.init()
+   }
+
    return command.run()
 }
