@@ -3,6 +3,7 @@ import { error, exit } from '@oclif/errors'
 import { cosmiconfig } from 'cosmiconfig'
 import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
+import path from 'path'
 
 const explorer = cosmiconfig('toolkit')
 
@@ -33,23 +34,23 @@ interface Plugin {
 }
 
 async function findToolKitPlugins(root: string): Promise<string[]> {
-  const result = await explorer.search(root)
-  if (!result) return []
+   const result = await explorer.search(root)
+   if (!result) return []
 
-  const { plugins = [] } = result.config
+   const { plugins = [] } = result.config
 
-  return plugins
+   return plugins
 }
 
 async function loadPlugin(id: string, root: string): Promise<Plugin> {
    // don't load duplicate commands
-   if(id in config.plugins) {
+   if (id in config.plugins) {
       return config.plugins[id]
    }
 
    // load plugin relative to the app or parent plugin
    const pluginRoot = resolveFrom(root, id)
-   const plugin = importFrom.silent(root, id)  as Plugin
+   const plugin = importFrom.silent(root, id) as Plugin
 
    config.plugins[id] = plugin
    plugin.id = id
@@ -70,7 +71,7 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
    return plugin
 }
 
-async function loadPlugins(root = process.cwd()) {
+async function loadPlugins(root: string) {
    const plugins = await findToolKitPlugins(root)
 
    return plugins.map(
@@ -82,22 +83,27 @@ function validatePlugins() {
    // TODO reimplement
    const duplicateCommands: [string, string[]][] = []
 
-  if(duplicateCommands.length !== 0) {
-    console.log(`Error: you have multiple plugins installed that have conflicting commands, which isn't allowed. remove all but one of these plugins from your app's package.json:\n`)
+   if (duplicateCommands.length !== 0) {
+      console.log(`Error: you have multiple plugins installed that have conflicting commands, which isn't allowed. remove all but one of these plugins from your app's package.json:\n`)
 
-    cli.table(duplicateCommands, {
-      plugins: { get: row => row[1].join(', ') + '   ' },
-      command: { get: row => row[0] },
-    })
+      cli.table(duplicateCommands, {
+         plugins: { get: row => row[1].join(', ') + '   ' },
+         command: { get: row => row[0] },
+      })
 
-    exit(1)
-  }
+      exit(1)
+   }
 }
 
+const coreRoot = path.resolve(__dirname, '../')
+const appRoot = process.cwd()
+
 export async function load() {
-  await loadPlugins()
-  validatePlugins()
-  return config
+   await loadPlugins(coreRoot)
+   await loadPlugins(appRoot)
+
+   validatePlugins()
+   return config
 }
 
 export async function runCommand(id: string, argv: string[]) {
