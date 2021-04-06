@@ -7,5 +7,4 @@ lib
 /yarn.lock
 node_modules
 package-lock.json
-oclif.manifest.json
 *.tsbuildinfo

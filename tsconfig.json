@@ -4,7 +4,6 @@
       { "path": "packages/babel" },
       { "path": "packages/cli" },
       { "path": "packages/heroku-postbuild" },
-      { "path": "packages/oclif-plugin-app-plugins" },
       { "path": "packages/webpack" }
    ]
 }
