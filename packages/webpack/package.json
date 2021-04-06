@@ -11,7 +11,7 @@
     "directory": "packages/webpack"
   },
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/webpack",
-  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",,
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "keywords": [],
   "files": [
     "./lib",
