@@ -27,7 +27,7 @@ Tool Kit supports configuration via a `toolkit` field in `package.json`:
 ```json
 {
    ...
-   "tootkit": {
+   "toolkit": {
       "plugins": [...]
    }
 }
