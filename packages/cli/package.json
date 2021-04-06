@@ -36,7 +36,9 @@
     "@dotcom-tool-kit/oclif-plugin-app-plugins": "file:../oclif-plugin-app-plugins",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
+    "import-from": "^3.0.0",
     "node-fetch": "^2.6.1",
+    "resolve-from": "^5.0.0",
     "tslib": "^1.14.1"
   },
   "engines": {
