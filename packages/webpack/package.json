@@ -1,6 +1,7 @@
 {
   "name": "@dotcom-tool-kit/webpack",
   "version": "0.0.0-development",
+  "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -11,32 +12,9 @@
   },
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/webpack",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "scripts": {
-    "postpack": "rm -f oclif.manifest.json",
-    "prepack": "oclif-dev manifest"
-  },
   "keywords": [],
-  "files": [
-    "./lib",
-    "/oclif.manifest.json"
-  ],
-  "oclif": {
-    "commands": "./lib/commands",
-    "bin": "oclif-example",
-    "topics": {
-      "build": {
-        "description": "builds things"
-      }
-    },
-    "devPlugins": [
-      "@oclif/plugin-help"
-    ]
-  },
   "toolkit": {},
   "dependencies": {
     "@oclif/command": "^1.8.0"
-  },
-  "devDependencies": {
-    "@oclif/dev-cli": "^1.26.0"
   }
 }

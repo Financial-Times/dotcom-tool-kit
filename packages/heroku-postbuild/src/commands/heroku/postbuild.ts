@@ -6,6 +6,6 @@ export default class HerokuPostbuild extends Command {
   static args = []
 
   async run() {
-    await this.config.runCommand('build:production')
+    console.log('heroku postbuild')
   }
 }
