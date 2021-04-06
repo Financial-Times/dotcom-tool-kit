@@ -1,2 +1,3 @@
 plugins:
+  - "@dotcom-tool-kit/frontend-app"
   - "@dotcom-tool-kit/heroku-postbuild"

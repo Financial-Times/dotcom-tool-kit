@@ -49,7 +49,7 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
 
    // load plugin relative to the app or parent plugin
    const pluginRoot = resolveFrom(root, id)
-   const plugin = importFrom(root, id) as Plugin
+   const plugin = importFrom.silent(root, id)  as Plugin
 
    config.plugins[id] = plugin
    plugin.id = id

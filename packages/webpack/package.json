@@ -1,6 +1,7 @@
 {
   "name": "@dotcom-tool-kit/webpack",
   "version": "0.0.0-development",
+  "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
