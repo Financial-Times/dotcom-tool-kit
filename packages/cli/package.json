@@ -17,8 +17,6 @@
     "dotcom-tool-kit": "./bin/run"
   },
   "scripts": {
-    "postpack": "rm -f oclif.manifest.json",
-    "prepack": "oclif-dev manifest",
     "test": "mocha --forbid-only \"/**/*.test.ts\""
   },
   "devDependencies": {
@@ -31,7 +29,6 @@
     "ts-node": "^8.10.2"
   },
   "dependencies": {
-    "@oclif/plugin-help": "^3.2.2",
     "import-from": "^3.0.0",
     "node-fetch": "^2.6.1",
     "resolve-from": "^5.0.0",
@@ -46,9 +43,5 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "toolkit": {
-    "plugins": [
-      "@dotcom-tool-kit/oclif-plugin-app-plugins"
-    ]
-  }
+  "toolkit": {}
 }

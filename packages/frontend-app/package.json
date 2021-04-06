@@ -9,10 +9,6 @@
   "dependencies": {
     "@dotcom-tool-kit/webpack": "file:../webpack"
   },
-  "files": [
-    "/lib",
-    "/oclif.manifest.json"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
