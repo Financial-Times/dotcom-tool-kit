@@ -4,6 +4,7 @@ import { cosmiconfig } from 'cosmiconfig'
 import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import path from 'path'
+import mergeWith from 'lodash.mergewith'
 
 const explorer = cosmiconfig('toolkit')
 
@@ -17,6 +18,8 @@ class HelpCommand implements Command {
 
    showHelp() {
       for(const [id, command] of Object.entries(config.commands)) {
+         if(command.hidden) continue
+
          console.log(`${id}\t${command.description}`)
       }
    }
@@ -39,11 +42,34 @@ class HelpCommand implements Command {
    }
 }
 
+class LifecycleCommand implements Command {
+   static description = 'run lifecycle commands'
+
+   constructor(public argv: string[]) {}
+
+   async run() {
+      for(const lifecycle of this.argv) {
+         const commands = config.lifecycles[lifecycle]
+
+         if(Array.isArray(commands)) {
+            for(const command of commands) {
+               await runCommand(command, [])
+            }
+         } else if(typeof commands === 'string') {
+            await runCommand(commands, [])
+         }
+      }
+   }
+}
+
+type Lifecycle = string | string[] | LifecycleConflict
+
 type Config = {
    root: string
    findCommand(): boolean
    plugins: { [id: string]: Plugin },
    commands: { [id: string]: CommandClass },
+   lifecycles: { [id: string]: Lifecycle }
 }
 
 const config: Config = {
@@ -51,12 +77,20 @@ const config: Config = {
    findCommand: () => false,
    plugins: {},
    commands: {
-      help: HelpCommand
-   }
+      help: HelpCommand,
+      lifecycle: LifecycleCommand
+   },
+   lifecycles: {}
+}
+
+interface ConfigFile {
+   plugins: string[],
+   lifecycles: { [id: string]: Lifecycle }
 }
 
 interface CommandClass {
    description: string
+   hidden?: boolean
    new(argv: string[]): Command
 }
 
@@ -74,13 +108,20 @@ interface Plugin {
    }
 }
 
-async function findToolKitPlugins(root: string): Promise<string[]> {
+type LifecycleConflict = {
+   conflicting: [Lifecycle, Lifecycle]
+}
+
+// TODO more information for better error message
+function lifecycleConflict(a: Lifecycle, b: Lifecycle): LifecycleConflict {
+   return { conflicting: [a, b] }
+}
+
+async function loadToolKitConfig(root: string): Promise<ConfigFile> {
    const result = await explorer.search(root)
-   if (!result) return []
+   if (!result) return { plugins: [], lifecycles: {} }
 
-   const { plugins = [] } = result.config
-
-   return plugins
+   return result.config as ConfigFile
 }
 
 async function loadPlugin(id: string, root: string): Promise<Plugin> {
@@ -90,6 +131,7 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
    }
 
    // load plugin relative to the app or parent plugin
+   // TODO load error handling
    const pluginRoot = resolveFrom(root, id)
    const plugin = importFrom.silent(root, id) as Plugin
 
@@ -97,27 +139,56 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
    plugin.id = id
    plugin.root = pluginRoot
 
+   const { plugins = [], lifecycles = {} } = await loadToolKitConfig(pluginRoot)
+
    // TODO check duplicate commands
-   // TODO lifecycles
    Object.assign(
       config.commands,
       plugin.commands
    )
 
    // load any plugins requested by this plugin
-   await loadPlugins(plugin.root)
+   await loadPlugins(plugin.root, plugins)
 
-   // TODO run init hook(? or just put init code in the plugin entry point)
+   // load plugin lifecycle assignments. do this after loading child plugins, so
+   // parent lifecycles get assigned after child lifecycles and can override them
+   mergeWith(
+      config.lifecycles,
+      lifecycles,
+
+      // handle conflicts between parents and children
+      (childLifecycle: Lifecycle, parentLifecycle: Lifecycle, id) => {
+
+         // - this lifecycle might not have been set yet, in which case childLifecycle
+         // will be undefined, so use the parentLifecycle.
+         // - apps and plugins can disambiguate a conflicting lifecycle by providing
+         // an array, which tells the runner what order to run the commands in.
+         if(!childLifecycle || Array.isArray(parentLifecycle)) {
+            return parentLifecycle
+         }
+
+         // if we're here, it's because these things are true:
+         //   - there is a parent lifecycle with the same name as a child lifecycle
+         //   - the parent lifecycle isn't an array for disambiguation
+
+         // so, any other case is a conflict. any conflicts left in the lifecycles
+         // object will be noticed by the validator, which will throw a helpful error
+         return lifecycleConflict(parentLifecycle, childLifecycle)
+      }
+   )
 
    return plugin
 }
 
-async function loadPlugins(root: string) {
-   const plugins = await findToolKitPlugins(root)
-
-   return plugins.map(
+function loadPlugins(root: string, plugins: string[]) {
+   return Promise.all(plugins.map(
       plugin => loadPlugin(plugin, root)
-   )
+   ))
+}
+
+async function loadPluginsFromConfig(root: string) {
+   const { plugins = [] } = await loadToolKitConfig(root)
+   return loadPlugins(root, plugins)
 }
 
 function validatePlugins() {
@@ -137,8 +208,8 @@ function validatePlugins() {
 }
 
 export async function load() {
-   await loadPlugins(coreRoot)
-   await loadPlugins(appRoot)
+   await loadPluginsFromConfig(coreRoot)
+   await loadPluginsFromConfig(appRoot)
 
    validatePlugins()
    return config
