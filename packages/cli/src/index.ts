@@ -5,6 +5,7 @@ import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import path from 'path'
 import mergeWith from 'lodash.mergewith'
+import util from 'util'
 
 const explorer = cosmiconfig('toolkit')
 
@@ -18,7 +19,7 @@ class HelpCommand implements Command {
 
    showHelp() {
       for(const [id, command] of Object.entries(config.commands)) {
-         if(command.hidden) continue
+         if(isConflict(command) || command.hidden) continue
 
          console.log(`${id}\t${command.description}`)
       }
@@ -26,6 +27,7 @@ class HelpCommand implements Command {
 
    showCommandHelp(id: string) {
       const command = config.commands[id]
+      if(isConflict(command)) return
 
       // TODO print argument help somehow?
       console.log(`${id}\t${command.description}`)
@@ -62,13 +64,14 @@ class LifecycleCommand implements Command {
    }
 }
 
-type Lifecycle = string | string[] | LifecycleConflict
+type UnconflictedLifecycle = string | string[]
+type Lifecycle = UnconflictedLifecycle | Conflict<UnconflictedLifecycle>
 
 type Config = {
    root: string
    findCommand(): boolean
    plugins: { [id: string]: Plugin },
-   commands: { [id: string]: CommandClass },
+   commands: { [id: string]: CommandClass | Conflict<CommandClass> },
    lifecycles: { [id: string]: Lifecycle }
 }
 
@@ -108,13 +111,17 @@ interface Plugin {
    }
 }
 
-type LifecycleConflict = {
-   conflicting: [Lifecycle, Lifecycle]
+type Conflict<T> = {
+   conflicting: T[]
 }
 
 // TODO more information for better error message
-function lifecycleConflict(a: Lifecycle, b: Lifecycle): LifecycleConflict {
+function conflict<T>(a: T, b: T): Conflict<T> {
    return { conflicting: [a, b] }
+}
+
+function isConflict<T>(thing: any): thing is Conflict<T> {
+   return thing.conflicting != null
 }
 
 async function loadToolKitConfig(root: string): Promise<ConfigFile> {
@@ -141,10 +148,17 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
 
    const { plugins = [], lifecycles = {} } = await loadToolKitConfig(pluginRoot)
 
-   // TODO check duplicate commands
-   Object.assign(
+   mergeWith(
       config.commands,
-      plugin.commands
+      plugin.commands,
+
+      (existingCommand: CommandClass, newCommand: CommandClass, commandId) => {
+         if(!existingCommand) {
+            return newCommand
+         }
+
+         return conflict(existingCommand, newCommand)
+      }
    )
 
    // load any plugins requested by this plugin
@@ -158,6 +172,7 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
 
       // handle conflicts between parents and children
       (childLifecycle: Lifecycle, parentLifecycle: Lifecycle, id) => {
+         // TODO this is incorrect! parents should always override children, but _siblings_ should conflict. needs rewriting because currently can't consider siblings
 
          // - this lifecycle might not have been set yet, in which case childLifecycle
          // will be undefined, so use the parentLifecycle.
@@ -173,7 +188,7 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
 
          // so, any other case is a conflict. any conflicts left in the lifecycles
          // object will be noticed by the validator, which will throw a helpful error
-         return lifecycleConflict(parentLifecycle, childLifecycle)
+         return conflict(parentLifecycle, childLifecycle)
       }
    )
 
@@ -191,19 +206,25 @@ async function loadPluginsFromConfig(root: string) {
    return loadPlugins(root, plugins)
 }
 
-function validatePlugins() {
-   // TODO reimplement
-   const duplicateCommands: [string, string[]][] = []
+function findConflicts<T, U>(items: (U | Conflict<T>)[]): Conflict<T>[] {
+   const conflicts:Conflict<T>[] = []
 
-   if (duplicateCommands.length !== 0) {
-      console.log(`Error: you have multiple plugins installed that have conflicting commands, which isn't allowed. remove all but one of these plugins from your app's package.json:\n`)
+   for(const item of items) {
+      if(isConflict<T>(item)) {
+         conflicts.push(item)
+      }
+   }
 
-      cli.table(duplicateCommands, {
-         plugins: { get: row => row[1].join(', ') + '   ' },
-         command: { get: row => row[0] },
-      })
+   return conflicts
+}
 
-      exit(1)
+function validateConfig() {
+   const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
+   const commandConflicts = findConflicts(Object.values(config.commands))
+
+   if(lifecycleConflicts.length > 0 || commandConflicts.length > 0) {
+      // TODO real helpful error message
+      throw new Error(util.inspect({ lifecycleConflicts, commandConflicts }, { depth: null, colors: true }))
    }
 }
 
@@ -211,17 +232,21 @@ export async function load() {
    await loadPluginsFromConfig(coreRoot)
    await loadPluginsFromConfig(appRoot)
 
-   validatePlugins()
+   validateConfig()
    return config
 }
 
 export async function runCommand(id: string, argv: string[]) {
-   // TODO running help
    if(!(id in config.commands)) {
       throw new Error(`command "${id}" not found`)
    }
 
    const Command = config.commands[id]
+
+   if(isConflict(Command)) {
+      throw new Error(`conflict`)
+   }
+
    const command = new Command(argv)
 
    // dummy oclif config so @oclif/command's init doesn't crash
