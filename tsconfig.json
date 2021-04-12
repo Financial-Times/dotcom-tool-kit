@@ -5,9 +5,6 @@
       "path": "packages/babel"
     },
     {
-      "path": "packages/build"
-    },
-    {
       "path": "packages/cli"
     },
     {
@@ -15,9 +12,6 @@
     },
     {
       "path": "packages/webpack"
-    },
-    {
-      "path": "packages/test"
     }
   ]
 }

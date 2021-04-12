@@ -14,8 +14,6 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "keywords": [],
   "dependencies": {
-    "@dotcom-tool-kit/build": "file:../build",
-    "@dotcom-tool-kit/lifecycles": "file:../lifecycles",
     "@oclif/command": "^1.8.0"
   }
 }
