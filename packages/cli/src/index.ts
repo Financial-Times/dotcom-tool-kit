@@ -75,6 +75,11 @@ type Config = {
    lifecycles: { [id: string]: Lifecycle }
 }
 
+interface ValidConfig extends Config {
+   commands: { [id: string]: CommandClass },
+   lifecycles: { [id: string]: UnconflictedLifecycle }
+}
+
 const config: Config = {
    root: coreRoot,
    findCommand: () => false,
@@ -218,7 +223,7 @@ function findConflicts<T, U>(items: (U | Conflict<T>)[]): Conflict<T>[] {
    return conflicts
 }
 
-function validateConfig() {
+function validateConfig(config: Config): asserts config is ValidConfig {
    const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
    const commandConflicts = findConflicts(Object.values(config.commands))
 
@@ -232,21 +237,18 @@ export async function load() {
    await loadPluginsFromConfig(coreRoot)
    await loadPluginsFromConfig(appRoot)
 
-   validateConfig()
+   validateConfig(config)
    return config
 }
 
 export async function runCommand(id: string, argv: string[]) {
+   validateConfig(config)
+
    if(!(id in config.commands)) {
       throw new Error(`command "${id}" not found`)
    }
 
    const Command = config.commands[id]
-
-   if(isConflict(Command)) {
-      throw new Error(`conflict`)
-   }
-
    const command = new Command(argv)
 
    // dummy oclif config so @oclif/command's init doesn't crash
