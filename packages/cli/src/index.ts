@@ -111,6 +111,7 @@ interface Command {
 interface Plugin {
    id: string
    root: string
+   parent?: Plugin
    commands: {
       [id: string]: CommandClass
    }
@@ -136,11 +137,13 @@ async function loadToolKitConfig(root: string): Promise<ConfigFile> {
    return result.config as ConfigFile
 }
 
-async function loadPlugin(id: string, root: string): Promise<Plugin> {
+async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
    // don't load duplicate commands
    if (id in config.plugins) {
       return config.plugins[id]
    }
+
+   const root = parent ? parent.root : process.cwd()
 
    // load plugin relative to the app or parent plugin
    // TODO load error handling
@@ -150,6 +153,7 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
    config.plugins[id] = plugin
    plugin.id = id
    plugin.root = pluginRoot
+   plugin.parent = parent
 
    const { plugins = [], lifecycles = {} } = await loadToolKitConfig(pluginRoot)
 
@@ -167,7 +171,7 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
    )
 
    // load any plugins requested by this plugin
-   await loadPlugins(plugin.root, plugins)
+   await loadPlugins(plugins, plugin)
 
    // load plugin lifecycle assignments. do this after loading child plugins, so
    // parent lifecycles get assigned after child lifecycles and can override them
@@ -200,15 +204,15 @@ async function loadPlugin(id: string, root: string): Promise<Plugin> {
    return plugin
 }
 
-function loadPlugins(root: string, plugins: string[]) {
+function loadPlugins(plugins: string[], parent?: Plugin) {
    return Promise.all(plugins.map(
-      plugin => loadPlugin(plugin, root)
+      plugin => loadPlugin(plugin, parent)
    ))
 }
 
 async function loadPluginsFromConfig(root: string) {
    const { plugins = [] } = await loadToolKitConfig(root)
-   return loadPlugins(root, plugins)
+   return loadPlugins(plugins)
 }
 
 function findConflicts<T, U>(items: (U | Conflict<T>)[]): Conflict<T>[] {
