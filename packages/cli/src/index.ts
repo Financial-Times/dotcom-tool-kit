@@ -50,34 +50,35 @@ class LifecycleCommand implements Command {
    constructor(public argv: string[]) {}
 
    async run() {
-      for(const lifecycle of this.argv) {
-         const commands = config.lifecycles[lifecycle]
+      for(const id of this.argv) {
+         const lifecycle = config.lifecycles[id]
 
-         if(Array.isArray(commands)) {
-            for(const command of commands) {
-               await runCommand(command, [])
-            }
-         } else if(typeof commands === 'string') {
-            await runCommand(commands, [])
+         if(isConflict(lifecycle)) continue
+
+         for(const command of lifecycle.commands) {
+            await runCommand(command, [])
          }
       }
    }
 }
 
-type UnconflictedLifecycle = string | string[]
-type Lifecycle = UnconflictedLifecycle | Conflict<UnconflictedLifecycle>
+interface Lifecycle {
+   plugin: Plugin
+   commands: string[]
+   unambiguous: boolean
+}
 
 type Config = {
    root: string
    findCommand(): boolean
    plugins: { [id: string]: Plugin },
    commands: { [id: string]: CommandClass | Conflict<CommandClass> },
-   lifecycles: { [id: string]: Lifecycle }
+   lifecycles: { [id: string]: Lifecycle | Conflict<Lifecycle> }
 }
 
 interface ValidConfig extends Config {
    commands: { [id: string]: CommandClass },
-   lifecycles: { [id: string]: UnconflictedLifecycle }
+   lifecycles: { [id: string]: Lifecycle }
 }
 
 const config: Config = {
@@ -93,7 +94,7 @@ const config: Config = {
 
 interface ConfigFile {
    plugins: string[],
-   lifecycles: { [id: string]: Lifecycle }
+   lifecycles: { [id: string]: string | string[] }
 }
 
 interface CommandClass {
@@ -180,15 +181,21 @@ async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
       lifecycles,
 
       // handle conflicts between parents and children
-      (childLifecycle: Lifecycle, parentLifecycle: Lifecycle, id) => {
+      (existingLifecycle: Lifecycle, configLifecycle: string | string[], id) => {
+         const newLifecycle: Lifecycle = {
+            plugin,
+            commands: Array.isArray(configLifecycle) ? configLifecycle : [configLifecycle],
+            unambiguous: Array.isArray(configLifecycle)
+         }
+
          // TODO this is incorrect! parents should always override children, but _siblings_ should conflict. needs rewriting because currently can't consider siblings
 
          // - this lifecycle might not have been set yet, in which case childLifecycle
          // will be undefined, so use the parentLifecycle.
          // - apps and plugins can disambiguate a conflicting lifecycle by providing
          // an array, which tells the runner what order to run the commands in.
-         if(!childLifecycle || Array.isArray(parentLifecycle)) {
-            return parentLifecycle
+         if(!existingLifecycle || newLifecycle.unambiguous) {
+            return newLifecycle
          }
 
          // if we're here, it's because these things are true:
@@ -197,7 +204,7 @@ async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
 
          // so, any other case is a conflict. any conflicts left in the lifecycles
          // object will be noticed by the validator, which will throw a helpful error
-         return conflict(parentLifecycle, childLifecycle)
+         return conflict(newLifecycle, existingLifecycle)
       }
    )
 
@@ -249,6 +256,7 @@ export async function runCommand(id: string, argv: string[]) {
    validateConfig(config)
 
    if(!(id in config.commands)) {
+      // TODO improve error message
       throw new Error(`command "${id}" not found`)
    }
 
