@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const { load, runCommand } = require('../lib')
+const c = require('ansi-colors')
 
 const [command, ...argv] = process.argv.slice(2)
 
@@ -10,7 +11,11 @@ async function main() {
       await runCommand(command, argv)
    } catch(error) {
       if(error.details) {
-         console.error(error.message + '\n\n' + error.details)
+         console.error(
+            c.red.bold('‼︎') + ' ' +
+            c.bold.underline(error.message) + '\n\n' +
+            error.details
+         )
       } else {
          console.error(error.stack)
       }
