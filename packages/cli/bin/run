@@ -4,11 +4,11 @@ const { load, runCommand } = require('../lib')
 
 const [command, ...argv] = process.argv.slice(2)
 
-load()
-.then(() => runCommand(command, argv))
-.then(
-   console.log,
-   error => {
+async function main() {
+   try {
+      await load()
+      await runCommand(command, argv)
+   } catch(error) {
       if(error.details) {
          console.error(error.message + '\n\n' + error.details)
       } else {
@@ -17,4 +17,6 @@ load()
 
       process.exitCode = error.exitCode || 1
    }
-)
+}
+
+main()
