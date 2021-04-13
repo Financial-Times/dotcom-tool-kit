@@ -1,0 +1,4 @@
+lifecycles:
+  'build:local': 'babel:development'
+  'build:ci': 'babel:production'
+  'build:deploy': 'babel:production'

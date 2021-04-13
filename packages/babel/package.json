@@ -1,9 +1,10 @@
 {
   "name": "@dotcom-tool-kit/babel",
   "version": "0.0.0-development",
+  "main": "lib",
+  "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
-  "main": "lib",
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
@@ -11,7 +12,7 @@
   },
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/babel",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "toolkit": {},
+  "keywords": [],
   "dependencies": {
     "@oclif/command": "^1.8.0"
   }

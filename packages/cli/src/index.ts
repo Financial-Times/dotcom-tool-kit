@@ -65,7 +65,6 @@ class LifecycleCommand implements Command {
 interface Lifecycle {
    plugin: Plugin
    commands: string[]
-   unambiguous: boolean
 }
 
 type Config = {
@@ -119,12 +118,8 @@ interface Plugin {
 }
 
 type Conflict<T> = {
+   plugin: Plugin,
    conflicting: T[]
-}
-
-// TODO more information for better error message
-function conflict<T>(a: T, b: T): Conflict<T> {
-   return { conflicting: [a, b] }
 }
 
 function isConflict<T>(thing: any): thing is Conflict<T> {
@@ -162,12 +157,15 @@ async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
       config.commands,
       plugin.commands,
 
-      (existingCommand: CommandClass, newCommand: CommandClass, commandId) => {
+      (existingCommand: CommandClass, newCommand: CommandClass, commandId): CommandClass | Conflict<CommandClass> => {
          if(!existingCommand) {
             return newCommand
          }
 
-         return conflict(existingCommand, newCommand)
+         return {
+            plugin,
+            conflicting: [existingCommand, newCommand]
+         }
       }
    )
 
@@ -180,31 +178,39 @@ async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
       config.lifecycles,
       lifecycles,
 
-      // handle conflicts between parents and children
-      (existingLifecycle: Lifecycle, configLifecycle: string | string[], id) => {
+      // handle conflicts between lifecycles from different plugins
+      (existingLifecycle: Lifecycle | Conflict<Lifecycle> | undefined, configLifecycle: string | string[], id): Lifecycle | Conflict<Lifecycle> => {
          const newLifecycle: Lifecycle = {
             plugin,
             commands: Array.isArray(configLifecycle) ? configLifecycle : [configLifecycle],
-            unambiguous: Array.isArray(configLifecycle)
          }
 
-         // TODO this is incorrect! parents should always override children, but _siblings_ should conflict. needs rewriting because currently can't consider siblings
-
-         // - this lifecycle might not have been set yet, in which case childLifecycle
-         // will be undefined, so use the parentLifecycle.
-         // - apps and plugins can disambiguate a conflicting lifecycle by providing
-         // an array, which tells the runner what order to run the commands in.
-         if(!existingLifecycle || newLifecycle.unambiguous) {
+         // this lifecycle might not have been set yet, in which case use the new one
+         if(!existingLifecycle) {
             return newLifecycle
          }
 
-         // if we're here, it's because these things are true:
-         //   - there is a parent lifecycle with the same name as a child lifecycle
-         //   - the parent lifecycle isn't an array for disambiguation
+         const existingFromSibling = existingLifecycle.plugin.parent && existingLifecycle.plugin.parent === plugin.parent
 
-         // so, any other case is a conflict. any conflicts left in the lifecycles
-         // object will be noticed by the validator, which will throw a helpful error
-         return conflict(newLifecycle, existingLifecycle)
+         // if the existing lifecycle was from a sibling, that's a conflict
+         // return a conflict either listing this lifecycle and the siblings,
+         // or merging in a previously-generated lifecycle
+         if(existingFromSibling) {
+            const conflicting = isConflict(existingLifecycle)
+               ? existingLifecycle.conflicting
+               : [existingLifecycle]
+
+            const conflict: Conflict<Lifecycle> = {
+               plugin,
+               conflicting: conflicting.concat(newLifecycle)
+            }
+
+            return conflict
+         }
+
+         // if we're here, any existing lifecycle is from a child plugin,
+         // so the parent always overrides it
+         return newLifecycle
       }
    )
 
