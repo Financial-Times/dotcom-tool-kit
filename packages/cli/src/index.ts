@@ -145,7 +145,6 @@ async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
    const root = parent ? parent.root : process.cwd()
 
    // load plugin relative to the app or parent plugin
-   // TODO load error handling
    const pluginRoot = resolveFrom(root, id)
    const basePlugin = importFrom.silent(root, id) as Plugin
    const plugin: Plugin = {
