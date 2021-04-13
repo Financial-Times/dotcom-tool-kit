@@ -4,9 +4,17 @@ const { load, runCommand } = require('../lib')
 
 const [command, ...argv] = process.argv.slice(2)
 
-load().then(() => {
-   runCommand(command, argv).then(
-      console.log,
-      console.error // TODO real error handling
-   )
-})
+load()
+.then(() => runCommand(command, argv))
+.then(
+   console.log,
+   error => {
+      if(error.details) {
+         console.error(error.message + '\n\n' + error.details)
+      } else {
+         console.error(error.stack)
+      }
+
+      process.exitCode = error.exitCode || 1
+   }
+)

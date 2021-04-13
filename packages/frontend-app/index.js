@@ -1,1 +1,3 @@
-exports.commands = {}
+exports.commands = {
+   'webpack:development': class Lol {}
+}

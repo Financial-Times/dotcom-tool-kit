@@ -63,6 +63,7 @@ class LifecycleCommand implements Command {
 }
 
 interface Lifecycle {
+   id: string
    plugin: Plugin
    commands: string[]
 }
@@ -97,6 +98,8 @@ interface ConfigFile {
 }
 
 interface CommandClass {
+   id?: string
+   plugin?: Plugin
    description: string
    hidden?: boolean
    new(argv: string[]): Command
@@ -144,12 +147,15 @@ async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
    // load plugin relative to the app or parent plugin
    // TODO load error handling
    const pluginRoot = resolveFrom(root, id)
-   const plugin = importFrom.silent(root, id) as Plugin
+   const basePlugin = importFrom.silent(root, id) as Plugin
+   const plugin: Plugin = {
+      ...basePlugin,
+      id,
+      root: pluginRoot,
+      parent
+   }
 
    config.plugins[id] = plugin
-   plugin.id = id
-   plugin.root = pluginRoot
-   plugin.parent = parent
 
    const { plugins = [], lifecycles = {} } = await loadToolKitConfig(pluginRoot)
 
@@ -157,14 +163,21 @@ async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
       config.commands,
       plugin.commands,
 
-      (existingCommand: CommandClass, newCommand: CommandClass, commandId): CommandClass | Conflict<CommandClass> => {
+      (existingCommand: CommandClass | Conflict<CommandClass>, newCommand: CommandClass, commandId): CommandClass | Conflict<CommandClass> => {
+         newCommand.plugin = plugin
+         newCommand.id = commandId
+
          if(!existingCommand) {
             return newCommand
          }
 
+         const conflicting = isConflict(existingCommand)
+            ? existingCommand.conflicting
+            : [existingCommand]
+
          return {
             plugin,
-            conflicting: [existingCommand, newCommand]
+            conflicting: conflicting.concat(newCommand)
          }
       }
    )
@@ -181,6 +194,7 @@ async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
       // handle conflicts between lifecycles from different plugins
       (existingLifecycle: Lifecycle | Conflict<Lifecycle> | undefined, configLifecycle: string | string[], id): Lifecycle | Conflict<Lifecycle> => {
          const newLifecycle: Lifecycle = {
+            id,
             plugin,
             commands: Array.isArray(configLifecycle) ? configLifecycle : [configLifecycle],
          }
@@ -240,13 +254,46 @@ function findConflicts<T, U>(items: (U | Conflict<T>)[]): Conflict<T>[] {
    return conflicts
 }
 
+// TODO use chalk for colour & formatting
+const formatCommandConflict = (conflict: Conflict<CommandClass>) => `- ${conflict.conflicting[0].id} from plugins ${conflict.conflicting.map(command => command.plugin ? command.plugin.id : 'unknown plugin').join(', ')}`
+
+const formatCommandConflicts = (conflicts: Conflict<CommandClass>[]) => `There are multiple plugins that include the same commands:
+${conflicts.map(formatCommandConflict).join('\n')}
+
+You must resolve this conflict by removing all but one of these plugins.`
+
+const formatLifecycleConflict = (conflict: Conflict<Lifecycle>) => `${conflict.conflicting[0].id}:
+${conflict.conflicting.map(lifecycle => `- ${lifecycle.commands.join(', ')} by plugin ${lifecycle.plugin.id}`).join('\n')}
+`
+
+const formatLifecycleConflicts = (conflicts: Conflict<Lifecycle>[]) => `These lifecycle events are assigned to different commands by multiple plugins:
+
+${conflicts.map(formatLifecycleConflict).join('\n')}
+You must resolve this conflict by explicitly configuring which command to use for these events. See https://github.com/financial-times/dotcom-tool-kit/wiki/Resolving-Lifecycle-Conflicts for more details.
+
+`
+
+class ToolKitError extends Error {
+   details?: string
+}
+
 function validateConfig(config: Config): asserts config is ValidConfig {
    const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
    const commandConflicts = findConflicts(Object.values(config.commands))
 
    if(lifecycleConflicts.length > 0 || commandConflicts.length > 0) {
-      // TODO real helpful error message
-      throw new Error(util.inspect({ lifecycleConflicts, commandConflicts }, { depth: null, colors: true }))
+      const error = new ToolKitError('There are problems with your Tool Kit configuration.')
+      error.details = ''
+
+      if(lifecycleConflicts.length) {
+         error.details += formatLifecycleConflicts(lifecycleConflicts)
+      }
+
+      if(commandConflicts.length) {
+         error.details += formatCommandConflicts(commandConflicts)
+      }
+
+      throw error
    }
 }
 
