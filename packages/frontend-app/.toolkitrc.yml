@@ -2,7 +2,7 @@ plugins:
   - "@dotcom-tool-kit/webpack"
   - "@dotcom-tool-kit/babel"
 
-not-lifecycles:
+lifecycles:
   "build:local":
     - "webpack:development"
     - "babel:development"

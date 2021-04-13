@@ -1,3 +1,1 @@
-exports.commands = {
-   'webpack:production': class {}
-}
+exports.commands = {}

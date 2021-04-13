@@ -238,6 +238,7 @@ function loadPlugins(plugins: string[], parent?: Plugin) {
 }
 
 async function loadPluginsFromConfig(root: string) {
+   // TODO load lifecycle definitions from app config
    const { plugins = [] } = await loadToolKitConfig(root)
    return loadPlugins(plugins)
 }
