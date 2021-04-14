@@ -1,6 +1,6 @@
 # Lifecycle conflicts
 
-Tool Kit allows its plugins, and apps using it, to [assign commands to lifecycle events](../readme.md#lifecycle). It's possible for these commands to conflict between plugins, in which case you'll need to resolve the conflict.
+Tool Kit allows its plugins, and apps using it, to [assign commands to lifecycle events](../readme.md#lifecycles). It's possible for these commands to conflict between plugins, in which case you'll need to resolve the conflict.
 
 ## What causes conflicts?
 
