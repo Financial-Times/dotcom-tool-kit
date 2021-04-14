@@ -1,12 +1,27 @@
 #!/usr/bin/env node
 
 const { load, runCommand } = require('../lib')
+const c = require('ansi-colors')
 
 const [command, ...argv] = process.argv.slice(2)
 
-load().then(() => {
-   runCommand(command, argv).then(
-      console.log,
-      console.error // TODO real error handling
-   )
-})
+async function main() {
+   try {
+      await load()
+      await runCommand(command, argv)
+   } catch(error) {
+      if(error.details) {
+         console.error(
+            c.red.bold('‼︎') + ' ' +
+            c.bold.underline(error.message) + '\n\n' +
+            error.details
+         )
+      } else {
+         console.error(error.stack)
+      }
+
+      process.exitCode = error.exitCode || 1
+   }
+}
+
+main()

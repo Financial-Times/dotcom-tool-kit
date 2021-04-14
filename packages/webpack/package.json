@@ -13,7 +13,6 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/webpack",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "keywords": [],
-  "toolkit": {},
   "dependencies": {
     "@oclif/command": "^1.8.0"
   }
