@@ -17,6 +17,6 @@ ${conflict.conflicting.map(lifecycle => `- ${lifecycle.commands.map(c.blueBright
 
 export const formatLifecycleConflicts = (conflicts: Conflict<Lifecycle>[]) => `${c.bold('These lifecycle events are assigned to different commands by multiple plugins')}:
 ${conflicts.map(formatLifecycleConflict).join('\n')}
-You must resolve this conflict by explicitly configuring which command to use for these events. See ${c.cyan.underline('https://github.com/financial-times/dotcom-tool-kit/wiki/Resolving-Lifecycle-Conflicts')} for more details.
+You must resolve this conflict by explicitly configuring which command to use for these events. See ${c.cyan.underline('https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-lifecycle-conflicts.md')} for more details.
 
 `
