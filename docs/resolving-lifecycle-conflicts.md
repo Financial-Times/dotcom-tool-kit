@@ -1,6 +1,6 @@
 # Lifecycle conflicts
 
-Tool Kit allows its plugins, and apps using it, to [assign commands to lifecycle events](../#lifecycle). It's possible for these commands to conflict between plugins, in which case you'll need to resolve the conflict.
+Tool Kit allows its plugins, and apps using it, to [assign commands to lifecycle events](../readme.md#lifecycle). It's possible for these commands to conflict between plugins, in which case you'll need to resolve the conflict.
 
 ## What causes conflicts?
 
@@ -18,7 +18,7 @@ You might not be using the conflicting plugins directly; they might be installed
 
 ## Resolving conflicts
 
-The [Tool Kit configuration](../#configuration) in your app will override any configuration from plugins, which is where default lifecycle assignments are defined. You can provide configuration in your `.toolkitrc.yml` or `package.json` `toolkit` field to specify which of the conflicting Tool Kit commands you want to run.
+The [Tool Kit configuration](../readme.md#configuration) in your app will override any configuration from plugins, which is where default lifecycle assignments are defined. You can provide configuration in your `.toolkitrc.yml` or `package.json` `toolkit` field to specify which of the conflicting Tool Kit commands you want to run.
 
 For example, if your app requires Webpack to run for `build:local` lifecycle events, but not Babel:
 
