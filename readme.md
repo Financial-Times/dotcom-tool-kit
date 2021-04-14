@@ -20,6 +20,66 @@ Tool Kit commands are implemented with [Oclif](https://oclif.io/), the Open CLI 
 
 In the future, there will be unit and integration tests for every package.
 
+
+## Lifecycles
+
+Tool Kit manages the build lifecycle for your app. It defines **lifecycle events** that can be run by developers, or other tooling like CI and hosting platforms:
+
+### Events
+
+| Event | When it runs | Why it runs |
+|-|-|-|
+| `build:*` | After installing project dependencies | To compile code or assets so an app can run |
+| `test:*` | Locally when run by a developer, on CI, and when deploying an app | To run automated tests that verify an app is working correctly |
+| `release:*` | After building an app on a hosting platform | To run secondary tasks related to deploying an app, e.g. database migrations or asset uploads |
+
+Tool Kit manages the configuration to run lifecycle events automatically from other tooling. On first install, it will modify your configuration files, and verify the configuration exists when it runs. It will install itself in these locations:
+
+<table>
+   <tr>
+      <th>Event</th>
+      <th>Environment</th>
+      <th>Installed to...</th>
+   </tr>
+   <tr>
+      <td rowspan="3" align="right"><code>build:</code></td>
+      <td><code>local</code></td>
+      <td>npm <code>postinstall</code> script</td>
+   </tr>
+   <tr>
+      <td><code>ci</code></td>
+      <td>CircleCI <code>build</code> job</td>
+   </tr>
+   <tr>
+      <td><code>deploy</code></td>
+      <td>npm <code>heroku-postbuild</code> script</td>
+   </tr>
+   <tr>
+      <td rowspan="3" align="right"><code>test:</code></td>
+      <td><code>local</code></td>
+      <td>Git <code>prepush</code> hook</td>
+   </tr>
+   <tr>
+      <td><code>ci</code></td>
+      <td>CircleCI <code>test</code> job</td>
+   </tr>
+   <tr>
+      <td><code>deploy</code></td>
+      <td>Heroku "Release Phase" command</td>
+   </tr>
+   <tr>
+      <td align="right"><code>release:</code></td>
+      <td><code>deploy</code></td>
+      <td>Heroku "Release Phase" command</td>
+   </tr>
+</table>
+
+Tool Kit [plugins](#plugins) can configure which of their commands run by default on a particular lifecycle event. For example, the `webpack` plugin runs `webpack:development` on the `build:local` event.
+
+Your app (and other plugins) can override these defaults in your [configuration](#configuration), so you can adapt the commands that run to your own needs (and so we can publish plugins that define common use cases composed of other plugins).
+
+If you have multiple plugins installed that assign different commands to the same events, you'll need to [resolve the conflict](docs/resolving-lifecycle-conflicts.md).
+
 ## Configuration
 
 Tool Kit supports configuration via a `toolkit` field in `package.json`:
@@ -46,6 +106,28 @@ A Tool Kit plugin can also contain configuration, allowing plugins to provide de
 #### `plugins`
 
 A list of Tool Kit plugins to load. These plugins should be listed as `devDependencies` in your app's `package.json`.
+
+#### `lifecycles`
+
+An object assigning [lifecycle events](#events) to commands:
+
+```yaml
+lifecycles:
+  "build:local": "webpack:development"
+```
+
+A lifecycle can be assigned to a single command, or a list of commands, which will run in sequence:
+
+```yaml
+lifecycles:
+  "build:local":
+    - "webpack:development"
+    - "babel:development"
+```
+
+A plugin can list its own commands, or commands from any of the plugins it depends on. Plugins list their own commands as a default assignment.
+
+If multiple plugins that are depended on by the same plugin set the same default event assignments, that's a conflict, and you won't be able to run Tool Kit without [resolving the conflict](docs/resolving-lifecycle-conflicts.md) in the parent plugin, or your app.
 
 ## Plugin structure
 
