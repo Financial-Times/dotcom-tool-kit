@@ -33,6 +33,7 @@ Tool Kit manages the build lifecycle for your app. It defines **lifecycle events
 | `test:*` | Locally when run by a developer, on CI, and when deploying an app | To run automated tests that verify an app is working correctly |
 | `release:*` | After building an app on a hosting platform | To run secondary tasks related to deploying an app, e.g. database migrations or asset uploads |
 
+<!-- NOT IMPLEMENTED YET
 Tool Kit manages the configuration to run lifecycle events automatically from other tooling. On first install, it will modify your configuration files, and verify the configuration exists when it runs. It will install itself in these locations:
 
 <table>
@@ -72,7 +73,7 @@ Tool Kit manages the configuration to run lifecycle events automatically from ot
       <td><code>deploy</code></td>
       <td>Heroku "Release Phase" command</td>
    </tr>
-</table>
+</table> -->
 
 Tool Kit [plugins](#plugins) can configure which of their commands run by default on a particular lifecycle event. For example, the `webpack` plugin runs `webpack:development` on the `build:local` event.
 
