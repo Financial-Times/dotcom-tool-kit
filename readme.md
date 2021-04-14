@@ -100,7 +100,7 @@ or via a separate file, `.toolkitrc`, which can be YAML or JSON format:
 plugins: []
 ```
 
-A Tool Kit plugin can also contain configuration, allowing plugins to provide defaults. App configuration will always override plugin configuration.
+A Tool Kit plugin can also contain configuration, allowing plugins to provide defaults. App configuration will always override plugin configuration. For an example of a complete configuration file, see the [`.toolkitrc.yml` in the `frontend-app` plugin](packages/frontend-app/.toolkitrc.yml).
 
 ### Options
 
