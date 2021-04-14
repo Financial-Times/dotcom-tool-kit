@@ -1,10 +1,13 @@
 import { validateConfig, config, ValidConfig } from './config'
-import { loadPluginsFromConfig } from './plugin'
-
-const appRoot = process.cwd()
+import { loadPluginConfig } from './plugin'
 
 export async function load(): Promise<ValidConfig> {
-   await loadPluginsFromConfig(appRoot)
+   // start loading config and child plugins, starting from the consumer app directory
+   await loadPluginConfig({
+      id: 'app root',
+      root: process.cwd(),
+   })
+
    validateConfig(config)
    return config
 }

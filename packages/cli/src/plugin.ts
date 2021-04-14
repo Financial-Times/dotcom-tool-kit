@@ -12,32 +12,13 @@ export interface Plugin {
    id: string
    root: string
    parent?: Plugin
-   commands: {
+   commands?: {
       [id: string]: CommandClass
    }
 }
 
-export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
-   // don't load duplicate commands
-   if (id in config.plugins) {
-      return config.plugins[id]
-   }
-
-   const root = parent ? parent.root : process.cwd()
-
-   // load plugin relative to the app or parent plugin
-   const pluginRoot = resolveFrom(root, id)
-   const basePlugin = importFrom.silent(root, id) as Plugin
-   const plugin: Plugin = {
-      ...basePlugin,
-      id,
-      root: pluginRoot,
-      parent
-   }
-
-   config.plugins[id] = plugin
-
-   const { plugins = [], lifecycles = {} } = await loadToolKitRC(pluginRoot)
+export async function loadPluginConfig(plugin: Plugin) {
+   const { plugins = [], lifecycles = {} } = await loadToolKitRC(plugin.root)
 
    mergeWith(
       config.commands,
@@ -107,6 +88,28 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
          return newLifecycle
       }
    )
+}
+
+export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
+   // don't load duplicate commands
+   if (id in config.plugins) {
+      return config.plugins[id]
+   }
+
+   const root = parent ? parent.root : process.cwd()
+
+   // load plugin relative to the parent plugin
+   const pluginRoot = resolveFrom(root, id)
+   const basePlugin = importFrom.silent(root, id) as Plugin
+   const plugin: Plugin = {
+      ...basePlugin,
+      id,
+      root: pluginRoot,
+      parent
+   }
+
+   config.plugins[id] = plugin
+   await loadPluginConfig(plugin)
 
    return plugin
 }
@@ -115,10 +118,4 @@ export function loadPlugins(plugins: string[], parent?: Plugin) {
    return Promise.all(plugins.map(
       plugin => loadPlugin(plugin, parent)
    ))
-}
-
-export async function loadPluginsFromConfig(root: string) {
-   // TODO load lifecycle definitions from app config
-   const { plugins = [] } = await loadToolKitRC(root)
-   return loadPlugins(plugins)
 }
