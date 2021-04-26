@@ -5,7 +5,7 @@ import mergeWith from 'lodash.mergewith'
 import type { CommandClass } from './command'
 import type { Lifecycle } from './lifecycle'
 import { Conflict, isConflict } from './conflict'
-import { config } from './config'
+import { config, PluginOptions } from './config'
 import { loadToolKitRC } from './rc-file'
 
 export interface Plugin {
@@ -18,8 +18,9 @@ export interface Plugin {
 }
 
 export async function loadPluginConfig(plugin: Plugin) {
-   const { plugins = [], lifecycles = {} } = await loadToolKitRC(plugin.root)
+   const { plugins = [], lifecycles = {}, options = {} } = await loadToolKitRC(plugin.root)
 
+   // add plugin commands to our command registry, handling any conflicts
    mergeWith(
       config.commands,
       plugin.commands,
@@ -86,6 +87,43 @@ export async function loadPluginConfig(plugin: Plugin) {
          // if we're here, any existing lifecycle is from a child plugin,
          // so the parent always overrides it
          return newLifecycle
+      }
+   )
+
+   // merge options from this plugin's config with any options we've collected already
+   // TODO this is almost the exact same code as for lifecycles, refactor
+   mergeWith(
+      config.options,
+      options,
+      (existingOptions: PluginOptions | Conflict<PluginOptions>, configOptions: Object) => {
+         const pluginOptions: PluginOptions = { options: configOptions, plugin }
+
+         // this lifecycle might not have been set yet, in which case use the new one
+         if(!existingOptions) {
+            return pluginOptions
+         }
+
+         const existingFromSibling = existingOptions.plugin.parent && existingOptions.plugin.parent === plugin.parent
+
+         // if the existing options were from a sibling, that's a conflict
+         // return a conflict either listing these options and the sibling's,
+         // or merging in previously-generated options
+         if(existingFromSibling) {
+            const conflicting = isConflict(existingOptions)
+               ? existingOptions.conflicting
+               : [existingOptions]
+
+            const conflict: Conflict<PluginOptions> = {
+               plugin,
+               conflicting: conflicting.concat(pluginOptions)
+            }
+
+            return conflict
+         }
+
+         // if we're here, any existing options are from a child plugin,
+         // so merge in overrides from the parent
+         return { ...existingOptions , ...pluginOptions }
       }
    )
 }
