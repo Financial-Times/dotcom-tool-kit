@@ -2,3 +2,8 @@ plugins:
   - "@dotcom-tool-kit/frontend-app"
   - "@dotcom-tool-kit/heroku-postbuild"
   - "@dotcom-tool-kit/eslint"
+
+options:
+  "@dotcom-tool-kit/eslint":
+    files:
+      - webpack.config.js
