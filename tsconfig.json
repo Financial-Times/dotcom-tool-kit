@@ -12,6 +12,9 @@
     },
     {
       "path": "packages/webpack"
+    },
+    {
+      "path": "packages/eslint"
     }
   ]
 }
