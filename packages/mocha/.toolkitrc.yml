@@ -1,0 +1,4 @@
+lifecycles:
+  'build:local': 'mocha'
+  'build:ci': 'mocha'
+

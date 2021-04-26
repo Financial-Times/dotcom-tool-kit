@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "@dotcom-tool-kit/mocha",
     "heroku-postbuild": "dotcom-tool-kit heroku:postbuild"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
     "dotcom-tool-kit": "file:../cli"
   },
   "dependencies": {
-    "@dotcom-tool-kit/eslint": "file:../eslint"
+    "@dotcom-tool-kit/eslint": "file:../eslint",
+    "@dotcom-tool-kit/mocha": "file:../mocha"
   }
 }
