@@ -69,4 +69,14 @@ export default class ${camelCaseName} extends Command {
 }`
 )
 
+fs.writeFileSync(
+  'src/index.ts',
+  `import ${camelCaseName} from './commands/${name}'
+
+export const commands = {
+  '${name}': ${camelCaseName}
+}
+`
+)
+
 console.log('🌊 byeee~')
