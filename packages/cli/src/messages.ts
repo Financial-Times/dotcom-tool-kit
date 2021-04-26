@@ -20,3 +20,5 @@ ${conflicts.map(formatLifecycleConflict).join('\n')}
 You must resolve this conflict by explicitly configuring which command to use for these events. See ${c.cyan.underline('https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-lifecycle-conflicts.md')} for more details.
 
 `
+
+export const formatOptionConflicts = (conflicts: any) => JSON.stringify(conflicts, null, 2)
