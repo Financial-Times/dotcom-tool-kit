@@ -95,8 +95,12 @@ export async function loadPluginConfig(plugin: Plugin) {
    mergeWith(
       config.options,
       options,
-      (existingOptions: PluginOptions | Conflict<PluginOptions>, configOptions: Object) => {
-         const pluginOptions: PluginOptions = { options: configOptions, plugin }
+      (existingOptions: PluginOptions | Conflict<PluginOptions>, configOptions: Object, id) => {
+         const pluginOptions: PluginOptions = {
+            options: configOptions,
+            plugin,
+            forPlugin: config.plugins[id]
+         }
 
          // this lifecycle might not have been set yet, in which case use the new one
          if(!existingOptions) {

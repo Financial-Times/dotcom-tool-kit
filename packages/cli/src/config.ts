@@ -12,6 +12,7 @@ import LifecycleCommand from './commands/lifecycle'
 export interface PluginOptions {
    options: Object
    plugin: Plugin
+   forPlugin: Plugin
 }
 
 export interface Config {
