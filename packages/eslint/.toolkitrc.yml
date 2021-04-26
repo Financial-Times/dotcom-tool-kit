@@ -1,0 +1,3 @@
+lifecycles:
+  'test:local': 'eslint'
+  'test:ci': 'eslint'
