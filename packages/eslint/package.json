@@ -7,7 +7,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@oclif/command": "^1.8.0"
+    "@oclif/command": "^1.8.0",
+    "eslint": "^7.25.0"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
     "directory": "packages/eslint"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/eslint"
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/eslint",
+  "devDependencies": {
+    "@types/eslint": "^7.2.10"
+  }
 }
