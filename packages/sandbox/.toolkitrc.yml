@@ -8,3 +8,5 @@ options:
   "@dotcom-tool-kit/eslint":
     files:
       - webpack.config.js
+  "@dotcom-tool-kit/n-test":
+    host: "https://example.com"
