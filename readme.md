@@ -126,6 +126,17 @@ A Tool Kit plugin can also contain configuration, allowing plugins to provide de
 
 A list of Tool Kit plugins to load. These plugins should be listed as `devDependencies` in your app's `package.json`.
 
+#### `options`
+
+An object containing options for Tool Kit plugins. The keys are the names of plugins, and the values are an options object which will be passed into that plugin's commands:
+
+```yaml
+options:
+  "@dotcom-tool-kit/eslint":
+    files:
+      - "**/*.js"
+```
+
 #### `lifecycles`
 
 An object assigning [lifecycle events](#events) to commands:

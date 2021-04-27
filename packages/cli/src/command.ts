@@ -10,6 +10,7 @@ export interface CommandClass {
 
 export interface Command {
    config?: Object
+   options?: Object
    init?(): Promise<void>
    run(): Promise<void>
 }

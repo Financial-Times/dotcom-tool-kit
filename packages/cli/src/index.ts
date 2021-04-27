@@ -23,6 +23,11 @@ export async function runCommand(id: string, argv: string[]) {
    const Command = config.commands[id]
    const command = new Command(argv)
 
+   // attach any options from config files to the command instance
+   if(Command.plugin && config.options[Command.plugin.id]) {
+      command.options = config.options[Command.plugin.id].options
+   }
+
    // dummy oclif config so @oclif/command's init doesn't crash
    command.config = {}
 
