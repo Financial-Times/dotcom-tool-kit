@@ -3,6 +3,7 @@ plugins:
   - "@dotcom-tool-kit/heroku-postbuild"
   - "@dotcom-tool-kit/eslint"
   - "@dotcom-tool-kit/mocha"
+  - "@dotcom-tool-kit/n-test"
 
 options:
   "@dotcom-tool-kit/eslint":
@@ -18,3 +19,5 @@ lifecycles:
   "test:ci": 
     - 'mocha'
     - "eslint"
+  "@dotcom-tool-kit/n-test":
+    host: "https://example.com"

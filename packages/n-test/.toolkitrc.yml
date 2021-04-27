@@ -1,0 +1,2 @@
+lifecycles:
+  "test:deploy": "n-test"
