@@ -17,10 +17,18 @@ export default class MochaCommand extends Command {
 
    async run() {
       const mocha = new Mocha()
-      let fileNames = fs.readdirSync(this.options.testDir)
-      fileNames.forEach((file: string) =>{
-         mocha.addFile(`${this.options.testDir}/${file}`)
-      })
+      let fileNames: string[]
+
+      try {
+         fileNames = fs.readdirSync(this.options.testDir)
+         fileNames.forEach((file: string) =>{
+            mocha.addFile(`${this.options.testDir}/${file}`)
+         })
+      }
+      catch(error) {
+            console.log(`Something went wrong: please ensure your tests are in ./test, or their location is configured in your project's .toolkitrc.yml`)
+         }
+
       mocha
          .run()
          //TODO: error handling
