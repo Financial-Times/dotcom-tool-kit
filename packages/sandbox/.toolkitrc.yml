@@ -2,8 +2,11 @@ plugins:
   - "@dotcom-tool-kit/frontend-app"
   - "@dotcom-tool-kit/heroku-postbuild"
   - "@dotcom-tool-kit/eslint"
+  - "@dotcom-tool-kit/n-test"
 
 options:
   "@dotcom-tool-kit/eslint":
     files:
       - webpack.config.js
+  "@dotcom-tool-kit/n-test":
+    host: "https://example.com"

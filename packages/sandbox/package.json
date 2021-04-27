@@ -13,6 +13,7 @@
   "devDependencies": {
     "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
     "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
+    "@dotcom-tool-kit/n-test": "file:../n-test",
     "dotcom-tool-kit": "file:../cli"
   },
   "dependencies": {
