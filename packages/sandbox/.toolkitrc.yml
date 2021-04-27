@@ -2,6 +2,7 @@ plugins:
   - "@dotcom-tool-kit/frontend-app"
   - "@dotcom-tool-kit/heroku-postbuild"
   - "@dotcom-tool-kit/eslint"
+  - "@dotcom-tool-kit/n-test"
 
 options:
   "@dotcom-tool-kit/eslint":
