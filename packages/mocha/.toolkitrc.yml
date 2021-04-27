@@ -1,4 +1,8 @@
 lifecycles:
-  'build:local': 'mocha'
-  'build:ci': 'mocha'
+  'test:local': 'mocha'
+  'test:ci': 'mocha'
+
+options:
+  '@dotcom-tool-kit/mocha':
+    testDir: './test'
 
