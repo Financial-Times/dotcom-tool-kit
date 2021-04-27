@@ -11,12 +11,10 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@dotcom-tool-kit/eslint": "file:../eslint",
     "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
     "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
+    "@dotcom-tool-kit/mocha": "file:../mocha",
     "dotcom-tool-kit": "file:../cli"
-  },
-  "dependencies": {
-    "@dotcom-tool-kit/eslint": "file:../eslint",
-    "@dotcom-tool-kit/mocha": "file:../mocha"
   }
 }
