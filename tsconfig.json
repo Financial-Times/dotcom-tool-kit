@@ -17,6 +17,9 @@
       "path": "packages/eslint"
     },
     {
+      "path": "packages/mocha"
+    },
+    {
       "path": "packages/n-test"
     }
   ]
