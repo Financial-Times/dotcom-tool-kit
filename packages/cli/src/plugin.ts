@@ -20,32 +20,6 @@ export interface Plugin {
 export async function loadPluginConfig(plugin: Plugin): Promise<void> {
   const { plugins = [], lifecycles = {}, options = {} } = await loadToolKitRC(plugin.root)
 
-  // add plugin commands to our command registry, handling any conflicts
-  mergeWith(
-    config.commands,
-    plugin.commands,
-
-    (
-      existingCommand: CommandClass | Conflict<CommandClass>,
-      newCommand: CommandClass,
-      commandId
-    ): CommandClass | Conflict<CommandClass> => {
-      newCommand.plugin = plugin
-      newCommand.id = commandId
-
-      if (!existingCommand) {
-        return newCommand
-      }
-
-      const conflicting = isConflict(existingCommand) ? existingCommand.conflicting : [existingCommand]
-
-      return {
-        plugin,
-        conflicting: conflicting.concat(newCommand)
-      }
-    }
-  )
-
   // load any plugins requested by this plugin
   await loadPlugins(plugins, plugin)
 
@@ -157,6 +131,33 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
   }
 
   config.plugins[id] = plugin
+
+  // add plugin commands to our command registry, handling any conflicts
+  mergeWith(
+    config.commands,
+    plugin.commands,
+
+    (
+      existingCommand: CommandClass | Conflict<CommandClass>,
+      newCommand: CommandClass,
+      commandId
+    ): CommandClass | Conflict<CommandClass> => {
+      newCommand.plugin = plugin
+      newCommand.id = commandId
+
+      if (!existingCommand) {
+        return newCommand
+      }
+
+      const conflicting = isConflict(existingCommand) ? existingCommand.conflicting : [existingCommand]
+
+      return {
+        plugin,
+        conflicting: conflicting.concat(newCommand)
+      }
+    }
+  )
+
   await loadPluginConfig(plugin)
 
   return plugin
