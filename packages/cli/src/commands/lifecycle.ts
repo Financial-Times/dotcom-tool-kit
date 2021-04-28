@@ -22,7 +22,7 @@ ${Object.keys(config.lifecycles)
     }
 
     for (const id of this.argv) {
-      const lifecycle = config.lifecycles[id]
+      const lifecycle = config.lifecycleAssignments[id]
 
       if (isConflict(lifecycle)) continue
 

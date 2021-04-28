@@ -20,13 +20,13 @@ export interface Config {
   findCommand(): boolean
   plugins: { [id: string]: Plugin }
   commands: { [id: string]: CommandClass | Conflict<CommandClass> }
-  lifecycles: { [id: string]: Lifecycle | Conflict<Lifecycle> }
+  lifecycleAssignments: { [id: string]: Lifecycle | Conflict<Lifecycle> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> }
 }
 
 export interface ValidConfig extends Config {
   commands: { [id: string]: CommandClass }
-  lifecycles: { [id: string]: Lifecycle }
+  lifecycleAssignments: { [id: string]: Lifecycle }
   options: { [id: string]: PluginOptions }
 }
 
@@ -40,12 +40,12 @@ export const config: Config = {
     help: HelpCommand,
     lifecycle: LifecycleCommand
   },
-  lifecycles: {},
+  lifecycleAssignments: {},
   options: {}
 }
 
 export function validateConfig(config: Config): asserts config is ValidConfig {
-  const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
+  const lifecycleConflicts = findConflicts(Object.values(config.lifecycleAssignments))
   const commandConflicts = findConflicts(Object.values(config.commands))
   const optionConflicts = findConflicts(Object.values(config.options))
 

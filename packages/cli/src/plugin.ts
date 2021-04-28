@@ -52,7 +52,7 @@ export async function loadPluginConfig(plugin: Plugin): Promise<void> {
   // load plugin lifecycle assignments. do this after loading child plugins, so
   // parent lifecycles get assigned after child lifecycles and can override them
   mergeWith(
-    config.lifecycles,
+    config.lifecycleAssignments,
     lifecycles,
 
     // handle conflicts between lifecycles from different plugins
