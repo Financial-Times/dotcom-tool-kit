@@ -20,6 +20,7 @@
     "dotcom-tool-kit": "file:../cli"
   },
   "dependencies": {
-    "@dotcom-tool-kit/lifecycle-build": "file:../lifecycle-build"
+    "@dotcom-tool-kit/lifecycle-build": "file:../lifecycle-build",
+    "@dotcom-tool-kit/lifecycle-test": "file:../lifecycle-test"
   }
 }
