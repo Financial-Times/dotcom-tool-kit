@@ -6,6 +6,6 @@ export default class HerokuStaging extends Command {
    static args = []
 
    async run() {
-      console.log('Heroku Staging')
+      console.log('Heroku Staging') // eslint-disable-line no-console
    }
 }

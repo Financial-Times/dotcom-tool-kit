@@ -6,6 +6,6 @@ export default class HerokuProduction extends Command {
    static args = []
 
    async run() {
-      console.log('Heroku Production')
+      console.log('Heroku Production') // eslint-disable-line no-console
    }
 }
