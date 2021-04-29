@@ -1,5 +1,5 @@
 class TestCI {
-   async verify() {
+   async check() {
       return false
    }
 
@@ -9,7 +9,7 @@ class TestCI {
 }
 
 class TestLocal {
-   async verify() {
+   async check() {
       return false
    }
 
@@ -19,7 +19,7 @@ class TestLocal {
 }
 
 class TestDeploy {
-   async verify() {
+   async check() {
       return false
    }
 

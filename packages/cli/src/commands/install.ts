@@ -12,7 +12,7 @@ export default class InstallCommand implements Command {
 
          const lifecycle = new Lifecycle()
 
-         if(!await lifecycle.verify()) {
+         if(!await lifecycle.check()) {
             await lifecycle.install()
          }
       }

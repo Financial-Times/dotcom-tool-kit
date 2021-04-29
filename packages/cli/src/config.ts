@@ -5,7 +5,7 @@ import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import type { Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { formatCommandConflicts, formatInvalidLifecycleAssignments, formatLifecycleAssignmentConflicts, formatLifecycleConflicts, formatOptionConflicts } from './messages'
+import { formatCommandConflicts, formatUndefinedLifecycleAssignments, formatLifecycleAssignmentConflicts, formatLifecycleConflicts, formatOptionConflicts, formatUninstalledLifecycles } from './messages'
 import HelpCommand from './commands/help'
 import LifecycleCommand from './commands/lifecycle'
 import InstallCommand from './commands/install'
@@ -49,7 +49,17 @@ export const config: Config = {
    lifecycles: {}
 }
 
-export function validateConfig(config: Config): asserts config is ValidConfig {
+async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
+   const results = await Promise.all(
+      items.map(
+         async item => ({ item, keep: await predicate(item) })
+      )
+   )
+
+   return results.filter(({ keep }) => keep).map(({ item }) => item)
+}
+
+export async function validateConfig(config: Config): Promise<ValidConfig> {
    const lifecycleAssignmentConflicts = findConflicts(Object.values(config.lifecycleAssignments))
    const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
    const commandConflicts = findConflicts(Object.values(config.commands))
@@ -85,15 +95,28 @@ export function validateConfig(config: Config): asserts config is ValidConfig {
    }
 
    const assignedLifecycles = withoutConflicts(Object.values(config.lifecycleAssignments))
-   const validLifecycles = new Set(Object.keys(config.lifecycles))
-   const invalidLifecycleAssignmentss = assignedLifecycles.filter(lifecycle => !validLifecycles.has(lifecycle.id))
+   const definedLifecycles = withoutConflicts(Object.values(config.lifecycles))
+   const definedLifecycleIds = new Set(Object.keys(config.lifecycles))
+   const undefinedLifecycleAssignments = assignedLifecycles.filter(lifecycle => !definedLifecycleIds.has(lifecycle.id))
 
-   if(invalidLifecycleAssignmentss.length > 0) {
+   if(undefinedLifecycleAssignments.length > 0) {
       shouldThrow = true
-      error.details += formatInvalidLifecycleAssignments(invalidLifecycleAssignmentss, Array.from(validLifecycles))
+      error.details += formatUndefinedLifecycleAssignments(undefinedLifecycleAssignments, Array.from(definedLifecycleIds))
+   }
+
+   const uninstalledLifecycles = await asyncFilter(definedLifecycles, async Lifecycle => {
+      const lifecycle = new Lifecycle()
+      return !(await lifecycle.check())
+   })
+
+   if(uninstalledLifecycles.length > 0) {
+      shouldThrow = true
+      error.details += formatUninstalledLifecycles(uninstalledLifecycles)
    }
 
    if(shouldThrow) {
       throw error
    }
+
+   return config as ValidConfig
 }

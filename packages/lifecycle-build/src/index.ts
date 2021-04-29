@@ -1,5 +1,5 @@
 class BuildCI {
-   async verify() {
+   async check() {
       return false
    }
 
@@ -9,7 +9,7 @@ class BuildCI {
 }
 
 class BuildLocal {
-   async verify() {
+   async check() {
       return false
    }
 
@@ -19,7 +19,7 @@ class BuildLocal {
 }
 
 class BuildDeploy {
-   async verify() {
+   async check() {
       return false
    }
 

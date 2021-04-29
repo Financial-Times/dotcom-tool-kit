@@ -13,6 +13,6 @@ export interface LifecycleClass {
 }
 
 export interface Lifecycle {
-   verify(): Promise<boolean>
+   check(): Promise<boolean>
    install(): Promise<void>
 }

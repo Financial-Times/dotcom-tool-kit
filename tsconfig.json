@@ -48,6 +48,9 @@
     },
     {
       "path": "packages/lifecycle-build"
+    },
+    {
+      "path": "packages/lifecycle-test"
     }
   ]
 }
