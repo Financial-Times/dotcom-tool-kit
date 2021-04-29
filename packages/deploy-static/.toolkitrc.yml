@@ -1,0 +1,8 @@
+lifecycles:
+  'build:local': 'deploy-static:development'
+  'build:ci': 'deploy-static:production'
+  'build:deploy': 'deploy-static:production'
+
+  options:
+  '@dotcom-tool-kit/deploy-static':
+    files: ['**/test*.json']
