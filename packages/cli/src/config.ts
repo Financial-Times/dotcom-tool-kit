@@ -5,7 +5,7 @@ import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import type { Plugin } from './plugin'
 import { Conflict, findConflicts } from './conflict'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { formatCommandConflicts, formatLifecycleConflicts, formatOptionConflicts } from './messages'
+import { formatCommandConflicts, formatLifecycleAssignmentConflicts, formatOptionConflicts } from './messages'
 import HelpCommand from './commands/help'
 import LifecycleCommand from './commands/lifecycle'
 import InstallCommand from './commands/install'
@@ -58,7 +58,7 @@ export function validateConfig(config: Config): asserts config is ValidConfig {
       error.details = ''
 
     if (lifecycleConflicts.length) {
-         error.details += formatLifecycleConflicts(lifecycleConflicts)
+         error.details += formatLifecycleAssignmentConflicts(lifecycleConflicts)
       }
 
     if (commandConflicts.length) {

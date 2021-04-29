@@ -19,7 +19,7 @@ ${conflicts.map(formatCommandConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatLifecycleConflict = (conflict: Conflict<LifecycleAssignment>) => `${c.magenta(conflict.conflicting[0].id)}:
+const formatLifecycleAssignmentConflict = (conflict: Conflict<LifecycleAssignment>) => `${c.magenta(conflict.conflicting[0].id)}:
 ${conflict.conflicting
   .map(
     (lifecycle) =>
@@ -30,10 +30,10 @@ ${conflict.conflicting
   .join('\n')}
 `
 
-export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleAssignment>[]): string => `${c.bold(
+export const formatLifecycleAssignmentConflicts = (conflicts: Conflict<LifecycleAssignment>[]): string => `${c.bold(
   'These lifecycle events are assigned to different commands by multiple plugins'
 )}:
-${conflicts.map(formatLifecycleConflict).join('\n')}
+${conflicts.map(formatLifecycleAssignmentConflict).join('\n')}
 You must resolve this conflict by explicitly configuring which command to use for these events. See ${c.cyan.underline(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-lifecycle-conflicts.md'
 )} for more details.
