@@ -2,7 +2,7 @@ import c from 'ansi-colors'
 
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
-import type { LifecycleAssignment } from './lifecycle'
+import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import type { CommandClass } from './command'
 
 const formatCommandConflict = (conflict: Conflict<CommandClass>) =>
@@ -16,6 +16,14 @@ export const formatCommandConflicts = (conflicts: Conflict<CommandClass>[]): str
   'There are multiple plugins that include the same commands'
 )}:
 ${conflicts.map(formatCommandConflict).join('\n')}
+
+You must resolve this conflict by removing all but one of these plugins.`
+
+
+const formatLifecycleConflict = (conflict: Conflict<LifecycleClass>) => `- ${c.blueBright(conflict.conflicting[0].id || 'unknown event')} ${c.grey('from plugins')} ${conflict.conflicting.map(command => c.cyan(command.plugin ? command.plugin.id : 'unknown plugin')).join(c.grey(', '))}`
+
+export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleClass>[]) => `${c.bold('There are multiple plugins that include the same lifecycle events')}:
+${conflicts.map(formatLifecycleConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 

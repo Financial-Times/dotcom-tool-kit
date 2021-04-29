@@ -167,7 +167,8 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
       config.lifecycles,
       plugin.lifecycles,
 
-      (existingLifecycle: LifecycleClass | Conflict<LifecycleClass>, newLifecycle: LifecycleClass): LifecycleClass | Conflict<LifecycleClass> => {
+      (existingLifecycle: LifecycleClass | Conflict<LifecycleClass>, newLifecycle: LifecycleClass, lifecycleId): LifecycleClass | Conflict<LifecycleClass> => {
+         newLifecycle.id = lifecycleId
          newLifecycle.plugin = plugin
 
          if(!existingLifecycle) {

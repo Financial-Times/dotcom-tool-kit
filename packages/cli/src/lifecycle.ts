@@ -7,6 +7,7 @@ export interface LifecycleAssignment {
 }
 
 export interface LifecycleClass {
+   id?: string
    plugin?: Plugin
    new(): Lifecycle
 }
