@@ -1,73 +1,104 @@
-import c from 'ansi-colors'
+import colours from 'ansi-colors'
 
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import type { CommandClass } from './command'
 
+// consistent styling use cases for terminal colours
+// don't use ansi-colors directly, define a style please
+const s = {
+  lifecycle: colours.magenta,
+  command: colours.blueBright,
+  plugin: colours.cyan,
+  URL: colours.cyan.underline,
+  app: colours.green,
+  heading: colours.bold,
+  dim: colours.grey
+}
+
 const formatCommandConflict = (conflict: Conflict<CommandClass>) =>
-  `- ${c.blueBright(conflict.conflicting[0].id || 'unknown command')} ${c.grey(
+  `- ${s.command(conflict.conflicting[0].id || 'unknown command')} ${s.dim(
     'from plugins'
   )} ${conflict.conflicting
-    .map((command) => c.cyan(command.plugin ? command.plugin.id : 'unknown plugin'))
-    .join(c.grey(', '))}`
+    .map((command) => s.plugin(command.plugin ? command.plugin.id : 'unknown plugin'))
+    .join(s.dim(', '))}`
 
-export const formatCommandConflicts = (conflicts: Conflict<CommandClass>[]): string => `${c.bold(
+export const formatCommandConflicts = (conflicts: Conflict<CommandClass>[]) => `${s.heading(
   'There are multiple plugins that include the same commands'
 )}:
 ${conflicts.map(formatCommandConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
+const formatLifecycleConflict = (conflict: Conflict<LifecycleClass>) =>
+  `- ${s.lifecycle(conflict.conflicting[0].id || 'unknown event')} ${s.dim(
+    'from plugins'
+  )} ${conflict.conflicting
+    .map((command) => s.plugin(command.plugin ? command.plugin.id : 'unknown plugin'))
+    .join(s.dim(', '))}`
 
-const formatLifecycleConflict = (conflict: Conflict<LifecycleClass>) => `- ${c.blueBright(conflict.conflicting[0].id || 'unknown event')} ${c.grey('from plugins')} ${conflict.conflicting.map(command => c.cyan(command.plugin ? command.plugin.id : 'unknown plugin')).join(c.grey(', '))}`
-
-export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleClass>[]) => `${c.bold('There are multiple plugins that include the same lifecycle events')}:
+export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleClass>[]) => `${s.heading(
+  'There are multiple plugins that include the same lifecycle events'
+)}:
 ${conflicts.map(formatLifecycleConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatLifecycleAssignmentConflict = (conflict: Conflict<LifecycleAssignment>) => `${c.magenta(conflict.conflicting[0].id)}:
+const formatLifecycleAssignmentConflict = (conflict: Conflict<LifecycleAssignment>) => `${s.lifecycle(
+  conflict.conflicting[0].id
+)}:
 ${conflict.conflicting
   .map(
     (lifecycle) =>
-      `- ${lifecycle.commands.map(c.blueBright).join(c.grey(', '))} ${c.grey('by plugin')} ${c.cyan(
+      `- ${lifecycle.commands.map(s.command).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
         lifecycle.plugin.id
       )}`
   )
   .join('\n')}
 `
 
-export const formatLifecycleAssignmentConflicts = (conflicts: Conflict<LifecycleAssignment>[]): string => `${c.bold(
-  'These lifecycle events are assigned to different commands by multiple plugins'
-)}:
+export const formatLifecycleAssignmentConflicts = (
+  conflicts: Conflict<LifecycleAssignment>[]
+) => `${s.heading('These lifecycle events are assigned to different commands by multiple plugins')}:
 ${conflicts.map(formatLifecycleAssignmentConflict).join('\n')}
-You must resolve this conflict by explicitly configuring which command to use for these events. See ${c.cyan.underline(
+You must resolve this conflict by explicitly configuring which command to use for these events. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-lifecycle-conflicts.md'
 )} for more details.
 
 `
 
-const formatOptionConflict = (conflict: Conflict<PluginOptions>) => `${c.magenta(
+const formatOptionConflict = (conflict: Conflict<PluginOptions>) => `${s.plugin(
   conflict.conflicting[0].forPlugin.id
 )}, configured by:
-${conflict.conflicting.map((option) => `- ${c.magenta(option.plugin.id)}`)}`
+${conflict.conflicting.map((option) => `- ${s.plugin(option.plugin.id)}`)}`
 
-export const formatOptionConflicts = (conflicts: Conflict<PluginOptions>[]): string => `${c.bold(
+export const formatOptionConflicts = (conflicts: Conflict<PluginOptions>[]) => `${s.heading(
   'These plugins have conflicting options'
 )}:
 
 ${conflicts.map(formatOptionConflict).join('\n')}
 
-You must resolve this conflict by providing options in your app's Tool Kit configuration for these plugins, or installing a use-case plugin that provides these options. See ${c.cyan.underline(
+You must resolve this conflict by providing options in your app's Tool Kit configuration for these plugins, or installing a use-case plugin that provides these options. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/readme.md#options'
 )} for more details.
 
 `
 
-export const formatInvalidLifecycleAssignments = (invalid: LifecycleAssignment[], validLifecycles: string[]) => `These lifecycle events don't exist, but have commands assigned to them:
+// TODO text similarity "did you mean...?"
+export const formatUndefinedLifecycleAssignments = (
+  undefinedAssignments: LifecycleAssignment[],
+  definedLifecycles: string[]
+) => `These lifecycle events don't exist, but have commands assigned to them:
 
-${invalid.map(lifecycle => `- ${c.blueBright(lifecycle.id)} assigned by ${lifecycle.plugin.id === 'app root' ? c.green('your app') : `plugin ${c.magenta(lifecycle.plugin.id)}`}`).join('\n')}
+${undefinedAssignments
+  .map(
+    (lifecycle) =>
+      `- ${s.lifecycle(lifecycle.id)} assigned by ${
+        lifecycle.plugin.id === 'app root' ? s.app('your app') : `plugin ${s.plugin(lifecycle.plugin.id)}`
+      }`
+  )
+  .join('\n')}
 
-Available lifecycle events are: ${validLifecycles.map(id => c.blueBright(id)).join(', ')}
+Available lifecycle events are: ${definedLifecycles.map(s.command).join(', ')}
 `
