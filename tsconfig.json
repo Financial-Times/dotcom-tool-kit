@@ -21,6 +21,9 @@
     },
     {
       "path": "packages/n-test"
+    },
+    {
+      "path": "packages/heroku"
     }
   ]
 }
