@@ -8,7 +8,28 @@ class BuildCI {
    }
 }
 
+class BuildLocal {
+   async verify() {
+      return false
+   }
+
+   async install() {
+      console.log('installing build:local')
+   }
+}
+
+class BuildDeploy {
+   async verify() {
+      return false
+   }
+
+   async install() {
+      console.log('installing build:deploy')
+   }
+}
 
 export const lifecycles = {
-   'build:ci': BuildCI
+   'build:local': BuildLocal,
+   'build:ci': BuildCI,
+   'build:deploy': BuildDeploy
 }
