@@ -1,7 +1,7 @@
 import path from 'path'
 
 import type { CommandClass } from './command'
-import type { Lifecycle } from './lifecycle'
+import type { LifecycleAssignment } from './lifecycle'
 import type { Plugin } from './plugin'
 import { Conflict, findConflicts } from './conflict'
 import { ToolKitError } from '@dotcom-tool-kit/error'
@@ -20,13 +20,13 @@ export interface Config {
   findCommand(): boolean
   plugins: { [id: string]: Plugin }
   commands: { [id: string]: CommandClass | Conflict<CommandClass> }
-  lifecycleAssignments: { [id: string]: Lifecycle | Conflict<Lifecycle> }
+  lifecycleAssignments: { [id: string]: LifecycleAssignment | Conflict<LifecycleAssignment> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> }
 }
 
 export interface ValidConfig extends Config {
   commands: { [id: string]: CommandClass }
-  lifecycleAssignments: { [id: string]: Lifecycle }
+  lifecycleAssignments: { [id: string]: LifecycleAssignment }
   options: { [id: string]: PluginOptions }
 }
 

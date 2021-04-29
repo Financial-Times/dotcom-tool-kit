@@ -2,7 +2,7 @@ import c from 'ansi-colors'
 
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
-import type { Lifecycle } from './lifecycle'
+import type { LifecycleAssignment } from './lifecycle'
 import type { CommandClass } from './command'
 
 const formatCommandConflict = (conflict: Conflict<CommandClass>) =>
@@ -19,7 +19,7 @@ ${conflicts.map(formatCommandConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatLifecycleConflict = (conflict: Conflict<Lifecycle>) => `${c.magenta(conflict.conflicting[0].id)}:
+const formatLifecycleConflict = (conflict: Conflict<LifecycleAssignment>) => `${c.magenta(conflict.conflicting[0].id)}:
 ${conflict.conflicting
   .map(
     (lifecycle) =>
@@ -30,7 +30,7 @@ ${conflict.conflicting
   .join('\n')}
 `
 
-export const formatLifecycleConflicts = (conflicts: Conflict<Lifecycle>[]): string => `${c.bold(
+export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleAssignment>[]): string => `${c.bold(
   'These lifecycle events are assigned to different commands by multiple plugins'
 )}:
 ${conflicts.map(formatLifecycleConflict).join('\n')}

@@ -3,7 +3,7 @@ import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
 
 import type { CommandClass } from './command'
-import type { Lifecycle } from './lifecycle'
+import type { LifecycleAssignment } from './lifecycle'
 import { Conflict, isConflict } from './conflict'
 import { config, PluginOptions } from './config'
 import { loadToolKitRC, RCFile } from './rc-file'
@@ -31,11 +31,11 @@ export async function loadPluginConfig(plugin: Plugin): Promise<void> {
 
     // handle conflicts between lifecycles from different plugins
     (
-      existingLifecycle: Lifecycle | Conflict<Lifecycle> | undefined,
+      existingLifecycle: LifecycleAssignment | Conflict<LifecycleAssignment> | undefined,
       configLifecycle: string | string[],
       id
-    ): Lifecycle | Conflict<Lifecycle> => {
-      const newLifecycle: Lifecycle = {
+    ): LifecycleAssignment | Conflict<LifecycleAssignment> => {
+      const newLifecycle: LifecycleAssignment = {
         id,
         plugin,
         commands: Array.isArray(configLifecycle) ? configLifecycle : [configLifecycle]
@@ -57,7 +57,7 @@ export async function loadPluginConfig(plugin: Plugin): Promise<void> {
           ? existingLifecycle.conflicting
           : [existingLifecycle]
 
-        const conflict: Conflict<Lifecycle> = {
+        const conflict: Conflict<LifecycleAssignment> = {
           plugin,
           conflicting: conflicting.concat(newLifecycle)
         }
