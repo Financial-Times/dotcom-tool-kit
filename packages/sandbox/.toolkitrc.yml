@@ -5,6 +5,7 @@ plugins:
   - "@dotcom-tool-kit/mocha"
   - "@dotcom-tool-kit/n-test"
   - "@dotcom-tool-kit/upload-assets-to-s3"
+  - "@dotcom-tool-kit/lifecycle-build"
 
 options:
   "@dotcom-tool-kit/eslint":

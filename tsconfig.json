@@ -45,6 +45,9 @@
     },
     {
       "path": "packages/command"
+    },
+    {
+      "path": "packages/lifecycle-build"
     }
   ]
 }
