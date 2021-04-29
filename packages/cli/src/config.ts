@@ -3,9 +3,9 @@ import path from 'path'
 import type { CommandClass } from './command'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import type { Plugin } from './plugin'
-import { Conflict, findConflicts } from './conflict'
+import { Conflict, findConflicts, withoutConflicts } from './conflict'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { formatCommandConflicts, formatLifecycleAssignmentConflicts, formatLifecycleConflicts, formatOptionConflicts } from './messages'
+import { formatCommandConflicts, formatInvalidLifecycleAssignments, formatLifecycleAssignmentConflicts, formatLifecycleConflicts, formatOptionConflicts } from './messages'
 import HelpCommand from './commands/help'
 import LifecycleCommand from './commands/lifecycle'
 import InstallCommand from './commands/install'
@@ -55,14 +55,17 @@ export function validateConfig(config: Config): asserts config is ValidConfig {
    const commandConflicts = findConflicts(Object.values(config.commands))
    const optionConflicts = findConflicts(Object.values(config.options))
 
+   let shouldThrow = false
+   const error = new ToolKitError('There are problems with your Tool Kit configuration.')
+   error.details = ''
+
    if(
       lifecycleConflicts.length > 0 ||
       lifecycleAssignmentConflicts.length > 0 ||
       commandConflicts.length > 0 ||
       optionConflicts.length > 0
    ) {
-      const error = new ToolKitError('There are problems with your Tool Kit configuration.')
-      error.details = ''
+      shouldThrow = true
 
     if (lifecycleConflicts.length) {
          error.details += formatLifecycleConflicts(lifecycleConflicts)
@@ -79,7 +82,18 @@ export function validateConfig(config: Config): asserts config is ValidConfig {
     if (optionConflicts.length) {
          error.details += formatOptionConflicts(optionConflicts)
       }
+   }
 
+   const assignedLifecycles = withoutConflicts(Object.values(config.lifecycleAssignments))
+   const validLifecycles = new Set(Object.keys(config.lifecycles))
+   const invalidLifecycleAssignmentss = assignedLifecycles.filter(lifecycle => !validLifecycles.has(lifecycle.id))
+
+   if(invalidLifecycleAssignmentss.length > 0) {
+      shouldThrow = true
+      error.details += formatInvalidLifecycleAssignments(invalidLifecycleAssignmentss, Array.from(validLifecycles))
+   }
+
+   if(shouldThrow) {
       throw error
    }
 }

@@ -64,3 +64,10 @@ You must resolve this conflict by providing options in your app's Tool Kit confi
 )} for more details.
 
 `
+
+export const formatInvalidLifecycleAssignments = (invalid: LifecycleAssignment[], validLifecycles: string[]) => `These lifecycle events don't exist, but have commands assigned to them:
+
+${invalid.map(lifecycle => `- ${c.blueBright(lifecycle.id)} assigned by ${lifecycle.plugin.id === 'app root' ? c.green('your app') : `plugin ${c.magenta(lifecycle.plugin.id)}`}`).join('\n')}
+
+Available lifecycle events are: ${validLifecycles.map(id => c.blueBright(id)).join(', ')}
+`
