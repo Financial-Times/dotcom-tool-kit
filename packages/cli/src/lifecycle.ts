@@ -5,3 +5,13 @@ export interface LifecycleAssignment {
   plugin: Plugin
   commands: string[]
 }
+
+export interface LifecycleClass {
+   plugin?: Plugin
+   new(): Lifecycle
+}
+
+export interface Lifecycle {
+   verify(): Promise<boolean>
+   install(): Promise<void>
+}
