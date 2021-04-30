@@ -1,6 +1,4 @@
 lifecycles:
   'deploy:review': 'heroku:review'
   'deploy:staging': 'heroku:staging'
-  'deploy: production': 'heroku:production'
-  
-  
+  'deploy: production': 'heroku:production' 
