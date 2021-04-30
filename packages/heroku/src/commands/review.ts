@@ -1,6 +1,10 @@
 import { Command } from '@oclif/command'
 import getHerokuReviewApp from '../getHerokuReviewApp'
+import buildHerokuReviewApp from '../buildHerokuReviewApp'
+import getRepoDetails from '../getRepoDetails'
 
+const TARGET_BRANCH = process.env.TARGET_BRANCH! 
+const HEROKU_PIPELINE_ID = process.env.HEROKU_PIPELINE_ID!
 
 export default class HerokuReview extends Command {
    static description = ''
@@ -10,16 +14,15 @@ export default class HerokuReview extends Command {
    async run() {
       console.log('Heroku Review') // eslint-disable-line no-console
 
-      // get auth token
-      // check for existing review app, get ID - 
-         // By App name:GET /apps/{app_id_or_name}/review-app > 200 response.id or 404 response.id: "not_found"
-         // By pipeline ID: GET /pipelines/{pipeline_id}/review-apps > response.filter(reviewApp => reviewApp.branch === branch) Status: reviewApp.status === 'created' 'creating' 'pending')
-      // if none exists, create review app
+      let reviewAppId = await getHerokuReviewApp(TARGET_BRANCH, HEROKU_PIPELINE_ID)
+
+      if (!reviewAppId) {
+         //need to configure github api call
+         const { url, repoVersion } = await getRepoDetails() 
+         reviewAppId = await buildHerokuReviewApp(TARGET_BRANCH, HEROKU_PIPELINE_ID, "repo-name", "repo version")
+      } 
       // set config vars
       // poll gtg until successful response
-      // ---
-      // run smoke test
-      // run Pa11y
 
    }
 }
