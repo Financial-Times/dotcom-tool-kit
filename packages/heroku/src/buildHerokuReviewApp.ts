@@ -2,10 +2,12 @@
 import Heroku from 'heroku-client'
 
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
+const CIRCLE_SHA1 = process.env.CIRCLE_SHA1;
 
-export default function buildHerokuReviewApp(branchName: string, pipelineId: string, url: string, repoVersion: string): string {
-        // TODO: Retrieve Heroku_api_token from vault (into .env or node) - not currently used
+export default function buildHerokuReviewApp(repoName: string, branchName: string, pipelineId: string): string {
+
         const heroku = new Heroku({ token: HEROKU_API_TOKEN })
+        const url = `https://github.com/Financial-Times/${repoName}/archive/refs/heads/${branchName}.zip`
         
         return heroku
             .post(`/review-apps`, {body: 
@@ -14,7 +16,7 @@ export default function buildHerokuReviewApp(branchName: string, pipelineId: str
                 "pipeline": pipelineId,
                 "source_blob" : {
                     "url": url,
-                    "version": repoVersion
+                    "version": CIRCLE_SHA1
                     }
                 }
             })

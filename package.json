@@ -39,5 +39,8 @@
     "hooks": {
       "pre-commit": "npm run lint && lint-staged"
     }
+  },
+  "dependencies": {
+    "@types/superagent": "^4.1.10"
   }
 }
