@@ -5,6 +5,9 @@
       "path": "packages/babel"
     },
     {
+      "path": "packages/wait-for-ok"
+    },
+    {
       "path": "packages/cli"
     },
     {
@@ -24,9 +27,6 @@
     },
     {
       "path": "packages/deploy-static"
-    },
-    {
-      "path": "packages/wait-for-ok"
     }
   ]
 }
