@@ -24,6 +24,9 @@
     },
     {
       "path": "packages/deploy-static"
+    },
+    {
+      "path": "packages/wait-for-ok"
     }
   ]
 }
