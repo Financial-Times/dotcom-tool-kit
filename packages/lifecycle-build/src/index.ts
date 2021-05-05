@@ -1,13 +1,8 @@
-import loadPackageJson from '@financial-times/package-json'
-import type { PackageJson } from '@financial-times/package-json'
+
 import path from 'path'
 import YAML from 'yawn-yaml/cjs'
 import { promises as fs } from 'fs'
-import { build } from '@oclif/command/lib/flags'
-
-type Scripts = {
-   [script: string]: string
-}
+import { PackageJsonLifecycleInstaller } from '@'
 
 type Step = {
    [step: string]: any
@@ -55,35 +50,6 @@ class BuildCI {
       // TODO automate this? humans can probably do it better than computers
       // TODO if other lifecycle installers need manual steps, collate those into a single message
       throw new Error('Please update your CircleCI config to run the command `npx dotcom-tool-kit lifecycle build:ci` in the steps of the `build` job')
-   }
-}
-
-abstract class PackageJsonLifecycleInstaller {
-   _packageJson?: PackageJson
-   abstract script: string
-   abstract command: string
-
-   get packageJson() {
-      if(!this._packageJson)  {
-         const filepath = path.resolve(process.cwd(), 'package.json')
-         this._packageJson = loadPackageJson({ filepath })
-      }
-
-      return this._packageJson
-   }
-
-   async check() {
-      const scripts = this.packageJson.getField<Scripts>('scripts')
-      return scripts && scripts[this.script] === this.command
-   }
-
-   async install() {
-      this.packageJson.requireScript({
-        stage: this.script,
-        command: this.command
-      })
-
-      this.packageJson.writeChanges()
    }
 }
 
