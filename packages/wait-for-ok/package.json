@@ -10,7 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@oclif/command": "^1.8.0"
+    "@oclif/command": "^1.8.0",
+    "node-fetch": "^2.6.1"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
     "directory": "packages/wait-for-ok"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/wait-for-ok"
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/wait-for-ok",
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.10"
+  }
 }
