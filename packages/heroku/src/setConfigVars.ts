@@ -7,7 +7,7 @@ const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
 const VAULT_ADDR = 'https://vault.in.ft.com:8080'
 // const HEROKU_PIPELINE_ID = process.env.HEROKU_PIPELINE_ID;
 const HEROKU_TOKEN = process.env.HEROKU_API_TOKEN
-const REPO_NAME = '?'
+const CIRCLE_PROJECT_REPONAME = process.env.CIRCLE_PROJECT_REPONAME
 
 export default async function setConfigVars(appId: string, environment: string) {
     try {
@@ -20,7 +20,7 @@ export default async function setConfigVars(appId: string, environment: string) 
 		console.log('Fetching config values from Vault...') // eslint-disable-line no-console
 
 		const vaultResponse = await request
-			.get(`${VAULT_ADDR}/ui/vault/secrets/secret/list/teams/next/${REPO_NAME}/${environment}`)
+			.get(`${VAULT_ADDR}/ui/vault/secrets/secret/list/teams/next/${CIRCLE_PROJECT_REPONAME}/${environment}`)
 			.set('X-Vault-Token', tokenResponse.body.auth.client_token)
 
 		const heroku = new Heroku({ token: HEROKU_TOKEN })
@@ -59,7 +59,7 @@ export default async function setConfigVars(appId: string, environment: string) 
 		// 	console.log('Following values have been removed:', Object.keys(removedValues).join())
 		// }
 
-		console.log(`${REPO_NAME} ${appId} config vars have been updated successfully.`) // eslint-disable-line no-console
+		console.log(`${CIRCLE_PROJECT_REPONAME} ${appId} config vars have been updated successfully.`) // eslint-disable-line no-console
 	} catch (err) {
 		console.error('Error updating config vars:', err) // eslint-disable-line no-console
 		process.exit(1)
