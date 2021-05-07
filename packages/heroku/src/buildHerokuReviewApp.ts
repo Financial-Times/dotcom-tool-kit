@@ -1,18 +1,19 @@
 // @ts-ignore
 import Heroku from 'heroku-client'
+import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessSatus'
 
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
 const CIRCLE_SHA1 = process.env.CIRCLE_SHA1;
 const CIRCLE_PROJECT_REPONAME = process.env.CIRCLE_PROJECT_REPONAME;
 const CIRCLE_BRANCH = process.env.CIRCLE_BRANCH;
+const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
-export default function buildHerokuReviewApp(pipelineId: string): string {
+export default async function buildHerokuReviewApp(pipelineId: string): Promise<string> {
 
-        const heroku = new Heroku({ token: HEROKU_API_TOKEN })
         const url = `https://github.com/Financial-Times/${CIRCLE_PROJECT_REPONAME}/archive/refs/heads/${CIRCLE_BRANCH}.zip`
         
-        return heroku
-            .post(`/review-apps`, {body: 
+        const reviewAppId = 
+            heroku.post(`/review-apps`, {body: 
                 {
                 "branch": CIRCLE_BRANCH,
                 "pipeline": pipelineId,
@@ -25,9 +26,15 @@ export default function buildHerokuReviewApp(pipelineId: string): string {
             .then((reviewApp: {id: string}): string => {
                 return reviewApp.id
             })
+        
+        const successStatus = await repeatedCheckForSuccessStatus(reviewAppId)
 
-            //need check for build completion
-
+        if (successStatus) {
+            return reviewAppId
+        } else {
+            console.error(`Something went wrong with building the review-app`) // eslint-disable-line no-console
+            process.exit(1)
+        }
 }
 
 /*

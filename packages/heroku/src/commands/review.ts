@@ -12,14 +12,19 @@ export default class HerokuReview extends Command {
    static args = []
 
    async run() {
-  
-      let reviewAppId = await getHerokuReviewApp(HEROKU_PIPELINE_ID)
+      try {
+         let reviewAppId = await getHerokuReviewApp(HEROKU_PIPELINE_ID)
 
-      if (!reviewAppId) {
-         reviewAppId = await buildHerokuReviewApp(HEROKU_PIPELINE_ID)
-      } 
-      await setConfigVars(reviewAppId, 'continuous-integration')
+         if (!reviewAppId) {
+            reviewAppId = await buildHerokuReviewApp(HEROKU_PIPELINE_ID)
+         } 
+         await setConfigVars(reviewAppId, 'continuous-integration')
 
-      await gtg(reviewAppId)
+         await gtg(reviewAppId).then(process.exit(0))
+      }
+      catch (err) {
+         console.error('Error building review-app:', err) // eslint-disable-line no-console
+         process.exit(1)
+      }
    }
 }

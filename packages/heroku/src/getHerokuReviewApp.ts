@@ -16,12 +16,11 @@ export default function getHerokuReviewApp(pipelineId: string): string {
 			const reviewApp: {app: {id: string}, branch: string, status: string} = reviewApps.find((instance: {app: {id: string}, branch: string, status: string}): boolean => {
 				return instance.branch === CIRCLE_BRANCH && instance.status === "created";
 			})!
-
-			return reviewApp.app.id || null;
+			return reviewApp.app.id || null
         })
 		.catch((err: string) => {
 			console.error('Error retrieving review app from Heroku'); // eslint-disable-line no-console
 			console.error(err); // eslint-disable-line no-console
-			process.exit(1);
+			return null //TODO: should this be null?
 		});
 }
