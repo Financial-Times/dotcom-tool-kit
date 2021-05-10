@@ -18,7 +18,7 @@ export interface UploadAssetsToS3Flags {
    bucket: string
    destination: string
    extensions: string
-   'cache-control'?: string
+   'cache-control': string
 }
 
 export default class UploadAssetsToS3 extends Command {
