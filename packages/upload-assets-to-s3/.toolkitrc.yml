@@ -1,0 +1,2 @@
+lifecycles:
+  'release:deploy': 'upload-static-assets:production'
