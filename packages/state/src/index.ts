@@ -5,31 +5,30 @@ export const commands = {
   'state': State
 }
 
-const stateFile = JSON.parse(fs.readFileSync('stat.json', {encoding: 'utf-8'}))
-
 export function readState(stage: string, item: string): string | null {
-  try {
-    return stateFile[stage][item]
-  } catch {
-    return null
-  }    
+  if (fs.existsSync('.toolkitstate.json')) {
+    const stateFile = JSON.parse(fs.readFileSync('.toolkitstate.json', {encoding: 'utf-8'}))
+    try {
+      return stateFile[stage][item]
+    } catch {
+      return null
+    }
+  } 
+  return null
 }
 
 export function writeState(stage: string, item: string, value: string) {
-  // if the stage exists in statefile; with or without the item
-  if (stateFile[stage] || readState(stage, item)) {
-    stateFile[stage][item] = value
-  // } else if (stateFile[stage] && !readState(stage, item)) {
-  //   stateFile[stage][item] = value
-  // if the file exists
-  } else if (stateFile) {
-    stateFile[stage] = {item : value}
+  //if the stage exists in statefile; with or without the item
+  if (fs.existsSync('.toolkitstate.json')) {
+    const stateFile = JSON.parse(fs.readFileSync('.toolkitstate.json', {encoding: 'utf-8'}))
+    if (stateFile[stage] || readState(stage, item)) {
+      stateFile[stage][item] = value
+    } else if (stateFile) {
+      stateFile[stage] = {item : value}
+    }
+    fs.writeFileSync('.toolkitstate.json', JSON.stringify(stateFile, null, 2) )
   } else {
-    console.log(`here`)
-    fs.appendFile('stat.json', JSON.stringify({"test": 1}, null, 2), (err) => {
-      if (err) throw new Error (`errored: ${err}`)
-      console.log(`new state file created`)
-    })
+    const data = {stage: {item : value}}
+    fs.appendFileSync('.toolkitstate.json', JSON.stringify(data, null, 2))
   }
-  fs.writeFileSync('stat.json', JSON.stringify(stateFile, null, 2) )
 }
