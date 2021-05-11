@@ -1,15 +1,12 @@
-import State from './commands/state'
 import * as fs from 'fs'
 
-export const commands = {
-  'state': State
-}
+const stateFile = '.toolkitstate.json'
 
 export function readState(stage: string, item: string): string | null {
-  if (fs.existsSync('.toolkitstate.json')) {
-    const stateFile = JSON.parse(fs.readFileSync('.toolkitstate.json', {encoding: 'utf-8'}))
+  if (fs.existsSync(stateFile)) {
+    const readStateContent = JSON.parse(fs.readFileSync(stateFile, {encoding: 'utf-8'}))
     try {
-      return stateFile[stage][item]
+      return readStateContent[stage][item]
     } catch {
       return null
     }
@@ -18,17 +15,20 @@ export function readState(stage: string, item: string): string | null {
 }
 
 export function writeState(stage: string, item: string, value: string) {
-  //if the stage exists in statefile; with or without the item
-  if (fs.existsSync('.toolkitstate.json')) {
-    const stateFile = JSON.parse(fs.readFileSync('.toolkitstate.json', {encoding: 'utf-8'}))
-    if (stateFile[stage] || readState(stage, item)) {
-      stateFile[stage][item] = value
-    } else if (stateFile) {
-      stateFile[stage] = {item : value}
+  if (fs.existsSync(stateFile)) {
+    const readStateContent = JSON.parse(fs.readFileSync(stateFile, {encoding: 'utf-8'}))
+    if (readStateContent[stage]) {
+      readStateContent[stage][item] = value
+    } else {
+      readStateContent[stage] = {[item] : value}
     }
-    fs.writeFileSync('.toolkitstate.json', JSON.stringify(stateFile, null, 2) )
+    fs.writeFileSync(stateFile, JSON.stringify(readState, null, 2) )
   } else {
-    const data = {stage: {item : value}}
-    fs.appendFileSync('.toolkitstate.json', JSON.stringify(data, null, 2))
+    const data = {
+        [stage]: {
+          [item] : value
+        }
+      }
+    fs.appendFileSync(stateFile, JSON.stringify(data, null, 2))
   }
 }
