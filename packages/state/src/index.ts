@@ -14,7 +14,7 @@ export function readState(stage: string, item: string): string | null {
   return null
 }
 
-export function writeState(stage: string, item: string, value: string) {
+export function writeState(stage: string, item: string, value: string): string | null {
   if (fs.existsSync(stateFile)) {
     const readStateContent = JSON.parse(fs.readFileSync(stateFile, {encoding: 'utf-8'}))
     if (readStateContent[stage]) {
@@ -22,7 +22,7 @@ export function writeState(stage: string, item: string, value: string) {
     } else {
       readStateContent[stage] = {[item] : value}
     }
-    fs.writeFileSync(stateFile, JSON.stringify(readState, null, 2) )
+    fs.writeFileSync(stateFile, JSON.stringify(readStateContent, null, 2) )
   } else {
     const data = {
         [stage]: {
@@ -31,4 +31,5 @@ export function writeState(stage: string, item: string, value: string) {
       }
     fs.appendFileSync(stateFile, JSON.stringify(data, null, 2))
   }
+  return readState(stage, item)
 }
