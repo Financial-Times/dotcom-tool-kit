@@ -18,5 +18,8 @@
     "directory": "packages/state"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/state"
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/state",
+  "devDependencies": {
+    "@types/node": "^15.0.2"
+  }
 }
