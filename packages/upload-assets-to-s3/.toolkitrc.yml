@@ -1,7 +1,7 @@
 lifecycles:
-  'release:deploy': 'upload-static-assets:production'
+  'release:deploy': 'upload-static-assets'
 
-  options:
+options:
   '@dotcom-tool-kit/upload-static-assets':
     directory: 'public'
     bucket: 'ft-next-hashed-assets-prod'
