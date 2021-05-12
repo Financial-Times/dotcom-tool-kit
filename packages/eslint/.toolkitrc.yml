@@ -1,0 +1,7 @@
+lifecycles:
+  'test:local': 'eslint'
+  'test:ci': 'eslint'
+
+options:
+  '@dotcom-tool-kit/eslint':
+    files: '**/*.js'

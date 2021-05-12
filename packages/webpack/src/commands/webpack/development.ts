@@ -1,4 +1,5 @@
 import { Command } from '@oclif/command'
+import runWebpack from '../../run-webpack'
 
 export default class WebpackDevelopment extends Command {
   static description = 'build webpack'
@@ -7,6 +8,6 @@ export default class WebpackDevelopment extends Command {
   static hidden = true
 
   async run() {
-    console.log('webpack development')
+    runWebpack(this.argv, 'development')
   }
 }

@@ -1,5 +1,6 @@
 import c from 'ansi-colors'
 
+import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { Lifecycle } from './lifecycle'
 import type { CommandClass } from './command'
@@ -18,5 +19,16 @@ ${conflict.conflicting.map(lifecycle => `- ${lifecycle.commands.map(c.blueBright
 export const formatLifecycleConflicts = (conflicts: Conflict<Lifecycle>[]) => `${c.bold('These lifecycle events are assigned to different commands by multiple plugins')}:
 ${conflicts.map(formatLifecycleConflict).join('\n')}
 You must resolve this conflict by explicitly configuring which command to use for these events. See ${c.cyan.underline('https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-lifecycle-conflicts.md')} for more details.
+
+`
+
+const formatOptionConflict = (conflict: Conflict<PluginOptions>) => `${c.magenta(conflict.conflicting[0].forPlugin.id)}, configured by:
+${conflict.conflicting.map(option => `- ${c.magenta(option.plugin.id)}`)}`
+
+export const formatOptionConflicts = (conflicts: Conflict<PluginOptions>[]) => `${c.bold('These plugins have conflicting options')}:
+
+${conflicts.map(formatOptionConflict).join('\n')}
+
+You must resolve this conflict by providing options in your app's Tool Kit configuration for these plugins, or installing a use-case plugin that provides these options. See ${c.cyan.underline('https://github.com/financial-times/dotcom-tool-kit/tree/main/readme.md#options')} for more details.
 
 `

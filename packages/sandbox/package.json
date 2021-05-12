@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "@dotcom-tool-kit/mocha",
     "heroku-postbuild": "dotcom-tool-kit heroku:postbuild"
   },
   "keywords": [],
@@ -11,8 +11,11 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@dotcom-tool-kit/eslint": "file:../eslint",
     "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
     "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
+    "@dotcom-tool-kit/mocha": "file:../mocha",
+    "@dotcom-tool-kit/n-test": "file:../n-test",
     "dotcom-tool-kit": "file:../cli"
   }
 }

@@ -14,12 +14,30 @@ Tool Kit requires Node v12. To install the dependencies and link internal packag
 npm install
 ```
 
-There's a testing sandbox at [`packages/test`](/packages/test) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit help` to see what commands are available.
+There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit help` to see what commands are available.
 
 Tool Kit commands are implemented with [Oclif](https://oclif.io/), the Open CLI Framework, and written in Typescript.
 
 In the future, there will be unit and integration tests for every package.
 
+### Creating a plugin
+
+There's a script to create a skeleton plugin. Run:
+
+```sh
+npm run create-plugin -- name-of-plugin
+```
+
+and the script will create the plugin folder and add all the necessary configuration to get it building with Typescript.
+
+To test your plugin, you can install it in the sandbox package:
+
+```sh
+cd packages/sandbox
+npm install ../name-of-plugin
+```
+
+and [add the plugin](#plugins) to `packages/sandbox/.toolkitrc.yml`.
 
 ## Lifecycles
 
@@ -107,6 +125,17 @@ A Tool Kit plugin can also contain configuration, allowing plugins to provide de
 #### `plugins`
 
 A list of Tool Kit plugins to load. These plugins should be listed as `devDependencies` in your app's `package.json`.
+
+#### `options`
+
+An object containing options for Tool Kit plugins. The keys are the names of plugins, and the values are an options object which will be passed into that plugin's commands:
+
+```yaml
+options:
+  "@dotcom-tool-kit/eslint":
+    files:
+      - "**/*.js"
+```
 
 #### `lifecycles`
 
