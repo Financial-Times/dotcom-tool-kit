@@ -73,61 +73,61 @@ export default class UploadAssetsToS3 extends Command {
 }
 
 const getFileType = (filename: string) => {
-	// We need to know the original file type so ignore any compression
-	const originalFile = filename.replace(/\.(br|gz)$/, '');
-	const ext = path.extname(originalFile);
+   // We need to know the original file type so ignore any compression
+   const originalFile = filename.replace(/\.(br|gz)$/, '');
+   const ext = path.extname(originalFile);
 
-	return mime.getType(ext);
+   return mime.getType(ext);
 }
 
 const getFileEncoding = (filename: string) => {
-	const ext = path.extname(filename);
+   const ext = path.extname(filename);
 
-	switch (ext) {
-		case '.gz':
-			return 'gzip';
-		case '.br':
-			return 'br';
-	}
+   switch (ext) {
+      case '.gz':
+         return 'gzip';
+      case '.br':
+         return 'br';
+   }
 }
 
 
 const uploadFile = async (file: string, flags: UploadAssetsToS3Flags, s3: any) => {
-	const basename = file.split('/').splice(1).join('/'); // remove first directory only
-	const type = getFileType(basename);
-	const encoding = getFileEncoding(basename);
-	const key = path.posix.join(flags.destination, basename);
+   const basename = file.split('/').splice(1).join('/'); // remove first directory only
+   const type = getFileType(basename);
+   const encoding = getFileEncoding(basename);
+   const key = path.posix.join(flags.destination, basename);
 
-	const params = {
-		Key: key,
-		Body: fs.createReadStream(file),
-		ACL: 'public-read',
-		ContentType: `${type}; charset=utf-8`,
-		ContentEncoding: encoding,
-		CacheControl: flags['cache-control']
-	};
+   const params = {
+      Key: key,
+      Body: fs.createReadStream(file),
+      ACL: 'public-read',
+      ContentType: `${type}; charset=utf-8`,
+      ContentEncoding: encoding,
+      CacheControl: flags['cache-control']
+   };
 
-	return new Promise<void>((resolve, reject) => {
-		return s3.upload(params, (error: Error, data: any) => {
-			if (error) {
-				console.error(`Upload of ${basename} to ${flags.bucket} failed`); // eslint-disable-line no-console
-				reject(error);
-			} else {
-				console.log(`Uploaded ${basename} to ${data.Location}`); // eslint-disable-line no-console
-				resolve();
-			}
-		});
-	});
+   return new Promise<void>((resolve, reject) => {
+      return s3.upload(params, (error: Error, data: any) => {
+         if (error) {
+            console.error(`Upload of ${basename} to ${flags.bucket} failed`); // eslint-disable-line no-console
+            reject(error);
+         } else {
+            console.log(`Uploaded ${basename} to ${data.Location}`); // eslint-disable-line no-console
+            resolve();
+         }
+      });
+   });
 }
 
 async function uploadAssetsToS3 (flags: UploadAssetsToS3Flags) {
    const files = glob.sync(`${flags.directory}/**/*{${flags.extensions}}`);
 
-	const s3 = new aws.S3({
-		accessKeyId: flags.accessKeyId,
-		secretAccessKey: flags.secretAccessKey,
-		params: { Bucket: flags.bucket }
-	});
+   const s3 = new aws.S3({
+      accessKeyId: flags.accessKeyId,
+      secretAccessKey: flags.secretAccessKey,
+      params: { Bucket: flags.bucket }
+   });
 
-	return Promise.all(files.map((file) => uploadFile(file, flags, s3)));
+   return Promise.all(files.map((file) => uploadFile(file, flags, s3)));
 }
