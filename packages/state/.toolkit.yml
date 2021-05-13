@@ -1,3 +1,0 @@
-lifecycles:
-  'deploy:review': 'state'
-  'deploy:test': 'state'

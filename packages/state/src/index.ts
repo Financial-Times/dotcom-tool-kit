@@ -29,7 +29,7 @@ export function writeState(stage: string, item: string, value: string): string |
           [item] : value
         }
       }
-    fs.appendFileSync(stateFile, JSON.stringify(data, null, 2))
+    fs.writeFileSync(stateFile, JSON.stringify(data, null, 2))
   }
   return readState(stage, item)
 }
