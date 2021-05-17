@@ -16,6 +16,7 @@
     "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
     "@dotcom-tool-kit/mocha": "file:../mocha",
     "@dotcom-tool-kit/n-test": "file:../n-test",
+    "@dotcom-tool-kit/upload-assets-to-s3": "file:../upload-assets-to-s3",
     "dotcom-tool-kit": "file:../cli"
   }
 }
