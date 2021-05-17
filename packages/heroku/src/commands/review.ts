@@ -3,6 +3,7 @@ import getHerokuReviewApp from '../getHerokuReviewApp'
 import buildHerokuReviewApp from '../buildHerokuReviewApp'
 import setConfigVars from '../setConfigVars'
 import gtg from '../gtg'
+import { writeState } from '../../../state'
 
 const HEROKU_PIPELINE_ID = process.env.HEROKU_PIPELINE_ID!
 
@@ -18,6 +19,9 @@ export default class HerokuReview extends Command {
          if (!reviewAppId) {
             reviewAppId = await buildHerokuReviewApp(HEROKU_PIPELINE_ID)
          } 
+
+         writeState('review', 'review-app', reviewAppId)
+
          await setConfigVars(reviewAppId, 'continuous-integration')
 
          await gtg(reviewAppId).then(process.exit(0))
