@@ -1,0 +1,10 @@
+lifecycles:
+  'release:deploy': 'upload-static-assets'
+
+options:
+  '@dotcom-tool-kit/upload-static-assets':
+    directory: 'public'
+    bucket: 'ft-next-hashed-assets-prod'
+    destination: 'hashed-assets/uploaded'
+    extensions: 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json'
+    cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
