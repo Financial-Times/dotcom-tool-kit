@@ -27,6 +27,9 @@
     },
     {
       "path": "packages/upload-assets-to-s3"
+    },
+    {
+      "path": "packages/wait-for-ok"
     }
   ]
 }
