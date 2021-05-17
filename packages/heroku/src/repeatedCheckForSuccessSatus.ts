@@ -2,16 +2,14 @@ import pRetry from 'p-retry'
 // @ts-ignore
 import Heroku from 'heroku-client'
 
+const NUM_RETRIES = process.env.HEROKU_REVIEW_APP_NUM_RETRIES ? parseInt(process.env.HEROKU_REVIEW_APP_NUM_RETRIES) : 60
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
 
 const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
 enum Status {
-    Pending = 'pending',
     Deleted = 'deleted',
-	Creating = 'creating',
-	Created = 'created',
-	Errored = 'errored'
+	Created = 'created'
 }
 
 export default async function repeatedCheckForSuccessStatus(reviewAppId: string) {
@@ -31,7 +29,7 @@ export default async function repeatedCheckForSuccessStatus(reviewAppId: string)
             const { attemptNumber, retriesLeft } = error;
             console.log(`Attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`) // eslint-disable-line no-console
         },
-        retries: 60,
+        retries: NUM_RETRIES,
         minTimeout: 10 * 1000        
     })
 
