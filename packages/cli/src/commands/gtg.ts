@@ -1,32 +1,34 @@
-import { Command, flags } from '@oclif/command'
-import waitForOk from '../../../wait-for-ok'
+console.log('hello')
 
-function getURL(appName: string) {
-  let host = appName || 'http://local.ft.com:3002'
+// import { Command, flags } from '@oclif/command'
+// import waitForOk from '../../../wait-for-ok'
 
-  if (!/:|\./.test(host)) host += '.herokuapp.com/__gtg'
+// function getURL(appName: string) {
+//   let host = appName || 'http://local.ft.com:3002'
 
-  if (!/https?:\/\//.test(host)) host = 'http://' + host
+//   if (!/:|\./.test(host)) host += '.herokuapp.com/__gtg'
 
-  return host
-}
+//   if (!/https?:\/\//.test(host)) host = 'http://' + host
 
-export default class GoodToGo extends Command {
-  static flags = {
-    app: flags.string({
-      char: 'a',
-      description: "Runs gtg ('good to go') checks for an app",
-      required: true
-    })
-  }
+//   return host
+// }
 
-  async run() {
-    const { flags } = this.parse(GoodToGo)
+// export default class GoodToGo extends Command {
+//   static flags = {
+//     app: flags.string({
+//       char: 'a',
+//       description: "Runs gtg ('good to go') checks for an app",
+//       required: true
+//     })
+//   }
 
-    const { app } = flags
+//   async run() {
+//     const { flags } = this.parse(GoodToGo)
 
-    const url = getURL(app)
+//     const { app } = flags
 
-    return waitForOk(url)
-  }
-}
+//     const url = getURL(app)
+
+//     return waitForOk(url)
+//   }
+// }
