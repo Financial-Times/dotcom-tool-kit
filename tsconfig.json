@@ -23,6 +23,9 @@
       "path": "packages/n-test"
     },
     {
+      "path": "packages/state"
+    },
+    {
       "path": "packages/upload-assets-to-s3"
     }
   ]
