@@ -5,6 +5,9 @@
       "path": "packages/babel"
     },
     {
+      "path": "packages/wait-for-ok"
+    },
+    {
       "path": "packages/cli"
     },
     {
@@ -27,9 +30,6 @@
     },
     {
       "path": "packages/upload-assets-to-s3"
-    },
-    {
-      "path": "packages/wait-for-ok"
     }
   ]
 }
