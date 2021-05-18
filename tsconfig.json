@@ -5,7 +5,7 @@
       "path": "packages/babel"
     },
     {
-      "path": "packages/cli"
+      "path": "packages/wait-for-ok"
     },
     {
       "path": "packages/heroku-postbuild"
@@ -27,6 +27,9 @@
     },
     {
       "path": "packages/upload-assets-to-s3"
+    },
+    {
+      "path": "packages/cli"
     }
   ]
 }
