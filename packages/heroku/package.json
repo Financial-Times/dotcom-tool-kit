@@ -16,7 +16,8 @@
     "heroku-client": "^3.1.0",
     "node-fetch": "^2.6.1",
     "p-retry": "^4.5.0",
-    "superagent": "^6.1.0"
+    "superagent": "^6.1.0",
+    "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok"
   },
   "repository": {
     "type": "git",

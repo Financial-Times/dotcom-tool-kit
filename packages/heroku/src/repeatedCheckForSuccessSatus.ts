@@ -21,10 +21,10 @@ export default async function repeatedCheckForSuccessStatus(reviewAppId: string)
                 if (reviewApp.status === Status.Deleted) throw new pRetry.AbortError(`Review app was deleted`)
                 if (reviewApp.status !== Status.Created) throw new Error(`App build for app id: ${reviewAppId} not yet finished`)
             })
-        return
+        return true
     }
 
-    return pRetry(checkForSuccessStatus, {
+    const result = await pRetry(checkForSuccessStatus, {
         onFailedAttempt: error => {
             const { attemptNumber, retriesLeft } = error;
             console.log(`Attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`) // eslint-disable-line no-console
@@ -33,4 +33,6 @@ export default async function repeatedCheckForSuccessStatus(reviewAppId: string)
         minTimeout: 10 * 1000        
     })
 
+    return result
 }
+

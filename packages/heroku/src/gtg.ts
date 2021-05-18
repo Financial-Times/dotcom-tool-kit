@@ -1,6 +1,6 @@
 // @ts-ignore
 import Heroku from 'heroku-client'
-import waitForOk from '../../../wait-for-ok'
+import waitForOk from '@dotcom-tool-kit/wait-for-ok'
 
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
 
