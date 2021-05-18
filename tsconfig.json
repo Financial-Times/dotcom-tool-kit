@@ -5,6 +5,9 @@
       "path": "packages/babel"
     },
     {
+      "path": "packages/state"
+    },
+    {
       "path": "packages/wait-for-ok"
     },
     {
@@ -24,9 +27,6 @@
     },
     {
       "path": "packages/heroku"
-    },
-    {
-      "path": "packages/state"
     },
     {
       "path": "packages/upload-assets-to-s3"

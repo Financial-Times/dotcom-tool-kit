@@ -3,7 +3,7 @@ import getHerokuReviewApp from '../getHerokuReviewApp'
 import buildHerokuReviewApp from '../buildHerokuReviewApp'
 import setConfigVars from '../setConfigVars'
 import gtg from '../gtg'
-import { writeState } from '../../../state'
+import { writeState } from '@dotcom-tool-kit/state'
 
 const HEROKU_PIPELINE_ID = process.env.HEROKU_PIPELINE_ID!
 

@@ -17,7 +17,8 @@
     "node-fetch": "^2.6.1",
     "p-retry": "^4.5.0",
     "superagent": "^6.1.0",
-    "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok"
+    "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
+    "@dotcom-tool-kit/state": "file:../state"
   },
   "repository": {
     "type": "git",
