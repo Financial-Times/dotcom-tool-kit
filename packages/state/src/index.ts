@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 
-const stateFile = '.toolkitstate.json'
+const stateFile = `${process.env.INIT_CWD}/.toolkitstate.json`
 
 export function readState<T>(stage: T, item: T): T | null {
   if (fs.existsSync(stateFile)) {
@@ -14,7 +14,8 @@ export function readState<T>(stage: T, item: T): T | null {
   return null
 }
 
-export function writeState<T>(stage: T, item: T, value: T): T | null {
+
+export function writeState<T>(stage: string, item: string, value: T): string | T | null {
   if (fs.existsSync(stateFile)) {
     const readStateContent = JSON.parse(fs.readFileSync(stateFile, {encoding: 'utf-8'}))
     if (readStateContent[stage]) {
@@ -25,8 +26,8 @@ export function writeState<T>(stage: T, item: T, value: T): T | null {
     fs.writeFileSync(stateFile, JSON.stringify(readStateContent, null, 2) )
   } else {
     const data = {
-        stage: {
-          item : value
+        [stage]: {
+          [item]: value
         }
       }
     fs.writeFileSync(stateFile, JSON.stringify(data, null, 2))
