@@ -1,6 +1,6 @@
 import * as fs from 'fs'
-
-const stateFile = `${process.env.INIT_CWD}/.toolkitstate.json`
+const target = process.env.INIT_CWD
+const stateFile = target ? `${target}/.toolkitstate.json` : '.toolkitstate.json'
 
 export function readState<T>(stage: T, item: T): T | null {
   if (fs.existsSync(stateFile)) {
