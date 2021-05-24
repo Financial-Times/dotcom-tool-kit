@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@dotcom-tool-kit/state": "file:../state"
+    "@dotcom-tool-kit/state": "file:../state",
+    "@oclif/command": "^1.8.0"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
