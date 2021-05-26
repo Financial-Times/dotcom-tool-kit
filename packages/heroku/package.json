@@ -4,7 +4,8 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "dotcom-tool-kit circleci --branch=$CIRCLE_BRANCH --repo=$CIRCLE_PR_REPONAME --version=$CIRCLE_SHA1"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -18,7 +19,8 @@
     "p-retry": "^4.5.0",
     "superagent": "^6.1.0",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
-    "@dotcom-tool-kit/state": "file:../state"
+    "@dotcom-tool-kit/state": "file:../state",
+    "@dotcom-tool-kit/circleci": "file:../circleci"
   },
   "repository": {
     "type": "git",

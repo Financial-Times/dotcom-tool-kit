@@ -6,6 +6,9 @@
     },
     {
       "path": "../state"
+    },
+    {
+      "path": "../circleci"
     }
   ],
   "compilerOptions": {
