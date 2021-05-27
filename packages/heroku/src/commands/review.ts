@@ -20,7 +20,7 @@ export default class HerokuReview extends Command {
             reviewAppId = await buildHerokuReviewApp(HEROKU_PIPELINE_ID)
          } 
 
-         writeState('review', 'review-app', reviewAppId)
+         writeState('review', 'app-id', reviewAppId)
 
          await setConfigVars(reviewAppId, 'continuous-integration')
 

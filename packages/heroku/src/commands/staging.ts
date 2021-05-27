@@ -1,5 +1,8 @@
 import { Command } from '@oclif/command'
+import getCIVars from '../getCIVars'
+import setConfigVars from '../setConfigVars'
 import scaleUpDyno from '../scaleUpDyno'
+import gtg from '../gtg'
 
 export default class HerokuStaging extends Command {
    static description = ''
@@ -7,8 +10,15 @@ export default class HerokuStaging extends Command {
    static args = []
 
    async run() {
+      //get app name
+      const { repo } = await getCIVars(['repo'])
+      const appName = `ft-${repo}-staging`     
+      //apply vars from vault
+      await setConfigVars(appName, 'production')
       //scale up staging
-      await scaleUpDyno(true)
+      await scaleUpDyno(appName)
+
+      await gtg(appName).then(process.exit(0))
    }
 }
 
