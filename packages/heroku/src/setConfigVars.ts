@@ -1,14 +1,17 @@
 import request from 'superagent'
 // @ts-ignore
 import Heroku from 'heroku-client'
+import getCIVars from './getCIVars'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
 const VAULT_ADDR = 'https://vault.in.ft.com:8080'
 const HEROKU_TOKEN = process.env.HEROKU_API_TOKEN
-const CIRCLE_PROJECT_REPONAME = process.env.CIRCLE_PROJECT_REPONAME
 
 export default async function setConfigVars(appId: string, environment: string) {
+
+	const { repo } = await getCIVars(['repo'])
+
     try {
 		// Get a fresh Vault token
 		const tokenResponse = await request
@@ -18,7 +21,7 @@ export default async function setConfigVars(appId: string, environment: string) 
 		console.log('Fetching config values from Vault...') // eslint-disable-line no-console
 
 		const vaultResponse = await request
-			.get(`${VAULT_ADDR}/ui/vault/secrets/secret/list/teams/next/${CIRCLE_PROJECT_REPONAME}/${environment}`)
+			.get(`${VAULT_ADDR}/ui/vault/secrets/secret/list/teams/next/${repo}/${environment}`)
 			.set('X-Vault-Token', tokenResponse.body.auth.client_token)
 
 		const appConfigValues = vaultResponse.body.data
@@ -35,7 +38,7 @@ export default async function setConfigVars(appId: string, environment: string) 
 
 		console.log('Following values have been set:', Object.keys(appConfigValues).join())// eslint-disable-line no-console
 
-		console.log(`${CIRCLE_PROJECT_REPONAME} ${appId} config vars have been updated successfully.`) // eslint-disable-line no-console
+		console.log(`${repo} ${appId} config vars have been updated successfully.`) // eslint-disable-line no-console
 	} catch (err) {
 		console.error('Error updating config vars:', err) // eslint-disable-line no-console
 		process.exit(1)

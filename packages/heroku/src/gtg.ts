@@ -13,4 +13,3 @@ export default async function gtg (appId:string) {
 
     return waitForOk(url)
 }
-

@@ -25,6 +25,8 @@ export default class HerokuReview extends Command {
          await setConfigVars(reviewAppId, 'continuous-integration')
 
          await gtg(reviewAppId).then(process.exit(0))
+
+         //n-test
       }
       catch (err) {
          console.error('Error building review-app:', err) // eslint-disable-line no-console
