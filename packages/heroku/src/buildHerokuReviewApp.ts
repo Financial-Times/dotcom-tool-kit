@@ -1,14 +1,14 @@
 // @ts-ignore
 import Heroku from 'heroku-client'
 import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessSatus'
-import getCIVars from './getCIVars'
+import { readState } from '@dotcom-tool-kit/state'
 
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
 const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
 export default async function buildHerokuReviewApp(pipelineId: string): Promise<string> {
 
-    const { branch, repo, version } = await getCIVars(['branch', 'repo', 'version'])
+    const { branch, repo, version } = readState('ci', ['branch', 'repo', 'version'])
 
     const url = `https://github.com/Financial-Times/${repo}/archive/refs/heads/${branch}.zip`
     

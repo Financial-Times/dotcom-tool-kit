@@ -1,12 +1,12 @@
 // @ts-ignore
 import Heroku from 'heroku-client'
-import getCIVars from './getCIVars'
+import { readState } from '@dotcom-tool-kit/state'
 
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
 
 export default async function getHerokuReviewApp(pipelineId: string): Promise<string> {
 	
-	const { branch } = await getCIVars(['branch'])
+	const { branch } = readState('ci', ['branch'])
     // TODO: Retrieve Heroku_api_token from vault (into .env or node) - not currently used
     const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 

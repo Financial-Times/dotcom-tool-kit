@@ -1,7 +1,7 @@
 import request from 'superagent'
 // @ts-ignore
 import Heroku from 'heroku-client'
-import getCIVars from './getCIVars'
+import { readState } from '@dotcom-tool-kit/state'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
@@ -10,7 +10,7 @@ const HEROKU_TOKEN = process.env.HEROKU_API_TOKEN
 
 export default async function setConfigVars(appId: string, environment: string) {
 
-	const { repo } = await getCIVars(['repo'])
+	const { repo } = await readState('ci', ['repo']) 
 
     try {
 		// Get a fresh Vault token

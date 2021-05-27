@@ -5,12 +5,12 @@ import { writeState } from '@dotcom-tool-kit/state'
 
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
 
-export default async function gtg (appIdName:string, environment: string) {
+export default async function gtg (appIdName:string, environment: string, id=true) {
     const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
     let appName = appIdName
 
-    if (!appName.startsWith('ft')) {
+    if (!id) {
         const appDetails = await heroku.get(`/apps/${appIdName}`)
         appName = appDetails.name
         writeState(environment, 'appName', appName)
