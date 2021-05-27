@@ -2,20 +2,23 @@ import * as fs from 'fs'
 const target = process.env.INIT_CWD
 const stateFile = target ? `${target}/.toolkitstate.json` : '.toolkitstate.json'
 
-export function readState<T>(stage: T, item: T): T | null {
-  if (fs.existsSync(stateFile)) {
-    const readStateContent = JSON.parse(fs.readFileSync(stateFile, {encoding: 'utf-8'}))
-    try {
-      return readStateContent[stage][item]
-    } catch {
-      return null
-    }
-  } 
+export function readState<T>(stage: T, items: string[]): string[] | T[] | null {
+
+    if (fs.existsSync(stateFile)) {
+      const readStateContent = JSON.parse(fs.readFileSync(stateFile, {encoding: 'utf-8'}))
+      return items.map(item => {
+        try {
+          return readStateContent[stage][item]
+        } catch {
+          return null
+        }
+      })
+    } 
   return null
 }
 
 
-export function writeState<T>(stage: string, item: string, value: T): string | T | null {
+export function writeState<T>(stage: string, item: string, value: T): string[] | T[] | null {
   if (fs.existsSync(stateFile)) {
     const readStateContent = JSON.parse(fs.readFileSync(stateFile, {encoding: 'utf-8'}))
     if (readStateContent[stage]) {
@@ -32,5 +35,5 @@ export function writeState<T>(stage: string, item: string, value: T): string | T
       }
     fs.writeFileSync(stateFile, JSON.stringify(data, null, 2))
   }
-  return readState(stage, item)
+  return readState(stage, [item])
 }
