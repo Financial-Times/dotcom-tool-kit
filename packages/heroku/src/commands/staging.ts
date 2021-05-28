@@ -1,7 +1,7 @@
 import { Command } from '@oclif/command'
 import { readState } from '@dotcom-tool-kit/state'
 import setConfigVars from '../setConfigVars'
-import scaleUpDyno from '../scaleUpDyno'
+import scaleDyno from '../scaleDyno'
 import gtg from '../gtg'
 
 export default class HerokuStaging extends Command {
@@ -10,22 +10,23 @@ export default class HerokuStaging extends Command {
    static args = []
 
    async run() {
-      //get app name
-      const { repo } = readState('ci', ['repo'])
-      const appName = `ft-${repo}-staging`     
-      //apply vars from vault
-      await setConfigVars(appName, 'production')
-      //scale up staging
-      await scaleUpDyno(appName)
-
-      await gtg(appName, 'staging', false).then(process.exit(0))
+      try {
+         const { repo } = readState('ci', ['repo'])
+         const appName = `ft-${repo}-staging`     
+         //apply vars from vault
+         await setConfigVars(appName, 'production')
+         //scale up staging
+         await scaleDyno(appName, 1)
+   
+         await gtg(appName, 'staging', false)
+         //TODO: n-test
+         //scale down staging
+         await scaleDyno(appName, 0)
+         process.exit(0)
+      }
+      catch (err) {
+         console.error(`There's an error with your staging app:, ${err}`) // eslint-disable-line no-console
+         process.exit(1)
+      }
    }
 }
-
-// make deploy-staging in n-gage
- 
-//deploy on rebuilds even when no change?
-//waits for it to start running?
-//configures with vars from vault
-//gtg
-//smoke tests?

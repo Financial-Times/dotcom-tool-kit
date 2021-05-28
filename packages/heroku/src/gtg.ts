@@ -7,16 +7,17 @@ const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
 
 export default async function gtg (appIdName:string, environment: string, id=true) {
     const heroku = new Heroku({ token: HEROKU_API_TOKEN })
-
     let appName = appIdName
 
-    if (!id) {
+    //gtg called with id rather than name; get name from Heroku
+    if (id) {
         const appDetails = await heroku.get(`/apps/${appIdName}`)
         appName = appDetails.name
-        writeState(environment, 'appName', appName)
     }
     //save name to state file
-    const url = `https://${appName}.herokuapp.com/__gtg"`
+    writeState(environment, 'appName', appName)
 
+    const url = `https://${appName}.herokuapp.com/__gtg"`
+    
     return waitForOk(url)
 }

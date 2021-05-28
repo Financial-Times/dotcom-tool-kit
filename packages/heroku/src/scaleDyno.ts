@@ -8,7 +8,7 @@ export interface Formation {
     type: string
 }
 
-export default async function scaleUpDyno(appName: string, quantity: number = 1, type: string = 'web'): Promise<void> {
+export default async function scaleDyno(appName: string, quantity: number, type: string = 'web'): Promise<void> {
 
     const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
