@@ -1,4 +1,7 @@
 import { Command } from '@oclif/command'
+import getSlug from '../getSlug'
+import setSlug from '../setSlug'
+import gtg from '../gtg'
 
 export default class HerokuProduction extends Command {
    static description = ''
@@ -6,19 +9,19 @@ export default class HerokuProduction extends Command {
    static args = []
 
    async run() {
-      // get the slug id from staging-app
-
-      // replace production slug
+      try {
+         //retrieve slug from staging
+         const stagingSlugId = await getSlug('staging')
+         // replace production slug - api version of 'promotion'
+         console.log(`Promoting staging to production....`) // eslint-disable-line no-console
+         const appId = await setSlug(stagingSlugId)
+         
+         await gtg(appId, 'production', true) 
+         console.log(`Staging has been successfully promoted to production`) // eslint-disable-line no-console
+         process.exit(0)
+      } catch {
+         console.log(`There was a problem promoting staging production`)// eslint-disable-line no-console
+         process.exit(1)
+      }
    }
 }
-
-//promote staging app to production
-
-
-
-curl -X POST -H "Accept: application/vnd.heroku+json; version=3" -n \
--H "Content-Type: application/json" \
--d '{"slug": "ff40c84f-a538-4b65-a838-88fdd5245f4b"}' \
-//https://api.heroku.com/apps/example-app-production/releases
-
-POST /apps/{app_id_or_name}/releases
