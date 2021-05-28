@@ -5,22 +5,15 @@ import Heroku from 'heroku-client'
 const NUM_RETRIES = process.env.HEROKU_REVIEW_APP_NUM_RETRIES ? parseInt(process.env.HEROKU_REVIEW_APP_NUM_RETRIES) : 60
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN;
 
-const heroku = new Heroku({ token: HEROKU_API_TOKEN })
-
-enum Status {
-    Deleted = 'deleted',
-	Created = 'created'
-}
-
 export default async function repeatedCheckForSuccessStatus(reviewAppId: string) {
+
+    const heroku = new Heroku({ token: HEROKU_API_TOKEN })
     
     async function checkForSuccessStatus() {
-        heroku
-            .get(`/review-apps/${reviewAppId}`)
-            .then((reviewApp: {status: string}) => {
-                if (reviewApp.status === Status.Deleted) throw new pRetry.AbortError(`Review app was deleted`)
-                if (reviewApp.status !== Status.Created) throw new Error(`App build for app id: ${reviewAppId} not yet finished`)
-            })
+        const reviewApp = await heroku.get(`/review-apps/${reviewAppId}`)
+        if (reviewApp.status === 'deleted') throw new pRetry.AbortError(`Review app was deleted`)
+        if (reviewApp.status !== 'created') throw new Error(`App build for app id: ${reviewAppId} not yet finished`)
+
         return true
     }
 
@@ -35,4 +28,3 @@ export default async function repeatedCheckForSuccessStatus(reviewAppId: string)
 
     return result
 }
-

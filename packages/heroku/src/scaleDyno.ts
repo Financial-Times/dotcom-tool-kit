@@ -12,19 +12,18 @@ export default async function scaleDyno(appName: string, quantity: number, type:
 
     const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
-    heroku.patch(`/apps/ft-${appName}/formation`, {
+    const appFormation = await heroku.patch(`/apps/ft-${appName}/formation`, {
         "updates": [
             {
               "quantity": quantity,
               "type": type
             }
           ]
-    }).then((body: Formation) => {
-        if (body.quantity === quantity && body.type === type) {
-            return true
-        } else {
-            process.exit(1)
-        }
-    })
-    return
+        })
+
+    if (appFormation.quantity === quantity && appFormation.type === type) {
+        return
+    } else {
+        process.exit(1)
+    }
 }

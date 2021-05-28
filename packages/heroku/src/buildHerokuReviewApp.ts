@@ -12,8 +12,8 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
 
     const url = `https://github.com/Financial-Times/${repo}/archive/refs/heads/${branch}.zip`
     
-    const reviewAppId = 
-        heroku.post(`/review-apps`, {body: 
+    const reviewApp = 
+        await heroku.post(`/review-apps`, {body: 
             {
             "branch": branch,
             "pipeline": pipelineId,
@@ -23,14 +23,11 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
                 }
             }
         })
-        .then((reviewApp: {id: string}): string => {
-            return reviewApp.id
-        })
     
-    const successStatus = await repeatedCheckForSuccessStatus(reviewAppId)
+    const successStatus = await repeatedCheckForSuccessStatus(reviewApp.id)
 
     if (successStatus) {
-        return reviewAppId
+        return reviewApp.id
     } else {
         console.error(`Something went wrong with building the review-app`) // eslint-disable-line no-console
         process.exit(1)
