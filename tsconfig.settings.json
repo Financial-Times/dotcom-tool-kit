@@ -2,6 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "declaration": true,
+    "declarationMap": true,
     "importHelpers": true,
     "module": "commonjs",
     "strict": true,
