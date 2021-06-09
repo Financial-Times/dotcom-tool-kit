@@ -20,6 +20,6 @@ export default class EslintCommand extends Command {
     const formatter = await eslint.loadFormatter('stylish')
     const resultText = formatter.format(results)
 
-    console.log(resultText) // eslint-disable-line no-console
+    console.log(resultText)
   }
 }

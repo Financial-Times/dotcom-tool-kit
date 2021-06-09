@@ -1,8 +1,6 @@
 import type { Plugin } from './plugin'
 import { Config } from './config'
 
-/* eslint-disable no-unused-vars */
-
 export interface CommandClass {
   id?: string
   plugin?: Plugin

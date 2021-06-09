@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 declare module '@financial-times/package-json' {
   class PackageJson {
     requireScript(options: Record<string, unknown>): void

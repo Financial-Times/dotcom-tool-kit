@@ -6,6 +6,6 @@ export default class HerokuPostbuild extends Command {
   static args = []
 
   async run(): Promise<void> {
-    console.log('heroku postbuild') // eslint-disable-line no-console
+    console.log('heroku postbuild')
   }
 }

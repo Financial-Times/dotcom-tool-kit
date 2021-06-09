@@ -1,15 +1,13 @@
 {
-   "extends": "../../tsconfig.settings.json",
-   "references": [
-      {
-        "path": "../wait-for-ok"
-      }
-   ],
-   "compilerOptions": {
-      "outDir": "lib",
-      "rootDir": "src"
-   },
-   "include": [
-      "src"
-   ]
+  "extends": "../../tsconfig.settings.json",
+  "references": [
+    {
+      "path": "../wait-for-ok"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "include": ["src"]
 }

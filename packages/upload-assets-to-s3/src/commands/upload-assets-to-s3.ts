@@ -71,10 +71,10 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
   return new Promise<void>((resolve, reject) => {
     return s3.upload(params, (error: Error, data: { Location: string }) => {
       if (error) {
-        console.error(`Upload of ${basename} to ${options.bucket} failed`) // eslint-disable-line no-console
+        console.error(`Upload of ${basename} to ${options.bucket} failed`)
         reject(error)
       } else {
-        console.log(`Uploaded ${basename} to ${data.Location}`) // eslint-disable-line no-console
+        console.log(`Uploaded ${basename} to ${data.Location}`)
         resolve()
       }
     })

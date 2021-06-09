@@ -13,7 +13,7 @@ export default class HelpCommand implements Command {
     for (const [id, command] of Object.entries(config.commands)) {
       if (isConflict(command) || command.hidden) continue
 
-      console.log(`${id}\t${command.description}`) // eslint-disable-line no-console
+      console.log(`${id}\t${command.description}`)
     }
   }
 
@@ -22,7 +22,7 @@ export default class HelpCommand implements Command {
     if (isConflict(command)) return
 
     // TODO print argument help somehow?
-    console.log(`${id}\t${command.description}`) // eslint-disable-line no-console
+    console.log(`${id}\t${command.description}`)
   }
 
   async run(): Promise<void> {

@@ -5,5 +5,8 @@ module.exports = {
     'prettier',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended'
-  ]
+  ],
+  rules: {
+    'no-console': 'off'
+  }
 }

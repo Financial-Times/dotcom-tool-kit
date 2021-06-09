@@ -25,7 +25,6 @@ export default class MochaCommand extends Command {
         mocha.addFile(`${this.options.testDir}/${file}`)
       })
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.log(
         `Something went wrong: please ensure your tests are in ./test, or their location is configured in your project's .toolkitrc.yml`
       )

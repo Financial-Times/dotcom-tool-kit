@@ -7,6 +7,6 @@ export default class BabelProduction extends Command {
   static hidden = true
 
   async run(): Promise<void> {
-    console.log('babel production') // eslint-disable-line no-console
+    console.log('babel production')
   }
 }
