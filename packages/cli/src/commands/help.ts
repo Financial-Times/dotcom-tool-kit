@@ -3,33 +3,35 @@ import { config } from '../config'
 import type { Command } from '../command'
 
 export default class HelpCommand implements Command {
-   static description = 'show this help'
+  static description = 'show this help'
 
-   constructor(public argv: string[]) {}
+  constructor(public argv: string[]) {
+    this.argv = argv
+  }
 
-   showHelp() {
-      for(const [id, command] of Object.entries(config.commands)) {
-         if(isConflict(command) || command.hidden) continue
+  showHelp(): void {
+    for (const [id, command] of Object.entries(config.commands)) {
+      if (isConflict(command) || command.hidden) continue
 
-         console.log(`${id}\t${command.description}`)
-      }
-   }
+      console.log(`${id}\t${command.description}`) // eslint-disable-line no-console
+    }
+  }
 
-   showCommandHelp(id: string) {
-      const command = config.commands[id]
-      if(isConflict(command)) return
+  showCommandHelp(id: string): void {
+    const command = config.commands[id]
+    if (isConflict(command)) return
 
-      // TODO print argument help somehow?
-      console.log(`${id}\t${command.description}`)
-   }
+    // TODO print argument help somehow?
+    console.log(`${id}\t${command.description}`) // eslint-disable-line no-console
+  }
 
-   async run() {
-      const [id] = this.argv
+  async run(): Promise<void> {
+    const [id] = this.argv
 
-      if(id) {
-         this.showCommandHelp(id)
-      } else {
-         this.showHelp()
-      }
-   }
+    if (id) {
+      this.showCommandHelp(id)
+    } else {
+      this.showHelp()
+    }
+  }
 }

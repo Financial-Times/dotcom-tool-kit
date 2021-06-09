@@ -6,7 +6,7 @@ export default class Install extends Command {
   static flags = {}
   static args = []
 
-  async run() {
+  async run(): Promise<void> {
     ensureHerokuPostbuildScript()
   }
 }

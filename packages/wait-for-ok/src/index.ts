@@ -2,15 +2,11 @@ import fetch from 'node-fetch'
 
 const TWO_MINUTES = 2 * 60 * 1000
 
-export default function waitForOk(url: string) {
-  let timeout: NodeJS.Timeout // eslint-disable-line no-undef
-  let checker: NodeJS.Timeout // eslint-disable-line no-undef
-
-  async function checkGtg() {
+export default function waitForOk(url: string): void {
+  const checkGtg = async () => {
     console.log(`⏳ polling: ${url}`) // eslint-disable-line no-console
 
     try {
-     // @ts-ignore
       const response = await fetch(url, { timeout: 2000, follow: 0 })
 
       if (response.ok) {
@@ -31,10 +27,9 @@ export default function waitForOk(url: string) {
     }
   }
 
-  checker = setInterval(checkGtg, 3000)
-
-  timeout = setTimeout(function () {
+  const timeout = setTimeout(function () {
     return Promise.reject(new Error(`😢 ${url} did not respond with an ok response within two minutes.`))
     clearInterval(checker)
-  }, TWO_MINUTES)
+  }, TWO_MINUTES) // eslint-disable-line no-undef
+  const checker = setInterval(checkGtg, 3000) // eslint-disable-line no-undef
 }

@@ -20,7 +20,7 @@ export default class GoodToGo extends Command {
     })
   }
 
-  async run() {
+  async run(): Promise<void> {
     const { flags } = this.parse(GoodToGo)
 
     const { app } = flags

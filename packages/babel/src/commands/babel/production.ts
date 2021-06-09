@@ -6,7 +6,7 @@ export default class BabelProduction extends Command {
   static flags = {}
   static hidden = true
 
-  async run() {
-    console.log('babel production')
+  async run(): Promise<void> {
+    console.log('babel production') // eslint-disable-line no-console
   }
 }
