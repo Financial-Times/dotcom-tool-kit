@@ -6,7 +6,7 @@ export default class BabelDevelopment extends Command {
   static flags = {}
   static hidden = true
 
-  async run() {
+  async run(): Promise<void> {
     console.log('babel development')
   }
 }
