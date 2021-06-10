@@ -5,7 +5,7 @@ export default class HerokuPostbuild extends Command {
   static flags = {}
   static args = []
 
-  async run() {
+  async run(): Promise<void> {
     console.log('heroku postbuild')
   }
 }

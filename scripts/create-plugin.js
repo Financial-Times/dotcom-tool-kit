@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
@@ -21,7 +23,7 @@ console.log('🔣 adding metadata to package.json')
 
 const pkg = JSON.parse(fs.readFileSync('package.json'))
 
-pkg.main = "lib"
+pkg.main = 'lib'
 pkg.version = '0.0.0-development'
 pkg.repository = {
   type: 'git',
@@ -38,8 +40,8 @@ console.log('⌨️ creating tsconfig')
 const tsconfig = {
   extends: '../../tsconfig.settings.json',
   compilerOptions: {
-     outDir: 'lib',
-     rootDir: 'src'
+    outDir: 'lib',
+    rootDir: 'src'
   }
 }
 

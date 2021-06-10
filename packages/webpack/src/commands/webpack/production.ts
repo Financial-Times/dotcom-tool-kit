@@ -7,7 +7,7 @@ export default class WebpackProduction extends Command {
   static flags = {}
   static hidden = true
 
-  async run() {
+  async run(): Promise<void> {
     runWebpack(this.argv, 'production')
   }
 }

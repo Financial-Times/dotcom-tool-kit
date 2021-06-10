@@ -1,7 +1,7 @@
 import type { Plugin } from './plugin'
 
 export interface Lifecycle {
-   id: string
-   plugin: Plugin
-   commands: string[]
+  id: string
+  plugin: Plugin
+  commands: string[]
 }

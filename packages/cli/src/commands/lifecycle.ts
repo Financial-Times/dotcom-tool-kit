@@ -4,19 +4,21 @@ import { config } from '../config'
 import type { Command } from '../command'
 
 export default class LifecycleCommand implements Command {
-   static description = 'run lifecycle commands'
+  static description = 'run lifecycle commands'
 
-   constructor(public argv: string[]) {}
+  constructor(public argv: string[]) {
+    this.argv = argv
+  }
 
-   async run() {
-      for(const id of this.argv) {
-         const lifecycle = config.lifecycles[id]
+  async run(): Promise<void> {
+    for (const id of this.argv) {
+      const lifecycle = config.lifecycles[id]
 
-         if(isConflict(lifecycle)) continue
+      if (isConflict(lifecycle)) continue
 
-         for(const command of lifecycle.commands) {
-            await runCommand(command, [])
-         }
+      for (const command of lifecycle.commands) {
+        await runCommand(command, [])
       }
-   }
+    }
+  }
 }

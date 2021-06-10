@@ -1,8 +1,8 @@
 module.exports = [
-	{
-		name: 'basic',
-		urls: {
-			'/': 200,
-		}
-	}
+  {
+    name: 'basic',
+    urls: {
+      '/': 200
+    }
+  }
 ]

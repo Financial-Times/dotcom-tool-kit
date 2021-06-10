@@ -1,7 +1,7 @@
-import BabelDevelopment from "./commands/babel/development";
-import BabelProduction from "./commands/babel/production";
+import BabelDevelopment from './commands/babel/development'
+import BabelProduction from './commands/babel/production'
 
 export const commands = {
-   'babel:development': BabelDevelopment,
-   'babel:production': BabelProduction
+  'babel:development': BabelDevelopment,
+  'babel:production': BabelProduction
 }
