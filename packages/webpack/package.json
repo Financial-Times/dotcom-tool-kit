@@ -15,7 +15,9 @@
   "keywords": [],
   "dependencies": {
     "@oclif/command": "^1.8.0",
-    "webpack": "^5.35.1",
     "webpack-cli": "^4.6.0"
+  },
+  "peerDependencies": {
+    "webpack": "4.x.x || 5.x.x"
   }
 }
