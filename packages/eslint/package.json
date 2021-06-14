@@ -3,6 +3,9 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "lib",
+  "scripts": {
+    "test": "jest"
+  },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
@@ -19,6 +22,9 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/eslint",
   "devDependencies": {
-    "@types/eslint": "^7.2.10"
+    "@types/eslint": "^7.2.10",
+    "@types/jest": "^26.0.23",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6"
   }
 }

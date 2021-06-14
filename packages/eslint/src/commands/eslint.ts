@@ -4,6 +4,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 
 interface EslintOptions {
   files: string[] | string
+  config?: ESLint.Options
 }
 
 export default class EslintCommand extends Command {
@@ -16,7 +17,7 @@ export default class EslintCommand extends Command {
   }
 
   async run(): Promise<void> {
-    const eslint = new ESLint()
+    const eslint = new ESLint(this.options.config)
     const results = await eslint.lintFiles(this.options.files)
     const formatter = await eslint.loadFormatter('stylish')
     const resultText = formatter.format(results)
