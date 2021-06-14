@@ -21,6 +21,7 @@
     "webpack": "4.x.x || 5.x.x"
   },
   "devDependencies": {
+    "@types/node": "^15.12.2",
     "webpack": "^4.42.1"
   }
 }
