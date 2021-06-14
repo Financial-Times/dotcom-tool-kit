@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "jest"
+    "test": "jest --silent"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
