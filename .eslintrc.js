@@ -17,6 +17,12 @@ module.exports = {
         // TODO ivo: Revisit this once Command types have been reified?
         '@typescript-eslint/no-explicit-any': 'off'
       }
+    },
+    {
+      files: ['*.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off'
+      }
     }
   ]
 }

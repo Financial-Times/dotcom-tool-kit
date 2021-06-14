@@ -1,11 +1,12 @@
 import aws from 'aws-sdk'
-import UploadAssetsToS3 from '../../src/commands/upload-assets-to-s3'
+import * as path from 'path'
 import { mocked } from 'ts-jest/utils'
+import UploadAssetsToS3 from '../../src/commands/upload-assets-to-s3'
 jest.mock('aws-sdk')
 
 const mockedAWS = mocked(aws, true)
 
-const testDirectory = 'test/files'
+const testDirectory = path.join(__dirname, '../files')
 
 describe('upload-assets-to-s3', () => {
   beforeAll(() => {
