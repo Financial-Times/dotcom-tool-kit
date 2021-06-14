@@ -1,12 +1,8 @@
-import { test } from '@oclif/test'
-console.log('hellooo')
+import GoodToGo from '../../src/commands/gtg'
 
 describe('gtg', () => {
-  test
-    .stdout()
-    .command(['gtg', '--app', 'ft-next-health-eu'])
-    .it("tests an app's __gtg endopoint", (ctx) => {
-      console.log(ctx)
-      // expect(ctx.stdout).to.equal('')
-    })
+  it("tests and app's __gtg endpoint", async () => {
+    // TODO mock the fetch function
+    await GoodToGo.run(['--app', 'ft-next-health-eu'])
+  })
 })
