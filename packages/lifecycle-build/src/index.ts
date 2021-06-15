@@ -1,7 +1,7 @@
 import path from 'path'
 import YAML from 'yawn-yaml/cjs'
 import { promises as fs } from 'fs'
-import { PackageJsonLifecycleInstaller } from '@'
+import { PackageJsonLifecycleInstaller } from '@dotcom-tool-kit/lifecycle-package-json'
 
 type Step = {
   [step: string]: any
