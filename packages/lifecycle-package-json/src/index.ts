@@ -1,4 +1,5 @@
 import loadPackageJson from '@financial-times/package-json'
+/// <reference path="./types/package-json.d.ts">
 import type { PackageJson } from '@financial-times/package-json'
 import path from 'path'
 
