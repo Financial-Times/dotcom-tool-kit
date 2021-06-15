@@ -35,16 +35,20 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should print an error when AWS fails', async () => {
+    const mockError = new Error('mock 404')
+
     mockedAWS.S3.prototype.upload.mockReturnValue({
-      promise: jest.fn().mockRejectedValue(new Error('mock 404'))
+      promise: jest.fn().mockRejectedValue(mockError)
     } as any)
-    const logSpy = jest.spyOn(console, 'error')
 
     const command = new UploadAssetsToS3([], {} as any)
     command.options.directory = testDirectory
 
-    await command.run()
-
-    expect(logSpy).toHaveBeenCalledTimes(4)
+    expect.assertions(1)
+    try {
+      await command.run()
+    } catch (e) {
+      expect(e).toEqual(mockError)
+    }
   })
 })

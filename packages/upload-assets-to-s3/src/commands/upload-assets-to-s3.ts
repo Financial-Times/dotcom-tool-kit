@@ -73,6 +73,7 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
     console.log(`Uploaded ${basename} to ${data.Location}`)
   } catch (error) {
     console.error(`Upload of ${basename} to ${options.bucket} failed`)
+    throw error
   }
 }
 
