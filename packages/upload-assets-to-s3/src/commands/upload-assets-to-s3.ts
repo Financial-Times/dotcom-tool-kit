@@ -68,21 +68,20 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
     CacheControl: options.cacheControl
   }
 
-  return new Promise<void>((resolve, reject) => {
-    return s3.upload(params, (error: Error, data: { Location: string }) => {
-      if (error) {
-        console.error(`Upload of ${basename} to ${options.bucket} failed`)
-        reject(error)
-      } else {
-        console.log(`Uploaded ${basename} to ${data.Location}`)
-        resolve()
-      }
-    })
-  })
+  try {
+    const data = await s3.upload(params).promise()
+    console.log(`Uploaded ${basename} to ${data.Location}`)
+  } catch (error) {
+    console.error(`Upload of ${basename} to ${options.bucket} failed`)
+    throw error
+  }
 }
 
 async function uploadAssetsToS3(options: UploadAssetsToS3Options) {
-  const files = glob.sync(`${options.directory}/**/*{${options.extensions}}`)
+  // Wrap extensions in braces if there are multiple
+  const extensions = options.extensions.includes(',') ? `{${options.extensions}}` : options.extensions
+  const globFile = `${options.directory}/**/*${extensions}`
+  const files = glob.sync(globFile)
 
   const s3 = new aws.S3({
     accessKeyId: options.accessKeyId,

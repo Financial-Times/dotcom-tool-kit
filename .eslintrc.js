@@ -7,6 +7,16 @@ module.exports = {
     'plugin:@typescript-eslint/recommended'
   ],
   rules: {
+    // This is a CLI application so we want to be logging
     'no-console': 'off'
-  }
+  },
+  overrides: [
+    {
+      files: ['*.test.ts'],
+      rules: {
+        // TODO ivo: Revisit this once Command types have been reified?
+        '@typescript-eslint/no-explicit-any': 'off'
+      }
+    }
+  ]
 }
