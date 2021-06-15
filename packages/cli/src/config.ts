@@ -5,7 +5,14 @@ import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import type { Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { formatCommandConflicts, formatUndefinedLifecycleAssignments, formatLifecycleAssignmentConflicts, formatLifecycleConflicts, formatOptionConflicts, formatUninstalledLifecycles } from './messages'
+import {
+  formatCommandConflicts,
+  formatUndefinedLifecycleAssignments,
+  formatLifecycleAssignmentConflicts,
+  formatLifecycleConflicts,
+  formatOptionConflicts,
+  formatUninstalledLifecycles
+} from './messages'
 import HelpCommand from './commands/help'
 import LifecycleCommand from './commands/lifecycle'
 import InstallCommand from './commands/install'
@@ -22,8 +29,8 @@ export interface Config {
   plugins: { [id: string]: Plugin }
   commands: { [id: string]: CommandClass | Conflict<CommandClass> }
   lifecycleAssignments: { [id: string]: LifecycleAssignment | Conflict<LifecycleAssignment> }
-   options: { [id: string]: PluginOptions | Conflict<PluginOptions> },
-   lifecycles: { [id:string]: LifecycleClass | Conflict<LifecycleClass> }
+  options: { [id: string]: PluginOptions | Conflict<PluginOptions> }
+  lifecycles: { [id: string]: LifecycleClass | Conflict<LifecycleClass> }
 }
 
 export interface ValidConfig extends Config {
@@ -50,11 +57,7 @@ export const config: Config = {
 }
 
 async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
-   const results = await Promise.all(
-      items.map(
-         async item => ({ item, keep: await predicate(item) })
-      )
-   )
+  const results = await Promise.all(items.map(async (item) => ({ item, keep: await predicate(item) })))
 
    return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
@@ -69,7 +72,7 @@ export async function validateConfig(config: Config, { checkInstall = true }): P
    const error = new ToolKitError('There are problems with your Tool Kit configuration.')
    error.details = ''
 
-   if(
+  if (
       lifecycleConflicts.length > 0 ||
       lifecycleAssignmentConflicts.length > 0 ||
       commandConflicts.length > 0 ||
@@ -81,7 +84,7 @@ export async function validateConfig(config: Config, { checkInstall = true }): P
          error.details += formatLifecycleConflicts(lifecycleConflicts)
       }
 
-      if(lifecycleAssignmentConflicts.length) {
+    if (lifecycleAssignmentConflicts.length) {
          error.details += formatLifecycleAssignmentConflicts(lifecycleAssignmentConflicts)
       }
 
@@ -97,26 +100,31 @@ export async function validateConfig(config: Config, { checkInstall = true }): P
    const assignedLifecycles = withoutConflicts(Object.values(config.lifecycleAssignments))
    const definedLifecycles = withoutConflicts(Object.values(config.lifecycles))
    const definedLifecycleIds = new Set(Object.keys(config.lifecycles))
-   const undefinedLifecycleAssignments = assignedLifecycles.filter(lifecycle => !definedLifecycleIds.has(lifecycle.id))
+  const undefinedLifecycleAssignments = assignedLifecycles.filter(
+    (lifecycle) => !definedLifecycleIds.has(lifecycle.id)
+  )
 
-   if(undefinedLifecycleAssignments.length > 0) {
+  if (undefinedLifecycleAssignments.length > 0) {
       shouldThrow = true
-      error.details += formatUndefinedLifecycleAssignments(undefinedLifecycleAssignments, Array.from(definedLifecycleIds))
+    error.details += formatUndefinedLifecycleAssignments(
+      undefinedLifecycleAssignments,
+      Array.from(definedLifecycleIds)
+    )
    }
 
-   if(checkInstall) {
-      const uninstalledLifecycles = await asyncFilter(definedLifecycles, async Lifecycle => {
+  if (checkInstall) {
+    const uninstalledLifecycles = await asyncFilter(definedLifecycles, async (Lifecycle) => {
          const lifecycle = new Lifecycle()
          return !(await lifecycle.check())
       })
 
-      if(uninstalledLifecycles.length > 0) {
+    if (uninstalledLifecycles.length > 0) {
          shouldThrow = true
          error.details += formatUninstalledLifecycles(uninstalledLifecycles)
       }
    }
 
-   if(shouldThrow) {
+  if (shouldThrow) {
       throw error
    }
 

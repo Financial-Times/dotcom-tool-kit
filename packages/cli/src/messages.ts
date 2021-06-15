@@ -103,9 +103,11 @@ ${undefinedAssignments
 Available lifecycle events are: ${definedLifecycles.map(s.command).join(', ')}
 `
 
-export const formatUninstalledLifecycles = (uninstalledLifecycles: LifecycleClass[]) => `These lifecycle events aren't installed into your app:
+export const formatUninstalledLifecycles = (
+  uninstalledLifecycles: LifecycleClass[]
+) => `These lifecycle events aren't installed into your app:
 
-${uninstalledLifecycles.map(lifecycle => `- ${s.lifecycle(lifecycle.id || 'unknown event')}`).join('\n')}
+${uninstalledLifecycles.map((lifecycle) => `- ${s.lifecycle(lifecycle.id || 'unknown event')}`).join('\n')}
 
 Run ${s.command('dotcom-tool-kit install')} to install these events.
 `

@@ -21,15 +21,14 @@ export function findConflicts<T, U>(items: (U | Conflict<T>)[]): Conflict<T>[] {
   return conflicts
 }
 
-
 export function withoutConflicts<T, U>(items: (U | Conflict<T>)[]): U[] {
-   const nonConflicts:U[] = []
+  const nonConflicts: U[] = []
 
-   for(const item of items) {
-      if(!isConflict<T>(item)) {
-         nonConflicts.push(item)
-      }
-   }
+  for (const item of items) {
+    if (!isConflict<T>(item)) {
+      nonConflicts.push(item)
+    }
+  }
 
-   return nonConflicts
+  return nonConflicts
 }

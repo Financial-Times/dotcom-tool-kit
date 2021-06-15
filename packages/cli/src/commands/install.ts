@@ -4,17 +4,17 @@ import { config } from '../config'
 import type { Command } from '../command'
 
 export default class InstallCommand implements Command {
-   static description = 'run lifecycle commands'
+  static description = 'run lifecycle commands'
 
-   async run() {
-      for(const [id, Lifecycle] of Object.entries(config.lifecycles)) {
-         if(isConflict(Lifecycle)) continue
+  async run() {
+    for (const [id, Lifecycle] of Object.entries(config.lifecycles)) {
+      if (isConflict(Lifecycle)) continue
 
-         const lifecycle = new Lifecycle()
+      const lifecycle = new Lifecycle()
 
-         if(!await lifecycle.check()) {
-            await lifecycle.install()
-         }
+      if (!(await lifecycle.check())) {
+        await lifecycle.install()
       }
-   }
+    }
+  }
 }

@@ -7,12 +7,12 @@ export interface LifecycleAssignment {
 }
 
 export interface LifecycleClass {
-   id?: string
-   plugin?: Plugin
-   new(): Lifecycle
+  id?: string
+  plugin?: Plugin
+  new (): Lifecycle
 }
 
 export interface Lifecycle {
-   check(): Promise<boolean>
-   install(): Promise<void>
+  check(): Promise<boolean>
+  install(): Promise<void>
 }
