@@ -1,26 +1,25 @@
 plugins:
-  - "@dotcom-tool-kit/frontend-app"
-  - "@dotcom-tool-kit/heroku-postbuild"
-  - "@dotcom-tool-kit/eslint"
-  - "@dotcom-tool-kit/mocha"
-  - "@dotcom-tool-kit/n-test"
-  - "@dotcom-tool-kit/upload-assets-to-s3"
-  - "@dotcom-tool-kit/lifecycle-build"
-  - "@dotcom-tool-kit/lifecycle-test"
+  - '@dotcom-tool-kit/frontend-app'
+  - '@dotcom-tool-kit/eslint'
+  - '@dotcom-tool-kit/mocha'
+  - '@dotcom-tool-kit/n-test'
+  - '@dotcom-tool-kit/upload-assets-to-s3'
+  - '@dotcom-tool-kit/lifecycle-build'
+  - '@dotcom-tool-kit/lifecycle-test'
 
 options:
-  "@dotcom-tool-kit/eslint":
+  '@dotcom-tool-kit/eslint':
     files:
       - webpack.config.js
-  "@dotcom-tool-kit/mocha":
+  '@dotcom-tool-kit/mocha':
     testDir: './mocha_tests'
-  "@dotcom-tool-kit/n-test":
-    host: "https://example.com"
+  '@dotcom-tool-kit/n-test':
+    host: 'https://example.com'
 
 lifecycles:
-  "test:local":
-    - "mocha"
-    - "eslint"
-  "test:ci": 
+  'test:local':
     - 'mocha'
-    - "eslint"
+    - 'eslint'
+  'test:ci':
+    - 'mocha'
+    - 'eslint'
