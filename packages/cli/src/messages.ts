@@ -100,7 +100,9 @@ ${undefinedAssignments
   )
   .join('\n')}
 
-Available lifecycle events are: ${definedLifecycles.map(s.command).join(', ')}
+They could be misspelt, or defined by a Tool Kit plugin that isn't used by this app.
+
+Available lifecycle events are: ${definedLifecycles.map(s.command).join(', ')}.
 `
 
 export const formatUninstalledLifecycles = (
