@@ -19,13 +19,13 @@ import InstallCommand from './commands/install'
 
 export interface PluginOptions {
   options: Record<string, unknown>
-   plugin: Plugin
-   forPlugin: Plugin
+  plugin: Plugin
+  forPlugin: Plugin
 }
 
 export interface Config {
-   root: string
-   findCommand(): boolean
+  root: string
+  findCommand(): boolean
   plugins: { [id: string]: Plugin }
   commands: { [id: string]: CommandClass | Conflict<CommandClass> }
   lifecycleAssignments: { [id: string]: LifecycleAssignment | Conflict<LifecycleAssignment> }
@@ -35,98 +35,98 @@ export interface Config {
 
 export interface ValidConfig extends Config {
   commands: { [id: string]: CommandClass }
-   lifecycleAssignments: { [id: string]: LifecycleAssignment }
-   options: { [id: string]: PluginOptions }
-   lifecycles: { [id: string]: LifecycleClass }
+  lifecycleAssignments: { [id: string]: LifecycleAssignment }
+  options: { [id: string]: PluginOptions }
+  lifecycles: { [id: string]: LifecycleClass }
 }
 
 const coreRoot = path.resolve(__dirname, '../')
 
 export const config: Config = {
-   root: coreRoot,
-   findCommand: () => false,
-   plugins: {},
-   commands: {
-      help: HelpCommand,
-      lifecycle: LifecycleCommand,
-      install: InstallCommand
-   },
-   lifecycleAssignments: {},
-   options: {},
-   lifecycles: {}
+  root: coreRoot,
+  findCommand: () => false,
+  plugins: {},
+  commands: {
+    help: HelpCommand,
+    lifecycle: LifecycleCommand,
+    install: InstallCommand
+  },
+  lifecycleAssignments: {},
+  options: {},
+  lifecycles: {}
 }
 
 async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
   const results = await Promise.all(items.map(async (item) => ({ item, keep: await predicate(item) })))
 
-   return results.filter(({ keep }) => keep).map(({ item }) => item)
+  return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
 export async function validateConfig(config: Config, { checkInstall = true }): Promise<ValidConfig> {
-   const lifecycleAssignmentConflicts = findConflicts(Object.values(config.lifecycleAssignments))
-   const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
-   const commandConflicts = findConflicts(Object.values(config.commands))
-   const optionConflicts = findConflicts(Object.values(config.options))
+  const lifecycleAssignmentConflicts = findConflicts(Object.values(config.lifecycleAssignments))
+  const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
+  const commandConflicts = findConflicts(Object.values(config.commands))
+  const optionConflicts = findConflicts(Object.values(config.options))
 
-   let shouldThrow = false
-   const error = new ToolKitError('There are problems with your Tool Kit configuration.')
-   error.details = ''
+  let shouldThrow = false
+  const error = new ToolKitError('There are problems with your Tool Kit configuration.')
+  error.details = ''
 
   if (
-      lifecycleConflicts.length > 0 ||
-      lifecycleAssignmentConflicts.length > 0 ||
-      commandConflicts.length > 0 ||
-      optionConflicts.length > 0
-   ) {
-      shouldThrow = true
+    lifecycleConflicts.length > 0 ||
+    lifecycleAssignmentConflicts.length > 0 ||
+    commandConflicts.length > 0 ||
+    optionConflicts.length > 0
+  ) {
+    shouldThrow = true
 
     if (lifecycleConflicts.length) {
-         error.details += formatLifecycleConflicts(lifecycleConflicts)
-      }
+      error.details += formatLifecycleConflicts(lifecycleConflicts)
+    }
 
     if (lifecycleAssignmentConflicts.length) {
-         error.details += formatLifecycleAssignmentConflicts(lifecycleAssignmentConflicts)
-      }
+      error.details += formatLifecycleAssignmentConflicts(lifecycleAssignmentConflicts)
+    }
 
     if (commandConflicts.length) {
-         error.details += formatCommandConflicts(commandConflicts)
-      }
+      error.details += formatCommandConflicts(commandConflicts)
+    }
 
     if (optionConflicts.length) {
-         error.details += formatOptionConflicts(optionConflicts)
-      }
-   }
+      error.details += formatOptionConflicts(optionConflicts)
+    }
+  }
 
-   const assignedLifecycles = withoutConflicts(Object.values(config.lifecycleAssignments))
-   const definedLifecycles = withoutConflicts(Object.values(config.lifecycles))
-   const definedLifecycleIds = new Set(Object.keys(config.lifecycles))
+  const assignedLifecycles = withoutConflicts(Object.values(config.lifecycleAssignments))
+  const definedLifecycles = withoutConflicts(Object.values(config.lifecycles))
+  const definedLifecycleIds = new Set(Object.keys(config.lifecycles))
   const undefinedLifecycleAssignments = assignedLifecycles.filter(
     (lifecycle) => !definedLifecycleIds.has(lifecycle.id)
   )
 
   if (undefinedLifecycleAssignments.length > 0) {
-      shouldThrow = true
+    shouldThrow = true
     error.details += formatUndefinedLifecycleAssignments(
       undefinedLifecycleAssignments,
       Array.from(definedLifecycleIds)
     )
-   }
+  }
 
   if (checkInstall) {
     const uninstalledLifecycles = await asyncFilter(definedLifecycles, async (Lifecycle) => {
-         const lifecycle = new Lifecycle()
-         return !(await lifecycle.check())
-      })
+      const lifecycle = new Lifecycle()
+      return !(await lifecycle.check())
+    })
 
     if (uninstalledLifecycles.length > 0) {
-         shouldThrow = true
-         error.details += formatUninstalledLifecycles(uninstalledLifecycles)
-      }
-   }
+      shouldThrow = true
+      error.details += formatUninstalledLifecycles(uninstalledLifecycles)
+    }
+  }
 
   if (shouldThrow) {
-      throw error
-   }
+    throw error
+  }
 
-   return config as ValidConfig
+  return config as ValidConfig
 }
