@@ -1,30 +1,27 @@
+import { PackageJsonLifecycleInstaller } from '@dotcom-tool-kit/lifecycle-package-json'
+
 class TestCI {
-  async check() {
-    return false
+  async check(): Promise<boolean> {
+    return true
   }
 
   async install() {
-    console.log('installing test:ci')
+    throw new Error('where does this even go')
   }
 }
 
-class TestLocal {
-  async check() {
-    return false
-  }
-
-  async install() {
-    console.log('installing test:local')
-  }
+class TestLocal extends PackageJsonLifecycleInstaller {
+  script = 'test'
+  command = 'dotcom-tool-kit lifecycle test:local'
 }
 
 class TestDeploy {
-  async check() {
-    return false
+  async check(): Promise<boolean> {
+    return true
   }
 
   async install() {
-    console.log('installing test:deploy')
+    throw new Error('where does this even go')
   }
 }
 
