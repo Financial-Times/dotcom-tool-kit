@@ -9,6 +9,8 @@ export async function load() {
    })
 }
 
+console.log('WHAT IS GOING ON')
+
 export async function runCommand(id: string, argv: string[]): Promise<void> {
    const validConfig = await validateConfig(config, {
       // don't check if lifecycles are installed if we're trying to install them
