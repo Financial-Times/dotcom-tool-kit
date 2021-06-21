@@ -1,9 +1,11 @@
 import { Command } from '@oclif/command'
 import Mocha from 'mocha'
 import fs from 'fs'
+import { glob } from 'glob'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 interface MochaOptions {
-  testDir: string
+  files: string
 }
 
 export default class MochaCommand extends Command {
@@ -12,25 +14,34 @@ export default class MochaCommand extends Command {
   static args = []
 
   options: MochaOptions = {
-    testDir: './test'
+    files: 'test/**/*.js'
   }
 
   async run(): Promise<void> {
     const mocha = new Mocha()
-    let fileNames: string[]
 
-    try {
-      fileNames = fs.readdirSync(this.options.testDir)
-      fileNames.forEach((file: string) => {
-        mocha.addFile(`${this.options.testDir}/${file}`)
-      })
-    } catch (error) {
-      console.log(
-        `Something went wrong: please ensure your tests are in ./test, or their location is configured in your project's .toolkitrc.yml`
-      )
+    const files = glob.sync(this.options.files)
+    if(files.length === 0) {
+      const error = new ToolKitError('No test files found')
+      error.details = `We looked for files matching ${this.options.files}, but there weren't any. Set options."@dotcom-tool-kit/mocha".files in your Tool Kit configuration to change this file pattern.`
+      throw error
     }
 
-    mocha.run()
-    //TODO: error handling
+    files.forEach(file => {
+      mocha.addFile(file)
+    })
+
+    await new Promise<void>((resolve, reject) => {
+      mocha.run(failures => {
+        if(failures > 0) {
+          const error = new ToolKitError('mocha tests failed')
+          // empty details to prevent printing error stack
+          error.details = ' '
+          reject(error)
+        } else {
+          resolve()
+        }
+      })
+    })
   }
 }

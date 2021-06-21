@@ -6,7 +6,7 @@ export interface Conflict<T> {
 }
 
 export function isConflict<T>(thing: unknown): thing is Conflict<T> {
-  return (thing as Conflict<T>).conflicting !== null
+  return Boolean((thing as Conflict<T>).conflicting)
 }
 
 export function findConflicts<T, U>(items: (U | Conflict<T>)[]): Conflict<T>[] {

@@ -33,6 +33,9 @@
     },
     {
       "path": "packages/circleci"
+    },
+    {
+      "path": "packages/error"
     }
   ]
 }
