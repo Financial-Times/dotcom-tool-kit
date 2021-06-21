@@ -12,10 +12,8 @@
     "test": "echo NO TESTS"
   },
   "lint-staged": {
-    "**/*.{ts,tsx,js,jsx}": [
-      "prettier --write '**/*.{ts,js,json}'",
-      "eslint --fix"
-    ]
+    "**/*.{ts,js,json}": "prettier --write",
+    "**/*.{ts,tsx,js,jsx}": "eslint --fix"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
