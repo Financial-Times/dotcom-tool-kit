@@ -38,7 +38,7 @@ describe('upload-assets-to-s3', () => {
   it('should print an error when AWS fails', async () => {
     const mockError = new Error('mock 404')
 
-    mockedAWS.S3.prototype.upload.mockReturnValue({
+    mockedAWS.S3.prototype.upload.mockReturnValueOnce({
       promise: jest.fn().mockRejectedValue(mockError)
     } as any)
 
