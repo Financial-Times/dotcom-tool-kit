@@ -2,45 +2,56 @@ import * as fs from 'fs'
 const target = process.env.INIT_CWD
 const stateFile = target ? `${target}/.toolkitstate.json` : '.toolkitstate.json'
 
-export function readState<T>(
-  stage: T,
-  items: string[]
-): { [index: string]: string | number | boolean } | null {
-  const stateResults: { [index: string]: string | number } = {}
+interface CIState {
+  repo: string
+  branch: string
+  version: string
+}
+
+interface ReviewState {
+  appId: string
+  appName: string
+}
+
+interface StagingState {
+  appName: string
+}
+
+interface ProductionState {
+  appName: string
+}
+
+interface State {
+  ci: CIState
+  review: ReviewState
+  staging: StagingState
+  production: ProductionState
+}
+
+export function readState<T extends keyof State>(stage: T): State[T] | null {
   if (fs.existsSync(stateFile)) {
     const readStateContent = JSON.parse(fs.readFileSync(stateFile, { encoding: 'utf-8' }))
-    items.forEach((item) => {
-      try {
-        stateResults[item] = readStateContent[stage][item]
-      } catch {
-        return null
-      }
-    })
-    return stateResults
+    try {
+      return readStateContent[stage]
+    } catch {
+      return null
+    }
   }
   return null
 }
 
-export function writeState<T>(
-  stage: string,
-  item: string,
-  value: T
-): { [index: string]: string | number | boolean } | null {
+export function writeState<T extends keyof State>(stage: T, value: Partial<State[T]>): State[T] | null {
   if (fs.existsSync(stateFile)) {
     const readStateContent = JSON.parse(fs.readFileSync(stateFile, { encoding: 'utf-8' }))
-    if (readStateContent[stage]) {
-      readStateContent[stage][item] = value
-    } else {
-      readStateContent[stage] = { item: value }
+    for (const [key, val] of Object.entries(value)) {
+      readStateContent[stage][key] = val
     }
     fs.writeFileSync(stateFile, JSON.stringify(readStateContent, null, 2))
   } else {
     const data = {
-      [stage]: {
-        [item]: value
-      }
+      [stage]: value
     }
     fs.writeFileSync(stateFile, JSON.stringify(data, null, 2))
   }
-  return readState(stage, [item])
+  return readState(stage)
 }
