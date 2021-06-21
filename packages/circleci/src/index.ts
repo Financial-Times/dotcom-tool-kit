@@ -7,9 +7,6 @@ const envVars = {
 }
 
 ;(async (): Promise<void> => {
-  for (const [key, val] of Object.entries(envVars)) {
-    console.log(key, val)
-    writeState(`ci`, key, val)
-  }
+  writeState(`ci`, envVars)
   return
 })()
