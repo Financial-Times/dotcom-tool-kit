@@ -21,12 +21,9 @@ export default class EslintCommand extends Command {
     const formatter = await eslint.loadFormatter('stylish')
     const resultText = formatter.format(results)
 
-    const errorCount = results.reduce(
-      (count, result) => count + result.errorCount,
-      0
-    )
+    const errorCount = results.reduce((count, result) => count + result.errorCount, 0)
 
-    if(errorCount > 0) {
+    if (errorCount > 0) {
       const error = new ToolKitError('eslint returned linting errors')
       error.details = resultText
       error.exitCode = errorCount
