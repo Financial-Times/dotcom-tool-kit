@@ -1,0 +1,52 @@
+{
+  "name": "ebi",
+  "version": "0.0.0",
+  "description": "A command line tool that searches files within GitHub repositories",
+  "bin": "./bin/ebi.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Financial-Times/ebi.git"
+  },
+  "contributors": [
+    {
+      "name": "Jennifer Johnson",
+      "email": "jennifer.johnson@ft.com"
+    },
+    {
+      "name": "Jennifer Shepherd",
+      "email": "jennifer.shepherd@ft.com"
+    },
+    {
+      "name": "Tak Tran",
+      "email": "tak.tran@ft.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Financial-Times/ebi/issues"
+  },
+  "homepage": "https://github.com/Financial-Times/ebi#readme",
+  "engines": {
+    "node": "10.15.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "dependencies": {
+    "@octokit/plugin-throttling": "^2.4.0",
+    "@octokit/rest": "^16.15.0",
+    "lodash": "^4.17.11",
+    "nock": "^10.0.6",
+    "yargs": "^13.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-no-only-tests": "^2.1.0",
+    "husky": "^1.3.1",
+    "jest": "^24.1.0",
+    "prettier": "1.16.3"
+  }
+}
