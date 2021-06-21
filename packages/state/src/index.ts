@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-const target = process.env.INIT_CWD
+const target = process.env.INIT_CWD || process.cwd()
 const stateFile = target ? `${target}/.toolkitstate.json` : '.toolkitstate.json'
 
 interface CIState {
