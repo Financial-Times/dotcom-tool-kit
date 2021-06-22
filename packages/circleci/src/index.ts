@@ -6,7 +6,8 @@ const envVars = {
   version: process.env.CIRCLE_SHA1
 }
 
-;(async (): Promise<void> => {
+;(() => {
+  console.log(`writing circle ci environment variables to state...`)
   writeState(`ci`, envVars)
   return
 })()
