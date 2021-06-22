@@ -13,7 +13,7 @@
   },
   "lint-staged": {
     "**/*.{ts,js,json}": "prettier --write",
-    "**/*.{ts,tsx,js,jsx}": "eslint --fix"
+    "**/*.{ts,js}": "eslint --fix"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
