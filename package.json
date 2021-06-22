@@ -23,6 +23,7 @@
   "devDependencies": {
     "@financial-times/athloi": "^2.0.0",
     "@financial-times/eslint-config-next": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.15.2",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^8.0.0",

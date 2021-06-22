@@ -6,9 +6,10 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	
-/******/ 	
-/******/ })()
-;
+/******/ (() => {
+  // webpackBootstrap
+  /******/ 'use strict'
+  /******/
+  /******/
+  /******/
+})()

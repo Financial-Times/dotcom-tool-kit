@@ -3,13 +3,13 @@ import { error } from '@oclif/errors'
 import path from 'path'
 
 function getPackageJson() {
-   const currentDirectory = process.env.INIT_CWD || process.cwd()
-   const filepath = path.resolve(currentDirectory, 'package.json')
+  const currentDirectory = process.env.INIT_CWD || process.cwd()
+  const filepath = path.resolve(currentDirectory, 'package.json')
 
-   return loadPackageJson({ filepath })
+  return loadPackageJson({ filepath })
 }
 
-export function ensureHerokuPostbuildScript() {
+export function ensureHerokuPostbuildScript(): boolean {
   const packageJson = getPackageJson()
 
   packageJson.requireScript({
@@ -23,11 +23,11 @@ export function ensureHerokuPostbuildScript() {
   return willWrite
 }
 
-export async function init() {
+export async function init(): Promise<void> {
   const wroteScript = ensureHerokuPostbuildScript()
 
   if (wroteScript) {
-    const name: String = getPackageJson().getField('name')
+    const name: string = getPackageJson().getField('name')
 
     error(
       new Error(

@@ -19,7 +19,7 @@ export default class Hello extends Command {
 
   // static args = [{name: 'file'}]
 
-  async run() {
+  async run(): Promise<void> {
     // const {args, flags} = this.parse(Hello)
     // const name = flags.name ?? 'world'
     // this.log(`hello ${name} from ./src/commands/hello.ts`)
