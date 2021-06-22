@@ -1,0 +1,10 @@
+{
+  "name": "@types/financial-times__package-json",
+  "private": true,
+  "version": "0.0.0-development",
+  "description": "",
+  "types": "index.d.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

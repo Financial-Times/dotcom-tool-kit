@@ -7,8 +7,6 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 const isRejected = (result: PromiseSettledResult<unknown>): result is PromiseRejectedResult =>
   result.status === 'rejected'
 
-console.log('WTF')
-
 export default class InstallCommand implements Command {
   static description = 'run lifecycle commands'
 
@@ -24,8 +22,6 @@ export default class InstallCommand implements Command {
         }
       })
     )
-
-    console.log(results)
 
     const errors = results.filter(isRejected).map((result) => result.reason as Error)
 
