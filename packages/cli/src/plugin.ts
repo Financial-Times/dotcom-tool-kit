@@ -161,8 +161,6 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
     }
   )
 
-  console.log(plugin.id, plugin.lifecycles)
-
   // add lifecycles to the registry, handling any conflicts
   // TODO refactor with command conflict handler
   mergeWith(

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "test": "@dotcom-tool-kit/mocha",
+    "test": "dotcom-tool-kit lifecycle test:local",
     "heroku-postbuild": "dotcom-tool-kit lifecycle build:remote",
     "build": "dotcom-tool-kit lifecycle build:local"
   },
