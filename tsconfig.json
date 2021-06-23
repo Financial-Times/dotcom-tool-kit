@@ -44,12 +44,6 @@
       "path": "packages/command"
     },
     {
-      "path": "packages/lifecycle-build"
-    },
-    {
-      "path": "packages/lifecycle-test"
-    },
-    {
       "path": "packages/lifecycle-package-json"
     },
     {
