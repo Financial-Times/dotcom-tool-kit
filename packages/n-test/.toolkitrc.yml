@@ -1,2 +1,2 @@
 lifecycles:
-  "test:deploy": "n-test"
+  'test:remote': 'n-test'

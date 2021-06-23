@@ -1,4 +1,4 @@
 lifecycles:
   'build:local': 'webpack:development'
   'build:ci': 'webpack:production'
-  'build:deploy': 'webpack:production'
+  'build:remote': 'webpack:production'

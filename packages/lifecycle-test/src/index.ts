@@ -15,7 +15,7 @@ class TestLocal extends PackageJsonLifecycleInstaller {
   command = 'dotcom-tool-kit lifecycle test:local'
 }
 
-class TestDeploy {
+class TestRemote {
   async check(): Promise<boolean> {
     return true
   }
@@ -28,5 +28,5 @@ class TestDeploy {
 export const lifecycles = {
   'test:local': TestLocal,
   'test:ci': TestCI,
-  'test:deploy': TestDeploy
+  'test:remote': TestRemote
 }

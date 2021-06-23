@@ -61,13 +61,13 @@ class BuildLocal extends PackageJsonLifecycleInstaller {
   command = 'dotcom-tool-kit lifecycle build:local'
 }
 
-class BuildDeploy extends PackageJsonLifecycleInstaller {
+class BuildRemote extends PackageJsonLifecycleInstaller {
   script = 'heroku-postbuild'
-  command = 'dotcom-tool-kit lifecycle build:deploy'
+  command = 'dotcom-tool-kit lifecycle build:remote'
 }
 
 export const lifecycles = {
   'build:local': BuildLocal,
   'build:ci': BuildCI,
-  'build:deploy': BuildDeploy
+  'build:remote': BuildRemote
 }

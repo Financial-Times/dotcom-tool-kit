@@ -4,7 +4,7 @@
   "version": "0.0.0-development",
   "scripts": {
     "test": "@dotcom-tool-kit/mocha",
-    "heroku-postbuild": "dotcom-tool-kit lifecycle build:deploy",
+    "heroku-postbuild": "dotcom-tool-kit lifecycle build:remote",
     "build": "dotcom-tool-kit lifecycle build:local"
   },
   "keywords": [],
