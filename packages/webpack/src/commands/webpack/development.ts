@@ -8,6 +8,6 @@ export default class WebpackDevelopment extends Command {
   static hidden = true
 
   async run(): Promise<void> {
-    runWebpack(this.argv, 'development')
+    await runWebpack(this.argv, 'development')
   }
 }
