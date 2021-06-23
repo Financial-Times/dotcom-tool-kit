@@ -15,6 +15,7 @@ export default class LifecycleCommand extends Command {
 
     if (this.argv.length === 0) {
       console.log(`Available lifecycle events:\n${availableLifecycles}`)
+      return
     }
 
     const missingLifecycles = this.argv.filter((id) => !config.lifecycles[id])
