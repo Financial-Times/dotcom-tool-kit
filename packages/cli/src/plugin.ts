@@ -125,7 +125,7 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
 
   // load plugin relative to the parent plugin
   const pluginRoot = resolveFrom(root, id)
-  const basePlugin = importFrom.silent(root, id) as Plugin
+  const basePlugin = importFrom(root, id) as Plugin
   const plugin: Plugin = {
     ...basePlugin,
     id,
@@ -160,6 +160,8 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
       }
     }
   )
+
+  console.log(plugin.id, plugin.lifecycles)
 
   // add lifecycles to the registry, handling any conflicts
   // TODO refactor with command conflict handler
