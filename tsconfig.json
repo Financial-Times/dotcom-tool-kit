@@ -51,6 +51,12 @@
     },
     {
       "path": "packages/lifecycle-package-json"
+    },
+    {
+      "path": "packages/circleci"
+    },
+    {
+      "path": "packages/heroku"
     }
   ]
 }

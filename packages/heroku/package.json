@@ -12,6 +12,7 @@
   "dependencies": {
     "@dotcom-tool-kit/command": "file:../command",
     "@dotcom-tool-kit/error": "file:../error",
+    "@dotcom-tool-kit/lifecycle-package-json": "file:../lifecycle-package-json",
     "@dotcom-tool-kit/state": "file:../state",
     "@dotcom-tool-kit/vault": "file:../vault",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
@@ -30,5 +31,8 @@
     "directory": "packages/heroku"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/heroku"
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/heroku",
+  "devDependencies": {
+    "@types/financial-times__package-json": "file:../../types/financial-times__package-json"
+  }
 }
