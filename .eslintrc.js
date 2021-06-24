@@ -17,6 +17,13 @@ module.exports = {
         // TODO ivo: Revisit this once Command types have been reified?
         '@typescript-eslint/no-explicit-any': 'off'
       }
+    },
+    {
+      files: ['jest.config.js'],
+      rules: {
+        // Jest config files don't support ES6 module imports
+        '@typescript-eslint/no-var-requires': 'off'
+      }
     }
   ]
 }

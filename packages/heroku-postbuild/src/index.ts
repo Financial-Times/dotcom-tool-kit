@@ -18,7 +18,9 @@ export function ensureHerokuPostbuildScript(): boolean {
   })
 
   const willWrite = packageJson.hasChangesToWrite()
-  packageJson.writeChanges()
+  if (willWrite) {
+    packageJson.writeChanges()
+  }
 
   return willWrite
 }

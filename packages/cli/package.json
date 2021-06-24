@@ -21,11 +21,13 @@
   },
   "devDependencies": {
     "@oclif/test": "1.2.8",
+    "@types/jest": "^26.0.23",
     "@types/lodash.mergewith": "^4.6.6",
-    "@types/mocha": "8.2.1",
     "@types/node": "^10.17.54",
+    "chai": "^4.3.4",
     "globby": "^10.0.2",
-    "mocha": "^8.3.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
     "ts-node": "^8.10.2"
   },
   "dependencies": {
