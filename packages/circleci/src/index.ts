@@ -6,8 +6,9 @@ const envVars = {
   version: process.env.CIRCLE_SHA1
 }
 
-;(() => {
+function pluginInit() {
   console.log(`writing circle ci environment variables to state...`)
-  writeState(`ci`, envVars)
-  return
-})()
+  writeState('ci', envVars)
+}
+
+pluginInit()
