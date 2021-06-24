@@ -19,8 +19,9 @@ module.exports = {
       }
     },
     {
-      files: ['*.js'],
+      files: ['jest.config.js'],
       rules: {
+        // Jest config files don't support ES6 module imports
         '@typescript-eslint/no-var-requires': 'off'
       }
     }
