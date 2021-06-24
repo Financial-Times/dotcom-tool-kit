@@ -1,6 +1,5 @@
 import { Command } from '@oclif/command'
 import Mocha from 'mocha'
-import fs from 'fs'
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
