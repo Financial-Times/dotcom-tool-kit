@@ -49,7 +49,7 @@ class BuildCI {
 
   async install() {
     // TODO automate this? humans can probably do it better than computers
-    // TODO if other lifecycle installers need manual steps, collate those into a single message
+    // TODO orbs
     throw new Error(
       'Please update your CircleCI config to run the command `npx dotcom-tool-kit lifecycle build:ci` in the steps of the `build` job'
     )
