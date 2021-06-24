@@ -1,3 +1,6 @@
+plugins:
+  - "@dotcom-tool-kit/circleci"
+
 lifecycles:
   'deploy:review': 'heroku:review'
   'deploy:staging': 'heroku:staging'
