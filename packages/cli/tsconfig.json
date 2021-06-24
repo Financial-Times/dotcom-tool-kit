@@ -3,6 +3,9 @@
   "references": [
     {
       "path": "../wait-for-ok"
+    },
+    {
+      "path": "../error"
     }
   ],
   "compilerOptions": {

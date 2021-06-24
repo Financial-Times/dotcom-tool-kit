@@ -4,5 +4,4 @@ lifecycles:
 
 options:
   '@dotcom-tool-kit/mocha':
-    testDir: './test'
-
+    files: 'test/**/*.js'
