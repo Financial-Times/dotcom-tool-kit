@@ -6,7 +6,9 @@ const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN
 const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
 export default async function buildHerokuReviewApp(pipelineId: string): Promise<string> {
-  const { branch, repo, version } = readState('ci') || ''
+  const branch = readState('ci')?.branch
+  const repo = readState('ci')?.repo
+  const version = readState('ci')?.version
 
   const url = `https://github.com/Financial-Times/${repo}/archive/refs/heads/${branch}.zip`
 
@@ -30,8 +32,3 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
     process.exit(1)
   }
 }
-
-/*
-build: dotcom-tool-kit lifecycle deploy:review
-test-smoke: dotcom-tool-kit lifecycle test:review
-*/

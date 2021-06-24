@@ -20,12 +20,12 @@ export default class HerokuReview extends Command {
         reviewAppId = await buildHerokuReviewApp(HEROKU_PIPELINE_ID)
       }
 
-      writeState('review', { 'app-id': reviewAppId })
+      writeState('review', { appId: reviewAppId })
 
       await setConfigVars(reviewAppId, 'continuous-integration')
 
       await gtg(reviewAppId, 'review')
-      //TODO: n-test
+
       process.exit(0)
     } catch (err) {
       console.error('Error building review-app:', err) // eslint-disable-line no-console
