@@ -1,5 +1,14 @@
 const base = require('../../jest.config.base')
 
 module.exports = {
-  ...base
+  ...base,
+  globals: {
+    'ts-jest': {
+      tsconfig: {
+        paths: {
+          puppeteer: ['__mocks__/puppeteer']
+        }
+      }
+    }
+  }
 }

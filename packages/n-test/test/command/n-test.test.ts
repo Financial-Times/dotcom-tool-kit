@@ -1,4 +1,5 @@
 import * as path from 'path'
+import * as puppeteer from 'puppeteer'
 import NTest from '../../src/commands/n-test'
 
 const configAbsolutePath = path.join(__dirname, '../files/smoke.js')
@@ -16,8 +17,7 @@ describe('n-test', () => {
   it('should fail when there are errors', async () => {
     const command = new NTest([], {} as any)
     command.options.config = configPath
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('puppeteer').__setResponseStatus(404)
+    puppeteer.__setResponseStatus(404)
 
     expect.assertions(1)
     try {

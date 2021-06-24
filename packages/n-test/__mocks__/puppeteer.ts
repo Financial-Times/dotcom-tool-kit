@@ -4,8 +4,7 @@ const mockResponse = {
   status: jest.fn(() => status)
 }
 
-export const __setResponseStatus = (newStatus: number) => {
-  console.log('Setting new status')
+export const __setResponseStatus = (newStatus: number): void => {
   status = newStatus
 }
 
