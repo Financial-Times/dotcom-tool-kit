@@ -1,0 +1,24 @@
+{
+  "name": "@dotcom-tool-kit/circleci",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/state": "file:../state",
+    "@oclif/command": "^1.8.0",
+    "@types/node": "^15.12.4"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "packages/circleci"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/circleci"
+}

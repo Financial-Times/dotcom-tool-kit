@@ -1,5 +1,10 @@
 {
   "extends": "../../tsconfig.settings.json",
+  "references": [
+    {
+      "path": "../state"
+    }
+  ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"

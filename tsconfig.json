@@ -35,6 +35,9 @@
       "path": "packages/cli"
     },
     {
+      "path": "packages/circleci"
+    },
+    {
       "path": "packages/error"
     }
   ]
