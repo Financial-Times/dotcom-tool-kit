@@ -1,4 +1,4 @@
-import { Command } from '@oclif/command' // eslint-disable-line object-curly-spacing
+import { Command } from '@dotcom-tool-kit/command' // eslint-disable-line object-curly-spacing
 
 export default class Hello extends Command {
   // static description = 'describe the command here'

@@ -1,5 +1,5 @@
 import loadPackageJson from '@financial-times/package-json'
-import { error } from '@oclif/errors'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import path from 'path'
 
 function getPackageJson() {
@@ -31,10 +31,8 @@ export async function init(): Promise<void> {
   if (wroteScript) {
     const name: string = getPackageJson().getField('name')
 
-    error(
-      new Error(
-        `@dotcom-tool-kit/heroku-postbuild added a heroku-postbuild script to ${name}'s package.json. you should commit this.`
-      )
+    throw new ToolKitError(
+      `@dotcom-tool-kit/heroku-postbuild added a heroku-postbuild script to ${name}'s package.json. you should commit this.`
     )
   }
 }

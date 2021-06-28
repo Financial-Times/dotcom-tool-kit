@@ -8,14 +8,14 @@ const configPath = path.relative('', configAbsolutePath)
 
 describe('n-test', () => {
   it('should pass when no errors', async () => {
-    const command = new NTest([], {} as any)
+    const command = new NTest([])
     command.options.config = configPath
 
     await command.run()
   })
 
   it('should fail when there are errors', async () => {
-    const command = new NTest([], {} as any)
+    const command = new NTest([])
     command.options.config = configPath
     puppeteer.__setResponseStatus(404)
 

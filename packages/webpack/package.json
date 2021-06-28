@@ -17,7 +17,7 @@
     "test": "jest --silent"
   },
   "dependencies": {
-    "@oclif/command": "^1.8.0",
+    "@dotcom-tool-kit/command": "file:../command",
     "webpack-cli": "^4.6.0"
   },
   "peerDependencies": {

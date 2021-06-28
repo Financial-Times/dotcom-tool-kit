@@ -36,6 +36,9 @@
     },
     {
       "path": "packages/error"
+    },
+    {
+      "path": "packages/command"
     }
   ]
 }

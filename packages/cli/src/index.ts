@@ -28,12 +28,5 @@ export async function runCommand(id: string, argv: string[]): Promise<void> {
     command.options = config.options[Command.plugin.id].options
   }
 
-  // dummy oclif config so @oclif/command's init doesn't crash
-  command.config = {}
-
-  if (command.init) {
-    await command.init()
-  }
-
   return command.run()
 }

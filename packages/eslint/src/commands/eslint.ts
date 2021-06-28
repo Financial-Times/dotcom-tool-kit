@@ -1,16 +1,14 @@
-import { Command } from '@oclif/command'
 import { ESLint } from 'eslint'
+import { Command } from '@dotcom-tool-kit/command'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-interface EslintOptions {
+type EslintOptions = {
   files: string[] | string
   config?: ESLint.Options
 }
 
 export default class EslintCommand extends Command {
   static description = ''
-  static flags = {}
-  static args = []
 
   options: EslintOptions = {
     files: '**/*.js'

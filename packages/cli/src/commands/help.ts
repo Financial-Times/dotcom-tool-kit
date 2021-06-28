@@ -1,13 +1,9 @@
 import { isConflict } from '../conflict'
 import { config } from '../config'
-import type { Command } from '../command'
+import { Command } from '@dotcom-tool-kit/command'
 
-export default class HelpCommand implements Command {
+export default class HelpCommand extends Command {
   static description = 'show this help'
-
-  constructor(public argv: string[]) {
-    this.argv = argv
-  }
 
   showHelp(): void {
     for (const [id, command] of Object.entries(config.commands)) {

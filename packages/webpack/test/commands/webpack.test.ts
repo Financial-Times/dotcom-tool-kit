@@ -9,13 +9,13 @@ import ProductionWebpack from '../../src/commands/webpack/production'
 const configPath = path.resolve(__dirname, '../files/webpack.config.ts')
 const outputPath = path.resolve(__dirname, '../files/dist')
 
-jest.setTimeout(3000)
+jest.setTimeout(4000)
 
 describe.each([DevelopmentWebpack, ProductionWebpack])('%p', (Webpack) => {
   afterEach(() => fsp.rmdir(outputPath, { recursive: true }))
 
   it('should pass on standard file', async () => {
-    const command = new Webpack(['--config', configPath], {} as any)
+    const command = new Webpack(['--config', configPath])
     // Intentionally skip awaiting on webpack command as it will never resolve
     // because of a webpack bug: https://github.com/webpack/webpack-cli/issues/2795
     command.run()

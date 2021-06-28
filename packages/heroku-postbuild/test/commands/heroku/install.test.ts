@@ -14,7 +14,7 @@ describe('heroku-postbuild install', () => {
     const packageJSON = await fsp.readFile(testDir + '/test-no-scripts-package.json')
     mockedFS.readFileSync.mockReturnValue(packageJSON)
 
-    const command = new HerokuInstall([], {} as any)
+    const command = new HerokuInstall([])
     await command.run()
 
     expect(mockedFS.writeFileSync).toHaveBeenCalled()
@@ -24,7 +24,7 @@ describe('heroku-postbuild install', () => {
     const packageJSON = await fsp.readFile(testDir + '/test-package.json')
     mockedFS.readFileSync.mockReturnValue(packageJSON)
 
-    const command = new HerokuInstall([], {} as any)
+    const command = new HerokuInstall([])
     await command.run()
 
     expect(mockedFS.writeFileSync).not.toHaveBeenCalled()
@@ -34,7 +34,7 @@ describe('heroku-postbuild install', () => {
     const packageJSON = await fsp.readFile(testDir + '/bad-package.json')
     mockedFS.readFileSync.mockReturnValue(packageJSON)
 
-    const command = new HerokuInstall([], {} as any)
+    const command = new HerokuInstall([])
 
     expect.assertions(1)
     try {

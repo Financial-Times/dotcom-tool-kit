@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/state": "file:../state",
-    "@oclif/command": "^1.8.0",
     "@types/node": "^15.12.4"
   },
   "keywords": [],
