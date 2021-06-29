@@ -1,7 +1,6 @@
 dotcom-tool-kit
 ===============
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/dotcom-tool-kit.svg)](https://npmjs.org/package/dotcom-tool-kit)
 [![Downloads/week](https://img.shields.io/npm/dw/dotcom-tool-kit.svg)](https://npmjs.org/package/dotcom-tool-kit)
 [![License](https://img.shields.io/npm/l/dotcom-tool-kit.svg)](https://github.com/financial-times/dotcom-tool-kit/blob/master/package.json)
@@ -89,5 +88,4 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 <!-- commandsstop -->
