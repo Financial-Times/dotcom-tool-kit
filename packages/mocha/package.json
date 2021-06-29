@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/command": "file:../command",
     "@dotcom-tool-kit/error": "file:../error",
-    "@oclif/command": "^1.8.0",
     "fs": "0.0.1-security",
     "glob": "^7.1.7",
     "mocha": "^8.3.2"

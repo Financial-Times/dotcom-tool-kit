@@ -1,11 +1,11 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
 import * as fs from 'fs'
 import aws from 'aws-sdk'
 import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
 
-export interface UploadAssetsToS3Options {
+export type UploadAssetsToS3Options = {
   accessKeyId: string
   secretAccessKey: string
   directory: string
@@ -28,8 +28,8 @@ export default class UploadAssetsToS3 extends Command {
     cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
   }
 
-  async run(): Promise<void[]> {
-    return uploadAssetsToS3(this.options)
+  async run(): Promise<void> {
+    await uploadAssetsToS3(this.options)
   }
 }
 

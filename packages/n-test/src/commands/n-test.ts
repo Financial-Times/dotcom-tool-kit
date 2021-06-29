@@ -1,10 +1,8 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
 import { SmokeTest, SmokeTestOptions } from '@financial-times/n-test'
 
 export default class NTest extends Command {
   static description = ''
-  static flags = {}
-  static args = []
 
   options: SmokeTestOptions = {}
 

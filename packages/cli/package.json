@@ -20,7 +20,6 @@
     "test": "mocha --forbid-only \"/**/*.test.ts\""
   },
   "devDependencies": {
-    "@oclif/test": "1.2.8",
     "@types/jest": "^26.0.23",
     "@types/lodash.mergewith": "^4.6.6",
     "@types/node": "^10.17.54",
@@ -31,9 +30,9 @@
     "ts-node": "^8.10.2"
   },
   "dependencies": {
+    "@dotcom-tool-kit/command": "file:../command",
     "@dotcom-tool-kit/error": "file:../error",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
-    "@oclif/command": "^1.8.0",
     "ansi-colors": "^4.1.1",
     "import-from": "^3.0.0",
     "lodash.mergewith": "^4.6.2",
@@ -46,7 +45,6 @@
   "files": [
     "/bin",
     "/lib",
-    "/npm-shrinkwrap.json",
-    "/oclif.manifest.json"
+    "/npm-shrinkwrap.json"
   ]
 }

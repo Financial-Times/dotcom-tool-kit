@@ -19,7 +19,7 @@ npm install
 
 There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit help` to see what commands are available.
 
-Tool Kit commands are implemented with [Oclif](https://oclif.io/), the Open CLI Framework, and written in Typescript.
+Tool Kit commands are implemented via a simple `async run()` function, and written in Typescript.
 
 In the future, there will be unit and integration tests for every package.
 
@@ -176,38 +176,23 @@ export const commands = {
 
 ### Commands
 
-A command can be any class with an asynchronous `run` function. When the class is loaded, the command-line arguments it was called with will be passed into the constructor (not including the command name) for parsing yourself:
+A command extends the class `Command`, implementing its abstract asynchronous `run` function. You should also specify a `description` field which will be displayed in the help menu. Note that any options for the plugin defined in the configuration will be passed to the `options` field.
 
 ```typescript
-export default class Webpack {
-   constructor(argv: string[]) {
-      // parse argv into flags
-   }
+import { Command } from '@dotcom-tool-kit/command'
 
-   async run() {
-      // do things here
-   }
+type WebpackOptions = {
+  configPath?: string
 }
-```
-
-Plugins can use the [`@oclif/command`]() package, which follows this structure, and includes the `@oclif/parser` argument parser:
-
-```typescript
-import Command, { flags } from '@oclif/command'
 
 export default class Webpack extends Command {
-   static flags = {
-      production: flags.boolean()
-   }
+  static description = 'bundle your code with webpack'
 
-   constructor(argv: string[]) {
-      const { flags } = this.parse(Webpack)
-      this.flags = flags
-   }
+  options: WebpackOptions = {}
 
-   async run() {
-      // do things here
-   }
+  async run(): Promise<void> {
+    // do things here
+  }
 }
 ```
 

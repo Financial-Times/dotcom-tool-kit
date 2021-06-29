@@ -5,14 +5,14 @@ const testDirectory = path.join(__dirname, '../files')
 
 describe('eslint', () => {
   it('should pass on correct file', async () => {
-    const command = new ESLint([], {} as any)
+    const command = new ESLint([])
     command.options.config = { ignore: false }
     command.options.files = path.join(testDirectory, 'pass.ts')
     await command.run()
   })
 
   it('should fail on linter error', async () => {
-    const command = new ESLint([], {} as any)
+    const command = new ESLint([])
     command.options.config = { ignore: false }
     command.options.files = path.join(testDirectory, 'fail.ts')
 

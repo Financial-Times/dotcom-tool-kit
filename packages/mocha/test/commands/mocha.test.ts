@@ -6,13 +6,13 @@ import Mocha from '../../src/commands/mocha'
 
 describe('mocha', () => {
   it('should succeed with passing tests', async () => {
-    const command = new Mocha([], {} as any)
+    const command = new Mocha([])
     command.options.files = path.resolve(__dirname, '../files/pass') + '/**/*.js'
     await command.run()
   })
 
   it('should throw with failing tests', async () => {
-    const command = new Mocha([], {} as any)
+    const command = new Mocha([])
     command.options.files = path.resolve(__dirname, '../files/fail') + '/**/*.js'
 
     expect.assertions(1)

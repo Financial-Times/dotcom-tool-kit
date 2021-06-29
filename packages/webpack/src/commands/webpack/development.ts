@@ -1,10 +1,8 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
 import runWebpack from '../../run-webpack'
 
 export default class WebpackDevelopment extends Command {
   static description = 'build webpack'
-  static args = []
-  static flags = {}
   static hidden = true
 
   async run(): Promise<void> {

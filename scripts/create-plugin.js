@@ -17,7 +17,7 @@ console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
 console.log('📥 installing dependencies')
-execSync('npm install @oclif/command')
+execSync('npm install ../command')
 
 console.log('🔣 adding metadata to package.json')
 
@@ -42,7 +42,12 @@ const tsconfig = {
   compilerOptions: {
     outDir: 'lib',
     rootDir: 'src'
-  }
+  },
+  references: [
+    {
+      path: '../command'
+    }
+  ]
 }
 
 fs.writeFileSync('tsconfig.json', JSON.stringify(tsconfig, null, 2))
@@ -58,14 +63,12 @@ fs.mkdirSync('src/commands', { recursive: true })
 
 fs.writeFileSync(
   `src/commands/${name}.ts`,
-  `import { Command } from '@oclif/command'
+  `import { Command } from '@dotcom-tool-kit/command'
 
 export default class ${camelCaseName} extends Command {
    static description = ''
-   static flags = {}
-   static args = []
 
-   async run() {
+   async run(): Promise<void> {
 
    }
 }`

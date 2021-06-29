@@ -1,9 +1,7 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
 
 export default class BabelDevelopment extends Command {
   static description = 'build babel'
-  static args = []
-  static flags = {}
   static hidden = true
 
   async run(): Promise<void> {

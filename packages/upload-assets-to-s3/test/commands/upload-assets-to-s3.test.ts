@@ -12,11 +12,11 @@ describe('upload-assets-to-s3', () => {
   beforeAll(() => {
     mockedAWS.S3.prototype.upload.mockReturnValue({
       promise: jest.fn().mockResolvedValue({ Location: 'mock location' })
-    } as any)
+    } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
   })
 
   it('should upload all globbed files', async () => {
-    const command = new UploadAssetsToS3([], {} as any)
+    const command = new UploadAssetsToS3([])
     command.options.directory = testDirectory
     await command.run()
 
@@ -25,7 +25,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should use correct Content-Encoding for compressed files', async () => {
-    const command = new UploadAssetsToS3([], {} as any)
+    const command = new UploadAssetsToS3([])
     command.options.extensions = 'gz'
     command.options.directory = testDirectory
     await command.run()
@@ -40,9 +40,9 @@ describe('upload-assets-to-s3', () => {
 
     mockedAWS.S3.prototype.upload.mockReturnValueOnce({
       promise: jest.fn().mockRejectedValue(mockError)
-    } as any)
+    } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
 
-    const command = new UploadAssetsToS3([], {} as any)
+    const command = new UploadAssetsToS3([])
     command.options.directory = testDirectory
 
     expect.assertions(1)

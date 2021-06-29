@@ -9,9 +9,6 @@
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
-  "dependencies": {
-    "@oclif/command": "^1.8.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",

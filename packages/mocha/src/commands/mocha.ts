@@ -1,17 +1,15 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
 import Mocha from 'mocha'
 import fs from 'fs'
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-interface MochaOptions {
+type MochaOptions = {
   files: string
 }
 
 export default class MochaCommand extends Command {
   static description = ''
-  static flags = {}
-  static args = []
 
   options: MochaOptions = {
     files: 'test/**/*.js'

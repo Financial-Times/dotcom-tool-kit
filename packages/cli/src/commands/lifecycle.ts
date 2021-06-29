@@ -1,15 +1,11 @@
-import { runCommand } from '../'
-import { isConflict } from '../conflict'
-import { config } from '../config'
+import { Command } from '@dotcom-tool-kit/command'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import type { Command } from '../command'
+import { runCommand } from '../'
+import { config } from '../config'
+import { isConflict } from '../conflict'
 
-export default class LifecycleCommand implements Command {
+export default class LifecycleCommand extends Command {
   static description = 'run lifecycle commands'
-
-  constructor(public argv: string[]) {
-    this.argv = argv
-  }
 
   async run(): Promise<void> {
     const missingLifecycles = this.argv.filter((id) => !config.lifecycles[id])

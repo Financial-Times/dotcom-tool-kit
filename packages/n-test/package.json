@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@financial-times/n-test": "^3.0.1",
-    "@oclif/command": "^1.8.0"
+    "@dotcom-tool-kit/command": "file:../command",
+    "@financial-times/n-test": "^3.0.1"
   },
   "repository": {
     "type": "git",

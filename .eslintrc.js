@@ -12,13 +12,6 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.test.ts'],
-      rules: {
-        // TODO ivo: Revisit this once Command types have been reified?
-        '@typescript-eslint/no-explicit-any': 'off'
-      }
-    },
-    {
       files: ['jest.config.js'],
       rules: {
         // Jest config files don't support ES6 module imports
