@@ -9,8 +9,7 @@
     "target": "ES2017",
     "lib": [
       "ES2017",
-      "ES2020.Promise", // required for Promise.allSettled, which is supported in node 12.9
-      "WebWorker" // temporarily needed to make @sinonjs/fake-timers not error
+      "ES2020.Promise" // required for Promise.allSettled, which is supported in node 12.9
     ],
     "esModuleInterop": true
   }

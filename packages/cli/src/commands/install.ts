@@ -1,13 +1,13 @@
 import { runCommand } from '../'
 import { isConflict } from '../conflict'
 import { config } from '../config'
-import type { Command } from '../command'
+import { Command } from '@dotcom-tool-kit/command'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const isRejected = (result: PromiseSettledResult<unknown>): result is PromiseRejectedResult =>
   result.status === 'rejected'
 
-export default class InstallCommand implements Command {
+export default class InstallCommand extends Command {
   static description = 'run lifecycle commands'
 
   async run() {
