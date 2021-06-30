@@ -1,4 +1,4 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
 import getHerokuReviewApp from '../getHerokuReviewApp'
 import buildHerokuReviewApp from '../buildHerokuReviewApp'
 import setConfigVars from '../setConfigVars'

@@ -1,4 +1,4 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
 import { readState, writeState } from '@dotcom-tool-kit/state'
 import setConfigVars from '../setConfigVars'
 import scaleDyno from '../scaleDyno'

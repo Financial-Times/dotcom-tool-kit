@@ -1,4 +1,4 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
 import getSlug from '../getSlug'
 import setSlug from '../setSlug'
 import gtg from '../gtg'

@@ -9,6 +9,9 @@
     },
     {
       "path": "../circleci"
+    },
+    {
+      "path": "../command"
     }
   ],
   "compilerOptions": {
