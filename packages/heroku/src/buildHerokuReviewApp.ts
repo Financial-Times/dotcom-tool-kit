@@ -1,5 +1,5 @@
 import Heroku from 'heroku-client'
-import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessSatus'
+import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessStatus'
 import { readState } from '@dotcom-tool-kit/state'
 
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN
