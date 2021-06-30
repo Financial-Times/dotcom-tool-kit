@@ -8,7 +8,7 @@ interface CIState {
   version: string
 }
 
-interface ReviewState {
+export interface ReviewState {
   appId: string
   appName: string
 }
@@ -21,7 +21,7 @@ interface ProductionState {
   appName: string
 }
 
-interface State {
+export interface State {
   ci: CIState
   review: ReviewState
   staging: StagingState
