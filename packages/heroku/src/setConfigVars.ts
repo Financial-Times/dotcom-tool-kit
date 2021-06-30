@@ -1,6 +1,7 @@
 import request from 'superagent'
 import Heroku from 'heroku-client'
 import { readState } from '@dotcom-tool-kit/state'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
@@ -8,7 +9,13 @@ const VAULT_ADDR = 'https://vault.in.ft.com:8080'
 const HEROKU_TOKEN = process.env.HEROKU_API_TOKEN
 
 export default async function setConfigVars(appId: string, environment: string): Promise<void> {
-  const repo = readState('ci')?.repo
+  const state = readState('ci')
+
+  if (!state) {
+    throw new ToolKitError('could not find CI state')
+  }
+
+  const repo = state.repo
 
   try {
     // Get a fresh Vault token
@@ -38,7 +45,6 @@ export default async function setConfigVars(appId: string, environment: string):
 
     console.log(`${repo} ${appId} config vars have been updated successfully.`) // eslint-disable-line no-console
   } catch (err) {
-    console.error('Error updating config vars:', err) // eslint-disable-line no-console
-    process.exit(1)
+    throw new ToolKitError(`Error updating config vars: ${err}`)
   }
 }

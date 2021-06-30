@@ -4,13 +4,12 @@ import buildHerokuReviewApp from '../buildHerokuReviewApp'
 import setConfigVars from '../setConfigVars'
 import gtg from '../gtg'
 import { writeState } from '@dotcom-tool-kit/state'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const HEROKU_PIPELINE_ID = process.env.HEROKU_PIPELINE_ID || ''
 
 export default class HerokuReview extends Command {
   static description = ''
-  static flags = {}
-  static args = []
 
   async run(): Promise<void> {
     try {
@@ -28,8 +27,7 @@ export default class HerokuReview extends Command {
 
       process.exit(0)
     } catch (err) {
-      console.error('Error building review-app:', err) // eslint-disable-line no-console
-      process.exit(1)
+      throw new ToolKitError(`Error building review-app: ${err}`)
     }
   }
 }

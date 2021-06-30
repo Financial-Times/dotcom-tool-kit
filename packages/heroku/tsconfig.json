@@ -12,6 +12,9 @@
     },
     {
       "path": "../command"
+    },
+    {
+      "path": "../error"
     }
   ],
   "compilerOptions": {

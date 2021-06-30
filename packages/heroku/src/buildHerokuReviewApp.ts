@@ -1,14 +1,19 @@
 import Heroku from 'heroku-client'
 import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessStatus'
 import { readState } from '@dotcom-tool-kit/state'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN
 const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
 export default async function buildHerokuReviewApp(pipelineId: string): Promise<string> {
-  const branch = readState('ci')?.branch
-  const repo = readState('ci')?.repo
-  const version = readState('ci')?.version
+  const state = readState('ci')
+
+  if (!state) {
+    throw new ToolKitError('Could not find CI state') //TODO - what to do in this situation?
+  }
+
+  const { branch, repo, version } = state
 
   const url = `https://github.com/Financial-Times/${repo}/archive/refs/heads/${branch}.zip`
 
