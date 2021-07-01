@@ -1,6 +1,8 @@
 import * as path from 'path'
 import * as puppeteer from 'puppeteer'
 import NTest from '../../src/commands/n-test'
+import { writeState } from '@dotcom-tool-kit/state'
+import { exportAllDeclaration } from '@babel/types'
 
 const configAbsolutePath = path.join(__dirname, '../files/smoke.js')
 // n-test prepends the CWD to the given config path
@@ -25,5 +27,12 @@ describe('n-test', () => {
     } catch (err) {
       expect(err).toBeTruthy()
     }
+  })
+
+  it('should get app id from state', async () => {
+    writeState('review', { appId: 'some-test-app' })
+    const command = new NTest([])
+
+    expect(command.options.host).toEqual('https://some-test-app.herokuapp.com')
   })
 })
