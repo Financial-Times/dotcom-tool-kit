@@ -1,13 +1,10 @@
-import Heroku, { HerokuApiResGetGtg } from 'heroku-client'
+import heroku from './herokuClient'
+import { HerokuApiResGetGtg } from 'heroku-client'
 import waitForOk from '@dotcom-tool-kit/wait-for-ok'
 import { State, writeState } from '@dotcom-tool-kit/state'
 
-const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN
-
 export default async function gtg(appIdName: string, environment: keyof State, id = true): Promise<void> {
-  const heroku = new Heroku({ token: HEROKU_API_TOKEN })
   let appName = appIdName
-
   //gtg called with id rather than name; get name from Heroku
   if (id) {
     const appDetails: HerokuApiResGetGtg = await heroku.get(`/apps/${appIdName}`)

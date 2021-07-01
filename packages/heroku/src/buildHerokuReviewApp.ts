@@ -1,10 +1,7 @@
-import Heroku from 'heroku-client'
+import heroku from './herokuClient'
 import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessStatus'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-
-const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN
-const heroku = new Heroku({ token: HEROKU_API_TOKEN })
 
 export default async function buildHerokuReviewApp(pipelineId: string): Promise<string> {
   const state = readState('ci')
@@ -33,7 +30,6 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
   if (successStatus) {
     return reviewApp.id
   } else {
-    console.error(`Something went wrong with building the review-app`) // eslint-disable-line no-console
-    process.exit(1)
+    throw new ToolKitError(`Something went wrong with building the review-app`)
   }
 }
