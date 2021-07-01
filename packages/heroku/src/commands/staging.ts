@@ -26,8 +26,7 @@ export default class HerokuStaging extends Command {
       await gtg(appName, 'staging', false)
       process.exit(0)
     } catch (err) {
-      console.error(`There's an error with your staging app:, ${err}`) // eslint-disable-line no-console
-      process.exit(1)
+      throw new ToolKitError(`There's an error with your staging app:, ${err}`)
     }
   }
 }
