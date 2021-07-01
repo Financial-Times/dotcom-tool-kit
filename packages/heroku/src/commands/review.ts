@@ -24,8 +24,6 @@ export default class HerokuReview extends Command {
       await setConfigVars(reviewAppId, 'continuous-integration')
 
       await gtg(reviewAppId, 'review')
-
-      process.exit(0)
     } catch (err) {
       throw new ToolKitError(`Error building review-app: ${err}`)
     }

@@ -24,7 +24,6 @@ export default class HerokuStaging extends Command {
       await scaleDyno(appName, 1)
 
       await gtg(appName, 'staging', false)
-      process.exit(0)
     } catch (err) {
       throw new ToolKitError(`There's an error with your staging app:, ${err}`)
     }

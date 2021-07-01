@@ -11,7 +11,7 @@ export default async function setConfigVars(appId: string, environment: string):
   const state = readState('ci')
 
   if (!state) {
-    throw new ToolKitError('could not find CI state')
+    throw new ToolKitError('Could not find CI state')
   }
 
   const repo = state.repo

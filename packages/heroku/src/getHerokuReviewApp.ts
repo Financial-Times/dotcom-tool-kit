@@ -1,5 +1,5 @@
 import heroku from './herokuClient'
-import { HerokuApiResGetReview } from 'heroku-client'
+import type { HerokuApiResGetReview } from 'heroku-client'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
@@ -11,7 +11,7 @@ export default async function getHerokuReviewApp(pipelineId: string): Promise<st
   }
 
   const branch = state.branch
-  const reviewApps: HerokuApiResGetReview = await heroku.get(`/pipelines/${pipelineId}/review-apps`)
+  const reviewApps: HerokuApiResGetReview[] = await heroku.get(`/pipelines/${pipelineId}/review-apps`)
   const reviewApp = reviewApps.find(
     (instance: { app: { id: string }; branch: string; status: string }): boolean => {
       return instance.branch === branch && instance.status === 'created'

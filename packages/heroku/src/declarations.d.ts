@@ -5,24 +5,20 @@ declare module 'heroku-client' {
     token: string | undefined
   }
 
-  export type HerokuApiResGetSlug = [
-    {
-      current: string
-      slug: {
-        id: string
-      }
+  export type HerokuApiResGetSlug = {
+    current: string
+    slug: {
+      id: string
     }
-  ]
+  }
 
-  export type HerokuApiResGetReview = [
-    {
-      app: {
-        id: string
-      }
-      branch: string
-      status: string
+  export type HerokuApiResGetReview = {
+    app: {
+      id: string
     }
-  ]
+    branch: string
+    status: string
+  }
 
   export type HerokuApiResGetGtg = {
     name: string
