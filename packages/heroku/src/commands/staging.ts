@@ -25,7 +25,9 @@ export default class HerokuStaging extends Command {
 
       await gtg(appName, 'staging', false)
     } catch (err) {
-      throw new ToolKitError(`There's an error with your staging app:, ${err}`)
+      const error = new ToolKitError(`There's an error with your staging app`)
+      error.details = err.message
+      throw error
     }
   }
 }
