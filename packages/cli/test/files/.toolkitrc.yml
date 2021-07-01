@@ -1,0 +1,21 @@
+plugins:
+  - "../../../eslint"
+  - "../../../mocha"
+  - "../../../n-test"
+
+options:
+  "../../../eslint":
+    files:
+      - webpack.config.js
+  "../../../mocha":
+    testDir: './mocha_tests'
+
+lifecycles:
+  "test:local":
+    - "mocha"
+    - "eslint"
+  "test:ci":
+    - 'mocha'
+    - "eslint"
+  "../../../n-test":
+    host: "https://example.com"

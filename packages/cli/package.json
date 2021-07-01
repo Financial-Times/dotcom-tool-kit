@@ -17,7 +17,7 @@
     "dotcom-tool-kit": "./bin/run"
   },
   "scripts": {
-    "test": "mocha --forbid-only \"/**/*.test.ts\""
+    "test": "jest --silent"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
