@@ -8,8 +8,9 @@ declare module 'heroku-client' {
   export type HerokuApiResGetSlug = [
     {
       current: string
-      slug: string
-      id: string
+      slug: {
+        id: string
+      }
     }
   ]
 
