@@ -1,4 +1,4 @@
-import Heroku from 'heroku-client'
+import Heroku, { HerokuApiResGetSlug } from 'heroku-client'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
@@ -13,7 +13,7 @@ export default async function getSlug(): Promise<string> {
 
   const appName = state.appName
   const heroku = new Heroku({ token: HEROKU_API_TOKEN })
-  const releases = await heroku.get(`/apps/${appName}/releases`)
+  const releases: HerokuApiResGetSlug = await heroku.get(`/apps/${appName}/releases`)
   const latest = releases.find((release: { current: string }) => release.current)
 
   if (!latest) {

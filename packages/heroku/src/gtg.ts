@@ -1,4 +1,4 @@
-import Heroku from 'heroku-client'
+import Heroku, { HerokuApiResGetGtg } from 'heroku-client'
 import waitForOk from '@dotcom-tool-kit/wait-for-ok'
 import { State, writeState } from '@dotcom-tool-kit/state'
 
@@ -10,7 +10,7 @@ export default async function gtg(appIdName: string, environment: keyof State, i
 
   //gtg called with id rather than name; get name from Heroku
   if (id) {
-    const appDetails = await heroku.get(`/apps/${appIdName}`)
+    const appDetails: HerokuApiResGetGtg = await heroku.get(`/apps/${appIdName}`)
     appName = appDetails.name
   }
   //save name to state file
