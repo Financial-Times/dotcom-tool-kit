@@ -1,5 +1,6 @@
 import { Command } from '@dotcom-tool-kit/command'
 import { SmokeTest, SmokeTestOptions } from '@financial-times/n-test'
+import { readState } from '@dotcom-tool-kit/state'
 
 export default class NTest extends Command {
   static description = ''
@@ -7,6 +8,13 @@ export default class NTest extends Command {
   options: SmokeTestOptions = {}
 
   async run(): Promise<void> {
+    const reviewState = readState('review')
+
+    // if we've built a review app, test against that, not the app in the config
+    if (reviewState) {
+      this.options.host = `https://${reviewState.appId}.herokuapp.com`
+    }
+
     const smokeTest = new SmokeTest(this.options)
     await smokeTest.run()
   }
