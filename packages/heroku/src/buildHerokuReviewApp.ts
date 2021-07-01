@@ -30,8 +30,9 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
   if (successStatus) {
     return reviewApp.id
   } else {
-    throw new ToolKitError(`The review-app did not reach success status within the time limit. /n
-                            If this is the first time that you're seeing this error, please try again as it can be slower to build at peak times. /n
-                            The review-app build request was attempted on repo: ${repo}, branch: ${branch}, version: ${version}.`)
+    const error = new ToolKitError(`The review-app did not reach success status within the time limit.`)
+    error.details = `If this is the first time that you're seeing this error, please try again as it can be slower to build at peak times.
+                    The review-app build request was attempted on repo: ${repo}, branch: ${branch}, version: ${version}.`
+    throw error
   }
 }
