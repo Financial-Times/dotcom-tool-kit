@@ -1,0 +1,16 @@
+plugins:
+  - "../../../../webpack"
+  - "../../../../babel"
+
+options:
+
+lifecycles:
+  build:local:
+    - "webpack:development"
+    - "babel:development"
+  build:ci:
+    - "webpack:production"
+    - "babel:production"
+  build:deploy:
+    - "webpack:production"
+    - "babel:production"

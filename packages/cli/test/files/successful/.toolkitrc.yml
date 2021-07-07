@@ -1,13 +1,13 @@
 plugins:
-  - "../../../eslint"
-  - "../../../mocha"
-  - "../../../n-test"
+  - "../../../../eslint"
+  - "../../../../mocha"
+  - "../../../../n-test"
 
 options:
-  "../../../eslint":
+  "../../../../eslint":
     files:
       - webpack.config.js
-  "../../../mocha":
+  "../../../../mocha":
     testDir: './mocha_tests'
 
 lifecycles:
@@ -17,5 +17,5 @@ lifecycles:
   "test:ci":
     - 'mocha'
     - "eslint"
-  "../../../n-test":
+  "../../../../n-test":
     host: "https://example.com"
