@@ -1,0 +1,28 @@
+{
+  "plugins": {
+    "../../../../eslint": { "id": "../../../../eslint", "parent": { "id": "successful test root" } },
+    "../../../../mocha": { "id": "../../../../mocha", "parent": { "id": "successful test root" } },
+    "../../../../n-test": { "id": "../../../../n-test", "parent": { "id": "successful test root" } }
+  },
+  "commands": {
+    "eslint": {},
+    "mocha": {},
+    "n-test": {}
+  },
+  "lifecycles": {
+    "test:local": { "commands": ["mocha", "eslint"] },
+    "test:ci": { "commands": ["mocha", "eslint"] },
+    "test:deploy": { "commands": ["n-test"] },
+    "../../../../n-test": { "commands": [{ "host": "https://example.com" }] }
+  },
+  "options": {
+    "../../../../eslint": {
+      "options": { "files": ["webpack.config.js"] },
+      "forPlugin": { "id": "../../../../eslint" }
+    },
+    "../../../../mocha": {
+      "options": { "testDir": "./mocha_tests" },
+      "forPlugin": { "id": "../../../../mocha" }
+    }
+  }
+}

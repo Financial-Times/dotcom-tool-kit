@@ -17,15 +17,17 @@
     "dotcom-tool-kit": "./bin/run"
   },
   "scripts": {
-    "test": "mocha --forbid-only \"/**/*.test.ts\""
+    "test": "jest --silent"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
+    "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.mergewith": "^4.6.6",
     "@types/node": "^10.17.54",
     "chai": "^4.3.4",
     "globby": "^10.0.2",
     "jest": "^26.6.3",
+    "lodash.clonedeep": "^4.5.0",
     "ts-jest": "^26.5.6",
     "ts-node": "^8.10.2"
   },
