@@ -43,6 +43,8 @@ export default async function setConfigVars(appId: string, environment: string):
 
     console.log(`${repo} ${appId} config vars have been updated successfully.`) // eslint-disable-line no-console
   } catch (err) {
-    throw new ToolKitError(`Error updating config vars: ${err}`)
+    const error = new ToolKitError(`Error updating config vars`)
+    error.details = err.message
+    throw error
   }
 }
