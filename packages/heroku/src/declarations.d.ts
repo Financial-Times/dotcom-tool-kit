@@ -33,6 +33,10 @@ declare module 'heroku-client' {
     type: string
   }
 
+  export type HerokuApiResPipeline = {
+    id: string
+  }
+
   export default class Heroku {
     constructor(options: HerokuClassOptions)
     get<T>(path: string, options?: Record<string, unknown>): Promise<T>
