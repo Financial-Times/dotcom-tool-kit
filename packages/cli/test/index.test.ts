@@ -27,9 +27,9 @@ describe('cli', () => {
     await loadPluginConfig({ id: 'conflicted test root', root: path.join(__dirname, 'files/conflicted') })
 
     expect(() => validateConfig(config)).toThrow(ToolKitError)
-    expect(config).toHaveProperty('lifecycles.build:ci.conflicting')
-    expect(config).toHaveProperty('lifecycles.build:deploy.conflicting')
-    expect(config).toHaveProperty('lifecycles.build:local.conflicting')
+    expect(config).toHaveProperty('lifecycleAssignments.build:ci.conflicting')
+    expect(config).toHaveProperty('lifecycleAssignments.build:deploy.conflicting')
+    expect(config).toHaveProperty('lifecycleAssignments.build:local.conflicting')
   })
 
   it('should succeed when conflicts are resolved', async () => {
@@ -39,7 +39,10 @@ describe('cli', () => {
     })
 
     validateConfig(config)
-    expect(config).not.toHaveProperty('lifecycles.build:local.conflicting')
-    expect(config.lifecycles['build:local'].commands).toEqual(['webpack:development', 'babel:development'])
+    expect(config).not.toHaveProperty('lifecycleAssignments.build:local.conflicting')
+    expect(config.lifecycleAssignments['build:local'].commands).toEqual([
+      'webpack:development',
+      'babel:development'
+    ])
   })
 })
