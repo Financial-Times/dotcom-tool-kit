@@ -18,6 +18,10 @@ export default class HerokuProduction extends Command {
       await gtg(appId, 'production', true)
       console.log(`Staging has been successfully promoted to production`)
     } catch (err) {
+      if (err instanceof ToolKitError) {
+        throw err
+      }
+
       const error = new ToolKitError(`There was a problem promoting staging production`)
       error.details = err.message
       throw error

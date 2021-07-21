@@ -25,6 +25,10 @@ export default class HerokuReview extends Command {
 
       await gtg(reviewAppId, 'review')
     } catch (err) {
+      if (err instanceof ToolKitError) {
+        throw err
+      }
+
       const error = new ToolKitError(`Error building review-app`)
       error.details = err.message
       throw error
