@@ -6,17 +6,34 @@ import gtg from '../gtg'
 import { writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-const HEROKU_PIPELINE_ID = process.env.HEROKU_PIPELINE_ID || ''
+type HerokuReviewOptions = {
+  pipeline?: string
+}
 
 export default class HerokuReview extends Command {
   static description = ''
 
+  options: HerokuReviewOptions = {
+    pipeline: undefined
+  }
+
   async run(): Promise<void> {
     try {
-      let reviewAppId = await getHerokuReviewApp(HEROKU_PIPELINE_ID)
+      if (!this.options.pipeline) {
+        const error = new ToolKitError('no pipeline option in your Tool Kit configuration')
+        error.details = `the Heroku plugin needs to know where your pipeline is to deploy Review Apps. add it to your configuration, e.g.:
+
+options:
+  '@dotcom-tool-kit/heroku':
+    pipeline: your-heroku-pipeline`
+
+        throw error
+      }
+
+      let reviewAppId = await getHerokuReviewApp(this.options.pipeline)
 
       if (!reviewAppId) {
-        reviewAppId = await buildHerokuReviewApp(HEROKU_PIPELINE_ID)
+        reviewAppId = await buildHerokuReviewApp(this.options.pipeline)
       }
 
       writeState('review', { appId: reviewAppId })
