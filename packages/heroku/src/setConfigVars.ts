@@ -1,14 +1,20 @@
 import request from 'superagent'
-import Heroku from 'heroku-client'
+import heroku from './herokuClient'
 import { readState } from '@dotcom-tool-kit/state'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
 const VAULT_ADDR = 'https://vault.in.ft.com:8080'
-const HEROKU_TOKEN = process.env.HEROKU_API_TOKEN
 
 export default async function setConfigVars(appId: string, environment: string): Promise<void> {
-  const repo = readState('ci')?.repo
+  const state = readState('ci')
+
+  if (!state) {
+    throw new ToolKitError('Could not find CI state')
+  }
+
+  const repo = state.repo
 
   try {
     // Get a fresh Vault token
@@ -30,7 +36,6 @@ export default async function setConfigVars(appId: string, environment: string):
     // i.e. if the JSON in Vault matches Heroku, request will not result in
     // a new release.
     // The changed values can be seen in the app activities/releases.
-    const heroku = new Heroku({ token: HEROKU_TOKEN })
 
     await heroku.patch(`/apps/${appId}/config-vars`, { body: configVars })
 
@@ -38,7 +43,8 @@ export default async function setConfigVars(appId: string, environment: string):
 
     console.log(`${repo} ${appId} config vars have been updated successfully.`) // eslint-disable-line no-console
   } catch (err) {
-    console.error('Error updating config vars:', err) // eslint-disable-line no-console
-    process.exit(1)
+    const error = new ToolKitError(`Error updating config vars`)
+    error.details = err.message
+    throw error
   }
 }

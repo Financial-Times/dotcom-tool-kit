@@ -1,14 +1,15 @@
-import Heroku from 'heroku-client'
+import heroku from './herokuClient'
 import { readState } from '@dotcom-tool-kit/state'
-
-const HEROKU_API_TOKEN = process.env.HEROKU_API_TOKEN
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default async function setSlug(slugId: string): Promise<string> {
-  //TODO: find a better way to get the app name
-  const repo = readState('ci')?.repo
-  const appName = `ft-${repo}-eu`
+  const state = readState(`production`)
 
-  const heroku = new Heroku({ token: HEROKU_API_TOKEN })
+  if (!state) {
+    throw new ToolKitError('Could not find production state information') //TODO - remidating actions?
+  }
+  const appName = state.appName
+
   const latestRelease = await heroku.post(`/apps/${appName}/releases`, {
     slug: slugId
   })

@@ -1,12 +1,11 @@
-import { Command } from '@oclif/command'
+import { Command } from '@dotcom-tool-kit/command'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import getSlug from '../getSlug'
 import setSlug from '../setSlug'
 import gtg from '../gtg'
 
 export default class HerokuProduction extends Command {
   static description = ''
-  static flags = {}
-  static args = []
 
   async run(): Promise<void> {
     try {
@@ -18,10 +17,10 @@ export default class HerokuProduction extends Command {
 
       await gtg(appId, 'production', true)
       console.log(`Staging has been successfully promoted to production`)
-      process.exit(0)
-    } catch {
-      console.log(`There was a problem promoting staging production`)
-      process.exit(1)
+    } catch (err) {
+      const error = new ToolKitError(`There was a problem promoting staging production`)
+      error.details = err.message
+      throw error
     }
   }
 }

@@ -8,7 +8,10 @@
       "path": "../state"
     },
     {
-      "path": "../circleci"
+      "path": "../command"
+    },
+    {
+      "path": "../error"
     }
   ],
   "compilerOptions": {
