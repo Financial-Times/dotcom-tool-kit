@@ -14,7 +14,7 @@ export default class NTest extends Command {
 
     // if we've built a review app, test against that, not the app in the config
     if (reviewState) {
-      this.options.host = `https://${reviewState.appId}.herokuapp.com`
+      this.options.host = `https://${reviewState.appName}.herokuapp.com`
     }
   }
 

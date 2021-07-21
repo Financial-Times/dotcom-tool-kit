@@ -44,6 +44,7 @@ export function writeState<T extends keyof State>(stage: T, value: Partial<State
   if (fs.existsSync(stateFile)) {
     const readStateContent = JSON.parse(fs.readFileSync(stateFile, { encoding: 'utf-8' }))
     for (const [key, val] of Object.entries(value)) {
+      readStateContent[stage] ||= {}
       readStateContent[stage][key] = val
     }
     fs.writeFileSync(stateFile, JSON.stringify(readStateContent, null, 2))
