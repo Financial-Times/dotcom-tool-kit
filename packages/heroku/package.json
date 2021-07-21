@@ -19,7 +19,6 @@
     "@dotcom-tool-kit/command": "file:../command",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
     "@dotcom-tool-kit/state": "file:../state",
-    "@dotcom-tool-kit/circleci": "file:../circleci",
     "@dotcom-tool-kit/error": "file:../error"
   },
   "repository": {
