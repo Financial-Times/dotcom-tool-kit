@@ -7,8 +7,10 @@ const envVars = {
 }
 
 function pluginInit() {
-  console.log(`writing circle ci environment variables to state...`)
-  writeState('ci', envVars)
+  if(process.env.CIRCLECI) {
+    console.log(`writing circle ci environment variables to state...`)
+    writeState('ci', envVars)
+  }
 }
 
 pluginInit()
