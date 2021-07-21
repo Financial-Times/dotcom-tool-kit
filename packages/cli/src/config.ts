@@ -62,7 +62,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-export async function validateConfig(config: Config, { checkInstall = true }): Promise<ValidConfig> {
+export async function validateConfig(config: Config, { checkInstall = true } = {}): Promise<ValidConfig> {
   const lifecycleAssignmentConflicts = findConflicts(Object.values(config.lifecycleAssignments))
   const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
   const commandConflicts = findConflicts(Object.values(config.commands))
