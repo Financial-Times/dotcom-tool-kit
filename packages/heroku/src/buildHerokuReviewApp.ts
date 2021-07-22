@@ -14,6 +14,7 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
 
   const url = `https://github.com/Financial-Times/${repo}/archive/refs/heads/${branch}.zip`
 
+  console.log(`Creating review app for ${branch} branch on ${repo}...`)
   const reviewApp = await heroku.post(`/review-apps`, {
     body: {
       branch: branch,
@@ -25,6 +26,7 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
     }
   })
 
+  console.log(`Checking review app for success status...`)
   const successStatus = await repeatedCheckForSuccessStatus(reviewApp.id)
 
   if (successStatus) {
