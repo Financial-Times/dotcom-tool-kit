@@ -27,7 +27,7 @@ export default async function getRepoDetails(): Promise<repoDetails> {
   try {
     const res = await request(`GET /repos/Financial-Times/${repo}/tarball/${branch}`, {
       headers: {
-        authorization: `token: ${githubAuthToken}`
+        authorization: `token ${githubAuthToken}`
       },
       request: {
         redirect: 'manual'
