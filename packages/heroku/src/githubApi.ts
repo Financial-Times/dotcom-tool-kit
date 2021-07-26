@@ -1,4 +1,5 @@
 import { request } from '@octokit/request'
+import { RequestError } from '@octokit/request-error'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
@@ -23,25 +24,34 @@ export default async function getRepoDetails(): Promise<repoDetails> {
   const { branch, repo, version } = state
 
   console.log(`Retrieving tarball url from Github...`)
-  const res = await request(`GET /repos/Financial-Times/${repo}/tarball/${branch}`, {
-    headers: {
-      authorization: githubAuthToken
-    },
-    request: {
-      redirect: 'manual'
-    }
-  })
+  try {
+    const res = await request(`GET /repos/Financial-Times/${repo}/tarball/${branch}`, {
+      headers: {
+        authorization: `token: ${githubAuthToken}`
+      },
+      request: {
+        redirect: 'manual'
+      }
+    })
 
-  if (res.status !== 302 || !res.headers.location) {
-    throw new ToolKitError(`Error retreiving repo details from Github`)
-  }
-
-  return {
-    repo,
-    branch,
-    source_blob: {
-      url: res.headers.location,
-      version
+    if (res.status !== 302 || !res.headers.location) {
+      throw new ToolKitError(`Error retreiving repo details from Github`)
     }
+
+    return {
+      repo,
+      branch,
+      source_blob: {
+        url: res.headers.location,
+        version
+      }
+    }
+  } catch (err) {
+    if (err instanceof RequestError && err.status === 404) {
+      const error = new ToolKitError(`Error retreiving branch tarball from ${err.request.url}`)
+      error.details = `This could be because you don't have process.env.GITHUB_AUTH_TOKEN set or it's expired`
+      throw error
+    }
+    throw err
   }
 }
