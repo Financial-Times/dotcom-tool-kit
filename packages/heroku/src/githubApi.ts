@@ -2,6 +2,8 @@ import { request } from '@octokit/request'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
+const githubAuthToken = process.env.GITHUB_AUTH_TOKEN
+
 export type repoDetails = {
   repo: string
   branch: string
@@ -18,7 +20,7 @@ export default async function getRepoDetails(): Promise<repoDetails> {
     throw new ToolKitError('Could not find CI state')
   }
 
-  const { branch, repo, version, githubAuthToken } = state
+  const { branch, repo, version } = state
 
   console.log(`Retrieving tarball url from Github...`)
   const res = await request(`GET /repos/Financial-Times/${repo}/tarball/${branch}`, {
@@ -30,7 +32,7 @@ export default async function getRepoDetails(): Promise<repoDetails> {
     }
   })
 
-  if (res.status !== 302) {
+  if (res.status !== 302 || !res.headers.location) {
     throw new ToolKitError(`Error retreiving repo details from Github`)
   }
 
@@ -38,7 +40,7 @@ export default async function getRepoDetails(): Promise<repoDetails> {
     repo,
     branch,
     source_blob: {
-      url: res.url,
+      url: res.headers.location,
       version
     }
   }
