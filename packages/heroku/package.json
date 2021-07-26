@@ -10,16 +10,17 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/command": "file:../command",
+    "@dotcom-tool-kit/error": "file:../error",
+    "@dotcom-tool-kit/state": "file:../state",
+    "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
+    "@octokit/request": "^5.6.0",
     "@types/node": "^15.0.1",
     "@types/p-retry": "^3.0.1",
     "heroku-client": "^3.1.0",
     "node-fetch": "^2.6.1",
     "p-retry": "^4.5.0",
-    "superagent": "^6.1.0",
-    "@dotcom-tool-kit/command": "file:../command",
-    "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
-    "@dotcom-tool-kit/state": "file:../state",
-    "@dotcom-tool-kit/error": "file:../error"
+    "superagent": "^6.1.0"
   },
   "repository": {
     "type": "git",
