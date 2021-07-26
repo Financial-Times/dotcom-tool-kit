@@ -6,6 +6,7 @@ interface CIState {
   repo: string
   branch: string
   version: string
+  githubAuthToken: string
 }
 
 export interface ReviewState {

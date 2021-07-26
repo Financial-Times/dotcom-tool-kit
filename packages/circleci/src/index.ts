@@ -3,7 +3,8 @@ import { writeState } from '@dotcom-tool-kit/state'
 const envVars = {
   branch: process.env.CIRCLE_BRANCH,
   repo: process.env.CIRCLE_PROJECT_REPONAME,
-  version: process.env.CIRCLE_SHA1
+  version: process.env.CIRCLE_SHA1,
+  githubAuthToken: process.env.GITHUB_AUTH_TOKEN
 }
 
 function pluginInit() {
