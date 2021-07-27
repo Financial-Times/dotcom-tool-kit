@@ -3,7 +3,6 @@ import * as path from 'path'
 import { ToolKitError } from '../../error'
 import { config, validateConfig } from '../src/config'
 import { loadPluginConfig } from '../src/plugin'
-import simpleConfig from './files/successful/simpleConfig.json'
 
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
 jest.setTimeout(15000)
@@ -18,17 +17,16 @@ describe('cli', () => {
 
   it('should load plugins correctly', async () => {
     await loadPluginConfig({ id: 'successful test root', root: path.join(__dirname, 'files/successful') })
-
-    validateConfig(config)
-    expect(config).toMatchObject(simpleConfig)
+    await validateConfig(config, { checkInstall: false })
+    expect(config).toMatchSnapshot()
   })
 
   it('should indicate when there are conflicts', async () => {
     await loadPluginConfig({ id: 'conflicted test root', root: path.join(__dirname, 'files/conflicted') })
 
-    expect(() => validateConfig(config)).toThrow(ToolKitError)
+    expect(() => validateConfig(config, { checkInstall: false })).rejects.toBeInstanceOf(ToolKitError)
     expect(config).toHaveProperty('lifecycleAssignments.build:ci.conflicting')
-    expect(config).toHaveProperty('lifecycleAssignments.build:deploy.conflicting')
+    expect(config).toHaveProperty('lifecycleAssignments.build:remote.conflicting')
     expect(config).toHaveProperty('lifecycleAssignments.build:local.conflicting')
   })
 
@@ -38,9 +36,12 @@ describe('cli', () => {
       root: path.join(__dirname, 'files/conflict-resolution')
     })
 
-    validateConfig(config)
-    expect(config).not.toHaveProperty('lifecycleAssignments.build:local.conflicting')
-    expect(config.lifecycleAssignments['build:local'].commands).toEqual([
+    const validConfig = await validateConfig(config, { checkInstall: false }).catch((e) => {
+      e.message += e.details
+      throw e
+    })
+    expect(validConfig).not.toHaveProperty('lifecycleAssignments.build:local.conflicting')
+    expect(validConfig.lifecycleAssignments['build:local'].commands).toEqual([
       'webpack:development',
       'babel:development'
     ])

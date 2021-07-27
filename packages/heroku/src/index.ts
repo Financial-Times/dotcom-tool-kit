@@ -5,7 +5,7 @@ import HerokuCleanup from './commands/cleanup'
 import { PackageJsonLifecycleInstaller } from '@dotcom-tool-kit/lifecycle-package-json'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import path from 'path'
-import fs from 'fs/promises'
+import { promises as fs } from 'fs'
 
 class BuildRemote extends PackageJsonLifecycleInstaller {
   script = 'heroku-postbuild'
