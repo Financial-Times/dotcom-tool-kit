@@ -1,7 +1,8 @@
+<h1 align="center">
+   <img alt="FT.com Tool Kit" src="etc/logo.svg" width="300">
+</h1>
+
 [![CircleCI](https://circleci.com/gh/Financial-Times/dotcom-tool-kit.svg?style=svg&circle-token=f1f296a3a084deef4caabb72cfaf9617a654d244)](https://circleci.com/gh/Financial-Times/dotcom-tool-kit)
-
-
-# Tool Kit
 
 ...is a modern approach to developer tooling for FT.com applications and components. The tools are **modular**: projects with different requirements can install different sets of plugins, which are all surfaced through a single command-line interface.
 
