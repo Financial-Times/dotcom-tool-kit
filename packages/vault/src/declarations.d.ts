@@ -3,7 +3,7 @@ declare module '@financial-times/n-fetch' {
     url: string,
     options?: {
       headers?: {
-        'X-Vault-Token': string
+        [header: string]: string
       }
       body?: string
       method?: string

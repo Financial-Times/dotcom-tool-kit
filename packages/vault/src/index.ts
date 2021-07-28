@@ -1,20 +1,24 @@
 import fetch from '@financial-times/n-fetch'
-import fs from 'fs'
+import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
+const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
+const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
+const VAULT_ADDR = 'https://vault.in.ft.com:8080/ui/vault/secrets/secret/list/teams/next'
+
 export type VaultSettings = {
   repo: string
-  environments: []
+  environment: string
 }
 
 type Secrets = {
   [key: string]: string
 }
 
-type Registry = {
-  [key: string]: string
+type RequiredShared = {
+  [key: string]: string[]
 }
 
 type Token = {
@@ -25,35 +29,22 @@ type Token = {
 
 export class VaultEnvVars {
   repo: string
-  environments = []
+  environment: string
   credentials = {
     role_id: process.env.VAULT_ROLE_ID,
     secret_id: process.env.VAULT_SECRET_ID
   }
 
   constructor(settings: VaultSettings) {
-    const { repo, environments } = settings
+    const { repo, environment } = settings
 
     this.repo = repo
-    this.environments = environments
+    this.environment = environment
   }
 
-  async get(): Promise<Secrets[]> {
-    const vaultPath = await this.getVaultPath(this.repo)
+  async get(): Promise<Secrets> {
     const token = await this.getAuthToken()
-    return this.makeApiCall(token, vaultPath)
-  }
-
-  private async getVaultPath(repo: string): Promise<string> {
-    const res = await fetch<Registry[]>('https://next-registry.ft.com/v2/')
-    const system = res.find((system) => system.repository === repo)
-    if (system) {
-      return system.config
-    } else {
-      const error = new ToolKitError(`Unable to find vault path`)
-      error.details = `please check that both repository and config fields are present in the registry`
-      throw error
-    }
+    return this.fetchSecrets(token)
   }
 
   private async getAuthToken(): Promise<string> {
@@ -61,7 +52,7 @@ export class VaultEnvVars {
       try {
         const json = await fetch<Token>('https://vault.in.ft.com/v1/auth/approle/login', {
           method: 'POST',
-          body: JSON.stringify({ role_id: process.env.VAULT_ROLE_ID, secret_id: process.env.VAULT_SECRET_ID })
+          body: JSON.stringify({ role_id: VAULT_ROLE_ID, secret_id: VAULT_SECRET_ID })
         })
         return json.auth.client_token
       } catch {
@@ -72,7 +63,7 @@ export class VaultEnvVars {
     } else {
       // developer's local machine
       try {
-        return fs.readFileSync(path.join(os.homedir(), '.vault-token'), { encoding: 'utf8' })
+        return await fs.readFile(path.join(os.homedir(), '.vault-token'), { encoding: 'utf8' })
       } catch {
         const error = new ToolKitError(`Vault login failed`)
         error.details = `Please check your .vault-token is present`
@@ -81,21 +72,27 @@ export class VaultEnvVars {
     }
   }
 
-  private async makeApiCall(token: string, vaultPath: string): Promise<Secrets[]> {
+  private async fetchSecrets(token: string): Promise<Secrets> {
     try {
-      const shared: Secrets[] = await Promise.all(
-        this.environments.map((env) => {
-          return fetch<Secrets>(`secret/teams/next/shared/${env}}`, { headers: { 'X-Vault-Token': token } })
-        })
-      )
-      const app: Secrets[] = await Promise.all(
-        this.environments.map((env) => {
-          return fetch<Secrets>(`${vaultPath}/${env}}`, {
-            headers: { 'X-Vault-Token': token }
-          })
-        })
-      )
-      return [...shared, ...app]
+      const allShared = await fetch<Secrets>(`secret/teams/next/shared/${this.environment}`, {
+        headers: { 'X-Vault-Token': token }
+      })
+      const appEnv = await fetch<Secrets>(`${VAULT_ADDR}/${this.repo}/${this.environment}`, {
+        headers: { 'X-Vault-Token': token }
+      })
+      const appShared = await fetch<RequiredShared>(`${VAULT_ADDR}/${this.repo}/shared`, {
+        headers: { 'X-Vault-Token': token }
+      })
+
+      const required: Secrets = {}
+
+      appShared.env.map((envVar) => {
+        if (allShared.hasOwnProperty(envVar)) {
+          required[envVar] = allShared[envVar]
+        }
+      })
+
+      return Object.assign({}, required, appEnv)
     } catch {
       const error = new ToolKitError(`Unable to retreive secrets from vault`)
       error.details = `Please check that your system code is correct`

@@ -11,7 +11,8 @@
     "@financial-times/n-fetch": "^1.0.0-beta.7",
     "fs": "0.0.1-security",
     "os": "^0.1.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "superagent": "^6.1.0"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -22,8 +23,5 @@
     "directory": "packages/circleci"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/vault",
-  "devDependencies": {
-    "@types/request": "^2.48.6"
-  }
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/vault"
 }
