@@ -30,9 +30,16 @@ abstract class ProcfileLifecycleInstaller {
   }
 
   private async readProcfile(): Promise<Procfile> {
-    // TODO gracefully handle nonexistent Procfile
     if (!this._procfile) {
-      const content = await fs.readFile(this.procfilePath, 'utf-8')
+      const content = await fs.readFile(this.procfilePath, 'utf-8').catch((error) => {
+        // if the file doesn't exist, return empty string. the file'll get created later
+        if (error.code && error.code === 'ENOENT') {
+          return ''
+        }
+
+        throw error
+      })
+
       this._procfile = this.parseProcfile(content)
     }
 
@@ -40,7 +47,8 @@ abstract class ProcfileLifecycleInstaller {
   }
 
   private parseProcfile(content: string): Procfile {
-    const lines = content.split('\n')
+    const lines = content.split('\n').filter((line) => line.length > 0) // skip empty lines, e.g. at end of file, or empty file
+
     const parsed = lines.map((line): ProcfileEntry | ProcfileError => {
       const [match, process, command] =
         /^([a-z\d]+):(.+)$/i.exec(line) || ([false, '', ''] as [boolean, string, string])
@@ -49,8 +57,10 @@ abstract class ProcfileLifecycleInstaller {
         return { error: true, line }
       }
 
-      return { process, command }
+      return { process: process.trim(), command: command.trim() }
     })
+
+    console.log(parsed)
 
     const errors: ProcfileError[] = []
     const valid: Procfile = []

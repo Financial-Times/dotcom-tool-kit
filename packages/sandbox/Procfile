@@ -1,0 +1,1 @@
+release: npx dotcom-tool-kit lifecycle release:remote
