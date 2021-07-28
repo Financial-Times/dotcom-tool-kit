@@ -1,6 +1,5 @@
 import { promises as fsp } from 'fs'
 import * as path from 'path'
-import { promisify } from 'util'
 import DevelopmentWebpack from '../../src/commands/webpack/development'
 import ProductionWebpack from '../../src/commands/webpack/production'
 
