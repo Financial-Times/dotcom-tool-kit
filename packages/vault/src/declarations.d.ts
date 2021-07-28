@@ -1,7 +1,7 @@
 declare module '@financial-times/n-fetch' {
   function fetch<T>(
     url: string,
-    options: {
+    options?: {
       headers?: {
         'X-Vault-Token': string
       }

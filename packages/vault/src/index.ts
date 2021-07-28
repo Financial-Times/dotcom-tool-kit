@@ -5,11 +5,15 @@ import os from 'os'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export type VaultSettings = {
-  systemCode: string
+  repo: string
   environments: []
 }
 
 type Secrets = {
+  [key: string]: string
+}
+
+type Registry = {
   [key: string]: string
 }
 
@@ -20,7 +24,7 @@ type Token = {
 }
 
 export class VaultEnvVars {
-  systemCode: string
+  repo: string
   environments = []
   credentials = {
     role_id: process.env.VAULT_ROLE_ID,
@@ -28,18 +32,31 @@ export class VaultEnvVars {
   }
 
   constructor(settings: VaultSettings) {
-    const { systemCode, environments } = settings
+    const { repo, environments } = settings
 
-    this.systemCode = systemCode
+    this.repo = repo
     this.environments = environments
   }
 
   async get(): Promise<Secrets[]> {
+    const vaultPath = await this.getVaultPath(this.repo)
     const token = await this.getAuthToken()
-    return this.makeApiCall(token)
+    return this.makeApiCall(token, vaultPath)
   }
 
-  async getAuthToken(): Promise<string> {
+  private async getVaultPath(repo: string): Promise<string> {
+    const res = await fetch<Registry[]>('https://next-registry.ft.com/v2/')
+    const system = res.find((system) => system.repository === repo)
+    if (system) {
+      return system.config
+    } else {
+      const error = new ToolKitError(`Unable to find vault path`)
+      error.details = `please check that both repository and config fields are present in the registry`
+      throw error
+    }
+  }
+
+  private async getAuthToken(): Promise<string> {
     if (process.env.CIRCLECI) {
       try {
         const json = await fetch<Token>('https://vault.in.ft.com/v1/auth/approle/login', {
@@ -54,21 +71,17 @@ export class VaultEnvVars {
       }
     } else {
       // developer's local machine
-      // const key = fs.readFile(path.join(os.homedir(), '.vault-token'), { encoding: 'utf8' }, (err, data) => {
-      //     if (err) {
-      //         const error = new ToolKitError(`Vault login failed`)
-      //         error.details = `Please check your .vault-token is present`
-      //         throw error
-      //     } else {
-      //         return data
-      //     }
-      //     return key
-      // }
+      try {
+        return fs.readFileSync(path.join(os.homedir(), '.vault-token'), { encoding: 'utf8' })
+      } catch {
+        const error = new ToolKitError(`Vault login failed`)
+        error.details = `Please check your .vault-token is present`
+        throw error
+      }
     }
-    return ''
   }
 
-  async makeApiCall(token: string): Promise<Secrets[]> {
+  private async makeApiCall(token: string, vaultPath: string): Promise<Secrets[]> {
     try {
       const shared: Secrets[] = await Promise.all(
         this.environments.map((env) => {
@@ -77,7 +90,7 @@ export class VaultEnvVars {
       )
       const app: Secrets[] = await Promise.all(
         this.environments.map((env) => {
-          return fetch<Secrets>(`secret/teams/next/${this.systemCode}/${env}}`, {
+          return fetch<Secrets>(`${vaultPath}/${env}}`, {
             headers: { 'X-Vault-Token': token }
           })
         })
