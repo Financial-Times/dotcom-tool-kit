@@ -1,3 +1,4 @@
+import { describe, jest, it } from '@jest/globals'
 import { promises as fsp } from 'fs'
 import * as path from 'path'
 import DevelopmentWebpack from '../../src/commands/webpack/development'

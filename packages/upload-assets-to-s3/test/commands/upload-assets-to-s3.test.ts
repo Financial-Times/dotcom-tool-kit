@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeAll } from '@jest/globals'
 import aws from 'aws-sdk'
 import * as path from 'path'
 import { mocked } from 'ts-jest/utils'

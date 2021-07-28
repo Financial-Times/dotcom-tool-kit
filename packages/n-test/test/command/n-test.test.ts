@@ -1,3 +1,4 @@
+import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import * as puppeteer from 'puppeteer'
 import NTest from '../../src/commands/n-test'

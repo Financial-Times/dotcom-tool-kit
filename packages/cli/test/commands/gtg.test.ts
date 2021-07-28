@@ -1,3 +1,4 @@
+import { describe, it } from '@jest/globals'
 import GoodToGo from '../../src/commands/gtg'
 
 describe('gtg', () => {
