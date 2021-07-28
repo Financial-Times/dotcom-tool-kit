@@ -7,6 +7,7 @@
     "postinstall": "athloi exec -- npm install --no-package-lock",
     "prettier": "prettier --write '**/*.{ts,js,json}'",
     "create-plugin": "./scripts/create-plugin.js",
+    "clean-up-packages": "./scripts/clean-up-packages.sh",
     "build": "tsc --build --verbose tsconfig.json",
     "watch": "tsc --build --watch --verbose tsconfig.json",
     "test": "jest --silent"
