@@ -1,0 +1,31 @@
+{
+  "name": "@dotcom-tool-kit/heroku-postbuild",
+  "version": "0.0.0-development",
+  "description": "",
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "MIT",
+  "main": "lib",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "packages/heroku-postbuild"
+  },
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/packages/heroku-postbuild",
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "scripts": {
+    "test": "jest --silent"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/command": "file:../command",
+    "@dotcom-tool-kit/error": "file:../error",
+    "@financial-times/package-json": "^3.0.0",
+    "@quarterto/is-installing-package": "^1.5.0"
+  },
+  "toolkit": {},
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^14.14.37",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6"
+  }
+}
