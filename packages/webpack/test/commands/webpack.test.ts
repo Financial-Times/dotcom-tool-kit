@@ -16,10 +16,7 @@ describe.each([DevelopmentWebpack, ProductionWebpack])('%p', (Webpack) => {
 
   it('should pass on standard file', async () => {
     const command = new Webpack(['--config', configPath])
-    // Intentionally skip awaiting on webpack command as it will never resolve
-    // because of a webpack bug: https://github.com/webpack/webpack-cli/issues/2795
-    command.run()
-    await promisify(setTimeout)(2000)
+    await command.run()
 
     await fsp.access(outputPath + '/app.bundle.js')
   })
