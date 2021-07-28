@@ -47,7 +47,8 @@ abstract class ProcfileLifecycleInstaller {
   }
 
   private parseProcfile(content: string): Procfile {
-    const lines = content.split('\n').filter((line) => line.length > 0) // skip empty lines, e.g. at end of file, or empty file
+    // split into lines, skip empty lines, e.g. at end of file, or empty file
+    const lines = content.split('\n').filter((line) => line.length > 0)
 
     const parsed = lines.map((line): ProcfileEntry | ProcfileError => {
       const [match, process, command] =
