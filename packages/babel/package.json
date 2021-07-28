@@ -15,8 +15,5 @@
   "keywords": [],
   "dependencies": {
     "@dotcom-tool-kit/command": "file:../command"
-  },
-  "devDependencies": {
-    "@types/node": "^15.12.4"
   }
 }

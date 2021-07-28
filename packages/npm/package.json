@@ -20,7 +20,6 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/npm",
   "devDependencies": {
-    "@types/financial-times__package-json": "file:../../types/financial-times__package-json",
-    "@types/node": "^15.0.2"
+    "@types/financial-times__package-json": "file:../../types/financial-times__package-json"
   }
 }
