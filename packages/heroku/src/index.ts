@@ -61,8 +61,6 @@ abstract class ProcfileLifecycleInstaller {
       return { process: process.trim(), command: command.trim() }
     })
 
-    console.log(parsed)
-
     const errors: ProcfileError[] = []
     const valid: Procfile = []
 
