@@ -7,8 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "node-vault": "^0.9.22",
-    "@dotcom-tool-kit/error": "file:../error"
+    "@dotcom-tool-kit/error": "file:../error",
+    "@financial-times/n-fetch": "^1.0.0-beta.7",
+    "fs": "0.0.1-security",
+    "os": "^0.1.2",
+    "path": "^0.12.7"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",

@@ -1,5 +1,3 @@
-// declare module 'heroku-client'
-
 declare module 'heroku-client' {
   export type HerokuClassOptions = {
     token: string | undefined
