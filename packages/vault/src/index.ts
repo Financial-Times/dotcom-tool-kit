@@ -11,7 +11,7 @@ const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
 const CIRCLECI = process.env.CIRCLECI
 
 export type VaultSettings = {
-  repo: string
+  vaultPath: string
   environment: string
 }
 
@@ -29,42 +29,20 @@ type Token = {
   }
 }
 
-type FetchObject = {
-  [key: string]: string
-}
-
 export class VaultEnvVars {
-  repo: string
+  vaultPath: string
   environment: string
-  credentials = {
-    role_id: process.env.VAULT_ROLE_ID,
-    secret_id: process.env.VAULT_SECRET_ID
-  }
 
   constructor(settings: VaultSettings) {
-    const { repo, environment } = settings
+    const { vaultPath, environment } = settings
 
-    this.repo = repo
+    this.vaultPath = vaultPath
     this.environment = environment
   }
 
   async get(): Promise<Secrets> {
     const token = await this.getAuthToken()
     return this.fetchSecrets(token)
-  }
-
-  private async fetchFromVault<T>(
-    path: string,
-    body: FetchObject,
-    headers?: FetchObject,
-    method = 'GET'
-  ): Promise<T> {
-    const json = await fetch<T>(`${VAULT_ADDR}/${path}`, {
-      method,
-      headers,
-      body: JSON.stringify(body)
-    })
-    return json
   }
 
   private async getAuthToken(): Promise<string> {
@@ -121,11 +99,11 @@ export class VaultEnvVars {
         headers
       )
       const appEnv = await fetch<Secrets>(
-        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/${this.repo}/${this.environment}`,
+        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/${this.vaultPath}/${this.environment}`,
         headers
       )
       const appShared = await fetch<RequiredShared>(
-        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/${this.repo}/shared`,
+        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/${this.vaultPath}/shared`,
         headers
       )
 
