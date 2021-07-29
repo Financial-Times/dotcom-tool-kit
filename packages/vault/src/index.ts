@@ -6,12 +6,17 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
-const VAULT_ADDR = 'https://vault.in.ft.com'
+const VAULT_ADDR = 'https://vault.in.ft.com/v1'
 const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
 const CIRCLECI = process.env.CIRCLECI
 
+export type VaultPath = {
+  team: string
+  app: string
+}
+
 export type VaultSettings = {
-  vaultPath: string
+  vaultPath: VaultPath
   environment: string
 }
 
@@ -30,7 +35,7 @@ type Token = {
 }
 
 export class VaultEnvVars {
-  vaultPath: string
+  vaultPath: VaultPath
   environment: string
 
   constructor(settings: VaultSettings) {
@@ -48,7 +53,7 @@ export class VaultEnvVars {
   private async getAuthToken(): Promise<string> {
     if (CIRCLECI) {
       try {
-        const json = await fetch<Token>(`${VAULT_ADDR}/v1/auth/approle/login`, {
+        const json = await fetch<Token>(`${VAULT_ADDR}/auth/approle/login`, {
           method: 'POST',
           headers: { 'Content-type': 'application/json' },
           body: JSON.stringify({ role_id: VAULT_ROLE_ID, secret_id: VAULT_SECRET_ID })
@@ -69,7 +74,7 @@ export class VaultEnvVars {
           return vaultTokenFile
         } else if (VAULT_AUTH_GITHUB_TOKEN) {
           console.log(`You are not logged in, logging you in...`)
-          const token = await fetch<Token>(`${VAULT_ADDR}/v1/auth/github/login`, {
+          const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({ token: VAULT_AUTH_GITHUB_TOKEN })
@@ -95,15 +100,15 @@ export class VaultEnvVars {
 
     try {
       const allShared = await fetch<Secrets>(
-        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/shared/${this.environment}`,
+        `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/shared/${this.environment}`,
         headers
       )
       const appEnv = await fetch<Secrets>(
-        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/${this.vaultPath}/${this.environment}`,
+        `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/${this.environment}`,
         headers
       )
       const appShared = await fetch<RequiredShared>(
-        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/${this.vaultPath}/shared`,
+        `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/shared`,
         headers
       )
 
