@@ -6,7 +6,9 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
-const VAULT_ADDR = 'https://vault.in.ft.com:8080/ui/vault/secrets/secret/list/teams/next'
+const VAULT_ADDR = 'https://vault.in.ft.com'
+const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
+const CIRCLECI = process.env.CIRCLECI
 
 export type VaultSettings = {
   repo: string
@@ -25,6 +27,10 @@ type Token = {
   auth: {
     client_token: string
   }
+}
+
+type FetchObject = {
+  [key: string]: string
 }
 
 export class VaultEnvVars {
@@ -47,11 +53,26 @@ export class VaultEnvVars {
     return this.fetchSecrets(token)
   }
 
+  private async fetchFromVault<T>(
+    path: string,
+    body: FetchObject,
+    headers?: FetchObject,
+    method = 'GET'
+  ): Promise<T> {
+    const json = await fetch<T>(`${VAULT_ADDR}/${path}`, {
+      method,
+      headers,
+      body: JSON.stringify(body)
+    })
+    return json
+  }
+
   private async getAuthToken(): Promise<string> {
-    if (process.env.CIRCLECI) {
+    if (CIRCLECI) {
       try {
-        const json = await fetch<Token>('https://vault.in.ft.com/v1/auth/approle/login', {
+        const json = await fetch<Token>(`${VAULT_ADDR}/v1/auth/approle/login`, {
           method: 'POST',
+          headers: { 'Content-type': 'application/json' },
           body: JSON.stringify({ role_id: VAULT_ROLE_ID, secret_id: VAULT_SECRET_ID })
         })
         return json.auth.client_token
@@ -63,7 +84,24 @@ export class VaultEnvVars {
     } else {
       // developer's local machine
       try {
-        return await fs.readFile(path.join(os.homedir(), '.vault-token'), { encoding: 'utf8' })
+        const vaultTokenFile = await fs.readFile(path.join(os.homedir(), '.vault-token'), {
+          encoding: 'utf8'
+        })
+        if (vaultTokenFile) {
+          return vaultTokenFile
+        } else if (VAULT_AUTH_GITHUB_TOKEN) {
+          console.log(`You are not logged in, logging you in...`)
+          const token = await fetch<Token>(`${VAULT_ADDR}/v1/auth/github/login`, {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({ token: VAULT_AUTH_GITHUB_TOKEN })
+          })
+          return token.auth.client_token
+        } else {
+          const error = new ToolKitError(`VAULT_AUTH_GITHUB_TOKEN variable is not set`)
+          error.details = `Follow the guide at https://github.com/Financial-Times/vault/wiki/Getting-Started-With-Vault`
+          throw error
+        }
       } catch {
         const error = new ToolKitError(`Vault login failed`)
         error.details = `Please check your .vault-token is present`
@@ -73,16 +111,23 @@ export class VaultEnvVars {
   }
 
   private async fetchSecrets(token: string): Promise<Secrets> {
+    const headers = {
+      headers: { 'X-Vault-Token': token }
+    }
+
     try {
-      const allShared = await fetch<Secrets>(`secret/teams/next/shared/${this.environment}`, {
-        headers: { 'X-Vault-Token': token }
-      })
-      const appEnv = await fetch<Secrets>(`${VAULT_ADDR}/${this.repo}/${this.environment}`, {
-        headers: { 'X-Vault-Token': token }
-      })
-      const appShared = await fetch<RequiredShared>(`${VAULT_ADDR}/${this.repo}/shared`, {
-        headers: { 'X-Vault-Token': token }
-      })
+      const allShared = await fetch<Secrets>(
+        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/shared/${this.environment}`,
+        headers
+      )
+      const appEnv = await fetch<Secrets>(
+        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/${this.repo}/${this.environment}`,
+        headers
+      )
+      const appShared = await fetch<RequiredShared>(
+        `${VAULT_ADDR}:8080/ui/vault/secrets/secret/list/teams/next/${this.repo}/shared`,
+        headers
+      )
 
       const required: Secrets = {}
 
