@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "references": [
+    {
+      "path": "../error"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  }
+}
