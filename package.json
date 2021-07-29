@@ -40,7 +40,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint && lint-staged",
-      "post-checkout": "npm run clean-up-packages"
+      "post-checkout": "npm run clean-up-packages -- $HUSKY_GIT_PARAMS"
     }
   },
   "dependencies": {
