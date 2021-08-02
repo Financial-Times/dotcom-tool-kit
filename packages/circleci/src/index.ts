@@ -1,79 +1,19 @@
 import { writeState } from '@dotcom-tool-kit/state'
-import YAML from 'yawn-yaml/cjs'
-import path from 'path'
-import { promises as fs } from 'fs'
+import CircleCiConfigLifecycle from './circleci-config'
 
-type Step = {
-  [step: string]: any
-  run?:
-    | {
-        name: string
-        command: string
-      }
-    | string
-}
-
-class BuildCI {
-  _circleConfig?: YAML
+class BuildCI extends CircleCiConfigLifecycle {
   script = 'npx dotcom-tool-kit lifecycle build:ci'
-
-  async getCircleConfig() {
-    if (!this._circleConfig) {
-      const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
-      const yaml = await fs.readFile(circleConfigPath, 'utf8')
-      this._circleConfig = new YAML(yaml)
-    }
-
-    return this._circleConfig
-  }
-
-  async check(): Promise<boolean> {
-    const circleConfig = await this.getCircleConfig()
-    const buildSteps = circleConfig.json.jobs?.build?.steps as Step[] | undefined
-    if (!buildSteps) {
-      return false //??? what to do if the circleci config is something totally unexpected
-    }
-
-    for (const step of buildSteps) {
-      if (typeof step.run === 'string' && step.run === this.script) {
-        return true
-      }
-
-      if (typeof step.run === 'object' && step.run.command === this.script) {
-        return true
-      }
-    }
-
-    return false
-  }
-
-  async install() {
-    // TODO automate this? humans can probably do it better than computers
-    // TODO orbs
-    throw new Error(
-      'Please update your CircleCI config to run the command `npx dotcom-tool-kit lifecycle build:ci` in the steps of the `build` job'
-    )
-  }
+  job = 'build'
 }
 
-class TestCI {
-  async check(): Promise<boolean> {
-    return true
-  }
-
-  async install() {
-    throw new Error('where does this even go')
-  }
+class TestCI extends CircleCiConfigLifecycle {
+  script = 'npx dotcom-tool-kit lifecycle test:ci'
+  job = 'test'
 }
 
-class TestRemote {
-  async check(): Promise<boolean> {
-    return true
-  }
-
-  async install() {
-    throw new Error('where does this even go')
-  }
+class TestRemote extends CircleCiConfigLifecycle {
+  script = 'npx dotcom-tool-kit lifecycle test:remote'
+  job = 'e2e-test'
 }
 
 export const lifecycles = {
@@ -81,7 +21,6 @@ export const lifecycles = {
   'test:ci': TestCI,
   'test:remote': TestRemote
 }
-
 
 const envVars = {
   branch: process.env.CIRCLE_BRANCH,
