@@ -17,7 +17,10 @@ describe('cli', () => {
   })
 
   it('should load plugins correctly', async () => {
-    await loadPluginConfig({ id: 'successful test root', root: path.join(__dirname, 'files/successful') })
+    // use a relative path for consistent snapshot across machines
+    const root = path.relative(process.cwd(), path.join(__dirname, 'files/successful'))
+
+    await loadPluginConfig({ id: 'successful test root', root })
     await validateConfig(config, { checkInstall: false })
     expect(config).toMatchSnapshot()
   })
