@@ -1,147 +1,28 @@
+# fake circleci config only for testing CircleCI-related lifecycle event validation
+
 version: 2
 
-references:
-
-  #
-  # Workspace
-  #
-  container_config_node: &container_config_node
-    working_directory: ~/project/build
-    docker:
-      - image: circleci/node:12
-
-  workspace_root: &workspace_root
-    ~/project
-
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
-
-  #
-  # Cache creation
-  #
-  create_cache: &create_cache
-    save_cache:
-      key: cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
-      paths:
-        - ./node_modules/
-
-  #
-  # Cache restoration
-  #
-  restore_cache: &restore_cache
-    restore_cache:
-      keys:
-        - cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
-
-  #
-  # Filters
-  #
-  filters_only_main: &filters_only_main
-    branches:
-      only:
-        - main
-
-  filters_only_renovate_nori: &filters_only_renovate_nori
-    branches:
-      only: /(^renovate-.*|^nori\/.*)/
-
-  filters_ignore_tags_renovate_nori_build: &filters_ignore_tags_renovate_nori_build
-    tags:
-      ignore: /.*/
-    branches:
-      ignore: /(^renovate-.*|^nori\/.*|^gh-pages)/
-
-  filters_main_branch: &filters_main_branch
-    branches:
-      only:
-        - main
-
-  filters_release_build: &filters_release_build
-    tags:
-      only:
-        - /^v\d+\.\d+\.\d+(?:-\w+\.\d+)?$/
-    branches:
-      ignore: /.*/
-
 jobs:
-
   build:
-    <<: *container_config_node
     steps:
-      - checkout
-      - *restore_cache
-      - run:
-          name: Install project dependencies
-          command: npm install
-      - run:
-          name: Compile packages
-          command: "npx dotcom-tool-kit lifecycle build:ci"
-      - *create_cache
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - build
+      - run: 'npx dotcom-tool-kit lifecycle build:ci'
 
   test:
-    <<: *container_config_node
     steps:
-      - *attach_workspace
-      - run:
-          name: Run package tests
-          command: npm run test
+      - run: 'npx dotcom-tool-kit lifecycle test:ci'
 
-  publish:
-    <<: *container_config_node
+  e2e-test:
     steps:
-      - *attach_workspace
-      - run:
-          name: Set npm auth token
-          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ${HOME}/.npmrc
-      - run:
-          name: Bump version
-          command: npx athloi version ${CIRCLE_TAG}
-      - run:
-          name: NPM publish
-          command: npx athloi publish -- --access=public
+      - run: 'npx dotcom-tool-kit lifecycle test:remote'
 
-workflows:
-  version: 2
+  provision:
+    steps:
+      - run: 'npx dotcom-tool-kit lifecycle deploy:review'
 
-  build-test:
-    jobs:
-      - build:
-          filters:
-            <<: *filters_ignore_tags_renovate_nori_build
-      - test:
-          requires:
-            - build
+  deploy:
+    steps:
+      - run: 'npx dotcom-tool-kit lifecycle deploy:staging'
 
-  renovate-nori-build-test:
-    jobs:
-      - waiting-for-approval:
-          type: approval
-          filters:
-              <<: *filters_only_renovate_nori
-      - build:
-          requires:
-              - waiting-for-approval
-      - test:
-          requires:
-              - build
-
-  build-test-publish:
-    jobs:
-      - build:
-          filters:
-            <<: *filters_release_build
-      - test:
-          filters:
-            <<: *filters_release_build
-          requires:
-            - build
-      - publish:
-          filters:
-            <<: *filters_release_build
-          requires:
-            - test
+  promote:
+    steps:
+      - run: 'npx dotcom-tool-kit lifecycle deploy:production'

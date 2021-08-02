@@ -4,9 +4,8 @@ plugins:
   - '@dotcom-tool-kit/mocha'
   - '@dotcom-tool-kit/n-test'
   # - '@dotcom-tool-kit/upload-assets-to-s3'
-  - '@dotcom-tool-kit/circleci'
   - '@dotcom-tool-kit/npm'
-  - '@dotcom-tool-kit/heroku'
+  - '@dotcom-tool-kit/circleci-heroku'
 
 options:
   '@dotcom-tool-kit/eslint':
