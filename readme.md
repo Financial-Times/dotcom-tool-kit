@@ -45,63 +45,27 @@ and [add the plugin](#plugins) to `packages/sandbox/.toolkitrc.yml`.
 
 ## Lifecycles
 
-Tool Kit manages the build lifecycle for your app. It defines **lifecycle events** that can be run by developers, or other tooling like CI and hosting platforms:
+Tool Kit manages the build lifecycle for your app. Plugins can define **lifecycle events** that can be run by developers, or other tooling like CI and hosting platforms. These events are things like `build`, `test` and `deploy` that are run during development, on CI servers, and
 
-### Events
+Tool Kit plugins manage the configuration to run their lifecycle events automatically from other tooling. When Tool Kit loads, it verifies the configuration exists, and exits if something is missing. You can run `dotcom-tool-kit install`, which will install most configuration automatically, and provide instructions to follow for any configuration it can't automatically install.
 
-| Event | When it runs | Why it runs |
-|-|-|-|
-| `build:*` | After installing project dependencies | To compile code or assets so an app can run |
-| `test:*` | Locally when run by a developer, on CI, and when deploying an app | To run automated tests that verify an app is working correctly |
-| `release:*` | After building an app on a hosting platform | To run secondary tasks related to deploying an app, e.g. database migrations or asset uploads |
+To allow apps to choose what they run, a lifecycle event defined by one plugin can be **assigned** to run a command from another plugin.
 
-<!-- NOT IMPLEMENTED YET
-Tool Kit manages the configuration to run lifecycle events automatically from other tooling. On first install, it will modify your configuration files, and verify the configuration exists when it runs. It will install itself in these locations:
+For example, the `npm` plugin defines a `test:local` event to be run by the `npm run test` script, but it doesn't define what tests to run itself; that's handled by a plugin like `mocha`, which can be assigned to the `test:local` event to run your Mocha test suite when you run `npm run test`.
 
-<table>
-   <tr>
-      <th>Event</th>
-      <th>Environment</th>
-      <th>Installed to...</th>
-   </tr>
-   <tr>
-      <td rowspan="3" align="right"><code>build:</code></td>
-      <td><code>local</code></td>
-      <td>npm <code>postinstall</code> script</td>
-   </tr>
-   <tr>
-      <td><code>ci</code></td>
-      <td>CircleCI <code>build</code> job</td>
-   </tr>
-   <tr>
-      <td><code>deploy</code></td>
-      <td>npm <code>heroku-postbuild</code> script</td>
-   </tr>
-   <tr>
-      <td rowspan="3" align="right"><code>test:</code></td>
-      <td><code>local</code></td>
-      <td>Git <code>prepush</code> hook</td>
-   </tr>
-   <tr>
-      <td><code>ci</code></td>
-      <td>CircleCI <code>test</code> job</td>
-   </tr>
-   <tr>
-      <td><code>deploy</code></td>
-      <td>Heroku "Release Phase" command</td>
-   </tr>
-   <tr>
-      <td align="right"><code>release:</code></td>
-      <td><code>deploy</code></td>
-      <td>Heroku "Release Phase" command</td>
-   </tr>
-</table> -->
+Plugins can set a default command to run on a particular lifecycle event, to reduce configuration for common cases. For example, the `mocha` plugin assigns itself to `test:*` events by default.
 
-Tool Kit [plugins](#plugins) can configure which of their commands run by default on a particular lifecycle event. For example, the `webpack` plugin runs `webpack:development` on the `build:local` event.
+Plugins can also define default events for other plugins they depend on, allowing you to install preset plugins for common use cases that define and set up assignments for all the lifecycle events your app needs.
 
-Your app (and other plugins) can override these defaults in your [configuration](#configuration), so you can adapt the commands that run to your own needs (and so we can publish plugins that define common use cases composed of other plugins).
+If you, or a plugin, tries to assign a command to a lifecycle event that doesn't exist (which could be because you've not installed the plugin that defines it, or you've made a typo), Tool Kit will error, and list the available events.
 
 If you have multiple plugins installed that assign different commands to the same events, you'll need to [resolve the conflict](docs/resolving-lifecycle-conflicts.md).
+
+### Plugins that define lifecycle events
+
+- [`circleci`](packages/circleci/readme.md)
+- [`heroku`](packages/heroku/readme.md)
+- [`npm`](packages/npm/readme.md)
 
 ## Configuration
 
