@@ -99,18 +99,25 @@ export class VaultEnvVars {
     }
 
     try {
+      //TEMP CONSOLE LOGGING
+      console.log(`vault add: ${VAULT_ADDR}, team: ${this.vaultPath.team}, env: ${this.environment}`)
       const allShared = await fetch<Secrets>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/shared/${this.environment}`,
         headers
       )
+      console.log(`allShared: ${Object.keys(allShared)}`)
+
       const appEnv = await fetch<Secrets>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/${this.environment}`,
         headers
       )
+      console.log(`appEnv: ${Object.keys(appEnv)}`)
+
       const appShared = await fetch<RequiredShared>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/shared`,
         headers
       )
+      console.log(`appShared: ${appShared}`)
 
       const required: Secrets = {}
 
@@ -119,6 +126,7 @@ export class VaultEnvVars {
           required[envVar] = allShared[envVar]
         }
       })
+      console.log(`required: ${Object.keys(required)}`)
 
       return Object.assign({}, required, appEnv)
     } catch {
