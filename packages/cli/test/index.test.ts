@@ -10,11 +10,27 @@ jest.setTimeout(15000)
 
 const baseConfig = cloneDeep(config)
 
+function makeRootRelative(thing: { root: string }) {
+  thing.root = path.relative(process.cwd(), thing.root)
+}
+
 function makeConfigPathsRelative(config: Config) {
-  config.root = path.relative(process.cwd(), config.root)
+  makeRootRelative(config)
 
   for (const plugin of Object.values(config.plugins)) {
-    plugin.root = path.relative(process.cwd(), plugin.root)
+    makeRootRelative(plugin)
+  }
+
+  for (const assignment of Object.values(config.lifecycleAssignments)) {
+    makeRootRelative(assignment.plugin)
+  }
+
+  for (const lifecycle of Object.values(config.lifecycles)) {
+    if (lifecycle.plugin) makeRootRelative(lifecycle.plugin)
+  }
+
+  for (const command of Object.values(config.commands)) {
+    if (command.plugin) makeRootRelative(command.plugin)
   }
 }
 
