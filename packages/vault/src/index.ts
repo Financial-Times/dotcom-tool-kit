@@ -99,7 +99,6 @@ export class VaultEnvVars {
     }
 
     try {
-      //TEMP CONSOLE LOGGING
       console.log(`vault add: ${VAULT_ADDR}, team: ${this.vaultPath.team}, env: ${this.environment}`)
       const allShared = await fetch<Secrets>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/shared/${this.environment}`,
