@@ -2,13 +2,21 @@ import { describe, jest, it, expect, afterEach } from '@jest/globals'
 import cloneDeep from 'lodash.clonedeep'
 import * as path from 'path'
 import { ToolKitError } from '../../error'
-import { config, validateConfig } from '../src/config'
+import { Config, config, validateConfig } from '../src/config'
 import { loadPluginConfig } from '../src/plugin'
 
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
 jest.setTimeout(15000)
 
 const baseConfig = cloneDeep(config)
+
+function makeConfigPathsRelative(config: Config) {
+  config.root = path.relative(process.cwd(), config.root)
+
+  for (const plugin of Object.values(config.plugins)) {
+    plugin.root = path.relative(process.cwd(), plugin.root)
+  }
+}
 
 describe('cli', () => {
   afterEach(() => {
@@ -17,11 +25,11 @@ describe('cli', () => {
   })
 
   it('should load plugins correctly', async () => {
-    // use a relative path for consistent snapshot across machines
-    const root = path.relative(process.cwd(), path.join(__dirname, 'files/successful'))
-
-    await loadPluginConfig({ id: 'successful test root', root })
+    await loadPluginConfig({ id: 'successful test root', root: path.join(__dirname, 'files/successful') })
     await validateConfig(config, { checkInstall: false })
+
+    // make every root path in the config relative for consistent snapshots aacross machines
+    makeConfigPathsRelative(config)
     expect(config).toMatchSnapshot()
   })
 

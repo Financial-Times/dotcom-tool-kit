@@ -20,7 +20,7 @@ Object {
       "id": "test:ci",
       "plugin": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
     },
     "test:local": Object {
@@ -31,7 +31,7 @@ Object {
       "id": "test:local",
       "plugin": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
     },
     "test:remote": Object {
@@ -46,9 +46,9 @@ Object {
         "id": "../../../../n-test",
         "parent": Object {
           "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
         },
-        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/n-test/lib/index.js",
+        "root": "packages/n-test/lib/index.js",
       },
     },
   },
@@ -68,9 +68,9 @@ Object {
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
         },
-        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/eslint/lib/index.js",
+        "root": "packages/eslint/lib/index.js",
       },
       "options": Object {
         "files": Array [
@@ -79,7 +79,7 @@ Object {
       },
       "plugin": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
     },
     "../../../../mocha": Object {
@@ -90,16 +90,16 @@ Object {
         "id": "../../../../mocha",
         "parent": Object {
           "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
         },
-        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/mocha/lib/index.js",
+        "root": "packages/mocha/lib/index.js",
       },
       "options": Object {
         "testDir": "./mocha_tests",
       },
       "plugin": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
     },
     "../../../../n-test": Object {
@@ -110,16 +110,16 @@ Object {
         "id": "../../../../n-test",
         "parent": Object {
           "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
         },
-        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/n-test/lib/index.js",
+        "root": "packages/n-test/lib/index.js",
       },
       "options": Object {
         "host": "https://example.com",
       },
       "plugin": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
     },
     "@dotcom-tool-kit/eslint": Object {
@@ -134,9 +134,9 @@ Object {
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
         },
-        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/eslint/lib/index.js",
+        "root": "packages/eslint/lib/index.js",
       },
     },
     "@dotcom-tool-kit/mocha": Object {
@@ -151,9 +151,9 @@ Object {
         "id": "../../../../mocha",
         "parent": Object {
           "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
         },
-        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/mocha/lib/index.js",
+        "root": "packages/mocha/lib/index.js",
       },
     },
   },
@@ -167,9 +167,9 @@ Object {
       },
       "parent": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
-      "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/circleci/lib/index.js",
+      "root": "packages/circleci/lib/index.js",
     },
     "../../../../eslint": Object {
       "commands": Object {
@@ -178,9 +178,9 @@ Object {
       "id": "../../../../eslint",
       "parent": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
-      "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/eslint/lib/index.js",
+      "root": "packages/eslint/lib/index.js",
     },
     "../../../../mocha": Object {
       "commands": Object {
@@ -189,9 +189,9 @@ Object {
       "id": "../../../../mocha",
       "parent": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
-      "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/mocha/lib/index.js",
+      "root": "packages/mocha/lib/index.js",
     },
     "../../../../n-test": Object {
       "commands": Object {
@@ -200,9 +200,9 @@ Object {
       "id": "../../../../n-test",
       "parent": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
-      "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/n-test/lib/index.js",
+      "root": "packages/n-test/lib/index.js",
     },
     "../../../../npm": Object {
       "PackageJsonLifecycleInstaller": [Function],
@@ -213,9 +213,9 @@ Object {
       },
       "parent": Object {
         "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
       },
-      "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/npm/lib/index.js",
+      "root": "packages/npm/lib/index.js",
     },
     "@dotcom-tool-kit/state": Object {
       "id": "@dotcom-tool-kit/state",
@@ -228,15 +228,15 @@ Object {
         },
         "parent": Object {
           "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli/test/files/successful",
         },
-        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/circleci/lib/index.js",
+        "root": "packages/circleci/lib/index.js",
       },
       "readState": [Function],
-      "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/state/lib/index.js",
+      "root": "packages/state/lib/index.js",
       "writeState": [Function],
     },
   },
-  "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/packages/cli",
+  "root": "packages/cli",
 }
 `;
