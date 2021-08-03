@@ -13,6 +13,7 @@
     "@dotcom-tool-kit/command": "file:../command",
     "@dotcom-tool-kit/error": "file:../error",
     "@dotcom-tool-kit/state": "file:../state",
+    "@dotcom-tool-kit/vault": "file:../vault",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
     "@octokit/request": "^5.6.0",
     "@octokit/request-error": "^2.1.0",

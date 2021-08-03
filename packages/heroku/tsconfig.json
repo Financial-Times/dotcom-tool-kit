@@ -12,6 +12,9 @@
     },
     {
       "path": "../error"
+    },
+    {
+      "path": "../vault"
     }
   ],
   "compilerOptions": {
