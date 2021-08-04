@@ -11,7 +11,7 @@ export abstract class PackageJsonLifecycleInstaller {
   abstract script: string
   abstract command: string
 
-  get packageJson() {
+  get packageJson(): PackageJson {
     if (!this._packageJson) {
       const filepath = path.resolve(process.cwd(), 'package.json')
       this._packageJson = loadPackageJson({ filepath })
@@ -20,12 +20,12 @@ export abstract class PackageJsonLifecycleInstaller {
     return this._packageJson
   }
 
-  async check() {
+  async check(): Promise<boolean> {
     const scripts = this.packageJson.getField<Scripts>('scripts')
     return scripts && scripts[this.script] === this.command
   }
 
-  async install() {
+  async install(): Promise<void> {
     this.packageJson.requireScript({
       stage: this.script,
       command: this.command

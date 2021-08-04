@@ -3,7 +3,6 @@ import path from 'path'
 import { promises as fs } from 'fs'
 
 type Step = {
-  [step: string]: any
   run?:
     | {
         name: string
@@ -17,7 +16,7 @@ export default abstract class CircleCiConfigLifecycle {
   abstract script: string
   abstract job: string
 
-  async getCircleConfig() {
+  async getCircleConfig(): Promise<YAML> {
     if (!this._circleConfig) {
       const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
       const yaml = await fs.readFile(circleConfigPath, 'utf8')
@@ -50,7 +49,7 @@ export default abstract class CircleCiConfigLifecycle {
     return false
   }
 
-  async install() {
+  async install(): Promise<void> {
     // TODO automate this? humans can probably do it better than computers
     // TODO orbs
     throw new Error(

@@ -16,8 +16,8 @@ type ProcfileEntry = { process: string; command: string }
 type ProcfileError = { error: true; line: string }
 type Procfile = ProcfileEntry[]
 
-function isProcfileError(thing: any): thing is ProcfileError {
-  return thing.error
+function isProcfileError(thing: ProcfileEntry | ProcfileError): thing is ProcfileError {
+  return 'error' in thing
 }
 
 abstract class ProcfileLifecycleInstaller {

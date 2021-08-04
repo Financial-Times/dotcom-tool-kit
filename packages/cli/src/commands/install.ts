@@ -1,4 +1,3 @@
-import { runCommand } from '../'
 import { isConflict } from '../conflict'
 import { config } from '../config'
 import { Command } from '@dotcom-tool-kit/command'
@@ -10,9 +9,9 @@ const isRejected = (result: PromiseSettledResult<unknown>): result is PromiseRej
 export default class InstallCommand extends Command {
   static description = 'run lifecycle commands'
 
-  async run() {
+  async run(): Promise<void> {
     const results = await Promise.allSettled(
-      Object.entries(config.lifecycles).map(async ([id, Lifecycle]) => {
+      Object.values(config.lifecycles).map(async (Lifecycle) => {
         if (isConflict(Lifecycle)) return
 
         const lifecycle = new Lifecycle()

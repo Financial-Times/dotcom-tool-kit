@@ -17,35 +17,35 @@ const s = {
   dim: colours.grey
 }
 
-const formatCommandConflict = (conflict: Conflict<CommandClass>) =>
+const formatCommandConflict = (conflict: Conflict<CommandClass>): string =>
   `- ${s.command(conflict.conflicting[0].id || 'unknown command')} ${s.dim(
     'from plugins'
   )} ${conflict.conflicting
     .map((command) => s.plugin(command.plugin ? command.plugin.id : 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatCommandConflicts = (conflicts: Conflict<CommandClass>[]) => `${s.heading(
+export const formatCommandConflicts = (conflicts: Conflict<CommandClass>[]): string => `${s.heading(
   'There are multiple plugins that include the same commands'
 )}:
 ${conflicts.map(formatCommandConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatLifecycleConflict = (conflict: Conflict<LifecycleClass>) =>
+const formatLifecycleConflict = (conflict: Conflict<LifecycleClass>): string =>
   `- ${s.lifecycle(conflict.conflicting[0].id || 'unknown event')} ${s.dim(
     'from plugins'
   )} ${conflict.conflicting
     .map((command) => s.plugin(command.plugin ? command.plugin.id : 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleClass>[]) => `${s.heading(
+export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleClass>[]): string => `${s.heading(
   'There are multiple plugins that include the same lifecycle events'
 )}:
 ${conflicts.map(formatLifecycleConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatLifecycleAssignmentConflict = (conflict: Conflict<LifecycleAssignment>) => `${s.lifecycle(
+const formatLifecycleAssignmentConflict = (conflict: Conflict<LifecycleAssignment>): string => `${s.lifecycle(
   conflict.conflicting[0].id
 )}:
 ${conflict.conflicting
@@ -60,7 +60,7 @@ ${conflict.conflicting
 
 export const formatLifecycleAssignmentConflicts = (
   conflicts: Conflict<LifecycleAssignment>[]
-) => `${s.heading('These lifecycle events are assigned to different commands by multiple plugins')}:
+): string => `${s.heading('These lifecycle events are assigned to different commands by multiple plugins')}:
 ${conflicts.map(formatLifecycleAssignmentConflict).join('\n')}
 You must resolve this conflict by explicitly configuring which command to use for these events. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-lifecycle-conflicts.md'
@@ -68,12 +68,12 @@ You must resolve this conflict by explicitly configuring which command to use fo
 
 `
 
-const formatOptionConflict = (conflict: Conflict<PluginOptions>) => `${s.plugin(
+const formatOptionConflict = (conflict: Conflict<PluginOptions>): string => `${s.plugin(
   conflict.conflicting[0].forPlugin.id
 )}, configured by:
 ${conflict.conflicting.map((option) => `- ${s.plugin(option.plugin.id)}`)}`
 
-export const formatOptionConflicts = (conflicts: Conflict<PluginOptions>[]) => `${s.heading(
+export const formatOptionConflicts = (conflicts: Conflict<PluginOptions>[]): string => `${s.heading(
   'These plugins have conflicting options'
 )}:
 
@@ -89,7 +89,7 @@ You must resolve this conflict by providing options in your app's Tool Kit confi
 export const formatUndefinedLifecycleAssignments = (
   undefinedAssignments: LifecycleAssignment[],
   definedLifecycles: string[]
-) => `These lifecycle events don't exist, but have commands assigned to them:
+): string => `These lifecycle events don't exist, but have commands assigned to them:
 
 ${undefinedAssignments
   .map(
@@ -107,7 +107,7 @@ Available lifecycle events are: ${definedLifecycles.map(s.command).join(', ')}.
 
 export const formatUninstalledLifecycles = (
   uninstalledLifecycles: LifecycleClass[]
-) => `These lifecycle events aren't installed into your app:
+): string => `These lifecycle events aren't installed into your app:
 
 ${uninstalledLifecycles.map((lifecycle) => `- ${s.lifecycle(lifecycle.id || 'unknown event')}`).join('\n')}
 
