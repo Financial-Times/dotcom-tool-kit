@@ -50,10 +50,10 @@ options:
         error.details = `the vaultPath is needed to get your app's secrets from vault, e.g.
         options:
           '@dotcom-tool-kit/heroku':
-            vaultPath: {
-              team: next,
-              app: your-app
-            }`
+            vaultPath: 
+              team: "next"
+              app: "your-app"
+          `
         throw error
       }
 
