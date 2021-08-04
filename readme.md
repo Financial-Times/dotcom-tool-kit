@@ -47,7 +47,7 @@ and [add the plugin](#plugins) to `packages/sandbox/.toolkitrc.yml`.
 
 Tool Kit manages the build lifecycle for your app. Plugins can define **lifecycle events** that can be run by developers, or other tooling like CI and hosting platforms. These events are things like `build`, `test` and `deploy` that are run during development, on CI servers, and
 
-Tool Kit plugins manage the configuration to run their lifecycle events automatically from other tooling. When Tool Kit loads, it verifies the configuration exists, and exits if something is missing. You can run `dotcom-tool-kit install`, which will install most configuration automatically, and provide instructions to follow for any configuration it can't automatically install.
+Tool Kit plugins manage the configuration to run their lifecycle events automatically from other tooling. When Tool Kit loads, it verifies the configuration exists, and exits if something is missing. You can run `npx dotcom-tool-kit install`, which will install most configuration automatically, and provide instructions to follow for any configuration it can't automatically install.
 
 To allow apps to choose what they run, a lifecycle event defined by one plugin can be **assigned** to run a command from another plugin.
 
