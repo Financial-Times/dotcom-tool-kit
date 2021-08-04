@@ -20,12 +20,18 @@ export type VaultSettings = {
   environment: string
 }
 
+type ReturnFetch = {
+  data: Secrets
+}
+
 type Secrets = {
   [key: string]: string
 }
 
 type RequiredShared = {
-  [key: string]: string[]
+  [key: string]: {
+    [key: string]: string[]
+  }
 }
 
 type Token = {
@@ -100,22 +106,22 @@ export class VaultEnvVars {
 
     try {
       console.log(`vault add: ${VAULT_ADDR}, team: ${this.vaultPath.team}, env: ${this.environment}`)
-      const allShared = await fetch<Secrets>(
+      const allShared = await fetch<ReturnFetch>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/shared/${this.environment}`,
         headers
-      )
+      ).then((json) => json.data)
       console.log(`allShared: ${Object.keys(allShared)}`)
 
-      const appEnv = await fetch<Secrets>(
+      const appEnv = await fetch<ReturnFetch>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/${this.environment}`,
         headers
-      )
+      ).then((json) => json.data)
       console.log(`appEnv: ${Object.keys(appEnv)}`)
 
       const appShared = await fetch<RequiredShared>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/shared`,
         headers
-      )
+      ).then((json) => json.data)
       console.log(`appShared: ${appShared}`)
 
       const required: Secrets = {}
