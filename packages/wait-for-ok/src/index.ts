@@ -16,7 +16,9 @@ export default function waitForOk(url: string): Promise<void> {
           clearInterval(checker)
           return resolve()
         }
-        console.log(`❌ ${url} not ok`)
+        console.log(
+          `❌ ${url} not ok, it's responding with status of ${response.status}, response.ok: ${response.ok}`
+        )
       } catch (error) {
         if (error.type && error.type === 'request-timeout') {
           console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that.`)
