@@ -31,7 +31,10 @@ export default abstract class CircleCiConfigLifecycle {
     const circleConfig = await this.getCircleConfig()
     const steps = circleConfig.json.jobs?.[this.job]?.steps as Step[] | undefined
     if (!steps) {
-      return false //??? what to do if the circleci config is something totally unexpected
+      // if the CircleCI config isn't what we expect (e.g. doesn't even have the right jobs)
+      // return false so the install runs and explains the situation. this isn't ideal but
+      // we can't easily control the overall structure of the config until we do orbs
+      return false
     }
 
     for (const step of steps) {
