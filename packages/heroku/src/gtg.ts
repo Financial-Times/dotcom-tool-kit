@@ -13,7 +13,7 @@ export default async function gtg(appIdName: string, environment: keyof State, i
   //save name to state file
   writeState(environment, { appName })
 
-  const url = `https://${appName}.herokuapp.com/__gtg"`
+  const url = `https://${appName}.herokuapp.com/__gtg`
 
   return waitForOk(url)
 }
