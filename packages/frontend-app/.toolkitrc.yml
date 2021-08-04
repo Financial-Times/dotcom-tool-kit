@@ -1,14 +1,14 @@
 plugins:
-  - "@dotcom-tool-kit/webpack"
-  - "@dotcom-tool-kit/babel"
+  - '@dotcom-tool-kit/webpack'
+  - '@dotcom-tool-kit/babel'
 
 lifecycles:
-  "build:local":
-    - "webpack:development"
-    - "babel:development"
-  "build:ci":
-    - "webpack:production"
-    - "babel:production"
-  "build:deploy":
-    - "webpack:production"
-    - "babel:production"
+  'build:local':
+    - 'webpack:development'
+    - 'babel:development'
+  'build:ci':
+    - 'webpack:production'
+    - 'babel:production'
+  'build:remote':
+    - 'webpack:production'
+    - 'babel:production'

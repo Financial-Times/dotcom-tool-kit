@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/state": "file:../state",
-    "@types/node": "^15.12.4"
+    "yawn-yaml": "^1.5.0"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -19,5 +19,8 @@
     "directory": "packages/circleci"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/circleci"
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/circleci",
+  "devDependencies": {
+    "@types/yawn-yaml": "^1.4.0"
+  }
 }

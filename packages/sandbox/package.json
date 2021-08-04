@@ -3,19 +3,21 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "test": "@dotcom-tool-kit/mocha",
-    "heroku-postbuild": "dotcom-tool-kit heroku:postbuild"
+    "test": "dotcom-tool-kit lifecycle test:local",
+    "heroku-postbuild": "dotcom-tool-kit lifecycle build:remote",
+    "build": "dotcom-tool-kit lifecycle build:local"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@dotcom-tool-kit/circleci-heroku": "file:../circleci-heroku",
     "@dotcom-tool-kit/eslint": "file:../eslint",
     "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
-    "@dotcom-tool-kit/heroku-postbuild": "file:../heroku-postbuild",
     "@dotcom-tool-kit/mocha": "file:../mocha",
     "@dotcom-tool-kit/n-test": "file:../n-test",
+    "@dotcom-tool-kit/npm": "file:../npm",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../upload-assets-to-s3",
     "dotcom-tool-kit": "file:../cli"
   }

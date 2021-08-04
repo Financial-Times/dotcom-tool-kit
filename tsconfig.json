@@ -14,9 +14,6 @@
       "path": "packages/wait-for-ok"
     },
     {
-      "path": "packages/heroku-postbuild"
-    },
-    {
       "path": "packages/webpack"
     },
     {
@@ -45,6 +42,21 @@
     },
     {
       "path": "packages/command"
+    },
+    {
+      "path": "packages/lifecycle-package-json"
+    },
+    {
+      "path": "packages/circleci"
+    },
+    {
+      "path": "packages/heroku"
+    },
+    {
+      "path": "packages/npm"
+    },
+    {
+      "path": "packages/circleci-heroku"
     }
   ]
 }

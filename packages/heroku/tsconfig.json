@@ -15,6 +15,9 @@
     },
     {
       "path": "../vault"
+    },
+    {
+      "path": "../lifecycle-package-json"
     }
   ],
   "compilerOptions": {

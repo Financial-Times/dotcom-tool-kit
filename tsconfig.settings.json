@@ -6,7 +6,12 @@
     "importHelpers": true,
     "module": "commonjs",
     "strict": true,
-    "target": "es2017",
+    "target": "ES2017",
+    "types": ["node"],
+    "lib": [
+      "ES2017",
+      "ES2020.Promise" // required for Promise.allSettled, which is supported in node 12.9
+    ],
     "esModuleInterop": true
   }
 }

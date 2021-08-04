@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.settings.json",
   "references": [
-    { "path": "../error" },
+    {
+      "path": "../error"
+    },
     {
       "path": "../command"
     }
@@ -9,6 +11,7 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "outDir": "lib",
-    "rootDir": "src"
+    "rootDir": "src",
+    "types": ["node", "mocha"]
   }
 }

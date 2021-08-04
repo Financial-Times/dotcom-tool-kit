@@ -1,9 +1,17 @@
-import runCLI from 'webpack-cli/lib/bootstrap'
+import { fork } from 'child_process'
 
-import Module from 'module'
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const originalModuleCompile = (Module as any).prototype._compile
+const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
 export default function runWebpack(argv: string[], mode: 'production' | 'development'): Promise<void> {
-  return runCLI([...process.argv.slice(0, 2), 'build', `--mode=${mode}`, ...argv], originalModuleCompile)
+  return new Promise((resolve, reject) => {
+    const child = fork(webpackCLIPath, ['build', `--mode=${mode}`, ...argv])
+
+    child.on('exit', (code) => {
+      if (code === 0) {
+        resolve()
+      } else {
+        reject(new Error(`Webpack returned an error`))
+      }
+    })
+  })
 }

@@ -3,7 +3,7 @@ import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
 
 import type { CommandClass } from './command'
-import type { Lifecycle } from './lifecycle'
+import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import { Conflict, isConflict } from './conflict'
 import { config, PluginOptions } from './config'
 import { loadToolKitRC, RCFile } from './rc-file'
@@ -15,36 +15,13 @@ export interface Plugin {
   commands?: {
     [id: string]: CommandClass
   }
+  lifecycles?: {
+    [id: string]: LifecycleClass
+  }
 }
 
 export async function loadPluginConfig(plugin: Plugin): Promise<void> {
   const { plugins = [], lifecycles = {}, options = {} } = await loadToolKitRC(plugin.root)
-
-  // add plugin commands to our command registry, handling any conflicts
-  mergeWith(
-    config.commands,
-    plugin.commands,
-
-    (
-      existingCommand: CommandClass | Conflict<CommandClass>,
-      newCommand: CommandClass,
-      commandId
-    ): CommandClass | Conflict<CommandClass> => {
-      newCommand.plugin = plugin
-      newCommand.id = commandId
-
-      if (!existingCommand) {
-        return newCommand
-      }
-
-      const conflicting = isConflict(existingCommand) ? existingCommand.conflicting : [existingCommand]
-
-      return {
-        plugin,
-        conflicting: conflicting.concat(newCommand)
-      }
-    }
-  )
 
   // load any plugins requested by this plugin
   await loadPlugins(plugins, plugin)
@@ -52,16 +29,16 @@ export async function loadPluginConfig(plugin: Plugin): Promise<void> {
   // load plugin lifecycle assignments. do this after loading child plugins, so
   // parent lifecycles get assigned after child lifecycles and can override them
   mergeWith(
-    config.lifecycles,
+    config.lifecycleAssignments,
     lifecycles,
 
     // handle conflicts between lifecycles from different plugins
     (
-      existingLifecycle: Lifecycle | Conflict<Lifecycle> | undefined,
+      existingLifecycle: LifecycleAssignment | Conflict<LifecycleAssignment> | undefined,
       configLifecycle: string | string[],
       id
-    ): Lifecycle | Conflict<Lifecycle> => {
-      const newLifecycle: Lifecycle = {
+    ): LifecycleAssignment | Conflict<LifecycleAssignment> => {
+      const newLifecycle: LifecycleAssignment = {
         id,
         plugin,
         commands: Array.isArray(configLifecycle) ? configLifecycle : [configLifecycle]
@@ -83,7 +60,7 @@ export async function loadPluginConfig(plugin: Plugin): Promise<void> {
           ? existingLifecycle.conflicting
           : [existingLifecycle]
 
-        const conflict: Conflict<Lifecycle> = {
+        const conflict: Conflict<LifecycleAssignment> = {
           plugin,
           conflicting: conflicting.concat(newLifecycle)
         }
@@ -148,7 +125,7 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
 
   // load plugin relative to the parent plugin
   const pluginRoot = resolveFrom(root, id)
-  const basePlugin = importFrom.silent(root, id) as Plugin
+  const basePlugin = importFrom(root, id) as Plugin
   const plugin: Plugin = {
     ...basePlugin,
     id,
@@ -157,6 +134,60 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
   }
 
   config.plugins[id] = plugin
+
+  // add plugin commands to our command registry, handling any conflicts
+  mergeWith(
+    config.commands,
+    plugin.commands,
+
+    (
+      existingCommand: CommandClass | Conflict<CommandClass>,
+      newCommand: CommandClass,
+      commandId
+    ): CommandClass | Conflict<CommandClass> => {
+      newCommand.plugin = plugin
+      newCommand.id = commandId
+
+      if (!existingCommand) {
+        return newCommand
+      }
+
+      const conflicting = isConflict(existingCommand) ? existingCommand.conflicting : [existingCommand]
+
+      return {
+        plugin,
+        conflicting: conflicting.concat(newCommand)
+      }
+    }
+  )
+
+  // add lifecycles to the registry, handling any conflicts
+  // TODO refactor with command conflict handler
+  mergeWith(
+    config.lifecycles,
+    plugin.lifecycles,
+
+    (
+      existingLifecycle: LifecycleClass | Conflict<LifecycleClass>,
+      newLifecycle: LifecycleClass,
+      lifecycleId
+    ): LifecycleClass | Conflict<LifecycleClass> => {
+      newLifecycle.id = lifecycleId
+      newLifecycle.plugin = plugin
+
+      if (!existingLifecycle) {
+        return newLifecycle
+      }
+
+      const conflicting = isConflict(existingLifecycle) ? existingLifecycle.conflicting : [existingLifecycle]
+
+      return {
+        plugin,
+        conflicting: conflicting.concat(newLifecycle)
+      }
+    }
+  )
+
   await loadPluginConfig(plugin)
 
   return plugin

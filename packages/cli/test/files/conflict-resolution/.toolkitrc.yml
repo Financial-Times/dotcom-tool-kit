@@ -1,16 +1,19 @@
 plugins:
-  - "../../../../webpack"
-  - "../../../../babel"
+  - '../../../../webpack'
+  - '../../../../babel'
+  - '../../../../npm' # for build:local lifecycle
+  - '../../../../circleci' # for build:ci lifecycle
+  - '../../../../heroku' # for build:remote lifecycle
 
 options:
 
 lifecycles:
   build:local:
-    - "webpack:development"
-    - "babel:development"
+    - 'webpack:development'
+    - 'babel:development'
   build:ci:
-    - "webpack:production"
-    - "babel:production"
-  build:deploy:
-    - "webpack:production"
-    - "babel:production"
+    - 'webpack:production'
+    - 'babel:production'
+  build:remote:
+    - 'webpack:production'
+    - 'babel:production'

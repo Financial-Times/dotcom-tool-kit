@@ -13,8 +13,7 @@
   ],
   "compilerOptions": {
     "outDir": "lib",
-    "rootDir": "src",
-    "types": ["node", "jest"]
+    "rootDir": "src"
   },
-  "include": ["src"]
+  "include": ["src/**/*"]
 }

@@ -1,12 +1,10 @@
 declare module '@financial-times/package-json' {
-  class PackageJson {
+  export class PackageJson {
     requireScript(options: Record<string, unknown>): void
     hasChangesToWrite(): boolean
     writeChanges(): void
     getField<T>(name: string): T
   }
 
-  function loadPackageJson(options: Record<string, unknown>): PackageJson
-
-  export = loadPackageJson
+  export default function loadPackageJson(options: Record<string, unknown>): PackageJson
 }
