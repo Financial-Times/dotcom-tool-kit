@@ -52,7 +52,7 @@ options:
           '@dotcom-tool-kit/heroku':
             vaultPath: 
               team: "next"
-              app: "next-static"
+              app: "your-app"
           `
         throw error
       }
