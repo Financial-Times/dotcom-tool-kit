@@ -51,7 +51,7 @@ Tool Kit plugins manage the configuration to run their lifecycle events automati
 
 To allow apps to choose what they run, a lifecycle event defined by one plugin can be **assigned** to run a command from another plugin.
 
-For example, the `npm` plugin defines a `test:local` event to be run by the `npm run test` script, but it doesn't define what tests to run itself; that's handled by a plugin like `mocha`, which can be assigned to the `test:local` event to run your Mocha test suite when you run `npm run test`.
+For example, the `npm` plugin defines a `test:local` event to be run by the `test` script in your package.json (i.e., what is run when you call `npm run test`,) but it doesn't define what tests to run itself. That's handled by a plugin like `mocha`, which can be assigned to the `test:local` event to run your Mocha test suite when you run `npm run test`.
 
 Plugins can set a default command to run on a particular lifecycle event, to reduce configuration for common cases. For example, the `mocha` plugin assigns itself to `test:*` events by default.
 
