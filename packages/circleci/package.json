@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "jest --silent"
+    "test": "cd ../../ ; jest --silent --projects packages/circleci"
   },
   "dependencies": {
     "@dotcom-tool-kit/state": "file:../state",
@@ -25,9 +25,7 @@
     "@jest/globals": "^26.6.2",
     "@types/js-yaml": "^4.0.3",
     "@types/lodash.isequal": "^4.5.5",
-    "@types/jest": "^26.0.24",
-    "jest": "^26.6.3",
-    "ts-jest": "^26.5.6"
+    "@types/jest": "^26.0.24"
   },
   "files": [
     "/lib",
