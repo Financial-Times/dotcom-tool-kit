@@ -13,14 +13,11 @@ export default class NTest extends Command {
 
   async run(): Promise<void> {
     const reviewState = readState('review')
-    console.log(`retrieved appname from state: ${reviewState?.appName} `)
     // if we've built a review app, test against that, not the app in the config
     if (reviewState) {
       this.options.host = `https://${reviewState.appName}.herokuapp.com`
-      console.log(`host set to ${this.options.host}`)
     }
 
-    console.log(`options: ${this.options}, host: ${this.options.host}`)
     const smokeTest = new SmokeTest(this.options)
     await smokeTest.run()
   }
