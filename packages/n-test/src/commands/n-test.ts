@@ -20,6 +20,7 @@ export default class NTest extends Command {
   }
 
   async run(): Promise<void> {
+    console.log(`options: ${this.options}, host: ${this.options.host}`)
     const smokeTest = new SmokeTest(this.options)
     await smokeTest.run()
   }
