@@ -25,6 +25,7 @@ export default async function repeatedCheckForSuccessStatus(reviewAppId: string)
       const { attemptNumber, retriesLeft } = error
       console.log(`Attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`) // eslint-disable-line no-console
     },
+    factor: 1,
     retries: NUM_RETRIES,
     minTimeout: 10 * 1000
   })
