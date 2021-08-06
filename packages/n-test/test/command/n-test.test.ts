@@ -32,6 +32,7 @@ describe('n-test', () => {
   it('should get app name from state', async () => {
     writeState('review', { appName: 'some-test-app' })
     const command = new NTest([])
+    command.run()
 
     expect(command.options.host).toEqual('https://some-test-app.herokuapp.com')
   })
