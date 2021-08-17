@@ -25,7 +25,7 @@ export interface PluginOptions {
 
 export interface Config {
   root: string
-  findCommand(): boolean
+  findTask(): boolean
   plugins: { [id: string]: Plugin }
   tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   lifecycleAssignments: { [id: string]: LifecycleAssignment | Conflict<LifecycleAssignment> }
@@ -44,7 +44,7 @@ const coreRoot = path.resolve(__dirname, '../')
 
 export const config: Config = {
   root: coreRoot,
-  findCommand: () => false,
+  findTask: () => false,
   plugins: {},
   tasks: {},
   lifecycleAssignments: {},
