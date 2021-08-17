@@ -47,5 +47,8 @@
     "/bin",
     "/lib",
     "/npm-shrinkwrap.json"
-  ]
+  ],
+  "volta": {
+    "extends": "../../package.json"
+  }
 }

@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  node: circleci/node@4.6.0
   orb-tools: circleci/orb-tools@10.0.5
 
 references:
@@ -74,6 +75,8 @@ jobs:
     steps:
       - checkout
       - *restore_cache
+      - node/install-npm:
+          version: "7"
       - run:
           name: Install project dependencies
           command: npm install

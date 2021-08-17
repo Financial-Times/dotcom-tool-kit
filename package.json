@@ -10,7 +10,8 @@
     "clean-up-packages": "./scripts/clean-up-packages.sh",
     "build": "tsc --build --verbose tsconfig.json",
     "watch": "tsc --build --watch --verbose tsconfig.json",
-    "test": "jest --silent"
+    "test": "jest --silent",
+    "preinstall": "npm_config_yes=true npx check-engine"
   },
   "lint-staged": {
     "**/*.{ts,js,json}": "prettier --write",
@@ -26,6 +27,7 @@
     "@types/node": "^16.4.5",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.15.2",
+    "check-engines": "^1.5.0",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-import": "^2.22.1",
@@ -48,5 +50,13 @@
   },
   "dependencies": {
     "@types/superagent": "^4.1.10"
+  },
+  "volta": {
+    "node": "12.22.5",
+    "npm": "7.20.2"
+  },
+  "engines": {
+    "node": "12.x",
+    "npm": "7.x"
   }
 }

@@ -18,5 +18,8 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/error",
   "files": [
     "/lib"
-  ]
+  ],
+  "volta": {
+    "extends": "../../package.json"
+  }
 }
