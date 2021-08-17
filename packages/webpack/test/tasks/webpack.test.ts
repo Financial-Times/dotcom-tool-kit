@@ -15,8 +15,8 @@ describe.each([DevelopmentWebpack, ProductionWebpack])('%p', (Webpack) => {
   afterEach(() => fsp.rmdir(outputPath, { recursive: true }))
 
   it('should pass on standard file', async () => {
-    const command = new Webpack(['--config', configPath])
-    await command.run()
+    const task = new Webpack(['--config', configPath])
+    await task.run()
 
     await fsp.access(outputPath + '/app.bundle.js')
   })
