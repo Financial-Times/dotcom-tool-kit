@@ -2,7 +2,7 @@ import path from 'path'
 
 import type { TaskClass } from './task'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
-import type { Plugin } from './plugin'
+import { loadPluginConfig, Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import {
@@ -40,14 +40,14 @@ export interface ValidConfig extends Config {
 
 const coreRoot = path.resolve(__dirname, '../')
 
-export const config: Config = {
+const createConfig = (): Config => ({
   root: coreRoot,
   plugins: {},
   tasks: {},
   lifecycleAssignments: {},
   options: {},
   lifecycles: {}
-}
+})
 
 async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
   const results = await Promise.all(items.map(async (item) => ({ item, keep: await predicate(item) })))
@@ -122,4 +122,17 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   }
 
   return config as ValidConfig
+}
+
+export async function loadConfig({ checkInstall = true } = {}): Promise<ValidConfig> {
+  // start loading config and child plugins, starting from the consumer app directory
+  const config = await loadPluginConfig(
+    {
+      id: 'app root',
+      root: process.cwd()
+    },
+    createConfig()
+  )
+
+  return validateConfig(config)
 }

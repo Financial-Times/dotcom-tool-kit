@@ -5,7 +5,7 @@ import mergeWith from 'lodash.mergewith'
 import type { TaskClass } from './task'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import { Conflict, isConflict } from './conflict'
-import { config, PluginOptions } from './config'
+import { Config, PluginOptions } from './config'
 import { loadToolKitRC, RCFile } from './rc-file'
 
 export interface Plugin {
@@ -18,11 +18,11 @@ export interface Plugin {
   }
 }
 
-export async function loadPluginConfig(plugin: Plugin): Promise<void> {
+export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<Config> {
   const { plugins = [], lifecycles = {}, options = {} } = await loadToolKitRC(plugin.root)
 
   // load any plugins requested by this plugin
-  await loadPlugins(plugins, plugin)
+  await loadPlugins(plugins, config, plugin)
 
   // load plugin lifecycle assignments. do this after loading child plugins, so
   // parent lifecycles get assigned after child lifecycles and can override them
@@ -111,9 +111,11 @@ export async function loadPluginConfig(plugin: Plugin): Promise<void> {
       return { ...existingOptions, ...pluginOptions }
     }
   )
+
+  return config
 }
 
-export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
+export async function loadPlugin(id: string, config: Config, parent?: Plugin): Promise<Plugin> {
   // don't load duplicate commands
   if (id in config.plugins) {
     return config.plugins[id]
@@ -185,11 +187,11 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
     }
   )
 
-  await loadPluginConfig(plugin)
+  await loadPluginConfig(plugin, config)
 
   return plugin
 }
 
-export function loadPlugins(plugins: string[], parent?: Plugin): Promise<Plugin[]> {
-  return Promise.all(plugins.map((plugin) => loadPlugin(plugin, parent)))
+export function loadPlugins(plugins: string[], config: Config, parent?: Plugin): Promise<Plugin[]> {
+  return Promise.all(plugins.map((plugin) => loadPlugin(plugin, config, parent)))
 }

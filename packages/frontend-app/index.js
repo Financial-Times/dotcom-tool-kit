@@ -1,1 +1,1 @@
-exports.commands = {}
+exports.tasks = {}
