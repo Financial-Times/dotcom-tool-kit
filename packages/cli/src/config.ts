@@ -13,7 +13,6 @@ import {
   formatOptionConflicts,
   formatUninstalledLifecycles
 } from './messages'
-import InstallCommand from './commands/install'
 
 export interface PluginOptions {
   options: Record<string, unknown>
