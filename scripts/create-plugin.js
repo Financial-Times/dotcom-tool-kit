@@ -52,6 +52,9 @@ const tsconfig = {
 
 fs.writeFileSync('tsconfig.json', JSON.stringify(tsconfig, null, 2))
 
+console.log('📄 adding empty toolkit config')
+fs.writeFileSync('.toolkitrc.yml', '')
+
 console.log('🔗 adding reference to root tsconfig')
 const rootTsconfig = JSON.parse(fs.readFileSync('../../tsconfig.json'))
 rootTsconfig.references.push({ path: directory })
