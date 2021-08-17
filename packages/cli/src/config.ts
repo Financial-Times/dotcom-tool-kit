@@ -6,7 +6,7 @@ import type { Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import {
-  formatCommandConflicts,
+  formatTaskConflicts,
   formatUndefinedLifecycleAssignments,
   formatLifecycleAssignmentConflicts,
   formatLifecycleConflicts,
@@ -85,7 +85,7 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
     }
 
     if (taskConflicts.length) {
-      error.details += formatCommandConflicts(taskConflicts)
+      error.details += formatTaskConflicts(taskConflicts)
     }
 
     if (optionConflicts.length) {

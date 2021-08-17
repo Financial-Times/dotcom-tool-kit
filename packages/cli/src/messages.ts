@@ -9,7 +9,7 @@ import type { TaskClass } from './task'
 // don't use ansi-colors directly, define a style please
 const s = {
   lifecycle: colours.magenta,
-  command: colours.blueBright,
+  task: colours.blueBright,
   plugin: colours.cyan,
   URL: colours.cyan.underline,
   app: colours.green,
@@ -17,17 +17,17 @@ const s = {
   dim: colours.grey
 }
 
-const formatCommandConflict = (conflict: Conflict<TaskClass>): string =>
-  `- ${s.command(conflict.conflicting[0].id || 'unknown command')} ${s.dim(
+const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>
+  `- ${s.task(conflict.conflicting[0].id || 'unknown task')} ${s.dim(
     'from plugins'
   )} ${conflict.conflicting
-    .map((command) => s.plugin(command.plugin ? command.plugin.id : 'unknown plugin'))
+    .map((task) => s.plugin(task.plugin ? task.plugin.id : 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatCommandConflicts = (conflicts: Conflict<TaskClass>[]): string => `${s.heading(
+export const formatTaskConflicts = (conflicts: Conflict<TaskClass>[]): string => `${s.heading(
   'There are multiple plugins that include the same commands'
 )}:
-${conflicts.map(formatCommandConflict).join('\n')}
+${conflicts.map(formatTaskConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
@@ -35,7 +35,7 @@ const formatLifecycleConflict = (conflict: Conflict<LifecycleClass>): string =>
   `- ${s.lifecycle(conflict.conflicting[0].id || 'unknown event')} ${s.dim(
     'from plugins'
   )} ${conflict.conflicting
-    .map((command) => s.plugin(command.plugin ? command.plugin.id : 'unknown plugin'))
+    .map((task) => s.plugin(task.plugin ? task.plugin.id : 'unknown plugin'))
     .join(s.dim(', '))}`
 
 export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleClass>[]): string => `${s.heading(
@@ -51,7 +51,7 @@ const formatLifecycleAssignmentConflict = (conflict: Conflict<LifecycleAssignmen
 ${conflict.conflicting
   .map(
     (lifecycle) =>
-      `- ${lifecycle.commands.map(s.command).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
+      `- ${lifecycle.commands.map(s.task).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
         lifecycle.plugin.id
       )}`
   )
@@ -60,9 +60,9 @@ ${conflict.conflicting
 
 export const formatLifecycleAssignmentConflicts = (
   conflicts: Conflict<LifecycleAssignment>[]
-): string => `${s.heading('These lifecycle events are assigned to different commands by multiple plugins')}:
+): string => `${s.heading('These lifecycle events are assigned to different tasks by multiple plugins')}:
 ${conflicts.map(formatLifecycleAssignmentConflict).join('\n')}
-You must resolve this conflict by explicitly configuring which command to use for these events. See ${s.URL(
+You must resolve this conflict by explicitly configuring which task to use for these events. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-lifecycle-conflicts.md'
 )} for more details.
 
@@ -89,7 +89,7 @@ You must resolve this conflict by providing options in your app's Tool Kit confi
 export const formatUndefinedLifecycleAssignments = (
   undefinedAssignments: LifecycleAssignment[],
   definedLifecycles: string[]
-): string => `These lifecycle events don't exist, but have commands assigned to them:
+): string => `These lifecycle events don't exist, but have tasks assigned to them:
 
 ${undefinedAssignments
   .map(
@@ -102,7 +102,7 @@ ${undefinedAssignments
 
 They could be misspelt, or defined by a Tool Kit plugin that isn't used by this app.
 
-Available lifecycle events are: ${definedLifecycles.map(s.command).join(', ')}.
+Available lifecycle events are: ${definedLifecycles.map(s.task).join(', ')}.
 `
 
 export const formatUninstalledLifecycles = (
@@ -111,5 +111,5 @@ export const formatUninstalledLifecycles = (
 
 ${uninstalledLifecycles.map((lifecycle) => `- ${s.lifecycle(lifecycle.id || 'unknown event')}`).join('\n')}
 
-Run ${s.command('dotcom-tool-kit install')} to install these events.
+Run ${s.task('dotcom-tool-kit install')} to install these events.
 `
