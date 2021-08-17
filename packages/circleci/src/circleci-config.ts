@@ -6,7 +6,7 @@ type Step = {
   run?:
     | {
         name: string
-        command: string
+        task: string
       }
     | string
 }
@@ -41,7 +41,7 @@ export default abstract class CircleCiConfigLifecycle {
         return true
       }
 
-      if (typeof step.run === 'object' && step.run.command === this.script) {
+      if (typeof step.run === 'object' && step.run.task === this.script) {
         return true
       }
     }

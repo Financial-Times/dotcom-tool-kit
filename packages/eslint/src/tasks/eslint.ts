@@ -7,7 +7,7 @@ type EslintOptions = {
   config?: ESLint.Options
 }
 
-export default class EslintCommand extends Task {
+export default class Eslint extends Task {
   static description = ''
 
   options: EslintOptions = {

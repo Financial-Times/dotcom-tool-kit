@@ -1,4 +1,4 @@
-import BabelDevelopment from './commands/babel/development'
-import BabelProduction from './commands/babel/production'
+import BabelDevelopment from './tasks/development'
+import BabelProduction from './tasks/production'
 
 export const tasks = [BabelDevelopment, BabelProduction]

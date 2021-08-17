@@ -7,7 +7,7 @@ type MochaOptions = {
   files: string
 }
 
-export default class MochaCommand extends Task {
+export default class MochaTask extends Task {
   static description = ''
 
   options: MochaOptions = {
