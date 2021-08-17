@@ -61,7 +61,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
 export async function validateConfig(config: Config, { checkInstall = true } = {}): Promise<ValidConfig> {
   const lifecycleAssignmentConflicts = findConflicts(Object.values(config.lifecycleAssignments))
   const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
-  const commandConflicts = findConflicts(Object.values(config.tasks))
+  const taskConflicts = findConflicts(Object.values(config.tasks))
   const optionConflicts = findConflicts(Object.values(config.options))
 
   let shouldThrow = false
@@ -71,7 +71,7 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   if (
     lifecycleConflicts.length > 0 ||
     lifecycleAssignmentConflicts.length > 0 ||
-    commandConflicts.length > 0 ||
+    taskConflicts.length > 0 ||
     optionConflicts.length > 0
   ) {
     shouldThrow = true
@@ -84,8 +84,8 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
       error.details += formatLifecycleAssignmentConflicts(lifecycleAssignmentConflicts)
     }
 
-    if (commandConflicts.length) {
-      error.details += formatCommandConflicts(commandConflicts)
+    if (taskConflicts.length) {
+      error.details += formatCommandConflicts(taskConflicts)
     }
 
     if (optionConflicts.length) {
