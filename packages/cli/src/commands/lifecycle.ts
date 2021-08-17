@@ -1,6 +1,6 @@
 import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { runCommand } from '../'
+import { runTask } from '../'
 import { config } from '../config'
 import { isConflict } from '../conflict'
 
@@ -35,7 +35,7 @@ ${availableLifecycles}`
       if (isConflict(lifecycle)) continue
 
       for (const command of lifecycle.commands) {
-        await runCommand(command, [])
+        await runTask(command, [])
       }
     }
   }

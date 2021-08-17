@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-const { load, runCommand } = require('../lib')
+const { load, runTask } = require('../lib')
 const c = require('ansi-colors')
 
-const [command, ...argv] = process.argv.slice(2)
+const [task, ...argv] = process.argv.slice(2)
 
 async function main() {
    try {
       await load()
-      await runCommand(command, argv)
+      await runTask(task, argv)
    } catch(error) {
       if(error.details) {
          console.error(

@@ -9,7 +9,8 @@ export async function load(): Promise<void> {
   })
 }
 
-export async function runCommand(id: string, argv: string[]): Promise<void> {
+export async function runTask(id: string, argv: string[]): Promise<void> {
+  //TODO move lifecycle command to here
   const validConfig = await validateConfig(config, {
     // don't check if lifecycles are installed if we're trying to install them
     checkInstall: id !== 'install'
@@ -20,13 +21,13 @@ export async function runCommand(id: string, argv: string[]): Promise<void> {
     throw new Error(`task "${id}" not found`)
   }
 
-  const Command = validConfig.tasks[id]
-  const command = new Command(argv)
+  const Task = validConfig.tasks[id]
+  const task = new Task(argv)
 
   // attach any options from config files to the command instance
-  if (Command.plugin && validConfig.options[Command.plugin.id]) {
-    command.options = validConfig.options[Command.plugin.id].options
+  if (Task.plugin && validConfig.options[Task.plugin.id]) {
+    task.options = validConfig.options[Task.plugin.id].options
   }
 
-  return command.run()
+  return task.run()
 }
