@@ -1,6 +1,6 @@
-import { Command } from '@dotcom-tool-kit/command' // eslint-disable-line object-curly-spacing
+import { Task } from '@dotcom-tool-kit/task' // eslint-disable-line object-curly-spacing
 
-export default class Hello extends Command {
+export default class Hello extends Task {
   // static description = 'describe the command here'
 
   //   static examples = [

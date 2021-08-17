@@ -1,4 +1,4 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import { readState, writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import setConfigVars from '../setConfigVars'
@@ -10,7 +10,7 @@ type HerokuStagingOptions = {
   vaultPath?: VaultPath
 }
 
-export default class HerokuStaging extends Command {
+export default class HerokuStaging extends Task {
   static description = ''
 
   options: HerokuStagingOptions = {

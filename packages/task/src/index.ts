@@ -1,4 +1,4 @@
-export abstract class Command {
+export abstract class Task {
   static hidden: boolean
   static description: string
 

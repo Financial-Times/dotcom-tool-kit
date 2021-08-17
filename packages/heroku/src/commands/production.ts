@@ -1,10 +1,10 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import getSlug from '../getSlug'
 import setSlug from '../setSlug'
 import gtg from '../gtg'
 
-export default class HerokuProduction extends Command {
+export default class HerokuProduction extends Task {
   static description = ''
 
   async run(): Promise<void> {

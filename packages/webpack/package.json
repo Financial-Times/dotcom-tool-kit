@@ -17,7 +17,7 @@
     "test": "jest --silent"
   },
   "dependencies": {
-    "@dotcom-tool-kit/command": "file:../command",
+    "@dotcom-tool-kit/task": "file:../task",
     "webpack-cli": "^4.6.0"
   },
   "peerDependencies": {

@@ -1,4 +1,4 @@
-import type { Command } from '@dotcom-tool-kit/command'
+import type { Task } from '@dotcom-tool-kit/task'
 import type { Plugin } from './plugin'
 
 export interface CommandClass {
@@ -6,5 +6,5 @@ export interface CommandClass {
   plugin?: Plugin
   description: string
   hidden?: boolean
-  new (argv: string[]): Command
+  new (argv: string[]): Task
 }

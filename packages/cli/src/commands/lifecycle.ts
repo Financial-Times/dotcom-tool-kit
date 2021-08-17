@@ -1,10 +1,10 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { runCommand } from '../'
 import { config } from '../config'
 import { isConflict } from '../conflict'
 
-export default class LifecycleCommand extends Command {
+export default class LifecycleCommand extends Task {
   static description = 'run lifecycle commands'
 
   async run(): Promise<void> {

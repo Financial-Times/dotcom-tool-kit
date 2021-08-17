@@ -1,4 +1,4 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import waitForOk from '@dotcom-tool-kit/wait-for-ok'
 
 function getURL(appName?: string) {
@@ -11,7 +11,7 @@ function getURL(appName?: string) {
   return host
 }
 
-export default class GoodToGo extends Command {
+export default class GoodToGo extends Task {
   // TODO do we want to support args parsing? maybe using yargs?
   //
   // static flags = {

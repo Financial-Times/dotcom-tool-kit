@@ -1,5 +1,5 @@
 import { ESLint } from 'eslint'
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 type EslintOptions = {
@@ -7,7 +7,7 @@ type EslintOptions = {
   config?: ESLint.Options
 }
 
-export default class EslintCommand extends Command {
+export default class EslintCommand extends Task {
   static description = ''
 
   options: EslintOptions = {

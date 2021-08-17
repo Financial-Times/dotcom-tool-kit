@@ -1,4 +1,4 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import * as fs from 'fs'
 import aws from 'aws-sdk'
 import path from 'path'
@@ -15,7 +15,7 @@ export type UploadAssetsToS3Options = {
   cacheControl: string
 }
 
-export default class UploadAssetsToS3 extends Command {
+export default class UploadAssetsToS3 extends Task {
   static description = ''
 
   options: UploadAssetsToS3Options = {

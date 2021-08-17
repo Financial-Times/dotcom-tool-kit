@@ -1,8 +1,8 @@
 import { isConflict } from '../conflict'
 import { config } from '../config'
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 
-export default class HelpCommand extends Command {
+export default class HelpCommand extends Task {
   static description = 'show this help'
 
   showHelp(): void {

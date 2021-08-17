@@ -7,7 +7,7 @@
   },
   "references": [
     {
-      "path": "../command"
+      "path": "../task"
     }
   ]
 }

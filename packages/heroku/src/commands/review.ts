@@ -1,4 +1,4 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import getHerokuReviewApp from '../getHerokuReviewApp'
 import buildHerokuReviewApp from '../buildHerokuReviewApp'
 import gtg from '../gtg'
@@ -14,7 +14,7 @@ type HerokuReviewOptions = {
   vaultPath?: VaultPath
 }
 
-export default class HerokuReview extends Command {
+export default class HerokuReview extends Task {
   static description = ''
 
   options: HerokuReviewOptions = {
@@ -50,7 +50,7 @@ options:
         error.details = `the vaultPath is needed to get your app's secrets from vault, e.g.
         options:
           '@dotcom-tool-kit/heroku':
-            vaultPath: 
+            vaultPath:
               team: "next"
               app: "your-app"
           `

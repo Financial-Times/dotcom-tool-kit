@@ -41,7 +41,7 @@
       "path": "packages/error"
     },
     {
-      "path": "packages/command"
+      "path": "packages/task"
     },
     {
       "path": "packages/lifecycle-package-json"

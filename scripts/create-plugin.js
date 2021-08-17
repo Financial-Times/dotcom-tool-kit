@@ -17,7 +17,7 @@ console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
 console.log('📥 installing dependencies')
-execSync('npm install ../command')
+execSync('npm install ../task')
 
 console.log('🔣 adding metadata to package.json')
 
@@ -45,7 +45,7 @@ const tsconfig = {
   },
   references: [
     {
-      path: '../command'
+      path: '../task'
     }
   ]
 }
@@ -66,7 +66,7 @@ fs.mkdirSync('src/commands', { recursive: true })
 
 fs.writeFileSync(
   `src/commands/${name}.ts`,
-  `import { Command } from '@dotcom-tool-kit/command'
+  `import { Command } from '@dotcom-tool-kit/task'
 
 export default class ${camelCaseName} extends Command {
    static description = ''

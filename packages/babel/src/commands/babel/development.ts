@@ -1,6 +1,6 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 
-export default class BabelDevelopment extends Command {
+export default class BabelDevelopment extends Task {
   static description = 'build babel'
   static hidden = true
 

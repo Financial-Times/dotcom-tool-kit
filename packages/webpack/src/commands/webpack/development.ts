@@ -1,7 +1,7 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import runWebpack from '../../run-webpack'
 
-export default class WebpackDevelopment extends Command {
+export default class WebpackDevelopment extends Task {
   static description = 'build webpack'
   static hidden = true
 

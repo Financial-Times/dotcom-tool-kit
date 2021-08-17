@@ -1,4 +1,4 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import Mocha from 'mocha'
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
@@ -7,7 +7,7 @@ type MochaOptions = {
   files: string
 }
 
-export default class MochaCommand extends Command {
+export default class MochaCommand extends Task {
   static description = ''
 
   options: MochaOptions = {

@@ -8,7 +8,7 @@
       "path": "../state"
     },
     {
-      "path": "../command"
+      "path": "../task"
     },
     {
       "path": "../error"

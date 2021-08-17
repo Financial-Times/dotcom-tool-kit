@@ -8,7 +8,7 @@
       "path": "../error"
     },
     {
-      "path": "../command"
+      "path": "../task"
     }
   ],
   "compilerOptions": {

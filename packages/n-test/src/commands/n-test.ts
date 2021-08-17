@@ -1,8 +1,8 @@
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 import { SmokeTest, SmokeTestOptions } from '@financial-times/n-test'
 import { readState } from '@dotcom-tool-kit/state'
 
-export default class NTest extends Command {
+export default class NTest extends Task {
   static description = ''
 
   options: SmokeTestOptions = {}

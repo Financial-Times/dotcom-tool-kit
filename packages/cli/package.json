@@ -31,7 +31,7 @@
     "ts-node": "^8.10.2"
   },
   "dependencies": {
-    "@dotcom-tool-kit/command": "file:../command",
+    "@dotcom-tool-kit/task": "file:../task",
     "@dotcom-tool-kit/error": "file:../error",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
     "ansi-colors": "^4.1.1",

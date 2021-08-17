@@ -144,7 +144,7 @@ export const commands = {
 A command extends the class `Command`, implementing its abstract asynchronous `run` function. You should also specify a `description` field which will be displayed in the help menu. Note that any options for the plugin defined in the configuration will be passed to the `options` field.
 
 ```typescript
-import { Command } from '@dotcom-tool-kit/command'
+import { Command } from '@dotcom-tool-kit/task'
 
 type WebpackOptions = {
   configPath?: string
