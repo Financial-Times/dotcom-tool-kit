@@ -25,7 +25,7 @@ const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>
     .join(s.dim(', '))}`
 
 export const formatTaskConflicts = (conflicts: Conflict<TaskClass>[]): string => `${s.heading(
-  'There are multiple plugins that include the same commands'
+  'There are multiple plugins that include the same tasks'
 )}:
 ${conflicts.map(formatTaskConflict).join('\n')}
 
