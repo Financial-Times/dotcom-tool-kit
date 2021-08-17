@@ -13,7 +13,6 @@ import {
   formatOptionConflicts,
   formatUninstalledLifecycles
 } from './messages'
-import HelpCommand from './commands/help'
 import InstallCommand from './commands/install'
 
 export interface PluginOptions {
