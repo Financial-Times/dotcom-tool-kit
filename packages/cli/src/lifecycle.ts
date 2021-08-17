@@ -1,5 +1,4 @@
 import type { Plugin } from './plugin'
-import { TaskClass } from './task'
 
 export interface LifecycleAssignment {
   id: string
