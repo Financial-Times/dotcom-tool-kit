@@ -123,9 +123,4 @@ export const lifecycles = {
   'release:remote': ReleaseRemote
 }
 
-export const commands = {
-  'heroku:production': HerokuProduction,
-  'heroku:staging': HerokuStaging,
-  'heroku:review': HerokuReview,
-  'heroku:cleanup': HerokuCleanup
-}
+export const commands = [HerokuProduction, HerokuStaging, HerokuReview, HerokuCleanup]

@@ -15,12 +15,12 @@ export async function runCommand(id: string, argv: string[]): Promise<void> {
     checkInstall: id !== 'install'
   })
 
-  if (!(id in validConfig.commands)) {
+  if (!(id in validConfig.tasks)) {
     // TODO improve error message
-    throw new Error(`command "${id}" not found`)
+    throw new Error(`task "${id}" not found`)
   }
 
-  const Command = validConfig.commands[id]
+  const Command = validConfig.tasks[id]
   const command = new Command(argv)
 
   // attach any options from config files to the command instance

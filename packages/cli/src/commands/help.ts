@@ -6,26 +6,26 @@ export default class HelpCommand extends Task {
   static description = 'show this help'
 
   showHelp(): void {
-    for (const [id, command] of Object.entries(config.commands)) {
-      if (isConflict(command) || command.hidden) continue
+    for (const [id, task] of Object.entries(config.tasks)) {
+      if (isConflict(task) || task.hidden) continue
 
-      console.log(`${id}\t${command.description}`)
+      console.log(`${id}\t${task.description}`)
     }
   }
 
-  showCommandHelp(id: string): void {
-    const command = config.commands[id]
-    if (isConflict(command)) return
+  showTaskHelp(id: string): void {
+    const task = config.tasks[id]
+    if (isConflict(task)) return
 
     // TODO print argument help somehow?
-    console.log(`${id}\t${command.description}`)
+    console.log(`${id}\t${task.description}`)
   }
 
   async run(): Promise<void> {
     const [id] = this.argv
 
     if (id) {
-      this.showCommandHelp(id)
+      this.showTaskHelp(id)
     } else {
       this.showHelp()
     }

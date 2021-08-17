@@ -27,14 +27,14 @@ export interface Config {
   root: string
   findCommand(): boolean
   plugins: { [id: string]: Plugin }
-  commands: { [id: string]: TaskClass | Conflict<TaskClass> }
+  tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   lifecycleAssignments: { [id: string]: LifecycleAssignment | Conflict<LifecycleAssignment> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> }
   lifecycles: { [id: string]: LifecycleClass | Conflict<LifecycleClass> }
 }
 
 export interface ValidConfig extends Config {
-  commands: { [id: string]: TaskClass }
+  tasks: { [id: string]: TaskClass }
   lifecycleAssignments: { [id: string]: LifecycleAssignment }
   options: { [id: string]: PluginOptions }
   lifecycles: { [id: string]: LifecycleClass }
@@ -46,11 +46,7 @@ export const config: Config = {
   root: coreRoot,
   findCommand: () => false,
   plugins: {},
-  commands: {
-    help: HelpCommand,
-    lifecycle: LifecycleCommand,
-    install: InstallCommand
-  },
+  tasks: {},
   lifecycleAssignments: {},
   options: {},
   lifecycles: {}
@@ -65,7 +61,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
 export async function validateConfig(config: Config, { checkInstall = true } = {}): Promise<ValidConfig> {
   const lifecycleAssignmentConflicts = findConflicts(Object.values(config.lifecycleAssignments))
   const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
-  const commandConflicts = findConflicts(Object.values(config.commands))
+  const commandConflicts = findConflicts(Object.values(config.tasks))
   const optionConflicts = findConflicts(Object.values(config.options))
 
   let shouldThrow = false

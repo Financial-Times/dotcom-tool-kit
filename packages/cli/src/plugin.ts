@@ -12,9 +12,7 @@ export interface Plugin {
   id: string
   root: string
   parent?: Plugin
-  commands?: {
-    [id: string]: TaskClass
-  }
+  tasks?: TaskClass[]
   lifecycles?: {
     [id: string]: LifecycleClass
   }
@@ -135,28 +133,27 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
 
   config.plugins[id] = plugin
 
-  // add plugin commands to our command registry, handling any conflicts
+  // add plugin tasks to our task registry, handling any conflicts
   mergeWith(
-    config.commands,
-    plugin.commands,
-
+    config.tasks,
+    Object.fromEntries((plugin.tasks || []).map((task) => [task.name, task])),
     (
-      existingCommand: TaskClass | Conflict<TaskClass>,
-      newCommand: TaskClass,
-      commandId
+      existingTask: TaskClass | Conflict<TaskClass>,
+      newTask: TaskClass,
+      taskId
     ): TaskClass | Conflict<TaskClass> => {
-      newCommand.plugin = plugin
-      newCommand.id = commandId
+      newTask.plugin = plugin
+      newTask.id = taskId
 
-      if (!existingCommand) {
-        return newCommand
+      if (!existingTask) {
+        return newTask
       }
 
-      const conflicting = isConflict(existingCommand) ? existingCommand.conflicting : [existingCommand]
+      const conflicting = isConflict(existingTask) ? existingTask.conflicting : [existingTask]
 
       return {
         plugin,
-        conflicting: conflicting.concat(newCommand)
+        conflicting: conflicting.concat(newTask)
       }
     }
   )
