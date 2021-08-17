@@ -39,7 +39,7 @@ export async function loadPluginConfig(plugin: Plugin): Promise<void> {
       const newLifecycle: LifecycleAssignment = {
         id,
         plugin,
-        commands: Array.isArray(configLifecycle) ? configLifecycle : [configLifecycle]
+        tasks: Array.isArray(configLifecycle) ? configLifecycle : [configLifecycle]
       }
 
       // this lifecycle might not have been set yet, in which case use the new one

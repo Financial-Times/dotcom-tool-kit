@@ -51,7 +51,7 @@ const formatLifecycleAssignmentConflict = (conflict: Conflict<LifecycleAssignmen
 ${conflict.conflicting
   .map(
     (lifecycle) =>
-      `- ${lifecycle.commands.map(s.task).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
+      `- ${lifecycle.tasks.map(s.task).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
         lifecycle.plugin.id
       )}`
   )

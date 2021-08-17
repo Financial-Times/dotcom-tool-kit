@@ -34,7 +34,7 @@ ${availableLifecycles}`
 
       if (isConflict(lifecycle)) continue
 
-      for (const command of lifecycle.commands) {
+      for (const command of lifecycle.tasks) {
         await runTask(command, [])
       }
     }
