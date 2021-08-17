@@ -3,7 +3,7 @@ import colours from 'ansi-colors'
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
-import type { CommandClass } from './command'
+import type { TaskClass } from './task'
 
 // consistent styling use cases for terminal colours
 // don't use ansi-colors directly, define a style please
@@ -17,14 +17,14 @@ const s = {
   dim: colours.grey
 }
 
-const formatCommandConflict = (conflict: Conflict<CommandClass>): string =>
+const formatCommandConflict = (conflict: Conflict<TaskClass>): string =>
   `- ${s.command(conflict.conflicting[0].id || 'unknown command')} ${s.dim(
     'from plugins'
   )} ${conflict.conflicting
     .map((command) => s.plugin(command.plugin ? command.plugin.id : 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatCommandConflicts = (conflicts: Conflict<CommandClass>[]): string => `${s.heading(
+export const formatCommandConflicts = (conflicts: Conflict<TaskClass>[]): string => `${s.heading(
   'There are multiple plugins that include the same commands'
 )}:
 ${conflicts.map(formatCommandConflict).join('\n')}

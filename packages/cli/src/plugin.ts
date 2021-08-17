@@ -2,7 +2,7 @@ import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
 
-import type { CommandClass } from './command'
+import type { TaskClass } from './task'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import { Conflict, isConflict } from './conflict'
 import { config, PluginOptions } from './config'
@@ -13,7 +13,7 @@ export interface Plugin {
   root: string
   parent?: Plugin
   commands?: {
-    [id: string]: CommandClass
+    [id: string]: TaskClass
   }
   lifecycles?: {
     [id: string]: LifecycleClass
@@ -141,10 +141,10 @@ export async function loadPlugin(id: string, parent?: Plugin): Promise<Plugin> {
     plugin.commands,
 
     (
-      existingCommand: CommandClass | Conflict<CommandClass>,
-      newCommand: CommandClass,
+      existingCommand: TaskClass | Conflict<TaskClass>,
+      newCommand: TaskClass,
       commandId
-    ): CommandClass | Conflict<CommandClass> => {
+    ): TaskClass | Conflict<TaskClass> => {
       newCommand.plugin = plugin
       newCommand.id = commandId
 

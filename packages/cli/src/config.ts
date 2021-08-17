@@ -1,6 +1,6 @@
 import path from 'path'
 
-import type { CommandClass } from './command'
+import type { TaskClass } from './task'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import type { Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
@@ -27,14 +27,14 @@ export interface Config {
   root: string
   findCommand(): boolean
   plugins: { [id: string]: Plugin }
-  commands: { [id: string]: CommandClass | Conflict<CommandClass> }
+  commands: { [id: string]: TaskClass | Conflict<TaskClass> }
   lifecycleAssignments: { [id: string]: LifecycleAssignment | Conflict<LifecycleAssignment> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> }
   lifecycles: { [id: string]: LifecycleClass | Conflict<LifecycleClass> }
 }
 
 export interface ValidConfig extends Config {
-  commands: { [id: string]: CommandClass }
+  commands: { [id: string]: TaskClass }
   lifecycleAssignments: { [id: string]: LifecycleAssignment }
   options: { [id: string]: PluginOptions }
   lifecycles: { [id: string]: LifecycleClass }
