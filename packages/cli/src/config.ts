@@ -14,7 +14,6 @@ import {
   formatUninstalledLifecycles
 } from './messages'
 import HelpCommand from './commands/help'
-import LifecycleCommand from './commands/lifecycle'
 import InstallCommand from './commands/install'
 
 export interface PluginOptions {
