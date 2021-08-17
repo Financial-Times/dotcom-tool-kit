@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll } from '@jest/globals'
 import aws from 'aws-sdk'
 import * as path from 'path'
 import { mocked } from 'ts-jest/utils'
-import UploadAssetsToS3 from '../../src/commands/upload-assets-to-s3'
+import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'
 jest.mock('aws-sdk')
 
 const mockedAWS = mocked(aws, true)

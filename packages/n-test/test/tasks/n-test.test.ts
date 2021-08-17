@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import * as puppeteer from 'puppeteer'
-import NTest from '../../src/commands/n-test'
+import NTest from '../../src/tasks/n-test'
 import { writeState } from '@dotcom-tool-kit/state'
 
 const configAbsolutePath = path.join(__dirname, '../files/smoke.js')

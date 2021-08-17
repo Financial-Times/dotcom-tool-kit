@@ -2,7 +2,7 @@
 // explicitly import them instead.
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
-import Mocha from '../../src/commands/mocha'
+import Mocha from '../../src/tasks/mocha'
 
 describe('mocha', () => {
   it('should succeed with passing tests', async () => {

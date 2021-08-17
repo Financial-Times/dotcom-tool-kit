@@ -1,8 +1,8 @@
 import { describe, jest, it } from '@jest/globals'
 import { promises as fsp } from 'fs'
 import * as path from 'path'
-import DevelopmentWebpack from '../../src/commands/webpack/development'
-import ProductionWebpack from '../../src/commands/webpack/production'
+import DevelopmentWebpack from '../../src/tasks/development'
+import ProductionWebpack from '../../src/tasks/production'
 
 // Have to use a Typescript file and ts-node to resolve the config as jest
 // overrides the standard node .js resolver webpack typically loads the file with.
