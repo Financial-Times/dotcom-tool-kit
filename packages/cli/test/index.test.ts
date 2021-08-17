@@ -29,8 +29,8 @@ function makeConfigPathsRelative(config: Config) {
     if (lifecycle.plugin) makeRootRelative(lifecycle.plugin)
   }
 
-  for (const command of Object.values(config.commands)) {
-    if (command.plugin) makeRootRelative(command.plugin)
+  for (const task of Object.values(config.tasks)) {
+    if (task.plugin) makeRootRelative(task.plugin)
   }
 }
 
@@ -69,7 +69,7 @@ describe('cli', () => {
       throw e
     })
     expect(validConfig).not.toHaveProperty('lifecycleAssignments.build:local.conflicting')
-    expect(validConfig.lifecycleAssignments['build:local'].commands).toEqual([
+    expect(validConfig.lifecycleAssignments['build:local'].tasks).toEqual([
       'webpack:development',
       'babel:development'
     ])
