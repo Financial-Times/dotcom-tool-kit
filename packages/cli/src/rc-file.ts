@@ -1,6 +1,6 @@
 import { cosmiconfig } from 'cosmiconfig'
 
-const explorer = cosmiconfig('toolkit')
+const explorer = cosmiconfig('toolkit', { ignoreEmptySearchPlaces: false })
 
 export interface RCFile {
   plugins: string[]
@@ -10,7 +10,7 @@ export interface RCFile {
 
 export async function loadToolKitRC(root: string): Promise<RCFile> {
   const result = await explorer.search(root)
-  if (!result) return { plugins: [], lifecycles: {}, options: {} }
+  if (!result || !result.config) return { plugins: [], lifecycles: {}, options: {} }
 
   return result.config as RCFile
 }
