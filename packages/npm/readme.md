@@ -20,7 +20,7 @@ plugins:
 And install this plugin's hooks:
 
 ```sh
-npx dotcom-tool-kit install
+npx dotcom-tool-kit --install
 ```
 
 This will modify your `package.json`. You should commit this change.

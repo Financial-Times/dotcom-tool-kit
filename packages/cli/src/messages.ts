@@ -106,7 +106,7 @@ export const formatUninstalledHooks = (
 
 ${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join('\n')}
 
-Run ${s.task('dotcom-tool-kit install')} to install these hooks.
+Run ${s.task('dotcom-tool-kit --install')} to install these hooks.
 `
 
 type Missing = { hook: HookTask; tasks: string[] }
