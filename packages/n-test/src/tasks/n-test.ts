@@ -7,10 +7,6 @@ export default class NTest extends Task {
 
   options: SmokeTestOptions = {}
 
-  constructor(argv: string[]) {
-    super(argv)
-  }
-
   async run(): Promise<void> {
     const reviewState = readState('review')
 

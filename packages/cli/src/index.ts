@@ -26,12 +26,8 @@ ${availableLifecycles}`
 
     for (const id of assignment.tasks) {
       const Task = config.tasks[id]
-      const task = new Task(lifecycles)
-
-      // attach any options from config files to the task instance
-      if (Task.plugin && config.options[Task.plugin.id]) {
-        task.options = config.options[Task.plugin.id].options
-      }
+      const options = Task.plugin ? config.options[Task.plugin.id]?.options : {}
+      const task = new Task(options)
 
       await task.run()
     }

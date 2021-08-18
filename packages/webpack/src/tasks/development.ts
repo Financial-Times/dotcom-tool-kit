@@ -6,6 +6,6 @@ export default class WebpackDevelopment extends Task {
   static hidden = true
 
   async run(): Promise<void> {
-    await runWebpack(this.argv, 'development')
+    await runWebpack('development')
   }
 }

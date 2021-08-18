@@ -28,7 +28,7 @@ export interface Config {
   plugins: { [id: string]: Plugin }
   tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   lifecycleAssignments: { [id: string]: LifecycleAssignment | Conflict<LifecycleAssignment> }
-  options: { [id: string]: PluginOptions | Conflict<PluginOptions> }
+  options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
   lifecycles: { [id: string]: LifecycleClass | Conflict<LifecycleClass> }
 }
 

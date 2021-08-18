@@ -1,13 +1,8 @@
-export abstract class Task {
+export abstract class Task<O extends Record<string, unknown> = Record<string, unknown>> {
   static hidden: boolean
   static description: string
 
-  argv: string[]
-  options?: Record<string, unknown>
-
-  constructor(argv: string[]) {
-    this.argv = argv
-  }
+  constructor(public options: O) {}
 
   abstract run(): Promise<void>
 }
