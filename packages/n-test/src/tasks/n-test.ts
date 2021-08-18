@@ -5,7 +5,9 @@ import { readState } from '@dotcom-tool-kit/state'
 export default class NTest extends Task {
   static description = ''
 
-  options: SmokeTestOptions = {}
+  constructor(public options: SmokeTestOptions = {}) {
+    super()
+  }
 
   async run(): Promise<void> {
     const reviewState = readState('review')

@@ -11,13 +11,24 @@ const outputPath = path.resolve(__dirname, '../files/dist')
 
 jest.setTimeout(10000)
 
-describe.each([DevelopmentWebpack, ProductionWebpack])('%p', (Webpack) => {
+describe('webpack', () => {
   afterEach(() => fsp.rmdir(outputPath, { recursive: true }))
 
-  it('should pass on standard file', async () => {
-    const task = new Webpack(['--config', configPath])
-    await task.run()
+  describe('development', () => {
+    it('should pass on standard file', async () => {
+      const task = new DevelopmentWebpack({ configPath })
+      await task.run()
 
-    await fsp.access(outputPath + '/app.bundle.js')
+      await fsp.access(outputPath + '/app.bundle.js')
+    })
+  })
+
+  describe('production', () => {
+    it('should pass on standard file', async () => {
+      const task = new ProductionWebpack({ configPath })
+      await task.run()
+
+      await fsp.access(outputPath + '/app.bundle.js')
+    })
   })
 })

@@ -27,12 +27,14 @@ ${availableLifecycles}`
 
     for (const id of assignment.tasks) {
       const Task = config.tasks[id]
+      console.log(config.options)
       const options = Task.plugin ? config.options[Task.plugin.id]?.options : {}
+      console.log(options)
 
       // `Task` is an abstract class. here we know it's a concrete subclass
       // but typescript doesn't, so cast it to any
       const task = new (Task as any)(options)
-
+      console.log(task.options)
       await task.run()
     }
   }

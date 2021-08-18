@@ -1,11 +1,14 @@
 import { Task } from '@dotcom-tool-kit/task'
-import runWebpack from '../run-webpack'
+import runWebpack, { WebpackOptions } from '../run-webpack'
 
-export default class WebpackDevelopment extends Task {
+export default class WebpackDevelopment extends Task<WebpackOptions> {
   static description = 'build webpack'
   static hidden = true
 
   async run(): Promise<void> {
-    await runWebpack('development')
+    await runWebpack({
+      ...this.options,
+      mode: 'development'
+    })
   }
 }

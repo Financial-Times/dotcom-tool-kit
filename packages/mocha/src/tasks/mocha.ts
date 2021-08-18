@@ -10,12 +10,17 @@ type MochaOptions = {
 export default class Mocha extends Task {
   static description = ''
 
-  options: MochaOptions = {
+  static defaultOptions: MochaOptions = {
     files: 'test/**/*.js'
+  }
+
+  constructor(public options: MochaOptions = Mocha.defaultOptions) {
+    super()
   }
 
   async run(): Promise<void> {
     const mocha = new MochaCore()
+    console.log(this.options)
 
     const files = glob.sync(this.options.files)
     if (files.length === 0) {

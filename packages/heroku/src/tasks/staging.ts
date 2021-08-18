@@ -13,8 +13,12 @@ type HerokuStagingOptions = {
 export default class HerokuStaging extends Task {
   static description = ''
 
-  options: HerokuStagingOptions = {
+  static defaultOptions: HerokuStagingOptions = {
     vaultPath: undefined
+  }
+
+  constructor(public options: HerokuStagingOptions = HerokuStaging.defaultOptions) {
+    super()
   }
 
   async run(): Promise<void> {

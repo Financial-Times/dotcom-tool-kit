@@ -15,10 +15,10 @@ export type UploadAssetsToS3Options = {
   cacheControl: string
 }
 
-export default class UploadAssetsToS3 extends Task {
+export default class UploadAssetsToS3 extends Task<UploadAssetsToS3Options> {
   static description = ''
 
-  options: UploadAssetsToS3Options = {
+  static defaultOptions: UploadAssetsToS3Options = {
     accessKeyId: process.env.AWS_ACCESS || '',
     secretAccessKey: process.env.AWS_SECRET || '',
     directory: 'public',

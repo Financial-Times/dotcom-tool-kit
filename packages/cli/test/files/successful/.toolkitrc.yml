@@ -16,8 +16,8 @@ options:
 
 lifecycles:
   'test:local':
-    - 'mocha'
-    - 'eslint'
+    - Mocha
+    - Eslint
   'test:ci':
-    - 'mocha'
-    - 'eslint'
+    - Mocha
+    - Eslint

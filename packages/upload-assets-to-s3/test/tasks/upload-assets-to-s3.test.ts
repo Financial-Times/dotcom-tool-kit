@@ -17,19 +17,23 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should upload all globbed files', async () => {
-    const command = new UploadAssetsToS3([])
-    command.options.directory = testDirectory
-    await command.run()
+    const task = new UploadAssetsToS3({
+      directory: testDirectory
+    })
+
+    await task.run()
 
     const s3 = mockedAWS.S3.mock.instances[0]
     expect(s3.upload).toHaveBeenCalledTimes(4)
   })
 
   it('should use correct Content-Encoding for compressed files', async () => {
-    const command = new UploadAssetsToS3([])
-    command.options.extensions = 'gz'
-    command.options.directory = testDirectory
-    await command.run()
+    const task = new UploadAssetsToS3({
+      extensions: 'gz',
+      directory: testDirectory
+    })
+
+    await task.run()
 
     const s3 = mocked(mockedAWS.S3.mock.instances[0])
     expect(s3.upload).toHaveBeenCalledTimes(1)
@@ -43,12 +47,13 @@ describe('upload-assets-to-s3', () => {
       promise: jest.fn().mockRejectedValue(mockError)
     } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
 
-    const command = new UploadAssetsToS3([])
-    command.options.directory = testDirectory
+    const task = new UploadAssetsToS3({
+      directory: testDirectory
+    })
 
     expect.assertions(1)
     try {
-      await command.run()
+      await task.run()
     } catch (e) {
       expect(e).toEqual(mockError)
     }

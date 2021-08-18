@@ -2,13 +2,11 @@ import { describe, jest, it, expect, afterEach } from '@jest/globals'
 import cloneDeep from 'lodash.clonedeep'
 import * as path from 'path'
 import { ToolKitError } from '../../error'
-import { Config, config, validateConfig } from '../src/config'
+import { Config, loadConfig, validateConfig } from '../src/config'
 import { loadPluginConfig } from '../src/plugin'
 
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
 jest.setTimeout(15000)
-
-const baseConfig = cloneDeep(config)
 
 function makeRootRelative(thing: { root: string }) {
   thing.root = path.relative(process.cwd(), thing.root)
@@ -35,13 +33,13 @@ function makeConfigPathsRelative(config: Config) {
 }
 
 describe('cli', () => {
-  afterEach(() => {
-    // Need to reset the config object for each test
-    Object.assign(config, cloneDeep(baseConfig))
-  })
-
   it('should load plugins correctly', async () => {
-    await loadPluginConfig({ id: 'successful test root', root: path.join(__dirname, 'files/successful') })
+    const config = await loadConfig()
+
+    await loadPluginConfig(
+      { id: 'successful test root', root: path.join(__dirname, 'files/successful') },
+      config
+    )
     await validateConfig(config, { checkInstall: false })
 
     // make every root path in the config relative for consistent snapshots aacross machines
@@ -50,7 +48,12 @@ describe('cli', () => {
   })
 
   it('should indicate when there are conflicts', async () => {
-    await loadPluginConfig({ id: 'conflicted test root', root: path.join(__dirname, 'files/conflicted') })
+    const config = await loadConfig({ validate: false })
+
+    await loadPluginConfig(
+      { id: 'conflicted test root', root: path.join(__dirname, 'files/conflicted') },
+      config
+    )
 
     expect(() => validateConfig(config, { checkInstall: false })).rejects.toBeInstanceOf(ToolKitError)
     expect(config).toHaveProperty('lifecycleAssignments.build:ci.conflicting')
@@ -59,10 +62,15 @@ describe('cli', () => {
   })
 
   it('should succeed when conflicts are resolved', async () => {
-    await loadPluginConfig({
-      id: 'resolved test root',
-      root: path.join(__dirname, 'files/conflict-resolution')
-    })
+    const config = await loadConfig({ validate: false })
+
+    await loadPluginConfig(
+      {
+        id: 'resolved test root',
+        root: path.join(__dirname, 'files/conflict-resolution')
+      },
+      config
+    )
 
     const validConfig = await validateConfig(config, { checkInstall: false }).catch((e) => {
       e.message += e.details
@@ -70,8 +78,8 @@ describe('cli', () => {
     })
     expect(validConfig).not.toHaveProperty('lifecycleAssignments.build:local.conflicting')
     expect(validConfig.lifecycleAssignments['build:local'].tasks).toEqual([
-      'webpack:development',
-      'babel:development'
+      'WebpackDevelopment',
+      'BabelDevelopment'
     ])
   })
 })

@@ -2,54 +2,45 @@
 
 exports[`cli should load plugins correctly 1`] = `
 Object {
-  "commands": Object {
-    "eslint": [Function],
-    "help": [Function],
-    "install": [Function],
-    "lifecycle": [Function],
-    "mocha": [Function],
-    "n-test": [Function],
-  },
-  "findCommand": [Function],
   "lifecycleAssignments": Object {
     "test:ci": Object {
-      "commands": Array [
-        "mocha",
-        "eslint",
-      ],
       "id": "test:ci",
       "plugin": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
+      "tasks": Array [
+        "Mocha",
+        "Eslint",
+      ],
     },
     "test:local": Object {
-      "commands": Array [
-        "mocha",
-        "eslint",
-      ],
       "id": "test:local",
       "plugin": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
+      "tasks": Array [
+        "Mocha",
+        "Eslint",
+      ],
     },
     "test:remote": Object {
-      "commands": Array [
-        "n-test",
-      ],
       "id": "test:remote",
       "plugin": Object {
-        "commands": Object {
-          "n-test": [Function],
-        },
         "id": "../../../../n-test",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
         "root": "packages/n-test/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
       },
+      "tasks": Array [
+        "NTest",
+      ],
     },
   },
   "lifecycles": Object {
@@ -62,15 +53,15 @@ Object {
   "options": Object {
     "../../../../eslint": Object {
       "forPlugin": Object {
-        "commands": Object {
-          "eslint": [Function],
-        },
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
         "root": "packages/eslint/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
       },
       "options": Object {
         "files": Array [
@@ -84,15 +75,15 @@ Object {
     },
     "../../../../mocha": Object {
       "forPlugin": Object {
-        "commands": Object {
-          "mocha": [Function],
-        },
         "id": "../../../../mocha",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
         "root": "packages/mocha/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
       },
       "options": Object {
         "testDir": "./mocha_tests",
@@ -104,15 +95,15 @@ Object {
     },
     "../../../../n-test": Object {
       "forPlugin": Object {
-        "commands": Object {
-          "n-test": [Function],
-        },
         "id": "../../../../n-test",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
         "root": "packages/n-test/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
       },
       "options": Object {
         "host": "https://example.com",
@@ -128,15 +119,15 @@ Object {
         "files": "**/*.js",
       },
       "plugin": Object {
-        "commands": Object {
-          "eslint": [Function],
-        },
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
         "root": "packages/eslint/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
       },
     },
     "@dotcom-tool-kit/mocha": Object {
@@ -145,15 +136,15 @@ Object {
         "files": "test/**/*.js",
       },
       "plugin": Object {
-        "commands": Object {
-          "mocha": [Function],
-        },
         "id": "../../../../mocha",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
         "root": "packages/mocha/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
       },
     },
   },
@@ -172,37 +163,37 @@ Object {
       "root": "packages/circleci/lib/index.js",
     },
     "../../../../eslint": Object {
-      "commands": Object {
-        "eslint": [Function],
-      },
       "id": "../../../../eslint",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
       "root": "packages/eslint/lib/index.js",
+      "tasks": Array [
+        [Function],
+      ],
     },
     "../../../../mocha": Object {
-      "commands": Object {
-        "mocha": [Function],
-      },
       "id": "../../../../mocha",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
       "root": "packages/mocha/lib/index.js",
+      "tasks": Array [
+        [Function],
+      ],
     },
     "../../../../n-test": Object {
-      "commands": Object {
-        "n-test": [Function],
-      },
       "id": "../../../../n-test",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
       "root": "packages/n-test/lib/index.js",
+      "tasks": Array [
+        [Function],
+      ],
     },
     "../../../../npm": Object {
       "PackageJsonLifecycleInstaller": [Function],
@@ -217,26 +208,12 @@ Object {
       },
       "root": "packages/npm/lib/index.js",
     },
-    "@dotcom-tool-kit/state": Object {
-      "id": "@dotcom-tool-kit/state",
-      "parent": Object {
-        "id": "../../../../circleci",
-        "lifecycles": Object {
-          "build:ci": [Function],
-          "test:ci": [Function],
-          "test:remote": [Function],
-        },
-        "parent": Object {
-          "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
-        },
-        "root": "packages/circleci/lib/index.js",
-      },
-      "readState": [Function],
-      "root": "packages/state/lib/index.js",
-      "writeState": [Function],
-    },
   },
   "root": "packages/cli",
+  "tasks": Object {
+    "Eslint": [Function],
+    "Mocha": [Function],
+    "NTest": [Function],
+  },
 }
 `;

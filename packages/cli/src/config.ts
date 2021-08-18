@@ -137,7 +137,12 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   return config as ValidConfig
 }
 
-export async function loadConfig({ checkInstall = true } = {}): Promise<ValidConfig> {
+export function loadConfig(options?: { validate?: true; checkInstall?: boolean }): Promise<ValidConfig>
+export function loadConfig(options?: { validate?: false; checkInstall?: boolean }): Promise<Config>
+
+export async function loadConfig({ validate = true, checkInstall = true } = {}): Promise<
+  ValidConfig | Config
+> {
   // start loading config and child plugins, starting from the consumer app directory
   const config = await loadPluginConfig(
     {
@@ -147,5 +152,5 @@ export async function loadConfig({ checkInstall = true } = {}): Promise<ValidCon
     createConfig()
   )
 
-  return validateConfig(config, { checkInstall })
+  return validate ? validateConfig(config, { checkInstall }) : config
 }

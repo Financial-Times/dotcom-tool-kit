@@ -17,9 +17,13 @@ type HerokuReviewOptions = {
 export default class HerokuReview extends Task {
   static description = ''
 
-  options: HerokuReviewOptions = {
+  static defaultOptions: HerokuReviewOptions = {
     pipeline: undefined,
     vaultPath: undefined
+  }
+
+  constructor(public options: HerokuReviewOptions = HerokuReview.defaultOptions) {
+    super()
   }
 
   async run(): Promise<void> {

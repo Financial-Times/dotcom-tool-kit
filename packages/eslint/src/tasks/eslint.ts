@@ -10,8 +10,12 @@ type EslintOptions = {
 export default class Eslint extends Task {
   static description = ''
 
-  options: EslintOptions = {
+  static defaultOptions: EslintOptions = {
     files: '**/*.js'
+  }
+
+  constructor(public options: EslintOptions = Eslint.defaultOptions) {
+    super()
   }
 
   async run(): Promise<void> {
