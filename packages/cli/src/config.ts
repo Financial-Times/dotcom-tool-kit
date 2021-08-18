@@ -1,6 +1,6 @@
 import path from 'path'
 
-import type { TaskClass } from './task'
+import type { TaskClass } from '@dotcom-tool-kit/task'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import { loadPluginConfig, Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'

@@ -1,4 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { TaskClass } from '@dotcom-tool-kit/task'
 import { loadConfig } from './config'
 import { loadPluginConfig } from './plugin'
 
@@ -27,7 +28,10 @@ ${availableLifecycles}`
     for (const id of assignment.tasks) {
       const Task = config.tasks[id]
       const options = Task.plugin ? config.options[Task.plugin.id]?.options : {}
-      const task = new Task(options)
+
+      // `Task` is an abstract class. here we know it's a concrete subclass
+      // but typescript doesn't, so cast it to any
+      const task = new (Task as any)(options)
 
       await task.run()
     }

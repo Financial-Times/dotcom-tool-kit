@@ -4,7 +4,7 @@ import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import { Plugin } from './plugin'
-import type { TaskClass } from './task'
+import type { TaskClass } from '@dotcom-tool-kit/task'
 
 // consistent styling use cases for terminal colours
 // don't use ansi-colors directly, define a style please

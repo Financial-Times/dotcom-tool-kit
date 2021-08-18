@@ -2,7 +2,7 @@ import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
 
-import type { TaskClass } from './task'
+import type { TaskClass } from '@dotcom-tool-kit/task'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
 import { Conflict, isConflict } from './conflict'
 import { Config, PluginOptions } from './config'
