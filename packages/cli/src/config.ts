@@ -11,8 +11,11 @@ import {
   formatLifecycleAssignmentConflicts,
   formatLifecycleConflicts,
   formatOptionConflicts,
-  formatUninstalledLifecycles
+  formatUninstalledLifecycles,
+  formatMissingTasks
 } from './messages'
+
+import util from 'util'
 
 export interface PluginOptions {
   options: Record<string, unknown>
@@ -101,6 +104,18 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
       undefinedLifecycleAssignments,
       Array.from(definedLifecycleIds)
     )
+  }
+
+  const missingTasks = assignedLifecycles
+    .map((lifecycle) => ({
+      lifecycle,
+      tasks: lifecycle.tasks.filter((id) => !config.tasks[id])
+    }))
+    .filter(({ tasks }) => tasks.length > 0)
+
+  if (missingTasks.length > 0) {
+    shouldThrow = true
+    error.details += formatMissingTasks(missingTasks, Object.keys(config.tasks))
   }
 
   if (checkInstall) {

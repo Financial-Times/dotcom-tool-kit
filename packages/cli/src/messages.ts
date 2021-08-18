@@ -3,6 +3,7 @@ import colours from 'ansi-colors'
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
+import { Plugin } from './plugin'
 import type { TaskClass } from './task'
 
 // consistent styling use cases for terminal colours
@@ -85,6 +86,9 @@ You must resolve this conflict by providing options in your app's Tool Kit confi
 
 `
 
+const formatPlugin = (plugin: Plugin): string =>
+  plugin.id === 'app root' ? s.app('your app') : `plugin ${s.plugin(plugin.id)}`
+
 // TODO text similarity "did you mean...?"
 export const formatUndefinedLifecycleAssignments = (
   undefinedAssignments: LifecycleAssignment[],
@@ -92,17 +96,12 @@ export const formatUndefinedLifecycleAssignments = (
 ): string => `These lifecycle events don't exist, but have tasks assigned to them:
 
 ${undefinedAssignments
-  .map(
-    (lifecycle) =>
-      `- ${s.lifecycle(lifecycle.id)} assigned by ${
-        lifecycle.plugin.id === 'app root' ? s.app('your app') : `plugin ${s.plugin(lifecycle.plugin.id)}`
-      }`
-  )
+  .map((lifecycle) => `- ${s.lifecycle(lifecycle.id)} assigned by ${formatPlugin(lifecycle.plugin)}`)
   .join('\n')}
 
 They could be misspelt, or defined by a Tool Kit plugin that isn't used by this app.
 
-Available lifecycle events are: ${definedLifecycles.map(s.task).join(', ')}.
+Available lifecycle events are: ${definedLifecycles.map(s.lifecycle).join(', ')}.
 `
 
 export const formatUninstalledLifecycles = (
@@ -112,4 +111,23 @@ export const formatUninstalledLifecycles = (
 ${uninstalledLifecycles.map((lifecycle) => `- ${s.lifecycle(lifecycle.id || 'unknown event')}`).join('\n')}
 
 Run ${s.task('dotcom-tool-kit install')} to install these events.
+`
+
+type Missing = { lifecycle: LifecycleAssignment; tasks: string[] }
+
+const formatMissingTask = (missing: Missing): string =>
+  `- ${missing.tasks.map(s.task).join(', ')} ${s.dim(
+    `(assigned to ${s.lifecycle(missing.lifecycle.id)} by ${formatPlugin(missing.lifecycle.plugin)})`
+  )}`
+
+export const formatMissingTasks = (
+  missingTasks: Missing[],
+  tasks: string[]
+): string => `These tasks don't exist, but are assigned to lifecycle events:
+
+${missingTasks.map(formatMissingTask).join('\n')}
+
+They could be misspelt, or defined by a Tool Kit plugin that isn't used by this app.
+
+Available tasks are: ${tasks.map(s.task).join(', ')}.
 `
