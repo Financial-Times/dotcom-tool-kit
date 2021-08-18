@@ -19,12 +19,12 @@ function makeConfigPathsRelative(config: Config) {
     makeRootRelative(plugin)
   }
 
-  for (const assignment of Object.values(config.lifecycleAssignments)) {
+  for (const assignment of Object.values(config.hookTasks)) {
     makeRootRelative(assignment.plugin)
   }
 
-  for (const lifecycle of Object.values(config.lifecycles)) {
-    if (lifecycle.plugin) makeRootRelative(lifecycle.plugin)
+  for (const hook of Object.values(config.hooks)) {
+    if (hook.plugin) makeRootRelative(hook.plugin)
   }
 
   for (const task of Object.values(config.tasks)) {
@@ -56,9 +56,9 @@ describe('cli', () => {
     )
 
     expect(() => validateConfig(config, { checkInstall: false })).rejects.toBeInstanceOf(ToolKitError)
-    expect(config).toHaveProperty('lifecycleAssignments.build:ci.conflicting')
-    expect(config).toHaveProperty('lifecycleAssignments.build:remote.conflicting')
-    expect(config).toHaveProperty('lifecycleAssignments.build:local.conflicting')
+    expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
+    expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
+    expect(config).toHaveProperty('hookTasks.build:local.conflicting')
   })
 
   it('should succeed when conflicts are resolved', async () => {
@@ -76,10 +76,7 @@ describe('cli', () => {
       e.message += e.details
       throw e
     })
-    expect(validConfig).not.toHaveProperty('lifecycleAssignments.build:local.conflicting')
-    expect(validConfig.lifecycleAssignments['build:local'].tasks).toEqual([
-      'WebpackDevelopment',
-      'BabelDevelopment'
-    ])
+    expect(validConfig).not.toHaveProperty('hookTasks.build:local.conflicting')
+    expect(validConfig.hookTasks['build:local'].tasks).toEqual(['WebpackDevelopment', 'BabelDevelopment'])
   })
 })

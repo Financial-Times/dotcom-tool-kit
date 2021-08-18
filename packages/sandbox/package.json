@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "test": "dotcom-tool-kit lifecycle test:local",
-    "build": "dotcom-tool-kit lifecycle build:local",
-    "heroku-postbuild": "dotcom-tool-kit lifecycle build:remote"
+    "test": "dotcom-tool-kit test:local",
+    "build": "dotcom-tool-kit build:local",
+    "heroku-postbuild": "dotcom-tool-kit build:remote"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,7 @@
 plugins:
-  - "../../../../webpack"
-  - "../../../../babel"
+  - '../../../../webpack'
+  - '../../../../babel'
 
 options:
 
-lifecycles:
+hooks:

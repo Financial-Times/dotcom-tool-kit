@@ -1,22 +1,22 @@
 import { writeState } from '@dotcom-tool-kit/state'
-import CircleCiConfigLifecycle from './circleci-config'
+import CircleCiConfigHook from './circleci-config'
 
-class BuildCI extends CircleCiConfigLifecycle {
-  script = 'npx dotcom-tool-kit lifecycle build:ci'
+class BuildCI extends CircleCiConfigHook {
+  script = 'npx dotcom-tool-kit build:ci'
   job = 'build'
 }
 
-class TestCI extends CircleCiConfigLifecycle {
-  script = 'npx dotcom-tool-kit lifecycle test:ci'
+class TestCI extends CircleCiConfigHook {
+  script = 'npx dotcom-tool-kit test:ci'
   job = 'test'
 }
 
-class TestRemote extends CircleCiConfigLifecycle {
-  script = 'npx dotcom-tool-kit lifecycle test:remote'
+class TestRemote extends CircleCiConfigHook {
+  script = 'npx dotcom-tool-kit test:remote'
   job = 'e2e-test'
 }
 
-export const lifecycles = {
+export const hooks = {
   'build:ci': BuildCI,
   'test:ci': TestCI,
   'test:remote': TestRemote

@@ -12,7 +12,7 @@
   "dependencies": {
     "@dotcom-tool-kit/task": "file:../task",
     "@dotcom-tool-kit/error": "file:../error",
-    "@dotcom-tool-kit/lifecycle-package-json": "file:../lifecycle-package-json",
+    "@dotcom-tool-kit/package-json-hook": "file:../package-json-hook",
     "@dotcom-tool-kit/state": "file:../state",
     "@dotcom-tool-kit/vault": "file:../vault",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",

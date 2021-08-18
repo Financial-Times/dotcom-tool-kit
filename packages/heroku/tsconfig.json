@@ -17,7 +17,7 @@
       "path": "../vault"
     },
     {
-      "path": "../lifecycle-package-json"
+      "path": "../package-json-hook"
     }
   ],
   "compilerOptions": {

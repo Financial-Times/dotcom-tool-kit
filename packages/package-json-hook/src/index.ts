@@ -6,7 +6,7 @@ type Scripts = {
   [script: string]: string
 }
 
-export abstract class PackageJsonLifecycleInstaller {
+export abstract class PackageJsonHook {
   _packageJson?: PackageJson
   abstract script: string
   abstract command: string

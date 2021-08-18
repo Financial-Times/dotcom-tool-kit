@@ -1,5 +1,5 @@
 {
-  "name": "@dotcom-tool-kit/lifecycle-package-json",
+  "name": "@dotcom-tool-kit/package-json-hook",
   "version": "0.0.0-development",
   "description": "",
   "main": "lib",
@@ -15,10 +15,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
-    "directory": "packages/lifecycle-package-json"
+    "directory": "packages/package-json-hook"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/lifecycle-package-json",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/package-json-hook",
   "devDependencies": {
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json"
   }

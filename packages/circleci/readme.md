@@ -1,6 +1,6 @@
 # `circleci` Tool Kit plugin
 
-This plugin exposes state from the CircleCI environment for other plugins to consume generically. It also manages Tool Kit lifecycle events that are run from CircleCI workflows.
+This plugin exposes state from the CircleCI environment for other plugins to consume generically. It also manages Tool Kit hooks that are run from CircleCI workflows.
 
 ## Installation
 
@@ -17,7 +17,7 @@ plugins:
 	- '@dotcom-tool-kit/circleci'
 ```
 
-And install this plugin's lifecycle events:
+And install this plugin's hooks:
 
 ```sh
 npx dotcom-tool-kit install
@@ -25,7 +25,7 @@ npx dotcom-tool-kit install
 
 This plugin cannot currently automatically install itself to CircleCI configuration, so it will exit, and explain what you need to include in the config.
 
-## Lifecycle events
+## Hooks
 
 | Event         | Description                                              | Installed to...                        |
 | ------------- | -------------------------------------------------------- | -------------------------------------- |

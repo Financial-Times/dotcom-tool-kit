@@ -16,7 +16,7 @@ options:
   '@dotcom-tool-kit/n-test':
     host: 'https://example.com'
 
-lifecycles:
+hooks:
   'test:local':
     - Mocha
     - Eslint

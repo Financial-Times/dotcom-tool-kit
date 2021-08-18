@@ -2,7 +2,7 @@
 
 exports[`cli should load plugins correctly 1`] = `
 Object {
-  "lifecycleAssignments": Object {
+  "hookTasks": Object {
     "test:ci": Object {
       "id": "test:ci",
       "plugin": Object {
@@ -43,7 +43,7 @@ Object {
       ],
     },
   },
-  "lifecycles": Object {
+  "hooks": Object {
     "build:ci": [Function],
     "build:local": [Function],
     "test:ci": [Function],
@@ -150,12 +150,12 @@ Object {
   },
   "plugins": Object {
     "../../../../circleci": Object {
-      "id": "../../../../circleci",
-      "lifecycles": Object {
+      "hooks": Object {
         "build:ci": [Function],
         "test:ci": [Function],
         "test:remote": [Function],
       },
+      "id": "../../../../circleci",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
@@ -196,12 +196,12 @@ Object {
       ],
     },
     "../../../../npm": Object {
-      "PackageJsonLifecycleInstaller": [Function],
-      "id": "../../../../npm",
-      "lifecycles": Object {
+      "PackageJsonHook": [Function],
+      "hooks": Object {
         "build:local": [Function],
         "test:local": [Function],
       },
+      "id": "../../../../npm",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",

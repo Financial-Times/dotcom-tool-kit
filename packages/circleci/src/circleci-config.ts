@@ -11,7 +11,7 @@ type Step = {
     | string
 }
 
-export default abstract class CircleCiConfigLifecycle {
+export default abstract class CircleCiConfigHook {
   _circleConfig?: YAML
   abstract script: string
   abstract job: string

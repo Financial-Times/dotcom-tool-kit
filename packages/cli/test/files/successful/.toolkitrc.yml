@@ -2,8 +2,8 @@ plugins:
   - '../../../../eslint'
   - '../../../../mocha'
   - '../../../../n-test'
-  - '../../../../npm' # for test:local lifecycle
-  - '../../../../circleci' # for test:ci lifecycle
+  - '../../../../npm' # for test:local hook
+  - '../../../../circleci' # for test:ci hook
 
 options:
   '../../../../eslint':
@@ -14,7 +14,7 @@ options:
   '../../../../n-test':
     host: 'https://example.com'
 
-lifecycles:
+hooks:
   'test:local':
     - Mocha
     - Eslint

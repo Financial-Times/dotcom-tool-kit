@@ -1,13 +1,13 @@
 plugins:
   - '../../../../webpack'
   - '../../../../babel'
-  - '../../../../npm' # for build:local lifecycle
-  - '../../../../circleci' # for build:ci lifecycle
-  - '../../../../heroku' # for build:remote lifecycle
+  - '../../../../npm' # for build:local hook
+  - '../../../../circleci' # for build:ci hook
+  - '../../../../heroku' # for build:remote hook
 
 options:
 
-lifecycles:
+hooks:
   build:local:
     - WebpackDevelopment
     - BabelDevelopment

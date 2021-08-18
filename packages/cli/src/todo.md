@@ -1,4 +1,0 @@
-- [ ] Replace plugin commands object with a tasks array
-- [ ] Rename lifecycles to events
-- [ ] Make tasks be assigned to events by class name, not command id
-- [ ] Remove the lifecycle command, and run events by default(?)

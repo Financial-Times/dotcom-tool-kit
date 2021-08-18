@@ -2,14 +2,14 @@ import colours from 'ansi-colors'
 
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
-import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
+import type { HookTask, HookClass } from './hook'
 import { Plugin } from './plugin'
 import type { TaskClass } from '@dotcom-tool-kit/task'
 
 // consistent styling use cases for terminal colours
 // don't use ansi-colors directly, define a style please
 const s = {
-  lifecycle: colours.magenta,
+  hook: colours.magenta,
   task: colours.blueBright,
   plugin: colours.cyan,
   URL: colours.cyan.underline,
@@ -32,39 +32,37 @@ ${conflicts.map(formatTaskConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatLifecycleConflict = (conflict: Conflict<LifecycleClass>): string =>
-  `- ${s.lifecycle(conflict.conflicting[0].id || 'unknown event')} ${s.dim(
+const formatHookConflict = (conflict: Conflict<HookClass>): string =>
+  `- ${s.hook(conflict.conflicting[0].id || 'unknown event')} ${s.dim(
     'from plugins'
   )} ${conflict.conflicting
     .map((task) => s.plugin(task.plugin ? task.plugin.id : 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatLifecycleConflicts = (conflicts: Conflict<LifecycleClass>[]): string => `${s.heading(
-  'There are multiple plugins that include the same lifecycle events'
+export const formatHookConflicts = (conflicts: Conflict<HookClass>[]): string => `${s.heading(
+  'There are multiple plugins that include the same hooks'
 )}:
-${conflicts.map(formatLifecycleConflict).join('\n')}
+${conflicts.map(formatHookConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatLifecycleAssignmentConflict = (conflict: Conflict<LifecycleAssignment>): string => `${s.lifecycle(
+const formatHookTaskConflict = (conflict: Conflict<HookTask>): string => `${s.hook(
   conflict.conflicting[0].id
 )}:
 ${conflict.conflicting
   .map(
-    (lifecycle) =>
-      `- ${lifecycle.tasks.map(s.task).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
-        lifecycle.plugin.id
-      )}`
+    (hook) =>
+      `- ${hook.tasks.map(s.task).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(hook.plugin.id)}`
   )
   .join('\n')}
 `
 
-export const formatLifecycleAssignmentConflicts = (
-  conflicts: Conflict<LifecycleAssignment>[]
-): string => `${s.heading('These lifecycle events are assigned to different tasks by multiple plugins')}:
-${conflicts.map(formatLifecycleAssignmentConflict).join('\n')}
-You must resolve this conflict by explicitly configuring which task to use for these events. See ${s.URL(
-  'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-lifecycle-conflicts.md'
+export const formatHookTaskConflicts = (conflicts: Conflict<HookTask>[]): string => `${s.heading(
+  'These hooks are configured to run different tasks by multiple plugins'
+)}:
+${conflicts.map(formatHookTaskConflict).join('\n')}
+You must resolve this conflict by explicitly configuring which task to run for these hooks. See ${s.URL(
+  'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-hook-conflicts.md'
 )} for more details.
 
 `
@@ -90,40 +88,38 @@ const formatPlugin = (plugin: Plugin): string =>
   plugin.id === 'app root' ? s.app('your app') : `plugin ${s.plugin(plugin.id)}`
 
 // TODO text similarity "did you mean...?"
-export const formatUndefinedLifecycleAssignments = (
-  undefinedAssignments: LifecycleAssignment[],
-  definedLifecycles: string[]
-): string => `These lifecycle events don't exist, but have tasks assigned to them:
+export const formatUndefinedHookTasks = (
+  undefinedHooks: HookTask[],
+  definedHooks: string[]
+): string => `These hooks don't exist, but are configured to run tasks:
 
-${undefinedAssignments
-  .map((lifecycle) => `- ${s.lifecycle(lifecycle.id)} assigned by ${formatPlugin(lifecycle.plugin)}`)
-  .join('\n')}
+${undefinedHooks.map((hook) => `- ${s.hook(hook.id)} assigned by ${formatPlugin(hook.plugin)}`).join('\n')}
 
 They could be misspelt, or defined by a Tool Kit plugin that isn't used by this app.
 
-Available lifecycle events are: ${definedLifecycles.map(s.lifecycle).join(', ')}.
+Available hooks are: ${definedHooks.map(s.hook).join(', ')}.
 `
 
-export const formatUninstalledLifecycles = (
-  uninstalledLifecycles: LifecycleClass[]
-): string => `These lifecycle events aren't installed into your app:
+export const formatUninstalledHooks = (
+  uninstalledHooks: HookClass[]
+): string => `These hooks aren't installed into your app:
 
-${uninstalledLifecycles.map((lifecycle) => `- ${s.lifecycle(lifecycle.id || 'unknown event')}`).join('\n')}
+${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join('\n')}
 
-Run ${s.task('dotcom-tool-kit install')} to install these events.
+Run ${s.task('dotcom-tool-kit install')} to install these hooks.
 `
 
-type Missing = { lifecycle: LifecycleAssignment; tasks: string[] }
+type Missing = { hook: HookTask; tasks: string[] }
 
 const formatMissingTask = (missing: Missing): string =>
   `- ${missing.tasks.map(s.task).join(', ')} ${s.dim(
-    `(assigned to ${s.lifecycle(missing.lifecycle.id)} by ${formatPlugin(missing.lifecycle.plugin)})`
+    `(assigned to ${s.hook(missing.hook.id)} by ${formatPlugin(missing.hook.plugin)})`
   )}`
 
 export const formatMissingTasks = (
   missingTasks: Missing[],
   tasks: string[]
-): string => `These tasks don't exist, but are assigned to lifecycle events:
+): string => `These tasks don't exist, but are configured to run from hooks:
 
 ${missingTasks.map(formatMissingTask).join('\n')}
 

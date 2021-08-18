@@ -1,1 +1,1 @@
-release: npx dotcom-tool-kit lifecycle release:remote
+release: npx dotcom-tool-kit release:remote

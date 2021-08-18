@@ -1,18 +1,18 @@
 import type { Plugin } from './plugin'
 
-export interface LifecycleAssignment {
+export interface HookTask {
   id: string
   plugin: Plugin
   tasks: string[]
 }
 
-export interface LifecycleClass {
+export interface HookClass {
   id?: string
   plugin?: Plugin
-  new (): Lifecycle
+  new (): Hook
 }
 
-export interface Lifecycle {
+export interface Hook {
   check(): Promise<boolean>
   install(): Promise<void>
 }

@@ -5,12 +5,12 @@ const argv = require('minimist')(process.argv.slice(2), {
    boolean: ['help', 'install']
 })
 
-const { runTasks, showHelp, installLifecycles } = require('../lib')
+const { runTasks, showHelp, installHooks } = require('../lib')
 
 async function main() {
    try {
       if(argv.install) {
-         await installLifecycles()
+         await installHooks()
       } else if(argv.help || argv._.length === 0) {
          await showHelp()
       } else {

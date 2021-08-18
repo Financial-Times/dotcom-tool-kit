@@ -3,7 +3,7 @@ import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
 
 import type { TaskClass } from '@dotcom-tool-kit/task'
-import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
+import type { HookTask, HookClass } from './hook'
 import { Conflict, isConflict } from './conflict'
 import { Config, PluginOptions } from './config'
 import { loadToolKitRC, RCFile } from './rc-file'
@@ -13,67 +13,65 @@ export interface Plugin {
   root: string
   parent?: Plugin
   tasks?: TaskClass[]
-  lifecycles?: {
-    [id: string]: LifecycleClass
+  hooks?: {
+    [id: string]: HookClass
   }
 }
 
 export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<Config> {
-  const { plugins = [], lifecycles = {}, options = {} } = await loadToolKitRC(plugin.root)
+  const { plugins = [], hooks = {}, options = {} } = await loadToolKitRC(plugin.root)
 
   // load any plugins requested by this plugin
   await loadPlugins(plugins, config, plugin)
 
-  // load plugin lifecycle assignments. do this after loading child plugins, so
-  // parent lifecycles get assigned after child lifecycles and can override them
+  // load plugin hook tasks. do this after loading child plugins, so
+  // parent hooks get assigned after child hooks and can override them
   mergeWith(
-    config.lifecycleAssignments,
-    lifecycles,
+    config.hookTasks,
+    hooks,
 
-    // handle conflicts between lifecycles from different plugins
+    // handle conflicts between hooks from different plugins
     (
-      existingLifecycle: LifecycleAssignment | Conflict<LifecycleAssignment> | undefined,
-      configLifecycle: string | string[],
+      existingHookTask: HookTask | Conflict<HookTask> | undefined,
+      configHookTask: string | string[],
       id
-    ): LifecycleAssignment | Conflict<LifecycleAssignment> => {
-      const newLifecycle: LifecycleAssignment = {
+    ): HookTask | Conflict<HookTask> => {
+      const newHookTask: HookTask = {
         id,
         plugin,
-        tasks: Array.isArray(configLifecycle) ? configLifecycle : [configLifecycle]
+        tasks: Array.isArray(configHookTask) ? configHookTask : [configHookTask]
       }
 
-      // this lifecycle might not have been set yet, in which case use the new one
-      if (!existingLifecycle) {
-        return newLifecycle
+      // this hook task might not have been set yet, in which case use the new one
+      if (!existingHookTask) {
+        return newHookTask
       }
 
       const existingFromSibling =
-        existingLifecycle.plugin.parent && existingLifecycle.plugin.parent === plugin.parent
+        existingHookTask.plugin.parent && existingHookTask.plugin.parent === plugin.parent
 
-      // if the existing lifecycle was from a sibling, that's a conflict
-      // return a conflict either listing this lifecycle and the siblings,
-      // or merging in a previously-generated lifecycle
+      // if the existing hook was from a sibling, that's a conflict
+      // return a conflict either listing this hook and the siblings,
+      // or merging in a previously-generated hook
       if (existingFromSibling) {
-        const conflicting = isConflict(existingLifecycle)
-          ? existingLifecycle.conflicting
-          : [existingLifecycle]
+        const conflicting = isConflict(existingHookTask) ? existingHookTask.conflicting : [existingHookTask]
 
-        const conflict: Conflict<LifecycleAssignment> = {
+        const conflict: Conflict<HookTask> = {
           plugin,
-          conflicting: conflicting.concat(newLifecycle)
+          conflicting: conflicting.concat(newHookTask)
         }
 
         return conflict
       }
 
-      // if we're here, any existing lifecycle is from a child plugin,
+      // if we're here, any existing hook is from a child plugin,
       // so the parent always overrides it
-      return newLifecycle
+      return newHookTask
     }
   )
 
   // merge options from this plugin's config with any options we've collected already
-  // TODO this is almost the exact same code as for lifecycles, refactor
+  // TODO this is almost the exact same code as for hooks, refactor
   mergeWith(
     config.options,
     options,
@@ -84,7 +82,7 @@ export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<
         forPlugin: config.plugins[id]
       }
 
-      // this lifecycle might not have been set yet, in which case use the new one
+      // this options key might not have been set yet, in which case use the new one
       if (!existingOptions) {
         return pluginOptions
       }
@@ -160,29 +158,29 @@ export async function loadPlugin(id: string, config: Config, parent?: Plugin): P
     }
   )
 
-  // add lifecycles to the registry, handling any conflicts
+  // add hooks to the registry, handling any conflicts
   // TODO refactor with command conflict handler
   mergeWith(
-    config.lifecycles,
-    plugin.lifecycles,
+    config.hooks,
+    plugin.hooks,
 
     (
-      existingLifecycle: LifecycleClass | Conflict<LifecycleClass>,
-      newLifecycle: LifecycleClass,
-      lifecycleId
-    ): LifecycleClass | Conflict<LifecycleClass> => {
-      newLifecycle.id = lifecycleId
-      newLifecycle.plugin = plugin
+      existingHook: HookClass | Conflict<HookClass>,
+      newHook: HookClass,
+      hookId
+    ): HookClass | Conflict<HookClass> => {
+      newHook.id = hookId
+      newHook.plugin = plugin
 
-      if (!existingLifecycle) {
-        return newLifecycle
+      if (!existingHook) {
+        return newHook
       }
 
-      const conflicting = isConflict(existingLifecycle) ? existingLifecycle.conflicting : [existingLifecycle]
+      const conflicting = isConflict(existingHook) ? existingHook.conflicting : [existingHook]
 
       return {
         plugin,
-        conflicting: conflicting.concat(newLifecycle)
+        conflicting: conflicting.concat(newHook)
       }
     }
   )

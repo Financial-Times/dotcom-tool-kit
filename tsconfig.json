@@ -44,7 +44,7 @@
       "path": "packages/task"
     },
     {
-      "path": "packages/lifecycle-package-json"
+      "path": "packages/package-json-hook"
     },
     {
       "path": "packages/circleci"
