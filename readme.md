@@ -10,7 +10,7 @@ Tool Kit is under active develpment. Anything can and probably will change.
 
 ## Development
 
-Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export commands that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
+Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export tasks that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
 
 Tool Kit requires Node v12. To install the dependencies and link internal packages together, run:
 
@@ -18,9 +18,9 @@ Tool Kit requires Node v12. To install the dependencies and link internal packag
 npm install
 ```
 
-There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit help` to see what commands are available.
+There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
 
-Tool Kit commands are implemented via a simple `async run()` function, and written in Typescript.
+Tool Kit tasks are implemented via a simple `async run()` function, and written in Typescript.
 
 In the future, there will be unit and integration tests for every package.
 
@@ -53,7 +53,7 @@ To allow apps to choose what they run, a hook defined by one plugin can be confi
 
 For example, the `npm` plugin defines a `test:local` hook to be run by the `test` script in your package.json (i.e., what is run when you call `npm run test`) but it doesn't define what tests to run itself. That's handled by a plugin like `mocha`, which can be configured to run on the `test:local` hook, to run your Mocha test suite when you run `npm run test`.
 
-Plugins can set a default command to run on a particular hook, to reduce configuration for common cases. For example, the `mocha` plugin configures itself to `test:*` hooks by default.
+Plugins can set a default task to run on a particular hook, to reduce configuration for common cases. For example, the `mocha` plugin configures itself to `test:*` hooks by default.
 
 Plugins can also define default hooks for other plugins they depend on, allowing you to install preset plugins for common use cases that define and configure tasks for all the hooks your app needs.
 
@@ -96,7 +96,7 @@ A list of Tool Kit plugins to load. These plugins should be listed as `devDepend
 
 #### `options`
 
-An object containing options for Tool Kit plugins. The keys are the names of plugins, and the values are an options object which will be passed into that plugin's commands:
+An object containing options for Tool Kit plugins. The keys are the names of plugins, and the values are an options object which will be passed into that plugin's tasks:
 
 ```yaml
 options:
@@ -129,31 +129,28 @@ If multiple plugins try to configure the same hooks, that's a conflict, and you 
 
 ## Plugin structure
 
-Tool Kit plugins are Node modules. Any code in the entry point of the plugin will be run when Tool Kit starts up and loads the plugin. If a plugin includes commands, it should export a `commands` object, which maps command IDs to [command classes](#commands):
+Tool Kit plugins are Node modules. Any code in the entry point of the plugin will be run when Tool Kit starts up and loads the plugin. If a plugin includes tasks, it should export a `tasks` array, contains [task classes](#tasks):
 
 ```typescript
-import Webpack from './commands/webpack'
+import Webpack from './tasks/webpack'
 
-export const commands = {
-   'webpack': Webpack
+export const tasks = [ Webpack ]
 }
 ```
 
-### Commands
+### Tasks
 
-A command extends the class `Command`, implementing its abstract asynchronous `run` function. You should also specify a `description` field which will be displayed in the help menu. Note that any options for the plugin defined in the configuration will be passed to the `options` field.
+A task extends the class `Task`, implementing its abstract asynchronous `run` function. You should also specify a `description` field which will be displayed in the help menu. Note that any options for the plugin defined in the configuration will be passed to the `options` field.
 
 ```typescript
-import { Command } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/task'
 
 type WebpackOptions = {
   configPath?: string
 }
 
-export default class Webpack extends Command {
+export default class Webpack extends Task<WebpackOptions> {
   static description = 'bundle your code with webpack'
-
-  options: WebpackOptions = {}
 
   async run(): Promise<void> {
     // do things here
