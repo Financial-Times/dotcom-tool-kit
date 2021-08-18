@@ -3,6 +3,6 @@ plugins:
   - '@dotcom-tool-kit/heroku'
 
 lifecycles:
-  'deploy:review': 'heroku:review'
-  'deploy:staging': 'heroku:staging'
-  'deploy:production': 'heroku:production'
+  'deploy:review': HerokuReview
+  'deploy:staging': HerokuStaging
+  'deploy:production': HerokuProduction

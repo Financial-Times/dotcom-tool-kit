@@ -15,5 +15,5 @@
     "directory": "packages/task"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/command"
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/task"
 }

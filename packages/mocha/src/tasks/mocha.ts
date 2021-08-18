@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/task'
-import Mocha from 'mocha'
+import MochaCore from 'mocha'
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
@@ -7,7 +7,7 @@ type MochaOptions = {
   files: string
 }
 
-export default class MochaTask extends Task {
+export default class Mocha extends Task {
   static description = ''
 
   options: MochaOptions = {
@@ -15,7 +15,7 @@ export default class MochaTask extends Task {
   }
 
   async run(): Promise<void> {
-    const mocha = new Mocha()
+    const mocha = new MochaCore()
 
     const files = glob.sync(this.options.files)
     if (files.length === 0) {
