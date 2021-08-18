@@ -6,7 +6,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 const isRejected = (result: PromiseSettledResult<unknown>): result is PromiseRejectedResult =>
   result.status === 'rejected'
 
-export default async function install() {
+export default async function installLifecycles() {
   const config = await loadConfig({ checkInstall: false })
 
   const results = await Promise.allSettled(

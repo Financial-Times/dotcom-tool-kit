@@ -1,8 +1,8 @@
-import { ToolKitError } from '@dotcom-tool-kit/error/src'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import { loadConfig } from './config'
 import { loadPluginConfig } from './plugin'
 
-export async function runTask(lifecycles: string[]): Promise<void> {
+export async function runTasks(lifecycles: string[]): Promise<void> {
   const config = await loadConfig()
 
   const availableLifecycles = Object.keys(config.lifecycles)
@@ -37,3 +37,6 @@ ${availableLifecycles}`
     }
   }
 }
+
+export { default as showHelp } from './help'
+export { default as installLifecycles } from './install'

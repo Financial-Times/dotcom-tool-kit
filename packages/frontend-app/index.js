@@ -1,1 +1,1 @@
-exports.tasks = {}
+exports.tasks = []

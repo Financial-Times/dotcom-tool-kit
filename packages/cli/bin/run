@@ -1,14 +1,21 @@
 #!/usr/bin/env node
 
-const { load, runTask } = require('../lib')
 const c = require('ansi-colors')
+const argv = require('minimist')(process.argv.slice(2), {
+   boolean: ['help', 'install']
+})
 
-const [task, ...argv] = process.argv.slice(2)
+const { runTasks, showHelp, installLifecycles } = require('../lib')
 
 async function main() {
    try {
-      await load()
-      await runTask(task, argv)
+      if(argv.install) {
+         await installLifecycles()
+      } else if(argv.help || argv._.length === 0) {
+         await showHelp()
+      } else {
+         await runTasks(argv._)
+      }
    } catch(error) {
       if(error.details) {
          console.error(

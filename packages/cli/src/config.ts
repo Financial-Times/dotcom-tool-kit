@@ -132,5 +132,5 @@ export async function loadConfig({ checkInstall = true } = {}): Promise<ValidCon
     createConfig()
   )
 
-  return validateConfig(config)
+  return validateConfig(config, { checkInstall })
 }

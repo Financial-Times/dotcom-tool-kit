@@ -116,7 +116,7 @@ export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<
 }
 
 export async function loadPlugin(id: string, config: Config, parent?: Plugin): Promise<Plugin> {
-  // don't load duplicate commands
+  // don't load duplicate plugins
   if (id in config.plugins) {
     return config.plugins[id]
   }
