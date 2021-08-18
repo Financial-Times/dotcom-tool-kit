@@ -10,15 +10,18 @@ const configPath = path.relative('', configAbsolutePath)
 
 describe('n-test', () => {
   it('should pass when no errors', async () => {
-    const task = new NTest([])
-    task.options.config = configPath
+    const task = new NTest({
+      config: configPath
+    })
 
     await task.run()
   })
 
   it('should fail when there are errors', async () => {
-    const task = new NTest([])
-    task.options.config = configPath
+    const task = new NTest({
+      config: configPath
+    })
+
     puppeteer.__setResponseStatus(404)
 
     expect.assertions(1)
@@ -31,8 +34,10 @@ describe('n-test', () => {
 
   it('should get app name from state', async () => {
     writeState('review', { appName: 'some-test-app' })
-    const task = new NTest([])
-    task.options.config = configPath
+    const task = new NTest({
+      config: configPath
+    })
+
     try {
       await task.run()
     } catch {}

@@ -6,18 +6,21 @@ import Mocha from '../../src/tasks/mocha'
 
 describe('mocha', () => {
   it('should succeed with passing tests', async () => {
-    const command = new Mocha([])
-    command.options.files = path.resolve(__dirname, '../files/pass') + '/**/*.js'
-    await command.run()
+    const task = new Mocha({
+      files: path.resolve(__dirname, '../files/pass') + '/**/*.js'
+    })
+
+    await task.run()
   })
 
   it('should throw with failing tests', async () => {
-    const command = new Mocha([])
-    command.options.files = path.resolve(__dirname, '../files/fail') + '/**/*.js'
+    const task = new Mocha({
+      files: path.resolve(__dirname, '../files/fail') + '/**/*.js'
+    })
 
     expect.assertions(1)
     try {
-      await command.run()
+      await task.run()
     } catch (err) {
       expect(err).toBeTruthy()
     }
