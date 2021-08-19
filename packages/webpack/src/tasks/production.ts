@@ -3,7 +3,6 @@ import runWebpack, { WebpackOptions } from '../run-webpack'
 
 export default class WebpackProduction extends Task<WebpackOptions> {
   static description = 'build webpack'
-  static hidden = true
 
   async run(): Promise<void> {
     await runWebpack({

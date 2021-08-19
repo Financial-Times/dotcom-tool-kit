@@ -9,6 +9,7 @@ export interface HookTask {
 export interface HookClass {
   id?: string
   plugin?: Plugin
+  description?: string
   new (): Hook
 }
 

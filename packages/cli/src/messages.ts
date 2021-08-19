@@ -15,8 +15,14 @@ const s = {
   URL: colours.cyan.underline,
   app: colours.green,
   heading: colours.bold,
-  dim: colours.grey
+  dim: colours.grey,
+  title: colours.bold.underline,
+  error: (string: string) => `${colours.red.bold('‼︎')} ${s.title(string)}`,
+  warning: (string: string) => `${colours.yellow.bold('⚠︎')} ${s.title(string)}`,
+  ruler: () => s.dim('─'.repeat(process.stdout.columns / 2))
 }
+
+export { s as styles }
 
 const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>
   `- ${s.task(conflict.conflicting[0].id || 'unknown task')} ${s.dim(
