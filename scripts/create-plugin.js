@@ -17,7 +17,7 @@ console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
 console.log('📥 installing dependencies')
-execSync('npm install ../command')
+execSync('npm install ../task')
 
 console.log('🔣 adding metadata to package.json')
 
@@ -45,7 +45,7 @@ const tsconfig = {
   },
   references: [
     {
-      path: '../command'
+      path: '../task'
     }
   ]
 }
@@ -61,14 +61,14 @@ rootTsconfig.references.push({ path: directory })
 
 fs.writeFileSync('../../tsconfig.json', JSON.stringify(rootTsconfig, null, 2))
 
-console.log(`🏗 scaffolding command ${camelCaseName}`)
-fs.mkdirSync('src/commands', { recursive: true })
+console.log(`🏗 scaffolding task ${camelCaseName}`)
+fs.mkdirSync('src/tasks', { recursive: true })
 
 fs.writeFileSync(
-  `src/commands/${name}.ts`,
-  `import { Command } from '@dotcom-tool-kit/command'
+  `src/tasks/${name}.ts`,
+  `import { Task} from '@dotcom-tool-kit/task'
 
-export default class ${camelCaseName} extends Command {
+export default class ${camelCaseName} extends Task {
    static description = ''
 
    async run(): Promise<void> {
@@ -79,9 +79,9 @@ export default class ${camelCaseName} extends Command {
 
 fs.writeFileSync(
   'src/index.ts',
-  `import ${camelCaseName} from './commands/${name}'
+  `import ${camelCaseName} from './tasks/${name}'
 
-export const commands = {
+export const tasks = {
   '${name}': ${camelCaseName}
 }
 `

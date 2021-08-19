@@ -10,7 +10,7 @@ Tool Kit is under active develpment. Anything can and probably will change.
 
 ## Development
 
-Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export commands that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
+Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export tasks that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
 
 Tool Kit requires Node v12. To install the dependencies and link internal packages together, run:
 
@@ -18,9 +18,9 @@ Tool Kit requires Node v12. To install the dependencies and link internal packag
 npm install
 ```
 
-There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit help` to see what commands are available.
+There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
 
-Tool Kit commands are implemented via a simple `async run()` function, and written in Typescript.
+Tool Kit tasks are implemented via a simple `async run()` function, and written in Typescript.
 
 In the future, there will be unit and integration tests for every package.
 
@@ -43,25 +43,25 @@ npm install ../name-of-plugin
 
 and [add the plugin](#plugins) to `packages/sandbox/.toolkitrc.yml`.
 
-## Lifecycles
+## Hooks
 
-Tool Kit manages the build lifecycle for your app. Plugins can define **lifecycle events** that can be run by developers, or other tooling like CI and hosting platforms. These events are things like `build`, `test` and `deploy` that are run during development, on CI servers, and
+Tool Kit manages the build lifecycle for your app. Plugins can define **hooks** that can be run by developers, or other tooling like CI and hosting platforms. Hooks are things like `build`, `test` and `deploy` that are run during development, on CI servers, and on hosting platforms.
 
-Tool Kit plugins manage the configuration to run their lifecycle events automatically from other tooling. When Tool Kit loads, it verifies the configuration exists, and exits if something is missing. You can run `npx dotcom-tool-kit install`, which will install most configuration automatically, and provide instructions to follow for any configuration it can't automatically install.
+Tool Kit plugins manage the configuration to run their hooks automatically from other tooling. When Tool Kit loads, it verifies the configuration exists, and exits if something is missing. You can run `npx dotcom-tool-kit --install`, which will install most configuration automatically, and provide instructions to follow for any configuration it can't automatically install.
 
-To allow apps to choose what they run, a lifecycle event defined by one plugin can be **assigned** to run a command from another plugin.
+To allow apps to choose what they run, a hook defined by one plugin can be configured to run a task from another plugin.
 
-For example, the `npm` plugin defines a `test:local` event to be run by the `test` script in your package.json (i.e., what is run when you call `npm run test`,) but it doesn't define what tests to run itself. That's handled by a plugin like `mocha`, which can be assigned to the `test:local` event to run your Mocha test suite when you run `npm run test`.
+For example, the `npm` plugin defines a `test:local` hook to be run by the `test` script in your package.json (i.e., what is run when you call `npm run test`) but it doesn't define what tests to run itself. That's handled by a plugin like `mocha`, which can be configured to run on the `test:local` hook, to run your Mocha test suite when you run `npm run test`.
 
-Plugins can set a default command to run on a particular lifecycle event, to reduce configuration for common cases. For example, the `mocha` plugin assigns itself to `test:*` events by default.
+Plugins can set a default task to run on a particular hook, to reduce configuration for common cases. For example, the `mocha` plugin configures itself to `test:*` hooks by default.
 
-Plugins can also define default events for other plugins they depend on, allowing you to install preset plugins for common use cases that define and set up assignments for all the lifecycle events your app needs.
+Plugins can also define default hooks for other plugins they depend on, allowing you to install preset plugins for common use cases that define and configure tasks for all the hooks your app needs.
 
-If you, or a plugin, tries to assign a command to a lifecycle event that doesn't exist (which could be because you've not installed the plugin that defines it, or you've made a typo), Tool Kit will error, and list the available events.
+If you, or a plugin, tries to configure a task to run on a hook that doesn't exist (which could be because you've not installed the plugin that defines it, or you've made a typo), Tool Kit will error, and list the available hooks.
 
-If you have multiple plugins installed that assign different commands to the same events, you'll need to [resolve the conflict](docs/resolving-lifecycle-conflicts.md).
+If you have multiple plugins installed that configure different tasks to run on the same hame, you'll need to [resolve the conflict](docs/resolving-hook-conflicts.md).
 
-### Plugins that define lifecycle events
+### Plugins that define hooks
 
 - [`circleci`](packages/circleci/readme.md)
 - [`heroku`](packages/heroku/readme.md)
@@ -96,7 +96,7 @@ A list of Tool Kit plugins to load. These plugins should be listed as `devDepend
 
 #### `options`
 
-An object containing options for Tool Kit plugins. The keys are the names of plugins, and the values are an options object which will be passed into that plugin's commands:
+An object containing options for Tool Kit plugins. The keys are the names of plugins, and the values are an options object which will be passed into that plugin's tasks:
 
 ```yaml
 options:
@@ -105,55 +105,52 @@ options:
       - "**/*.js"
 ```
 
-#### `lifecycles`
+#### `hooks`
 
-An object assigning [lifecycle events](#events) to commands:
+An object configuring which tasks run on which [hooks](#hooks):
 
 ```yaml
-lifecycles:
-  "build:local": "webpack:development"
+hooks:
+  "build:local": WebpackDevelopment
 ```
 
-A lifecycle can be assigned to a single command, or a list of commands, which will run in sequence:
+A hook can be configured to run a single task, or a list of task, which will run in sequence:
 
 ```yaml
-lifecycles:
+hooks:
   "build:local":
-    - "webpack:development"
-    - "babel:development"
+    - WebpackDevelopment
+    - BabelDevelopment
 ```
 
-A plugin can list its own commands, or commands from any of the plugins it depends on. Plugins list their own commands as a default assignment.
+A plugin can list its own tasks, or tasks from any other plugin included by the app.
 
-If multiple plugins that are depended on by the same plugin set the same default event assignments, that's a conflict, and you won't be able to run Tool Kit without [resolving the conflict](docs/resolving-lifecycle-conflicts.md) in the parent plugin, or your app.
+If multiple plugins try to configure the same hooks, that's a conflict, and you won't be able to run Tool Kit without [resolving the conflict](docs/resolving-hook-conflicts.md) in a parent plugin, or your app.
 
 ## Plugin structure
 
-Tool Kit plugins are Node modules. Any code in the entry point of the plugin will be run when Tool Kit starts up and loads the plugin. If a plugin includes commands, it should export a `commands` object, which maps command IDs to [command classes](#commands):
+Tool Kit plugins are Node modules. Any code in the entry point of the plugin will be run when Tool Kit starts up and loads the plugin. If a plugin includes tasks, it should export a `tasks` array, contains [task classes](#tasks):
 
 ```typescript
-import Webpack from './commands/webpack'
+import Webpack from './tasks/webpack'
 
-export const commands = {
-   'webpack': Webpack
+export const tasks = [ Webpack ]
 }
 ```
 
-### Commands
+### Tasks
 
-A command extends the class `Command`, implementing its abstract asynchronous `run` function. You should also specify a `description` field which will be displayed in the help menu. Note that any options for the plugin defined in the configuration will be passed to the `options` field.
+A task extends the class `Task`, implementing its abstract asynchronous `run` function. You should also specify a `description` field which will be displayed in the help menu. Note that any options for the plugin defined in the configuration will be passed to the `options` field.
 
 ```typescript
-import { Command } from '@dotcom-tool-kit/command'
+import { Task } from '@dotcom-tool-kit/task'
 
 type WebpackOptions = {
   configPath?: string
 }
 
-export default class Webpack extends Command {
+export default class Webpack extends Task<WebpackOptions> {
   static description = 'bundle your code with webpack'
-
-  options: WebpackOptions = {}
 
   async run(): Promise<void> {
     // do things here

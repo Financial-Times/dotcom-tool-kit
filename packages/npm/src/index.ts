@@ -1,18 +1,22 @@
-import { PackageJsonLifecycleInstaller } from '@dotcom-tool-kit/lifecycle-package-json'
+import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
 
-class BuildLocal extends PackageJsonLifecycleInstaller {
+class BuildLocal extends PackageJsonHook {
+  static description = 'hook for `npm run build`, for building an app locally'
+
   script = 'build'
-  command = 'dotcom-tool-kit lifecycle build:local'
+  command = 'dotcom-tool-kit build:local'
 }
 
-class TestLocal extends PackageJsonLifecycleInstaller {
+class TestLocal extends PackageJsonHook {
+  static description = 'hook for `npm run test`, for running tests locally'
+
   script = 'test'
-  command = 'dotcom-tool-kit lifecycle test:local'
+  command = 'dotcom-tool-kit test:local'
 }
 
-export { PackageJsonLifecycleInstaller }
+export { PackageJsonHook }
 
-export const lifecycles = {
+export const hooks = {
   'build:local': BuildLocal,
   'test:local': TestLocal
 }

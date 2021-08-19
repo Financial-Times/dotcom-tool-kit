@@ -5,7 +5,7 @@
       "path": "../error"
     },
     {
-      "path": "../command"
+      "path": "../task"
     }
   ],
   "include": ["src/**/*"],

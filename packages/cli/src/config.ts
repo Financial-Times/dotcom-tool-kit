@@ -1,21 +1,19 @@
 import path from 'path'
 
-import type { CommandClass } from './command'
-import type { LifecycleAssignment, LifecycleClass } from './lifecycle'
-import type { Plugin } from './plugin'
+import type { TaskClass } from '@dotcom-tool-kit/task'
+import type { HookTask, HookClass } from './hook'
+import { loadPluginConfig, Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import {
-  formatCommandConflicts,
-  formatUndefinedLifecycleAssignments,
-  formatLifecycleAssignmentConflicts,
-  formatLifecycleConflicts,
+  formatTaskConflicts,
+  formatUndefinedHookTasks,
+  formatHookTaskConflicts,
+  formatHookConflicts,
   formatOptionConflicts,
-  formatUninstalledLifecycles
+  formatUninstalledHooks,
+  formatMissingTasks
 } from './messages'
-import HelpCommand from './commands/help'
-import LifecycleCommand from './commands/lifecycle'
-import InstallCommand from './commands/install'
 
 export interface PluginOptions {
   options: Record<string, unknown>
@@ -25,36 +23,30 @@ export interface PluginOptions {
 
 export interface Config {
   root: string
-  findCommand(): boolean
   plugins: { [id: string]: Plugin }
-  commands: { [id: string]: CommandClass | Conflict<CommandClass> }
-  lifecycleAssignments: { [id: string]: LifecycleAssignment | Conflict<LifecycleAssignment> }
-  options: { [id: string]: PluginOptions | Conflict<PluginOptions> }
-  lifecycles: { [id: string]: LifecycleClass | Conflict<LifecycleClass> }
+  tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
+  hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
+  options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
+  hooks: { [id: string]: HookClass | Conflict<HookClass> }
 }
 
 export interface ValidConfig extends Config {
-  commands: { [id: string]: CommandClass }
-  lifecycleAssignments: { [id: string]: LifecycleAssignment }
+  tasks: { [id: string]: TaskClass }
+  hookTasks: { [id: string]: HookTask }
   options: { [id: string]: PluginOptions }
-  lifecycles: { [id: string]: LifecycleClass }
+  hooks: { [id: string]: HookClass }
 }
 
 const coreRoot = path.resolve(__dirname, '../')
 
-export const config: Config = {
+const createConfig = (): Config => ({
   root: coreRoot,
-  findCommand: () => false,
   plugins: {},
-  commands: {
-    help: HelpCommand,
-    lifecycle: LifecycleCommand,
-    install: InstallCommand
-  },
-  lifecycleAssignments: {},
+  tasks: {},
+  hookTasks: {},
   options: {},
-  lifecycles: {}
-}
+  hooks: {}
+})
 
 async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
   const results = await Promise.all(items.map(async (item) => ({ item, keep: await predicate(item) })))
@@ -63,9 +55,9 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
 }
 
 export async function validateConfig(config: Config, { checkInstall = true } = {}): Promise<ValidConfig> {
-  const lifecycleAssignmentConflicts = findConflicts(Object.values(config.lifecycleAssignments))
-  const lifecycleConflicts = findConflicts(Object.values(config.lifecycles))
-  const commandConflicts = findConflicts(Object.values(config.commands))
+  const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
+  const hookConflicts = findConflicts(Object.values(config.hooks))
+  const taskConflicts = findConflicts(Object.values(config.tasks))
   const optionConflicts = findConflicts(Object.values(config.options))
 
   let shouldThrow = false
@@ -73,23 +65,23 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   error.details = ''
 
   if (
-    lifecycleConflicts.length > 0 ||
-    lifecycleAssignmentConflicts.length > 0 ||
-    commandConflicts.length > 0 ||
+    hookConflicts.length > 0 ||
+    hookTaskConflicts.length > 0 ||
+    taskConflicts.length > 0 ||
     optionConflicts.length > 0
   ) {
     shouldThrow = true
 
-    if (lifecycleConflicts.length) {
-      error.details += formatLifecycleConflicts(lifecycleConflicts)
+    if (hookConflicts.length) {
+      error.details += formatHookConflicts(hookConflicts)
     }
 
-    if (lifecycleAssignmentConflicts.length) {
-      error.details += formatLifecycleAssignmentConflicts(lifecycleAssignmentConflicts)
+    if (hookTaskConflicts.length) {
+      error.details += formatHookTaskConflicts(hookTaskConflicts)
     }
 
-    if (commandConflicts.length) {
-      error.details += formatCommandConflicts(commandConflicts)
+    if (taskConflicts.length) {
+      error.details += formatTaskConflicts(taskConflicts)
     }
 
     if (optionConflicts.length) {
@@ -97,30 +89,37 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
     }
   }
 
-  const assignedLifecycles = withoutConflicts(Object.values(config.lifecycleAssignments))
-  const definedLifecycles = withoutConflicts(Object.values(config.lifecycles))
-  const definedLifecycleIds = new Set(Object.keys(config.lifecycles))
-  const undefinedLifecycleAssignments = assignedLifecycles.filter(
-    (lifecycle) => !definedLifecycleIds.has(lifecycle.id)
-  )
+  const configuredHookTasks = withoutConflicts(Object.values(config.hookTasks))
+  const definedHooks = withoutConflicts(Object.values(config.hooks))
+  const definedHookIds = new Set(Object.keys(config.hooks))
+  const undefinedHookTasks = configuredHookTasks.filter((hook) => !definedHookIds.has(hook.id))
 
-  if (undefinedLifecycleAssignments.length > 0) {
+  if (undefinedHookTasks.length > 0) {
     shouldThrow = true
-    error.details += formatUndefinedLifecycleAssignments(
-      undefinedLifecycleAssignments,
-      Array.from(definedLifecycleIds)
-    )
+    error.details += formatUndefinedHookTasks(undefinedHookTasks, Array.from(definedHookIds))
+  }
+
+  const missingTasks = configuredHookTasks
+    .map((hook) => ({
+      hook,
+      tasks: hook.tasks.filter((id) => !config.tasks[id])
+    }))
+    .filter(({ tasks }) => tasks.length > 0)
+
+  if (missingTasks.length > 0) {
+    shouldThrow = true
+    error.details += formatMissingTasks(missingTasks, Object.keys(config.tasks))
   }
 
   if (checkInstall) {
-    const uninstalledLifecycles = await asyncFilter(definedLifecycles, async (Lifecycle) => {
-      const lifecycle = new Lifecycle()
-      return !(await lifecycle.check())
+    const uninstalledHooks = await asyncFilter(definedHooks, async (Hook) => {
+      const hook = new Hook()
+      return !(await hook.check())
     })
 
-    if (uninstalledLifecycles.length > 0) {
+    if (uninstalledHooks.length > 0) {
       shouldThrow = true
-      error.details += formatUninstalledLifecycles(uninstalledLifecycles)
+      error.details += formatUninstalledHooks(uninstalledHooks)
     }
   }
 
@@ -129,4 +128,22 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   }
 
   return config as ValidConfig
+}
+
+export function loadConfig(options?: { validate?: true; checkInstall?: boolean }): Promise<ValidConfig>
+export function loadConfig(options?: { validate?: false; checkInstall?: boolean }): Promise<Config>
+
+export async function loadConfig({ validate = true, checkInstall = true } = {}): Promise<
+  ValidConfig | Config
+> {
+  // start loading config and child plugins, starting from the consumer app directory
+  const config = await loadPluginConfig(
+    {
+      id: 'app root',
+      root: process.cwd()
+    },
+    createConfig()
+  )
+
+  return validate ? validateConfig(config, { checkInstall }) : config
 }

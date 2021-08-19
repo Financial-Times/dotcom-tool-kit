@@ -1,5 +1,3 @@
-import Mocha from './commands/mocha'
+import Mocha from './tasks/mocha'
 
-export const commands = {
-  mocha: Mocha
-}
+export const tasks = [Mocha]

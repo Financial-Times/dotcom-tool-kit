@@ -16,10 +16,10 @@ options:
   '@dotcom-tool-kit/n-test':
     host: 'https://example.com'
 
-lifecycles:
+hooks:
   'test:local':
-    - 'mocha'
-    - 'eslint'
+    - Mocha
+    - Eslint
   'test:ci':
-    - 'mocha'
-    - 'eslint'
+    - Mocha
+    - Eslint

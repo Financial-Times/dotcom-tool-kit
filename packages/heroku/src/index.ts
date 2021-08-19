@@ -1,15 +1,15 @@
-import HerokuProduction from './commands/production'
-import HerokuStaging from './commands/staging'
-import HerokuReview from './commands/review'
-import HerokuCleanup from './commands/cleanup'
-import { PackageJsonLifecycleInstaller } from '@dotcom-tool-kit/lifecycle-package-json'
+import HerokuProduction from './tasks/production'
+import HerokuStaging from './tasks/staging'
+import HerokuReview from './tasks/review'
+import HerokuCleanup from './tasks/cleanup'
+import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import path from 'path'
 import { promises as fs } from 'fs'
 
-class BuildRemote extends PackageJsonLifecycleInstaller {
+class BuildRemote extends PackageJsonHook {
   script = 'heroku-postbuild'
-  command = 'dotcom-tool-kit lifecycle build:remote'
+  command = 'dotcom-tool-kit build:remote'
 }
 
 type ProcfileEntry = { process: string; command: string }
@@ -20,7 +20,7 @@ function isProcfileError(thing: ProcfileEntry | ProcfileError): thing is Procfil
   return 'error' in thing
 }
 
-abstract class ProcfileLifecycleInstaller {
+abstract class ProcfileHook {
   _procfile?: Procfile
   abstract process: string
   abstract command: string
@@ -113,19 +113,14 @@ abstract class ProcfileLifecycleInstaller {
   }
 }
 
-class ReleaseRemote extends ProcfileLifecycleInstaller {
+class ReleaseRemote extends ProcfileHook {
   process = 'release'
-  command = 'npx dotcom-tool-kit lifecycle release:remote'
+  command = 'npx dotcom-tool-kit release:remote'
 }
 
-export const lifecycles = {
+export const hooks = {
   'build:remote': BuildRemote,
   'release:remote': ReleaseRemote
 }
 
-export const commands = {
-  'heroku:production': HerokuProduction,
-  'heroku:staging': HerokuStaging,
-  'heroku:review': HerokuReview,
-  'heroku:cleanup': HerokuCleanup
-}
+export const tasks = [HerokuProduction, HerokuStaging, HerokuReview, HerokuCleanup]

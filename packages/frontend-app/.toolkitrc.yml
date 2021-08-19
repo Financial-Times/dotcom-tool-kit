@@ -2,13 +2,13 @@ plugins:
   - '@dotcom-tool-kit/webpack'
   - '@dotcom-tool-kit/babel'
 
-lifecycles:
+hooks:
   'build:local':
-    - 'webpack:development'
-    - 'babel:development'
+    - WebpackDevelopment
+    - BabelDevelopment
   'build:ci':
-    - 'webpack:production'
-    - 'babel:production'
+    - WebpackProduction
+    - BabelProduction
   'build:remote':
-    - 'webpack:production'
-    - 'babel:production'
+    - WebpackProduction
+    - BabelProduction

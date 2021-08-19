@@ -1,7 +1,4 @@
-import WebpackDevelopment from './commands/webpack/development'
-import WebpackProduction from './commands/webpack/production'
+import WebpackDevelopment from './tasks/development'
+import WebpackProduction from './tasks/production'
 
-export const commands = {
-  'webpack:development': WebpackDevelopment,
-  'webpack:production': WebpackProduction
-}
+export const tasks = [WebpackDevelopment, WebpackProduction]

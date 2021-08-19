@@ -1,6 +1,6 @@
 # `heroku` Tool Kit plugin
 
-This plugin handles deploying apps to Heroku. It also manages Tool Kit lifecycle events that are run during Heroku builds.
+This plugin handles deploying apps to Heroku. It also manages Tool Kit hooks that are run during Heroku builds.
 
 ## Installation
 
@@ -17,10 +17,10 @@ plugins:
 	- '@dotcom-tool-kit/heroku'
 ```
 
-And install this plugin's lifecycle events:
+And install this plugin's hooks:
 
 ```sh
-npx dotcom-tool-kit install
+npx dotcom-tool-kit --install
 ```
 
 This plugin cannot currently automatically install itself to heroku configuration, so it will exit, and explain what you need to include in the config.
@@ -29,7 +29,7 @@ This plugin cannot currently automatically install itself to heroku configuratio
 
 TODO
 
-## Lifecycle events
+## Hooks
 
 | Event | Description | Installed to... |
 |-|-|-|

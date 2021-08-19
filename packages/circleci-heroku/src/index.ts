@@ -1,21 +1,21 @@
-import CircleCiConfigLifecycle from '@dotcom-tool-kit/circleci/lib/circleci-config'
+import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
 
-class DeployReview extends CircleCiConfigLifecycle {
-  script = 'npx dotcom-tool-kit lifecycle deploy:review'
+class DeployReview extends CircleCiConfigHook {
+  script = 'npx dotcom-tool-kit deploy:review'
   job = 'provision'
 }
 
-class DeployStaging extends CircleCiConfigLifecycle {
-  script = 'npx dotcom-tool-kit lifecycle deploy:staging'
+class DeployStaging extends CircleCiConfigHook {
+  script = 'npx dotcom-tool-kit deploy:staging'
   job = 'deploy'
 }
 
-class DeployProduction extends CircleCiConfigLifecycle {
-  script = 'npx dotcom-tool-kit lifecycle deploy:production'
+class DeployProduction extends CircleCiConfigHook {
+  script = 'npx dotcom-tool-kit deploy:production'
   job = 'promote'
 }
 
-export const lifecycles = {
+export const hooks = {
   'deploy:review': DeployReview,
   'deploy:staging': DeployStaging,
   'deploy:production': DeployProduction

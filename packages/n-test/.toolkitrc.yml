@@ -1,2 +1,2 @@
-lifecycles:
-  'test:remote': 'n-test'
+hooks:
+  'test:remote': NTest

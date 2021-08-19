@@ -6,7 +6,7 @@
   },
   "references": [
     {
-      "path": "../lifecycle-package-json"
+      "path": "../package-json-hook"
     }
   ]
 }

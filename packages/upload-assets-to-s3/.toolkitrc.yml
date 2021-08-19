@@ -1,5 +1,5 @@
-lifecycles:
-  'release:deploy': 'upload-static-assets'
+hooks:
+  'release:deploy': UploadAssetsToS3
 
 options:
   '@dotcom-tool-kit/upload-static-assets':

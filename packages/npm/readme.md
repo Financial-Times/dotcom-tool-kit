@@ -1,6 +1,6 @@
 # `npm` Tool Kit plugin
 
-This plugin is for managing Tool Kit lifecycle events that are run from npm scripts (such as `npm run test`).
+This plugin is for managing Tool Kit hooks that are run from npm scripts (such as `npm run test`).
 
 ## Installation
 
@@ -17,15 +17,15 @@ plugins:
 	- '@dotcom-tool-kit/npm'
 ```
 
-And install this plugin's lifecycle events:
+And install this plugin's hooks:
 
 ```sh
-npx dotcom-tool-kit install
+npx dotcom-tool-kit --install
 ```
 
 This will modify your `package.json`. You should commit this change.
 
-## Lifecycle events
+## Hooks
 
 | Event | Description | Installed to...|
 |-|-|-|

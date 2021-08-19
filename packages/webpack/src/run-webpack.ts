@@ -2,9 +2,18 @@ import { fork } from 'child_process'
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
-export default function runWebpack(argv: string[], mode: 'production' | 'development'): Promise<void> {
+export type WebpackOptions = {
+  configPath?: string
+  mode: 'production' | 'development'
+}
+
+export default function runWebpack(options: WebpackOptions): Promise<void> {
   return new Promise((resolve, reject) => {
-    const child = fork(webpackCLIPath, ['build', `--mode=${mode}`, ...argv])
+    const child = fork(webpackCLIPath, [
+      'build',
+      `--mode=${options.mode}`,
+      options.configPath ? `--config=${options.configPath}` : ''
+    ])
 
     child.on('exit', (code) => {
       if (code === 0) {

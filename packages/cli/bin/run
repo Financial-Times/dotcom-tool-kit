@@ -1,19 +1,26 @@
 #!/usr/bin/env node
 
-const { load, runCommand } = require('../lib')
 const c = require('ansi-colors')
+const argv = require('minimist')(process.argv.slice(2), {
+   boolean: ['help', 'install']
+})
 
-const [command, ...argv] = process.argv.slice(2)
+const { runTasks, showHelp, installHooks } = require('../lib')
+const { styles } = require('../lib/messages')
 
 async function main() {
    try {
-      await load()
-      await runCommand(command, argv)
+      if(argv.install) {
+         await installHooks()
+      } else if(argv.help || argv._.length === 0) {
+         await showHelp(argv._)
+      } else {
+         await runTasks(argv._)
+      }
    } catch(error) {
       if(error.details) {
          console.error(
-            c.red.bold('‼︎') + ' ' +
-            c.bold.underline(error.message) + '\n\n' +
+            styles.error(error.message) + '\n\n' +
             error.details
          )
       } else {

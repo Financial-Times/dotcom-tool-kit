@@ -1,32 +1,40 @@
-import { validateConfig, config } from './config'
-import { loadPluginConfig } from './plugin'
+import { ToolKitError } from '@dotcom-tool-kit/error'
+import { loadConfig } from './config'
 
-export async function load(): Promise<void> {
-  // start loading config and child plugins, starting from the consumer app directory
-  await loadPluginConfig({
-    id: 'app root',
-    root: process.cwd()
-  })
-}
+export async function runTasks(hooks: string[]): Promise<void> {
+  const config = await loadConfig()
 
-export async function runCommand(id: string, argv: string[]): Promise<void> {
-  const validConfig = await validateConfig(config, {
-    // don't check if lifecycles are installed if we're trying to install them
-    checkInstall: id !== 'install'
-  })
+  const availableHooks = Object.keys(config.hooks)
+    .sort()
+    .map((id) => `- ${id}`)
+    .join('\n')
 
-  if (!(id in validConfig.commands)) {
-    // TODO improve error message
-    throw new Error(`command "${id}" not found`)
+  const missingHooks = hooks.filter((id) => !config.hooks[id])
+
+  if (missingHooks.length > 0) {
+    const error = new ToolKitError(`hooks ${missingHooks} do not exist`)
+    error.details = `maybe you need to install a plugin to handle these hooks, or configure them in your Tool Kit configuration.
+
+hooks that are available are:
+${availableHooks}`
+    throw error
   }
 
-  const Command = validConfig.commands[id]
-  const command = new Command(argv)
+  for (const hook of hooks) {
+    const assignment = config.hookTasks[hook]
 
-  // attach any options from config files to the command instance
-  if (Command.plugin && validConfig.options[Command.plugin.id]) {
-    command.options = validConfig.options[Command.plugin.id].options
+    for (const id of assignment.tasks) {
+      const Task = config.tasks[id]
+      const options = Task.plugin ? config.options[Task.plugin.id]?.options : {}
+
+      // `Task` is an abstract class. here we know it's a concrete subclass
+      // but typescript doesn't, so cast it to any.
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const task = new (Task as any)(options)
+      await task.run()
+    }
   }
-
-  return command.run()
 }
+
+export { default as showHelp } from './help'
+export { default as installHooks } from './install'

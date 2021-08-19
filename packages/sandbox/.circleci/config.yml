@@ -1,28 +1,28 @@
-# fake circleci config only for testing CircleCI-related lifecycle event validation
+# fake circleci config only for testing CircleCI-related hook validation
 
 version: 2
 
 jobs:
   build:
     steps:
-      - run: 'npx dotcom-tool-kit lifecycle build:ci'
+      - run: 'npx dotcom-tool-kit build:ci'
 
   test:
     steps:
-      - run: 'npx dotcom-tool-kit lifecycle test:ci'
+      - run: 'npx dotcom-tool-kit test:ci'
 
   e2e-test:
     steps:
-      - run: 'npx dotcom-tool-kit lifecycle test:remote'
+      - run: 'npx dotcom-tool-kit test:remote'
 
   provision:
     steps:
-      - run: 'npx dotcom-tool-kit lifecycle deploy:review'
+      - run: 'npx dotcom-tool-kit deploy:review'
 
   deploy:
     steps:
-      - run: 'npx dotcom-tool-kit lifecycle deploy:staging'
+      - run: 'npx dotcom-tool-kit deploy:staging'
 
   promote:
     steps:
-      - run: 'npx dotcom-tool-kit lifecycle deploy:production'
+      - run: 'npx dotcom-tool-kit deploy:production'

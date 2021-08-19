@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/circleci": "file:../circleci",
-    "@dotcom-tool-kit/command": "file:../command",
+    "@dotcom-tool-kit/task": "file:../task",
     "@dotcom-tool-kit/heroku": "file:../heroku"
   },
   "repository": {
