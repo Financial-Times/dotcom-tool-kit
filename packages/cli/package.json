@@ -22,12 +22,10 @@
   "devDependencies": {
     "@dotcom-tool-kit/task": "file:../task",
     "@jest/globals": "^26.6.2",
-    "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.mergewith": "^4.6.6",
     "chai": "^4.3.4",
     "globby": "^10.0.2",
     "jest": "^26.6.3",
-    "lodash.clonedeep": "^4.5.0",
     "ts-jest": "^26.5.6",
     "ts-node": "^8.10.2"
   },

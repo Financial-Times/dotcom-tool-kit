@@ -15,8 +15,6 @@ import {
   formatMissingTasks
 } from './messages'
 
-import util from 'util'
-
 export interface PluginOptions {
   options: Record<string, unknown>
   plugin: Plugin

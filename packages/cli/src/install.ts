@@ -1,12 +1,10 @@
-import { isConflict } from './conflict'
 import { loadConfig } from './config'
-import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const isRejected = (result: PromiseSettledResult<unknown>): result is PromiseRejectedResult =>
   result.status === 'rejected'
 
-export default async function installHooks() {
+export default async function installHooks(): Promise<void> {
   const config = await loadConfig({ checkInstall: false })
 
   const results = await Promise.allSettled(

@@ -1,5 +1,4 @@
-import { describe, jest, it, expect, afterEach } from '@jest/globals'
-import cloneDeep from 'lodash.clonedeep'
+import { describe, jest, it, expect } from '@jest/globals'
 import * as path from 'path'
 import { ToolKitError } from '../../error'
 import { Config, loadConfig, validateConfig } from '../src/config'

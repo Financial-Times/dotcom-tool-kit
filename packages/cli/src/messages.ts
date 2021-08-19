@@ -17,9 +17,9 @@ const s = {
   heading: colours.bold,
   dim: colours.grey,
   title: colours.bold.underline,
-  error: (string: string) => `${colours.red.bold('‼︎')} ${s.title(string)}`,
-  warning: (string: string) => `${colours.yellow.bold('⚠︎')} ${s.title(string)}`,
-  ruler: () => s.dim('─'.repeat(process.stdout.columns / 2))
+  error: (string: string): string => `${colours.red.bold('‼︎')} ${s.title(string)}`,
+  warning: (string: string): string => `${colours.yellow.bold('⚠︎')} ${s.title(string)}`,
+  ruler: (): string => s.dim('─'.repeat(process.stdout.columns / 2))
 }
 
 export { s as styles }

@@ -1,9 +1,7 @@
-import { isConflict } from './conflict'
-import { Task } from '@dotcom-tool-kit/task'
 import { loadConfig } from './config'
 import { styles } from './messages'
 
-export default async function showHelp(hooks: string[]) {
+export default async function showHelp(hooks: string[]): Promise<void> {
   const config = await loadConfig({ checkInstall: false })
 
   if (hooks.length === 0) {
