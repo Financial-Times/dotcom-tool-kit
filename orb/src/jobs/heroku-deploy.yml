@@ -1,0 +1,12 @@
+description: >
+  Sample description
+# What will this job do?
+# Descriptions should be short, simple, and clear.
+
+executor: node/default
+
+steps:
+  - attach-workspace
+  - run:
+      name: Deploy to staging
+      command: npx dotcom-tool-kit lifecycle deploy:staging

@@ -1,0 +1,11 @@
+description: >
+  Sample description
+# What will this job do?
+# Descriptions should be short, simple, and clear.
+
+executor: node/default
+
+steps:
+  - checkout
+  - node/install-packages
+  - persist-workspace

@@ -1,0 +1,20 @@
+description: >
+  Sample description
+# What will this job do?
+# Descriptions should be short, simple, and clear.
+
+executor: node/default
+
+steps:
+  - attach-workspace
+  - run:
+      name: Run tests
+      command: "npx dotcom-tool-kit lifecycle test:ci"
+      environment:
+        JEST_JUNIT_OUTPUT: test-results/jest/results.xml # TODO change depending on which test plugin is running? or actually, move this into the plugin? or do it as tool kit config. hmm
+        MOCHA_FILE: test-results/mocha/results.xml
+  - store_test_results:
+      path: test-results
+  - store_artifacts:
+      path: test-results
+      destination: test-results

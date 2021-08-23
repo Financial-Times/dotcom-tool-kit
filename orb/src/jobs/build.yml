@@ -1,0 +1,12 @@
+description: >
+  Sample description
+# What will this job do?
+# Descriptions should be short, simple, and clear.
+
+executor: node/default
+
+steps:
+  - attach-workspace
+  - run:
+      name: Run the project build-production task
+      command: npx dotcom-tool-kit lifecycle build:ci
