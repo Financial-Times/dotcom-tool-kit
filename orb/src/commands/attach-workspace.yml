@@ -1,7 +1,6 @@
 description: >
-  This command echos "Hello World" using file inclusion.
-# What will this command do?
-# Descriptions should be short, simple, and clear.
+  Attaches workspace to the current working directory. Useful when you want to
+  reuse artifacts from a previous job.
 
 steps:
   - attach_workspace:

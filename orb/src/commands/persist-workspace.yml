@@ -1,7 +1,6 @@
 description: >
-  This command echos "Hello World" using file inclusion.
-# What will this command do?
-# Descriptions should be short, simple, and clear.
+  Stores current working directory as a workspace. Useful when you want to store
+  artifacts for subsequent jobs to use.
 
 steps:
   - persist_to_workspace:
