@@ -1,5 +1,5 @@
 import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
-import CleanUp from './tasks/cleanup'
+import NpmPrune from './tasks/npm-prune'
 
 class BuildLocal extends PackageJsonHook {
   static description = 'hook for `npm run build`, for building an app locally'
@@ -22,4 +22,4 @@ export const hooks = {
   'test:local': TestLocal
 }
 
-export const tasks = [CleanUp]
+export const tasks = [NpmPrune]

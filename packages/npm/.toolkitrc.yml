@@ -1,2 +1,2 @@
 hooks:
-  'cleanup:remote': CleanUp
+  'cleanup:remote': NpmPrune
