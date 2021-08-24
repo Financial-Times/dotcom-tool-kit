@@ -2,7 +2,7 @@ import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import exec from '@actions/exec'
 
-export default class HerokuCleanup extends Task {
+export default class HerokuCleanUp extends Task {
   static description = ''
 
   async run(): Promise<void> {
