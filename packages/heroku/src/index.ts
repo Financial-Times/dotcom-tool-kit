@@ -2,7 +2,6 @@ import HerokuProduction from './tasks/production'
 import HerokuStaging from './tasks/staging'
 import HerokuReview from './tasks/review'
 import HerokuTeardown from './tasks/teardown'
-import HerokuCleanUp from './tasks/cleanup'
 import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import path from 'path'
@@ -130,4 +129,4 @@ export const hooks = {
   'cleanup:remote': CleanupRemote
 }
 
-export const tasks = [HerokuProduction, HerokuStaging, HerokuReview, HerokuTeardown, HerokuCleanUp]
+export const tasks = [HerokuProduction, HerokuStaging, HerokuReview, HerokuTeardown]
