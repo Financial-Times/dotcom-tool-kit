@@ -1,0 +1,5 @@
+plugins:
+  - '@dotcom-tool-kit/npm'
+
+hooks:
+  'cleanup:remote': NpmPrune
