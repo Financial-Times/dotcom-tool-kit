@@ -5,7 +5,7 @@ class DeployReview extends CircleCiConfigHook {
 }
 
 class DeployStaging extends CircleCiConfigHook {
-  job = 'tool-kit/heroku-deploy'
+  job = 'tool-kit/heroku-staging'
 }
 
 class DeployProduction extends CircleCiConfigHook {
