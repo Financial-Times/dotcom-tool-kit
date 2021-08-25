@@ -1,9 +1,8 @@
 plugins:
   - '../../../../webpack'
   - '../../../../babel'
-  - '../../../../npm' # for build:local hook
   - '../../../../circleci' # for build:ci hook
-  - '../../../../heroku' # for build:remote hook
+  - '../../../../heroku' # for build:remote hook and build:local via npm plugin
 
 options:
 

@@ -3,6 +3,31 @@
 exports[`cli should load plugins correctly 1`] = `
 Object {
   "hookTasks": Object {
+    "cleanup:remote": Object {
+      "id": "cleanup:remote",
+      "plugin": Object {
+        "hooks": Object {
+          "build:remote": [Function],
+          "cleanup:remote": [Function],
+          "release:remote": [Function],
+        },
+        "id": "../../../../heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/heroku/lib/index.js",
+        "tasks": Array [
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+        ],
+      },
+      "tasks": Array [
+        "NpmPrune",
+      ],
+    },
     "test:ci": Object {
       "id": "test:ci",
       "plugin": Object {
@@ -46,6 +71,9 @@ Object {
   "hooks": Object {
     "build:ci": [Function],
     "build:local": [Function],
+    "build:remote": [Function],
+    "cleanup:remote": [Function],
+    "release:remote": [Function],
     "test:ci": [Function],
     "test:local": [Function],
     "test:remote": [Function],
@@ -173,6 +201,25 @@ Object {
         [Function],
       ],
     },
+    "../../../../heroku": Object {
+      "hooks": Object {
+        "build:remote": [Function],
+        "cleanup:remote": [Function],
+        "release:remote": [Function],
+      },
+      "id": "../../../../heroku",
+      "parent": Object {
+        "id": "successful test root",
+        "root": "packages/cli/test/files/successful",
+      },
+      "root": "packages/heroku/lib/index.js",
+      "tasks": Array [
+        [Function],
+        [Function],
+        [Function],
+        [Function],
+      ],
+    },
     "../../../../mocha": Object {
       "id": "../../../../mocha",
       "parent": Object {
@@ -195,16 +242,31 @@ Object {
         [Function],
       ],
     },
-    "../../../../npm": Object {
+    "@dotcom-tool-kit/npm": Object {
       "PackageJsonHook": [Function],
       "hooks": Object {
         "build:local": [Function],
         "test:local": [Function],
       },
-      "id": "../../../../npm",
+      "id": "@dotcom-tool-kit/npm",
       "parent": Object {
-        "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
+        "hooks": Object {
+          "build:remote": [Function],
+          "cleanup:remote": [Function],
+          "release:remote": [Function],
+        },
+        "id": "../../../../heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/heroku/lib/index.js",
+        "tasks": Array [
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+        ],
       },
       "root": "packages/npm/lib/index.js",
       "tasks": Array [
@@ -215,6 +277,10 @@ Object {
   "root": "packages/cli",
   "tasks": Object {
     "Eslint": [Function],
+    "HerokuProduction": [Function],
+    "HerokuReview": [Function],
+    "HerokuStaging": [Function],
+    "HerokuTeardown": [Function],
     "Mocha": [Function],
     "NTest": [Function],
     "NpmPrune": [Function],

@@ -1,5 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { loadConfig } from './config'
+import { styles } from './messages'
 
 export async function runTasks(hooks: string[]): Promise<void> {
   const config = await loadConfig()
@@ -21,6 +22,10 @@ ${availableHooks}`
   }
 
   for (const hook of hooks) {
+    if (!config.hookTasks[hook]) {
+      console.warn(styles.warning(`no task configured for ${hook}: skipping assignment...}`))
+      continue
+    }
     const assignment = config.hookTasks[hook]
 
     for (const id of assignment.tasks) {
