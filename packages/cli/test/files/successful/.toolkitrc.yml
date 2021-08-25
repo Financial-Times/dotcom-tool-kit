@@ -2,7 +2,7 @@ plugins:
   - '../../../../eslint'
   - '../../../../mocha'
   - '../../../../n-test'
-  - '../../../../npm' # for test:local hook
+  - '../../../../heroku' # for test:local hook via npm plugin
   - '../../../../circleci' # for test:ci hook
 
 options:

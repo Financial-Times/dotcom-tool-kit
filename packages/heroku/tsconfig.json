@@ -18,6 +18,9 @@
     },
     {
       "path": "../package-json-hook"
+    },
+    {
+      "path": "../npm"
     }
   ],
   "compilerOptions": {

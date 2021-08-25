@@ -3,7 +3,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import scaleDyno from '../scaleDyno'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-export default class HerokuCleanup extends Task {
+export default class HerokuTeardown extends Task {
   static description = ''
 
   async run(): Promise<void> {

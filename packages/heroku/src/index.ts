@@ -1,7 +1,7 @@
 import HerokuProduction from './tasks/production'
 import HerokuStaging from './tasks/staging'
 import HerokuReview from './tasks/review'
-import HerokuCleanup from './tasks/cleanup'
+import HerokuTeardown from './tasks/teardown'
 import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import path from 'path'
@@ -10,6 +10,11 @@ import { promises as fs } from 'fs'
 class BuildRemote extends PackageJsonHook {
   script = 'heroku-postbuild'
   command = 'dotcom-tool-kit build:remote'
+}
+
+class CleanupRemote extends PackageJsonHook {
+  script = 'heroku-cleanup'
+  command = 'dotcom-tool-kit cleanup:remote'
 }
 
 type ProcfileEntry = { process: string; command: string }
@@ -120,7 +125,8 @@ class ReleaseRemote extends ProcfileHook {
 
 export const hooks = {
   'build:remote': BuildRemote,
-  'release:remote': ReleaseRemote
+  'release:remote': ReleaseRemote,
+  'cleanup:remote': CleanupRemote
 }
 
-export const tasks = [HerokuProduction, HerokuStaging, HerokuReview, HerokuCleanup]
+export const tasks = [HerokuProduction, HerokuStaging, HerokuReview, HerokuTeardown]
