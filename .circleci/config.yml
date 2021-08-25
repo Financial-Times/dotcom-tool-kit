@@ -169,7 +169,8 @@ workflows:
   orb-test-pack:
     unless: << pipeline.parameters.run-integration-tests >>
     jobs:
-      - orb-tools/lint # Lint Yaml files
+      - orb-tools/lint: # Lint Yaml files
+          lint-dir: orb
       - orb-tools/pack: # Pack orb source
           source-dir: orb/src
       # Publish development version(s) of the orb.
