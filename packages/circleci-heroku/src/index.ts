@@ -1,18 +1,15 @@
 import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
 
 class DeployReview extends CircleCiConfigHook {
-  script = 'npx dotcom-tool-kit deploy:review'
-  job = 'provision'
+  job = 'tool-kit/heroku-provision'
 }
 
 class DeployStaging extends CircleCiConfigHook {
-  script = 'npx dotcom-tool-kit deploy:staging'
-  job = 'deploy'
+  job = 'tool-kit/heroku-deploy'
 }
 
 class DeployProduction extends CircleCiConfigHook {
-  script = 'npx dotcom-tool-kit deploy:production'
-  job = 'promote'
+  job = 'tool-kit/heroku-promote'
 }
 
 export const hooks = {

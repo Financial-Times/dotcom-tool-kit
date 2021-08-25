@@ -2,18 +2,16 @@ import YAML from 'yawn-yaml/cjs'
 import path from 'path'
 import { promises as fs } from 'fs'
 
-type Step = {
-  run?:
-    | {
-        name: string
-        command: string
-      }
-    | string
+interface CircleConfig {
+  workflows?: {
+    [workflow: string]: {
+      jobs?: (string | { [job: string]: unknown })[]
+    }
+  }
 }
 
 export default abstract class CircleCiConfigHook {
   _circleConfig?: YAML
-  abstract script: string
   abstract job: string
 
   async getCircleConfig(): Promise<YAML> {
@@ -27,33 +25,33 @@ export default abstract class CircleCiConfigHook {
   }
 
   async check(): Promise<boolean> {
-    const circleConfig = await this.getCircleConfig()
-    const steps = circleConfig.json.jobs?.[this.job]?.steps as Step[] | undefined
-    if (!steps) {
-      // if the CircleCI config isn't what we expect (e.g. doesn't even have the right jobs)
-      // return false so the install runs and explains the situation. this isn't ideal but
-      // we can't easily control the overall structure of the config until we do orbs
+    const { workflows } = (await this.getCircleConfig()).json as CircleConfig
+    // If the config has just one workflow defined check that one, else check
+    // the workflow named 'tool-kit'
+    const workflowName =
+      workflows && Object.keys(workflows).length === 2
+        ? // If the objects has two keys we know at least one isn't 'version'
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          Object.keys(workflows).find((workflow) => workflow !== 'version')!
+        : 'tool-kit'
+    const workflow = workflows?.[workflowName]
+    const jobs = workflow?.jobs
+    if (!jobs) {
       return false
     }
 
-    for (const step of steps) {
-      if (typeof step.run === 'string' && step.run === this.script) {
-        return true
-      }
-
-      if (typeof step.run === 'object' && step.run.command === this.script) {
-        return true
-      }
-    }
-
-    return false
+    return jobs.some(
+      (job) =>
+        (typeof job === 'string' && job === this.job) ||
+        (typeof job === 'object' && job.hasOwnProperty(this.job))
+    )
   }
 
   async install(): Promise<void> {
     // TODO automate this? humans can probably do it better than computers
     // TODO orbs
     throw new Error(
-      `Please update your CircleCI config to run the command \`${this.script}\` in the steps of the \`${this.job}\` job`
+      `Please update your CircleCI config to include the \`${this.job}\` job in the 'tool-kit' workflow`
     )
   }
 }
