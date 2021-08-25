@@ -207,6 +207,9 @@ Object {
         "root": "packages/cli/test/files/successful",
       },
       "root": "packages/npm/lib/index.js",
+      "tasks": Array [
+        [Function],
+      ],
     },
   },
   "root": "packages/cli",
@@ -214,6 +217,7 @@ Object {
     "Eslint": [Function],
     "Mocha": [Function],
     "NTest": [Function],
+    "NpmPrune": [Function],
   },
 }
 `;
