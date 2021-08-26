@@ -2,8 +2,13 @@ import * as yaml from 'js-yaml'
 import path from 'path'
 import { promises as fs } from 'fs'
 
+type JobConfig = {
+  requires?: string[]
+  filters?: { branches: { only?: string; ignore?: string } }
+}
+
 type Workflow = {
-  jobs?: (string | { [job: string]: unknown })[]
+  jobs?: (string | { [job: string]: JobConfig })[]
 }
 
 interface CircleConfig {
@@ -22,6 +27,7 @@ export default abstract class CircleCiConfigHook {
   _circleConfigRaw?: string
   _circleConfig?: CircleConfig
   abstract job: string
+  jobOptions: JobConfig = {}
 
   async getCircleConfigRaw(): Promise<string | undefined> {
     if (!this._circleConfigRaw) {
@@ -84,7 +90,20 @@ export default abstract class CircleCiConfigHook {
     const config = (await this.getCircleConfig()) ?? {
       version: 2.1,
       orbs: { 'tool-kit': 'financial-times/dotcom-tool-kit@dev:alpha' },
-      workflows: { version: 2, 'tool-kit': { jobs: [] } }
+      workflows: {
+        version: 2,
+        'tool-kit': {
+          jobs: [
+            'tool-kit/setup',
+            {
+              'waiting-for-approval': {
+                type: 'approval',
+                filters: { branches: { only: '/(^renovate-.*|^nori/.*)/' } }
+              }
+            }
+          ]
+        }
+      }
     }
 
     if (!(config.workflows?.['tool-kit'] as Workflow).jobs) {
@@ -96,8 +115,9 @@ export default abstract class CircleCiConfigHook {
     // properties here
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const workflow = config.workflows!['tool-kit'] as Workflow
+    const job = this.jobOptions ? { [this.job]: this.jobOptions } : this.job
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    workflow.jobs!.push(this.job)
+    workflow.jobs!.push(job)
 
     const serialised = automatedComment + yaml.dump(config)
     await fs.writeFile(this.circleConfigPath, serialised)
