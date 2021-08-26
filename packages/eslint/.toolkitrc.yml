@@ -1,6 +1,6 @@
 hooks:
-  'test:local': 'eslint'
-  'test:ci': 'eslint'
+  'test:local': Eslint
+  'test:ci': Eslint
 
 options:
   '@dotcom-tool-kit/eslint':

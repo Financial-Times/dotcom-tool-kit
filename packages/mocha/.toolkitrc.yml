@@ -1,6 +1,6 @@
 hooks:
-  'test:local': 'mocha'
-  'test:ci': 'mocha'
+  'test:local': Mocha
+  'test:ci': Mocha
 
 options:
   '@dotcom-tool-kit/mocha':
