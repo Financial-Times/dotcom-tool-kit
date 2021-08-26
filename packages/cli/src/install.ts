@@ -7,17 +7,22 @@ const isRejected = (result: PromiseSettledResult<unknown>): result is PromiseRej
 export default async function installHooks(): Promise<void> {
   const config = await loadConfig({ checkInstall: false })
 
-  const results = await Promise.allSettled(
-    Object.values(config.hooks).map(async (Hook) => {
-      const hook = new Hook()
+  const tasks = Object.values(config.hooks).map((Hook) => async () => {
+    const hook = new Hook()
 
-      if (!(await hook.check())) {
-        await hook.install()
-      }
-    })
-  )
+    if (!(await hook.check())) {
+      await hook.install()
+    }
+  })
 
-  const errors = results.filter(isRejected).map((result) => result.reason as Error)
+  const errors: Error[] = []
+  for (const task of tasks) {
+    try {
+      await task()
+    } catch (err) {
+      errors.push(err)
+    }
+  }
 
   if (errors.length) {
     const error = new ToolKitError('could not automatically install hooks:')
