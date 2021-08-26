@@ -6,7 +6,8 @@ type Step = {
   run?:
     | {
         name: string
-        task: string
+        task?: string
+        command?: string
       }
     | string
 }
@@ -41,7 +42,7 @@ export default abstract class CircleCiConfigHook {
         return true
       }
 
-      if (typeof step.run === 'object' && step.run.task === this.script) {
+      if (typeof step.run === 'object' && step.run.command === this.script) {
         return true
       }
     }
