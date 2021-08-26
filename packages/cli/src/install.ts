@@ -1,9 +1,6 @@
 import { loadConfig } from './config'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-const isRejected = (result: PromiseSettledResult<unknown>): result is PromiseRejectedResult =>
-  result.status === 'rejected'
-
 export default async function installHooks(): Promise<void> {
   const config = await loadConfig({ checkInstall: false })
 
