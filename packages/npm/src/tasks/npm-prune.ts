@@ -7,7 +7,9 @@ export default class NpmPrune extends Task {
 
   async run(): Promise<void> {
     try {
-      await exec.exec(`npm prune --production`)
+      await exec.exec(`npm prune --production`, [], {
+        cwd: './'
+      })
     } catch {
       throw new ToolKitError(`Unable to prune dev dependencies`)
     }
