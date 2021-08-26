@@ -6,8 +6,7 @@ type Step = {
   run?:
     | {
         name: string
-        task?: string
-        command?: string
+        command: string
       }
     | string
 }
