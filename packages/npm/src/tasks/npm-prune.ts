@@ -1,6 +1,6 @@
 import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import exec from '@actions/exec'
+import * as exec from '@actions/exec'
 
 export default class NpmPrune extends Task {
   static description = ''
