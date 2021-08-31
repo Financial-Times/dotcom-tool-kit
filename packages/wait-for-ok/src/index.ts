@@ -19,13 +19,13 @@ export default function waitForOk(url: string): Promise<void> {
         console.log(
           `❌ ${url} not ok, it's responding with status of ${response.status}, response.ok: ${response.ok}`
         )
-      } catch (error) {
-        if (error.type && error.type === 'request-timeout') {
+      } catch (err) {
+        if (err.type && err.type === 'request-timeout') {
           console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that.`)
           console.log("You're amazing, by the way. I don't say that often enough. But you really are.")
         } else {
           clearInterval(checker)
-          return reject(new Error(`😿 ${url} Error: ${error}`))
+          return reject(new Error(`😿 ${url} Error: ${err}`))
         }
       }
     }
