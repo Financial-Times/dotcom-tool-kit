@@ -26,6 +26,10 @@ export abstract class PackageJsonHook {
   }
 
   async install(): Promise<void> {
+    const existingCommand = this.packageJson.getField<Scripts>('scripts')[this.script]
+    if (existingCommand && existingCommand.startsWith('dotcom-tool-kit')) {
+      this.command = this.command.concat(existingCommand.replace('dotcom-tool-kit', ''))
+    }
     this.packageJson.requireScript({
       stage: this.script,
       command: this.command
