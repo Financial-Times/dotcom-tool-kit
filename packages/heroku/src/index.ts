@@ -6,17 +6,17 @@ import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
 
 class BuildRemote extends PackageJsonHook {
   script = 'heroku-postbuild'
-  command = 'dotcom-tool-kit build:remote'
+  hook = 'build:remote'
 }
 
 class CleanupRemote extends PackageJsonHook {
   script = 'heroku-cleanup'
-  command = 'dotcom-tool-kit cleanup:remote'
+  hook = 'cleanup:remote'
 }
 
 class ReleaseRemote extends PackageJsonHook {
   script = 'heroku-postbuild'
-  command = 'dotcom-tool-kit release:remote'
+  hook = 'release:remote'
 }
 
 export const hooks = {
