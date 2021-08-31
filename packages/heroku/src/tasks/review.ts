@@ -70,7 +70,9 @@ options:
       }
 
       const error = new ToolKitError(`Error building review-app`)
-      error.details = err.message
+      if (err instanceof Error) {
+        error.details = err.message
+      }
       throw error
     }
   }
