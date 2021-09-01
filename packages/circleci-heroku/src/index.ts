@@ -14,19 +14,26 @@ export class DeployStaging extends CircleCiConfigHook {
   jobOptions = { requires: ['tool-kit/setup'], filters: { branches: { only: 'main' } } }
 }
 
-export class TestRemote extends CircleCiConfigHook {
-  job = 'tool-kit/e2e-test'
-  jobOptions = { requires: [new DeployReview().job, new DeployStaging().job] }
+export class TestReview extends CircleCiConfigHook {
+  job = 'tool-kit/e2e-test-review'
+  jobOptions = { requires: [new DeployReview().job] }
+}
+
+export class TestStaging extends CircleCiConfigHook {
+  job = 'tool-kit/e2e-test-staging'
+  jobOptions = { requires: [new DeployStaging().job] }
 }
 
 export class DeployProduction extends CircleCiConfigHook {
   job = 'tool-kit/heroku-promote'
-  jobOptions = { requires: [new TestCI().job, new TestRemote().job] }
+  jobOptions = { requires: [new TestCI().job, new TestStaging().job] }
 }
 
 export const hooks = {
   'deploy:review': DeployReview,
   'deploy:staging': DeployStaging,
-  'test:remote': TestRemote,
+  'test:review': TestReview,
+  'test:staging': TestStaging,
+  'teardown:staging': TestStaging,
   'deploy:production': DeployProduction
 }

@@ -1,0 +1,13 @@
+executor:
+  name: node/default
+  tag: '12'
+
+steps:
+  - attach-workspace
+  - run:
+      name: Run smoke tests on staging
+      command: npx dotcom-tool-kit test:staging
+  - run:
+      when: always
+      name: Scale down staging
+      command: npx dotcom-tool-kit teardown:staging

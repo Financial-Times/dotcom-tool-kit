@@ -1,2 +1,3 @@
 hooks:
-  'test:remote': NTest
+  'test:review': NTest
+  'test:staging': NTest
