@@ -133,7 +133,7 @@ export default abstract class CircleCiConfigHook {
 
     const currentVersion = await this.getVersionTag()
     if (!process.env.TOOL_KIT_FORCE_DEV_ORB && currentVersion && currentVersion !== developmentVersion) {
-      config.orbs = { 'tool-kit': `financial-times/dotcom-tool-kit@${currentVersion}` }
+      config.orbs['tool-kit'] = `financial-times/dotcom-tool-kit@${currentVersion}`
     }
 
     if (!(config.workflows?.['tool-kit'] as Workflow).jobs) {
