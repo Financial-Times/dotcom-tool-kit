@@ -30,4 +30,4 @@ Once approved, the development version of the orb will publish and the _trigger-
 
 The second and final workflow is manually triggered by the _trigger-integration-tests-workflow_ job. In this run, the development version of the orb that was just published will be imported, and the integration tests will run.
 
-When running on the `master` branch (after merging to `master`), the workflow will additionally publish your new production orb.
+When running on the `main` branch (after merging to `main`), the workflow will additionally publish your new production orb.
