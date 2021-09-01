@@ -1,4 +1,6 @@
-executor: node/default
+executor:
+  name: node/default
+  tag: "12"
 
 steps:
   - checkout
