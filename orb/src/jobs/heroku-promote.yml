@@ -2,7 +2,6 @@ executor: node/default
 
 steps:
   - attach-workspace
-  - run: npx snyk monitor --org=customer-products --project-name=Financial-Times/next-static # TODO don't think we need this? it only needs to have been run once
   - run:
       name: Deploy to production
       command: npx dotcom-tool-kit lifecycle deploy:production
