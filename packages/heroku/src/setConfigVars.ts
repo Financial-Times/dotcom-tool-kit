@@ -25,7 +25,9 @@ export default async function setConfigVars(
     console.log(`${appId} config vars have been updated successfully.`)
   } catch (err) {
     const error = new ToolKitError(`Error updating config vars`)
-    error.details = err.message
+    if (err instanceof Error) {
+      error.details = err.message
+    }
     throw error
   }
 }

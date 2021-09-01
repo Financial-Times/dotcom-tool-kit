@@ -23,7 +23,9 @@ export default class HerokuProduction extends Task {
       }
 
       const error = new ToolKitError(`There was a problem promoting staging production`)
-      error.details = err.message
+      if (err instanceof Error) {
+        error.details = err.message
+      }
       throw error
     }
   }

@@ -34,4 +34,4 @@ TODO
 | Event | Description | Installed to... |
 |-|-|-|
 | `build:remote` | Compile any assets or code required for your app to run. | `heroku-postbuild` script in `package.json` |
-| `release:remote` | Run any post-release tasks for an app, e.g. change notifications or database migration | `release` process in `Procfile` (i.e. Heroku's [Release Phase](https://devcenter.heroku.com/articles/release-phase)) |
+| `release:remote` | Run any post-release tasks for an app that require a tool-kit task, e.g. upload assets to s3 | `heroku-postbuild` script in `package.json` |

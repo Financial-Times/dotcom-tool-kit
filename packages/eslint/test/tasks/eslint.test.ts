@@ -1,3 +1,4 @@
+import { ToolKitError } from '@dotcom-tool-kit/error/lib'
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import ESLint from '../../src/tasks/eslint'
@@ -24,7 +25,7 @@ describe('eslint', () => {
     try {
       await task.run()
     } catch (err) {
-      expect(err.details).toContain('2 problems (1 error, 1 warning)')
+      if (err instanceof ToolKitError) expect(err.details).toContain('2 problems (1 error, 1 warning)')
     }
   })
 })

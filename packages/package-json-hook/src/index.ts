@@ -9,7 +9,7 @@ type Scripts = {
 export abstract class PackageJsonHook {
   _packageJson?: PackageJson
   abstract script: string
-  abstract command: string
+  abstract hook: string
 
   get packageJson(): PackageJson {
     if (!this._packageJson) {
@@ -22,13 +22,18 @@ export abstract class PackageJsonHook {
 
   async check(): Promise<boolean> {
     const scripts = this.packageJson.getField<Scripts>('scripts')
-    return scripts && scripts[this.script] === this.command
+    return scripts && scripts[this.script].includes(this.hook)
   }
 
   async install(): Promise<void> {
+    let command = `dotcom-tool-kit ${this.hook} `
+    const existingCommand = this.packageJson.getField<Scripts>('scripts')[this.script]
+    if (existingCommand && existingCommand.startsWith('dotcom-tool-kit ')) {
+      command = this.hook.concat(existingCommand.replace('dotcom-tool-kit', ''))
+    }
     this.packageJson.requireScript({
       stage: this.script,
-      command: this.command
+      command
     })
 
     this.packageJson.writeChanges()

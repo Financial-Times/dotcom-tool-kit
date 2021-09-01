@@ -57,7 +57,9 @@ export default class HerokuStaging extends Task {
       }
 
       const error = new ToolKitError(`There's an error with your staging app`)
-      error.details = err.message
+      if (err instanceof Error) {
+        error.details = err.message
+      }
       throw error
     }
   }
