@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd ../../ ; npx jest --silent --projects packages/package-json-hook"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -20,6 +20,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/package-json-hook",
   "devDependencies": {
+    "@jest/globals": "^26.6.2",
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json"
   },
   "files": [

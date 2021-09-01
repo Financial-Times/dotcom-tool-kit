@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "test-hook": "dotcom-tool-kit test:hook"
+  }
+}
