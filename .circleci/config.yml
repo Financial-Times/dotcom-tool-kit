@@ -195,20 +195,10 @@ workflows:
     jobs:
       # Run any integration tests defined within the `jobs` key.
       # - integration-test-1
-      # Publish a semver version of the orb. relies on
-      # the commit subject containing the text "[semver:patch|minor|major|skip]"
-      # as that will determine whether a patch, minor or major
-      # version will be published or if publishing should
-      # be skipped.
-      # e.g. [semver:patch] will cause a patch version to be published.
-      - orb-tools/dev-promote-prod-from-commit-subject:
-          orb-name: financial-times/dotcom-tool-kit
-          add-pr-comment: false
-          fail-if-semver-not-indicated: true
-          publish-version-tag: false
+      - orb-tools/publish:
+          # Strip leading 'v' from git tag
+          orb-ref: financial-times/dotcom-tool-kit:${CIRCLE_TAG:1}
           # requires:
           #   - integration-test-1
           filters:
-            branches:
-              only:
-                - main
+            <<: *filters_release_build
