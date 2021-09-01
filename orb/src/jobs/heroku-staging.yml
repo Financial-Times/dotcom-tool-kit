@@ -4,4 +4,4 @@ steps:
   - attach-workspace
   - run:
       name: Deploy to staging
-      command: npx dotcom-tool-kit lifecycle deploy:staging
+      command: npx dotcom-tool-kit deploy:staging

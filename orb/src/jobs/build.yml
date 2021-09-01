@@ -4,4 +4,4 @@ steps:
   - attach-workspace
   - run:
       name: Run the project build-production task
-      command: npx dotcom-tool-kit lifecycle build:ci
+      command: npx dotcom-tool-kit build:ci

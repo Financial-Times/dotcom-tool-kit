@@ -4,5 +4,5 @@ steps:
   - attach-workspace
   - run:
       name: Create and test Heroku review app
-      command: npx dotcom-tool-kit lifecycle deploy:review
+      command: npx dotcom-tool-kit deploy:review
   - persist-workspace

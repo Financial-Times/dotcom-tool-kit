@@ -4,4 +4,4 @@ steps:
   - attach-workspace
   - run:
       name: Deploy to production
-      command: npx dotcom-tool-kit lifecycle deploy:production
+      command: npx dotcom-tool-kit deploy:production
