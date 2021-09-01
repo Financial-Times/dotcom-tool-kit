@@ -26,5 +26,6 @@
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
-  }
+  },
+  "include": ["src/**/*"]
 }
