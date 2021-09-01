@@ -25,7 +25,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/vault",
   "files": [
-    "/bin",
-    "/lib"
+    "/lib",
+    ".toolkitrc.yml"
   ]
 }

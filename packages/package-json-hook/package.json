@@ -23,7 +23,7 @@
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json"
   },
   "files": [
-    "/bin",
-    "/lib"
+    "/lib",
+    ".toolkitrc.yml"
   ]
 }

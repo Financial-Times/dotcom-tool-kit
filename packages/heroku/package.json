@@ -36,7 +36,7 @@
     "@types/p-retry": "^3.0.1"
   },
   "files": [
-    "/bin",
-    "/lib"
+    "/lib",
+    ".toolkitrc.yml"
   ]
 }

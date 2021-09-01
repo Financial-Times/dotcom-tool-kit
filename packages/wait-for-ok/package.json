@@ -23,7 +23,7 @@
     "@types/node-fetch": "^2.5.10"
   },
   "files": [
-    "/bin",
-    "/lib"
+    "/lib",
+    ".toolkitrc.yml"
   ]
 }

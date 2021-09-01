@@ -31,7 +31,7 @@
     "webpack": "^4.42.1"
   },
   "files": [
-    "/bin",
-    "/lib"
+    "/lib",
+    ".toolkitrc.yml"
   ]
 }
