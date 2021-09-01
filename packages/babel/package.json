@@ -15,5 +15,9 @@
   "keywords": [],
   "dependencies": {
     "@dotcom-tool-kit/task": "file:../task"
-  }
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ]
 }

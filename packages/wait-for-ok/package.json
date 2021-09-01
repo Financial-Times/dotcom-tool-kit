@@ -21,5 +21,9 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/wait-for-ok",
   "devDependencies": {
     "@types/node-fetch": "^2.5.10"
-  }
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ]
 }

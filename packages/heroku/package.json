@@ -34,5 +34,9 @@
   "devDependencies": {
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json",
     "@types/p-retry": "^3.0.1"
-  }
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ]
 }

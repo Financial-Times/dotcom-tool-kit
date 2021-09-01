@@ -21,5 +21,9 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/package-json-hook",
   "devDependencies": {
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json"
-  }
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ]
 }
