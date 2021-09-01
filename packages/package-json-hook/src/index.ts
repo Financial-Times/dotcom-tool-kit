@@ -22,14 +22,14 @@ export abstract class PackageJsonHook {
 
   async check(): Promise<boolean> {
     const scripts = this.packageJson.getField<Scripts>('scripts')
-    return scripts && scripts[this.script].includes(this.hook)
+    return scripts && scripts[this.script]?.includes(this.hook)
   }
 
   async install(): Promise<void> {
-    let command = `dotcom-tool-kit ${this.hook} `
+    let command = `dotcom-tool-kit ${this.hook}`
     const existingCommand = this.packageJson.getField<Scripts>('scripts')[this.script]
     if (existingCommand && existingCommand.startsWith('dotcom-tool-kit ')) {
-      command = this.hook.concat(existingCommand.replace('dotcom-tool-kit', ''))
+      command = command.concat(existingCommand.replace('dotcom-tool-kit', ''))
     }
     this.packageJson.requireScript({
       stage: this.script,
