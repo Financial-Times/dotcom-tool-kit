@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "cd ../../ ; jest --silent --projects packages/upload-assets-to-s3"
+    "test": "cd ../../ ; npx jest --silent --projects packages/upload-assets-to-s3"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",

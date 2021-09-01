@@ -14,7 +14,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "keywords": [],
   "scripts": {
-    "test": "cd ../../ ; jest --silent --projects packages/circleci"
+    "test": "cd ../../ ; npx jest --silent --projects packages/circleci"
   },
   "dependencies": {
     "@dotcom-tool-kit/task": "file:../task",

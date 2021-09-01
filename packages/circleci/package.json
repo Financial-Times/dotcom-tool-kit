@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "cd ../../ ; jest --silent --projects packages/circleci"
+    "test": "cd ../../ ; npx jest --silent --projects packages/circleci"
   },
   "dependencies": {
     "@dotcom-tool-kit/state": "file:../state",

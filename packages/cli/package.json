@@ -17,7 +17,7 @@
     "dotcom-tool-kit": "./bin/run"
   },
   "scripts": {
-    "test": "cd ../../ ; jest --silent --projects packages/cli"
+    "test": "cd ../../ ; npx jest --silent --projects packages/cli"
   },
   "devDependencies": {
     "@dotcom-tool-kit/task": "file:../task",

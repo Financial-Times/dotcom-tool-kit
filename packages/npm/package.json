@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "cd ../../ ; jest --silent --projects packages/npm"
+    "test": "cd ../../ ; npx jest --silent --projects packages/npm"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
