@@ -15,5 +15,8 @@
     "directory": "packages/error"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/error"
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/error",
+  "files": [
+    "/lib"
+  ]
 }

@@ -22,5 +22,9 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/circleci",
   "devDependencies": {
     "@types/yawn-yaml": "^1.4.0"
-  }
+  },
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ]
 }
