@@ -11,10 +11,27 @@ Object {
           "cleanup:remote": [Function],
           "release:remote": [Function],
         },
-        "id": "../../../../heroku",
+        "id": "@dotcom-tool-kit/heroku",
         "parent": Object {
-          "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "DeployProduction": [Function],
+          "DeployReview": [Function],
+          "DeployStaging": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
+          "hooks": Object {
+            "deploy:production": [Function],
+            "deploy:review": [Function],
+            "deploy:staging": [Function],
+            "teardown:staging": [Function],
+            "test:review": [Function],
+            "test:staging": [Function],
+          },
+          "id": "../../../../circleci-heroku",
+          "parent": Object {
+            "id": "successful test root",
+            "root": "packages/cli/test/files/successful",
+          },
+          "root": "packages/circleci-heroku/lib/index.js",
         },
         "root": "packages/heroku/lib/index.js",
         "tasks": Array [
@@ -26,6 +43,114 @@ Object {
       },
       "tasks": Array [
         "NpmPrune",
+      ],
+    },
+    "deploy:production": Object {
+      "id": "deploy:production",
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": [Function],
+          "deploy:review": [Function],
+          "deploy:staging": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+      "tasks": Array [
+        "HerokuProduction",
+      ],
+    },
+    "deploy:review": Object {
+      "id": "deploy:review",
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": [Function],
+          "deploy:review": [Function],
+          "deploy:staging": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+      "tasks": Array [
+        "HerokuReview",
+      ],
+    },
+    "deploy:staging": Object {
+      "id": "deploy:staging",
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": [Function],
+          "deploy:review": [Function],
+          "deploy:staging": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+      "tasks": Array [
+        "HerokuStaging",
+      ],
+    },
+    "teardown:staging": Object {
+      "id": "teardown:staging",
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": [Function],
+          "deploy:review": [Function],
+          "deploy:staging": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+      "tasks": Array [
+        "HerokuTeardown",
       ],
     },
     "test:ci": Object {
@@ -50,8 +175,25 @@ Object {
         "Eslint",
       ],
     },
-    "test:remote": Object {
-      "id": "test:remote",
+    "test:review": Object {
+      "id": "test:review",
+      "plugin": Object {
+        "id": "../../../../n-test",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/n-test/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
+      },
+      "tasks": Array [
+        "NTest",
+      ],
+    },
+    "test:staging": Object {
+      "id": "test:staging",
       "plugin": Object {
         "id": "../../../../n-test",
         "parent": Object {
@@ -73,10 +215,15 @@ Object {
     "build:local": [Function],
     "build:remote": [Function],
     "cleanup:remote": [Function],
+    "deploy:production": [Function],
+    "deploy:review": [Function],
+    "deploy:staging": [Function],
     "release:remote": [Function],
+    "teardown:staging": [Function],
     "test:ci": [Function],
     "test:local": [Function],
-    "test:remote": [Function],
+    "test:review": [Function],
+    "test:staging": [Function],
   },
   "options": Object {
     "../../../../eslint": Object {
@@ -177,18 +324,26 @@ Object {
     },
   },
   "plugins": Object {
-    "../../../../circleci": Object {
+    "../../../../circleci-heroku": Object {
+      "DeployProduction": [Function],
+      "DeployReview": [Function],
+      "DeployStaging": [Function],
+      "TestReview": [Function],
+      "TestStaging": [Function],
       "hooks": Object {
-        "build:ci": [Function],
-        "test:ci": [Function],
-        "test:remote": [Function],
+        "deploy:production": [Function],
+        "deploy:review": [Function],
+        "deploy:staging": [Function],
+        "teardown:staging": [Function],
+        "test:review": [Function],
+        "test:staging": [Function],
       },
-      "id": "../../../../circleci",
+      "id": "../../../../circleci-heroku",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
-      "root": "packages/circleci/lib/index.js",
+      "root": "packages/circleci-heroku/lib/index.js",
     },
     "../../../../eslint": Object {
       "id": "../../../../eslint",
@@ -198,25 +353,6 @@ Object {
       },
       "root": "packages/eslint/lib/index.js",
       "tasks": Array [
-        [Function],
-      ],
-    },
-    "../../../../heroku": Object {
-      "hooks": Object {
-        "build:remote": [Function],
-        "cleanup:remote": [Function],
-        "release:remote": [Function],
-      },
-      "id": "../../../../heroku",
-      "parent": Object {
-        "id": "successful test root",
-        "root": "packages/cli/test/files/successful",
-      },
-      "root": "packages/heroku/lib/index.js",
-      "tasks": Array [
-        [Function],
-        [Function],
-        [Function],
         [Function],
       ],
     },
@@ -242,6 +378,73 @@ Object {
         [Function],
       ],
     },
+    "@dotcom-tool-kit/circleci": Object {
+      "BuildCI": [Function],
+      "TestCI": [Function],
+      "hooks": Object {
+        "build:ci": [Function],
+        "test:ci": [Function],
+      },
+      "id": "@dotcom-tool-kit/circleci",
+      "parent": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": [Function],
+          "deploy:review": [Function],
+          "deploy:staging": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+      "root": "packages/circleci/lib/index.js",
+    },
+    "@dotcom-tool-kit/heroku": Object {
+      "hooks": Object {
+        "build:remote": [Function],
+        "cleanup:remote": [Function],
+        "release:remote": [Function],
+      },
+      "id": "@dotcom-tool-kit/heroku",
+      "parent": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": [Function],
+          "deploy:review": [Function],
+          "deploy:staging": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+      "root": "packages/heroku/lib/index.js",
+      "tasks": Array [
+        [Function],
+        [Function],
+        [Function],
+        [Function],
+      ],
+    },
     "@dotcom-tool-kit/npm": Object {
       "PackageJsonHook": [Function],
       "hooks": Object {
@@ -255,10 +458,27 @@ Object {
           "cleanup:remote": [Function],
           "release:remote": [Function],
         },
-        "id": "../../../../heroku",
+        "id": "@dotcom-tool-kit/heroku",
         "parent": Object {
-          "id": "successful test root",
-          "root": "packages/cli/test/files/successful",
+          "DeployProduction": [Function],
+          "DeployReview": [Function],
+          "DeployStaging": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
+          "hooks": Object {
+            "deploy:production": [Function],
+            "deploy:review": [Function],
+            "deploy:staging": [Function],
+            "teardown:staging": [Function],
+            "test:review": [Function],
+            "test:staging": [Function],
+          },
+          "id": "../../../../circleci-heroku",
+          "parent": Object {
+            "id": "successful test root",
+            "root": "packages/cli/test/files/successful",
+          },
+          "root": "packages/circleci-heroku/lib/index.js",
         },
         "root": "packages/heroku/lib/index.js",
         "tasks": Array [

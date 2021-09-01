@@ -6,3 +6,4 @@ hooks:
   'deploy:review': HerokuReview
   'deploy:staging': HerokuStaging
   'deploy:production': HerokuProduction
+  'teardown:staging': HerokuTeardown

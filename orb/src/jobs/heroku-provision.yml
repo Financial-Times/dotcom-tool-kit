@@ -1,0 +1,10 @@
+executor:
+  name: node/default
+  tag: "12"
+
+steps:
+  - attach-workspace
+  - run:
+      name: Create and test Heroku review app
+      command: npx dotcom-tool-kit deploy:review
+  - persist-workspace

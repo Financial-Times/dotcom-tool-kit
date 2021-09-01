@@ -1,0 +1,9 @@
+executor:
+  name: node/default
+  tag: "12"
+
+steps:
+  - attach-workspace
+  - run:
+      name: Deploy to production
+      command: npx dotcom-tool-kit deploy:production

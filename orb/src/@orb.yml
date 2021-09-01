@@ -1,0 +1,14 @@
+version: 2.1
+
+description: >
+  Helper jobs for dotcom-tool-kit to add to your CircleCI config depending on
+  the hooks used
+
+# This information will be displayed in the orb registry and is not mandatory.
+display:
+  home_url: "https://www.ft.com"
+  source_url: "https://www.github.com/financial-times/dotcom-tool-kit"
+
+# If your orb requires other orbs, you can import them like this. Otherwise remove the "orbs" stanza.
+orbs:
+  node: circleci/node@4.7.0

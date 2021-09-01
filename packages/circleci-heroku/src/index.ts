@@ -1,22 +1,39 @@
 import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
+import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 
-class DeployReview extends CircleCiConfigHook {
-  script = 'npx dotcom-tool-kit deploy:review'
-  job = 'provision'
+export class DeployReview extends CircleCiConfigHook {
+  job = 'tool-kit/heroku-provision'
+  jobOptions = {
+    requires: ['tool-kit/setup'],
+    filters: { branches: { only: '/(^renovate-.*|^nori/.*|^main)/' } }
+  }
 }
 
-class DeployStaging extends CircleCiConfigHook {
-  script = 'npx dotcom-tool-kit deploy:staging'
-  job = 'deploy'
+export class DeployStaging extends CircleCiConfigHook {
+  job = 'tool-kit/heroku-staging'
+  jobOptions = { requires: ['tool-kit/setup'], filters: { branches: { only: 'main' } } }
 }
 
-class DeployProduction extends CircleCiConfigHook {
-  script = 'npx dotcom-tool-kit deploy:production'
-  job = 'promote'
+export class TestReview extends CircleCiConfigHook {
+  job = 'tool-kit/e2e-test-review'
+  jobOptions = { requires: [new DeployReview().job] }
+}
+
+export class TestStaging extends CircleCiConfigHook {
+  job = 'tool-kit/e2e-test-staging'
+  jobOptions = { requires: [new DeployStaging().job] }
+}
+
+export class DeployProduction extends CircleCiConfigHook {
+  job = 'tool-kit/heroku-promote'
+  jobOptions = { requires: [new TestCI().job, new TestStaging().job] }
 }
 
 export const hooks = {
   'deploy:review': DeployReview,
   'deploy:staging': DeployStaging,
+  'test:review': TestReview,
+  'test:staging': TestStaging,
+  'teardown:staging': TestStaging,
   'deploy:production': DeployProduction
 }

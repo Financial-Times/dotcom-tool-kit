@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  orb-tools: circleci/orb-tools@10.0.5
 
 references:
 
@@ -63,6 +66,21 @@ references:
         - /^v\d+\.\d+\.\d+(?:-\w+\.\d+)?$/
     branches:
       ignore: /.*/
+
+# Pipeline Parameters
+## These parameters are used internally by orb-tools. Skip to the Jobs section.
+parameters:
+  run-integration-tests:
+    description: An internal flag to prevent integration test from running before a development version has been created.
+    type: boolean
+    default: false
+  dev-orb-version:
+    description: >
+      The development version of the orb to test.
+      This value is automatically adjusted by the "trigger-integration-tests-workflow" job to correspond with the specific version created by the commit and should not be edited.
+      A "dev:alpha" version must exist for the initial pipeline run.
+    type: string
+    default: "dev:alpha"
 
 jobs:
 
@@ -145,3 +163,42 @@ workflows:
             <<: *filters_release_build
           requires:
             - test
+
+  # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
+  # This workflow will run on every commit
+  orb-test-pack:
+    unless: << pipeline.parameters.run-integration-tests >>
+    jobs:
+      - orb-tools/lint: # Lint Yaml files
+          lint-dir: orb
+      - orb-tools/pack: # Pack orb source
+          source-dir: orb/src
+      # Publish development version(s) of the orb.
+      - orb-tools/publish-dev:
+          orb-name: financial-times/dotcom-tool-kit
+          requires:
+            - orb-tools/lint
+            - orb-tools/pack
+      # Trigger an integration workflow to test the
+      # dev:${CIRCLE_SHA1:0:7} version of your orb
+      - orb-tools/trigger-integration-tests-workflow:
+          name: trigger-integration-dev
+          requires:
+            - orb-tools/publish-dev
+
+  # This `orb-integration-test_deploy` workflow will only run
+  # when the run-integration-tests pipeline parameter is set to true.
+  # It is meant to be triggered by the "trigger-integration-tests-workflow"
+  # job, and run tests on <your orb>@dev:${CIRCLE_SHA1:0:7}.
+  orb-integration-test_deploy:
+    when: << pipeline.parameters.run-integration-tests >>
+    jobs:
+      # Run any integration tests defined within the `jobs` key.
+      # - integration-test-1
+      - orb-tools/publish:
+          # Strip leading 'v' from git tag
+          orb-ref: financial-times/dotcom-tool-kit:${CIRCLE_TAG:1}
+          # requires:
+          #   - integration-test-1
+          filters:
+            <<: *filters_release_build
