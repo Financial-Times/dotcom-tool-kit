@@ -1,41 +1,46 @@
-# Orb Project Template
-<!---
-[![CircleCI Build Status](https://circleci.com/gh/<organization>/<project-name>.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/<organization>/<project-name>) [![CircleCI Orb Version](https://badges.circleci.com/orbs/<namespace>/<orb-name>.svg)](https://circleci.com/orbs/registry/orb/<namespace>/<orb-name>) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/<organization>/<project-name>/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+# Dotcom Tool Kit Orb
 
---->
+An orb exporting many standard hooks as jobs to add to your CircleCI config.
 
-A starter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
+## Job Structure
 
-Additional READMEs are available in each directory.
+Each job is a very simple wrapper that calls its respective hook, where most of the real logic is contained. For example, the `build` job is defined in its entirety as:
 
-**Meta**: This repository is open for contributions! Feel free to open a pull request with your changes. Due to the nature of this repository, it is not built on CircleCI. The Resources and How to Contribute sections relate to an orb created with this template, rather than the template itself.
+```yaml
+executor:
+  name: node/default
+  tag: 12
 
-## Resources
+steps:
+  - attach-workspace
+  - run:
+      name: Run the project build-production task
+      command: npx dotcom-tool-kit build:ci
+```
+You can expect any other given job to look very similar. We first make sure we're running in a node@12 docker image with the `executor` property. We run `attach-workspace`, which is the glue we use in many jobs to pick up the state from a previous job in the workflow, now rolled into a simple command (along with its counterpart `persist-workspace`.) Finally, we run the `build:ci` hook event, which will run any hooks for building the project in the CI, such as babel, webpack, etc.
 
-[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/<namespace>/<project-name>) - The official registry page of this orb for all versions, executors, commands, and jobs described.
-[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using and creating CircleCI Orbs.
+## Adding Jobs To Your CircleCI Config
 
-### How to Contribute
+#### Automatically
+The easiest way to use the dotcom-tool-kit orb is to delete your old `.circleci/config.yml` file, then run `npx dotcom-tool-kit --install`. This will automatically generate a config file that will include all the hooks you have installed. If you add or remove plugins be sure to rerun `npx dotcom-tool-kit --install` to update the CircleCI jobs in lockstep.
 
-We welcome [issues](https://github.com/<organization>/<project-name>/issues) to and [pull requests](https://github.com/<organization>/<project-name>/pulls) against this repository!
+#### Manually
+Alternatively, you can manually add tool-kit jobs to your CircleCI just like you would any other job, but it will look a lot terser! Take using the `heroku-provision` job in `next-static`:
 
-### How to Publish
-* Create and push a branch with your new features.
-* When ready to publish a new production version, create a Pull Request from _feature branch_ to `main`.
-* The title of the pull request must contain a special semver tag: `[semver:<segment>]` where `<segment>` is replaced by one of the following values.
+```yaml
+- tool-kit/heroku-provision:
+    requires:
+      - tool-kit/setup
+    filters:
+      branches:
+        ignore: /(^renovate-.*|^nori/.*|^main)/
+```
 
-| Increment | Description|
-| ----------| -----------|
-| major     | Issue a 1.0.0 incremented release|
-| minor     | Issue a x.1.0 incremented release|
-| patch     | Issue a x.x.1 incremented release|
-| skip      | Do not issue a release|
+You can see that the job itself requires no additional paramaters, and the only configuration required are the properties used to place the job into your own workflow, using the `requires` property to say that the job is run after `tool-kit/setup`, and the `filters` property to say the job should only be run in PR branches (excluding nori and Renovate branches.) Note that all the job names have been prefixed with `tool-kit/`. This is because we need to add one extra stanza at the top of your config file in order to pull in the dotcom tool kit orb:
 
-Example: `[semver:major]`
-
-* Squash and merge. Ensure the semver tag is preserved and entered as a part of the commit message.
-* On merge, after manual approval, the orb will automatically be published to the Orb Registry.
-
-
-For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
-
+<!--- TODO: generate README on release to fill in orb version automatically --->
+```yaml
+orbs:
+  tool-kit: financial-times/dotcom-tool-kit@<orb-version>
+```
+substituting in the latest orb version.
