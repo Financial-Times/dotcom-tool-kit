@@ -16,12 +16,15 @@ Object {
           "DeployProduction": [Function],
           "DeployReview": [Function],
           "DeployStaging": [Function],
-          "TestRemote": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": [Function],
             "deploy:review": [Function],
             "deploy:staging": [Function],
-            "test:remote": [Function],
+            "teardown:staging": [Function],
+            "test:review": [Function],
+            "test:staging": [Function],
           },
           "id": "../../../../circleci-heroku",
           "parent": Object {
@@ -48,12 +51,15 @@ Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
         "DeployStaging": [Function],
-        "TestRemote": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": [Function],
           "deploy:review": [Function],
           "deploy:staging": [Function],
-          "test:remote": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -72,12 +78,15 @@ Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
         "DeployStaging": [Function],
-        "TestRemote": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": [Function],
           "deploy:review": [Function],
           "deploy:staging": [Function],
-          "test:remote": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -96,12 +105,15 @@ Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
         "DeployStaging": [Function],
-        "TestRemote": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": [Function],
           "deploy:review": [Function],
           "deploy:staging": [Function],
-          "test:remote": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -112,6 +124,33 @@ Object {
       },
       "tasks": Array [
         "HerokuStaging",
+      ],
+    },
+    "teardown:staging": Object {
+      "id": "teardown:staging",
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": [Function],
+          "deploy:review": [Function],
+          "deploy:staging": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+      "tasks": Array [
+        "HerokuTeardown",
       ],
     },
     "test:ci": Object {
@@ -136,8 +175,25 @@ Object {
         "Eslint",
       ],
     },
-    "test:remote": Object {
-      "id": "test:remote",
+    "test:review": Object {
+      "id": "test:review",
+      "plugin": Object {
+        "id": "../../../../n-test",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/n-test/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
+      },
+      "tasks": Array [
+        "NTest",
+      ],
+    },
+    "test:staging": Object {
+      "id": "test:staging",
       "plugin": Object {
         "id": "../../../../n-test",
         "parent": Object {
@@ -163,9 +219,11 @@ Object {
     "deploy:review": [Function],
     "deploy:staging": [Function],
     "release:remote": [Function],
+    "teardown:staging": [Function],
     "test:ci": [Function],
     "test:local": [Function],
-    "test:remote": [Function],
+    "test:review": [Function],
+    "test:staging": [Function],
   },
   "options": Object {
     "../../../../eslint": Object {
@@ -270,12 +328,15 @@ Object {
       "DeployProduction": [Function],
       "DeployReview": [Function],
       "DeployStaging": [Function],
-      "TestRemote": [Function],
+      "TestReview": [Function],
+      "TestStaging": [Function],
       "hooks": Object {
         "deploy:production": [Function],
         "deploy:review": [Function],
         "deploy:staging": [Function],
-        "test:remote": [Function],
+        "teardown:staging": [Function],
+        "test:review": [Function],
+        "test:staging": [Function],
       },
       "id": "../../../../circleci-heroku",
       "parent": Object {
@@ -329,12 +390,15 @@ Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
         "DeployStaging": [Function],
-        "TestRemote": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": [Function],
           "deploy:review": [Function],
           "deploy:staging": [Function],
-          "test:remote": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -356,12 +420,15 @@ Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
         "DeployStaging": [Function],
-        "TestRemote": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": [Function],
           "deploy:review": [Function],
           "deploy:staging": [Function],
-          "test:remote": [Function],
+          "teardown:staging": [Function],
+          "test:review": [Function],
+          "test:staging": [Function],
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -396,12 +463,15 @@ Object {
           "DeployProduction": [Function],
           "DeployReview": [Function],
           "DeployStaging": [Function],
-          "TestRemote": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": [Function],
             "deploy:review": [Function],
             "deploy:staging": [Function],
-            "test:remote": [Function],
+            "teardown:staging": [Function],
+            "test:review": [Function],
+            "test:staging": [Function],
           },
           "id": "../../../../circleci-heroku",
           "parent": Object {
