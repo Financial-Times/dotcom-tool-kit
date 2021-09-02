@@ -1,6 +1,7 @@
-import * as yaml from 'js-yaml'
-import path from 'path'
 import { promises as fs } from 'fs'
+import * as yaml from 'js-yaml'
+import isEqual from 'lodash.isequal'
+import path from 'path'
 
 type JobConfig = {
   requires?: string[]
@@ -144,10 +145,12 @@ export default abstract class CircleCiConfigHook {
     // TypeScript can't seem to pick up that we've already checked the optional
     // properties here
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const workflow = config.workflows!['tool-kit'] as Workflow
+    const jobs = (config.workflows!['tool-kit'] as Workflow).jobs!
     const job = this.jobOptions ? { [this.job]: this.jobOptions } : this.job
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    workflow.jobs!.push(job)
+    // Avoid duplicating jobs (this can happen when check() fails when the version is wrong)
+    if (!jobs.some((candidateJob) => isEqual(candidateJob, job))) {
+      jobs.push(job)
+    }
 
     const serialised = automatedComment + yaml.dump(config)
     await fs.writeFile(this.circleConfigPath, serialised)
