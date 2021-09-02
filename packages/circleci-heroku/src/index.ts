@@ -5,7 +5,7 @@ export class DeployReview extends CircleCiConfigHook {
   job = 'tool-kit/heroku-provision'
   jobOptions = {
     requires: ['tool-kit/setup'],
-    filters: { branches: { only: '/(^renovate-.*|^nori/.*|^main)/' } }
+    filters: { branches: { ignore: '/(^renovate-.*|^nori/.*|^main)/' } }
   }
 }
 
@@ -26,7 +26,10 @@ export class TestStaging extends CircleCiConfigHook {
 
 export class DeployProduction extends CircleCiConfigHook {
   job = 'tool-kit/heroku-promote'
-  jobOptions = { requires: [new TestCI().job, new TestStaging().job] }
+  jobOptions = {
+    requires: [new TestCI().job, new TestStaging().job],
+    filters: { branches: { only: 'main' } }
+  }
 }
 
 export const hooks = {
