@@ -17,7 +17,11 @@ export default async function installHooks(): Promise<void> {
     try {
       await task()
     } catch (err) {
-      errors.push(err)
+      if (err instanceof Error) {
+        errors.push(err)
+      } else {
+        throw err
+      }
     }
   }
 

@@ -37,7 +37,7 @@ export default abstract class CircleCiConfigHook {
         this._circleConfigRaw = await fs.readFile(this.circleConfigPath, 'utf8')
       } catch (err) {
         // Not an error if config file doesn't exist
-        if (err.code !== 'ENOENT') {
+        if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
           throw err
         }
       }
