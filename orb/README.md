@@ -9,7 +9,7 @@ Each job is a very simple wrapper that calls its respective hook, where most of 
 ```yaml
 executor:
   name: node/default
-  tag: 12
+  tag: "12.22"
 
 steps:
   - attach-workspace
