@@ -1,6 +1,6 @@
 executor:
   name: node/default
-  tag: "12.22"
+  tag: "12.22-browsers"
 
 steps:
   - attach-workspace
