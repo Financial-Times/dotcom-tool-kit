@@ -13,7 +13,7 @@ jobs:
 
   e2e-test:
     steps:
-      - run: 'npx dotcom-tool-kit test:remote'
+      - run: 'npx dotcom-tool-kit test:review'
 
   provision:
     steps:

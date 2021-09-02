@@ -31,4 +31,4 @@ This plugin cannot currently automatically install itself to CircleCI configurat
 | ------------- | -------------------------------------------------------- | -------------------------------------- |
 | `build:ci`    | Compile any assets or code required for your app to run. | `build` job in `.circle/config.yml`    |
 | `test:ci`     | Run your app's test suite.                               | `test` job in `.circle/config.yml`     |
-| `test:remote` | Run your app's E2E tests against a deployed Review App.  | `e2e-test` job in `.circle/config.yml` |
+| `test:review` | Run your app's E2E tests against a deployed Review App.  | `e2e-test` job in `.circle/config.yml` |

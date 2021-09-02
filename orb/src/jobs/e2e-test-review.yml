@@ -6,4 +6,4 @@ steps:
   - attach-workspace
   - run:
       name: Smoke tests
-      command: npx dotcom-tool-kit test:remote
+      command: npx dotcom-tool-kit test:review
