@@ -4,10 +4,59 @@ import * as yaml from 'js-yaml'
 import loadPackageJson from '@financial-times/package-json'
 import type { RCFile } from 'dotcom-tool-kit/src/rc-file'
 import { exec as _exec } from 'child_process'
-import Komatsu from 'komatsu'
+import Komatsu, { LogPromiseLabels } from 'komatsu'
+import type { Spinner, Status } from 'komatsu'
 import { writeFile } from 'fs/promises'
 import { promisify } from 'util'
 import { readFileSync } from 'fs'
+
+class Logger extends Komatsu {
+  stop() {
+    if (!Array.from(this.spinners.values()).some((spinner: any) => spinner.status === 'not-started'))
+      super.stop()
+  }
+
+  renderSymbol(spinner: Spinner | { status: 'not-started' }) {
+    if (spinner.status === 'not-started') {
+      return '-'
+    }
+
+    return super.renderSymbol(spinner)
+  }
+
+  async logPromiseWait<T, U>(wait: Promise<T>, run: (interim: T) => Promise<U>, label: string): Promise<U> {
+    const id = Math.floor(parseInt(`zzzzzz`, 36) * Math.random())
+      .toString(36)
+      .padStart(6, '0')
+
+    const labels = {
+      waiting: `not ${label} yet`,
+      pending: label,
+      done: `finished ${label}`,
+      fail: `error with ${label}`
+    }
+
+    this.log(id, { message: labels.waiting, status: 'not-started' })
+
+    const interim = await wait
+
+    this.log(id, { message: labels.pending })
+
+    try {
+      const result = await run(interim)
+      this.log(id, { status: 'done', message: labels.done })
+      return result
+    } catch (error: any) {
+      this.log(id, {
+        status: 'fail',
+        message: labels.fail,
+        error
+      })
+
+      throw error
+    }
+  }
+}
 
 const exec = promisify(_exec)
 
@@ -25,11 +74,11 @@ const toolKitConfig: RCFile = {
 async function main() {
   const filepath = path.resolve(process.cwd(), 'package.json')
   const packageJson = loadPackageJson({ filepath })
-  const logger = new Komatsu()
+  const logger = new Logger()
 
-  const { type } = await prompt([
+  const { preset } = await prompt([
     {
-      name: 'type',
+      name: 'preset',
       type: 'select',
       message: `What kind of app is ${packageJson.getField('name')}?`,
       choices: [
@@ -39,8 +88,16 @@ async function main() {
     }
   ])
 
-  packagesToInstall.push(`@dotcom-tool-kit/${type}`)
-  toolKitConfig.plugins.push(`@dotcom-tool-kit/${type}`)
+  /* TODO
+     - prompt to install any plugins not installed by the preset
+     - prompt for required plugin options
+	  - run tool-kit hook install
+	  - uninstall n-gage & n-heroku-tools
+	  - delete makefile
+  */
+
+  packagesToInstall.push(`@dotcom-tool-kit/${preset}`)
+  toolKitConfig.plugins.push(`@dotcom-tool-kit/${preset}`)
 
   const configFile = yaml.dump(toolKitConfig)
 
@@ -80,7 +137,15 @@ ${configFile}
       'creating .toolkitrc.yml'
     )
 
-    await Promise.all([installPromise, configPromise])
+    const initialTasks = Promise.all([installPromise, configPromise])
+
+    const toolKitInstallPromise = logger.logPromiseWait(
+      initialTasks,
+      () => exec('npx dotcom-tool-kit --install'),
+      'installing Tool Kit hooks'
+    )
+
+    await Promise.all([initialTasks, toolKitInstallPromise])
   }
 }
 
