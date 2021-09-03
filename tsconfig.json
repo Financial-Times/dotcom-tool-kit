@@ -57,6 +57,9 @@
     },
     {
       "path": "packages/circleci-heroku"
+    },
+    {
+      "path": "packages/create"
     }
   ]
 }

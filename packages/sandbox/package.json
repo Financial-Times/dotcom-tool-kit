@@ -15,12 +15,12 @@
   "devDependencies": {
     "@dotcom-tool-kit/circleci-heroku": "file:../circleci-heroku",
     "@dotcom-tool-kit/eslint": "file:../eslint",
-    "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
+    "@dotcom-tool-kit/frontend-app": "0.0.0-development",
     "@dotcom-tool-kit/mocha": "file:../mocha",
     "@dotcom-tool-kit/n-test": "file:../n-test",
     "@dotcom-tool-kit/npm": "file:../npm",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../upload-assets-to-s3",
-    "dotcom-tool-kit": "file:../cli"
+    "dotcom-tool-kit": "0.0.0-development"
   },
   "volta": {
     "extends": "../../package.json"
