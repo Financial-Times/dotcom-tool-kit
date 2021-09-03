@@ -10,9 +10,14 @@ import { writeFile } from 'fs/promises'
 import { promisify } from 'util'
 import { readFileSync } from 'fs'
 
+// TODO backport this to Komatsu mainline?
 class Logger extends Komatsu {
   stop() {
-    if (!Array.from(this.spinners.values()).some((spinner: any) => spinner.status === 'not-started'))
+    if (
+      !Array.from(this.spinners.values()).some(
+        (spinner: Spinner | { status: 'not-started' }) => spinner.status === 'not-started'
+      )
+    )
       super.stop()
   }
 
@@ -91,9 +96,9 @@ async function main() {
   /* TODO
      - prompt to install any plugins not installed by the preset
      - prompt for required plugin options
-	  - run tool-kit hook install
+	  - prompt for resolving Hook conflicts
 	  - uninstall n-gage & n-heroku-tools
-	  - delete makefile
+	  - delete makefile after checking there's else it's running that they need
   */
 
   packagesToInstall.push(`@dotcom-tool-kit/${preset}`)
