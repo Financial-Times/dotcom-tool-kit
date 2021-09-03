@@ -8,6 +8,8 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/babel": "file:../babel",
+    "@dotcom-tool-kit/circleci-heroku": "file:../circleci-heroku",
+    "@dotcom-tool-kit/npm": "file:../npm",
     "@dotcom-tool-kit/webpack": "file:../webpack"
   },
   "repository": {
