@@ -1,6 +1,6 @@
-import heroku from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import repeatedAttemptPatchConfVars from './repeatedAttemptPatchConfVars'
 import type { VaultPath } from '@dotcom-tool-kit/vault'
 
 export default async function setConfigVars(
@@ -18,11 +18,7 @@ export default async function setConfigVars(
 
     const configVars = await vaultEnvVars.get()
 
-    await heroku.patch(`/apps/${appId}/config-vars`, { body: configVars })
-
-    console.log('Following values have been set:', Object.keys(configVars).join(', '))
-
-    console.log(`${appId} config vars have been updated successfully.`)
+    await repeatedAttemptPatchConfVars(appId, configVars)
   } catch (err) {
     const error = new ToolKitError(`Error updating config vars`)
     if (err instanceof Error) {
@@ -30,4 +26,5 @@ export default async function setConfigVars(
     }
     throw error
   }
+  return
 }

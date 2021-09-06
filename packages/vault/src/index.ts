@@ -24,7 +24,7 @@ type ReturnFetch = {
   data: Secrets
 }
 
-type Secrets = {
+export type Secrets = {
   [key: string]: string
 }
 
