@@ -1,6 +1,11 @@
+parameters:
+  node-version:
+    default: "12.22"
+    type: string
+
 executor:
   name: node/default
-  tag: "12"
+  tag: <<parameters.node-version>>
 
 steps:
   - checkout

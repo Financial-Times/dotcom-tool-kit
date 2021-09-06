@@ -67,17 +67,6 @@ references:
     branches:
       ignore: /.*/
 
-# Pipeline Parameters
-## These parameters are used internally by orb-tools. Skip to the Jobs section.
-parameters:
-  dev-orb-version:
-    description: >
-      The development version of the orb to test.
-      This value is automatically adjusted by the "trigger-integration-tests-workflow" job to correspond with the specific version created by the commit and should not be edited.
-      A "dev:alpha" version must exist for the initial pipeline run.
-    type: string
-    default: "dev:alpha"
-
 jobs:
 
   build:

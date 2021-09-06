@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/state": "file:../state",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "lodash.isequal": "^4.5.0"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -21,7 +22,8 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/circleci",
   "devDependencies": {
-    "@types/js-yaml": "^4.0.3"
+    "@types/js-yaml": "^4.0.3",
+    "@types/lodash.isequal": "^4.5.5"
   },
   "files": [
     "/lib",

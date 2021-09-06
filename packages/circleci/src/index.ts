@@ -3,7 +3,7 @@ import CircleCiConfigHook from './circleci-config'
 
 export class BuildCI extends CircleCiConfigHook {
   job = 'tool-kit/build'
-  jobOptions = { requires: ['tool-kit/setup', 'waiting-approval'] }
+  jobOptions = { requires: ['tool-kit/setup', 'waiting-for-approval'] }
 }
 
 export class TestCI extends CircleCiConfigHook {
