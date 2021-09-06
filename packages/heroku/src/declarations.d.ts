@@ -40,7 +40,7 @@ declare module 'heroku-client' {
       ]
       branch?: string
       pipeline?: string
-      source_blob?: string
+      source_blob?: { url: string; version: string }
       slug?: string
     }
   }
