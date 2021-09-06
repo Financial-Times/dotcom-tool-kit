@@ -26,6 +26,24 @@ declare module 'heroku-client' {
     id: string
   }
 
+  export type HerokuApiReqOptions = {
+    body: {
+      configVars?: {
+        [key: string]: string
+      }
+      updates?: [
+        {
+          type: string
+          quantity?: number
+          size?: number
+        }
+      ]
+      branch?: string
+      pipeline?: string
+      source_blob?: string
+      slug?: string
+    }
+  }
   export type HerokuApiResPatch = {
     quantity: number
     type: string
@@ -37,8 +55,8 @@ declare module 'heroku-client' {
 
   export default class Heroku {
     constructor(options: HerokuClassOptions)
-    get<T>(path: string, options?: Record<string, unknown>): Promise<T>
-    patch(path: string, options?: Record<string, unknown>): Promise<HerokuApiResPatch>
-    post(path: string, options?: Record<string, unknown>): Promise<HerokuApiResPost>
+    get<T>(path: string): Promise<T>
+    patch(path: string, options?: HerokuApiReqOptions): Promise<HerokuApiResPatch>
+    post(path: string, options?: HerokuApiReqOptions): Promise<HerokuApiResPost>
   }
 }
