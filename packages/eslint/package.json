@@ -30,5 +30,8 @@
   "files": [
     "/lib",
     ".toolkitrc.yml"
-  ]
+  ],
+  "volta": {
+    "extends": "../../package.json"
+  }
 }
