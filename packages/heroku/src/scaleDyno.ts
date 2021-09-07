@@ -5,12 +5,14 @@ export default async function scaleDyno(appName: string, quantity: number, type 
   console.log(`scaling dyno for ${appName}...`)
 
   const appFormation = await heroku.patch(`/apps/${appName}/formation`, {
-    updates: [
-      {
-        quantity: quantity,
-        type: type
-      }
-    ]
+    body: {
+      updates: [
+        {
+          quantity: quantity,
+          type: type
+        }
+      ]
+    }
   })
 
   if (appFormation.quantity === quantity && appFormation.type === type) {

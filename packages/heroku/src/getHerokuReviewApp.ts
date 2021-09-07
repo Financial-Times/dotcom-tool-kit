@@ -2,6 +2,7 @@ import heroku from './herokuClient'
 import type { HerokuApiResGetReview } from 'heroku-client'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessStatus'
 
 export default async function getHerokuReviewApp(pipelineId: string): Promise<string | undefined> {
   const state = readState('ci')
@@ -15,9 +16,12 @@ export default async function getHerokuReviewApp(pipelineId: string): Promise<st
 
   const reviewApp = reviewApps.find(
     (instance: { app: { id: string }; branch: string; status: string }): boolean => {
-      return instance.branch === branch && instance.status === 'created'
+      return instance.branch === branch && (instance.status === 'created' || instance.status === 'creating')
     }
   )
+  if (reviewApp?.status === 'creating') {
+    await repeatedCheckForSuccessStatus(reviewApp.app.id)
+  }
 
   return reviewApp?.app?.id
 }

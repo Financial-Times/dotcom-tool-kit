@@ -11,7 +11,9 @@ export default async function setSlug(slugId: string): Promise<string> {
   const appName = state.appName
 
   const latestRelease = await heroku.post(`/apps/${appName}/releases`, {
-    slug: slugId
+    body: {
+      slug: slugId
+    }
   })
 
   return latestRelease.id
