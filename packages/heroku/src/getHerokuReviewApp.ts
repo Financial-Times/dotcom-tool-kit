@@ -20,6 +20,7 @@ export default async function getHerokuReviewApp(pipelineId: string): Promise<st
     }
   )
   if (reviewApp?.status === 'creating') {
+    console.log('getHerokuRevieweApp', reviewApp)
     await repeatedCheckForSuccessStatus(reviewApp.app.id)
   }
 
