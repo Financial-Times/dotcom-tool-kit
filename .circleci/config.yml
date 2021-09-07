@@ -68,6 +68,14 @@ references:
     branches:
       ignore: /.*/
 
+  filters_orbs_release_build: &filters_orbs_release_build
+    tags:
+      only:
+        # CircleCI doesn't allow prerelease versions to be published
+        - /^v\d+\.\d+\.\d+$/
+    branches:
+      ignore: /.*/
+
 jobs:
 
   build:
@@ -173,17 +181,17 @@ workflows:
       - orb-tools/lint: # Lint Yaml files
           lint-dir: orb
           filters:
-            <<: *filters_release_build
+            <<: *filters_orbs_release_build
       - orb-tools/pack: # Pack orb source
           source-dir: orb/src
           filters:
-            <<: *filters_release_build
+            <<: *filters_orbs_release_build
       - orb-tools/publish:
           attach-workspace: true
           # Strip leading 'v' from git tag
           orb-ref: financial-times/dotcom-tool-kit:${CIRCLE_TAG:1}
           filters:
-            <<: *filters_release_build
+            <<: *filters_orbs_release_build
           requires:
             # - integration-test-1
             - orb-tools/lint
