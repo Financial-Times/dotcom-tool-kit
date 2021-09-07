@@ -21,5 +21,19 @@ describe('package.json hook', () => {
 
       expect(await hook.check()).toBeTruthy()
     })
+
+    it('should return true when script includes other hooks', async () => {
+      process.chdir(path.join(__dirname, 'files', 'multiple-hooks'))
+      const hook = new TestHook()
+
+      expect(await hook.check()).toBeTruthy()
+    })
+
+    it(`should return false when package.json doesn't have hook call in script`, async () => {
+      process.chdir(path.join(__dirname, 'files', 'without-hook'))
+      const hook = new TestHook()
+
+      expect(await hook.check()).toBeFalsy()
+    })
   })
 })
