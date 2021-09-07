@@ -6,7 +6,7 @@ import type { RCFile } from 'dotcom-tool-kit/src/rc-file'
 import { exec as _exec } from 'child_process'
 import Komatsu, { LogPromiseLabels } from 'komatsu'
 import type { Spinner, Status } from 'komatsu'
-import { writeFile } from 'fs/promises'
+import { promises as fs } from 'fs'
 import { promisify } from 'util'
 import { readFileSync } from 'fs'
 
@@ -138,7 +138,7 @@ ${configFile}
     const installPromise = logger.logPromise(exec('npm install'), 'installing dependencies')
 
     const configPromise = logger.logPromise(
-      writeFile(path.join(process.cwd(), '.toolkitrc.yml'), configFile),
+      fs.writeFile(path.join(process.cwd(), '.toolkitrc.yml'), configFile),
       'creating .toolkitrc.yml'
     )
 
