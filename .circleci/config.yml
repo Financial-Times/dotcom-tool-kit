@@ -172,14 +172,18 @@ workflows:
       # - integration-test-1
       - orb-tools/lint: # Lint Yaml files
           lint-dir: orb
+          filters:
+            <<: *filters_release_build
       - orb-tools/pack: # Pack orb source
           source-dir: orb/src
+          filters:
+            <<: *filters_release_build
       - orb-tools/publish:
           # Strip leading 'v' from git tag
           orb-ref: financial-times/dotcom-tool-kit:${CIRCLE_TAG:1}
+          filters:
+            <<: *filters_release_build
           requires:
             # - integration-test-1
             - orb-tools/lint
             - orb-tools/pack
-          filters:
-            <<: *filters_release_build
