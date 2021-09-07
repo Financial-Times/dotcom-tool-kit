@@ -13,18 +13,14 @@ export default async function getHerokuReviewApp(pipelineId: string): Promise<st
 
   const branch = state.branch
   const reviewApps: HerokuApiResGetReview[] = await heroku.get(`/pipelines/${pipelineId}/review-apps`)
-  let creatingAppId
 
   const reviewApp = reviewApps.find(
     (instance: { app: { id: string }; branch: string; status: string }): boolean => {
-      if (instance.branch === branch && instance.status === 'creating') {
-        creatingAppId = instance.app.id
-      }
-      return instance.branch === branch && instance.status === 'created'
+      return instance.branch === branch && (instance.status === 'created' || instance.status === 'creating')
     }
   )
-  if (creatingAppId) {
-    await repeatedCheckForSuccessStatus(creatingAppId)
+  if (reviewApp?.status === 'creating') {
+    await repeatedCheckForSuccessStatus(reviewApp.app.id)
   }
 
   return reviewApp?.app?.id
