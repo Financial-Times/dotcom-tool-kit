@@ -154,7 +154,7 @@ ${configFile}
   }
 }
 
-main().catch((error) => {
-  console.error(error.stack)
-  process.exitCode = 1
-})
+main().catch(() =>
+  // Error has already been logged by Komatsu
+  process.exit(1)
+)
