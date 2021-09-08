@@ -123,7 +123,7 @@ async function main() {
     {
       name: 'confirm',
       type: 'confirm',
-      message: () => {
+      message: (_prev, values) => {
         configFile = yaml.dump(toolKitConfig)
         return `so, we're gonna:
 
@@ -132,7 +132,7 @@ ${packagesToInstall.map((p) => `- ${p}`).join('\n')}
 
 create a .toolkitrc.yml containing:
 ${configFile}
-
+${values.deleteConfig ? 'regenerate .circleci/config.yml\n' : ''}
 sound good?`
       }
     }
