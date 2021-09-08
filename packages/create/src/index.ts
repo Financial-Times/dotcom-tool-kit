@@ -58,6 +58,7 @@ class Logger extends Komatsu {
         error
       })
 
+      error.logged = true
       throw error
     }
   }
@@ -154,7 +155,9 @@ ${configFile}
   }
 }
 
-main().catch(() =>
-  // Error has already been logged by Komatsu
+main().catch((error) => {
+  if (!error.logged) {
+    console.log(error.stack)
+  }
   process.exit(1)
-)
+})
