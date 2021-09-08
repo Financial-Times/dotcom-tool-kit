@@ -1,13 +1,15 @@
 import heroku from './herokuClient'
 import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessStatus'
 import getRepoDetails from './githubApi'
+import type { HerokuApiResGetReview } from 'heroku-client'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default async function buildHerokuReviewApp(pipelineId: string): Promise<string> {
   const { branch, repo, source_blob } = await getRepoDetails()
 
   console.log(`Creating review app for ${branch} branch on ${repo}...`)
-  const reviewApp = await heroku.post(`/review-apps`, {
+  const reviewAppBuild = await heroku.post(`/review-apps`, {
     body: {
       branch: branch,
       pipeline: pipelineId,
@@ -15,9 +17,13 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
     }
   })
 
+  console.log('reviewApp in buildHerokuReviewApp', reviewAppBuild)
+
   console.log(`Checking review app for success status...`)
 
-  const successStatus = await repeatedCheckForSuccessStatus(reviewApp.id)
+  const successStatus = await repeatedCheckForSuccessStatus(reviewAppBuild.id)
+
+  const reviewApp: HerokuApiResGetReview = await heroku.get(`/review-apps/${reviewAppBuild.id}`)
 
   if (successStatus) {
     return reviewApp.app.id
