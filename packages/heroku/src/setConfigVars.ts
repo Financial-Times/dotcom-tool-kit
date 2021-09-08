@@ -14,6 +14,8 @@ export default async function setConfigVars(
       vaultPath: vaultPath
     }
 
+    console.log(`setting config vars for ${appId}`)
+
     const vaultEnvVars = new VaultEnvVars(settings)
 
     const configVars = await vaultEnvVars.get()

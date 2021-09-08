@@ -20,7 +20,7 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
   const successStatus = await repeatedCheckForSuccessStatus(reviewApp.id)
 
   if (successStatus) {
-    return reviewApp.id
+    return reviewApp.app.id
   } else {
     const error = new ToolKitError(`The review-app did not reach success status within the time limit.`)
     error.details = `If this is the first time that you're seeing this error, please try again as it can be slower to build at peak times.

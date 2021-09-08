@@ -14,12 +14,14 @@ export default async function getHerokuReviewApp(pipelineId: string): Promise<st
   const branch = state.branch
   const reviewApps: HerokuApiResGetReview[] = await heroku.get(`/pipelines/${pipelineId}/review-apps`)
 
-  const reviewApp = reviewApps.find((instance: { id: string; branch: string; status: string }): boolean => {
-    return instance.branch === branch && (instance.status === 'created' || instance.status === 'creating')
-  })
+  const reviewApp = reviewApps.find(
+    (instance: { id: string; app: { id: string }; branch: string; status: string }): boolean => {
+      return instance.branch === branch && (instance.status === 'created' || instance.status === 'creating')
+    }
+  )
   if (reviewApp?.status === 'creating') {
     await repeatedCheckForSuccessStatus(reviewApp.id)
   }
 
-  return reviewApp?.id
+  return reviewApp?.app.id
 }

@@ -14,6 +14,9 @@ declare module 'heroku-client' {
     id: string
     branch: string
     status: string
+    app: {
+      id: string
+    }
   }
 
   export type HerokuApiResGetGtg = {
@@ -22,6 +25,9 @@ declare module 'heroku-client' {
 
   export type HerokuApiResPost = {
     id: string
+    app: {
+      id: string
+    }
   }
 
   export type HerokuApiReqOptions = {
