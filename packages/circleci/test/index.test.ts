@@ -6,8 +6,7 @@ describe('CircleCI plugin', () => {
     expect(circleci.hooks).toEqual(
       expect.objectContaining({
         'build:ci': expect.any(Function),
-        'test:ci': expect.any(Function),
-        'test:remote': expect.any(Function)
+        'test:ci': expect.any(Function)
       })
     )
   })
