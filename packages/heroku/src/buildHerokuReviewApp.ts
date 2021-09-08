@@ -16,7 +16,7 @@ export default async function buildHerokuReviewApp(pipelineId: string): Promise<
   })
 
   console.log(`Checking review app for success status...`)
-  console.log('buildHerokuRevieweApp', reviewApp)
+
   const successStatus = await repeatedCheckForSuccessStatus(reviewApp.id)
 
   if (successStatus) {
