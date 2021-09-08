@@ -60,7 +60,7 @@ options:
           `
         throw error
       }
-
+      console.log('reviewAppId in review.ts', reviewAppId)
       await setConfigVars(reviewAppId, 'continuous-integration', this.options.vaultPath)
 
       await gtg(reviewAppId, 'review')
