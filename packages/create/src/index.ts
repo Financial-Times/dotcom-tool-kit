@@ -43,11 +43,18 @@ class Logger extends Komatsu {
 
     this.log(id, { message: labels.waiting, status: 'not-started' })
 
-    const interim = await wait
-
-    this.log(id, { message: labels.pending })
-
     try {
+      let interim
+      try {
+        interim = await wait
+      } catch (error: any) {
+        // should have been logged by logPromise
+        error.logged = true
+        throw error
+      }
+
+      this.log(id, { message: labels.pending })
+
       const result = await run(interim)
       this.log(id, { status: 'done', message: labels.done })
       return result
@@ -55,7 +62,7 @@ class Logger extends Komatsu {
       this.log(id, {
         status: 'fail',
         message: labels.fail,
-        error
+        error: error.logged ? undefined : error
       })
 
       error.logged = true
