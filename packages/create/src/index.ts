@@ -82,8 +82,17 @@ async function main() {
   const packageJson = loadPackageJson({ filepath })
   const logger = new Logger()
   const configPath = path.resolve(process.cwd(), '.circleci/config.yml')
+  let configFile = ''
 
-  const { preset, deleteConfig } = await prompt([
+  /* TODO
+     - prompt to install any plugins not installed by the preset
+     - prompt for required plugin options
+	  - prompt for resolving Hook conflicts
+	  - uninstall n-gage & n-heroku-tools
+	  - delete makefile after checking there's else it's running that they need
+  */
+
+  const { deleteConfig, confirm } = await prompt([
     {
       name: 'preset',
       type: 'select',
@@ -91,7 +100,11 @@ async function main() {
       choices: [
         { title: 'A user-facing (frontend) app', value: 'frontend-app' },
         { title: 'A service/backend app', value: 'service-app' }
-      ]
+      ],
+      onState: ({ value }) => {
+        packagesToInstall.push(`@dotcom-tool-kit/${value}`)
+        toolKitConfig.plugins.push(`@dotcom-tool-kit/${value}`)
+      }
     },
     {
       name: 'deleteConfig',
@@ -106,37 +119,22 @@ async function main() {
         '',
         configPath
       )}.`
-    }
-  ])
-
-  /* TODO
-     - prompt to install any plugins not installed by the preset
-     - prompt for required plugin options
-	  - prompt for resolving Hook conflicts
-	  - uninstall n-gage & n-heroku-tools
-	  - delete makefile after checking there's else it's running that they need
-  */
-
-  packagesToInstall.push(`@dotcom-tool-kit/${preset}`)
-  toolKitConfig.plugins.push(`@dotcom-tool-kit/${preset}`)
-
-  const configFile = yaml.dump(toolKitConfig)
-
-  console.log(`
-so, we're gonna:
+    },
+    {
+      name: 'confirm',
+      type: 'confirm',
+      message: () => {
+        configFile = yaml.dump(toolKitConfig)
+        return `so, we're gonna:
 
 install the following packages:
 ${packagesToInstall.map((p) => `- ${p}`).join('\n')}
 
 create a .toolkitrc.yml containing:
 ${configFile}
-`)
 
-  const { confirm }: { confirm: boolean } = await prompt([
-    {
-      name: 'confirm',
-      type: 'confirm',
-      message: 'sound good?'
+sound good?`
+      }
     }
   ])
 
