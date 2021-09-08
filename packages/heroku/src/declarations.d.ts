@@ -11,9 +11,7 @@ declare module 'heroku-client' {
   }
 
   export type HerokuApiResGetReview = {
-    app: {
-      id: string
-    }
+    id: string
     branch: string
     status: string
   }
