@@ -46,7 +46,7 @@ declare module 'heroku-client' {
   export default class Heroku {
     constructor(options: HerokuClassOptions)
     get<T>(path: string, options?: HerokuApiReqOptions): Promise<T>
-    patch(path: string, options?: HerokuApiReqOptions): Promise<HerokuApiResPatch>
+    patch<T>(path: string, options?: HerokuApiReqOptions): Promise<T>
     post(path: string, options?: HerokuApiReqOptions): Promise<HerokuApiResPost>
   }
 }
