@@ -1,5 +1,3 @@
 {
-  "scripts": {
-    "test-hook": "# NO HOOK"
-  }
+  "scripts": {}
 }
