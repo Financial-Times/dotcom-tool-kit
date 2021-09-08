@@ -78,6 +78,7 @@ const { version }: { version: string } = JSON.parse(
 )
 
 const packagesToInstall = ['dotcom-tool-kit']
+const packagesToRemove: string[] = []
 const toolKitConfig: RCFile = {
   plugins: [],
   hooks: {},
@@ -128,6 +129,16 @@ async function main() {
       )}.`
     },
     {
+      name: 'uninstall',
+      type: 'confirm',
+      message: 'Should we uninstall obsolete n-gage and n-heroku-tools packages?',
+      onState: ({ value }) => {
+        if (value) {
+          packagesToRemove.push('@financial-times/n-gage', '@financial-times/n-heroku-tools')
+        }
+      }
+    },
+    {
       name: 'confirm',
       type: 'confirm',
       message: (_prev, values) => {
@@ -135,11 +146,16 @@ async function main() {
         return `so, we're gonna:
 
 install the following packages:
-${packagesToInstall.map((p) => `- ${p}`).join('\n')}
+${packagesToInstall.map((p) => `- ${p}`).join('\n')}\
 
+${
+  packagesToRemove.length > 0
+    ? '\nuninstall the following packages:\n' + packagesToRemove.map((p) => `- ${p}`).join('\n') + '\n'
+    : ''
+}
 create a .toolkitrc.yml containing:
-${configFile}
-${values.deleteConfig ? 'regenerate .circleci/config.yml\n' : ''}
+${configFile}\
+${values.deleteConfig ? '\nregenerate .circleci/config.yml\n' : ''}
 sound good?`
       }
     }
@@ -150,6 +166,12 @@ sound good?`
       packageJson.requireDependency({
         pkg,
         version,
+        field: 'devDependencies'
+      })
+    }
+    for (const pkg of packagesToRemove) {
+      packageJson.removeDependency({
+        pkg,
         field: 'devDependencies'
       })
     }

@@ -1,11 +1,17 @@
 declare module '@financial-times/package-json' {
-  interface IDependency {
+  export type DependencyField =
+    | 'dependencies'
+    | 'devDependencies'
+    | 'optionalDependencies'
+    | 'peerDependencies'
+
+  export interface IDependency {
     pkg: string
     version: string
-    field?: string
+    field: DependencyField
   }
 
-  interface IChangelog<E extends string> {
+  export interface IChangelog<E extends string> {
     event: E
     field: string
     previousValue?: string
@@ -16,6 +22,7 @@ declare module '@financial-times/package-json' {
   export class PackageJson {
     requireScript(options: Record<string, unknown>): IChangelog<'requireScript'>
     requireDependency(options: IDependency): IChangelog<'requireDependency'>
+    removeDependency(options: Omit<IDependency, 'version'>): IChangelog<'removeDependency'>
     hasChangesToWrite(): boolean
     writeChanges(): boolean
     getField<T>(name: string): T
