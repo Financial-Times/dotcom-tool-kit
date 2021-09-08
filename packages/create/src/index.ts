@@ -81,8 +81,9 @@ async function main() {
   const filepath = path.resolve(process.cwd(), 'package.json')
   const packageJson = loadPackageJson({ filepath })
   const logger = new Logger()
+  const configPath = path.resolve(process.cwd(), '.circleci/config.yml')
 
-  const { preset } = await prompt([
+  const { preset, deleteConfig } = await prompt([
     {
       name: 'preset',
       type: 'select',
@@ -91,6 +92,20 @@ async function main() {
         { title: 'A user-facing (frontend) app', value: 'frontend-app' },
         { title: 'A service/backend app', value: 'service-app' }
       ]
+    },
+    {
+      name: 'deleteConfig',
+      // Skip prompt if CircleCI config doesn't exist
+      type: await fs
+        .access(configPath)
+        .then(() => 'confirm' as const)
+        .catch(() => null),
+      // This .relative() call feels redundant at the moment. Maybe we can just
+      // hard-code the config path?
+      message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${path.relative(
+        '',
+        configPath
+      )}.`
     }
   ])
 
@@ -143,7 +158,11 @@ ${configFile}
       'creating .toolkitrc.yml'
     )
 
-    const initialTasks = Promise.all([installPromise, configPromise])
+    const unlinkPromise = deleteConfig
+      ? logger.logPromise(fs.unlink(configPath), 'removing old CircleCI config')
+      : Promise.resolve()
+
+    const initialTasks = Promise.all([installPromise, configPromise, unlinkPromise])
 
     const toolKitInstallPromise = logger.logPromiseWait(
       initialTasks,
