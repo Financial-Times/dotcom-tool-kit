@@ -50,7 +50,7 @@ describe('package.json hook', () => {
       const hook = new TestHook()
       await hook.install()
 
-      const packageJson = JSON.parse(await fs.readFile(path.join(base, 'package.json'), 'utf-8'))
+      const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
       expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook')
 
@@ -68,7 +68,7 @@ describe('package.json hook', () => {
       const hook = new TestHook()
       await hook.install()
 
-      const packageJson = JSON.parse(await fs.readFile(path.join(base, 'package.json'), 'utf-8'))
+      const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
       expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook another:hook')
 
