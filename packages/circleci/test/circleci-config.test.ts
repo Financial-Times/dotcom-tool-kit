@@ -47,11 +47,12 @@ describe('CircleCI config hook', () => {
       const configPath = path.join(__dirname, 'files', 'comment-without-hook', '.circleci', 'config.yml')
       const originalYaml = await fs.readFile(configPath, 'utf8')
 
-      const hook = new TestHook()
-      await hook.install()
-
-      const config = yaml.load(await fs.readFile(configPath, 'utf8'))
       try {
+        const hook = new TestHook()
+        await hook.install()
+
+        const config = yaml.load(await fs.readFile(configPath, 'utf8'))
+
         expect(config).toEqual(
           expect.objectContaining({
             workflows: {

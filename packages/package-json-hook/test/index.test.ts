@@ -47,14 +47,16 @@ describe('package.json hook', () => {
 
       process.chdir(base)
 
-      const hook = new TestHook()
-      await hook.install()
+      try {
+        const hook = new TestHook()
+        await hook.install()
 
-      const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
+        const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
-      expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook')
-
-      await fs.writeFile(pkgPath, originalJson)
+        expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook')
+      } finally {
+        await fs.writeFile(pkgPath, originalJson)
+      }
     })
 
     it('should prepend hook to a call with an existing hook', async () => {
@@ -65,14 +67,16 @@ describe('package.json hook', () => {
 
       process.chdir(base)
 
-      const hook = new TestHook()
-      await hook.install()
+      try {
+        const hook = new TestHook()
+        await hook.install()
 
-      const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
+        const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
-      expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook another:hook')
-
-      await fs.writeFile(pkgPath, originalJson)
+        expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook another:hook')
+      } finally {
+        await fs.writeFile(pkgPath, originalJson)
+      }
     })
   })
 })
