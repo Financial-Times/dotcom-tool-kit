@@ -30,7 +30,6 @@ export default class HerokuStaging extends Task {
       }
       const repo = state.repo
       const appName = `ft-${repo}-staging`
-      writeState('staging', { appName })
 
       //apply vars from vault
       if (!this.options.vaultPath) {
