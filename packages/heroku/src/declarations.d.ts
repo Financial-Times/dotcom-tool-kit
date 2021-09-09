@@ -10,6 +10,17 @@ declare module 'heroku-client' {
     }
   }
 
+  export type HerokuApiResGetPipeline = {
+    id: string
+  }
+
+  export type HerokuApiResGetPipelineApps = {
+    app: {
+      id: string
+    }
+    stage: string
+  }
+
   export type HerokuApiResGetReview = {
     id: string
     branch: string
@@ -27,6 +38,7 @@ declare module 'heroku-client' {
     id: string
     app: {
       id: string
+      name: string
     }
   }
 

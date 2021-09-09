@@ -1,6 +1,6 @@
 import heroku from './herokuClient'
 import type { HerokuApiResGetSlug } from 'heroku-client'
-import { readState, writeState } from '@dotcom-tool-kit/state'
+import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default async function getSlug(): Promise<string> {
@@ -10,17 +10,14 @@ export default async function getSlug(): Promise<string> {
     throw new ToolKitError('Could not find state for staging, check that deploy:staging ran successfully')
   }
 
-  let appName = state.appName
+  const appName = state.appName
+  console.log(`retreiving slug id for current ${appName} release...`)
   const releases: HerokuApiResGetSlug[] = await heroku.get(`/apps/${appName}/releases`)
   const latest = releases.find((release: { current: string }) => release.current)
 
   if (!latest) {
     throw new ToolKitError('Could not find state for staging, check that deploy:staging ran successfully')
   }
-
-  appName = appName.replace('-staging', '')
-
-  writeState('production', { appName })
-
+  console.log(`latest staging slug id found: ${latest.slug.id}`)
   return latest.slug.id
 }
