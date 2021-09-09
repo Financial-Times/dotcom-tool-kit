@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
-import * as fs from 'fs/promises'
+import { promises as fs } from 'fs'
 import { PackageJsonHook } from '../src'
 
 describe('package.json hook', () => {
