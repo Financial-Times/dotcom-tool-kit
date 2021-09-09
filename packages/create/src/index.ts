@@ -115,6 +115,31 @@ async function main() {
       }
     },
     {
+      name: 'additional',
+      type: 'multiselect',
+      message: 'Would you like to install any additional plugins?',
+      choices: [
+        {
+          title: 'Jest',
+          value: 'jest',
+          description: 'a delightful JavaScript Testing Framework with a focus on simplicity'
+        },
+        {
+          title: 'Mocha',
+          value: 'mocha',
+          description: 'a feature-rich JavaScript test framework, making asynchronous testing simple and fun'
+        },
+        { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' }
+      ],
+      onState: ({ value }) => {
+        const selectedPackages = value
+          .filter(({ selected }: { selected: boolean }) => selected)
+          .map(({ value }: { value: string }) => `@dotcom-tool-kit/${value}`)
+        packagesToInstall.push(...selectedPackages)
+        toolKitConfig.plugins.push(...selectedPackages)
+      }
+    },
+    {
       name: 'deleteConfig',
       // Skip prompt if CircleCI config doesn't exist
       type: await fs
