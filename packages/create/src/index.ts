@@ -100,75 +100,75 @@ async function main() {
 	  - delete makefile after checking there's else it's running that they need
   */
 
-  const { deleteConfig, confirm } = await prompt([
-    {
-      name: 'preset',
-      type: 'select',
-      message: `What kind of app is ${packageJson.getField('name')}?`,
-      choices: [
-        { title: 'A user-facing (frontend) app', value: 'frontend-app' },
-        { title: 'A service/backend app', value: 'service-app' }
-      ],
-      onState: ({ value }) => {
-        packagesToInstall.push(`@dotcom-tool-kit/${value}`)
-        toolKitConfig.plugins.push(`@dotcom-tool-kit/${value}`)
+  const { preset, additional, deleteConfig, uninstall } = await prompt(
+    [
+      {
+        name: 'preset',
+        type: 'select',
+        message: `What kind of app is ${packageJson.getField('name')}?`,
+        choices: [
+          { title: 'A user-facing (frontend) app', value: 'frontend-app' },
+          { title: 'A service/backend app', value: 'service-app' }
+        ]
+      },
+      {
+        name: 'additional',
+        type: 'multiselect',
+        message: 'Would you like to install any additional plugins?',
+        choices: [
+          {
+            title: 'Jest',
+            value: 'jest',
+            description: 'a delightful JavaScript Testing Framework with a focus on simplicity'
+          },
+          {
+            title: 'Mocha',
+            value: 'mocha',
+            description:
+              'a feature-rich JavaScript test framework, making asynchronous testing simple and fun'
+          },
+          { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' }
+        ]
+      },
+      {
+        name: 'deleteConfig',
+        // Skip prompt if CircleCI config doesn't exist
+        type: await fs
+          .access(configPath)
+          .then(() => 'confirm' as const)
+          .catch(() => null),
+        // This .relative() call feels redundant at the moment. Maybe we can just
+        // hard-code the config path?
+        message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${path.relative(
+          '',
+          configPath
+        )}.`
+      },
+      {
+        name: 'uninstall',
+        type: 'confirm',
+        message: 'Should we uninstall obsolete n-gage and n-heroku-tools packages?'
       }
-    },
+    ],
     {
-      name: 'additional',
-      type: 'multiselect',
-      message: 'Would you like to install any additional plugins?',
-      choices: [
-        {
-          title: 'Jest',
-          value: 'jest',
-          description: 'a delightful JavaScript Testing Framework with a focus on simplicity'
-        },
-        {
-          title: 'Mocha',
-          value: 'mocha',
-          description: 'a feature-rich JavaScript test framework, making asynchronous testing simple and fun'
-        },
-        { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' }
-      ],
-      onState: ({ value }) => {
-        const selectedPackages = value
-          .filter(({ selected }: { selected: boolean }) => selected)
-          .map(({ value }: { value: string }) => `@dotcom-tool-kit/${value}`)
-        packagesToInstall.push(...selectedPackages)
-        toolKitConfig.plugins.push(...selectedPackages)
-      }
-    },
-    {
-      name: 'deleteConfig',
-      // Skip prompt if CircleCI config doesn't exist
-      type: await fs
-        .access(configPath)
-        .then(() => 'confirm' as const)
-        .catch(() => null),
-      // This .relative() call feels redundant at the moment. Maybe we can just
-      // hard-code the config path?
-      message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${path.relative(
-        '',
-        configPath
-      )}.`
-    },
-    {
-      name: 'uninstall',
-      type: 'confirm',
-      message: 'Should we uninstall obsolete n-gage and n-heroku-tools packages?',
-      onState: ({ value }) => {
-        if (value) {
-          packagesToRemove.push('@financial-times/n-gage', '@financial-times/n-heroku-tools')
-        }
-      }
-    },
-    {
-      name: 'confirm',
-      type: 'confirm',
-      message: (_prev, values) => {
-        configFile = yaml.dump(toolKitConfig)
-        return `so, we're gonna:
+      onCancel: () => process.exit(1)
+    }
+  )
+
+  const selectedPackages = [preset, ...additional].map((plugin) => `@dotcom-tool-kit/${plugin}`)
+  packagesToInstall.push(...selectedPackages)
+  toolKitConfig.plugins.push(...selectedPackages)
+
+  if (uninstall) {
+    packagesToRemove.push('@financial-times/n-gage', '@financial-times/n-heroku-tools')
+  }
+
+  const { confirm } = await prompt({
+    name: 'confirm',
+    type: 'confirm',
+    message: (_prev, values) => {
+      configFile = yaml.dump(toolKitConfig)
+      return `so, we're gonna:
 
 install the following packages:
 ${packagesToInstall.map((p) => `- ${p}`).join('\n')}\
@@ -182,9 +182,8 @@ create a .toolkitrc.yml containing:
 ${configFile}\
 ${values.deleteConfig ? '\nregenerate .circleci/config.yml\n' : ''}
 sound good?`
-      }
     }
-  ])
+  })
 
   if (confirm) {
     for (const pkg of packagesToInstall) {
