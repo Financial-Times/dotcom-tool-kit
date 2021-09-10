@@ -18,7 +18,6 @@ interface StagingState {
 }
 
 interface ProductionState {
-  pipelineId: string
   appIds: string[]
 }
 
