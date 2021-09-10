@@ -1,6 +1,6 @@
 import { cosmiconfig } from 'cosmiconfig'
 
-const explorer = cosmiconfig('toolkit', { ignoreEmptySearchPlaces: false })
+export const explorer = cosmiconfig('toolkit', { ignoreEmptySearchPlaces: false })
 
 export interface RCFile {
   plugins: string[]

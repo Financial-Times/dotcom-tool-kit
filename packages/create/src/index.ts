@@ -1,8 +1,10 @@
 import prompt from 'prompts'
 import path from 'path'
 import * as yaml from 'js-yaml'
+import { ToolKitConflictError } from '@dotcom-tool-kit/error'
 import loadPackageJson from '@financial-times/package-json'
-import type { RCFile } from 'dotcom-tool-kit/src/rc-file'
+import { RCFile, explorer } from 'dotcom-tool-kit/lib/rc-file'
+import installHooks from 'dotcom-tool-kit/lib/install'
 import { exec as _exec } from 'child_process'
 import Komatsu, { LogPromiseLabels } from 'komatsu'
 import type { Spinner, Status } from 'komatsu'
@@ -89,7 +91,7 @@ async function main() {
   const filepath = path.resolve(process.cwd(), 'package.json')
   const packageJson = loadPackageJson({ filepath })
   const logger = new Logger()
-  const configPath = path.resolve(process.cwd(), '.circleci/config.yml')
+  const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
   let configFile = ''
 
   /* TODO
@@ -134,14 +136,14 @@ async function main() {
         name: 'deleteConfig',
         // Skip prompt if CircleCI config doesn't exist
         type: await fs
-          .access(configPath)
+          .access(circleConfigPath)
           .then(() => 'confirm' as const)
           .catch(() => null),
         // This .relative() call feels redundant at the moment. Maybe we can just
         // hard-code the config path?
         message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${path.relative(
           '',
-          configPath
+          circleConfigPath
         )}.`
       },
       {
@@ -204,24 +206,80 @@ sound good?`
 
     const installPromise = logger.logPromise(exec('npm install'), 'installing dependencies')
 
-    const configPromise = logger.logPromise(
-      fs.writeFile(path.join(process.cwd(), '.toolkitrc.yml'), configFile),
-      'creating .toolkitrc.yml'
-    )
+    const configPath = path.join(process.cwd(), '.toolkitrc.yml')
+    const configPromise = logger.logPromise(fs.writeFile(configPath, configFile), 'creating .toolkitrc.yml')
 
     const unlinkPromise = deleteConfig
-      ? logger.logPromise(fs.unlink(configPath), 'removing old CircleCI config')
+      ? logger.logPromise(fs.unlink(circleConfigPath), 'removing old CircleCI config')
       : Promise.resolve()
 
     const initialTasks = Promise.all([installPromise, configPromise, unlinkPromise])
 
     const toolKitInstallPromise = logger.logPromiseWait(
       initialTasks,
-      () => exec('npx dotcom-tool-kit --install'),
+      installHooks,
       'installing Tool Kit hooks'
     )
 
-    await Promise.all([initialTasks, toolKitInstallPromise])
+    try {
+      await Promise.all([initialTasks, toolKitInstallPromise])
+    } catch (error) {
+      if (error instanceof ToolKitConflictError && error.conflicts.length > 0) {
+        const orderedHooks: { [hook: string]: string[] } = {}
+
+        for (const conflict of error.conflicts) {
+          const remainingTasks = conflict.conflictingTasks
+          orderedHooks[conflict.hook] = []
+
+          while (remainingTasks.length > 0) {
+            const { order: nextIdx }: { order: number | null } = await prompt({
+              name: 'order',
+              type: 'select',
+              message: `Hook ${conflict.hook} has multiple tasks configured for it. \
+Which order do you want them to run in?`,
+              choices: [
+                ...remainingTasks.map(({ task, plugin }) => ({
+                  title: task,
+                  description: `defined by ${plugin}`
+                })),
+                { title: 'finish', value: null, description: "don't include any more tasks in the hook" }
+              ]
+            })
+
+            if (nextIdx !== null) {
+              const { task } = remainingTasks.splice(nextIdx, 1)[0]
+              orderedHooks[conflict.hook].push(task)
+            } else {
+              break
+            }
+          }
+        }
+
+        toolKitConfig.hooks = orderedHooks
+        configFile = yaml.dump(toolKitConfig)
+
+        const { confirm } = await prompt({
+          name: 'confirm',
+          type: 'confirm',
+          message: (_prev, values) =>
+            `ok, we're gonna recreate the .toolkitrc.yml containing:
+${configFile}
+sound alright?`
+        })
+
+        if (confirm) {
+          const configPromise = logger.logPromise(
+            fs.writeFile(configPath, configFile),
+            'recreating .toolkitrc.yml'
+          )
+          // Clear config cache now that config has been updated
+          explorer.clearSearchCache()
+          await logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
+        }
+      } else {
+        throw error
+      }
+    }
   }
 }
 

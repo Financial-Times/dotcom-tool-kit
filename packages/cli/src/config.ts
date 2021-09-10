@@ -4,7 +4,7 @@ import type { TaskClass } from '@dotcom-tool-kit/task'
 import type { HookTask, HookClass } from './hook'
 import { loadPluginConfig, Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
-import { ToolKitError } from '@dotcom-tool-kit/error'
+import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,
@@ -65,7 +65,15 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   })
 
   let shouldThrow = false
-  const error = new ToolKitError('There are problems with your Tool Kit configuration.')
+  const error = new ToolKitConflictError(
+    'There are problems with your Tool Kit configuration.',
+    hookTaskConflicts.map((conflict) => ({
+      hook: conflict.conflicting[0].id,
+      conflictingTasks: conflict.conflicting.flatMap((hook) =>
+        hook.tasks.map((task) => ({ task, plugin: hook.plugin.id }))
+      )
+    }))
+  )
   error.details = ''
 
   if (
