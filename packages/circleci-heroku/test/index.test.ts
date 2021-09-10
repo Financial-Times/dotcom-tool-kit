@@ -8,7 +8,9 @@ describe('CircleCI-Heroku plugin', () => {
         'deploy:review': expect.any(Function),
         'deploy:staging': expect.any(Function),
         'deploy:production': expect.any(Function),
-        'test:remote': expect.any(Function)
+        'teardown:staging': expect.any(Function),
+        'test:review': expect.any(Function),
+        'test:staging': expect.any(Function)
       })
     )
   })
