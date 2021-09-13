@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/task'
-import { readState, writeState } from '@dotcom-tool-kit/state'
+import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import setConfigVars from '../setConfigVars'
 import scaleDyno from '../scaleDyno'
@@ -30,7 +30,6 @@ export default class HerokuStaging extends Task {
       }
       const repo = state.repo
       const appName = `ft-${repo}-staging`
-      writeState('staging', { appName })
 
       //apply vars from vault
       if (!this.options.vaultPath) {

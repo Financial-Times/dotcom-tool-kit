@@ -1,20 +1,27 @@
 import heroku from './herokuClient'
-import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { readState } from '@dotcom-tool-kit/state'
+import gtg from './gtg'
 
-export default async function setSlug(slugId: string): Promise<string> {
+export default function setSlug(slug: string): Promise<void[]> {
   const state = readState(`production`)
 
   if (!state) {
     throw new ToolKitError('Could not find production state information') //TODO - remidating actions?
   }
-  const appName = state.appName
 
-  const latestRelease = await heroku.post(`/apps/${appName}/releases`, {
-    body: {
-      slug: slugId
-    }
-  })
+  const appIds = state.appIds
 
-  return latestRelease.id
+  console.log(`updating slug id ${slug} on production app ${appIds}`)
+  const latestRelease = appIds.map((appId) =>
+    heroku
+      .post(`/apps/${appId}/releases`, {
+        body: {
+          slug
+        }
+      })
+      .then((response) => gtg(response.app.name, 'production', false))
+  )
+
+  return Promise.all(latestRelease)
 }

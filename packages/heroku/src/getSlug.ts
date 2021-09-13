@@ -11,11 +11,13 @@ export default async function getSlug(): Promise<string> {
   }
 
   const appName = state.appName
+  console.log(`retreiving slug id for current ${appName} release...`)
   const releases: HerokuApiResGetSlug[] = await heroku.get(`/apps/${appName}/releases`)
   const latest = releases.find((release: { current: string }) => release.current)
 
   if (!latest) {
     throw new ToolKitError('Could not find state for staging, check that deploy:staging ran successfully')
   }
+  console.log(`latest staging slug id found: ${latest.slug.id}`)
   return latest.slug.id
 }

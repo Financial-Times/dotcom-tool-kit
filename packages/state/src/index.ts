@@ -18,7 +18,7 @@ interface StagingState {
 }
 
 interface ProductionState {
-  appName: string
+  appIds: string[]
 }
 
 export interface State {
