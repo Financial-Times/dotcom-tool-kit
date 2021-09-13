@@ -3,7 +3,7 @@ import type { HerokuApiResGetPipeline, HerokuApiResGetPipelineApps } from 'herok
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, writeState } from '@dotcom-tool-kit/state'
 
-export default async function getPipelinegetPipelineCouplings(): Promise<void> {
+export default async function getPipelineCouplings(): Promise<void> {
   const state = readState('staging')
 
   if (!state) {
