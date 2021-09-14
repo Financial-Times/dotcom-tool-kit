@@ -27,9 +27,9 @@ ${availableHooks}`
     throw error
   }
 
-  const errors: ErrorSummary[] = []
-
   for (const hook of hooks) {
+    const errors: ErrorSummary[] = []
+
     if (!config.hookTasks[hook]) {
       console.warn(styles.warning(`no task configured for ${hook}: skipping assignment...}`))
       continue
@@ -56,26 +56,27 @@ ${availableHooks}`
         })
       }
     }
-  }
 
-  if (errors.length > 0) {
-    const error = new ToolKitError(`there were errors from your tasks`)
-    error.details = errors
-      .map(
-        ({ hook, task, error }) =>
-          `${styles.heading(`${styles.task(task)} (from hook ${styles.hook(hook)}):`)}
+    if (errors.length > 0) {
+      const error = new ToolKitError(`error running tasks for ${styles.hook(hook)}`)
+      error.details = errors
+        .map(
+          ({ hook, task, error }) =>
+            `${styles.heading(`${styles.task(task)}:`)}
 
-${error.message}` +
-          (error instanceof ToolKitError
-            ? `
+${error.message}${
+              error instanceof ToolKitError
+                ? `
 
 ${error.details}`
-            : '')
-      )
-      .join(`\n${styles.dim(styles.ruler())}\n`)
+                : ''
+            }`
+        )
+        .join(`\n${styles.dim(styles.ruler())}\n`)
 
-    error.exitCode = errors.length + 1
-    throw error
+      error.exitCode = errors.length + 1
+      throw error
+    }
   }
 }
 
