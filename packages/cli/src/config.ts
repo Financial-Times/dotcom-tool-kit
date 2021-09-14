@@ -92,7 +92,12 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   const configuredHookTasks = withoutConflicts(Object.values(config.hookTasks))
   const definedHooks = withoutConflicts(Object.values(config.hooks))
   const definedHookIds = new Set(Object.keys(config.hooks))
-  const undefinedHookTasks = configuredHookTasks.filter((hook) => !definedHookIds.has(hook.id))
+  const undefinedHookTasks = configuredHookTasks.filter((hookTask) => {
+    // we only care about undefined hooks that were configured by the app, not default config from plugins
+    const fromApp = hookTask.plugin.root === process.cwd()
+    const hookDefined = definedHookIds.has(hookTask.id)
+    return fromApp && !hookDefined
+  })
 
   if (undefinedHookTasks.length > 0) {
     shouldThrow = true

@@ -8,40 +8,12 @@
 
 Tool Kit is under active develpment. Anything can and probably will change.
 
-## Development
+## TL;DR for Customer Products developers
 
-Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export tasks that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
-
-Tool Kit requires Node v12. To install the dependencies and link internal packages together, run:
-
-```sh
-npm install
-```
-
-There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
-
-Tool Kit tasks are implemented via a simple `async run()` function, and written in Typescript.
-
-In the future, there will be unit and integration tests for every package.
-
-### Creating a plugin
-
-There's a script to create a skeleton plugin. Run:
-
-```sh
-npm run create-plugin -- name-of-plugin
-```
-
-and the script will create the plugin folder and add all the necessary configuration to get it building with Typescript.
-
-To test your plugin, you can install it in the sandbox package:
-
-```sh
-cd packages/sandbox
-npm install ../name-of-plugin
-```
-
-and [add the plugin](#plugins) to `packages/sandbox/.toolkitrc.yml`.
+* Tool Kit replaces your app's `Makefile`, as well as `n-gage` and `n-heroku-tools`
+* You don't run Tool Kit directly, you run it using npm scripts, CircleCI jobs, and other similar tooling
+* Tool Kit [automatically manages](#hooks) the configuration for this tooling, so your repo is always consistent
+* Apps that have different requirements can install different plugins, instead of having to update and maintain nonstandard `Makefile` tasks
 
 ## Hooks
 
@@ -126,6 +98,41 @@ hooks:
 A plugin can list its own tasks, or tasks from any other plugin included by the app.
 
 If multiple plugins try to configure the same hooks, that's a conflict, and you won't be able to run Tool Kit without [resolving the conflict](docs/resolving-hook-conflicts.md) in a parent plugin, or your app.
+
+## Development
+
+Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export tasks that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
+
+Tool Kit requires Node v12. To install the dependencies and link internal packages together, run:
+
+```sh
+npm install
+```
+
+There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
+
+Tool Kit tasks are implemented via a simple `async run()` function, and written in Typescript.
+
+In the future, there will be unit and integration tests for every package.
+
+### Creating a plugin
+
+There's a script to create a skeleton plugin. Run:
+
+```sh
+npm run create-plugin -- name-of-plugin
+```
+
+and the script will create the plugin folder and add all the necessary configuration to get it building with Typescript.
+
+To test your plugin, you can install it in the sandbox package:
+
+```sh
+cd packages/sandbox
+npm install ../name-of-plugin
+```
+
+and [add the plugin](#plugins) to `packages/sandbox/.toolkitrc.yml`.
 
 ## Plugin structure
 
