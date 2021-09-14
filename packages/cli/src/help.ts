@@ -18,7 +18,7 @@ Tool Kit is modern, maintainable & modular developer tooling for FT.com projects
 ${styles.URL('https://github.com/financial-times/dotcom-tool-kit')}
 
 ${styles.ruler()}
-${config.hooks.length === 0 ? `there are no hooks available. you'll need to install plugins that define hooks to be able to run Tool Kit tasks.` : styles.dim(
+${Object.keys(config.hooks).length === 0 ? `there are no hooks available. you'll need to install plugins that define hooks to be able to run Tool Kit tasks.` : styles.dim(
   hooks.length === 0
     ? 'available hooks'
     : `help for ${hooks.length - missingHooks.length} ${
