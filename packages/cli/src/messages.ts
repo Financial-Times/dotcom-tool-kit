@@ -97,13 +97,17 @@ const formatPlugin = (plugin: Plugin): string =>
 export const formatUndefinedHookTasks = (
   undefinedHooks: HookTask[],
   definedHooks: string[]
-): string => `These hooks don't exist, but are configured to run tasks:
+): string => `Hooks must be defined by a plugin before you can configure a task to run for them. In your Tool Kit configuration you've configured hooks that aren't defined:
 
-${undefinedHooks.map((hook) => `- ${s.hook(hook.id)} assigned by ${formatPlugin(hook.plugin)}`).join('\n')}
+${undefinedHooks.map((hook) => `- ${s.hook(hook.id)}`).join('\n')}
 
-They could be misspelt, or defined by a Tool Kit plugin that isn't used by this app.
+They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
 
-Available hooks are: ${definedHooks.map(s.hook).join(', ')}.
+${
+  definedHooks.length > 0
+    ? `Hooks that are defined and available for tasks are: ${definedHooks.map(s.hook).join(', ')}`
+    : `There are no hooks defined by this app's plugins. You probably need to install some plugins to define hooks.`
+}.
 `
 
 export const formatUninstalledHooks = (
