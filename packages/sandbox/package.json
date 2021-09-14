@@ -5,7 +5,8 @@
   "scripts": {
     "test": "dotcom-tool-kit test:local",
     "build": "dotcom-tool-kit build:local",
-    "heroku-postbuild": "dotcom-tool-kit build:remote"
+    "heroku-postbuild": "dotcom-tool-kit release:remote build:remote",
+    "heroku-cleanup": "dotcom-tool-kit cleanup:remote"
   },
   "keywords": [],
   "author": "",
