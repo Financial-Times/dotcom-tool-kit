@@ -60,13 +60,17 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   const taskConflicts = findConflicts(Object.values(config.tasks))
   const optionConflicts = findConflicts(Object.values(config.options))
 
+  const definedHookTaskConflicts = hookTaskConflicts.filter((conflict) => {
+    return conflict.conflicting[0].id in config.hooks
+  })
+
   let shouldThrow = false
   const error = new ToolKitError('There are problems with your Tool Kit configuration.')
   error.details = ''
 
   if (
     hookConflicts.length > 0 ||
-    hookTaskConflicts.length > 0 ||
+    definedHookTaskConflicts.length > 0 ||
     taskConflicts.length > 0 ||
     optionConflicts.length > 0
   ) {
@@ -76,8 +80,8 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
       error.details += formatHookConflicts(hookConflicts)
     }
 
-    if (hookTaskConflicts.length) {
-      error.details += formatHookTaskConflicts(hookTaskConflicts)
+    if (definedHookTaskConflicts.length) {
+      error.details += formatHookTaskConflicts(definedHookTaskConflicts)
     }
 
     if (taskConflicts.length) {
