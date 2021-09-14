@@ -18,7 +18,7 @@ export default async function getPipelineCouplings(): Promise<void> {
 
   console.log(`getting product app ids for pipeline id: ${piplelineDetails.id}`)
   const couplings: HerokuApiResGetPipelineApps[] = await heroku.get(
-    `/apps/${piplelineDetails.id}/pipeline-couplings`
+    `/pipelines/${piplelineDetails.id}/pipeline-couplings`
   )
 
   const prodApps = couplings.filter((app) => app.stage === 'production')
