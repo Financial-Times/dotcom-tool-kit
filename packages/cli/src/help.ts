@@ -2,7 +2,7 @@ import { loadConfig } from './config'
 import { styles } from './messages'
 
 export default async function showHelp(hooks: string[]): Promise<void> {
-  const config = await loadConfig({ checkInstall: false })
+  const config = await loadConfig()
 
   if (hooks.length === 0) {
     hooks = Object.keys(config.hooks).sort()
