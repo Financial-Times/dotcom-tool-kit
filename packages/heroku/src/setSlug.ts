@@ -7,7 +7,7 @@ export default function setSlug(slug: string): Promise<void[]> {
   const state = readState(`production`)
 
   if (!state) {
-    throw new ToolKitError('Could not find production state information') //TODO - remidating actions?
+    throw new ToolKitError('Could not find production state information')
   }
 
   const appIds = state.appIds

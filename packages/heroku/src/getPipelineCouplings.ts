@@ -7,7 +7,7 @@ export default async function getPipelineCouplings(): Promise<void> {
   const state = readState('staging')
 
   if (!state) {
-    throw new ToolKitError('Could not find state for staging, check that deploy:staging ran successfully')
+    throw new ToolKitError('could not find state for staging, check that deploy:staging ran successfully')
   }
 
   // infer pipeline name from staging app name

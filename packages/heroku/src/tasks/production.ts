@@ -1,6 +1,6 @@
 import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import getSlug from '../getSlug'
+import { readState } from '@dotcom-tool-kit/state'
 import setSlug from '../setSlug'
 import getPipelineCouplings from '../getPipelineCouplings'
 
@@ -13,10 +13,15 @@ export default class HerokuProduction extends Task {
       await getPipelineCouplings()
 
       console.log(`retreiving staging slug...`)
-      const stagingSlugId = await getSlug()
+      const state = readState('staging')
+      if (!state) {
+        throw new ToolKitError('could not find staging state information')
+      }
+      const { slugId } = state
 
       console.log(`promoting staging to production....`)
-      await setSlug(stagingSlugId)
+      await setSlug(slugId)
+
       console.log(`staging has been successfully promoted to production`)
     } catch (err) {
       if (err instanceof ToolKitError) {

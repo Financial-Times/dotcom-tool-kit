@@ -8,7 +8,7 @@ export default async function getHerokuReviewApp(pipelineId: string): Promise<st
   const state = readState('ci')
 
   if (!state) {
-    throw new ToolKitError('Could not find CI') //TODO - remidating actions?
+    throw new ToolKitError('could not find CI') //TODO - remidating actions?
   }
 
   const branch = state.branch
@@ -19,6 +19,7 @@ export default async function getHerokuReviewApp(pipelineId: string): Promise<st
       return instance.branch === branch && (instance.status === 'created' || instance.status === 'creating')
     }
   )
+
   if (reviewApp?.status === 'creating') {
     await repeatedCheckForSuccessStatus(reviewApp.id)
   }

@@ -22,7 +22,7 @@ export default async function setConfigVars(
 
     await heroku.patch(`/apps/${appId}/config-vars`, { body: configVars })
 
-    console.log('Following values have been set:', Object.keys(configVars).join(', '))
+    console.log('the following values have been set:', Object.keys(configVars).join(', '))
 
     console.log(`${appId} config vars have been updated successfully.`)
   } catch (err) {

@@ -7,6 +7,7 @@ declare module 'heroku-client' {
     current: string
     slug: {
       id: string
+      commit: string
     }
   }
 
