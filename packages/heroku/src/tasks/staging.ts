@@ -1,10 +1,10 @@
 import { Task } from '@dotcom-tool-kit/task'
-import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import getHerokuStagingApp from '../getHerokuStagingApp'
 import setConfigVars from '../setConfigVars'
 import scaleDyno from '../scaleDyno'
 import gtg from '../gtg'
-import getSlug from '../getSlug'
+
 import type { VaultPath } from '@dotcom-tool-kit/vault'
 
 type HerokuStagingOptions = {
@@ -24,25 +24,8 @@ export default class HerokuStaging extends Task {
 
   async run(): Promise<void> {
     try {
-      const state = readState('ci')
+      const appName = await getHerokuStagingApp()
 
-      if (!state) {
-        throw new ToolKitError('could not find CI state')
-      }
-      const { repo, version } = state
-      const appName = `ft-${repo}-staging`
-
-      console.log(`retreiving staging app's latest deployed commit...`)
-      const { commit } = await getSlug()
-
-      if (version !== commit) {
-        const error = new ToolKitError('your staging does not have your latest commit')
-        error.message = `If this is the first time you've seen this message, try re-running the pipeline. 
-        Otherwise check that you've set up automatic deployments for your staging app in heroku, and refer to the build logs of your staging app.`
-        throw error
-      }
-
-      console.log(`deployed commit is latest (${version.slice(0, 7)})`)
       if (!this.options.vaultPath) {
         const error = new ToolKitError('no vaultPath option in your Tool Kit configuration')
         error.details = `the vaultPath is needed to get your app's secrets from vault, e.g.
