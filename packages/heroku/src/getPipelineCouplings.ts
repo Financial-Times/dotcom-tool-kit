@@ -1,18 +1,9 @@
 import heroku from './herokuClient'
 import type { HerokuApiResGetPipeline, HerokuApiResGetPipelineApps } from 'heroku-client'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { readState, writeState } from '@dotcom-tool-kit/state'
+import { writeState } from '@dotcom-tool-kit/state'
 
-export default async function getPipelineCouplings(): Promise<void> {
-  const state = readState('staging')
-
-  if (!state) {
-    throw new ToolKitError('could not find state for staging, check that deploy:staging ran successfully')
-  }
-
-  // infer pipeline name from staging app name
-  const pipelineName = state.appName.replace('-staging', '')
-
+export default async function getPipelineCouplings(pipelineName: string): Promise<void> {
   console.log(`retreiving pipeline id for ${pipelineName}`)
   const piplelineDetails: HerokuApiResGetPipeline = await heroku.get(`/pipelines/${pipelineName}`)
 

@@ -4,13 +4,36 @@ import { readState } from '@dotcom-tool-kit/state'
 import setSlug from '../setSlug'
 import getPipelineCouplings from '../getPipelineCouplings'
 
+type HerokuProductionOptions = {
+  pipeline?: string
+}
+
 export default class HerokuProduction extends Task {
   static description = ''
 
+  static defaultOptions: HerokuProductionOptions = {
+    pipeline: undefined
+  }
+
+  constructor(public options: HerokuProductionOptions = HerokuProduction.defaultOptions) {
+    super()
+  }
+
   async run(): Promise<void> {
     try {
+      if (!this.options.pipeline) {
+        const error = new ToolKitError('no pipeline option in your Tool Kit configuration')
+        error.details = `the Heroku plugin needs to know your pipeline name to deploy Review Apps. add it to your configuration, e.g.:
+
+options:
+  '@dotcom-tool-kit/heroku':
+    pipeline: your-heroku-pipeline`
+
+        throw error
+      }
+
       console.log(`retreiving prod app id(s)...`)
-      await getPipelineCouplings()
+      await getPipelineCouplings(this.options.pipeline)
 
       console.log(`retreiving staging slug...`)
       const state = readState('staging')
