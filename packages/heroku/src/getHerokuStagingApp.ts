@@ -18,7 +18,7 @@ export default async function getHerokuStagingApp(): Promise<string> {
   console.log(`checking ${appName} is deployed with the latest commit...`)
   if (version !== slug.commit) {
     const error = new ToolKitError(`your staging does not have your latest commit`)
-    error.message = `
+    error.details = `
     latest: ${version.slice(0, 7)}, currently deployed: ${slug.commit.slice(0, 7)}...
     if this is the first time you've seen this message, try re-running the pipeline... 
     otherwise check that you've set up automatic deployments for your staging app in heroku, and refer to the build logs of your staging app.`
@@ -30,8 +30,14 @@ export default async function getHerokuStagingApp(): Promise<string> {
   if (slug.status === 'succeeded') {
     return appName
   } else {
-    const error = new ToolKitError(`Error getting staging app`)
-    error.message = `
+    const error = new ToolKitError(`error getting staging app`)
+    error.details = `there appears to be an error with the current release status - expected 'succeeded', received: ${
+      slug.status
+    }. ${
+      slug.status === 'pending'
+        ? `rerun the work flow as the release may still be building`
+        : `refer to the build logs in the Heroku console.`
+    } release details:
       app name: ${appName}
       app id: ${id}
       commit: ${slug.commit}
