@@ -1,5 +1,5 @@
 {
-  "name": "@dotcom-tool-kit/task",
+  "name": "@dotcom-tool-kit/types",
   "version": "0.0.0-development",
   "description": "",
   "main": "lib",
@@ -12,18 +12,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
-    "directory": "packages/task"
+    "directory": "packages/types"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/task",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/types",
   "files": [
-    "/lib",
-    ".toolkitrc.yml"
+    "/lib"
   ],
   "volta": {
     "extends": "../../package.json"
   },
   "dependencies": {
-    "@dotcom-tool-kit/types": "file:../types"
+    "joi": "^17.4.2"
   }
 }

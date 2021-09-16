@@ -1,7 +1,7 @@
-import { loadConfig } from './config'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { Config, loadConfig } from './config'
 
-export default async function installHooks(): Promise<void> {
+export default async function installHooks(): Promise<Config> {
   const config = await loadConfig({ checkInstall: false })
 
   const tasks = Object.values(config.hooks).map((Hook) => async () => {
@@ -30,4 +30,6 @@ export default async function installHooks(): Promise<void> {
     error.details = errors.map((error) => error.message).join('\n\n')
     throw error
   }
+
+  return config
 }

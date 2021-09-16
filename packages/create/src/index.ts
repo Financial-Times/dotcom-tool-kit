@@ -1,16 +1,18 @@
-import prompt from 'prompts'
-import path from 'path'
-import * as yaml from 'js-yaml'
 import { ToolKitConflictError } from '@dotcom-tool-kit/error'
+import type { Schema, SchemaType } from '@dotcom-tool-kit/types/src/schema'
 import loadPackageJson from '@financial-times/package-json'
-import { RCFile, explorer } from 'dotcom-tool-kit/lib/rc-file'
-import installHooks from 'dotcom-tool-kit/lib/install'
 import { exec as _exec } from 'child_process'
-import Komatsu, { LogPromiseLabels } from 'komatsu'
-import type { Spinner, Status } from 'komatsu'
-import { promises as fs } from 'fs'
+import installHooks from 'dotcom-tool-kit/lib/install'
+import type { Config } from 'dotcom-tool-kit/src/config'
+import { explorer, RCFile } from 'dotcom-tool-kit/lib/rc-file'
+import { promises as fs, readFileSync } from 'fs'
+import * as yaml from 'js-yaml'
+import type { Spinner } from 'komatsu'
+import Komatsu from 'komatsu'
+import path from 'path'
+import prompt from 'prompts'
 import { promisify } from 'util'
-import { readFileSync } from 'fs'
+import { ValidConfig } from 'dotcom-tool-kit/lib/config'
 
 // TODO backport this to Komatsu mainline?
 class Logger extends Komatsu {
@@ -221,8 +223,10 @@ sound good?`
       'installing Tool Kit hooks'
     )
 
+    let config: Config | undefined
     try {
-      await Promise.all([initialTasks, toolKitInstallPromise])
+      const [, installedConfig] = await Promise.all([initialTasks, toolKitInstallPromise])
+      config = installedConfig
     } catch (error) {
       if (error instanceof ToolKitConflictError && error.conflicts.length > 0) {
         const orderedHooks: { [hook: string]: string[] } = {}
@@ -274,10 +278,136 @@ sound alright?`
           )
           // Clear config cache now that config has been updated
           explorer.clearSearchCache()
-          await logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
+          config = await logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
         }
       } else {
         throw error
+      }
+    }
+
+    if (config) {
+      for (const plugin of Object.keys((config as ValidConfig).plugins)) {
+        let options: Schema
+        const pluginName = plugin.slice(17)
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          options = require(`@dotcom-tool-kit/types/lib/schema/${pluginName}`).Schema
+        } catch (err) {
+          continue
+        }
+        const { pluginConfirm } = await prompt({
+          name: 'pluginConfirm',
+          type: 'confirm',
+          message: `Do you want to configure the options for the ${pluginName} plugin?`
+        })
+        if (!pluginConfirm) {
+          continue
+        }
+        toolKitConfig.options[plugin] = {}
+        for (const [optionName, modifiedOptionType] of Object.entries(options)) {
+          const optionType = (modifiedOptionType.endsWith('?')
+            ? modifiedOptionType.slice(0, -1)
+            : modifiedOptionType) as SchemaType
+          switch (optionType) {
+            case 'string':
+              const { stringOption } = await prompt({
+                name: 'stringOption',
+                type: 'text',
+                message: `Set a value for '${optionName}'`
+              })
+              if (stringOption !== '') {
+                toolKitConfig.options[plugin][optionName] = stringOption
+              }
+              break
+            case 'boolean':
+              const { boolOption } = await prompt({
+                name: 'boolOption',
+                type: 'confirm',
+                message: `Would you like to enable option '${optionName}'?`
+              })
+              if (boolOption !== '') {
+                toolKitConfig.options[plugin][optionName] = boolOption
+              }
+              break
+            case 'number':
+              const { numberOption } = await prompt({
+                name: 'numberOption',
+                type: 'text',
+                message: `Set a numerical value for '${optionName}'`
+              })
+              if (numberOption !== '') {
+                toolKitConfig.options[plugin][optionName] = Number.parseFloat(numberOption)
+              }
+              break
+            case 'array.string':
+              const { stringArrayOption }: { stringArrayOption: string } = await prompt({
+                name: 'stringArrayOption',
+                type: 'text',
+                message: `Set a list of values for '${optionName}' (delimited by commas)`
+              })
+              if (stringArrayOption !== '') {
+                toolKitConfig.options[plugin][optionName] = stringArrayOption.split(',').map((s) => s.trim())
+              }
+              break
+            case 'array.number':
+              const { numberArrayOption }: { numberArrayOption: string } = await prompt({
+                name: 'numberArrayOption',
+                type: 'text',
+                message: `Set a list of values for '${optionName}' (delimited by commas)`
+              })
+              if (numberArrayOption !== '') {
+                toolKitConfig.options[plugin][optionName] = numberArrayOption
+                  .split(',')
+                  .map((s) => Number.parseFloat(s.trim()))
+              }
+              break
+            default:
+              if (optionType.startsWith('|')) {
+                const { option } = await prompt({
+                  name: 'option',
+                  type: 'select',
+                  choices: optionType
+                    .slice(1)
+                    .split(',')
+                    .map((choice) => ({ title: choice, value: choice })),
+                  message: `Select an option for '${optionName}'`
+                })
+                if (option !== '') {
+                  toolKitConfig.options[plugin][optionName] = option
+                }
+              } else if (optionType.startsWith('array.|')) {
+                const { option } = await prompt({
+                  name: 'option',
+                  type: 'multiselect',
+                  choices: optionType
+                    .slice(7)
+                    .split(',')
+                    .map((choice) => ({ title: choice, value: choice })),
+                  message: `Select options for '${optionName}'`
+                })
+                if (option !== '') {
+                  toolKitConfig.options[plugin][optionName] = option
+                }
+              }
+          }
+        }
+      }
+
+      if (Object.keys(toolKitConfig.options).length > 0) {
+        configFile = yaml.dump(toolKitConfig)
+
+        const { confirm } = await prompt({
+          name: 'confirm',
+          type: 'confirm',
+          message: (_prev, values) =>
+            `right, let's set the options you've given in the .toolkitrc.yml like so:
+${configFile}
+sound reasonable?`
+        })
+
+        if (confirm) {
+          await logger.logPromise(fs.writeFile(configPath, configFile), 'writing options to .toolkitrc.yml')
+        }
       }
     }
   }

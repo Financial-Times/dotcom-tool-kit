@@ -1,8 +1,9 @@
 import { Task } from '@dotcom-tool-kit/task'
-import { SmokeTest, SmokeTestOptions } from '@financial-times/n-test'
+import { SmokeTestSchema, SmokeTestOptions } from '@dotcom-tool-kit/types/lib/schema/n-test'
+import { SmokeTest } from '@financial-times/n-test'
 import { readState } from '@dotcom-tool-kit/state'
 
-export default class NTest extends Task {
+export default class NTest extends Task<typeof SmokeTestSchema> {
   static description = ''
 
   constructor(public options: SmokeTestOptions = {}) {

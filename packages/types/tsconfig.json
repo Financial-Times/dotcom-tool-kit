@@ -1,6 +1,5 @@
 {
   "extends": "../../tsconfig.settings.json",
-  "references": [{ "path": "../types" }],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
