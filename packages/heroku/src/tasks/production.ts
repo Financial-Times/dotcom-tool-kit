@@ -2,7 +2,6 @@ import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import setSlug from '../setSlug'
-import getPipelineCouplings from '../getPipelineCouplings'
 
 type HerokuProductionOptions = {
   pipeline?: string
