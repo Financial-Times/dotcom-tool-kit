@@ -3,48 +3,6 @@
 exports[`cli should load plugins correctly 1`] = `
 Object {
   "hookTasks": Object {
-    "cleanup:remote": Object {
-      "id": "cleanup:remote",
-      "plugin": Object {
-        "hooks": Object {
-          "build:remote": [Function],
-          "cleanup:remote": [Function],
-          "release:remote": [Function],
-        },
-        "id": "@dotcom-tool-kit/heroku",
-        "parent": Object {
-          "DeployProduction": [Function],
-          "DeployReview": [Function],
-          "DeployStaging": [Function],
-          "TestReview": [Function],
-          "TestStaging": [Function],
-          "hooks": Object {
-            "deploy:production": [Function],
-            "deploy:review": [Function],
-            "deploy:staging": [Function],
-            "teardown:staging": [Function],
-            "test:review": [Function],
-            "test:staging": [Function],
-          },
-          "id": "../../../../circleci-heroku",
-          "parent": Object {
-            "id": "successful test root",
-            "root": "packages/cli/test/files/successful",
-          },
-          "root": "packages/circleci-heroku/lib/index.js",
-        },
-        "root": "packages/heroku/lib/index.js",
-        "tasks": Array [
-          [Function],
-          [Function],
-          [Function],
-          [Function],
-        ],
-      },
-      "tasks": Array [
-        "NpmPrune",
-      ],
-    },
     "deploy:production": Object {
       "id": "deploy:production",
       "plugin": Object {
@@ -214,7 +172,6 @@ Object {
     "build:ci": [Function],
     "build:local": [Function],
     "build:remote": [Function],
-    "cleanup:remote": [Function],
     "deploy:production": [Function],
     "deploy:review": [Function],
     "deploy:staging": [Function],
@@ -412,7 +369,6 @@ Object {
     "@dotcom-tool-kit/heroku": Object {
       "hooks": Object {
         "build:remote": [Function],
-        "cleanup:remote": [Function],
         "release:remote": [Function],
       },
       "id": "@dotcom-tool-kit/heroku",
@@ -455,7 +411,6 @@ Object {
       "parent": Object {
         "hooks": Object {
           "build:remote": [Function],
-          "cleanup:remote": [Function],
           "release:remote": [Function],
         },
         "id": "@dotcom-tool-kit/heroku",
@@ -489,9 +444,6 @@ Object {
         ],
       },
       "root": "packages/npm/lib/index.js",
-      "tasks": Array [
-        [Function],
-      ],
     },
   },
   "root": "packages/cli",
@@ -503,7 +455,6 @@ Object {
     "HerokuTeardown": [Function],
     "Mocha": [Function],
     "NTest": [Function],
-    "NpmPrune": [Function],
   },
 }
 `;
