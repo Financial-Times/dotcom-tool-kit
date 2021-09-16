@@ -10,6 +10,7 @@ import getPipelineCouplings from '../getPipelineCouplings'
 type HerokuStagingOptions = {
   vaultPath?: VaultPath
   pipeline?: string
+  reivewProd: boolean
 }
 
 export default class HerokuStaging extends Task {
@@ -17,7 +18,8 @@ export default class HerokuStaging extends Task {
 
   static defaultOptions: HerokuStagingOptions = {
     vaultPath: undefined,
-    pipeline: undefined
+    pipeline: undefined,
+    reivewProd: false
   }
 
   constructor(public options: HerokuStagingOptions = HerokuStaging.defaultOptions) {

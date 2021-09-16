@@ -6,7 +6,8 @@ import type { VaultPath } from '@dotcom-tool-kit/vault'
 export default async function setConfigVars(
   appIdName: string,
   environment: string,
-  vaultPath: VaultPath
+  vaultPath: VaultPath,
+  reviewProd = false
 ): Promise<void> {
   try {
     const settings = {
@@ -18,7 +19,11 @@ export default async function setConfigVars(
 
     const vaultEnvVars = new VaultEnvVars(settings)
 
-    const configVars = await vaultEnvVars.get()
+    let configVars = await vaultEnvVars.get()
+
+    if (reviewProd) {
+      configVars = { ...configVars, NODE_ENV: 'production' }
+    }
 
     await heroku.patch(`/apps/${appIdName}/config-vars`, { body: configVars })
 

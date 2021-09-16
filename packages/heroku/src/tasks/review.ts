@@ -56,7 +56,7 @@ options:
         throw error
       }
 
-      await setConfigVars(reviewAppId, 'continuous-integration', this.options.vaultPath)
+      await setConfigVars(reviewAppId, 'continuous-integration', this.options.vaultPath, true)
 
       await gtg(reviewAppId, 'review')
     } catch (err) {
