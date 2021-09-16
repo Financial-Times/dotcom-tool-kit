@@ -4,18 +4,20 @@ import getHerokuStagingApp from '../getHerokuStagingApp'
 import setConfigVars from '../setConfigVars'
 import scaleDyno from '../scaleDyno'
 import gtg from '../gtg'
-
 import type { VaultPath } from '@dotcom-tool-kit/vault'
+import getPipelineCouplings from '../getPipelineCouplings'
 
 type HerokuStagingOptions = {
   vaultPath?: VaultPath
+  pipeline?: string
 }
 
 export default class HerokuStaging extends Task {
   static description = ''
 
   static defaultOptions: HerokuStagingOptions = {
-    vaultPath: undefined
+    vaultPath: undefined,
+    pipeline: undefined
   }
 
   constructor(public options: HerokuStagingOptions = HerokuStaging.defaultOptions) {
@@ -24,6 +26,21 @@ export default class HerokuStaging extends Task {
 
   async run(): Promise<void> {
     try {
+      if (!this.options.pipeline) {
+        const error = new ToolKitError('no pipeline option in your Tool Kit configuration')
+        error.details = `the Heroku plugin needs to know your pipeline name to deploy Review Apps. add it to your configuration, e.g.:
+
+options:
+  '@dotcom-tool-kit/heroku':
+    pipeline: your-heroku-pipeline`
+
+        throw error
+      }
+
+      console.log(`retrieving pipeline details...`)
+      await getPipelineCouplings(this.options.pipeline)
+
+      console.log(`restrieving staging app details...`)
       const appName = await getHerokuStagingApp()
 
       if (!this.options.vaultPath) {

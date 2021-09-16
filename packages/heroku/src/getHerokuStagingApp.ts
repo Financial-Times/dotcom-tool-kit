@@ -1,18 +1,24 @@
 import { readState, writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import heroku from './herokuClient'
+import type { HerokuApiResGetStaging } from 'heroku-client'
 import getLatestReleaseDetails from './getLatestReleaseDetails'
 
 export default async function getHerokuStagingApp(): Promise<string> {
-  const state = readState('ci')
+  const ciState = readState('ci')
+  const stagingState = readState('staging')
 
-  if (!state) {
-    throw new ToolKitError('could not find CI state')
+  if (!ciState || !stagingState) {
+    throw new ToolKitError(`could not find state information for ${ciState ? 'staging' : 'ci'}`)
   }
-  const { repo, version } = state
-  const appName = `ft-${repo}-staging`
+  const version = ciState.version
+  const appId = stagingState.appIds[0]
+
+  console.log(`retrieving `)
+  const { name: appName }: HerokuApiResGetStaging = await heroku.get(`/apps/${appId}`)
 
   writeState('staging', { appName })
-  console.log(`retreiving details for ${appName}'s latest release...`)
+  console.log(`retrieving details for ${appName}'s latest release...`)
   const { slug, id } = await getLatestReleaseDetails(appName)
 
   console.log(`checking ${appName} is deployed with the latest commit...`)

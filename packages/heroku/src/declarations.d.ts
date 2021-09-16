@@ -33,6 +33,11 @@ declare module 'heroku-client' {
     }
   }
 
+  export type HerokuApiResGetStaging = {
+    id: string
+    name: string
+  }
+
   export type HerokuApiResGetGtg = {
     name: string
   }

@@ -21,21 +21,7 @@ export default class HerokuProduction extends Task {
 
   async run(): Promise<void> {
     try {
-      if (!this.options.pipeline) {
-        const error = new ToolKitError('no pipeline option in your Tool Kit configuration')
-        error.details = `the Heroku plugin needs to know your pipeline name to deploy Review Apps. add it to your configuration, e.g.:
-
-options:
-  '@dotcom-tool-kit/heroku':
-    pipeline: your-heroku-pipeline`
-
-        throw error
-      }
-
-      console.log(`retreiving prod app id(s)...`)
-      await getPipelineCouplings(this.options.pipeline)
-
-      console.log(`retreiving staging slug...`)
+      console.log(`retrieving staging slug...`)
       const state = readState('staging')
       if (!state) {
         throw new ToolKitError('could not find staging state information')

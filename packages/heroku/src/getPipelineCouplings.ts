@@ -1,10 +1,10 @@
 import heroku from './herokuClient'
 import type { HerokuApiResGetPipeline, HerokuApiResGetPipelineApps } from 'heroku-client'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { writeState } from '@dotcom-tool-kit/state'
+import { State, writeState } from '@dotcom-tool-kit/state'
 
 export default async function getPipelineCouplings(pipelineName: string): Promise<void> {
-  console.log(`retreiving pipeline id for ${pipelineName}`)
+  console.log(`retrieving pipeline id for ${pipelineName}`)
   const piplelineDetails: HerokuApiResGetPipeline = await heroku.get(`/pipelines/${pipelineName}`)
 
   console.log(`getting product app ids for pipeline id: ${piplelineDetails.id}`)
@@ -12,13 +12,18 @@ export default async function getPipelineCouplings(pipelineName: string): Promis
     `/pipelines/${piplelineDetails.id}/pipeline-couplings`
   )
 
-  const prodApps = couplings.filter((app) => app.stage === 'production')
+  const stages: Array<keyof State> = ['production', 'staging']
 
-  if (!prodApps) {
-    throw new ToolKitError('error retreiving production apps')
-  }
-  const appIds = prodApps.map((app) => app.app.id)
-  console.log(`writing production app ids to state: ${appIds}`)
+  stages.forEach((stage) => {
+    const apps = couplings.filter((app) => app.stage === stage)
+    if (!apps) {
+      throw new ToolKitError(`error retrieving ${stage} app(s)`)
+    }
+    const appIds = apps.map((app) => app.app.id)
+    console.log(`writing ${stage} app ids to state: ${appIds}`)
 
-  writeState(`production`, { appIds })
+    writeState(stage, { appIds })
+  })
+
+  return
 }

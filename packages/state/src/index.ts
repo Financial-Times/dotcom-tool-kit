@@ -16,6 +16,7 @@ export interface ReviewState {
 interface StagingState {
   appName: string
   slugId: string
+  appIds: string[]
 }
 
 interface ProductionState {

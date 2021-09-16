@@ -4,7 +4,7 @@ import { writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default async function getLatestReleaseDetails(appName: string): Promise<HerokuApiResGetRelease> {
-  console.log(`retreiving details for current ${appName} release...`)
+  console.log(`retrieving details for current ${appName} release...`)
   const releases: HerokuApiResGetRelease[] = await heroku.get(`/apps/${appName}/releases`)
   const latest = releases.find((release: { current: string }) => release.current)
 

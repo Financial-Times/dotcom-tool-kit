@@ -135,7 +135,7 @@ export class VaultEnvVars {
 
       return Object.assign({}, required, appEnv)
     } catch {
-      const error = new ToolKitError(`Unable to retreive secrets from vault`)
+      const error = new ToolKitError(`Unable to retrieve secrets from vault`)
       error.details = `Please check that your system code is correct`
       throw error
     }
