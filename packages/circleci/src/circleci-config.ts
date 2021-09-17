@@ -153,6 +153,9 @@ export default abstract class CircleCiConfigHook {
     }
 
     const serialised = automatedComment + yaml.dump(config)
+    // Enable recursive option so that mkdir doesn't throw if the directory
+    // already exists.
+    await fs.mkdir(path.dirname(this.circleConfigPath), { recursive: true })
     await fs.writeFile(this.circleConfigPath, serialised)
   }
 }
