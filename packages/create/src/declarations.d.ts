@@ -31,3 +31,7 @@ declare module 'komatsu' {
     stop(): void
   }
 }
+
+declare module '@quarterto/parse-makefile-rules' {
+  export default function parse(str: string): Record<string, string>
+}

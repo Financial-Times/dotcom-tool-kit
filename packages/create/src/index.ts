@@ -13,6 +13,7 @@ import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
 import { ValidConfig } from 'dotcom-tool-kit/lib/config'
+import parseMakefileRules from '@quarterto/parse-makefile-rules'
 
 // TODO backport this to Komatsu mainline?
 class Logger extends Komatsu {
@@ -408,6 +409,49 @@ sound reasonable?`
 
         if (confirm) {
           await logger.logPromise(fs.writeFile(configPath, configFile), 'writing options to .toolkitrc.yml')
+        }
+      }
+    }
+
+    // Handle case-sensitive file systems
+    let makefile
+    try {
+      makefile = await fs.readFile(path.join(process.cwd(), 'makefile'), 'utf8')
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+        throw err
+      }
+    }
+    try {
+      makefile = await fs.readFile(path.join(process.cwd(), 'Makefile'), 'utf8')
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+        throw err
+      }
+    }
+    if (makefile) {
+      const rules = parseMakefileRules(makefile)
+      const targets = Object.keys(rules)
+      console.log(
+        "We recommend deleting your old Makefile as it will no longer be used. In the \
+future you can run tasks with 'npm run' instead. Make sure that you won't be \
+deleting any task logic that hasn't already been migrated to Tool Kit. If you \
+find anything that can't be handled by Tool Kit then please let the Platforms \
+team know."
+      )
+
+      const equivalentHooks: Record<string, string> = {
+        'unit-test': 'test:*',
+        test: 'test:local',
+        build: 'build:local'
+      }
+      if (targets.some((target) => equivalentHooks[target])) {
+        console.log("We've found some targets in your makefile which could be migrated to Tool Kit:")
+        for (const target of targets) {
+          const suggestion = equivalentHooks[target]
+          if (suggestion) {
+            console.log(`Your ${target} target is likely handled by the ${suggestion} hook in Tool Kit`)
+          }
         }
       }
     }
