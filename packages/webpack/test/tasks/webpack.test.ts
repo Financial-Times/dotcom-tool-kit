@@ -9,7 +9,7 @@ import ProductionWebpack from '../../src/tasks/production'
 const configPath = path.resolve(__dirname, '../files/webpack.config.ts')
 const outputPath = path.resolve(__dirname, '../files/dist')
 
-jest.setTimeout(10000)
+jest.setTimeout(20000)
 
 describe('webpack', () => {
   afterEach(() => fsp.rmdir(outputPath, { recursive: true }))
