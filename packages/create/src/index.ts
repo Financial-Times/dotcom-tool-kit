@@ -191,6 +191,7 @@ Which order do you want them to run in?`,
     name: 'confirm',
     type: 'confirm',
     message: `ok, we're gonna recreate the ${styles.filepath('.toolkitrc.yml')} containing:
+
 ${configFile}
 sound alright?`
   })
@@ -322,6 +323,7 @@ async function optionsPrompt(config: Config) {
       name: 'confirm',
       type: 'confirm',
       message: `right, let's set the options you've given in the ${styles.filepath('.toolkitrc.yml')} like so:
+
 ${configFile}
 sound reasonable?`
     })
