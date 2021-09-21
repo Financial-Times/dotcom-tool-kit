@@ -3,11 +3,14 @@ declare module 'heroku-client' {
     token: string | undefined
   }
 
-  export type HerokuApiResGetSlug = {
+  export type HerokuApiResGetRelease = {
     current: string
     slug: {
       id: string
+      commit: string
+      status: string
     }
+    id: string
   }
 
   export type HerokuApiResGetPipeline = {
@@ -28,6 +31,11 @@ declare module 'heroku-client' {
     app: {
       id: string
     }
+  }
+
+  export type HerokuApiResGetStaging = {
+    id: string
+    name: string
   }
 
   export type HerokuApiResGetGtg = {

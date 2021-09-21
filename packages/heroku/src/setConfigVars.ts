@@ -4,7 +4,7 @@ import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import type { VaultPath } from '@dotcom-tool-kit/vault'
 
 export default async function setConfigVars(
-  appId: string,
+  appIdName: string,
   environment: string,
   vaultPath: VaultPath
 ): Promise<void> {
@@ -14,17 +14,17 @@ export default async function setConfigVars(
       vaultPath: vaultPath
     }
 
-    console.log(`setting config vars for ${appId}`)
+    console.log(`setting config vars for ${appIdName}`)
 
     const vaultEnvVars = new VaultEnvVars(settings)
 
     const configVars = await vaultEnvVars.get()
 
-    await heroku.patch(`/apps/${appId}/config-vars`, { body: configVars })
+    await heroku.patch(`/apps/${appIdName}/config-vars`, { body: configVars })
 
-    console.log('Following values have been set:', Object.keys(configVars).join(', '))
+    console.log('the following values have been set:', Object.keys(configVars).join(', '))
 
-    console.log(`${appId} config vars have been updated successfully.`)
+    console.log(`${appIdName} config vars have been updated successfully.`)
   } catch (err) {
     const error = new ToolKitError(`Error updating config vars`)
     if (err instanceof Error) {
