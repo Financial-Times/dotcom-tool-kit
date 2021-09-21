@@ -17,7 +17,9 @@ export default async function getPipelineCouplings(pipelineName: string): Promis
   stages.forEach((stage) => {
     const apps = couplings.filter((app) => app.stage === stage)
     if (!apps) {
-      throw new ToolKitError(`error retrieving ${stage} app(s)`)
+      const error = new ToolKitError(`could not find any ${stage} apps`)
+      error.details = `check in the Heroku console that your pipeline is configured correctly for ${stage}.`
+      throw error
     }
     const appIds = apps.map((app) => app.app.id)
     console.log(`writing ${stage} app ids to state: ${appIds}`)
