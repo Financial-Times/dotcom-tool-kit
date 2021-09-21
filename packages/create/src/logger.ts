@@ -1,9 +1,13 @@
 import type { Spinner } from 'komatsu'
 import Komatsu from 'komatsu'
 
+type LoggerError = Error & {
+  logged?: boolean
+}
+
 // TODO backport this to Komatsu mainline?
 export class Logger extends Komatsu {
-  stop() {
+  stop(): void {
     if (
       !Array.from(this.spinners.values()).some(
         (spinner: Spinner | { status: 'not-started' }) => spinner.status === 'not-started'
@@ -12,7 +16,7 @@ export class Logger extends Komatsu {
       super.stop()
   }
 
-  renderSymbol(spinner: Spinner | { status: 'not-started' }) {
+  renderSymbol(spinner: Spinner | { status: 'not-started' }): string {
     if (spinner.status === 'not-started') {
       return '-'
     }
@@ -38,9 +42,10 @@ export class Logger extends Komatsu {
       let interim
       try {
         interim = await wait
-      } catch (error: any) {
+      } catch (error) {
+        const loggerError = error as LoggerError
         // should have been logged by logPromise
-        error.logged = true
+        loggerError.logged = true
         throw error
       }
 
@@ -49,14 +54,15 @@ export class Logger extends Komatsu {
       const result = await run(interim)
       this.log(id, { status: 'done', message: labels.done })
       return result
-    } catch (error: any) {
+    } catch (error) {
+      const loggerError = error as LoggerError
       this.log(id, {
         status: 'fail',
         message: labels.fail,
-        error: error.logged ? undefined : error
+        error: loggerError.logged ? undefined : loggerError
       })
 
-      error.logged = true
+      loggerError.logged = true
       throw error
     }
   }

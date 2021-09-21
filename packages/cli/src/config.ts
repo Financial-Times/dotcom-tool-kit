@@ -4,7 +4,7 @@ import type { TaskClass } from '@dotcom-tool-kit/task'
 import type { HookTask, HookClass } from './hook'
 import { loadPluginConfig, Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
-import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
+import { ToolKitConflictError } from '@dotcom-tool-kit/error'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,

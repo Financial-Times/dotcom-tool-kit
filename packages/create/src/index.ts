@@ -36,7 +36,7 @@ const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
 const logger = new Logger()
 
 async function mainPrompt() {
-  return await prompt(
+  return prompt(
     [
       {
         name: 'preset',
@@ -192,7 +192,7 @@ sound alright?`
     const configPromise = logger.logPromise(fs.writeFile(configPath, configFile), 'recreating .toolkitrc.yml')
     // Clear config cache now that config has been updated
     explorer.clearSearchCache()
-    return await logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
+    return logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
   }
 }
 
