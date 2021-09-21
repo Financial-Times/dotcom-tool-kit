@@ -13,6 +13,7 @@ import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
 import { Logger } from './logger'
+import { styles } from 'dotcom-tool-kit/lib/messages'
 
 const exec = promisify(_exec)
 
@@ -41,7 +42,7 @@ async function mainPrompt() {
       {
         name: 'preset',
         type: 'select',
-        message: `What kind of app is ${packageJson.getField('name')}?`,
+        message: `What kind of app is ${styles.app(packageJson.getField('name'))}?`,
         choices: [
           { title: 'A user-facing (frontend) app', value: 'frontend-app' },
           { title: 'A service/backend app', value: 'service-app' }
@@ -64,7 +65,7 @@ async function mainPrompt() {
               'a feature-rich JavaScript test framework, making asynchronous testing simple and fun'
           },
           { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' }
-        ]
+        ].map((choice) => ({ ...choice, title: styles.plugin(choice.title) }))
       },
       {
         name: 'deleteConfig',
@@ -75,15 +76,16 @@ async function mainPrompt() {
           .catch(() => null),
         // This .relative() call feels redundant at the moment. Maybe we can just
         // hard-code the config path?
-        message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${path.relative(
-          '',
-          circleConfigPath
+        message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${styles.filepath(
+          path.relative('', circleConfigPath)
         )}.`
       },
       {
         name: 'uninstall',
         type: 'confirm',
-        message: 'Should we uninstall obsolete n-gage and n-heroku-tools packages?'
+        message: `Should we uninstall obsolete ${styles.app('n-gage')} and ${styles.app(
+          'n-heroku-tools'
+        )} packages?`
       }
     ],
     {
@@ -101,16 +103,18 @@ function confirmationPrompt() {
       return `so, we're gonna:
 
 install the following packages:
-${packagesToInstall.map((p) => `- ${p}`).join('\n')}\
+${packagesToInstall.map((p) => `- ${styles.plugin(p)}`).join('\n')}\
 
 ${
   packagesToRemove.length > 0
-    ? '\nuninstall the following packages:\n' + packagesToRemove.map((p) => `- ${p}`).join('\n') + '\n'
+    ? '\nuninstall the following packages:\n' +
+      packagesToRemove.map((p) => `- ${styles.plugin(p)}`).join('\n') +
+      '\n'
     : ''
 }
-create a .toolkitrc.yml containing:
+create a ${styles.filepath('.toolkitrc.yml')} containing:
 ${configFile}\
-${values.deleteConfig ? '\nregenerate .circleci/config.yml\n' : ''}
+${values.deleteConfig ? '\nregenerate styles.filepath(".circleci/config.yml")\n' : ''}
 sound good?`
     }
   })
@@ -135,7 +139,10 @@ async function executeMigration(deleteConfig: boolean) {
 
   const installPromise = logger.logPromise(exec('npm install'), 'installing dependencies')
 
-  const configPromise = logger.logPromise(fs.writeFile(configPath, configFile), 'creating .toolkitrc.yml')
+  const configPromise = logger.logPromise(
+    fs.writeFile(configPath, configFile),
+    `creating ${styles.filepath('.toolkitrc.yml')}`
+  )
 
   const unlinkPromise = deleteConfig
     ? logger.logPromise(fs.unlink(circleConfigPath), 'removing old CircleCI config')
@@ -157,12 +164,12 @@ async function handleTaskConflict(error: ToolKitConflictError) {
       const { order: nextIdx }: { order: number | null } = await prompt({
         name: 'order',
         type: 'select',
-        message: `Hook ${conflict.hook} has multiple tasks configured for it. \
+        message: `Hook ${styles.hook(conflict.hook)} has multiple tasks configured for it. \
 Which order do you want them to run in?`,
         choices: [
           ...remainingTasks.map(({ task, plugin }) => ({
-            title: task,
-            description: `defined by ${plugin}`
+            title: styles.task(task),
+            description: `defined by ${styles.plugin(plugin)}`
           })),
           { title: 'finish', value: null, description: "don't include any more tasks in the hook" }
         ]
@@ -183,13 +190,16 @@ Which order do you want them to run in?`,
   const { confirm } = await prompt({
     name: 'confirm',
     type: 'confirm',
-    message: `ok, we're gonna recreate the .toolkitrc.yml containing:
+    message: `ok, we're gonna recreate the ${styles.filepath('.toolkitrc.yml')} containing:
 ${configFile}
 sound alright?`
   })
 
   if (confirm) {
-    const configPromise = logger.logPromise(fs.writeFile(configPath, configFile), 'recreating .toolkitrc.yml')
+    const configPromise = logger.logPromise(
+      fs.writeFile(configPath, configFile),
+      `recreating ${styles.filepath('.toolkitrc.yml')}`
+    )
     // Clear config cache now that config has been updated
     explorer.clearSearchCache()
     return logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
@@ -210,7 +220,7 @@ async function optionsPrompt(config: Config) {
     const { pluginConfirm } = await prompt({
       name: 'pluginConfirm',
       type: 'confirm',
-      message: `Do you want to configure the options for the ${pluginName} plugin?`
+      message: `Do you want to configure the options for the ${styles.plugin(pluginName)} plugin?`
     })
     if (!pluginConfirm) {
       continue
@@ -225,7 +235,7 @@ async function optionsPrompt(config: Config) {
           const { stringOption } = await prompt({
             name: 'stringOption',
             type: 'text',
-            message: `Set a value for '${optionName}'`
+            message: `Set a value for '${styles.option(optionName)}'`
           })
           if (stringOption !== '') {
             toolKitConfig.options[plugin][optionName] = stringOption
@@ -235,7 +245,7 @@ async function optionsPrompt(config: Config) {
           const { boolOption } = await prompt({
             name: 'boolOption',
             type: 'confirm',
-            message: `Would you like to enable option '${optionName}'?`
+            message: `Would you like to enable option '${styles.option(optionName)}'?`
           })
           if (boolOption !== '') {
             toolKitConfig.options[plugin][optionName] = boolOption
@@ -245,7 +255,7 @@ async function optionsPrompt(config: Config) {
           const { numberOption } = await prompt({
             name: 'numberOption',
             type: 'text',
-            message: `Set a numerical value for '${optionName}'`
+            message: `Set a numerical value for '${styles.option(optionName)}'`
           })
           if (numberOption !== '') {
             toolKitConfig.options[plugin][optionName] = Number.parseFloat(numberOption)
@@ -255,7 +265,7 @@ async function optionsPrompt(config: Config) {
           const { stringArrayOption }: { stringArrayOption: string } = await prompt({
             name: 'stringArrayOption',
             type: 'text',
-            message: `Set a list of values for '${optionName}' (delimited by commas)`
+            message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
           })
           if (stringArrayOption !== '') {
             toolKitConfig.options[plugin][optionName] = stringArrayOption.split(',').map((s) => s.trim())
@@ -265,7 +275,7 @@ async function optionsPrompt(config: Config) {
           const { numberArrayOption }: { numberArrayOption: string } = await prompt({
             name: 'numberArrayOption',
             type: 'text',
-            message: `Set a list of values for '${optionName}' (delimited by commas)`
+            message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
           })
           if (numberArrayOption !== '') {
             toolKitConfig.options[plugin][optionName] = numberArrayOption
@@ -282,7 +292,7 @@ async function optionsPrompt(config: Config) {
                 .slice(1)
                 .split(',')
                 .map((choice) => ({ title: choice, value: choice })),
-              message: `Select an option for '${optionName}'`
+              message: `Select an option for '${styles.option(optionName)}'`
             })
             if (option !== '') {
               toolKitConfig.options[plugin][optionName] = option
@@ -295,7 +305,7 @@ async function optionsPrompt(config: Config) {
                 .slice(7)
                 .split(',')
                 .map((choice) => ({ title: choice, value: choice })),
-              message: `Select options for '${optionName}'`
+              message: `Select options for '${styles.option(optionName)}'`
             })
             if (option !== '') {
               toolKitConfig.options[plugin][optionName] = option
@@ -311,13 +321,16 @@ async function optionsPrompt(config: Config) {
     const { confirm } = await prompt({
       name: 'confirm',
       type: 'confirm',
-      message: `right, let's set the options you've given in the .toolkitrc.yml like so:
+      message: `right, let's set the options you've given in the ${styles.filepath('.toolkitrc.yml')} like so:
 ${configFile}
 sound reasonable?`
     })
 
     if (confirm) {
-      await logger.logPromise(fs.writeFile(configPath, configFile), 'writing options to .toolkitrc.yml')
+      await logger.logPromise(
+        fs.writeFile(configPath, configFile),
+        `writing options to ${styles.filepath('.toolkitrc.yml')}`
+      )
     }
   }
 }
@@ -356,11 +369,13 @@ team know."
       build: 'build:local'
     }
     if (targets.some((target) => equivalentHooks[target])) {
-      console.log("We've found some targets in your makefile which could be migrated to Tool Kit:")
+      console.log("We've found some targets in your Makefile which could be migrated to Tool Kit:")
       for (const target of targets) {
         const suggestion = equivalentHooks[target]
         if (suggestion) {
-          console.log(`Your ${target} target is likely handled by the ${suggestion} hook in Tool Kit`)
+          console.log(
+            `Your ${target} target is likely handled by the ${styles.hook(suggestion)} hook in Tool Kit`
+          )
         }
       }
     }
