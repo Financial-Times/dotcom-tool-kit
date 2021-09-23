@@ -290,6 +290,7 @@ sound alright?`
         let options: Schema
         const pluginName = plugin.slice(17)
         try {
+          // TODO allow different schemas for tasks within a plugin
           // eslint-disable-next-line @typescript-eslint/no-var-requires
           options = require(`@dotcom-tool-kit/types/lib/schema/${pluginName}`).Schema
         } catch (err) {

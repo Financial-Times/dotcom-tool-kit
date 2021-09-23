@@ -2,12 +2,9 @@ import { Task } from '@dotcom-tool-kit/task'
 import MochaCore from 'mocha'
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { MochaOptions, MochaSchema } from '@dotcom-tool-kit/types/lib/schema/mocha'
 
-type MochaOptions = {
-  files: string
-}
-
-export default class Mocha extends Task<MochaOptions> {
+export default class Mocha extends Task<typeof MochaSchema> {
   static description = ''
 
   static defaultOptions: MochaOptions = {

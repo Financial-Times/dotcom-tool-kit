@@ -1,16 +1,13 @@
 import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
+import { HerokuOptions, HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import setSlug from '../setSlug'
 
-type HerokuProductionOptions = {
-  pipeline?: string
-}
-
-export default class HerokuProduction extends Task<HerokuProductionOptions> {
+export default class HerokuProduction extends Task<typeof HerokuSchema> {
   static description = ''
 
-  static defaultOptions: HerokuProductionOptions = {
+  static defaultOptions: HerokuOptions = {
     pipeline: undefined
   }
 
