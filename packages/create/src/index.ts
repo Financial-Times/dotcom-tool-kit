@@ -208,9 +208,19 @@ sound alright?`
 }
 
 async function optionsPrompt(config: Config) {
+  let optionsCancelled = false
+  const onOptionsCancel = () => {
+    optionsCancelled = true
+  }
+
   for (const plugin of Object.keys((config as ValidConfig).plugins)) {
     let options: Schema
     const pluginName = plugin.slice(17)
+
+    if (optionsCancelled) {
+      break
+    }
+
     try {
       // TODO allow different schemas for tasks within a plugin
       // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -218,66 +228,92 @@ async function optionsPrompt(config: Config) {
     } catch (err) {
       continue
     }
-    const { pluginConfirm } = await prompt({
-      name: 'pluginConfirm',
-      type: 'confirm',
-      message: `Do you want to configure the options for the ${styles.plugin(pluginName)} plugin?`
-    })
+    const { pluginConfirm } = await prompt(
+      {
+        name: 'pluginConfirm',
+        type: 'confirm',
+        message: `Do you want to configure the options for the ${styles.plugin(pluginName)} plugin?`
+      },
+      {
+        onCancel: onOptionsCancel
+      }
+    )
     if (!pluginConfirm) {
       continue
     }
     toolKitConfig.options[plugin] = {}
+
+    let pluginCancelled = false
+    const onCancel = () => {
+      pluginCancelled = true
+    }
     for (const [optionName, modifiedOptionType] of Object.entries(options)) {
       const optionType = (modifiedOptionType.endsWith('?')
         ? modifiedOptionType.slice(0, -1)
         : modifiedOptionType) as SchemaType
+
       switch (optionType) {
         case 'string':
-          const { stringOption } = await prompt({
-            name: 'stringOption',
-            type: 'text',
-            message: `Set a value for '${styles.option(optionName)}'`
-          })
+          const { stringOption } = await prompt(
+            {
+              name: 'stringOption',
+              type: 'text',
+              message: `Set a value for '${styles.option(optionName)}'`
+            },
+            { onCancel }
+          )
           if (stringOption !== '') {
             toolKitConfig.options[plugin][optionName] = stringOption
           }
           break
         case 'boolean':
-          const { boolOption } = await prompt({
-            name: 'boolOption',
-            type: 'confirm',
-            message: `Would you like to enable option '${styles.option(optionName)}'?`
-          })
+          const { boolOption } = await prompt(
+            {
+              name: 'boolOption',
+              type: 'confirm',
+              message: `Would you like to enable option '${styles.option(optionName)}'?`
+            },
+            { onCancel }
+          )
           if (boolOption !== '') {
             toolKitConfig.options[plugin][optionName] = boolOption
           }
           break
         case 'number':
-          const { numberOption } = await prompt({
-            name: 'numberOption',
-            type: 'text',
-            message: `Set a numerical value for '${styles.option(optionName)}'`
-          })
+          const { numberOption } = await prompt(
+            {
+              name: 'numberOption',
+              type: 'text',
+              message: `Set a numerical value for '${styles.option(optionName)}'`
+            },
+            { onCancel }
+          )
           if (numberOption !== '') {
             toolKitConfig.options[plugin][optionName] = Number.parseFloat(numberOption)
           }
           break
         case 'array.string':
-          const { stringArrayOption }: { stringArrayOption: string | undefined } = await prompt({
-            name: 'stringArrayOption',
-            type: 'text',
-            message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
-          })
+          const { stringArrayOption }: { stringArrayOption: string | undefined } = await prompt(
+            {
+              name: 'stringArrayOption',
+              type: 'text',
+              message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
+            },
+            { onCancel }
+          )
           if (stringArrayOption !== '' && stringArrayOption !== undefined) {
             toolKitConfig.options[plugin][optionName] = stringArrayOption.split(',').map((s) => s.trim())
           }
           break
         case 'array.number':
-          const { numberArrayOption }: { numberArrayOption: string | undefined } = await prompt({
-            name: 'numberArrayOption',
-            type: 'text',
-            message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
-          })
+          const { numberArrayOption }: { numberArrayOption: string | undefined } = await prompt(
+            {
+              name: 'numberArrayOption',
+              type: 'text',
+              message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
+            },
+            { onCancel }
+          )
           if (numberArrayOption !== '' && numberArrayOption !== undefined) {
             toolKitConfig.options[plugin][optionName] = numberArrayOption
               .split(',')
@@ -286,32 +322,43 @@ async function optionsPrompt(config: Config) {
           break
         default:
           if (optionType.startsWith('|')) {
-            const { option } = await prompt({
-              name: 'option',
-              type: 'select',
-              choices: optionType
-                .slice(1)
-                .split(',')
-                .map((choice) => ({ title: choice, value: choice })),
-              message: `Select an option for '${styles.option(optionName)}'`
-            })
+            const { option } = await prompt(
+              {
+                name: 'option',
+                type: 'select',
+                choices: optionType
+                  .slice(1)
+                  .split(',')
+                  .map((choice) => ({ title: choice, value: choice })),
+                message: `Select an option for '${styles.option(optionName)}'`
+              },
+              { onCancel }
+            )
             if (option !== '') {
               toolKitConfig.options[plugin][optionName] = option
             }
           } else if (optionType.startsWith('array.|')) {
-            const { option } = await prompt({
-              name: 'option',
-              type: 'multiselect',
-              choices: optionType
-                .slice(7)
-                .split(',')
-                .map((choice) => ({ title: choice, value: choice })),
-              message: `Select options for '${styles.option(optionName)}'`
-            })
+            const { option } = await prompt(
+              {
+                name: 'option',
+                type: 'multiselect',
+                choices: optionType
+                  .slice(7)
+                  .split(',')
+                  .map((choice) => ({ title: choice, value: choice })),
+                message: `Select options for '${styles.option(optionName)}'`
+              },
+              { onCancel }
+            )
             if (option !== '') {
               toolKitConfig.options[plugin][optionName] = option
             }
           }
+      }
+
+      if (pluginCancelled) {
+        delete toolKitConfig.options[plugin]
+        break
       }
     }
   }
