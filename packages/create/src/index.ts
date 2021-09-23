@@ -263,22 +263,22 @@ async function optionsPrompt(config: Config) {
           }
           break
         case 'array.string':
-          const { stringArrayOption }: { stringArrayOption: string } = await prompt({
+          const { stringArrayOption }: { stringArrayOption: string | undefined } = await prompt({
             name: 'stringArrayOption',
             type: 'text',
             message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
           })
-          if (stringArrayOption !== '') {
+          if (stringArrayOption !== '' && stringArrayOption !== undefined) {
             toolKitConfig.options[plugin][optionName] = stringArrayOption.split(',').map((s) => s.trim())
           }
           break
         case 'array.number':
-          const { numberArrayOption }: { numberArrayOption: string } = await prompt({
+          const { numberArrayOption }: { numberArrayOption: string | undefined } = await prompt({
             name: 'numberArrayOption',
             type: 'text',
             message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
           })
-          if (numberArrayOption !== '') {
+          if (numberArrayOption !== '' && numberArrayOption !== undefined) {
             toolKitConfig.options[plugin][optionName] = numberArrayOption
               .split(',')
               .map((s) => Number.parseFloat(s.trim()))
