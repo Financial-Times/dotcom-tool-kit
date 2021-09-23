@@ -161,7 +161,7 @@ async function handleTaskConflict(error: ToolKitConflictError) {
     orderedHooks[conflict.hook] = []
 
     while (remainingTasks.length > 0) {
-      const { order: nextIdx }: { order: number | null } = await prompt({
+      const { order: nextIdx }: { order: number | undefined | null } = await prompt({
         name: 'order',
         type: 'select',
         message: `Hook ${styles.hook(conflict.hook)} has multiple tasks configured for it. \
@@ -175,11 +175,13 @@ Which order do you want them to run in?`,
         ]
       })
 
-      if (nextIdx !== null) {
+      if (nextIdx === undefined) {
+        return
+      } else if (nextIdx === null) {
+        break
+      } else {
         const { task } = remainingTasks.splice(nextIdx, 1)[0]
         orderedHooks[conflict.hook].push(task)
-      } else {
-        break
       }
     }
   }
