@@ -150,7 +150,7 @@ async function executeMigration(deleteConfig: boolean) {
 
   const initialTasks = Promise.all([installPromise, configPromise, unlinkPromise])
 
-  return logger.logPromiseWait(initialTasks, installHooks, 'installing Tool Kit hooks')
+  return logger.logPromiseWait(initialTasks, installHooks, 'installing Tool Kit hooks', true)
 }
 
 async function handleTaskConflict(error: ToolKitConflictError) {

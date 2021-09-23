@@ -24,7 +24,12 @@ export class Logger extends Komatsu {
     return super.renderSymbol(spinner)
   }
 
-  async logPromiseWait<T, U>(wait: Promise<T>, run: (interim: T) => Promise<U>, label: string): Promise<U> {
+  async logPromiseWait<T, U>(
+    wait: Promise<T>,
+    run: (interim: T) => Promise<U>,
+    label: string,
+    quiet = false
+  ): Promise<U> {
     const id = Math.floor(parseInt(`zzzzzz`, 36) * Math.random())
       .toString(36)
       .padStart(6, '0')
@@ -59,7 +64,7 @@ export class Logger extends Komatsu {
       this.log(id, {
         status: 'fail',
         message: labels.fail,
-        error: loggerError.logged ? undefined : loggerError
+        error: loggerError.logged || quiet ? undefined : loggerError
       })
 
       loggerError.logged = true
