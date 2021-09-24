@@ -8,7 +8,7 @@ export default async function getHerokuStagingApp(): Promise<string> {
   const ciState = readState('ci')
   const stagingState = readState('staging')
 
-  if (!ciState || !stagingState) {
+  if (!ciState || !ciState.version || !stagingState) {
     throw new ToolKitError(`could not find state information for ${ciState ? 'staging' : 'ci'}`)
   }
   const version = ciState.version
