@@ -11,6 +11,7 @@ import type { VaultPath } from '@dotcom-tool-kit/vault'
 type HerokuReviewOptions = {
   pipeline?: string
   vaultPath?: VaultPath
+  reviewProd: boolean
 }
 
 export default class HerokuReview extends Task {
@@ -18,7 +19,8 @@ export default class HerokuReview extends Task {
 
   static defaultOptions: HerokuReviewOptions = {
     pipeline: undefined,
-    vaultPath: undefined
+    vaultPath: undefined,
+    reviewProd: false
   }
 
   constructor(public options: HerokuReviewOptions = HerokuReview.defaultOptions) {
@@ -56,7 +58,12 @@ options:
         throw error
       }
 
-      await setConfigVars(reviewAppId, 'continuous-integration', this.options.vaultPath, true)
+      await setConfigVars(
+        reviewAppId,
+        'continuous-integration',
+        this.options.vaultPath,
+        this.options.reviewProd
+      )
 
       await gtg(reviewAppId, 'review')
     } catch (err) {
