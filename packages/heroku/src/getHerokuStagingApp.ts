@@ -19,7 +19,7 @@ export default async function getHerokuStagingApp(): Promise<string> {
 
   writeState('staging', { appName })
   console.log(`retrieving details for ${appName}'s latest release...`)
-  const { slug, id } = await getLatestReleaseDetails(appName)
+  const { slug, id, status } = await getLatestReleaseDetails(appName)
 
   console.log(`checking ${appName} is deployed with the latest commit...`)
   if (version !== slug.commit) {
@@ -33,21 +33,19 @@ export default async function getHerokuStagingApp(): Promise<string> {
 
   console.log(`deployed commit is latest (${version.slice(0, 7)})`)
 
-  if (slug.status === 'succeeded') {
+  if (status === 'succeeded') {
     return appName
   } else {
     const error = new ToolKitError(`error getting staging app`)
-    error.details = `there appears to be an error with the current release status - expected 'succeeded', received: ${
-      slug.status
-    }. ${
-      slug.status === 'pending'
+    error.details = `there appears to be an error with the current release status - expected 'succeeded', received: ${status}. ${
+      status === 'pending'
         ? `rerun the work flow as the release may still be building`
         : `refer to the build logs in the Heroku console.`
     } release details:
       app name: ${appName}
       app id: ${id}
       commit: ${slug.commit}
-      status: ${slug.status}
+      status: ${status}
     `
     throw error
   }

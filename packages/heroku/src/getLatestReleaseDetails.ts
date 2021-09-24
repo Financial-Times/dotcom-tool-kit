@@ -1,9 +1,17 @@
 import heroku from './herokuClient'
-import type { HerokuApiResGetRelease } from 'heroku-client'
+import type { HerokuApiResGetRelease, HerokuApiGetSlug } from 'heroku-client'
 import { writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-export default async function getLatestReleaseDetails(appName: string): Promise<HerokuApiResGetRelease> {
+type ReleaseDetails = {
+  slug: {
+    commit: string
+  }
+  id: string
+  status: string
+}
+
+export default async function getLatestReleaseDetails(appName: string): Promise<ReleaseDetails> {
   console.log(`retrieving details for current ${appName} release...`)
   const releases: HerokuApiResGetRelease[] = await heroku.get(`/apps/${appName}/releases`)
   const latest = releases.find((release: { current: string }) => release.current)
@@ -18,5 +26,9 @@ export default async function getLatestReleaseDetails(appName: string): Promise<
   console.log(`current slug id found and writing to state file: ${latest.slug.id}`)
   writeState('staging', { slugId: latest.slug.id })
 
-  return latest
+  const slug: HerokuApiGetSlug = await heroku.get(`/apps/${appName}/slugs/${latest.slug.id}`)
+
+  const { id, status } = latest
+
+  return { slug, id, status }
 }
