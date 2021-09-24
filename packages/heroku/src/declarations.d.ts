@@ -7,10 +7,14 @@ declare module 'heroku-client' {
     current: string
     slug: {
       id: string
-      commit: string
-      status: string
     }
     id: string
+    status: string
+  }
+
+  export type HerokuApiGetSlug = {
+    id: string
+    commit: string
   }
 
   export type HerokuApiResGetPipeline = {
