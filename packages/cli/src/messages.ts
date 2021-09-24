@@ -16,6 +16,7 @@ const s = {
   filepath: colours.italic,
   app: colours.green,
   option: colours.blue,
+  makeTarget: colours.grey.italic,
   heading: colours.bold,
   dim: colours.grey,
   title: colours.bold.underline,

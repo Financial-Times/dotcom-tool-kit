@@ -406,6 +406,7 @@ async function makefileHint() {
   if (makefile) {
     const rules = parseMakefileRules(makefile)
     const targets = Object.keys(rules)
+    console.log(`${styles.ruler()}\n`)
     console.log(
       "We recommend deleting your old Makefile as it will no longer be used. In the \
 future you can run tasks with 'npm run' instead. Make sure that you won't be \
@@ -420,12 +421,14 @@ team know."
       build: 'build:local'
     }
     if (targets.some((target) => equivalentHooks[target])) {
-      console.log("We've found some targets in your Makefile which could be migrated to Tool Kit:")
+      console.log("\nWe've found some targets in your Makefile which could be migrated to Tool Kit:")
       for (const target of targets) {
         const suggestion = equivalentHooks[target]
         if (suggestion) {
           console.log(
-            `Your ${target} target is likely handled by the ${styles.hook(suggestion)} hook in Tool Kit`
+            `- Your ${styles.makeTarget(target)} target is likely handled by the ${styles.hook(
+              suggestion
+            )} hook in Tool Kit`
           )
         }
       }
