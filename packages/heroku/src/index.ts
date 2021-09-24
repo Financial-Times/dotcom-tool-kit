@@ -10,7 +10,7 @@ class BuildRemote extends PackageJsonHook {
 }
 
 class CleanupRemote extends PackageJsonHook {
-  script = 'heroku-cleanup'
+  script = 'heroku-postbuild'
   hook = 'cleanup:remote'
 }
 
@@ -20,9 +20,9 @@ class ReleaseRemote extends PackageJsonHook {
 }
 
 export const hooks = {
+  'cleanup:remote': CleanupRemote,
   'build:remote': BuildRemote,
-  'release:remote': ReleaseRemote,
-  'cleanup:remote': CleanupRemote
+  'release:remote': ReleaseRemote
 }
 
 export const tasks = [HerokuProduction, HerokuStaging, HerokuReview, HerokuTeardown]
