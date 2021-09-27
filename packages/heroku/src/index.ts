@@ -18,9 +18,14 @@ class ReleaseRemote extends PackageJsonHook {
   script = 'heroku-postbuild'
   hook = 'release:remote'
 }
+class ReleaseDeploy extends PackageJsonHook {
+  script = 'heroku-postbuild'
+  hook = 'release:deploy'
+}
 
 export const hooks = {
   'cleanup:remote': CleanupRemote,
+  'release:deploy': ReleaseDeploy,
   'build:remote': BuildRemote,
   'release:remote': ReleaseRemote
 }
