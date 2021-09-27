@@ -9,7 +9,6 @@ Object {
         "hooks": Object {
           "build:remote": [Function],
           "cleanup:remote": [Function],
-          "release:deploy": [Function],
           "release:remote": [Function],
         },
         "id": "@dotcom-tool-kit/heroku",
@@ -219,7 +218,6 @@ Object {
     "deploy:production": [Function],
     "deploy:review": [Function],
     "deploy:staging": [Function],
-    "release:deploy": [Function],
     "release:remote": [Function],
     "teardown:staging": [Function],
     "test:ci": [Function],
@@ -415,7 +413,6 @@ Object {
       "hooks": Object {
         "build:remote": [Function],
         "cleanup:remote": [Function],
-        "release:deploy": [Function],
         "release:remote": [Function],
       },
       "id": "@dotcom-tool-kit/heroku",
@@ -459,7 +456,6 @@ Object {
         "hooks": Object {
           "build:remote": [Function],
           "cleanup:remote": [Function],
-          "release:deploy": [Function],
           "release:remote": [Function],
         },
         "id": "@dotcom-tool-kit/heroku",

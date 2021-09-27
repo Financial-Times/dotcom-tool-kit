@@ -1,5 +1,5 @@
 hooks:
-  'release:deploy': UploadAssetsToS3
+  'release:remote': UploadAssetsToS3
 
 options:
   '@dotcom-tool-kit/upload-static-assets':
