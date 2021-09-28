@@ -5,10 +5,6 @@ import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
 
-// const NODE_ENV = process.env.NODE_ENV || ''
-// const aws_access_hashed_assets = process.env.aws_access_hashed_assets || ''
-// const aws_secret_hashed_assets = process.env.aws_access_hashed_assets || ''
-
 export type UploadAssetsToS3Options = {
   accessKeyId: string
   secretAccessKey: string
@@ -73,7 +69,6 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
   }
 
   try {
-    console.log(process.env.NODE_ENV)
     if (process.env.NODE_ENV === 'branch') {
       params.Bucket += '-review'
       const data = await s3.upload(params).promise()
