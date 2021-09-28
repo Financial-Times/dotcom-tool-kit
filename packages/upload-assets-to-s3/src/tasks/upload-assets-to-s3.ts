@@ -9,7 +9,9 @@ export type UploadAssetsToS3Options = {
   accessKeyId: string
   secretAccessKey: string
   directory: string
-  bucketPrefix: string
+  bucketReview: string
+  bucketProd: string
+  bucketProdUs: string
   destination: string
   extensions: string
   cacheControl: string
@@ -22,7 +24,9 @@ export default class UploadAssetsToS3 extends Task<UploadAssetsToS3Options> {
     accessKeyId: process.env.aws_access_hashed_assets || '',
     secretAccessKey: process.env.aws_secret_hashed_assets || '',
     directory: 'public',
-    bucketPrefix: 'ft-next-hashed-assets',
+    bucketReview: 'ft-next-hashed-assets-reivew',
+    bucketProd: 'ft-next-hashed-assets-prod',
+    bucketProdUs: 'ft-next-hashed-assets-prod-us',
     destination: 'hashed-assets/page-kit',
     extensions: 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json',
     cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
@@ -59,7 +63,7 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
   const key = path.posix.join(options.destination, basename)
 
   const params = {
-    Bucket: options.bucketPrefix,
+    Bucket: '',
     Key: key,
     Body: fs.createReadStream(file),
     ACL: 'public-read',
@@ -70,19 +74,19 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
 
   try {
     if (process.env.NODE_ENV === 'branch') {
-      params.Bucket += '-review'
+      params.Bucket = options.bucketReview
       const data = await s3.upload(params).promise()
       console.log(`Uploaded ${basename} to ${data.Location}`)
     } else {
-      params.Bucket += '-prod'
+      params.Bucket = options.bucketProd
       let data = await s3.upload(params).promise()
       console.log(`Uploaded ${basename} to ${data.Location}`)
-      params.Bucket += '-us'
+      params.Bucket = options.bucketProdUs
       data = await s3.upload(params).promise()
       console.log(`Uploaded ${basename} to ${data.Location}`)
     }
   } catch (error) {
-    console.error(`Upload of ${basename} to ${options.bucketPrefix} failed`)
+    console.error(`Upload of ${basename} to ${params.Bucket} failed`)
     throw error
   }
 }
