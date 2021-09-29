@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "lib",
+  "bin": "./bin/create-tool-kit",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
