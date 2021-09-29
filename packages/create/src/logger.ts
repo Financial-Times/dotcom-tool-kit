@@ -1,3 +1,4 @@
+import { hasToolKitConflicts } from '@dotcom-tool-kit/error'
 import type { Spinner } from 'komatsu'
 import Komatsu from 'komatsu'
 
@@ -24,12 +25,7 @@ export class Logger extends Komatsu {
     return super.renderSymbol(spinner)
   }
 
-  async logPromiseWait<T, U>(
-    wait: Promise<T>,
-    run: (interim: T) => Promise<U>,
-    label: string,
-    quiet = false
-  ): Promise<U> {
+  async logPromiseWait<T, U>(wait: Promise<T>, run: (interim: T) => Promise<U>, label: string): Promise<U> {
     const id = Math.floor(parseInt(`zzzzzz`, 36) * Math.random())
       .toString(36)
       .padStart(6, '0')
@@ -61,11 +57,18 @@ export class Logger extends Komatsu {
       return result
     } catch (error) {
       const loggerError = error as LoggerError
-      this.log(id, {
-        status: 'fail',
-        message: labels.fail,
-        error: loggerError.logged || quiet ? undefined : loggerError
-      })
+
+      // hack to suppress error when installHooks promise fails seeing as it's
+      // recoverable
+      if (hasToolKitConflicts(error)) {
+        this.log(id, { status: 'done', message: 'finished installing hooks, but found conflicts' })
+      } else {
+        this.log(id, {
+          status: 'fail',
+          message: labels.fail,
+          error: loggerError.logged ? undefined : loggerError
+        })
+      }
 
       loggerError.logged = true
       throw loggerError

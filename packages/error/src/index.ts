@@ -21,3 +21,7 @@ export class ToolKitConflictError extends ToolKitError {
     this.conflicts = conflicts
   }
 }
+
+export function hasToolKitConflicts(error: unknown): error is ToolKitConflictError {
+  return error instanceof ToolKitConflictError && error.conflicts.length > 0
+}

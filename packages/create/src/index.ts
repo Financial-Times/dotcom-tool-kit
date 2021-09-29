@@ -1,4 +1,4 @@
-import { ToolKitConflictError } from '@dotcom-tool-kit/error'
+import { hasToolKitConflicts, ToolKitConflictError } from '@dotcom-tool-kit/error'
 import type { Schema, SchemaType } from '@dotcom-tool-kit/types/src/schema'
 import loadPackageJson from '@financial-times/package-json'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
@@ -150,7 +150,7 @@ async function executeMigration(deleteConfig: boolean) {
 
   const initialTasks = Promise.all([installPromise, configPromise, unlinkPromise])
 
-  return logger.logPromiseWait(initialTasks, installHooks, 'installing Tool Kit hooks', true)
+  return logger.logPromiseWait(initialTasks, installHooks, 'installing Tool Kit hooks')
 }
 
 async function handleTaskConflict(error: ToolKitConflictError) {
@@ -460,7 +460,7 @@ async function main() {
       // --install logic etc.
       config = await executeMigration(deleteConfig)
     } catch (error) {
-      if (error instanceof ToolKitConflictError && error.conflicts.length > 0) {
+      if (hasToolKitConflicts(error)) {
         // Additional questions asked if we have any task conflicts, letting the
         // user to specify the order they want tasks to run in.
         config = await handleTaskConflict(error)
