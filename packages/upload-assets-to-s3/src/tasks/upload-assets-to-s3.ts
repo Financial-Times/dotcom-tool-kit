@@ -83,11 +83,12 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
       const data = await s3.upload(params).promise()
       console.log(`Uploaded ${basename} to ${data.Location}`)
     } else {
-      for (const bucket of bucketByEnv) {
+      const promises = bucketByEnv.map((bucket) => {
         params.Bucket = bucket
-        const data = await s3.upload(params).promise()
-        console.log(`Uploaded ${basename} to ${data.Location}`)
-      }
+        return s3.upload(params).promise()
+      })
+      const responses = await Promise.all(promises)
+      responses.forEach((data) => console.log(`Upload of ${basename} to file uploaded to ${data.Location}`))
     }
   } catch (error) {
     console.error(`Upload of ${basename} to ${params.Bucket} failed`)
