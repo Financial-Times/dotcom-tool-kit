@@ -10,7 +10,8 @@ export type UploadAssetsToS3Options = {
   secretAccessKey: string
   directory: string
   bucketByEnv: {
-    [key: string]: string[] | string
+    review: string[] | string
+    prod: string[] | string
   }
   destination: string
   extensions: string
