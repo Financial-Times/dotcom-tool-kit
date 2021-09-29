@@ -437,6 +437,8 @@ team know."
 }
 
 async function main() {
+  // Start with the initial prompt which will get most of the information we
+  // need for the remainder of the execution
   const { preset, additional, deleteConfig, uninstall } = await mainPrompt()
 
   const selectedPackages = [preset, ...additional].map((plugin) => `@dotcom-tool-kit/${plugin}`)
@@ -447,22 +449,34 @@ async function main() {
     packagesToRemove.push('@financial-times/n-gage', '@financial-times/n-heroku-tools')
   }
 
+  // Confirm that the proposed changes are what the user was expecting, giving
+  // them a chance to see what we're going to do.
   const { confirm } = await confirmationPrompt()
 
   if (confirm) {
     let config: Config | undefined
     try {
+      // Carry out the proposed changes: install + uninstall packages, run
+      // --install logic etc.
       config = await executeMigration(deleteConfig)
     } catch (error) {
       if (error instanceof ToolKitConflictError && error.conflicts.length > 0) {
+        // Additional questions asked if we have any task conflicts, letting the
+        // user to specify the order they want tasks to run in.
         config = await handleTaskConflict(error)
       } else {
         throw error
       }
     }
 
+    // Only run final prompts if execution was successful (this also means these
+    // are skipped if the user cancels out of the conflict resolution prompt.)
     if (config) {
+      // Give the user a chance to set any configurable options for the plugins
+      // they've installed.
       await optionsPrompt(config)
+      // Suggest they delete the old n-gage makefile after verifying all its
+      // logic has been migrated to Tool Kit.
       await makefileHint()
     }
   }
