@@ -68,7 +68,7 @@ export class Logger extends Komatsu {
       })
 
       loggerError.logged = true
-      throw error
+      throw loggerError
     }
   }
 }
