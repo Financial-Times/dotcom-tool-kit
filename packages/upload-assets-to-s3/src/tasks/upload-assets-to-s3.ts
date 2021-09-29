@@ -26,7 +26,7 @@ export default class UploadAssetsToS3 extends Task<UploadAssetsToS3Options> {
     secretAccessKey: process.env.aws_secret_hashed_assets || '',
     directory: 'public',
     bucketByEnv: {
-      review: 'ft-next-hashed-assets-reivew',
+      review: 'ft-next-hashed-assets-preivew',
       prod: ['ft-next-hashed-assets-prod', 'ft-next-hashed-assets-prod-us']
     },
     destination: 'hashed-assets/page-kit',
