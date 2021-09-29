@@ -6,6 +6,7 @@ export type Schema = {
   readonly [option: string]: ModifiedSchemaType
 }
 
+// Achieve the mapping with conditional types
 type SchemaTypeOutput<T extends SchemaType> = T extends 'string'
   ? string
   : T extends 'number'
