@@ -9,7 +9,10 @@ export type UploadAssetsToS3Options = {
   accessKeyId: string
   secretAccessKey: string
   directory: string
-  bucket: string
+  bucketByEnv: {
+    review: string[] | string
+    prod: string[] | string
+  }
   destination: string
   extensions: string
   cacheControl: string
@@ -19,11 +22,14 @@ export default class UploadAssetsToS3 extends Task<UploadAssetsToS3Options> {
   static description = ''
 
   static defaultOptions: UploadAssetsToS3Options = {
-    accessKeyId: process.env.AWS_ACCESS || '',
-    secretAccessKey: process.env.AWS_SECRET || '',
+    accessKeyId: process.env.aws_access_hashed_assets || '',
+    secretAccessKey: process.env.aws_secret_hashed_assets || '',
     directory: 'public',
-    bucket: 'ft-next-hashed-assets-prod',
-    destination: 'hashed-assets/uploaded',
+    bucketByEnv: {
+      review: 'ft-next-hashed-assets-reivew',
+      prod: ['ft-next-hashed-assets-prod', 'ft-next-hashed-assets-prod-us']
+    },
+    destination: 'hashed-assets/page-kit',
     extensions: 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json',
     cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
   }
@@ -59,7 +65,7 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
   const key = path.posix.join(options.destination, basename)
 
   const params = {
-    Bucket: options.bucket,
+    Bucket: '',
     Key: key,
     Body: fs.createReadStream(file),
     ACL: 'public-read',
@@ -68,11 +74,23 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
     CacheControl: options.cacheControl
   }
 
+  const { review, prod } = options.bucketByEnv
+  const bucketByEnv = process.env.NODE_ENV === 'branch' ? review : prod
+
   try {
-    const data = await s3.upload(params).promise()
-    console.log(`Uploaded ${basename} to ${data.Location}`)
+    if (typeof bucketByEnv === 'string') {
+      params.Bucket = bucketByEnv
+      const data = await s3.upload(params).promise()
+      console.log(`Uploaded ${basename} to ${data.Location}`)
+    } else {
+      for (const bucket of bucketByEnv) {
+        params.Bucket = bucket
+        const data = await s3.upload(params).promise()
+        console.log(`Uploaded ${basename} to ${data.Location}`)
+      }
+    }
   } catch (error) {
-    console.error(`Upload of ${basename} to ${options.bucket} failed`)
+    console.error(`Upload of ${basename} to ${params.Bucket} failed`)
     throw error
   }
 }

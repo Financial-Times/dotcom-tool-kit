@@ -16,10 +16,11 @@ describe('upload-assets-to-s3', () => {
     } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
   })
 
-  it('should upload all globbed files', async () => {
+  it('should upload all globbed files for review', async () => {
     const task = new UploadAssetsToS3({
       directory: testDirectory
     })
+    process.env.NODE_ENV = 'branch'
 
     await task.run()
 
@@ -27,16 +28,29 @@ describe('upload-assets-to-s3', () => {
     expect(s3.upload).toHaveBeenCalledTimes(4)
   })
 
+  it('should upload all globbed files for prod', async () => {
+    const task = new UploadAssetsToS3({
+      directory: testDirectory
+    })
+    process.env.NODE_ENV = 'production'
+
+    await task.run()
+
+    const s3 = mockedAWS.S3.mock.instances[0]
+    expect(s3.upload).toHaveBeenCalledTimes(8)
+  })
+
   it('should use correct Content-Encoding for compressed files', async () => {
     const task = new UploadAssetsToS3({
       extensions: 'gz',
       directory: testDirectory
     })
+    process.env.NODE_ENV = 'production'
 
     await task.run()
 
     const s3 = mocked(mockedAWS.S3.mock.instances[0])
-    expect(s3.upload).toHaveBeenCalledTimes(1)
+    expect(s3.upload).toHaveBeenCalledTimes(2)
     expect(s3.upload.mock.calls[0][0]).toHaveProperty('ContentEncoding', 'gzip')
   })
 

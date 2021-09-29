@@ -7,15 +7,11 @@ type HerokuProductionOptions = {
   pipeline?: string
 }
 
-export default class HerokuProduction extends Task {
+export default class HerokuProduction extends Task<HerokuProductionOptions> {
   static description = ''
 
   static defaultOptions: HerokuProductionOptions = {
     pipeline: undefined
-  }
-
-  constructor(public options: HerokuProductionOptions = HerokuProduction.defaultOptions) {
-    super()
   }
 
   async run(): Promise<void> {

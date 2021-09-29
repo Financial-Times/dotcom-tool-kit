@@ -7,15 +7,11 @@ type MochaOptions = {
   files: string
 }
 
-export default class Mocha extends Task {
+export default class Mocha extends Task<MochaOptions> {
   static description = ''
 
   static defaultOptions: MochaOptions = {
     files: 'test/**/*.js'
-  }
-
-  constructor(public options: MochaOptions = Mocha.defaultOptions) {
-    super()
   }
 
   async run(): Promise<void> {
