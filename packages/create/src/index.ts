@@ -5,15 +5,16 @@ import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
 import { ValidConfig } from 'dotcom-tool-kit/lib/config'
 import installHooks from 'dotcom-tool-kit/lib/install'
+import { styles } from 'dotcom-tool-kit/lib/messages'
 import { explorer, RCFile } from 'dotcom-tool-kit/lib/rc-file'
 import type { Config } from 'dotcom-tool-kit/src/config'
 import { promises as fs, readFileSync } from 'fs'
 import * as yaml from 'js-yaml'
+import partition from 'lodash.partition'
 import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
 import { Logger } from './logger'
-import { styles } from 'dotcom-tool-kit/lib/messages'
 
 const exec = promisify(_exec)
 
@@ -420,10 +421,17 @@ team know."
       test: 'test:local',
       build: 'build:local'
     }
-    if (targets.some((target) => equivalentHooks[target])) {
+
+    const mappedSuggestions = targets
+      .filter((target) => target !== 'node_modules/@financial-times/n-gage/index.mk')
+      .map((target) => [target, equivalentHooks[target]])
+    // split the targets into ones we have suggestions for and ones we don't
+    const [suggested, unrecognised] = partition(mappedSuggestions, 1)
+    const suggestionsFound = suggested.length > 0
+
+    if (suggestionsFound) {
       console.log("\nWe've found some targets in your Makefile which could be migrated to Tool Kit:")
-      for (const target of targets) {
-        const suggestion = equivalentHooks[target]
+      for (const [target, suggestion] of suggested) {
         if (suggestion) {
           console.log(
             `- Your ${styles.makeTarget(target)} target is likely handled by the ${styles.hook(
@@ -431,6 +439,17 @@ team know."
             )} hook in Tool Kit`
           )
         }
+      }
+    }
+
+    if (unrecognised.length > 0) {
+      console.log(
+        `\nWe don't know if these${
+          suggestionsFound ? ' other' : ''
+        } Makefile targets can be migrated to Tool Kit. Please check what they're doing:`
+      )
+      for (const [target] of unrecognised) {
+        console.log(`- ${styles.makeTarget(target)}`)
       }
     }
   }
