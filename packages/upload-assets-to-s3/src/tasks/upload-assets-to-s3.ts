@@ -26,7 +26,7 @@ export default class UploadAssetsToS3 extends Task<UploadAssetsToS3Options> {
     secretAccessKey: process.env.aws_secret_hashed_assets || '',
     directory: 'public',
     bucketByEnv: {
-      review: 'ft-next-hashed-assets-preivew',
+      review: 'ft-next-hashed-assets-preview',
       prod: ['ft-next-hashed-assets-prod', 'ft-next-hashed-assets-prod-us']
     },
     destination: 'hashed-assets/page-kit',
@@ -64,34 +64,42 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
   const encoding = getFileEncoding(basename)
   const key = path.posix.join(options.destination, basename)
 
-  const params = {
-    Bucket: '',
-    Key: key,
-    Body: fs.createReadStream(file),
-    ACL: 'public-read',
-    ContentType: `${type}; charset=utf-8`,
-    ContentEncoding: encoding,
-    CacheControl: options.cacheControl
-  }
-
   const { review, prod } = options.bucketByEnv
   const bucketByEnv = process.env.NODE_ENV === 'branch' ? review : prod
+  let currentBucket = ''
 
   try {
     if (typeof bucketByEnv === 'string') {
-      params.Bucket = bucketByEnv
+      const params = {
+        Bucket: bucketByEnv,
+        Key: key,
+        Body: fs.createReadStream(file),
+        ACL: 'public-read',
+        ContentType: `${type}; charset=utf-8`,
+        ContentEncoding: encoding,
+        CacheControl: options.cacheControl
+      }
+      currentBucket = params.Bucket
       const data = await s3.upload(params).promise()
       console.log(`Uploaded ${basename} to ${data.Location}`)
     } else {
-      const promises = bucketByEnv.map((bucket) => {
-        params.Bucket = bucket
-        return s3.upload(params).promise()
-      })
-      const responses = await Promise.all(promises)
-      responses.forEach((data) => console.log(`Upload of ${basename} to file uploaded to ${data.Location}`))
+      for (const bucket of bucketByEnv) {
+        const params = {
+          Bucket: bucket,
+          Key: key,
+          Body: fs.createReadStream(file),
+          ACL: 'public-read',
+          ContentType: `${type}; charset=utf-8`,
+          ContentEncoding: encoding,
+          CacheControl: options.cacheControl
+        }
+        currentBucket = params.Bucket
+        const data = await s3.upload(params).promise()
+        console.log(`Uploaded ${basename} to ${data.Location}`)
+      }
     }
   } catch (error) {
-    console.error(`Upload of ${basename} to ${params.Bucket} failed`)
+    console.error(`Upload of ${basename} to ${currentBucket} failed`)
     throw error
   }
 }
