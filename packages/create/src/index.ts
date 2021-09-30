@@ -11,6 +11,7 @@ import type { Config } from 'dotcom-tool-kit/src/config'
 import { promises as fs, readFileSync } from 'fs'
 import * as yaml from 'js-yaml'
 import partition from 'lodash.partition'
+import ordinal from 'ordinal'
 import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
@@ -161,12 +162,13 @@ async function handleTaskConflict(error: ToolKitConflictError) {
     const remainingTasks = conflict.conflictingTasks
     orderedHooks[conflict.hook] = []
 
-    while (remainingTasks.length > 0) {
+    const totalTasks = remainingTasks.length
+    for (let i = 1; i <= totalTasks; i++) {
       const { order: nextIdx }: { order: number | undefined | null } = await prompt({
         name: 'order',
         type: 'select',
         message: `Hook ${styles.hook(conflict.hook)} has multiple tasks configured for it. \
-Which order do you want them to run in?`,
+Please select the ${ordinal(i)} package to run.`,
         choices: [
           ...remainingTasks.map(({ task, plugin }) => ({
             title: styles.task(task),
