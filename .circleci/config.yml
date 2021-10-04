@@ -103,7 +103,7 @@ jobs:
       - *attach_workspace
       - run:
           name: Run package tests
-          command: npm run test
+          command: npm run test -- --runInBand
 
   publish:
     <<: *container_config_node
