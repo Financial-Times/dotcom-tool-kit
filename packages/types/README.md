@@ -27,9 +27,10 @@ be specified, and a number field can be optionally specified for a `retryCount`.
 
 ## Schema Type Reference
 
-In this table, `A` and `B` can be substituted by any of the first four types
+In this table, `A` can be substituted by any of the first four types
 (unfortunately TypeScript does not seem to support recursive conditional types
-right now.) `T` can be any type, with a `?` suffix denoting an optional type.
+right now.) `B` and `C` in the union type are string literals. `T` can be any
+type, with a `?` suffix denoting an optional type.
 
 | Syntax       | Type                |
 | ------------ | ------------------- |
@@ -39,7 +40,7 @@ right now.) `T` can be any type, with a `?` suffix denoting an optional type.
 | `"unknown"`  | `unknown`           |
 | `"array.A"`  | `A[]`               |
 | `"record.A"` | `Record<string, A>` |
-| `"\|A,B"`    | `A \| B`            |
+| `"\|B,C"`    | `B \| C`            |
 | `"T?"`       | `T \| undefined`    |
 
 ## TypeScript Helpers

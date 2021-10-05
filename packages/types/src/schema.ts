@@ -1,3 +1,4 @@
+// TODO: add support for more flexible union type and array/record generics
 export type ScalarSchemaType = 'string' | 'number' | 'boolean' | `|${string},${string}` | 'unknown'
 export type SchemaType = ScalarSchemaType | `array.${ScalarSchemaType}` | `record.${ScalarSchemaType}`
 export type ModifiedSchemaType = SchemaType | `${SchemaType}?`
