@@ -103,7 +103,7 @@ jobs:
       - *attach_workspace
       - run:
           name: Run package tests
-          command: npm run test -- --runInBand
+          command: npm run test -- --maxWorkers=50%
 
   publish:
     <<: *container_config_node
