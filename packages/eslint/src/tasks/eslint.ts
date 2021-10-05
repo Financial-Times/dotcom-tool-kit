@@ -1,17 +1,13 @@
 import { ESLint } from 'eslint'
+import { ESLintOptions, ESLintSchema } from '@dotcom-tool-kit/types/lib/schema/eslint'
 import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-type EslintOptions = {
-  files: string[] | string
-  config?: ESLint.Options
-}
-
-export default class Eslint extends Task<EslintOptions> {
+export default class Eslint extends Task<typeof ESLintSchema> {
   static description = ''
 
-  static defaultOptions: EslintOptions = {
-    files: '**/*.js'
+  static defaultOptions: ESLintOptions = {
+    files: ['**/*.js']
   }
 
   async run(): Promise<void> {

@@ -3,22 +3,18 @@ import getHerokuReviewApp from '../getHerokuReviewApp'
 import gtg from '../gtg'
 import setConfigVars from '../setConfigVars'
 import { writeState } from '@dotcom-tool-kit/state'
+import { HerokuOptions, HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import herokuClient from '../herokuClient'
 import type { HerokuApiResPipeline } from 'heroku-client'
-import type { VaultPath } from '@dotcom-tool-kit/vault'
 
-type HerokuReviewOptions = {
-  pipeline?: string
-  vaultPath?: VaultPath
-}
-
-export default class HerokuReview extends Task<HerokuReviewOptions> {
+export default class HerokuReview extends Task<typeof HerokuSchema> {
   static description = ''
 
-  static defaultOptions: HerokuReviewOptions = {
+  static defaultOptions: HerokuOptions = {
     pipeline: undefined,
-    vaultPath: undefined
+    vaultTeam: undefined,
+    vaultApp: undefined
   }
 
   async run(): Promise<void> {
@@ -40,19 +36,21 @@ options:
 
       writeState('review', { appId: reviewAppId })
 
-      if (!this.options.vaultPath) {
-        const error = new ToolKitError('No vaultPath option in your Tool Kit configuration')
-        error.details = `the vaultPath is needed to get your app's secrets from vault, e.g.
+      if (!this.options.vaultTeam || !this.options.vaultApp) {
+        const error = new ToolKitError('Vault options not found in your Tool Kit configuration')
+        error.details = `vaultTeam and vaultApp are needed to get your app's secrets from vault, e.g.
         options:
           '@dotcom-tool-kit/heroku':
-            vaultPath:
-              team: "next"
-              app: "your-app"
+            vaultTeam: "next"
+            vaultApp: "your-app"
           `
         throw error
       }
 
-      await setConfigVars(reviewAppId, 'continuous-integration', this.options.vaultPath)
+      await setConfigVars(reviewAppId, 'continuous-integration', {
+        team: this.options.vaultTeam,
+        app: this.options.vaultApp
+      })
 
       await gtg(reviewAppId, 'review')
     } catch (err) {

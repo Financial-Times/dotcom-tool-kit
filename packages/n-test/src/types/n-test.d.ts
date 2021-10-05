@@ -1,5 +1,5 @@
 declare module '@financial-times/n-test' {
-  export type SmokeTestOptions = {
+  type SmokeTestOptions = {
     browsers?: string[]
     host?: string
     config?: string

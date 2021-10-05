@@ -4,31 +4,20 @@ import aws from 'aws-sdk'
 import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
+import {
+  UploadAssetsToS3Options,
+  UploadAssetsToS3Schema
+} from '@dotcom-tool-kit/types/lib/schema/upload-assets-to-s3'
 
-export type UploadAssetsToS3Options = {
-  accessKeyId: string
-  secretAccessKey: string
-  directory: string
-  bucketByEnv: {
-    review: string[] | string
-    prod: string[] | string
-  }
-  destination: string
-  extensions: string
-  cacheControl: string
-}
-
-export default class UploadAssetsToS3 extends Task<UploadAssetsToS3Options> {
+export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema> {
   static description = ''
 
   static defaultOptions: UploadAssetsToS3Options = {
     accessKeyId: process.env.aws_access_hashed_assets || '',
     secretAccessKey: process.env.aws_secret_hashed_assets || '',
     directory: 'public',
-    bucketByEnv: {
-      review: 'ft-next-hashed-assets-preview',
-      prod: ['ft-next-hashed-assets-prod', 'ft-next-hashed-assets-prod-us']
-    },
+    reviewBucket: ['ft-next-hashed-assets-preview'],
+    prodBucket: ['ft-next-hashed-assets-prod', 'ft-next-hashed-assets-prod-us'],
     destination: 'hashed-assets/page-kit',
     extensions: 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json',
     cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
@@ -64,8 +53,17 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
   const encoding = getFileEncoding(basename)
   const key = path.posix.join(options.destination, basename)
 
-  const { review, prod } = options.bucketByEnv
-  const bucketByEnv = process.env.NODE_ENV === 'branch' ? review : prod
+  const params = {
+    Bucket: '',
+    Key: key,
+    Body: fs.createReadStream(file),
+    ACL: 'public-read',
+    ContentType: `${type}; charset=utf-8`,
+    ContentEncoding: encoding,
+    CacheControl: options.cacheControl
+  }
+
+  const bucketByEnv = process.env.NODE_ENV === 'branch' ? options.reviewBucket : options.prodBucket
   let currentBucket = ''
 
   try {

@@ -1,11 +1,7 @@
 import { fork } from 'child_process'
+import type { WebpackOptions } from '@dotcom-tool-kit/types/lib/schema/webpack'
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
-
-export type WebpackOptions = {
-  configPath?: string
-  mode: 'production' | 'development'
-}
 
 export default function runWebpack(options: WebpackOptions): Promise<void> {
   return new Promise((resolve, reject) => {

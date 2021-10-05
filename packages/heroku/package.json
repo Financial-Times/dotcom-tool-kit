@@ -32,6 +32,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/heroku",
   "devDependencies": {
+    "@dotcom-tool-kit/types": "file:../types",
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json",
     "@types/p-retry": "^3.0.1"
   },

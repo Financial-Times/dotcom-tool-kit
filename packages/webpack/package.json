@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/task": "file:../task",
+    "@dotcom-tool-kit/types": "file:../types",
     "webpack-cli": "^4.6.0"
   },
   "peerDependencies": {

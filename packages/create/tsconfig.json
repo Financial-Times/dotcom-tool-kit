@@ -1,6 +1,5 @@
 {
   "extends": "../../tsconfig.settings.json",
-  "include": ["src/**/*"],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
@@ -8,12 +7,6 @@
   "references": [
     {
       "path": "../task"
-    },
-    {
-      "path": "../error"
-    },
-    {
-      "path": "../types"
     }
   ]
 }

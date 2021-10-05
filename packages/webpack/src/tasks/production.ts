@@ -1,7 +1,8 @@
 import { Task } from '@dotcom-tool-kit/task'
-import runWebpack, { WebpackOptions } from '../run-webpack'
+import { WebpackSchema } from '@dotcom-tool-kit/types/lib/schema/webpack'
+import runWebpack from '../run-webpack'
 
-export default class WebpackProduction extends Task<WebpackOptions> {
+export default class WebpackProduction extends Task<typeof WebpackSchema> {
   static description = 'build webpack'
 
   async run(): Promise<void> {

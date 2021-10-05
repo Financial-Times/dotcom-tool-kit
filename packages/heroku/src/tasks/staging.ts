@@ -4,19 +4,15 @@ import getHerokuStagingApp from '../getHerokuStagingApp'
 import setConfigVars from '../setConfigVars'
 import scaleDyno from '../scaleDyno'
 import gtg from '../gtg'
-import type { VaultPath } from '@dotcom-tool-kit/vault'
 import getPipelineCouplings from '../getPipelineCouplings'
+import { HerokuOptions, HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
 
-type HerokuStagingOptions = {
-  vaultPath?: VaultPath
-  pipeline?: string
-}
-
-export default class HerokuStaging extends Task<HerokuStagingOptions> {
+export default class HerokuStaging extends Task<typeof HerokuSchema> {
   static description = ''
 
-  static defaultOptions: HerokuStagingOptions = {
-    vaultPath: undefined,
+  static defaultOptions: HerokuOptions = {
+    vaultTeam: undefined,
+    vaultApp: undefined,
     pipeline: undefined
   }
 
@@ -39,19 +35,19 @@ options:
       console.log(`restrieving staging app details...`)
       const appName = await getHerokuStagingApp()
 
-      if (!this.options.vaultPath) {
-        const error = new ToolKitError('no vaultPath option in your Tool Kit configuration')
-        error.details = `the vaultPath is needed to get your app's secrets from vault, e.g.
+      //apply vars from vault
+      if (!this.options.vaultTeam || !this.options.vaultApp) {
+        const error = new ToolKitError('Vault options not found in your Tool Kit configuration')
+        error.details = `vaultTeam and vaultApp are needed to get your app's secrets from vault, e.g.
         options:
           '@dotcom-tool-kit/heroku':
-            vaultPath:
-              team: "next"
-              app: "your-app"
-          `
+              vaultTeam: "next",
+              vaultApp: "your-app"
+            `
         throw error
       }
 
-      await setConfigVars(appName, 'production', this.options.vaultPath)
+      await setConfigVars(appName, 'production', { team: this.options.vaultTeam, app: this.options.vaultApp })
 
       //scale up staging
       await scaleDyno(appName, 1)

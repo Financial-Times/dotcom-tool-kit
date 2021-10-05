@@ -9,7 +9,7 @@ describe('eslint', () => {
   it('should pass on correct file', async () => {
     const task = new ESLint({
       config: { ignore: false },
-      files: path.join(testDirectory, 'pass.ts')
+      files: [path.join(testDirectory, 'pass.ts')]
     })
 
     await task.run()
@@ -18,7 +18,7 @@ describe('eslint', () => {
   it('should fail on linter error', async () => {
     const task = new ESLint({
       config: { ignore: false },
-      files: path.join(testDirectory, 'fail.ts')
+      files: [path.join(testDirectory, 'fail.ts')]
     })
 
     expect.assertions(1)
