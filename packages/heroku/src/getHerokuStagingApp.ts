@@ -23,7 +23,9 @@ export default async function getHerokuStagingApp(): Promise<string> {
   try {
     await getLatestReleaseDetails(appName, version)
   } catch {
-    throw new Error(`Error finding you release details`)
+    throw new ToolKitError(
+      `Error finding release details for ${appName}, please refer to the app's build logs to check that it has built correctly`
+    )
   }
   return appName
 }
