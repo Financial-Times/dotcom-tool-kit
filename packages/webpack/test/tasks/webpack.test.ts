@@ -1,34 +1,48 @@
-import { describe, jest, it } from '@jest/globals'
-import { promises as fsp } from 'fs'
-import * as path from 'path'
+import { describe, jest, it, expect } from '@jest/globals'
 import DevelopmentWebpack from '../../src/tasks/development'
 import ProductionWebpack from '../../src/tasks/production'
+import { fork } from 'child_process'
+import EventEmitter from 'events'
 
-// Have to use a Typescript file and ts-node to resolve the config as jest
-// overrides the standard node .js resolver webpack typically loads the file with.
-const configPath = path.resolve(__dirname, '../files/webpack.config.ts')
-const outputPath = path.resolve(__dirname, '../files/dist')
+jest.mock('child_process', () => ({
+  fork: jest.fn(() => {
+    // return a fake emitter that immediately sends an "exit" event, so the webpack task resolves
+    const emitter = new EventEmitter()
+    process.nextTick(() => {
+      emitter.emit('exit', 0)
+    })
+    return emitter
+  })
+}))
 
-jest.setTimeout(20000)
+const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
 describe('webpack', () => {
-  afterEach(() => fsp.rmdir(outputPath, { recursive: true }))
-
   describe('development', () => {
-    it('should pass on standard file', async () => {
+    it('should call webpack cli with correct arguments', async () => {
+      const configPath = 'webpack.config.js'
       const task = new DevelopmentWebpack({ configPath })
       await task.run()
 
-      await fsp.access(outputPath + '/app.bundle.js')
+      expect(fork).toBeCalledWith(webpackCLIPath, [
+        'build',
+        '--mode=development',
+        '--config=webpack.config.js'
+      ])
     })
   })
 
   describe('production', () => {
-    it('should pass on standard file', async () => {
+    it('should call webpack cli with correct arguments', async () => {
+      const configPath = 'webpack.config.js'
       const task = new ProductionWebpack({ configPath })
       await task.run()
 
-      await fsp.access(outputPath + '/app.bundle.js')
+      expect(fork).toBeCalledWith(webpackCLIPath, [
+        'build',
+        '--mode=production',
+        '--config=webpack.config.js'
+      ])
     })
   })
 })
