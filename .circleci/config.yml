@@ -5,7 +5,6 @@ orbs:
   orb-tools: circleci/orb-tools@10.0.5
 
 references:
-
   #
   # Workspace
   #
@@ -14,8 +13,7 @@ references:
     docker:
       - image: circleci/node:12
 
-  workspace_root: &workspace_root
-    ~/project
+  workspace_root: &workspace_root ~/project
 
   attach_workspace: &attach_workspace
     attach_workspace:
@@ -77,14 +75,13 @@ references:
       ignore: /.*/
 
 jobs:
-
   build:
     <<: *container_config_node
     steps:
       - checkout
       - *restore_cache
       - node/install-npm:
-          version: "7"
+          version: '7'
       - run:
           name: Install project dependencies
           command: npm install
@@ -103,7 +100,7 @@ jobs:
       - *attach_workspace
       - run:
           name: Run package tests
-          command: npm run test -- --maxWorkers=50%
+          command: npm run test
 
   publish:
     <<: *container_config_node
@@ -136,13 +133,13 @@ workflows:
       - waiting-for-approval:
           type: approval
           filters:
-              <<: *filters_only_renovate_nori
+            <<: *filters_only_renovate_nori
       - build:
           requires:
-              - waiting-for-approval
+            - waiting-for-approval
       - test:
           requires:
-              - build
+            - build
 
   build-test-publish:
     jobs:
