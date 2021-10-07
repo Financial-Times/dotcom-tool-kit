@@ -49,7 +49,7 @@ async function compare(appName: string, version: string, attempt = 1): Promise<b
   }
 }
 
-export default async function getLatestReleaseDetails(appName: string, version: string): Promise<boolean> {
+export default async function writeLatestReleaseDetails(appName: string, version: string): Promise<void> {
   try {
     console.log(`checking ${appName} is deployed with the latest commit...`)
     await compare(appName, version)
@@ -65,7 +65,7 @@ export default async function getLatestReleaseDetails(appName: string, version: 
   if (latest.status === 'succeeded') {
     console.log(`current slug id found and writing to state file: ${latest.slug.id}`)
     writeState('staging', { slugId: latest.id })
-    return true
+    return
   } else {
     const error = new ToolKitError(`error getting staging app`)
     error.details = `there appears to be an error with the current release status - expected 'succeeded', received: ${
