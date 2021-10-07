@@ -2,7 +2,7 @@ import heroku from './herokuClient'
 import type { HerokuApiResGetRelease, HerokuApiGetSlug } from 'heroku-client'
 import { writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import repeatedCheckForStaging from './repeatedCheckForStaging'
+import checkIfStagingUpdated from './checkIfStagingUpdated'
 
 type ReleaseDetails = {
   slug: {
@@ -42,7 +42,7 @@ async function compare(appName: string, version: string, attempt = 1): Promise<b
     return true
   } else {
     if (latest?.id) {
-      await repeatedCheckForStaging(latest.id)
+      await checkIfStagingUpdated(latest.id)
     }
     latest = await findLatestRelease(appName)
     return compare(appName, version, attempt + 1)
