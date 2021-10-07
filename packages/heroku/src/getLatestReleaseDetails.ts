@@ -52,7 +52,7 @@ async function compare(appName: string, version: string, attempt = 1): Promise<b
 export default async function getLatestReleaseDetails(appName: string, version: string): Promise<boolean> {
   try {
     console.log(`checking ${appName} is deployed with the latest commit...`)
-    compare(appName, version)
+    await compare(appName, version)
   } catch {
     const error = new ToolKitError(`your staging does not have your latest commit`)
     error.details = `
