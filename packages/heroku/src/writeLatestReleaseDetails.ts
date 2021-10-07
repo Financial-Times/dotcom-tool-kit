@@ -42,7 +42,7 @@ async function compare(appName: string, version: string, attempt = 1): Promise<b
     return true
   } else {
     if (latest?.id) {
-      await checkIfStagingUpdated(latest.id)
+      await checkIfStagingUpdated(appName, latest.id)
     }
     latest = await findLatestRelease(appName)
     return compare(appName, version, attempt + 1)
