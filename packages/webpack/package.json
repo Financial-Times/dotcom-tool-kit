@@ -14,7 +14,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "keywords": [],
   "scripts": {
-    "test": "jest --silent"
+    "test": "cd ../../ ; npx jest --silent --projects packages/webpack"
   },
   "dependencies": {
     "@dotcom-tool-kit/task": "file:../task",
@@ -26,8 +26,6 @@
   },
   "devDependencies": {
     "@jest/globals": "^26.6.2",
-    "jest": "^26.6.3",
-    "ts-jest": "^26.5.6",
     "ts-node": "^10.0.0",
     "webpack": "^4.42.1"
   },

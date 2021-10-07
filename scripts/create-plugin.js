@@ -48,7 +48,8 @@ const tsconfig = {
     {
       path: '../task'
     }
-  ]
+  ],
+  include: ['src/**/*']
 }
 
 fs.writeFileSync('tsconfig.json', JSON.stringify(tsconfig, null, 2))

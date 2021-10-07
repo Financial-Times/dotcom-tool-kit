@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd ../../ ; npx jest --silent --projects packages/circleci"
   },
   "dependencies": {
     "@dotcom-tool-kit/state": "file:../state",
@@ -22,8 +22,10 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/circleci",
   "devDependencies": {
+    "@jest/globals": "^26.6.2",
     "@types/js-yaml": "^4.0.3",
-    "@types/lodash.isequal": "^4.5.5"
+    "@types/lodash.isequal": "^4.5.5",
+    "@types/jest": "^26.0.24"
   },
   "files": [
     "/lib",
