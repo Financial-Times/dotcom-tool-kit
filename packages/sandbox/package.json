@@ -21,12 +21,10 @@
     "@dotcom-tool-kit/n-test": "file:../n-test",
     "@dotcom-tool-kit/npm": "file:../npm",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../upload-assets-to-s3",
-    "dotcom-tool-kit": "file:../cli"
+    "dotcom-tool-kit": "file:../cli",
+    "@dotcom-tool-kit/prettier": "file:../prettier"
   },
   "volta": {
     "extends": "../../package.json"
-  },
-  "dependencies": {
-    "@dotcom-tool-kit/prettier": "file:../prettier"
   }
 }
