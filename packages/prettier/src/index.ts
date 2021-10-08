@@ -11,5 +11,5 @@ class FormatLocal extends PackageJsonHook {
 }
 
 export const hooks = {
-  'format:local': FormatLocal,
+  'format:local': FormatLocal
 }
