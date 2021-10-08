@@ -6,11 +6,11 @@ const NUM_RETRIES = process.env.HEROKU_STAGING_NUM_RETRIES
   ? parseInt(process.env.HEROKU_STAGING_NUM_RETRIES)
   : 60
 
-export default async function checkIfStagingUpdated(releaseId: string): Promise<boolean> {
+export default async function checkIfStagingUpdated(appName: string, releaseId: string): Promise<boolean> {
   async function checkForSuccessStatus() {
     console.log(`existing staging app release id: ${releaseId}`)
     const existingStagingRelease: HerokuApiResGetRelease = await heroku.get(
-      `/apps/appId/releases/${releaseId}`
+      `/apps/${appName}/releases/${releaseId}`
     )
     console.log(`existing staging app status: ${existingStagingRelease.current}`)
     if (existingStagingRelease.current)

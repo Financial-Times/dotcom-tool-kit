@@ -42,7 +42,7 @@ async function compare(appName: string, version: string, attempt = 1): Promise<b
     return true
   } else {
     if (latest?.id) {
-      await checkIfStagingUpdated(latest.id)
+      await checkIfStagingUpdated(appName, latest.id)
     }
     latest = await findLatestRelease(appName)
     return compare(appName, version, attempt + 1)
@@ -64,7 +64,7 @@ export default async function writeLatestReleaseDetails(appName: string, version
 
   if (latest.status === 'succeeded') {
     console.log(`current slug id found and writing to state file: ${latest.slug.id}`)
-    writeState('staging', { slugId: latest.id })
+    writeState('staging', { slugId: latest.slug.id })
     return
   } else {
     const error = new ToolKitError(`error getting staging app`)
