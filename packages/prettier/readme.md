@@ -29,7 +29,7 @@ This will modify your `package.json`. You should commit this change.
 
 #### `files`
 
-A required String or Array of strings of filepath(s) or filepath pattern(s) to be formatted. Defaults to `['{,!(node_modules)/**/}*.js'].
+A required Array of strings of filepath(s) or filepath pattern(s) to be formatted. Defaults to `['{,!(node_modules)/**/}*.js'].
 
 #### `configOptions`
 

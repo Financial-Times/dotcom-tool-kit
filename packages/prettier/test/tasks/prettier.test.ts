@@ -29,27 +29,15 @@ describe('prettier', () => {
 
   afterEach(async () => {
     await fsp.writeFile(path.join(testDirectory, 'unformatted.ts'), unformattedFixture)
-    await fsp.writeFile(path.join(testDirectory, 'unformatted-copy.ts'), unformattedFixture)
   })
 
   it('should format the correct file with default configOptions', async () => {
     const task = new Prettier({
-      files: path.join(testDirectory, 'unformatted.ts')
+      files: [path.join(testDirectory, 'unformatted.ts')]
     })
     await task.run()
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
     expect(prettified).toEqual(formattedDefaultFixture)
-  })
-
-  it('should format an array of files', async () => {
-    const task = new Prettier({
-      files: [path.join(testDirectory, 'unformatted.ts'), path.join(testDirectory, 'unformatted-copy.ts')]
-    })
-    await task.run()
-    const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
-    const prettifiedCopy = await fsp.readFile(path.join(testDirectory, 'unformatted-copy.ts'), 'utf8')
-    expect(prettified).toEqual(formattedDefaultFixture)
-    expect(prettifiedCopy).toEqual(formattedDefaultFixture)
   })
 
   it('should use configFile if present', async () => {
@@ -59,7 +47,7 @@ describe('prettier', () => {
       path.join(__dirname, '../.prettierrc.json')
     )
     const task = new Prettier({
-      files: path.join(testDirectory, 'unformatted.ts'),
+      files: [path.join(testDirectory, 'unformatted.ts')],
       configFile: path.join(__dirname, './test/.prettierrc.json')
     })
     await task.run()
@@ -73,7 +61,7 @@ describe('prettier', () => {
 
   it('should use configOptions if configFile not found', async () => {
     const task = new Prettier({
-      files: path.join(testDirectory, 'unformatted.ts'),
+      files: [path.join(testDirectory, 'unformatted.ts')],
       configFile: '/incorrect/.prettierrc.js',
       configOptions: {
         singleQuote: false,

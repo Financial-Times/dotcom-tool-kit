@@ -1,16 +1,11 @@
 import prettier from 'prettier'
+import { PrettierOptions, PrettierSchema } from '@dotcom-tool-kit/types/lib/schema/prettier'
 import { promises as fsp } from 'fs'
 import fg from 'fast-glob'
 import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-type PrettierOptions = {
-  files: string[] | string
-  configFile?: string
-  configOptions?: prettier.Options
-}
-
-export default class Prettier extends Task<PrettierOptions> {
+export default class Prettier extends Task<typeof PrettierSchema> {
   static description = ''
 
   static defaultOptions: PrettierOptions = {
@@ -26,7 +21,6 @@ export default class Prettier extends Task<PrettierOptions> {
 
   async run(): Promise<void> {
     try {
-      !Array.isArray(this.options.files) ? (this.options.files = [this.options.files]) : ''
       const filepaths = await fg(this.options.files)
       for (const filepath of filepaths) {
         await formatFile(filepath, this.options)
