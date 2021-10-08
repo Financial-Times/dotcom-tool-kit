@@ -4,7 +4,7 @@ import heroku from './herokuClient'
 import type { HerokuApiResGetStaging } from 'heroku-client'
 import writeLatestReleaseDetails from './writeLatestReleaseDetails'
 
-export default async function getHerokuStagingApp(): Promise<string> {
+async function getHerokuStagingApp(): Promise<string> {
   const ciState = readState('ci')
   const stagingState = readState('staging')
 
@@ -29,3 +29,5 @@ export default async function getHerokuStagingApp(): Promise<string> {
   }
   return appName
 }
+
+export { getHerokuStagingApp }
