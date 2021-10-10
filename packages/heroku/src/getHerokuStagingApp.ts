@@ -2,7 +2,7 @@ import { readState, writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import heroku from './herokuClient'
 import type { HerokuApiResGetStaging } from 'heroku-client'
-import writeLatestReleaseDetails from './writeLatestReleaseDetails'
+import { writeLatestReleaseDetails } from './writeLatestReleaseDetails'
 
 async function getHerokuStagingApp(): Promise<string> {
   const ciState = readState('ci')
@@ -14,7 +14,7 @@ async function getHerokuStagingApp(): Promise<string> {
   const version = ciState.version
   const appId = stagingState.appIds[0]
 
-  console.log(`retrieving `)
+  console.log(`retrieving`)
   const { name: appName }: HerokuApiResGetStaging = await heroku.get(`/apps/${appId}`)
 
   writeState('staging', { appName })
