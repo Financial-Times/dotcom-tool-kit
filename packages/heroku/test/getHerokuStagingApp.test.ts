@@ -22,7 +22,6 @@ jest.mock('@dotcom-tool-kit/state', () => {
       return str.includes('ci') ? ciState : stagingState
     }),
     writeState: jest.fn((stage: string, { appName }) => {
-      console.log('app name', { appName })
       stagingState.appName = appName
       return
     })

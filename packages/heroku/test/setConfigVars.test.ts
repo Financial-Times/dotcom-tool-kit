@@ -82,6 +82,6 @@ describe('setConfigVars', () => {
   })
 
   it('resolves if successful', async () => {
-    await setConfigVars(appName, environment, vaultPath)
+    await expect(setConfigVars(appName, environment, vaultPath)).resolves.not.toThrow()
   })
 })
