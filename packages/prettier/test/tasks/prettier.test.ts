@@ -27,7 +27,7 @@ describe('prettier', () => {
     )
   })
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await fsp.writeFile(path.join(testDirectory, 'unformatted.ts'), unformattedFixture)
   })
 
