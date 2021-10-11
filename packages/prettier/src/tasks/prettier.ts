@@ -39,7 +39,13 @@ const formatFile = async (filepath: string, options: PrettierOptions) => {
   const fileContent = await fsp.readFile(filepath, 'utf8')
   let prettierConfig
   if (options.configFile) {
-    prettierConfig = await prettier.resolveConfig(options.configFile)
+    try {
+      prettierConfig = await prettier.resolveConfig(filepath, { config: options.configFile })
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+        throw err
+      }
+    }
     if (!prettierConfig) {
       console.log(
         `prettier could not find the specified configFile (${options.configFile}), using configOptions instead`

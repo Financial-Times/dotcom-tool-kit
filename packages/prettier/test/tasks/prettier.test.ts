@@ -42,21 +42,13 @@ describe('prettier', () => {
 
   it('should use configFile if present', async () => {
     // having the configuration file be named .prettierrc-test.json hides it from being found by prettier on other non-test occasions.
-    await fsp.rename(
-      path.join(__dirname, '../.prettierrc-test.json'),
-      path.join(__dirname, '../.prettierrc.json')
-    )
     const task = new Prettier({
       files: [path.join(testDirectory, 'unformatted.ts')],
-      configFile: path.join(__dirname, './test/.prettierrc.json')
+      configFile: path.join(__dirname, '../.prettierrc-test.json')
     })
     await task.run()
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
     expect(prettified).toEqual(formattedConfigFileFixture)
-    await fsp.rename(
-      path.join(__dirname, '../.prettierrc.json'),
-      path.join(__dirname, '../.prettierrc-test.json')
-    )
   })
 
   it('should use configOptions if configFile not found', async () => {
