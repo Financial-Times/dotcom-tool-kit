@@ -4,7 +4,7 @@ declare module 'heroku-client' {
   }
 
   export type HerokuApiResGetRelease = {
-    current: string
+    current: boolean
     slug: {
       id: string
     }

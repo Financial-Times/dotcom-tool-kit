@@ -16,7 +16,7 @@ type ReleaseDetails = {
 async function findLatestRelease(appName: string): Promise<ReleaseDetails> {
   console.log(`retrieving details for current ${appName} release...`)
   const releases: HerokuApiResGetRelease[] = await heroku.get(`/apps/${appName}/releases`)
-  const latestFound = releases.find((release: { current: string }) => release.current)
+  const latestFound = releases.find((release: { current: boolean }) => release.current)
 
   if (!latestFound) {
     throw new ToolKitError(
