@@ -59,7 +59,7 @@ describe('getHerokuStagingApp', () => {
     expect(stagingState.appName).toEqual('staging-app-name')
   })
 
-  it('writes latest release details without throwing', async () => {
+  it('calls writeLatestReleaseDetails with correct parameters', async () => {
     await getHerokuStagingApp()
 
     expect(paraName).toEqual(stagingState.appName)
