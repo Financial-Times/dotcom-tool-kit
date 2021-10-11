@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "test": "dotcom-tool-kit test:local",
     "build": "dotcom-tool-kit build:local",
+    "format": "dotcom-tool-kit format:local",
+    "test": "dotcom-tool-kit test:local",
     "heroku-postbuild": "dotcom-tool-kit cleanup:remote release:remote build:remote",
-    "heroku-cleanup": "dotcom-tool-kit cleanup:remote",
-    "prettier": "dotcom-tool-kit format:local"
+    "heroku-cleanup": "dotcom-tool-kit cleanup:remote"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +20,9 @@
     "@dotcom-tool-kit/mocha": "file:../mocha",
     "@dotcom-tool-kit/n-test": "file:../n-test",
     "@dotcom-tool-kit/npm": "file:../npm",
+    "@dotcom-tool-kit/prettier": "file:../prettier",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../upload-assets-to-s3",
-    "dotcom-tool-kit": "file:../cli",
-    "@dotcom-tool-kit/prettier": "file:../prettier"
+    "dotcom-tool-kit": "file:../cli"
   },
   "volta": {
     "extends": "../../package.json"
