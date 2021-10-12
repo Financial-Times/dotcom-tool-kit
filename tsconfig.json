@@ -66,6 +66,9 @@
     },
     {
       "path": "packages/options"
+    },
+    {
+      "path": "packages/node"
     }
   ]
 }

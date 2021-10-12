@@ -1,4 +1,5 @@
 plugins:
   - '@dotcom-tool-kit/frontend-app'
+  - '@dotcom-tool-kit/node'
 hooks: {}
 options: {}

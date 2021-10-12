@@ -5,7 +5,8 @@
   "scripts": {
     "test": "dotcom-tool-kit test:local",
     "build": "dotcom-tool-kit build:local",
-    "heroku-postbuild": "dotcom-tool-kit release:remote build:remote cleanup:remote"
+    "heroku-postbuild": "dotcom-tool-kit release:remote build:remote cleanup:remote",
+    "start": "dotcom-tool-kit run:local"
   },
   "keywords": [],
   "author": "",
@@ -23,5 +24,8 @@
   },
   "volta": {
     "extends": "../../package.json"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/node": "file:../node"
   }
 }
