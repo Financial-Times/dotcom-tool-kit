@@ -59,7 +59,7 @@ jest.mock('@dotcom-tool-kit/vault', () => {
 })
 
 describe('setConfigVars', () => {
-  it('returns passes its settings to vault env vars and recieves secrets ', async () => {
+  it('passes its settings to vault env vars and receives secrets ', async () => {
     await setConfigVars(appName, environment, vaultPath)
 
     const settings = {

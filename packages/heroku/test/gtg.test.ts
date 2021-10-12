@@ -40,7 +40,7 @@ describe('gtg', () => {
     expect(heroku.get).toHaveBeenCalledTimes(1)
   })
 
-  it("doesn't make an api call to heroku if passed a name", async () => {
+  it(`doesn't make an api call to heroku if passed a name`, async () => {
     await gtg(appName, 'staging', false)
 
     expect(heroku.get).toHaveBeenCalledTimes(0)

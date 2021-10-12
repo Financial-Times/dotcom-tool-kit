@@ -46,7 +46,7 @@ jest.mock('../src/writeLatestReleaseDetails', () => {
 })
 
 describe('getHerokuStagingApp', () => {
-  it('calls retreives data from state', async () => {
+  it('retreives data from state', async () => {
     await getHerokuStagingApp()
 
     expect(readState).toBeCalledTimes(2)

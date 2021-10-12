@@ -4,15 +4,6 @@ import { writeLatestReleaseDetails } from '../src/writeLatestReleaseDetails'
 const stagingAppName = 'staging-app-name'
 const version = 'match-version-commit-id'
 
-// const latest =  {
-//     slug: {
-//         id: "slug-id-2"
-//     },
-//     commit: "latest-commit-id",
-//     id: "release-id-2",
-//     status: "succeeded"
-// }
-
 const latest = {
   id: 'release-id-2'
 }
@@ -74,7 +65,7 @@ jest.mock('@dotcom-tool-kit/state', () => {
 })
 
 describe('writeLatestResleaseDetails', () => {
-  it('throws when it can\t find a latest release', async () => {
+  it(`throws when it can't find a latest release`, async () => {
     await expect(writeLatestReleaseDetails('randon-app-name', version)).rejects.toThrow()
   })
 

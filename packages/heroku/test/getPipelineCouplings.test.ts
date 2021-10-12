@@ -56,12 +56,15 @@ jest.mock('@dotcom-tool-kit/state', () => {
 describe('getPipelineCouplings', () => {
   it('calls heroku api twice', async () => {
     await getPipelineCouplings(pipelineName)
+
     expect(heroku.get).toHaveBeenCalledTimes(2)
   })
 
   it('writes app ids to state', async () => {
     await getPipelineCouplings(pipelineName)
+
     const { production, staging } = state
+
     expect(production).toEqual(['prod-appID'])
     expect(staging).toEqual(['staging-appID'])
   })
@@ -72,6 +75,7 @@ describe('getPipelineCouplings', () => {
 
   it('throws when unsuccessful', async () => {
     const wrongPipelineName = 'wrong-test-pipeline-name'
+
     await expect(getPipelineCouplings(wrongPipelineName)).rejects.toThrowError()
   })
 })
