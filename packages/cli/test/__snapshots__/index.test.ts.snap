@@ -219,6 +219,7 @@ Object {
     "deploy:review": [Function],
     "deploy:staging": [Function],
     "release:remote": [Function],
+    "run:local": [Function],
     "teardown:staging": [Function],
     "test:ci": [Function],
     "test:local": [Function],
@@ -449,6 +450,7 @@ Object {
       "PackageJsonHook": [Function],
       "hooks": Object {
         "build:local": [Function],
+        "run:local": [Function],
         "test:local": [Function],
       },
       "id": "@dotcom-tool-kit/npm",
