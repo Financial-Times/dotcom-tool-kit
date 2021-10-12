@@ -32,18 +32,14 @@ export default class Node extends Task<typeof NodeSchema> {
       throw error
     }
 
-    const child = fork(
-      entry,
-      // TODO arguments?
-      {
-        env: {
-          ...vaultEnv,
-          PORT: port.toString(),
-          ...process.env
-        },
-        stdio: 'inherit'
-      }
-    )
+    const child = fork(entry, {
+      env: {
+        ...vaultEnv,
+        PORT: port.toString(),
+        ...process.env
+      },
+      stdio: 'inherit'
+    })
 
     await waitPort({
       host: 'localhost',
