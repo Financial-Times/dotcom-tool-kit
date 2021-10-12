@@ -48,6 +48,7 @@ import type { HerokuOptions } from './schema/heroku'
 import type { MochaOptions } from './schema/mocha'
 import type { SmokeTestOptions } from './schema/n-test'
 import type { UploadAssetsToS3Options } from './schema/upload-assets-to-s3'
+import type { VaultOptions } from './schema/vault'
 import type { WebpackOptions } from './schema/webpack'
 
 export type Options = {
@@ -56,5 +57,6 @@ export type Options = {
   '@dotcom-tool-kit/mocha'?: MochaOptions
   '@dotcom-tool-kit/n-test'?: SmokeTestOptions
   '@dotcom-tool-kit/upload-assets-to-s3'?: UploadAssetsToS3Options
+  '@dotcom-tool-kit/vault'?: VaultOptions
   '@dotcom-tool-kit/webpack'?: WebpackOptions
 }
