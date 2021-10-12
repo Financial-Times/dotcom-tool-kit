@@ -12,7 +12,8 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../error",
     "@dotcom-tool-kit/task": "file:../task",
-    "@dotcom-tool-kit/types": "file:../types"
+    "@dotcom-tool-kit/types": "file:../types",
+    "@dotcom-tool-kit/vault": "file:../vault"
   },
   "repository": {
     "type": "git",

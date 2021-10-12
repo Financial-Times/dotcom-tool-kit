@@ -7,6 +7,12 @@
   "references": [
     {
       "path": "../task"
+    },
+    {
+      "path": "../error"
+    },
+    {
+      "path": "../options"
     }
   ],
   "include": ["src/**/*"]
