@@ -50,8 +50,8 @@ export class VaultEnvVars {
       error.details = `"team" and "app" are needed to get your app's secrets from vault, e.g.
         options:
           '@dotcom-tool-kit/vault':
-              vaultTeam: "next",
-              vaultApp: "your-app"
+              team: "next",
+              app: "your-app"
             `
       throw error
     }
