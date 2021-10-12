@@ -83,9 +83,9 @@ fs.writeFileSync(
   'src/index.ts',
   `import ${camelCaseName} from './tasks/${name}'
 
-export const tasks = {
-  '${name}': ${camelCaseName}
-}
+export const tasks = [
+  ${camelCaseName}
+]
 `
 )
 
