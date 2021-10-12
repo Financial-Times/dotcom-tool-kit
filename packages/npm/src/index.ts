@@ -15,11 +15,19 @@ class TestLocal extends PackageJsonHook {
   hook = 'test:local'
 }
 
+class RunLocal extends PackageJsonHook {
+  static description = 'hook for `npm start`, for running your app locally'
+
+  script = 'start'
+  hook = 'run:local'
+}
+
 export { PackageJsonHook }
 
 export const hooks = {
   'build:local': BuildLocal,
-  'test:local': TestLocal
+  'test:local': TestLocal,
+  'run:local': RunLocal
 }
 
 export const tasks = [NpmPrune]
