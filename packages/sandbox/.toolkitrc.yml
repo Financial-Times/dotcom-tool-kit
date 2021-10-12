@@ -2,4 +2,7 @@ plugins:
   - '@dotcom-tool-kit/frontend-app'
   - '@dotcom-tool-kit/node'
 hooks: {}
-options: {}
+options:
+  '@dotcom-tool-kit/vault':
+    team: next
+    app: next-static # for testing
