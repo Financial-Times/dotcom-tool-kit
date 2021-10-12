@@ -1,8 +1,7 @@
 import { SchemaOutput } from '../schema'
 
 export const NodeSchema = {
-  entry: 'string?',
-  config: 'record.unknown?'
+  entry: 'string?'
 } as const
 export type NodeOptions = SchemaOutput<typeof NodeSchema>
 
