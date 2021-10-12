@@ -66,6 +66,9 @@
     },
     {
       "path": "packages/prettier"
+    },
+    {
+      "path": "packages/options"
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { loadConfig } from './config'
 import { styles } from './messages'
+import { getOptions, setOptions } from '@dotcom-tool-kit/options'
 
 type ErrorSummary = {
   hook: string
@@ -27,6 +28,10 @@ ${availableHooks}`
     throw error
   }
 
+  for (const pluginOptions of Object.values(config.options)) {
+    setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
+  }
+
   for (const hook of hooks) {
     const errors: ErrorSummary[] = []
 
@@ -38,7 +43,7 @@ ${availableHooks}`
 
     for (const id of assignment.tasks) {
       const Task = config.tasks[id]
-      const options = Task.plugin ? config.options[Task.plugin.id]?.options : {}
+      const options = Task.plugin ? getOptions(Task.plugin.id) : {}
 
       // `Task` is an abstract class. here we know it's a concrete subclass
       // but typescript doesn't, so cast it to any.
