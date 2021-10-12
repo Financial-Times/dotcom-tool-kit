@@ -10,13 +10,6 @@ import { HerokuOptions, HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/h
 export default class HerokuStaging extends Task<typeof HerokuSchema> {
   static description = ''
 
-  static defaultOptions: HerokuOptions = {
-    vaultTeam: undefined,
-    vaultApp: undefined,
-    pipeline: undefined,
-    systemCode: undefined
-  }
-
   async run(): Promise<void> {
     try {
       if (!this.options.pipeline || !this.options.systemCode) {
@@ -38,21 +31,10 @@ options:
       const appName = await getHerokuStagingApp()
 
       //apply vars from vault
-      if (!this.options.vaultTeam || !this.options.vaultApp) {
-        const error = new ToolKitError('Vault options not found in your Tool Kit configuration')
-        error.details = `vaultTeam and vaultApp are needed to get your app's secrets from vault, e.g.
-        options:
-          '@dotcom-tool-kit/heroku':
-              vaultTeam: "next",
-              vaultApp: "your-app"
-            `
-        throw error
-      }
 
       await setConfigVars(
         appName,
         'production',
-        { team: this.options.vaultTeam, app: this.options.vaultApp },
         this.options.systemCode
       )
 
