@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../error",
+    "@dotcom-tool-kit/options": "file:../options",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
     "ansi-colors": "^4.1.1",
     "cosmiconfig": "^7.0.0",
