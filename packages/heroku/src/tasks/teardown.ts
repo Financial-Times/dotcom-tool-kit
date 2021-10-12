@@ -1,6 +1,6 @@
 import { Task } from '@dotcom-tool-kit/task'
 import { readState } from '@dotcom-tool-kit/state'
-import scaleDyno from '../scaleDyno'
+import { scaleDyno } from '../scaleDyno'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default class HerokuTeardown extends Task {

@@ -1,6 +1,6 @@
 import heroku from './herokuClient'
 import type { HerokuApiResGetGtg } from 'heroku-client'
-import waitForOk from '@dotcom-tool-kit/wait-for-ok'
+import { waitForOk } from '@dotcom-tool-kit/wait-for-ok'
 import { State, writeState } from '@dotcom-tool-kit/state'
 
 async function gtg(appIdName: string, environment: keyof State, id = true): Promise<void> {
