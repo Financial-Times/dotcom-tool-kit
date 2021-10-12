@@ -3,6 +3,8 @@ import { NodeOptions, NodeSchema } from '@dotcom-tool-kit/types/lib/schema/node'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import getPort from 'get-port'
+import waitPort from 'wait-port'
 
 export default class Node extends Task<typeof NodeSchema> {
   static description = ''
@@ -18,6 +20,11 @@ export default class Node extends Task<typeof NodeSchema> {
     })
 
     const vaultEnv = await vault.get()
+    const port =
+      process.env.PORT ||
+      (await getPort({
+        port: [3001, 3002, 3003]
+      }))
 
     if (!entry) {
       const error = new ToolKitError('the Node tasks requires an `entry` option')
@@ -31,13 +38,16 @@ export default class Node extends Task<typeof NodeSchema> {
       {
         env: {
           ...vaultEnv,
+          PORT: port.toString(),
           ...process.env
-          // TODO: PORT
         },
         stdio: 'inherit'
       }
     )
 
-    // TODO wait for it to listen
+    await waitPort({
+      host: 'localhost',
+      port: Number(port)
+    })
   }
 }
