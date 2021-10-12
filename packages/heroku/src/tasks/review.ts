@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/task'
-import getHerokuReviewApp from '../getHerokuReviewApp'
+import { getHerokuReviewApp } from '../getHerokuReviewApp'
 import { gtg } from '../gtg'
 import { setConfigVars } from '../setConfigVars'
 import { writeState } from '@dotcom-tool-kit/state'

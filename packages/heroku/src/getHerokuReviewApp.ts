@@ -4,7 +4,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import repeatedCheckForSuccessStatus from './repeatedCheckForSuccessStatus'
 
-export default async function getHerokuReviewApp(pipelineId: string): Promise<string> {
+async function getHerokuReviewApp(pipelineId: string): Promise<string> {
   const state = readState('ci')
 
   if (!state) {
@@ -32,3 +32,5 @@ export default async function getHerokuReviewApp(pipelineId: string): Promise<st
 
   return reviewApp.app.id
 }
+
+export { getHerokuReviewApp }
