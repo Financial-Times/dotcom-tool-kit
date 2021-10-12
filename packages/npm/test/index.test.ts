@@ -6,7 +6,8 @@ describe('npm plugin', () => {
     expect(npm.hooks).toEqual(
       expect.objectContaining({
         'build:local': expect.any(Function),
-        'test:local': expect.any(Function)
+        'test:local': expect.any(Function),
+        'run:local': expect.any(Function)
       })
     )
   })
