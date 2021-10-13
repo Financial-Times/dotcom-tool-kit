@@ -2,6 +2,9 @@ parameters:
   node-version:
     default: "12.22"
     type: string
+  npm-version:
+    default: "7"
+    type: string
 
 executor:
   name: node/default
@@ -9,5 +12,7 @@ executor:
 
 steps:
   - checkout
+  - node/install-npm:
+      version: <<parameters.npm-version>>
   - node/install-packages
   - persist-workspace
