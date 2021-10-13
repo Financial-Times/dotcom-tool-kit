@@ -6,7 +6,7 @@ const NUM_RETRIES = process.env.HEROKU_REVIEW_APP_NUM_RETRIES
   ? parseInt(process.env.HEROKU_REVIEW_APP_NUM_RETRIES)
   : 60
 
-export default async function repeatedCheckForSuccessStatus(reviewAppId: string): Promise<boolean> {
+async function repeatedCheckForSuccessStatus(reviewAppId: string): Promise<boolean> {
   async function checkForSuccessStatus() {
     console.log(`review app id: ${reviewAppId}`)
     const reviewApp: HerokuApiResGetReview = await heroku.get(`/review-apps/${reviewAppId}`)
@@ -30,3 +30,5 @@ export default async function repeatedCheckForSuccessStatus(reviewAppId: string)
 
   return result
 }
+
+export { repeatedCheckForSuccessStatus }
