@@ -16,6 +16,7 @@ export type Environment = 'production' | 'continuous-integration' | 'development
 
 export type VaultSettings = {
   environment: Environment
+  vaultPath?: VaultOptions
 }
 
 type ReturnFetch = {
@@ -42,9 +43,9 @@ export class VaultEnvVars {
   vaultPath: VaultOptions
   environment: string
 
-  constructor({ environment }: VaultSettings) {
+  constructor({ environment, vaultPath }: VaultSettings) {
     this.environment = environment
-    const options = getOptions('@dotcom-tool-kit/vault')
+    const options = vaultPath || getOptions('@dotcom-tool-kit/vault')
     if (!options || !('team' in options && 'app' in options)) {
       const error = new ToolKitError('Vault options not found in your Tool Kit configuration')
       error.details = `"team" and "app" are needed to get your app's secrets from vault, e.g.
