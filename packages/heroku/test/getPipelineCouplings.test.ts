@@ -1,18 +1,13 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import { getPipelineCouplings } from '../src/getPipelineCouplings'
 import heroku from '../src/herokuClient'
-
-type State = {
-  [key: string]: string[]
-}
+import { writeState } from '@dotcom-tool-kit/state'
 
 type Pipeline = {
   [key: string]: {
     id: string
   }
 }
-
-const state: State = {}
 
 const pipeline: Pipeline = {
   'test-pipeline-name': {
@@ -47,9 +42,7 @@ jest.mock('../src/herokuClient', () => {
 
 jest.mock('@dotcom-tool-kit/state', () => {
   return {
-    writeState: jest.fn((stage: string, { appIds }) => {
-      state[stage] = appIds
-    })
+    writeState: jest.fn()
   }
 })
 
@@ -63,10 +56,8 @@ describe('getPipelineCouplings', () => {
   it('writes app ids to state', async () => {
     await getPipelineCouplings(pipelineName)
 
-    const { production, staging } = state
-
-    expect(production).toEqual(['prod-appID'])
-    expect(staging).toEqual(['staging-appID'])
+    expect(writeState).toHaveBeenNthCalledWith(1, 'production', { appIds: ['prod-appID'] })
+    expect(writeState).toHaveBeenNthCalledWith(2, 'staging', { appIds: ['staging-appID'] })
   })
 
   it('does not throw when successful', async () => {

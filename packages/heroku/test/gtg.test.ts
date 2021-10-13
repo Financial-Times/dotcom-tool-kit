@@ -2,14 +2,9 @@ import { waitForOk } from '@dotcom-tool-kit/wait-for-ok'
 import { describe, it, expect, jest } from '@jest/globals'
 import heroku from '../src/herokuClient'
 import { gtg } from '../src/gtg'
+import { writeState } from '@dotcom-tool-kit/state'
 
 const appName = 'test-app-name'
-
-type State = {
-  [key: string]: string
-}
-
-const state: State = {}
 
 jest.mock('../src/herokuClient', () => {
   return {
@@ -19,9 +14,7 @@ jest.mock('../src/herokuClient', () => {
 
 jest.mock('@dotcom-tool-kit/state', () => {
   return {
-    writeState: jest.fn((environment: string, { appName }) => {
-      state[environment] = appName
-    })
+    writeState: jest.fn()
   }
 })
 
@@ -49,7 +42,7 @@ describe('gtg', () => {
   it('writes app name to state file', async () => {
     await gtg(appName, 'staging', false)
 
-    expect(state.staging).toEqual(appName)
+    expect(writeState).toBeCalledWith('staging', { appName: 'test-app-name' })
   })
 
   it('calls wait for ok with the correct url', async () => {

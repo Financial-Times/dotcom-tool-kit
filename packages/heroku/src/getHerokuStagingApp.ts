@@ -14,7 +14,6 @@ async function getHerokuStagingApp(): Promise<string> {
   const version = ciState.version
   const appId = stagingState.appIds[0]
 
-  console.log(`retrieving`)
   const { name: appName }: HerokuApiResGetStaging = await heroku.get(`/apps/${appId}`)
 
   writeState('staging', { appName })

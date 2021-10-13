@@ -1,3 +1,4 @@
+import { writeState } from '@dotcom-tool-kit/state/lib'
 import { describe, it, expect, jest } from '@jest/globals'
 import { writeLatestReleaseDetails } from '../src/writeLatestReleaseDetails'
 
@@ -32,10 +33,6 @@ const slugDetailsMatch = {
   commit: 'match-version-commit-id'
 }
 
-const stagingState = {
-  slugId: ''
-}
-
 jest.mock('../src/herokuClient', () => {
   return {
     get: jest.fn((str: string) => {
@@ -58,9 +55,7 @@ jest.mock('../src/./checkIfStagingUpdated', async () => {
 
 jest.mock('@dotcom-tool-kit/state', () => {
   return {
-    writeState: jest.fn((stage: string, { slugId }) => {
-      stagingState.slugId = slugId
-    })
+    writeState: jest.fn()
   }
 })
 
@@ -72,7 +67,7 @@ describe('writeLatestResleaseDetails', () => {
   it('writes slug id to state file', async () => {
     await writeLatestReleaseDetails(stagingAppName, version)
 
-    expect(stagingState.slugId).toEqual(releases[1].slug.id)
+    expect(writeState).toBeCalledWith('staging', { slugId: 'slug-id-2' })
   })
 
   it('throws when staging does not update to the latest commit', async () => {

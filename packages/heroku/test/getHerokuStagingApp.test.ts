@@ -1,6 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import { getHerokuStagingApp } from '../src/getHerokuStagingApp'
-import { readState } from '@dotcom-tool-kit/state'
+import { readState, writeState } from '@dotcom-tool-kit/state'
+import { writeLatestReleaseDetails } from '../src/writeLatestReleaseDetails'
 
 const ciState = {
   version: 'ci-version'
@@ -13,18 +14,12 @@ const stagingState = {
 
 const name = 'staging-app-name'
 
-let paraName: string
-let paraVersion: string
-
 jest.mock('@dotcom-tool-kit/state', () => {
   return {
     readState: jest.fn((str: string) => {
       return str.includes('ci') ? ciState : stagingState
     }),
-    writeState: jest.fn((stage: string, { appName }) => {
-      stagingState.appName = appName
-      return
-    })
+    writeState: jest.fn()
   }
 })
 
@@ -38,10 +33,7 @@ jest.mock('../src/herokuClient', () => {
 
 jest.mock('../src/writeLatestReleaseDetails', () => {
   return {
-    writeLatestReleaseDetails: jest.fn((appName: string, version: string) => {
-      paraName = appName
-      paraVersion = version
-    })
+    writeLatestReleaseDetails: jest.fn()
   }
 })
 
@@ -55,14 +47,13 @@ describe('getHerokuStagingApp', () => {
   it('writes app name to state', async () => {
     await getHerokuStagingApp()
 
-    expect(stagingState.appName).toEqual('staging-app-name')
+    expect(writeState).toBeCalledWith('staging', { appName: 'staging-app-name' })
   })
 
   it('calls writeLatestReleaseDetails with correct parameters', async () => {
     await getHerokuStagingApp()
 
-    expect(paraName).toEqual(stagingState.appName)
-    expect(paraVersion).toEqual(ciState.version)
+    expect(writeLatestReleaseDetails).toBeCalledWith('staging-app-name', 'ci-version')
   })
 
   it('returns the app name', async () => {
