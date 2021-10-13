@@ -3,7 +3,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { gtg } from './gtg'
 
-export default function setSlug(slug: string): Promise<void[]> {
+function setSlug(slug: string): Promise<void[]> {
   const state = readState(`production`)
 
   if (!state) {
@@ -25,3 +25,5 @@ export default function setSlug(slug: string): Promise<void[]> {
 
   return Promise.all(latestRelease)
 }
+
+export { setSlug }

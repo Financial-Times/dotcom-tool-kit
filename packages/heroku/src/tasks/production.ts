@@ -2,7 +2,7 @@ import { Task } from '@dotcom-tool-kit/task'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { HerokuOptions, HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
-import setSlug from '../setSlug'
+import { setSlug } from '../setSlug'
 
 export default class HerokuProduction extends Task<typeof HerokuSchema> {
   static description = ''
