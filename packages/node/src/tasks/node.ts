@@ -3,6 +3,7 @@ import { NodeOptions, NodeSchema } from '@dotcom-tool-kit/types/lib/schema/node'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import { writeState } from '@dotcom-tool-kit/state'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 
@@ -21,7 +22,7 @@ export default class Node extends Task<typeof NodeSchema> {
 
     const vaultEnv = await vault.get()
     const port =
-      process.env.PORT ||
+      Number(process.env.PORT) ||
       (await getPort({
         port: [3001, 3002, 3003]
       }))
@@ -43,7 +44,9 @@ export default class Node extends Task<typeof NodeSchema> {
 
     await waitPort({
       host: 'localhost',
-      port: Number(port)
+      port: port
     })
+
+    writeState('local', { port })
   }
 }

@@ -23,11 +23,16 @@ interface ProductionState {
   appIds: string[]
 }
 
+interface LocalState {
+  port: number
+}
+
 export interface State {
   ci: CIState
   review: ReviewState
   staging: StagingState
   production: ProductionState
+  local: LocalState
 }
 
 export function readState<T extends keyof State>(stage: T): State[T] | null {
