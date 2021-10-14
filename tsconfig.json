@@ -72,6 +72,9 @@
     },
     {
       "path": "packages/node"
+    },
+    {
+      "path": "packages/next-router"
     }
   ]
 }

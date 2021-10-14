@@ -1,0 +1,30 @@
+{
+  "name": "@dotcom-tool-kit/next-router",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@dotcom-tool-kit/error": "file:../error",
+    "@dotcom-tool-kit/state": "file:../state",
+    "@dotcom-tool-kit/task": "file:../task",
+    "@dotcom-tool-kit/vault": "file:../vault",
+    "ft-next-router": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "packages/next-router"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/next-router",
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ]
+}
