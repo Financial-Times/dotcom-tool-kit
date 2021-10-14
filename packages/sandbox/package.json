@@ -7,7 +7,6 @@
     "format": "dotcom-tool-kit format:local",
     "test": "dotcom-tool-kit test:local",
     "heroku-postbuild": "dotcom-tool-kit release:remote build:remote cleanup:remote",
-    "heroku-cleanup": "dotcom-tool-kit cleanup:remote"
   },
   "keywords": [],
   "author": "",
