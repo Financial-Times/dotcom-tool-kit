@@ -21,7 +21,7 @@ export default class HerokuStaging extends Task<typeof HerokuSchema> {
     try {
       if (!this.options.pipeline || !this.options.systemCode) {
         const error = new ToolKitError('no pipeline and/or system code option in your Tool Kit configuration')
-        error.details = `the Heroku plugin needs to know your pipeline name or Biz Ops' system code to deploy staging. add it to your configuration, e.g.:
+        error.details = `the Heroku plugin needs to know your pipeline name and Biz Ops' system code to deploy staging. add it to your configuration, e.g.:
 
 options:
   '@dotcom-tool-kit/heroku':
