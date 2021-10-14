@@ -13,18 +13,20 @@ export default class HerokuStaging extends Task<typeof HerokuSchema> {
   static defaultOptions: HerokuOptions = {
     vaultTeam: undefined,
     vaultApp: undefined,
-    pipeline: undefined
+    pipeline: undefined,
+    systemCode: undefined
   }
 
   async run(): Promise<void> {
     try {
-      if (!this.options.pipeline) {
-        const error = new ToolKitError('no pipeline option in your Tool Kit configuration')
-        error.details = `the Heroku plugin needs to know your pipeline name to deploy Review Apps. add it to your configuration, e.g.:
+      if (!this.options.pipeline || !this.options.systemCode) {
+        const error = new ToolKitError('no pipeline and/or system code option in your Tool Kit configuration')
+        error.details = `the Heroku plugin needs to know your pipeline name and Biz Ops' system code to deploy staging. add it to your configuration, e.g.:
 
 options:
   '@dotcom-tool-kit/heroku':
-    pipeline: your-heroku-pipeline`
+    pipeline: your-heroku-pipeline
+    systemCode: your-system-code`
 
         throw error
       }
@@ -47,7 +49,12 @@ options:
         throw error
       }
 
-      await setConfigVars(appName, 'production', { team: this.options.vaultTeam, app: this.options.vaultApp })
+      await setConfigVars(
+        appName,
+        'production',
+        { team: this.options.vaultTeam, app: this.options.vaultApp },
+        this.options.systemCode
+      )
 
       //scale up staging
       await scaleDyno(appName, 1)
