@@ -11,7 +11,7 @@
     "build": "tsc --build --verbose tsconfig.json",
     "watch": "tsc --build --watch --verbose tsconfig.json",
     "test": "jest --silent",
-    "preinstall": "[[ \"$INIT_CWD\" != \"$PWD\" ]] || npm_config_yes=true npx check-engine"
+    "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine"
   },
   "lint-staged": {
     "**/*.{ts,js,json}": "prettier --write",
