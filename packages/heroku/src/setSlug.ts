@@ -20,6 +20,13 @@ function setSlug(slug: string): Promise<void[]> {
           slug
         }
       })
+      .catch((err) => {
+        const error = new ToolKitError(
+          `there was an error with setting the slug on your production app id: ${appId}`
+        )
+        error.details = err
+        throw error
+      })
       .then((response) => gtg(response.app.name, 'production', false))
   )
 
