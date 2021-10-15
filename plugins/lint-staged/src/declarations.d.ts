@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 declare module 'lint-staged' {
   export interface LintStagedOptions {
     allowEmpty?: boolean

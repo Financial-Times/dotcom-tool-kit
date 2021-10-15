@@ -3,6 +3,7 @@ import * as path from 'path'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Config, loadConfig, validateConfig } from '../src/config'
 import { loadPluginConfig } from '../src/plugin'
+import type CircleCIConfigHook from '@dotcom-tool-kit/circleci/src/circleci-config'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger
@@ -27,7 +28,7 @@ function makeConfigPathsRelative(config: Config) {
 
   for (const hook of Object.values(config.hooks)) {
     if (hook.plugin) makeRootRelative(hook.plugin)
-    const circleHook = hook as any
+    const circleHook = hook as CircleCIConfigHook
     if (circleHook.circleConfigPath) {
       circleHook.circleConfigPath = path.relative(process.cwd(), circleHook.circleConfigPath)
     }

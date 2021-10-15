@@ -1,5 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { setOptions } from '@dotcom-tool-kit/options'
+import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import type { Logger } from 'winston'
 import { Config, loadConfig } from './config'
 
@@ -14,7 +14,7 @@ export default async function installHooks(logger: Logger): Promise<Config> {
 
   for (const pluginOptions of Object.values(config.options)) {
     if (pluginOptions.forPlugin) {
-      setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
+      setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }
   }
 
