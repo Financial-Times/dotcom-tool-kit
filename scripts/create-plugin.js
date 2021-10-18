@@ -34,6 +34,9 @@ pkg.bugs = 'https://github.com/financial-times/dotcom-tool-kit/issues'
 pkg.homepage = `https://github.com/financial-times/dotcom-tool-kit/tree/main/${directory}`
 pkg.author = 'FT.com Platforms Team <platforms-team.customer-products@ft.com>'
 pkg.files = ['/lib', '.toolkitrc.yml']
+pkg.volta = {
+  extends: '../../package.json'
+}
 
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
 
