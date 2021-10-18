@@ -3,7 +3,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import type { VaultPath } from '@dotcom-tool-kit/vault'
 
-export default async function setConfigVars(
+async function setConfigVars(
   appIdName: string,
   environment: string,
   vaultPath: VaultPath,
@@ -38,3 +38,5 @@ export default async function setConfigVars(
     throw error
   }
 }
+
+export { setConfigVars }
