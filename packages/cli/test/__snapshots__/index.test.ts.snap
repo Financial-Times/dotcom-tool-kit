@@ -218,6 +218,7 @@ Object {
     "deploy:production": [Function],
     "deploy:review": [Function],
     "deploy:staging": [Function],
+    "git:precommit": [Function],
     "release:remote": [Function],
     "run:local": [Function],
     "teardown:staging": [Function],
@@ -450,6 +451,7 @@ Object {
       "PackageJsonHook": [Function],
       "hooks": Object {
         "build:local": [Function],
+        "git:precommit": [Function],
         "run:local": [Function],
         "test:local": [Function],
       },

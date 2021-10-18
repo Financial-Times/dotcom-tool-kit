@@ -1,4 +1,5 @@
 import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
+import { HuskyHook } from '@dotcom-tool-kit/husky-hook'
 import NpmPrune from './tasks/npm-prune'
 
 class BuildLocal extends PackageJsonHook {
@@ -22,12 +23,18 @@ class RunLocal extends PackageJsonHook {
   hook = 'run:local'
 }
 
+class GitPrecommit extends HuskyHook {
+  gitHook = 'pre-commit'
+  hook = 'git:precommit'
+}
+
 export { PackageJsonHook }
 
 export const hooks = {
   'build:local': BuildLocal,
   'test:local': TestLocal,
-  'run:local': RunLocal
+  'run:local': RunLocal,
+  'git:precommit': GitPrecommit
 }
 
 export const tasks = [NpmPrune]

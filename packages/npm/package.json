@@ -12,6 +12,7 @@
   "dependencies": {
     "@actions/exec": "^1.1.0",
     "@dotcom-tool-kit/error": "file:../error",
+    "@dotcom-tool-kit/husky-hook": "file:../husky-hook",
     "@dotcom-tool-kit/package-json-hook": "file:../package-json-hook",
     "@dotcom-tool-kit/task": "file:../task"
   },
