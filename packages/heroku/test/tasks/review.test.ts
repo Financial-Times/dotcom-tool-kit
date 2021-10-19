@@ -74,7 +74,7 @@ describe('review', () => {
     expect(heroku.get).toBeCalledWith(`/pipelines/${pipeline}`)
   })
 
-  it('should return appName from get heroku staging', async () => {
+  it('should return review app id from get heroku review app', async () => {
     const task = new Review({ pipeline, vaultApp, vaultTeam })
 
     await task.run()
