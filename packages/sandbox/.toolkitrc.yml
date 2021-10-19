@@ -2,6 +2,8 @@ plugins:
   - '@dotcom-tool-kit/frontend-app'
   - '@dotcom-tool-kit/node'
   - '@dotcom-tool-kit/next-router'
+  - '@dotcom-tool-kit/prettier'
+  - '@dotcom-tool-kit/lint-staged'
 
 hooks:
   run:local:

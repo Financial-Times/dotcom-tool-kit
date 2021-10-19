@@ -17,6 +17,7 @@
     "@dotcom-tool-kit/circleci-heroku": "file:../circleci-heroku",
     "@dotcom-tool-kit/eslint": "file:../eslint",
     "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
+    "@dotcom-tool-kit/lint-staged": "file:../lint-staged",
     "@dotcom-tool-kit/mocha": "file:../mocha",
     "@dotcom-tool-kit/n-test": "file:../n-test",
     "@dotcom-tool-kit/npm": "file:../npm",
@@ -33,5 +34,8 @@
   },
   "husky": {
     "pre-commit": "dotcom-tool-kit git:precommit"
+  },
+  "lint-staged": {
+    "**/*.js": "dotcom-tool-kit format:staged --"
   }
 }
