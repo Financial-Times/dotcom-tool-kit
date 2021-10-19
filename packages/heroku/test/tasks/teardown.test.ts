@@ -27,9 +27,9 @@ describe('teardown', () => {
     await expect(task.run()).resolves.not.toThrow()
   })
 
-  it('should throw if it completes unsuccessfully', async () => {
+  it('should return a rejected promise if it completes unsuccessfully', async () => {
     mockScaleDyno.mockImplementationOnce(() => Promise.reject())
     const task = new Teardown({})
-    await expect(task.run()).rejects.not.toThrow()
+    await expect(task.run()).rejects.toThrowError()
   })
 })

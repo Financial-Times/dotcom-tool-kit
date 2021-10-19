@@ -10,11 +10,16 @@ export default class HerokuTeardown extends Task {
     //scale down staging
     const state = readState('staging')
 
-    if (!state) {
+    if (!state || !state.appName) {
       throw new ToolKitError('Could not find state for staging, check that deploy:staging ran successfully')
     }
 
     const appName = state.appName
-    await scaleDyno(appName, 0)
+
+    try {
+      await scaleDyno(appName, 0)
+    } catch {
+      throw new ToolKitError(`Unable to scale down dyno for ${appName}`)
+    }
   }
 }
