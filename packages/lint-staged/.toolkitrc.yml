@@ -1,0 +1,2 @@
+hooks:
+  'git:precommit': LintStaged

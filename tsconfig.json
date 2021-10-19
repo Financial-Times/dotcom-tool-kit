@@ -78,6 +78,9 @@
     },
     {
       "path": "packages/husky-hook"
+    },
+    {
+      "path": "packages/lint-staged"
     }
   ]
 }
