@@ -10,6 +10,7 @@ const pipeline = 'test-pipeline'
 const vaultTeam = 'test-vaultTeam'
 const vaultApp = 'test-vaultApp'
 const appName = 'test-appName'
+const systemCode = 'test-systemCode'
 
 jest.mock('../../src/getPipelineCouplings', () => {
   return {
@@ -42,7 +43,7 @@ jest.mock('../../src/gtg', () => {
 })
 
 describe('staging', () => {
-  it('should fail when pipeline option is missing', async () => {
+  it('should fail when pipeline or system code option is missing', async () => {
     const task = new Staging({})
 
     try {
@@ -53,7 +54,7 @@ describe('staging', () => {
   })
 
   it('should call pipeline couplings with pipeline option', async () => {
-    const task = new Staging({ pipeline })
+    const task = new Staging({ pipeline, systemCode })
 
     try {
       await task.run()
@@ -64,7 +65,7 @@ describe('staging', () => {
   })
 
   it('should return appName from get heroku staging', async () => {
-    const task = new Staging({ pipeline })
+    const task = new Staging({ pipeline, systemCode })
 
     try {
       await task.run()
@@ -75,7 +76,7 @@ describe('staging', () => {
   })
 
   it('should fail if either vault option is missing', async () => {
-    let task = new Staging({ pipeline, vaultApp })
+    let task = new Staging({ pipeline, systemCode, vaultApp })
 
     try {
       await task.run()
@@ -83,7 +84,7 @@ describe('staging', () => {
       expect(err).toBeTruthy()
     }
 
-    task = new Staging({ pipeline, vaultTeam })
+    task = new Staging({ pipeline, systemCode, vaultTeam })
 
     try {
       await task.run()
@@ -92,18 +93,23 @@ describe('staging', () => {
     }
   })
 
-  it('should call setConfigVars with vault team and vault app', async () => {
-    const task = new Staging({ pipeline, vaultApp, vaultTeam })
+  it('should call setConfigVars with vault team, vault app and system code', async () => {
+    const task = new Staging({ pipeline, systemCode, vaultApp, vaultTeam })
 
     try {
       await task.run()
     } catch {}
 
-    expect(setConfigVars).toBeCalledWith(appName, 'production', { team: vaultTeam, app: vaultApp })
+    expect(setConfigVars).toBeCalledWith(
+      appName,
+      'production',
+      { team: vaultTeam, app: vaultApp },
+      systemCode
+    )
   })
 
   it('should call scaleDyno', async () => {
-    const task = new Staging({ pipeline, vaultApp, vaultTeam })
+    const task = new Staging({ pipeline, systemCode, vaultApp, vaultTeam })
 
     try {
       await task.run()
@@ -113,7 +119,7 @@ describe('staging', () => {
   })
 
   it('should call gtg with appName', async () => {
-    const task = new Staging({ pipeline, vaultApp, vaultTeam })
+    const task = new Staging({ pipeline, systemCode, vaultApp, vaultTeam })
 
     try {
       await task.run()
