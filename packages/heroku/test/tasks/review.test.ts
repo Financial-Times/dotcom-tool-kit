@@ -68,9 +68,7 @@ describe('review', () => {
   it('should call pass in the pipeline id to heroku api call', async () => {
     const task = new Review({ pipeline, vaultApp, vaultTeam })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(heroku.get).toBeCalledTimes(1)
     expect(heroku.get).toBeCalledWith(`/pipelines/${pipeline}`)
@@ -79,9 +77,7 @@ describe('review', () => {
   it('should return appName from get heroku staging', async () => {
     const task = new Review({ pipeline, vaultApp, vaultTeam })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(getHerokuReviewApp).toBeCalledTimes(1)
     expect(getHerokuReviewApp).toBeCalledWith('test-pipeline-id')
@@ -108,9 +104,7 @@ describe('review', () => {
   it('should write app id to state', async () => {
     const task = new Review({ pipeline, vaultApp, vaultTeam })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(state.review).toEqual(appId)
   })
@@ -118,9 +112,7 @@ describe('review', () => {
   it('should call setConfigVars with vault team and vault app', async () => {
     const task = new Review({ pipeline, vaultApp, vaultTeam })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(setConfigVars).toBeCalledWith(appId, 'continuous-integration', { team: vaultTeam, app: vaultApp })
   })
@@ -128,9 +120,7 @@ describe('review', () => {
   it('should call gtg with appName', async () => {
     const task = new Review({ pipeline, vaultApp, vaultTeam })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(gtg).toBeCalledWith(appId, 'review')
   })
