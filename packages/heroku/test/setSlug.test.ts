@@ -64,7 +64,7 @@ describe('setSlug', () => {
 
   it('throws when unsuccessful', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.reject())
-    mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[2]))
+    mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
 
     await expect(setSlug(slugId)).rejects.toThrow()
 

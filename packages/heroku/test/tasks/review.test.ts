@@ -54,7 +54,7 @@ jest.mock('../../src/gtg', () => {
   }
 })
 
-describe('staging', () => {
+describe('review', () => {
   it('should fail when pipeline option is missing', async () => {
     const task = new Review({})
 
