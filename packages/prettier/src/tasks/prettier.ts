@@ -19,9 +19,9 @@ export default class Prettier extends Task<typeof PrettierSchema> {
     }
   }
 
-  async run(): Promise<void> {
+  async run(files?: string[]): Promise<void> {
     try {
-      const filepaths = await fg(this.options.files)
+      const filepaths = await fg(files ?? this.options.files)
       for (const filepath of filepaths) {
         await formatFile(filepath, this.options)
       }

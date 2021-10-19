@@ -9,7 +9,7 @@ type ErrorSummary = {
   error: Error
 }
 
-export async function runTasks(hooks: string[]): Promise<void> {
+export async function runTasks(hooks: string[], files?: string[]): Promise<void> {
   const config = await loadConfig()
 
   const availableHooks = Object.keys(config.hooks)
@@ -51,7 +51,7 @@ ${availableHooks}`
       const task = new (Task as any)(options)
 
       try {
-        await task.run()
+        await task.run(files)
       } catch (error: any) {
         // allow subsequent hook tasks to run on error
         errors.push({

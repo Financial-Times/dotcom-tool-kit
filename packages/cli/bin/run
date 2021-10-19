@@ -2,33 +2,31 @@
 
 const c = require('ansi-colors')
 const argv = require('minimist')(process.argv.slice(2), {
-   boolean: ['help', 'install']
+  boolean: ['help', 'install'],
+  '--': true
 })
 
 const { runTasks, showHelp, installHooks } = require('../lib')
 const { styles } = require('../lib/messages')
 
 async function main() {
-   try {
-      if(argv.install) {
-         await installHooks()
-      } else if(argv.help || argv._.length === 0) {
-         await showHelp(argv._)
-      } else {
-         await runTasks(argv._)
-      }
-   } catch(error) {
-      if(error.details) {
-         console.error(
-            styles.error(error.message) + '\n\n' +
-            error.details
-         )
-      } else {
-         console.error(error.stack)
-      }
+  try {
+    if (argv.install) {
+      await installHooks()
+    } else if (argv.help || argv._.length === 0) {
+      await showHelp(argv._)
+    } else {
+      await runTasks(argv._, argv['--'])
+    }
+  } catch (error) {
+    if (error.details) {
+      console.error(styles.error(error.message) + '\n\n' + error.details)
+    } else {
+      console.error(error.stack)
+    }
 
-      process.exitCode = error.exitCode || 1
-   }
+    process.exitCode = error.exitCode || 1
+  }
 }
 
 main()

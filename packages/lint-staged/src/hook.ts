@@ -31,6 +31,8 @@ export abstract class LintStagedHook {
     const existingCommand = commands[this.glob]
     if (existingCommand?.startsWith('dotcom-tool-kit ')) {
       command = command.concat(existingCommand.replace('dotcom-tool-kit', ''))
+    } else {
+      command = command.concat(' --')
     }
     commands[this.glob] = command
     this.packageJson.setField('lint-staged', commands)

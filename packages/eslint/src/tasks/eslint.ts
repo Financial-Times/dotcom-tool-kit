@@ -10,9 +10,9 @@ export default class Eslint extends Task<typeof ESLintSchema> {
     files: ['**/*.js']
   }
 
-  async run(): Promise<void> {
+  async run(files?: string[]): Promise<void> {
     const eslint = new ESLint(this.options.config)
-    const results = await eslint.lintFiles(this.options.files)
+    const results = await eslint.lintFiles(files ?? this.options.files)
     const formatter = await eslint.loadFormatter('stylish')
     const resultText = formatter.format(results)
 
