@@ -1,5 +1,6 @@
 hooks:
   'format:local': Prettier
+  'format:staged': Prettier
 
 options:
   '@dotcom-tool-kit/prettier':

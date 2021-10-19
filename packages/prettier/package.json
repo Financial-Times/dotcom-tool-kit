@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../error",
+    "@dotcom-tool-kit/lint-staged": "file:../lint-staged",
     "@dotcom-tool-kit/task": "file:../task",
     "fast-glob": "^3.2.7",
     "prettier": "^2.4.1"
