@@ -1,7 +1,7 @@
 import heroku from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
-import gtg from './gtg'
+import { gtg } from './gtg'
 
 export default function setSlug(slug: string): Promise<void[]> {
   const state = readState(`production`)

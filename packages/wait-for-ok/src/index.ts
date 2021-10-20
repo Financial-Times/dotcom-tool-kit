@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 
 const TWO_MINUTES = 2 * 60 * 1000
 
-export default function waitForOk(url: string): Promise<void> {
+function waitForOk(url: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const checkGtg = async () => {
       console.log(`⏳ polling: ${url}`)
@@ -38,3 +38,5 @@ export default function waitForOk(url: string): Promise<void> {
     const checker = setInterval(checkGtg, 3000)
   })
 }
+
+export { waitForOk }

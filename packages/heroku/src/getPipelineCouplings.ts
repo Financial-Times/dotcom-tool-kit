@@ -3,7 +3,7 @@ import type { HerokuApiResGetPipeline, HerokuApiResGetPipelineApps } from 'herok
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { State, writeState } from '@dotcom-tool-kit/state'
 
-export default async function getPipelineCouplings(pipelineName: string): Promise<void> {
+async function getPipelineCouplings(pipelineName: string): Promise<void> {
   console.log(`retrieving pipeline id for ${pipelineName}`)
   const piplelineDetails: HerokuApiResGetPipeline = await heroku.get(`/pipelines/${pipelineName}`)
 
@@ -29,3 +29,5 @@ export default async function getPipelineCouplings(pipelineName: string): Promis
 
   return
 }
+
+export { getPipelineCouplings }

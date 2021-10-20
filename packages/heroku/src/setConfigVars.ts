@@ -2,7 +2,7 @@ import heroku from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { VaultEnvVars, Environment } from '@dotcom-tool-kit/vault'
 
-export default async function setConfigVars(
+async function setConfigVars(
   appIdName: string,
   environment: Environment,
   systemCode?: string
@@ -33,3 +33,5 @@ export default async function setConfigVars(
     throw error
   }
 }
+
+export { setConfigVars }
