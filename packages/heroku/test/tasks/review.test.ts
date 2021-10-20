@@ -12,8 +12,6 @@ type State = {
 const state: State = {}
 
 let pipeline = 'test-pipeline'
-const vaultTeam = 'test-vaultTeam'
-const vaultApp = 'test-vaultApp'
 const appId = 'test-review-app-id'
 
 jest.mock('../../src/herokuClient', () => {
@@ -66,7 +64,7 @@ describe('review', () => {
   })
 
   it('should call pass in the pipeline id to heroku api call', async () => {
-    const task = new Review({ pipeline, vaultApp, vaultTeam })
+    const task = new Review({ pipeline })
 
     await task.run()
 
@@ -75,7 +73,7 @@ describe('review', () => {
   })
 
   it('should return review app id from get heroku review app', async () => {
-    const task = new Review({ pipeline, vaultApp, vaultTeam })
+    const task = new Review({ pipeline })
 
     await task.run()
 
@@ -84,7 +82,7 @@ describe('review', () => {
   })
 
   it('should fail if either vault option is missing', async () => {
-    let task = new Review({ pipeline, vaultApp })
+    let task = new Review({ pipeline })
 
     try {
       await task.run()
@@ -92,7 +90,7 @@ describe('review', () => {
       expect(err).toBeTruthy()
     }
 
-    task = new Review({ pipeline, vaultTeam })
+    task = new Review({ pipeline })
 
     try {
       await task.run()
@@ -102,7 +100,7 @@ describe('review', () => {
   })
 
   it('should write app id to state', async () => {
-    const task = new Review({ pipeline, vaultApp, vaultTeam })
+    const task = new Review({ pipeline })
 
     await task.run()
 
@@ -110,15 +108,15 @@ describe('review', () => {
   })
 
   it('should call setConfigVars with vault team and vault app', async () => {
-    const task = new Review({ pipeline, vaultApp, vaultTeam })
+    const task = new Review({ pipeline })
 
     await task.run()
 
-    expect(setConfigVars).toBeCalledWith(appId, 'continuous-integration', { team: vaultTeam, app: vaultApp })
+    expect(setConfigVars).toBeCalledWith(appId, 'continuous-integration')
   })
 
   it('should call gtg with appName', async () => {
-    const task = new Review({ pipeline, vaultApp, vaultTeam })
+    const task = new Review({ pipeline })
 
     await task.run()
 
@@ -127,7 +125,7 @@ describe('review', () => {
 
   it('should throw an error if it fails', async () => {
     pipeline = 'wrong-pipeline-name'
-    const task = new Review({ pipeline, vaultApp, vaultTeam })
+    const task = new Review({ pipeline })
 
     try {
       await task.run()
