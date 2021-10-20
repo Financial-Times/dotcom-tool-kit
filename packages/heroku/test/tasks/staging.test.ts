@@ -7,8 +7,6 @@ import { scaleDyno } from '../../src/scaleDyno'
 import { gtg } from '../../src/gtg'
 
 const pipeline = 'test-pipeline'
-const vaultTeam = 'test-vaultTeam'
-const vaultApp = 'test-vaultApp'
 const appName = 'test-appName'
 const systemCode = 'test-systemCode'
 
@@ -76,7 +74,7 @@ describe('staging', () => {
   })
 
   it('should fail if either vault option is missing', async () => {
-    let task = new Staging({ pipeline, systemCode, vaultApp })
+    let task = new Staging({ pipeline })
 
     try {
       await task.run()
@@ -84,7 +82,7 @@ describe('staging', () => {
       expect(err).toBeTruthy()
     }
 
-    task = new Staging({ pipeline, systemCode, vaultTeam })
+    task = new Staging({ pipeline, systemCode })
 
     try {
       await task.run()
@@ -94,22 +92,17 @@ describe('staging', () => {
   })
 
   it('should call setConfigVars with vault team, vault app and system code', async () => {
-    const task = new Staging({ pipeline, systemCode, vaultApp, vaultTeam })
+    const task = new Staging({ pipeline, systemCode })
 
     try {
       await task.run()
     } catch {}
 
-    expect(setConfigVars).toBeCalledWith(
-      appName,
-      'production',
-      { team: vaultTeam, app: vaultApp },
-      systemCode
-    )
+    expect(setConfigVars).toBeCalledWith(appName, 'production', systemCode)
   })
 
   it('should call scaleDyno', async () => {
-    const task = new Staging({ pipeline, systemCode, vaultApp, vaultTeam })
+    const task = new Staging({ pipeline, systemCode })
 
     try {
       await task.run()
@@ -119,7 +112,7 @@ describe('staging', () => {
   })
 
   it('should call gtg with appName', async () => {
-    const task = new Staging({ pipeline, systemCode, vaultApp, vaultTeam })
+    const task = new Staging({ pipeline, systemCode })
 
     try {
       await task.run()
@@ -129,7 +122,7 @@ describe('staging', () => {
   })
 
   it('should throw an error if it fails', async () => {
-    const task = new Staging({ pipeline, vaultApp, vaultTeam })
+    const task = new Staging({ pipeline })
 
     try {
       await task.run()

@@ -9,12 +9,13 @@ type VaultPath = {
   app: string
 }
 
-const environment = 'staging'
+const environment = 'production'
 const appName = 'test-staging-app-name'
 const vaultPath = {
   team: 'vault-team',
   app: 'vault-app'
 }
+const systemCode = 'test-system-code'
 
 const secrets = {
   secret1: 'secret-1',
@@ -60,28 +61,27 @@ jest.mock('@dotcom-tool-kit/vault', () => {
 
 describe('setConfigVars', () => {
   it('passes its settings to vault env vars and receives secrets ', async () => {
-    await setConfigVars(appName, environment, vaultPath)
+    await setConfigVars(appName, environment, systemCode)
 
     const settings = {
-      environment,
-      vaultPath
+      environment
     }
 
     expect(VaultEnvVars).toHaveBeenLastCalledWith(settings)
   })
 
   it('sends an update to the app with the correct path and body', async () => {
-    await setConfigVars(appName, environment, vaultPath)
+    await setConfigVars(appName, environment, systemCode)
 
     expect(patch.path).toEqual('/apps/test-staging-app-name/config-vars')
     expect(patch.body).toEqual(secrets)
   })
 
   it('throws if the app was not patched with config vars', async () => {
-    await expect(setConfigVars('wrong-app-name', environment, vaultPath)).rejects.toThrowError()
+    await expect(setConfigVars('wrong-app-name', environment, systemCode)).rejects.toThrowError()
   })
 
   it('resolves if successful', async () => {
-    await expect(setConfigVars(appName, environment, vaultPath)).resolves.not.toThrow()
+    await expect(setConfigVars(appName, environment, systemCode)).resolves.not.toThrow()
   })
 })
