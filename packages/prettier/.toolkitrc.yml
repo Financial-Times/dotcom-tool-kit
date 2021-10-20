@@ -1,0 +1,6 @@
+hooks:
+  'format:local': Prettier
+
+options:
+  '@dotcom-tool-kit/prettier':
+    files: '**/*.js'

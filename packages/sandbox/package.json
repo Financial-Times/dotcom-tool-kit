@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "test": "dotcom-tool-kit test:local",
     "build": "dotcom-tool-kit build:local",
-    "heroku-postbuild": "dotcom-tool-kit release:remote build:remote",
+    "format": "dotcom-tool-kit format:local",
+    "test": "dotcom-tool-kit test:local",
+    "heroku-postbuild": "dotcom-tool-kit release:remote build:remote cleanup:remote",
     "heroku-cleanup": "dotcom-tool-kit cleanup:remote"
   },
   "keywords": [],
@@ -19,6 +20,7 @@
     "@dotcom-tool-kit/mocha": "file:../mocha",
     "@dotcom-tool-kit/n-test": "file:../n-test",
     "@dotcom-tool-kit/npm": "file:../npm",
+    "@dotcom-tool-kit/prettier": "file:../prettier",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../upload-assets-to-s3",
     "dotcom-tool-kit": "file:../cli"
   },
