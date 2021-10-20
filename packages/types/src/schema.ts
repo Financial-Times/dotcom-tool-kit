@@ -42,3 +42,25 @@ export type SchemaOutput<T extends Schema> = {
         : never
       : never
   }
+
+import type { ESLintOptions } from './schema/eslint'
+import type { HerokuOptions } from './schema/heroku'
+import type { MochaOptions } from './schema/mocha'
+import type { SmokeTestOptions } from './schema/n-test'
+import type { UploadAssetsToS3Options } from './schema/upload-assets-to-s3'
+import type { VaultOptions } from './schema/vault'
+import type { WebpackOptions } from './schema/webpack'
+import type { NodeOptions } from './schema/node'
+import type { NextRouterOptions } from './schema/next-router'
+
+export type Options = {
+  '@dotcom-tool-kit/eslint'?: ESLintOptions
+  '@dotcom-tool-kit/heroku'?: HerokuOptions
+  '@dotcom-tool-kit/mocha'?: MochaOptions
+  '@dotcom-tool-kit/n-test'?: SmokeTestOptions
+  '@dotcom-tool-kit/upload-assets-to-s3'?: UploadAssetsToS3Options
+  '@dotcom-tool-kit/vault'?: VaultOptions
+  '@dotcom-tool-kit/webpack'?: WebpackOptions
+  '@dotcom-tool-kit/node'?: NodeOptions
+  '@dotcom-tool-kit/next-router'?: NextRouterOptions
+}

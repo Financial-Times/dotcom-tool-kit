@@ -11,12 +11,6 @@ import type { HerokuApiResPipeline } from 'heroku-client'
 export default class HerokuReview extends Task<typeof HerokuSchema> {
   static description = ''
 
-  static defaultOptions: HerokuOptions = {
-    pipeline: undefined,
-    vaultTeam: undefined,
-    vaultApp: undefined
-  }
-
   async run(): Promise<void> {
     try {
       if (!this.options.pipeline) {
@@ -36,21 +30,7 @@ options:
 
       writeState('review', { appId: reviewAppId })
 
-      if (!this.options.vaultTeam || !this.options.vaultApp) {
-        const error = new ToolKitError('Vault options not found in your Tool Kit configuration')
-        error.details = `vaultTeam and vaultApp are needed to get your app's secrets from vault, e.g.
-        options:
-          '@dotcom-tool-kit/heroku':
-            vaultTeam: "next"
-            vaultApp: "your-app"
-          `
-        throw error
-      }
-
-      await setConfigVars(reviewAppId, 'continuous-integration', {
-        team: this.options.vaultTeam,
-        app: this.options.vaultApp
-      })
+      await setConfigVars(reviewAppId, 'continuous-integration')
 
       await gtg(reviewAppId, 'review')
     } catch (err) {

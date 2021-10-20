@@ -7,10 +7,6 @@ import setSlug from '../setSlug'
 export default class HerokuProduction extends Task<typeof HerokuSchema> {
   static description = ''
 
-  static defaultOptions: HerokuOptions = {
-    pipeline: undefined
-  }
-
   async run(): Promise<void> {
     try {
       console.log(`retrieving staging slug...`)

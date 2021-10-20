@@ -63,6 +63,18 @@
     },
     {
       "path": "packages/types"
+    },
+    {
+      "path": "packages/prettier"
+    },
+    {
+      "path": "packages/options"
+    },
+    {
+      "path": "packages/node"
+    },
+    {
+      "path": "packages/next-router"
     }
   ]
 }

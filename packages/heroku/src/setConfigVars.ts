@@ -1,23 +1,18 @@
 import heroku from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
-import type { VaultPath } from '@dotcom-tool-kit/vault'
+import { VaultEnvVars, Environment } from '@dotcom-tool-kit/vault'
 
 async function setConfigVars(
   appIdName: string,
-  environment: string,
-  vaultPath: VaultPath,
+  environment: Environment,
   systemCode?: string
 ): Promise<void> {
   try {
-    const settings = {
-      environment: environment,
-      vaultPath: vaultPath
-    }
-
     console.log(`setting config vars for ${appIdName}`)
 
-    const vaultEnvVars = new VaultEnvVars(settings)
+    const vaultEnvVars = new VaultEnvVars({
+      environment
+    })
 
     const configVars = await vaultEnvVars.get()
 

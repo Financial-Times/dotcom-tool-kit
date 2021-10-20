@@ -3,6 +3,8 @@ import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { getOptions } from '@dotcom-tool-kit/options'
+import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/vault'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
@@ -10,14 +12,11 @@ const VAULT_ADDR = 'https://vault.in.ft.com/v1'
 const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
 const CIRCLECI = process.env.CIRCLECI
 
-export type VaultPath = {
-  team: string
-  app: string
-}
+export type Environment = 'production' | 'continuous-integration' | 'development'
 
 export type VaultSettings = {
-  vaultPath: VaultPath
-  environment: string
+  environment: Environment
+  vaultPath?: VaultOptions
 }
 
 type ReturnFetch = {
@@ -41,14 +40,24 @@ type Token = {
 }
 
 export class VaultEnvVars {
-  vaultPath: VaultPath
+  vaultPath: VaultOptions
   environment: string
 
-  constructor(settings: VaultSettings) {
-    const { vaultPath, environment } = settings
-
-    this.vaultPath = vaultPath
+  constructor({ environment, vaultPath }: VaultSettings) {
     this.environment = environment
+    const options = vaultPath || getOptions('@dotcom-tool-kit/vault')
+    if (!options || !('team' in options && 'app' in options)) {
+      const error = new ToolKitError('Vault options not found in your Tool Kit configuration')
+      error.details = `"team" and "app" are needed to get your app's secrets from vault, e.g.
+        options:
+          '@dotcom-tool-kit/vault':
+              team: "next",
+              app: "your-app"
+            `
+      throw error
+    }
+
+    this.vaultPath = options
   }
 
   async get(): Promise<Secrets> {
