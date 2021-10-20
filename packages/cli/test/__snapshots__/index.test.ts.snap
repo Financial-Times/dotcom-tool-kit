@@ -495,6 +495,47 @@ Object {
         [Function],
       ],
     },
+    "@dotcom-tool-kit/vault": Object {
+      "VaultEnvVars": [Function],
+      "id": "@dotcom-tool-kit/vault",
+      "parent": Object {
+        "hooks": Object {
+          "build:remote": [Function],
+          "cleanup:remote": [Function],
+          "release:remote": [Function],
+        },
+        "id": "@dotcom-tool-kit/heroku",
+        "parent": Object {
+          "DeployProduction": [Function],
+          "DeployReview": [Function],
+          "DeployStaging": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
+          "hooks": Object {
+            "deploy:production": [Function],
+            "deploy:review": [Function],
+            "deploy:staging": [Function],
+            "teardown:staging": [Function],
+            "test:review": [Function],
+            "test:staging": [Function],
+          },
+          "id": "../../../../circleci-heroku",
+          "parent": Object {
+            "id": "successful test root",
+            "root": "packages/cli/test/files/successful",
+          },
+          "root": "packages/circleci-heroku/lib/index.js",
+        },
+        "root": "packages/heroku/lib/index.js",
+        "tasks": Array [
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+        ],
+      },
+      "root": "packages/vault/lib/index.js",
+    },
   },
   "root": "packages/cli",
   "tasks": Object {

@@ -7,7 +7,7 @@
     "format": "dotcom-tool-kit format:local",
     "test": "dotcom-tool-kit test:local",
     "heroku-postbuild": "dotcom-tool-kit release:remote build:remote cleanup:remote",
-    "heroku-cleanup": "dotcom-tool-kit cleanup:remote"
+    "start": "dotcom-tool-kit run:local"
   },
   "keywords": [],
   "author": "",
@@ -26,5 +26,9 @@
   },
   "volta": {
     "extends": "../../package.json"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/next-router": "file:../next-router",
+    "@dotcom-tool-kit/node": "file:../node"
   }
 }
