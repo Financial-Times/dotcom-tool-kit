@@ -54,9 +54,7 @@ describe('staging', () => {
   it('should call pipeline couplings with pipeline option', async () => {
     const task = new Staging({ pipeline, systemCode })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(getPipelineCouplings).toBeCalledTimes(1)
     expect(getPipelineCouplings).toBeCalledWith(pipeline)
@@ -65,9 +63,7 @@ describe('staging', () => {
   it('should return appName from get heroku staging', async () => {
     const task = new Staging({ pipeline, systemCode })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(getHerokuStagingApp).toBeCalledTimes(1)
     expect(getHerokuStagingApp).toReturnWith(appName)
@@ -94,9 +90,7 @@ describe('staging', () => {
   it('should call setConfigVars with vault team, vault app and system code', async () => {
     const task = new Staging({ pipeline, systemCode })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(setConfigVars).toBeCalledWith(appName, 'production', systemCode)
   })
@@ -104,9 +98,7 @@ describe('staging', () => {
   it('should call scaleDyno', async () => {
     const task = new Staging({ pipeline, systemCode })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(scaleDyno).toBeCalledTimes(1)
   })
@@ -114,9 +106,7 @@ describe('staging', () => {
   it('should call gtg with appName', async () => {
     const task = new Staging({ pipeline, systemCode })
 
-    try {
-      await task.run()
-    } catch {}
+    await task.run()
 
     expect(gtg).toBeCalledWith(appName, 'staging', false)
   })
