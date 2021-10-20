@@ -1,5 +1,5 @@
 {
-  "name": "@dotcom-tool-kit/node",
+  "name": "@dotcom-tool-kit/next-router",
   "version": "0.0.0-development",
   "description": "",
   "main": "lib",
@@ -15,16 +15,15 @@
     "@dotcom-tool-kit/task": "file:../task",
     "@dotcom-tool-kit/types": "file:../types",
     "@dotcom-tool-kit/vault": "file:../vault",
-    "get-port": "^5.1.1",
-    "wait-port": "^0.2.9"
+    "ft-next-router": "^1.0.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
-    "directory": "packages/node"
+    "directory": "packages/next-router"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/node",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/next-router",
   "files": [
     "/lib",
     ".toolkitrc.yml"

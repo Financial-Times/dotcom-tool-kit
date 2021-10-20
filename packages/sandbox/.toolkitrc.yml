@@ -1,8 +1,16 @@
 plugins:
   - '@dotcom-tool-kit/frontend-app'
   - '@dotcom-tool-kit/node'
-hooks: {}
+  - '@dotcom-tool-kit/next-router'
+
+hooks:
+  run:local:
+    - Node
+    - NextRouter
+
 options:
   '@dotcom-tool-kit/vault':
     team: next
     app: next-static # for testing
+  '@dotcom-tool-kit/next-router':
+    appName: static # for testing

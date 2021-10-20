@@ -26,6 +26,7 @@
     "extends": "../../package.json"
   },
   "dependencies": {
+    "@dotcom-tool-kit/next-router": "file:../next-router",
     "@dotcom-tool-kit/node": "file:../node"
   }
 }
