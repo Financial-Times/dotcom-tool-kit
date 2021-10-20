@@ -192,6 +192,26 @@ Object {
         "NTest",
       ],
     },
+    "test:staged": Object {
+      "id": "test:staged",
+      "plugin": Object {
+        "hooks": Object {
+          "test:staged": [Function],
+        },
+        "id": "../../../../eslint",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/eslint/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
+      },
+      "tasks": Array [
+        "Eslint",
+      ],
+    },
     "test:staging": Object {
       "id": "test:staging",
       "plugin": Object {
@@ -225,11 +245,15 @@ Object {
     "test:ci": [Function],
     "test:local": [Function],
     "test:review": [Function],
+    "test:staged": [Function],
     "test:staging": [Function],
   },
   "options": Object {
     "../../../../eslint": Object {
       "forPlugin": Object {
+        "hooks": Object {
+          "test:staged": [Function],
+        },
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
@@ -296,6 +320,9 @@ Object {
         "files": "**/*.js",
       },
       "plugin": Object {
+        "hooks": Object {
+          "test:staged": [Function],
+        },
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
@@ -348,6 +375,9 @@ Object {
       "root": "packages/circleci-heroku/lib/index.js",
     },
     "../../../../eslint": Object {
+      "hooks": Object {
+        "test:staged": [Function],
+      },
       "id": "../../../../eslint",
       "parent": Object {
         "id": "successful test root",
