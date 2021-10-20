@@ -1,6 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import { setConfigVars } from '../src/setConfigVars'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import heroku from '../src/herokuClient'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -23,9 +24,11 @@ const secrets = {
   secret3: 'secret-3'
 }
 
-const patch = {
-  path: '',
-  body: {}
+const patchBody = {
+  body: {
+    SYSTEM_CODE: 'test-system-code',
+    ...secrets
+  }
 }
 class VaultEnvVarsMock {
   vaultPath: VaultPath
@@ -47,8 +50,6 @@ jest.mock('../src/herokuClient', () => {
       if (!str.includes('test-staging-app-name')) {
         throw new Error()
       }
-      patch.path = str
-      patch.body = options.body
     })
   }
 })
@@ -73,8 +74,7 @@ describe('setConfigVars', () => {
   it('sends an update to the app with the correct path and body', async () => {
     await setConfigVars(appName, environment, systemCode)
 
-    expect(patch.path).toEqual('/apps/test-staging-app-name/config-vars')
-    expect(patch.body).toEqual(secrets)
+    expect(heroku.patch).toBeCalledWith('/apps/test-staging-app-name/config-vars', patchBody)
   })
 
   it('throws if the app was not patched with config vars', async () => {
