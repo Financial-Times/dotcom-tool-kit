@@ -36,6 +36,6 @@
     "pre-commit": "dotcom-tool-kit git:precommit"
   },
   "lint-staged": {
-    "**/*.js": "dotcom-tool-kit format:staged --"
+    "index.js": "dotcom-tool-kit format:staged --"
   }
 }

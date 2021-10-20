@@ -52,6 +52,7 @@ import type { VaultOptions } from './schema/vault'
 import type { WebpackOptions } from './schema/webpack'
 import type { NodeOptions } from './schema/node'
 import type { NextRouterOptions } from './schema/next-router'
+import type { PrettierOptions } from './schema/prettier'
 
 export type Options = {
   '@dotcom-tool-kit/eslint'?: ESLintOptions
@@ -63,4 +64,5 @@ export type Options = {
   '@dotcom-tool-kit/webpack'?: WebpackOptions
   '@dotcom-tool-kit/node'?: NodeOptions
   '@dotcom-tool-kit/next-router'?: NextRouterOptions
+  '@dotcom-tool-kit/prettier'?: PrettierOptions
 }

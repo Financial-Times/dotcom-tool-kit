@@ -16,3 +16,5 @@ options:
     app: next-static # for testing
   '@dotcom-tool-kit/next-router':
     appName: static # for testing
+  '@dotcom-tool-kit/prettier':
+    lintStagedGlob: index.js
