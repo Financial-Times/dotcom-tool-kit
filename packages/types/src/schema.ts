@@ -53,6 +53,7 @@ import type { WebpackOptions } from './schema/webpack'
 import type { NodeOptions } from './schema/node'
 import type { NextRouterOptions } from './schema/next-router'
 import type { PrettierOptions } from './schema/prettier'
+import type { LintStagedNpmOptions } from './schema/lint-staged-npm'
 
 export type Options = {
   '@dotcom-tool-kit/eslint'?: ESLintOptions
@@ -65,4 +66,5 @@ export type Options = {
   '@dotcom-tool-kit/node'?: NodeOptions
   '@dotcom-tool-kit/next-router'?: NextRouterOptions
   '@dotcom-tool-kit/prettier'?: PrettierOptions
+  '@dotcom-tool-kit/lint-staged-npm'?: LintStagedNpmOptions
 }

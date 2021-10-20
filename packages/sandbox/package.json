@@ -18,6 +18,7 @@
     "@dotcom-tool-kit/eslint": "file:../eslint",
     "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
     "@dotcom-tool-kit/lint-staged": "file:../lint-staged",
+    "@dotcom-tool-kit/lint-staged-npm": "file:../lint-staged-npm",
     "@dotcom-tool-kit/mocha": "file:../mocha",
     "@dotcom-tool-kit/n-test": "file:../n-test",
     "@dotcom-tool-kit/npm": "file:../npm",
@@ -36,6 +37,7 @@
     "pre-commit": "dotcom-tool-kit git:precommit"
   },
   "lint-staged": {
-    "index.js": "dotcom-tool-kit format:staged --"
+    "index.js": "dotcom-tool-kit format:staged --",
+    "**/*.js": "dotcom-tool-kit test:staged --"
   }
 }

@@ -1,19 +1,16 @@
 {
   "extends": "../../tsconfig.settings.json",
-  "include": ["src/**/*"],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
   },
   "references": [
     {
-      "path": "../task"
+      "path": "../lint-staged"
     },
     {
-      "path": "../error"
-    },
-    {
-      "path": "../types"
+      "path": "../options"
     }
-  ]
+  ],
+  "include": ["src/**/*"]
 }

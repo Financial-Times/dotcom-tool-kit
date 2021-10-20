@@ -81,6 +81,9 @@
     },
     {
       "path": "packages/lint-staged"
+    },
+    {
+      "path": "packages/lint-staged-npm"
     }
   ]
 }

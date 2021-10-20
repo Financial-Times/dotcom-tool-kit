@@ -4,6 +4,7 @@ plugins:
   - '@dotcom-tool-kit/next-router'
   - '@dotcom-tool-kit/prettier'
   - '@dotcom-tool-kit/lint-staged'
+  - '@dotcom-tool-kit/lint-staged-npm'
 
 hooks:
   run:local:
@@ -16,5 +17,5 @@ options:
     app: next-static # for testing
   '@dotcom-tool-kit/next-router':
     appName: static # for testing
-  '@dotcom-tool-kit/prettier':
-    lintStagedGlob: index.js
+  '@dotcom-tool-kit/lint-staged-npm':
+    formatGlob: index.js

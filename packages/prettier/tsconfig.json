@@ -14,12 +14,6 @@
     },
     {
       "path": "../types"
-    },
-    {
-      "path": "../lint-staged"
-    },
-    {
-      "path": "../options"
     }
   ]
 }
