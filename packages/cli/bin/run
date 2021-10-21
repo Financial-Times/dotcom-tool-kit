@@ -16,7 +16,11 @@ async function main() {
     } else if (argv.help || argv._.length === 0) {
       await showHelp(argv._)
     } else {
-      await runTasks(argv._, argv['--'])
+      if (argv['--'].length > 0) {
+        await runTasks(argv._, argv['--'])
+      } else {
+        await runTasks(argv._)
+      }
     }
   } catch (error) {
     if (error.details) {
