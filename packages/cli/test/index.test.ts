@@ -39,7 +39,7 @@ describe('cli', () => {
       { id: 'successful test root', root: path.join(__dirname, 'files/successful') },
       config
     )
-    await validateConfig(config, { checkInstall: false })
+    await validateConfig(config)
 
     // make every root path in the config relative for consistent snapshots aacross machines
     makeConfigPathsRelative(config)
@@ -54,7 +54,7 @@ describe('cli', () => {
       config
     )
 
-    expect(() => validateConfig(config, { checkInstall: false })).rejects.toBeInstanceOf(ToolKitError)
+    expect(() => validateConfig(config)).rejects.toBeInstanceOf(ToolKitError)
     expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
     expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
     expect(config).toHaveProperty('hookTasks.build:local.conflicting')
@@ -71,7 +71,7 @@ describe('cli', () => {
       config
     )
 
-    const validConfig = await validateConfig(config, { checkInstall: false }).catch((e) => {
+    const validConfig = await validateConfig(config).catch((e) => {
       e.message += e.details
       throw e
     })

@@ -3,7 +3,7 @@ import { setOptions } from '@dotcom-tool-kit/options'
 import { Config, loadConfig } from './config'
 
 export default async function installHooks(): Promise<Config> {
-  const config = await loadConfig({ checkInstall: false })
+  const config = await loadConfig()
 
   const tasks = Object.values(config.hooks).map((Hook) => async () => {
     const hook = new Hook()

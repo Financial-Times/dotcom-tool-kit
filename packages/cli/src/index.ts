@@ -1,5 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { loadConfig } from './config'
+import { checkInstall, loadConfig } from './config'
 import { styles } from './messages'
 import { getOptions, setOptions } from '@dotcom-tool-kit/options'
 
@@ -31,6 +31,8 @@ ${availableHooks}`
   for (const pluginOptions of Object.values(config.options)) {
     setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
   }
+
+  await checkInstall(config)
 
   for (const hook of hooks) {
     const errors: ErrorSummary[] = []
