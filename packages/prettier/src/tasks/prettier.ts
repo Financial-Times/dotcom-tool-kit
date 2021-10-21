@@ -9,7 +9,7 @@ export default class Prettier extends Task<typeof PrettierSchema> {
   static description = ''
 
   static defaultOptions: PrettierOptions = {
-    files: ['{,!(node_modules)/**/}*.js'],
+    files: ['**/*.js'],
     configOptions: {
       singleQuote: true,
       useTabs: true,
@@ -23,7 +23,10 @@ export default class Prettier extends Task<typeof PrettierSchema> {
     try {
       const filepaths = await fg(files ?? this.options.files)
       for (const filepath of filepaths) {
-        await formatFile(filepath, this.options)
+        const { ignored } = await prettier.getFileInfo(filepath)
+        if (!ignored) {
+          await formatFile(filepath, this.options)
+        }
       }
     } catch (err) {
       const error = new ToolKitError('there was an error running the prettier plugin')
