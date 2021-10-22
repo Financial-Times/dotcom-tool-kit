@@ -23,18 +23,12 @@ class RunLocal extends PackageJsonHook {
   hook = 'run:local'
 }
 
-class GitPrecommit extends HuskyHook {
-  gitHook = 'pre-commit'
-  hook = 'git:precommit'
-}
-
 export { PackageJsonHook }
 
 export const hooks = {
   'build:local': BuildLocal,
   'test:local': TestLocal,
-  'run:local': RunLocal,
-  'git:precommit': GitPrecommit
+  'run:local': RunLocal
 }
 
 export const tasks = [NpmPrune]

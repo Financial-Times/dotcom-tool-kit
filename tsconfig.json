@@ -80,6 +80,9 @@
       "path": "packages/husky-hook"
     },
     {
+      "path": "packages/husky-npm"
+    },
+    {
       "path": "packages/lint-staged"
     },
     {
