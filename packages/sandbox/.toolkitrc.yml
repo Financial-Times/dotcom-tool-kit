@@ -3,7 +3,6 @@ plugins:
   - '@dotcom-tool-kit/node'
   - '@dotcom-tool-kit/next-router'
   - '@dotcom-tool-kit/prettier'
-  - '@dotcom-tool-kit/lint-staged'
   - '@dotcom-tool-kit/lint-staged-npm'
 
 hooks:
