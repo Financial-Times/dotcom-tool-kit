@@ -14,5 +14,6 @@ steps:
   - checkout
   - node/install-npm:
       version: <<parameters.npm-version>>
+  - change-api/install-jq
   - node/install-packages
   - persist-workspace

@@ -2,6 +2,16 @@ parameters:
   node-version:
     default: "12.22"
     type: string
+  systemCode:
+    default: $CIRCLE_PROJECT_REPONAME
+    description: >-
+      The systemcode of the system being changed. Defaults to the repository
+      name.
+    type: string
+  environment:
+    default: unknown
+    description: The environment in which the system is being changed.
+    type: string
 
 executor:
   name: node/default
@@ -12,3 +22,5 @@ steps:
   - run:
       name: Deploy to production
       command: npx dotcom-tool-kit deploy:production
+  - change-api/generate:
+      systemCode: <<parameters.node-version>>
