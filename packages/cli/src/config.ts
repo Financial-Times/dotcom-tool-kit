@@ -3,11 +3,12 @@ import path from 'path'
 import type { TaskClass } from '@dotcom-tool-kit/task'
 import type { HookTask, HookClass } from './hook'
 import { loadPluginConfig, Plugin } from './plugin'
-import { Conflict, findConflicts, withoutConflicts } from './conflict'
+import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,
+  formatUnusedOptions,
   formatHookTaskConflicts,
   formatHookConflicts,
   formatOptionConflicts,
@@ -113,6 +114,17 @@ export async function validateConfig(config: Config): Promise<ValidConfig> {
   if (undefinedHookTasks.length > 0) {
     shouldThrow = true
     error.details += formatUndefinedHookTasks(undefinedHookTasks, Array.from(definedHookIds))
+  }
+
+  const unusedOptions = Object.entries(config.options)
+    .filter(
+      ([, option]) =>
+        option && !isConflict(option) && !option.forPlugin && option.plugin.root === process.cwd()
+    )
+    .map(([id]) => id)
+  if (unusedOptions.length > 0) {
+    shouldThrow = true
+    error.details += formatUnusedOptions(unusedOptions, Object.keys(config.plugins))
   }
 
   const missingTasks = configuredHookTasks
