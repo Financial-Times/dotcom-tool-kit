@@ -5,17 +5,17 @@ import HerokuTeardown from './tasks/teardown'
 import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
 
 class BuildRemote extends PackageJsonHook {
-  script = 'heroku-postbuild'
+  key = 'heroku-postbuild'
   hook = 'build:remote'
 }
 
 class CleanupRemote extends PackageJsonHook {
-  script = 'heroku-postbuild'
+  key = 'heroku-postbuild'
   hook = 'cleanup:remote'
 }
 
 class ReleaseRemote extends PackageJsonHook {
-  script = 'heroku-postbuild'
+  key = 'heroku-postbuild'
   hook = 'release:remote'
 }
 

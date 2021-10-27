@@ -1,5 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { loadConfig } from './config'
+import { checkInstall, loadConfig } from './config'
 import { styles } from './messages'
 import { getOptions, setOptions } from '@dotcom-tool-kit/options'
 
@@ -9,7 +9,7 @@ type ErrorSummary = {
   error: Error
 }
 
-export async function runTasks(hooks: string[]): Promise<void> {
+export async function runTasks(hooks: string[], files?: string[]): Promise<void> {
   const config = await loadConfig()
 
   const availableHooks = Object.keys(config.hooks)
@@ -32,6 +32,8 @@ ${availableHooks}`
     setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
   }
 
+  await checkInstall(config)
+
   for (const hook of hooks) {
     const errors: ErrorSummary[] = []
 
@@ -51,7 +53,7 @@ ${availableHooks}`
       const task = new (Task as any)(options)
 
       try {
-        await task.run()
+        await task.run(files)
       } catch (error: any) {
         // allow subsequent hook tasks to run on error
         errors.push({

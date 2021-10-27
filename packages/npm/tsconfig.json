@@ -12,6 +12,9 @@
       "path": "../package-json-hook"
     },
     {
+      "path": "../husky-hook"
+    },
+    {
       "path": "../task"
     }
   ],

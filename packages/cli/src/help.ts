@@ -1,4 +1,5 @@
-import { loadConfig } from './config'
+import { checkInstall, loadConfig } from './config'
+import { setOptions } from '@dotcom-tool-kit/options'
 import { styles } from './messages'
 
 export default async function showHelp(hooks: string[]): Promise<void> {
@@ -7,6 +8,12 @@ export default async function showHelp(hooks: string[]): Promise<void> {
   if (hooks.length === 0) {
     hooks = Object.keys(config.hooks).sort()
   }
+
+  for (const pluginOptions of Object.values(config.options)) {
+    setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
+  }
+
+  await checkInstall(config)
 
   const missingHooks = hooks.filter((hook) => !config.hooks[hook])
 

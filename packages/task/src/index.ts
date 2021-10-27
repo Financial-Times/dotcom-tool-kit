@@ -19,7 +19,7 @@ export abstract class Task<O extends Schema = Record<string, never>> {
     )
   }
 
-  abstract run(): Promise<void>
+  abstract run(files?: string[]): Promise<void>
 }
 
 export type TaskClass = typeof Task

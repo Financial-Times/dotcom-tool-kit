@@ -192,6 +192,23 @@ Object {
         "NTest",
       ],
     },
+    "test:staged": Object {
+      "id": "test:staged",
+      "plugin": Object {
+        "id": "../../../../eslint",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/eslint/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
+      },
+      "tasks": Array [
+        "Eslint",
+      ],
+    },
     "test:staging": Object {
       "id": "test:staging",
       "plugin": Object {

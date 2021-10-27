@@ -67,7 +67,8 @@ async function mainPrompt() {
               'a feature-rich JavaScript test framework, making asynchronous testing simple and fun'
           },
           { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' },
-          { title: 'Prettier', value: 'prettier', description: 'an opinionated code formatter' }
+          { title: 'Prettier', value: 'prettier', description: 'an opinionated code formatter' },
+          { title: 'lint-staged', value: 'lint-staged', description: 'run linters on git staged files' }
         ].map((choice) => ({ ...choice, title: styles.plugin(choice.title) }))
       },
       {

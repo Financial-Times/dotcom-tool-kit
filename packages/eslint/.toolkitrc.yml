@@ -1,6 +1,7 @@
 hooks:
   'test:local': Eslint
   'test:ci': Eslint
+  'test:staged': Eslint
 
 options:
   '@dotcom-tool-kit/eslint':

@@ -2,33 +2,42 @@
 
 const c = require('ansi-colors')
 const argv = require('minimist')(process.argv.slice(2), {
-   boolean: ['help', 'install']
+  boolean: ['help', 'install'],
+  '--': true
 })
 
 const { runTasks, showHelp, installHooks } = require('../lib')
 const { styles } = require('../lib/messages')
 
 async function main() {
-   try {
-      if(argv.install) {
-         await installHooks()
-      } else if(argv.help || argv._.length === 0) {
-         await showHelp(argv._)
+  try {
+    if (argv.install) {
+      await installHooks()
+    } else if (argv.help || argv._.length === 0) {
+      await showHelp(argv._)
+    } else {
+      if (argv['--'].length > 0) {
+        // The `--` in a command such as `dotcom-tool-kit test:staged --`
+        // delineates between hooks and file patterns. For example, when the
+        // lint-staged task is run it will identify the files that are staged
+        // and match its glob patterns and append them to the command, so that
+        // the command becomes something like `dotcom-tool-kit test:staged --
+        // index.js`. When this command is executed it runs the configured task
+        // where the file path arguments would then be extracted.
+        await runTasks(argv._, argv['--'])
       } else {
-         await runTasks(argv._)
+        await runTasks(argv._)
       }
-   } catch(error) {
-      if(error.details) {
-         console.error(
-            styles.error(error.message) + '\n\n' +
-            error.details
-         )
-      } else {
-         console.error(error.stack)
-      }
+    }
+  } catch (error) {
+    if (error.details) {
+      console.error(styles.error(error.message) + '\n\n' + error.details)
+    } else {
+      console.error(error.stack)
+    }
 
-      process.exitCode = error.exitCode || 1
-   }
+    process.exitCode = error.exitCode || 1
+  }
 }
 
 main()

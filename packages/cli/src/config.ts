@@ -4,7 +4,7 @@ import type { TaskClass } from '@dotcom-tool-kit/task'
 import type { HookTask, HookClass } from './hook'
 import { loadPluginConfig, Plugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts } from './conflict'
-import { ToolKitConflictError } from '@dotcom-tool-kit/error'
+import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,
@@ -54,7 +54,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-export async function validateConfig(config: Config, { checkInstall = true } = {}): Promise<ValidConfig> {
+export async function validateConfig(config: Config): Promise<ValidConfig> {
   const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
   const hookConflicts = findConflicts(Object.values(config.hooks))
   const taskConflicts = findConflicts(Object.values(config.tasks))
@@ -102,7 +102,6 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   }
 
   const configuredHookTasks = withoutConflicts(Object.values(config.hookTasks))
-  const definedHooks = withoutConflicts(Object.values(config.hooks))
   const definedHookIds = new Set(Object.keys(config.hooks))
   const undefinedHookTasks = configuredHookTasks.filter((hookTask) => {
     // we only care about undefined hooks that were configured by the app, not default config from plugins
@@ -128,18 +127,6 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
     error.details += formatMissingTasks(missingTasks, Object.keys(config.tasks))
   }
 
-  if (checkInstall) {
-    const uninstalledHooks = await asyncFilter(definedHooks, async (Hook) => {
-      const hook = new Hook()
-      return !(await hook.check())
-    })
-
-    if (uninstalledHooks.length > 0) {
-      shouldThrow = true
-      error.details += formatUninstalledHooks(uninstalledHooks)
-    }
-  }
-
   if (shouldThrow) {
     throw error
   }
@@ -147,12 +134,24 @@ export async function validateConfig(config: Config, { checkInstall = true } = {
   return config as ValidConfig
 }
 
-export function loadConfig(options?: { validate?: true; checkInstall?: boolean }): Promise<ValidConfig>
-export function loadConfig(options?: { validate?: false; checkInstall?: boolean }): Promise<Config>
+export async function checkInstall(config: ValidConfig): Promise<void> {
+  const definedHooks = withoutConflicts(Object.values(config.hooks))
+  const uninstalledHooks = await asyncFilter(definedHooks, async (Hook) => {
+    const hook = new Hook()
+    return !(await hook.check())
+  })
 
-export async function loadConfig({ validate = true, checkInstall = true } = {}): Promise<
-  ValidConfig | Config
-> {
+  if (uninstalledHooks.length > 0) {
+    const error = new ToolKitError('There are problems with your Tool Kit installation.')
+    error.details = formatUninstalledHooks(uninstalledHooks)
+    throw error
+  }
+}
+
+export function loadConfig(options?: { validate?: true }): Promise<ValidConfig>
+export function loadConfig(options?: { validate?: false }): Promise<Config>
+
+export async function loadConfig({ validate = true } = {}): Promise<ValidConfig | Config> {
   // start loading config and child plugins, starting from the consumer app directory
   const config = await loadPluginConfig(
     {
@@ -162,5 +161,5 @@ export async function loadConfig({ validate = true, checkInstall = true } = {}):
     createConfig()
   )
 
-  return validate ? validateConfig(config, { checkInstall }) : config
+  return validate ? validateConfig(config) : config
 }

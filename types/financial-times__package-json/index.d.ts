@@ -26,6 +26,7 @@ declare module '@financial-times/package-json' {
     hasChangesToWrite(): boolean
     writeChanges(): boolean
     getField<T>(name: string): T
+    setField<T>(field: string, value: T): IChangelog<'setField'>
   }
 
   export default function loadPackageJson(options: Record<string, unknown>): PackageJson
