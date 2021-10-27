@@ -4,5 +4,6 @@
     "outDir": "lib",
     "rootDir": "src"
   },
+  "references": [{ "path": "../hook" }],
   "include": ["src/**/*"]
 }

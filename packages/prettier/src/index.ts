@@ -6,7 +6,7 @@ export const tasks = [Prettier]
 class FormatLocal extends PackageJsonHook {
   static description = 'format prettier'
 
-  script = 'format'
+  key = 'format'
   hook = `format:local`
 }
 

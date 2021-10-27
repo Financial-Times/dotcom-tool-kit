@@ -4,14 +4,14 @@ import { getOptions } from '@dotcom-tool-kit/options'
 class TestStaged extends LintStagedHook {
   static description = 'format prettier'
 
-  glob = getOptions('@dotcom-tool-kit/lint-staged-npm')?.testGlob ?? '**/*.js'
+  key = getOptions('@dotcom-tool-kit/lint-staged-npm')?.testGlob ?? '**/*.js'
   hook = 'test:staged'
 }
 
 class FormatStaged extends LintStagedHook {
   static description = 'format prettier'
 
-  glob = getOptions('@dotcom-tool-kit/lint-staged-npm')?.formatGlob ?? '**/*.js'
+  key = getOptions('@dotcom-tool-kit/lint-staged-npm')?.formatGlob ?? '**/*.js'
   hook = 'format:staged'
 }
 

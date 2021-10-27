@@ -87,6 +87,9 @@
     },
     {
       "path": "packages/lint-staged-npm"
+    },
+    {
+      "path": "packages/hook"
     }
   ]
 }

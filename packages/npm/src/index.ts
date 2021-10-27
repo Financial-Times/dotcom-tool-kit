@@ -1,25 +1,24 @@
 import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
-import { HuskyHook } from '@dotcom-tool-kit/husky-hook'
 import NpmPrune from './tasks/npm-prune'
 
 class BuildLocal extends PackageJsonHook {
   static description = 'hook for `npm run build`, for building an app locally'
 
-  script = 'build'
+  key = 'build'
   hook = 'build:local'
 }
 
 class TestLocal extends PackageJsonHook {
   static description = 'hook for `npm run test`, for running tests locally'
 
-  script = 'test'
+  key = 'test'
   hook = 'test:local'
 }
 
 class RunLocal extends PackageJsonHook {
   static description = 'hook for `npm start`, for running your app locally'
 
-  script = 'start'
+  key = 'start'
   hook = 'run:local'
 }
 

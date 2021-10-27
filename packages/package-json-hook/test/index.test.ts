@@ -5,7 +5,7 @@ import { PackageJsonHook } from '../src'
 
 describe('package.json hook', () => {
   class TestHook extends PackageJsonHook {
-    script = 'test-hook'
+    key = 'test-hook'
     hook = 'test:hook'
   }
 
