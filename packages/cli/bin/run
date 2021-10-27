@@ -17,6 +17,13 @@ async function main() {
       await showHelp(argv._)
     } else {
       if (argv['--'].length > 0) {
+        // The `--` in a command such as `dotcom-tool-kit test:staged --`
+        // delineates between hooks and file patterns. For example, when the
+        // lint-staged task is run it will identify the files that are staged
+        // and match its glob patterns and append them to the command, so that
+        // the command becomes something like `dotcom-tool-kit test:staged --
+        // index.js`. When this command is executed it runs the configured task
+        // where the file path arguments would then be extracted.
         await runTasks(argv._, argv['--'])
       } else {
         await runTasks(argv._)
