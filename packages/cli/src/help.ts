@@ -10,7 +10,9 @@ export default async function showHelp(hooks: string[]): Promise<void> {
   }
 
   for (const pluginOptions of Object.values(config.options)) {
-    setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
+    if (pluginOptions.forPlugin) {
+      setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
+    }
   }
 
   await checkInstall(config)
