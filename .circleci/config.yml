@@ -157,6 +157,20 @@ workflows:
           requires:
             - test
 
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            <<: *filters_only_main
+    jobs:
+      - build:
+          context: next-nightly-build
+      - test:
+          requires:
+            - build
+          context: next-nightly-build
+
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit
   orb-test-pack:
