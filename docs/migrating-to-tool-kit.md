@@ -168,3 +168,14 @@ delete the Makefile yourself if you don't think it's needed anymore. Remember
 that – assuming you didn't delete it in the earlier step – some of the `make`
 commands come from `n-gage` itself and won't necessarily be in the Makefile,
 such as `make install`.
+
+## Migrating Your Heroku Pipeline
+
+One thing that the migration tool cannot automate is reconfiguring your Heroku
+pipeline to integrate properly with Tool Kit. You will need to ensure that your
+pipeline is connected to the project's GitHub repository, that PRs create review
+apps, and commits to main deploy from a staging app. This might be how your
+pipeline was already configured, but you should check to make sure that
+automatic deployments are still working, and try reconnecting to GitHub if they
+are not. A step-by-step guide with screenshots can be found
+[here](https://docs.google.com/document/d/1b7WlRfhiWlbDsSSGP3TllYaGMJbx9nCdAtcr8_OWEWM).
