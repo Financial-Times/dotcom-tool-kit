@@ -9,8 +9,13 @@ type JobConfig = {
   filters?: { branches: { only?: string; ignore?: string } }
 }
 
+type TriggerConfig = {
+  schedule?: { cron: string, filters?: { branches: { only?: string; ignore?: string } } }
+}
+
 type Workflow = {
   jobs?: (string | { [job: string]: JobConfig })[]
+  triggers?: (string | { [trigger: string]: TriggerConfig })[]
 }
 
 interface CircleConfig {
@@ -32,6 +37,7 @@ export default abstract class CircleCiConfigHook extends Hook {
   _versionTag?: string
   abstract job: string
   jobOptions: JobConfig = {}
+  addToNightly?: boolean
 
   async getCircleConfigRaw(): Promise<string | undefined> {
     if (!this._circleConfigRaw) {
@@ -129,6 +135,19 @@ export default abstract class CircleCiConfigHook extends Hook {
               }
             }
           ]
+        },
+        'nightly': {
+          triggers: [
+            { 
+              'schedule': {
+                cron: '0 0 * * *',
+                filters: { branches: { only: 'main'}}
+              }
+            }
+          ],
+          jobs: [
+            'tool-kit/setup'
+          ]
         }
       }
     }
@@ -138,7 +157,7 @@ export default abstract class CircleCiConfigHook extends Hook {
       config.orbs['tool-kit'] = `financial-times/dotcom-tool-kit@${currentVersion}`
     }
 
-    if (!(config.workflows?.['tool-kit'] as Workflow).jobs) {
+    if (!(config.workflows?.['tool-kit'] as Workflow).jobs || !(config.workflows?.['nightly'] as Workflow).jobs) {
       throw new Error(
         'Found malformed CircleCI config that was automatically generated. Please delete and install again'
       )
@@ -147,10 +166,18 @@ export default abstract class CircleCiConfigHook extends Hook {
     // properties here
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const jobs = (config.workflows!['tool-kit'] as Workflow).jobs!
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const nightlyJobs = (config.workflows!['nightly'] as Workflow).jobs!
     const job = this.jobOptions ? { [this.job]: this.jobOptions } : this.job
     // Avoid duplicating jobs (this can happen when check() fails when the version is wrong)
     if (!jobs.some((candidateJob) => isEqual(candidateJob, job))) {
       jobs.push(job)
+      if (this.addToNightly) {
+        // clone job and remove waiting for approvals
+        const clonedJob = JSON.parse(JSON.stringify(job))
+        clonedJob[this.job].requires = clonedJob[this.job].requires.filter((x: string) => x !== 'waiting-for-approval')
+        nightlyJobs.push(clonedJob)
+      }
     }
 
     const serialised = automatedComment + yaml.dump(config)

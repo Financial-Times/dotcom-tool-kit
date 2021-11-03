@@ -4,11 +4,13 @@ import CircleCiConfigHook from './circleci-config'
 export class BuildCI extends CircleCiConfigHook {
   job = 'tool-kit/build'
   jobOptions = { requires: ['tool-kit/setup', 'waiting-for-approval'] }
+  addToNightly = true
 }
 
 export class TestCI extends CircleCiConfigHook {
   job = 'tool-kit/test'
   jobOptions = { requires: [new BuildCI().job] }
+  addToNightly = true
 }
 
 export const hooks = {

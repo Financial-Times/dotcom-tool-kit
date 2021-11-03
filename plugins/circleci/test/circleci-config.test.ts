@@ -10,6 +10,7 @@ describe('CircleCI config hook', () => {
     jobOptions = {
       requires: ['another-job']
     }
+    addToNightly = true
   }
 
   const originalDir = process.cwd()
@@ -57,6 +58,15 @@ describe('CircleCI config hook', () => {
           expect.objectContaining({
             workflows: {
               'tool-kit': {
+                jobs: expect.arrayContaining([
+                  expect.objectContaining({
+                    'test-job': {
+                      requires: ['another-job']
+                    }
+                  })
+                ])
+              },
+              'nightly': {
                 jobs: expect.arrayContaining([
                   expect.objectContaining({
                     'test-job': {
