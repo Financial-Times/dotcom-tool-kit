@@ -45,8 +45,9 @@ ${
 
     if (Hook) {
       const tasks = config.hookTasks[hook]
+      /* eslint-disable @typescript-eslint/no-explicit-any -- Object.constructor does not consider static properties */
       console.log(`${styles.heading(hook)}
-${Hook.description ? Hook.description + '\n' : ''}
+${(Hook.constructor as any).description ? (Hook.constructor as any).description + '\n' : ''}
 ${
   tasks && tasks.tasks.length
     ? `runs ${tasks.tasks.length > 1 ? 'these tasks' : 'this task'}:
@@ -57,6 +58,7 @@ ${tasks.tasks
 }
 ${styles.ruler()}
 `)
+      /*eslint-enable @typescript-eslint/no-explicit-any */
     }
   }
 

@@ -1,12 +1,13 @@
 import path from 'path'
 import type { PackageJson } from '@financial-times/package-json'
 import loadPackageJson from '@financial-times/package-json'
+import { Hook } from './types'
 
 type PackageJsonConfigField = {
   [key: string]: string
 }
 
-export abstract class PackageJsonHelper {
+export abstract class PackageJsonHelper extends Hook {
   _packageJson?: PackageJson
   abstract field: string
   abstract key: string
