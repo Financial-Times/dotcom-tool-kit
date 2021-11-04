@@ -12,6 +12,7 @@
     "@dotcom-tool-kit/types": "file:../types",
     "@financial-times/n-fetch": "^1.0.0-beta.7",
     "fs": "0.0.1-security",
+    "moment": "^2.29.1",
     "os": "^0.1.2",
     "path": "^0.12.7",
     "superagent": "^6.1.0"
@@ -32,5 +33,9 @@
   ],
   "volta": {
     "extends": "../../package.json"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "node-fetch": "^1.7.3"
   }
 }

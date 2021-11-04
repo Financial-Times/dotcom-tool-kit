@@ -2,6 +2,7 @@ import fetch from '@financial-times/n-fetch'
 import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
+import moment from 'moment'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/vault'
@@ -81,29 +82,45 @@ export class VaultEnvVars {
       }
     } else {
       // developer's local machine
+      const vaultTokenFile = path.join(os.homedir(), '.vault-token')
       try {
-        const vaultTokenFile = await fs.readFile(path.join(os.homedir(), '.vault-token'), {
-          encoding: 'utf8'
-        })
-        if (vaultTokenFile) {
-          return vaultTokenFile
-        } else if (VAULT_AUTH_GITHUB_TOKEN) {
+        const stats = await fs.stat(vaultTokenFile)
+        const fileExpired = moment().diff(stats.birthtime, 'hours') > 8
+        if (!fileExpired) {
+          const vaultToken = await fs.readFile(vaultTokenFile, {
+            encoding: 'utf8'
+          })
+          return vaultToken
+        }
+      } catch {
+        console.log('no current vault token found, requesting new token....')
+      }
+
+      try {
+        if (VAULT_AUTH_GITHUB_TOKEN) {
           console.log(`You are not logged in, logging you in...`)
           const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({ token: VAULT_AUTH_GITHUB_TOKEN })
           })
+          await fs.writeFile(vaultTokenFile, token.auth.client_token)
           return token.auth.client_token
         } else {
           const error = new ToolKitError(`VAULT_AUTH_GITHUB_TOKEN variable is not set`)
           error.details = `Follow the guide at https://github.com/Financial-Times/vault/wiki/Getting-Started-With-Vault`
           throw error
         }
-      } catch {
-        const error = new ToolKitError(`Vault login failed`)
-        error.details = `Please check your .vault-token is present`
-        throw error
+      } catch (err) {
+        if (err instanceof ToolKitError) {
+          throw err
+        } else {
+          const error = new ToolKitError(`Vault login failed`)
+          if (err instanceof Error) {
+            error.details = err.message
+          }
+          throw error
+        }
       }
     }
   }
