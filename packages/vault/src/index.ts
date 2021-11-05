@@ -10,8 +10,6 @@ import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/vault'
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
 const VAULT_ADDR = 'https://vault.in.ft.com/v1'
-const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
-const CIRCLECI = process.env.CIRCLECI
 
 export type Environment = 'production' | 'continuous-integration' | 'development'
 
@@ -67,6 +65,8 @@ export class VaultEnvVars {
   }
 
   private async getAuthToken(): Promise<string> {
+    const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
+    const CIRCLECI = process.env.CIRCLECI
     console.log('variable', CIRCLECI, 'ENV', process.env.CIRCLECI)
     if (CIRCLECI) {
       try {
