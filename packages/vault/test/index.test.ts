@@ -1,10 +1,14 @@
-import { describe, it, beforeAll, afterAll, jest, expect } from '@jest/globals'
+import { describe, it, beforeAll, beforeEach, afterAll, jest, expect } from '@jest/globals'
 import { VaultEnvVars } from '../src/index'
 import fetch from '@financial-times/n-fetch'
 import { mocked } from 'ts-jest/utils'
 import fs from 'fs'
-
-const CIRCLECI = process.env.CIRCLECI || undefined // take a copy of existing env var
+process.env.CIRCLECI = 'true'
+console.log('SET FROM CLI', process.env.CIRCLECI)
+let CIRCLECI: string
+if (process.env.CIRCLECI) {
+  CIRCLECI = process.env.CIRCLECI
+}
 const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN || undefined
 
 const expiredBirthtime = new Date(new Date().getTime() - 48 * 60 * 60 * 1000)
@@ -47,37 +51,62 @@ const vault = new VaultEnvVars({
 
 describe(`local vault token retrieval`, () => {
   beforeAll(() => {
-    process.env.CIRCLECI = undefined // change to mimic local environment
+    delete process.env.CIRCLECI
+  })
+
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 
   afterAll(() => {
-    process.env.CIRCLECI = CIRCLECI // reset to original value
+    if (CIRCLECI) {
+      process.env.CIRCLECI = CIRCLECI
+    }
     process.env.VAULT_AUTH_GITHUB_TOKEN = VAULT_AUTH_GITHUB_TOKEN
-    console.log('after all', process.env.CIRCLECI)
+    console.log('after all', process.env.CIRCLECI, typeof process.env.CIRCLECI)
   })
 
   it('should handle a .vault-token file being present but expired', async () => {
-    console.log('CIRCLECI env', process.env.CIRCLECI)
-    mockedFetch.mockResolvedValue({ auth: { client_token: 'bbb' } })
+    mockedFetch.mockResolvedValue({ auth: { client_token: 'aaa' } })
     process.env.VAULT_AUTH_GITHUB_TOKEN = 'abc'
-    await vault['getAuthToken']()
+    const token = await vault['getAuthToken']()
 
+    expect(fs.promises.readFile).toBeCalledTimes(0)
     expect(mockedFetch).toBeCalledTimes(1)
+    expect(token).toEqual('aaa')
   })
 
   it('should retrieve an in-date token from .vault-token if present', async () => {
     process.env.VAULT_AUTH_GITHUB_TOKEN = 'def'
-    await vault['getAuthToken']()
+    const token = await vault['getAuthToken']()
 
+    expect(fs.promises.readFile).toBeCalledTimes(1)
     expect(mockedFetch).toBeCalledTimes(0)
+    expect(token).toEqual('zzz')
   })
 
   it('if no file found, it should retreive a token from vault when a github token env var is present', async () => {
     mockedFetch.mockResolvedValue({ auth: { client_token: 'bbb' } })
     process.env.VAULT_AUTH_GITHUB_TOKEN = 'hij'
-    await vault['getAuthToken']()
+    const token = await vault['getAuthToken']()
 
     expect(fs.promises.readFile).toBeCalledTimes(0)
     expect(mockedFetch).toBeCalledTimes(1)
+    expect(token).toEqual('bbb')
+  })
+
+  it('should throw if authentication is denied', async () => {
+    mockedFetch.mockRejectedValue(undefined)
+    process.env.VAULT_AUTH_GITHUB_TOKEN = 'hij'
+    await expect(vault['getAuthToken']()).rejects.toThrow()
+  })
+
+  it('should write a new token to file', async () => {
+    mockedFetch.mockResolvedValue({ auth: { client_token: 'ccc' } })
+    process.env.VAULT_AUTH_GITHUB_TOKEN = 'abc'
+    const token = await vault['getAuthToken']()
+
+    expect(fs.promises.writeFile).toBeCalledTimes(1)
+    expect(token).toEqual('ccc')
   })
 })
