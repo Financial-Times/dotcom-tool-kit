@@ -67,6 +67,7 @@ export class VaultEnvVars {
   }
 
   private async getAuthToken(): Promise<string> {
+    console.log('variable', CIRCLECI, 'ENV', process.env.CIRCLECI)
     if (CIRCLECI) {
       try {
         const json = await fetch<Token>(`${VAULT_ADDR}/auth/approle/login`, {
