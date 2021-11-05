@@ -68,7 +68,6 @@ export class VaultEnvVars {
     const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
     const CIRCLECI = process.env.CIRCLECI
     if (CIRCLECI) {
-      console.log('I think circle', typeof CIRCLECI)
       try {
         const json = await fetch<Token>(`${VAULT_ADDR}/auth/approle/login`, {
           method: 'POST',
@@ -82,20 +81,15 @@ export class VaultEnvVars {
         throw error
       }
     } else {
-      console.log('I think dev')
       // developer's local machine
       const vaultTokenFile = path.join(os.homedir(), '.vault-token')
-      console.log('vault token file', vaultTokenFile)
       try {
         const stats = await fs.stat(vaultTokenFile)
-        console.log('stats', stats)
         const fileExpired = moment().diff(stats.birthtime, 'hours') > 8
-        console.log('fileExpired', fileExpired)
         if (!fileExpired) {
           const vaultToken = await fs.readFile(vaultTokenFile, {
             encoding: 'utf8'
           })
-          console.log('vault token', vaultToken)
           return vaultToken
         }
       } catch {
