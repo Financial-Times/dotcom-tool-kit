@@ -53,9 +53,11 @@ describe(`local vault token retrieval`, () => {
   afterAll(() => {
     process.env.CIRCLECI = CIRCLECI // reset to original value
     process.env.VAULT_AUTH_GITHUB_TOKEN = VAULT_AUTH_GITHUB_TOKEN
+    console.log('after all', process.env.CIRCLECI)
   })
 
   it('should handle a .vault-token file being present but expired', async () => {
+    console.log('CIRCLECI env', process.env.CIRCLECI)
     mockedFetch.mockResolvedValue({ auth: { client_token: 'bbb' } })
     process.env.VAULT_AUTH_GITHUB_TOKEN = 'abc'
     await vault['getAuthToken']()
@@ -77,19 +79,5 @@ describe(`local vault token retrieval`, () => {
 
     expect(fs.promises.readFile).toBeCalledTimes(0)
     expect(mockedFetch).toBeCalledTimes(1)
-  })
-
-  it('should throw if authentication is denied', async () => {
-    mockedFetch.mockRejectedValue(undefined)
-    process.env.VAULT_AUTH_GITHUB_TOKEN = 'hij'
-    await expect(vault['getAuthToken']()).rejects.toThrow()
-  })
-
-  it('should write a new token to file', async () => {
-    mockedFetch.mockResolvedValue({ auth: { client_token: 'bbb' } })
-    process.env.VAULT_AUTH_GITHUB_TOKEN = 'abc'
-    await vault['getAuthToken']()
-
-    expect(fs.promises.writeFile).toBeCalledTimes(1)
   })
 })
