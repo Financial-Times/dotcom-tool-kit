@@ -38,7 +38,7 @@ Object {
           "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": DeployProduction {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:production",
               "job": "tool-kit/heroku-promote",
               "jobOptions": Object {
@@ -55,7 +55,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:review",
               "job": "tool-kit/heroku-provision",
               "jobOptions": Object {
@@ -71,7 +71,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:staging",
               "job": "tool-kit/heroku-staging",
               "jobOptions": Object {
@@ -87,7 +87,7 @@ Object {
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "teardown:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -98,7 +98,7 @@ Object {
               "plugin": [Circular],
             },
             "test:review": TestReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:review",
               "job": "tool-kit/e2e-test-review",
               "jobOptions": Object {
@@ -109,7 +109,7 @@ Object {
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -149,7 +149,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -166,7 +166,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -182,7 +182,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -198,7 +198,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -209,7 +209,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -220,7 +220,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -252,7 +252,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -269,7 +269,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -285,7 +285,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -301,7 +301,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -312,7 +312,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -323,7 +323,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -355,7 +355,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -372,7 +372,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -388,7 +388,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -404,7 +404,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -415,7 +415,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -426,7 +426,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -458,7 +458,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -475,7 +475,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -491,7 +491,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -507,7 +507,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -518,7 +518,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -529,7 +529,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -630,7 +630,7 @@ Object {
   },
   "hooks": Object {
     "build:ci": BuildCI {
-      "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+      "circleConfigPath": ".circleci/config.yml",
       "id": "build:ci",
       "job": "tool-kit/build",
       "jobOptions": Object {
@@ -645,7 +645,7 @@ Object {
         "hooks": Object {
           "build:ci": [Circular],
           "test:ci": TestCI {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:ci",
             "job": "tool-kit/test",
             "jobOptions": Object {
@@ -665,7 +665,7 @@ Object {
           "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": DeployProduction {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:production",
               "job": "tool-kit/heroku-promote",
               "jobOptions": Object {
@@ -682,7 +682,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:review",
               "job": "tool-kit/heroku-provision",
               "jobOptions": Object {
@@ -698,7 +698,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:staging",
               "job": "tool-kit/heroku-staging",
               "jobOptions": Object {
@@ -714,7 +714,7 @@ Object {
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "teardown:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -725,7 +725,7 @@ Object {
               "plugin": [Circular],
             },
             "test:review": TestReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:review",
               "job": "tool-kit/e2e-test-review",
               "jobOptions": Object {
@@ -736,7 +736,7 @@ Object {
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -815,7 +815,7 @@ Object {
             "TestStaging": [Function],
             "hooks": Object {
               "deploy:production": DeployProduction {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:production",
                 "job": "tool-kit/heroku-promote",
                 "jobOptions": Object {
@@ -832,7 +832,7 @@ Object {
                 "plugin": [Circular],
               },
               "deploy:review": DeployReview {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:review",
                 "job": "tool-kit/heroku-provision",
                 "jobOptions": Object {
@@ -848,7 +848,7 @@ Object {
                 "plugin": [Circular],
               },
               "deploy:staging": DeployStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:staging",
                 "job": "tool-kit/heroku-staging",
                 "jobOptions": Object {
@@ -864,7 +864,7 @@ Object {
                 "plugin": [Circular],
               },
               "teardown:staging": TestStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "teardown:staging",
                 "job": "tool-kit/e2e-test-staging",
                 "jobOptions": Object {
@@ -875,7 +875,7 @@ Object {
                 "plugin": [Circular],
               },
               "test:review": TestReview {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "test:review",
                 "job": "tool-kit/e2e-test-review",
                 "jobOptions": Object {
@@ -886,7 +886,7 @@ Object {
                 "plugin": [Circular],
               },
               "test:staging": TestStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "test:staging",
                 "job": "tool-kit/e2e-test-staging",
                 "jobOptions": Object {
@@ -950,7 +950,7 @@ Object {
           "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": DeployProduction {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:production",
               "job": "tool-kit/heroku-promote",
               "jobOptions": Object {
@@ -967,7 +967,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:review",
               "job": "tool-kit/heroku-provision",
               "jobOptions": Object {
@@ -983,7 +983,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:staging",
               "job": "tool-kit/heroku-staging",
               "jobOptions": Object {
@@ -999,7 +999,7 @@ Object {
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "teardown:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -1010,7 +1010,7 @@ Object {
               "plugin": [Circular],
             },
             "test:review": TestReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:review",
               "job": "tool-kit/e2e-test-review",
               "jobOptions": Object {
@@ -1021,7 +1021,7 @@ Object {
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -1080,7 +1080,7 @@ Object {
           "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": DeployProduction {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:production",
               "job": "tool-kit/heroku-promote",
               "jobOptions": Object {
@@ -1097,7 +1097,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:review",
               "job": "tool-kit/heroku-provision",
               "jobOptions": Object {
@@ -1113,7 +1113,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:staging",
               "job": "tool-kit/heroku-staging",
               "jobOptions": Object {
@@ -1129,7 +1129,7 @@ Object {
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "teardown:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -1140,7 +1140,7 @@ Object {
               "plugin": [Circular],
             },
             "test:review": TestReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:review",
               "job": "tool-kit/e2e-test-review",
               "jobOptions": Object {
@@ -1151,7 +1151,7 @@ Object {
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -1179,7 +1179,7 @@ Object {
       },
     },
     "deploy:production": DeployProduction {
-      "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+      "circleConfigPath": ".circleci/config.yml",
       "id": "deploy:production",
       "job": "tool-kit/heroku-promote",
       "jobOptions": Object {
@@ -1202,7 +1202,7 @@ Object {
         "hooks": Object {
           "deploy:production": [Circular],
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -1218,7 +1218,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -1234,7 +1234,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -1245,7 +1245,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -1256,7 +1256,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -1276,7 +1276,7 @@ Object {
       },
     },
     "deploy:review": DeployReview {
-      "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+      "circleConfigPath": ".circleci/config.yml",
       "id": "deploy:review",
       "job": "tool-kit/heroku-provision",
       "jobOptions": Object {
@@ -1297,7 +1297,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -1315,7 +1315,7 @@ Object {
           },
           "deploy:review": [Circular],
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -1331,7 +1331,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -1342,7 +1342,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -1353,7 +1353,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -1373,7 +1373,7 @@ Object {
       },
     },
     "deploy:staging": DeployStaging {
-      "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+      "circleConfigPath": ".circleci/config.yml",
       "id": "deploy:staging",
       "job": "tool-kit/heroku-staging",
       "jobOptions": Object {
@@ -1394,7 +1394,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -1411,7 +1411,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -1428,7 +1428,7 @@ Object {
           },
           "deploy:staging": [Circular],
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -1439,7 +1439,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -1450,7 +1450,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -1501,7 +1501,7 @@ Object {
           "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": DeployProduction {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:production",
               "job": "tool-kit/heroku-promote",
               "jobOptions": Object {
@@ -1518,7 +1518,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:review",
               "job": "tool-kit/heroku-provision",
               "jobOptions": Object {
@@ -1534,7 +1534,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:staging",
               "job": "tool-kit/heroku-staging",
               "jobOptions": Object {
@@ -1550,7 +1550,7 @@ Object {
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "teardown:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -1561,7 +1561,7 @@ Object {
               "plugin": [Circular],
             },
             "test:review": TestReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:review",
               "job": "tool-kit/e2e-test-review",
               "jobOptions": Object {
@@ -1572,7 +1572,7 @@ Object {
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -1657,7 +1657,7 @@ Object {
             "TestStaging": [Function],
             "hooks": Object {
               "deploy:production": DeployProduction {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:production",
                 "job": "tool-kit/heroku-promote",
                 "jobOptions": Object {
@@ -1674,7 +1674,7 @@ Object {
                 "plugin": [Circular],
               },
               "deploy:review": DeployReview {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:review",
                 "job": "tool-kit/heroku-provision",
                 "jobOptions": Object {
@@ -1690,7 +1690,7 @@ Object {
                 "plugin": [Circular],
               },
               "deploy:staging": DeployStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:staging",
                 "job": "tool-kit/heroku-staging",
                 "jobOptions": Object {
@@ -1706,7 +1706,7 @@ Object {
                 "plugin": [Circular],
               },
               "teardown:staging": TestStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "teardown:staging",
                 "job": "tool-kit/e2e-test-staging",
                 "jobOptions": Object {
@@ -1717,7 +1717,7 @@ Object {
                 "plugin": [Circular],
               },
               "test:review": TestReview {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "test:review",
                 "job": "tool-kit/e2e-test-review",
                 "jobOptions": Object {
@@ -1728,7 +1728,7 @@ Object {
                 "plugin": [Circular],
               },
               "test:staging": TestStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "test:staging",
                 "job": "tool-kit/e2e-test-staging",
                 "jobOptions": Object {
@@ -1761,7 +1761,7 @@ Object {
       },
     },
     "teardown:staging": TestStaging {
-      "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+      "circleConfigPath": ".circleci/config.yml",
       "id": "teardown:staging",
       "job": "tool-kit/e2e-test-staging",
       "jobOptions": Object {
@@ -1777,7 +1777,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -1794,7 +1794,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -1810,7 +1810,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -1827,7 +1827,7 @@ Object {
           },
           "teardown:staging": [Circular],
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -1838,7 +1838,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -1858,7 +1858,7 @@ Object {
       },
     },
     "test:ci": TestCI {
-      "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+      "circleConfigPath": ".circleci/config.yml",
       "id": "test:ci",
       "job": "tool-kit/test",
       "jobOptions": Object {
@@ -1871,7 +1871,7 @@ Object {
         "TestCI": [Function],
         "hooks": Object {
           "build:ci": BuildCI {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "build:ci",
             "job": "tool-kit/build",
             "jobOptions": Object {
@@ -1893,7 +1893,7 @@ Object {
           "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": DeployProduction {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:production",
               "job": "tool-kit/heroku-promote",
               "jobOptions": Object {
@@ -1910,7 +1910,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:review",
               "job": "tool-kit/heroku-provision",
               "jobOptions": Object {
@@ -1926,7 +1926,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:staging",
               "job": "tool-kit/heroku-staging",
               "jobOptions": Object {
@@ -1942,7 +1942,7 @@ Object {
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "teardown:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -1953,7 +1953,7 @@ Object {
               "plugin": [Circular],
             },
             "test:review": TestReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:review",
               "job": "tool-kit/e2e-test-review",
               "jobOptions": Object {
@@ -1964,7 +1964,7 @@ Object {
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -2043,7 +2043,7 @@ Object {
             "TestStaging": [Function],
             "hooks": Object {
               "deploy:production": DeployProduction {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:production",
                 "job": "tool-kit/heroku-promote",
                 "jobOptions": Object {
@@ -2060,7 +2060,7 @@ Object {
                 "plugin": [Circular],
               },
               "deploy:review": DeployReview {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:review",
                 "job": "tool-kit/heroku-provision",
                 "jobOptions": Object {
@@ -2076,7 +2076,7 @@ Object {
                 "plugin": [Circular],
               },
               "deploy:staging": DeployStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "deploy:staging",
                 "job": "tool-kit/heroku-staging",
                 "jobOptions": Object {
@@ -2092,7 +2092,7 @@ Object {
                 "plugin": [Circular],
               },
               "teardown:staging": TestStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "teardown:staging",
                 "job": "tool-kit/e2e-test-staging",
                 "jobOptions": Object {
@@ -2103,7 +2103,7 @@ Object {
                 "plugin": [Circular],
               },
               "test:review": TestReview {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "test:review",
                 "job": "tool-kit/e2e-test-review",
                 "jobOptions": Object {
@@ -2114,7 +2114,7 @@ Object {
                 "plugin": [Circular],
               },
               "test:staging": TestStaging {
-                "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+                "circleConfigPath": ".circleci/config.yml",
                 "id": "test:staging",
                 "job": "tool-kit/e2e-test-staging",
                 "jobOptions": Object {
@@ -2147,7 +2147,7 @@ Object {
       },
     },
     "test:review": TestReview {
-      "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+      "circleConfigPath": ".circleci/config.yml",
       "id": "test:review",
       "job": "tool-kit/e2e-test-review",
       "jobOptions": Object {
@@ -2163,7 +2163,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -2180,7 +2180,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -2196,7 +2196,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -2212,7 +2212,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -2224,7 +2224,7 @@ Object {
           },
           "test:review": [Circular],
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -2244,7 +2244,7 @@ Object {
       },
     },
     "test:staging": TestStaging {
-      "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+      "circleConfigPath": ".circleci/config.yml",
       "id": "test:staging",
       "job": "tool-kit/e2e-test-staging",
       "jobOptions": Object {
@@ -2260,7 +2260,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -2277,7 +2277,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -2293,7 +2293,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -2309,7 +2309,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -2320,7 +2320,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -2453,7 +2453,7 @@ Object {
       "TestStaging": [Function],
       "hooks": Object {
         "deploy:production": DeployProduction {
-          "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+          "circleConfigPath": ".circleci/config.yml",
           "id": "deploy:production",
           "job": "tool-kit/heroku-promote",
           "jobOptions": Object {
@@ -2470,7 +2470,7 @@ Object {
           "plugin": [Circular],
         },
         "deploy:review": DeployReview {
-          "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+          "circleConfigPath": ".circleci/config.yml",
           "id": "deploy:review",
           "job": "tool-kit/heroku-provision",
           "jobOptions": Object {
@@ -2486,7 +2486,7 @@ Object {
           "plugin": [Circular],
         },
         "deploy:staging": DeployStaging {
-          "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+          "circleConfigPath": ".circleci/config.yml",
           "id": "deploy:staging",
           "job": "tool-kit/heroku-staging",
           "jobOptions": Object {
@@ -2502,7 +2502,7 @@ Object {
           "plugin": [Circular],
         },
         "teardown:staging": TestStaging {
-          "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+          "circleConfigPath": ".circleci/config.yml",
           "id": "teardown:staging",
           "job": "tool-kit/e2e-test-staging",
           "jobOptions": Object {
@@ -2513,7 +2513,7 @@ Object {
           "plugin": [Circular],
         },
         "test:review": TestReview {
-          "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+          "circleConfigPath": ".circleci/config.yml",
           "id": "test:review",
           "job": "tool-kit/e2e-test-review",
           "jobOptions": Object {
@@ -2524,7 +2524,7 @@ Object {
           "plugin": [Circular],
         },
         "test:staging": TestStaging {
-          "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+          "circleConfigPath": ".circleci/config.yml",
           "id": "test:staging",
           "job": "tool-kit/e2e-test-staging",
           "jobOptions": Object {
@@ -2583,7 +2583,7 @@ Object {
       "TestCI": [Function],
       "hooks": Object {
         "build:ci": BuildCI {
-          "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+          "circleConfigPath": ".circleci/config.yml",
           "id": "build:ci",
           "job": "tool-kit/build",
           "jobOptions": Object {
@@ -2595,7 +2595,7 @@ Object {
           "plugin": [Circular],
         },
         "test:ci": TestCI {
-          "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+          "circleConfigPath": ".circleci/config.yml",
           "id": "test:ci",
           "job": "tool-kit/test",
           "jobOptions": Object {
@@ -2615,7 +2615,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -2632,7 +2632,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -2648,7 +2648,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -2664,7 +2664,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -2675,7 +2675,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -2686,7 +2686,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -2739,7 +2739,7 @@ Object {
         "TestStaging": [Function],
         "hooks": Object {
           "deploy:production": DeployProduction {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:production",
             "job": "tool-kit/heroku-promote",
             "jobOptions": Object {
@@ -2756,7 +2756,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:review",
             "job": "tool-kit/heroku-provision",
             "jobOptions": Object {
@@ -2772,7 +2772,7 @@ Object {
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "deploy:staging",
             "job": "tool-kit/heroku-staging",
             "jobOptions": Object {
@@ -2788,7 +2788,7 @@ Object {
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "teardown:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -2799,7 +2799,7 @@ Object {
             "plugin": [Circular],
           },
           "test:review": TestReview {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:review",
             "job": "tool-kit/e2e-test-review",
             "jobOptions": Object {
@@ -2810,7 +2810,7 @@ Object {
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
-            "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+            "circleConfigPath": ".circleci/config.yml",
             "id": "test:staging",
             "job": "tool-kit/e2e-test-staging",
             "jobOptions": Object {
@@ -2895,7 +2895,7 @@ Object {
           "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": DeployProduction {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:production",
               "job": "tool-kit/heroku-promote",
               "jobOptions": Object {
@@ -2912,7 +2912,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:review",
               "job": "tool-kit/heroku-provision",
               "jobOptions": Object {
@@ -2928,7 +2928,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:staging",
               "job": "tool-kit/heroku-staging",
               "jobOptions": Object {
@@ -2944,7 +2944,7 @@ Object {
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "teardown:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -2955,7 +2955,7 @@ Object {
               "plugin": [Circular],
             },
             "test:review": TestReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:review",
               "job": "tool-kit/e2e-test-review",
               "jobOptions": Object {
@@ -2966,7 +2966,7 @@ Object {
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -3034,7 +3034,7 @@ Object {
           "TestStaging": [Function],
           "hooks": Object {
             "deploy:production": DeployProduction {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:production",
               "job": "tool-kit/heroku-promote",
               "jobOptions": Object {
@@ -3051,7 +3051,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:review",
               "job": "tool-kit/heroku-provision",
               "jobOptions": Object {
@@ -3067,7 +3067,7 @@ Object {
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "deploy:staging",
               "job": "tool-kit/heroku-staging",
               "jobOptions": Object {
@@ -3083,7 +3083,7 @@ Object {
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "teardown:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
@@ -3094,7 +3094,7 @@ Object {
               "plugin": [Circular],
             },
             "test:review": TestReview {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:review",
               "job": "tool-kit/e2e-test-review",
               "jobOptions": Object {
@@ -3105,7 +3105,7 @@ Object {
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
-              "circleConfigPath": "/Users/ivo.murrell/Documents/ft/dotcom-tool-kit/.circleci/config.yml",
+              "circleConfigPath": ".circleci/config.yml",
               "id": "test:staging",
               "job": "tool-kit/e2e-test-staging",
               "jobOptions": Object {
