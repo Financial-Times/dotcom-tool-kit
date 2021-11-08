@@ -7,6 +7,15 @@
   "references": [
     {
       "path": "../task"
+    },
+    {
+      "path": "../error"
+    },
+    {
+      "path": "../types"
+    },
+    {
+      "path": "../cli"
     }
   ]
 }
