@@ -9,7 +9,7 @@ parameters:
       name.
     type: string
   environment:
-    default: unknown
+    default: production
     description: The environment in which the system is being changed.
     type: string
 
