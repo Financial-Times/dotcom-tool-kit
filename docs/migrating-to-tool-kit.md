@@ -182,10 +182,11 @@ Set a value for '${option}'
 
 Some plugins require configuration to work, whereas others might have optional
 settings that you may want to tweak. You must set all the required options to
-continue, though naturally the optional ones may be skipped. In the future, we
-will add support for default values in the migration tool (they are already
-available within Tool Kit itself,) so that for most cases you could accept
-default values, even for fields that are required.
+continue, though naturally the optional ones may be skipped. These options will
+be added to your `.toolkitrc`. In the future, we will add support for default
+values in the migration tool (they are already available within Tool Kit
+itself,) so that for most cases you could accept default values, even for fields
+that are required.
 
 ### Migrating Your Makefile
 
