@@ -103,6 +103,48 @@ may, however, opt to keep them for now if there are some esoteric tasks that
 they're handling that Tool Kit doesn't support yet (please let the platforms
 team know if you're having to do this so we can fill in that gap!)
 
+### Confirmation and Installation
+
+```
+so, we're gonna:
+
+install the following packages:
+- ${package 1}
+- ${package 2}
+
+uninstall the following packages:
+- ${package 3}
+- ${package 4}
+
+create a .toolkitrc.yml containing:
+${config contents}
+
+regenerate .circleci/config.yml
+
+sound good?
+```
+
+You'll be given an opportunity to review and confirm the changes you're making
+before executing them. If you do confirm them then the following will happen
+(skipping the steps you've not enabled):
+
+1. Your `package.json` will be modified with the listed packages
+   installed/uninstalled
+2. `npm install` will be run to update your `node_modules` and
+   `package-lock.json` (if applicable) with the npm changes
+3. The `.toolkitrc.yml` configuration file will be written listing the plugins
+   you've selected
+4. Deleting your old CircleCI configuration file ready to have a new one
+   regenerated
+5. Run `npx dotcom-tool-kit --install`. This command calls an `install` method
+   that's defined for each hook, which will handle the logic to slot the hook
+   into the place it's meant to 'hook' into, e.g., installing npm hooks into the
+   `scripts` property in the `package.json`. (This is also where the CircleCI
+   config is regenerated to insert the appropriate CI hooks.)
+
+Sometimes the final step will fail, but this usually indicates that there are
+some ambiguities in your configuration that can be clarified in the subsequent steps.
+
 ### Task Conflicts
 
 ```
