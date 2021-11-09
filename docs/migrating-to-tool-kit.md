@@ -89,7 +89,11 @@ different workflows you'd typically expect in a project. If you have a workflow
 that is a little atypical then you will be free to add those in after the file
 has been generated (you'll want to make sure you remove the automated header
 comment at the top of the file so that your changes aren't overwritten in the
-future.)
+future.) Feel free to peruse the [source
+code](https://github.com/Financial-Times/dotcom-tool-kit/tree/HEAD/orb/src) and
+the
+[documentation](https://circleci.com/developer/orbs/orb/financial-times/dotcom-tool-kit)
+to see the inner workings of the orb.
 
 ### Deleting n-gage
 
