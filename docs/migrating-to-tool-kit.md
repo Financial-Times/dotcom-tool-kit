@@ -101,7 +101,9 @@ n-gage and n-heroku-tools have now been replaced by Tool Kit and shouldn't be
 required any more so we suggest you delete them from your `package.json`. You
 may, however, opt to keep them for now if there are some esoteric tasks that
 they're handling that Tool Kit doesn't support yet (please let the platforms
-team know if you're having to do this so we can fill in that gap!)
+team know if you're having to do this on the
+[#cp-platforms-team](https://financialtimes.slack.com/archives/C3TJ6KXEU) Slack
+channel so we can fill in that gap!)
 
 ### Confirmation and Installation
 
