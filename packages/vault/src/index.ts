@@ -2,7 +2,6 @@ import fetch from '@financial-times/n-fetch'
 import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
-import moment from 'moment'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/vault'
@@ -20,6 +19,7 @@ export type VaultSettings = {
 
 type ReturnFetch = {
   data: Secrets
+  status: number
 }
 
 type Secrets = {
@@ -64,6 +64,17 @@ export class VaultEnvVars {
     return this.fetchSecrets(token)
   }
 
+  private async fetchTest(token: string): Promise<boolean> {
+    try {
+      await fetch<ReturnFetch>(`${VAULT_ADDR}/secret?help=1`, {
+        headers: { 'X-Vault-Token': token }
+      })
+      return true
+    } catch {
+      return false
+    }
+  }
+
   private async getAuthToken(): Promise<string> {
     const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
     const CIRCLECI = process.env.CIRCLECI
@@ -84,13 +95,17 @@ export class VaultEnvVars {
       // developer's local machine
       const vaultTokenFile = path.join(os.homedir(), '.vault-token')
       try {
-        const stats = await fs.stat(vaultTokenFile)
-        const fileExpired = moment().diff(stats.birthtime, 'hours') > 8
-        if (!fileExpired) {
-          const vaultToken = await fs.readFile(vaultTokenFile, {
-            encoding: 'utf8'
-          })
+        console.log('checking for current token')
+        const vaultToken = await fs.readFile(vaultTokenFile, {
+          encoding: 'utf8'
+        })
+        console.log('testing current token')
+        const validToken = await this.fetchTest(vaultToken)
+        if (validToken) {
+          console.log('success!')
           return vaultToken
+        } else {
+          console.log('current token invalid, requesting new one...')
         }
       } catch {
         console.log('no current vault token found, requesting new token....')
@@ -98,7 +113,7 @@ export class VaultEnvVars {
 
       try {
         if (VAULT_AUTH_GITHUB_TOKEN) {
-          console.log(`You are not logged in, logging you in...`)
+          console.log(`you are not logged in to vault, logging you in...`)
           const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
