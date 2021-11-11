@@ -97,14 +97,18 @@ export class VaultEnvVars {
   }
 
   private async getTokenFromVault(githubToken: string) {
-    console.log(`you are not logged in to vault, logging you in...`)
-    const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ token: githubToken })
-    })
-    await fs.writeFile(this.vaultTokenFile, token.auth.client_token)
-    return token.auth.client_token
+    try {
+      console.log(`you are not logged in to vault, logging you in...`)
+      const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({ token: githubToken })
+      })
+      await fs.writeFile(this.vaultTokenFile, token.auth.client_token)
+      return token.auth.client_token
+    } catch {
+      throw new ToolKitError('unable to complete vault authentication')
+    }
   }
 
   private async getAuthToken(): Promise<string> {
@@ -130,8 +134,12 @@ export class VaultEnvVars {
         return token
       } catch {
         if (VAULT_AUTH_GITHUB_TOKEN) {
-          const token = await this.getTokenFromVault(VAULT_AUTH_GITHUB_TOKEN)
-          return token
+          try {
+            const token = await this.getTokenFromVault(VAULT_AUTH_GITHUB_TOKEN)
+            return token
+          } catch (err) {
+            throw err
+          }
         } else {
           const error = new ToolKitError(`VAULT_AUTH_GITHUB_TOKEN variable is not set`)
           error.details = `Follow the guide at https://github.com/Financial-Times/vault/wiki/Getting-Started-With-Vault`
