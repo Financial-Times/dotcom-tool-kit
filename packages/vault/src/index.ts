@@ -41,6 +41,7 @@ type Token = {
 export class VaultEnvVars {
   vaultPath: VaultOptions
   environment: string
+  vaultTokenFile: string
 
   constructor({ environment, vaultPath }: VaultSettings) {
     this.environment = environment
@@ -57,6 +58,7 @@ export class VaultEnvVars {
     }
 
     this.vaultPath = options
+    this.vaultTokenFile = path.join(os.homedir(), '.vault-token')
   }
 
   async get(): Promise<Secrets> {
@@ -73,6 +75,36 @@ export class VaultEnvVars {
     } catch {
       return false
     }
+  }
+
+  private async handleLocalToken(): Promise<string> {
+    try {
+      console.log('checking for current token')
+      const vaultToken = await fs.readFile(this.vaultTokenFile, {
+        encoding: 'utf8'
+      })
+      console.log('testing current token')
+      const validToken = await this.fetchTest(vaultToken)
+      if (validToken) {
+        console.log('success!')
+        return vaultToken
+      } else {
+        throw new ToolKitError('current token invalid, requesting new one...')
+      }
+    } catch {
+      throw new ToolKitError('no current vault token found, requesting new token....')
+    }
+  }
+
+  private async getTokenFromVault(githubToken: string) {
+    console.log(`you are not logged in to vault, logging you in...`)
+    const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ token: githubToken })
+    })
+    await fs.writeFile(this.vaultTokenFile, token.auth.client_token)
+    return token.auth.client_token
   }
 
   private async getAuthToken(): Promise<string> {
@@ -93,47 +125,16 @@ export class VaultEnvVars {
       }
     } else {
       // developer's local machine
-      const vaultTokenFile = path.join(os.homedir(), '.vault-token')
       try {
-        console.log('checking for current token')
-        const vaultToken = await fs.readFile(vaultTokenFile, {
-          encoding: 'utf8'
-        })
-        console.log('testing current token')
-        const validToken = await this.fetchTest(vaultToken)
-        if (validToken) {
-          console.log('success!')
-          return vaultToken
-        } else {
-          console.log('current token invalid, requesting new one...')
-        }
+        const token = await this.handleLocalToken()
+        return token
       } catch {
-        console.log('no current vault token found, requesting new token....')
-      }
-
-      try {
         if (VAULT_AUTH_GITHUB_TOKEN) {
-          console.log(`you are not logged in to vault, logging you in...`)
-          const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ token: VAULT_AUTH_GITHUB_TOKEN })
-          })
-          await fs.writeFile(vaultTokenFile, token.auth.client_token)
-          return token.auth.client_token
+          const token = await this.getTokenFromVault(VAULT_AUTH_GITHUB_TOKEN)
+          return token
         } else {
           const error = new ToolKitError(`VAULT_AUTH_GITHUB_TOKEN variable is not set`)
           error.details = `Follow the guide at https://github.com/Financial-Times/vault/wiki/Getting-Started-With-Vault`
-          throw error
-        }
-      } catch (err) {
-        if (err instanceof ToolKitError) {
-          throw err
-        } else {
-          const error = new ToolKitError(`Vault login failed`)
-          if (err instanceof Error) {
-            error.details = err.message
-          }
           throw error
         }
       }
