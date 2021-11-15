@@ -10,7 +10,7 @@ type JobConfig = {
 }
 
 type TriggerConfig = {
-  schedule?: { cron: string, filters?: { branches: { only?: string; ignore?: string } } }
+  schedule?: { cron: string; filters?: { branches: { only?: string; ignore?: string } } }
 }
 
 type Workflow = {
@@ -136,18 +136,16 @@ export default abstract class CircleCiConfigHook extends Hook {
             }
           ]
         },
-        'nightly': {
+        nightly: {
           triggers: [
-            { 
-              'schedule': {
+            {
+              schedule: {
                 cron: '0 0 * * *',
-                filters: { branches: { only: 'main'}}
+                filters: { branches: { only: 'main' } }
               }
             }
           ],
-          jobs: [
-            'tool-kit/setup'
-          ]
+          jobs: ['tool-kit/setup']
         }
       }
     }
@@ -157,7 +155,10 @@ export default abstract class CircleCiConfigHook extends Hook {
       config.orbs['tool-kit'] = `financial-times/dotcom-tool-kit@${currentVersion}`
     }
 
-    if (!(config.workflows?.['tool-kit'] as Workflow).jobs || !(config.workflows?.['nightly'] as Workflow).jobs) {
+    if (
+      !(config.workflows?.['tool-kit'] as Workflow).jobs ||
+      !(config.workflows?.['nightly'] as Workflow).jobs
+    ) {
       throw new Error(
         'Found malformed CircleCI config that was automatically generated. Please delete and install again'
       )
@@ -175,7 +176,9 @@ export default abstract class CircleCiConfigHook extends Hook {
       if (this.addToNightly) {
         // clone job and remove waiting for approvals
         const clonedJob = JSON.parse(JSON.stringify(job))
-        clonedJob[this.job].requires = clonedJob[this.job].requires.filter((x: string) => x !== 'waiting-for-approval')
+        clonedJob[this.job].requires = clonedJob[this.job].requires.filter(
+          (x: string) => x !== 'waiting-for-approval'
+        )
         nightlyJobs.push(clonedJob)
       }
     }
