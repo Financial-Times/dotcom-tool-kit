@@ -151,20 +151,14 @@ export default abstract class CircleCiConfigHook extends Hook {
       config.orbs['tool-kit'] = `financial-times/dotcom-tool-kit@${currentVersion}`
     }
 
-    if (
-      !(config.workflows?.['tool-kit'] as Workflow).jobs ||
-      !(config.workflows?.['nightly'] as Workflow).jobs
-    ) {
+    const workflows = config.workflows as Record<string, Workflow>
+    const jobs = workflows?.['tool-kit']?.jobs
+    const nightlyJobs = workflows?.['nightly']?.jobs
+    if (!jobs || !nightlyJobs) {
       throw new Error(
         'Found malformed CircleCI config that was automatically generated. Please delete and install again'
       )
     }
-    // TypeScript can't seem to pick up that we've already checked the optional
-    // properties here
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const jobs = (config.workflows!['tool-kit'] as Workflow).jobs!
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const nightlyJobs = (config.workflows!['nightly'] as Workflow).jobs!
     const job = this.jobOptions ? { [this.job]: this.jobOptions } : this.job
     // Avoid duplicating jobs (this can happen when check() fails when the version is wrong)
     if (!jobs.some((candidateJob) => isEqual(candidateJob, job))) {
