@@ -154,11 +154,17 @@ export default abstract class CircleCiConfigHook extends Hook {
     const workflows = config.workflows as Record<string, Workflow>
     const jobs = workflows?.['tool-kit']?.jobs
     const nightlyJobs = workflows?.['nightly']?.jobs
-    if (!jobs || !nightlyJobs) {
+    if (!jobs) {
       throw new Error(
         'Found malformed CircleCI config that was automatically generated. Please delete and install again'
       )
     }
+    if (!nightlyJobs) {
+      throw new Error(
+        'Found an older version of the CircleCI config without a nightly workflow. Please delete and install again'
+      )
+    }
+
     const job = this.jobOptions ? { [this.job]: this.jobOptions } : this.job
     // Avoid duplicating jobs (this can happen when check() fails when the version is wrong)
     if (!jobs.some((candidateJob) => isEqual(candidateJob, job))) {
