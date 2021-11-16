@@ -15,7 +15,7 @@
       "path": "../husky-hook"
     },
     {
-      "path": "../task"
+      "path": "../types"
     }
   ],
   "include": ["src/**/*"]

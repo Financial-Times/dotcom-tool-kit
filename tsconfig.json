@@ -41,9 +41,6 @@
       "path": "packages/error"
     },
     {
-      "path": "packages/task"
-    },
-    {
       "path": "packages/package-json-hook"
     },
     {

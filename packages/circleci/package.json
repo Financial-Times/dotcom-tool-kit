@@ -7,7 +7,7 @@
     "test": "cd ../../ ; npx jest --silent --projects packages/circleci"
   },
   "dependencies": {
-    "@dotcom-tool-kit/hook": "file:../hook",
+    "@dotcom-tool-kit/types": "file:../types",
     "@dotcom-tool-kit/state": "file:../state",
     "js-yaml": "^4.1.0",
     "lodash.isequal": "^4.5.0"

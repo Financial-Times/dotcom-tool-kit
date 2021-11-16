@@ -2,15 +2,13 @@ import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
 
-import type { TaskClass } from '@dotcom-tool-kit/task'
-import type { Hook } from '@dotcom-tool-kit/hook'
-import type { HookTask } from './hook'
 import { Conflict, isConflict } from './conflict'
 import { Config, PluginOptions } from './config'
+import type { HookTask } from './hook'
+import { styles } from './messages'
 import { loadToolKitRC, RCFile } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Plugin, instantiatePlugin } from '@dotcom-tool-kit/hook'
-import { styles } from './messages'
+import { Hook, instantiatePlugin, Plugin, TaskClass } from '@dotcom-tool-kit/types'
 
 export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<Config> {
   const { plugins = [], hooks = {}, options = {} } = await loadToolKitRC(plugin.root)

@@ -2,7 +2,7 @@ import { promises as fs } from 'fs'
 import * as yaml from 'js-yaml'
 import isEqual from 'lodash.isequal'
 import path from 'path'
-import { Hook } from '@dotcom-tool-kit/hook'
+import { Hook } from '@dotcom-tool-kit/types'
 
 type JobConfig = {
   requires?: string[]

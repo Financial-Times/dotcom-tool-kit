@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../error",
-    "@dotcom-tool-kit/task": "file:../task",
     "@dotcom-tool-kit/types": "file:../types",
     "@financial-times/package-json": "^3.0.0",
     "@quarterto/parse-makefile-rules": "^1.1.0",

@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { register } from 'ft-next-router'
 import { readState } from '@dotcom-tool-kit/state'

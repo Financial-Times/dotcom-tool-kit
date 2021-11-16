@@ -6,7 +6,7 @@
   },
   "references": [
     {
-      "path": "../task"
+      "path": "../types"
     },
     {
       "path": "../circleci"

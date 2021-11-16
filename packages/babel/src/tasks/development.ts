@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 
 export default class BabelDevelopment extends Task {
   static description = 'build babel'

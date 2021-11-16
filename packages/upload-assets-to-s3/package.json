@@ -10,7 +10,6 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/task": "file:../task",
     "@dotcom-tool-kit/types": "file:../types",
     "aws-sdk": "^2.901.0",
     "glob": "^7.1.6",

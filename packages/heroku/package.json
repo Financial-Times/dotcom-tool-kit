@@ -14,7 +14,7 @@
     "@dotcom-tool-kit/npm": "file:../npm",
     "@dotcom-tool-kit/package-json-hook": "file:../package-json-hook",
     "@dotcom-tool-kit/state": "file:../state",
-    "@dotcom-tool-kit/task": "file:../task",
+    "@dotcom-tool-kit/types": "file:../types",
     "@dotcom-tool-kit/vault": "file:../vault",
     "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
     "@octokit/request": "^5.6.0",
@@ -32,7 +32,6 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/heroku",
   "devDependencies": {
-    "@dotcom-tool-kit/types": "file:../types",
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json",
     "@types/p-retry": "^3.0.1"
   },

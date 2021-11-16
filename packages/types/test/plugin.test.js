@@ -5,7 +5,7 @@
  */
 const { describe, it } = require('@jest/globals')
 const path = require('path')
-const { instantiatePlugin } = require('../lib/types')
+const { instantiatePlugin } = require('../lib')
 
 // TODO: come up with a better way to get list of plugins to test – perhaps by
 // separating plugins (like prettier) from libraries (like error) and apps (like

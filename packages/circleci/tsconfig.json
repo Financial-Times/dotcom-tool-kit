@@ -5,7 +5,7 @@
       "path": "../state"
     },
     {
-      "path": "../hook"
+      "path": "../types"
     }
   ],
   "compilerOptions": {

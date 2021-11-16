@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { NodeOptions, NodeSchema } from '@dotcom-tool-kit/types/lib/schema/node'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'

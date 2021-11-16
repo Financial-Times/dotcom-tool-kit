@@ -3,8 +3,7 @@ import colours from 'ansi-colors'
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { HookTask } from './hook'
-import { Plugin, Hook } from '@dotcom-tool-kit/hook'
-import type { TaskClass } from '@dotcom-tool-kit/task'
+import type { Plugin, Hook, TaskClass } from '@dotcom-tool-kit/types'
 
 // consistent styling use cases for terminal colours
 // don't use ansi-colors directly, define a style please

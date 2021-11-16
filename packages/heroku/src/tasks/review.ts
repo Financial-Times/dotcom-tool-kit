@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { getHerokuReviewApp } from '../getHerokuReviewApp'
 import { gtg } from '../gtg'
 import { setConfigVars } from '../setConfigVars'

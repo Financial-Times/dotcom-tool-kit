@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import * as fs from 'fs'
 import aws from 'aws-sdk'
 import path from 'path'

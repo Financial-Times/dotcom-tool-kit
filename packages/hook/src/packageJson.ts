@@ -1,7 +1,7 @@
-import path from 'path'
+import { Hook } from '@dotcom-tool-kit/types'
 import type { PackageJson } from '@financial-times/package-json'
 import loadPackageJson from '@financial-times/package-json'
-import { Hook } from './types'
+import path from 'path'
 
 type PackageJsonConfigField = {
   [key: string]: string

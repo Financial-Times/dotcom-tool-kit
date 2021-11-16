@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { SmokeTestSchema, SmokeTestOptions } from '@dotcom-tool-kit/types/lib/schema/n-test'
 import { SmokeTest } from '@financial-times/n-test'
 import { readState } from '@dotcom-tool-kit/state'

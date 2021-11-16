@@ -1,11 +1,10 @@
 import path from 'path'
 
-import type { TaskClass } from '@dotcom-tool-kit/task'
 import type { HookTask } from './hook'
-import { Hook, Plugin } from '@dotcom-tool-kit/hook'
 import { loadPluginConfig } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
+import type { TaskClass, Hook, Plugin } from '@dotcom-tool-kit/types'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,

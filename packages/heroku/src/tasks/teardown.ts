@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { readState } from '@dotcom-tool-kit/state'
 import { scaleDyno } from '../scaleDyno'
 import { ToolKitError } from '@dotcom-tool-kit/error'

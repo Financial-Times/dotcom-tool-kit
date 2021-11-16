@@ -2,7 +2,7 @@ import prettier from 'prettier'
 import { PrettierOptions, PrettierSchema } from '@dotcom-tool-kit/types/lib/schema/prettier'
 import { promises as fsp } from 'fs'
 import fg from 'fast-glob'
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default class Prettier extends Task<typeof PrettierSchema> {
