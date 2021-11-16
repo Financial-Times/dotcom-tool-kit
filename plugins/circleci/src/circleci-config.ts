@@ -80,7 +80,8 @@ export default abstract class CircleCiConfigHook extends Hook {
     const config = await this.getCircleConfig()
     const workflows = config?.workflows as Record<string, Workflow | undefined> | undefined
     const jobs = workflows?.['tool-kit']?.jobs
-    if (!jobs) {
+    const nightlyJobs = workflows?.['nightly']?.jobs
+    if (!jobs || !nightlyJobs) {
       return false
     }
 
@@ -96,11 +97,15 @@ export default abstract class CircleCiConfigHook extends Hook {
       }
     }
 
-    return jobs.some(
-      (job) =>
-        (typeof job === 'string' && job === this.job) ||
-        (typeof job === 'object' && job.hasOwnProperty(this.job))
-    )
+    function hasJob(expectedJob: string, jobs: NonNullable<Workflow['jobs']>): boolean {
+      return jobs.some(
+        (job) =>
+          (typeof job === 'string' && job === expectedJob) ||
+          (typeof job === 'object' && job.hasOwnProperty(expectedJob))
+      )
+    }
+
+    return hasJob(this.job, jobs) && (!this.addToNightly || hasJob(this.job, nightlyJobs))
   }
 
   async install(): Promise<void> {
