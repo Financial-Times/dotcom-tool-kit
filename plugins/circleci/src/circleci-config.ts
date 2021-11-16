@@ -78,17 +78,8 @@ export default abstract class CircleCiConfigHook extends Hook {
 
   async check(): Promise<boolean> {
     const config = await this.getCircleConfig()
-    const workflows = config?.workflows
-    // If the config has just one workflow defined check that one, else check
-    // the workflow named 'tool-kit'
-    const workflowName =
-      workflows && Object.keys(workflows).length === 2
-        ? // If the objects has two keys we know at least one isn't 'version'
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          Object.keys(workflows).find((workflow) => workflow !== 'version')!
-        : 'tool-kit'
-    const workflow = workflows?.[workflowName] as Workflow | undefined
-    const jobs = workflow?.jobs
+    const workflows = config?.workflows as Record<string, Workflow | undefined> | undefined
+    const jobs = workflows?.['tool-kit']?.jobs
     if (!jobs) {
       return false
     }
