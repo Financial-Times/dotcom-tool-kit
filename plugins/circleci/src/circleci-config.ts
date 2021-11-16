@@ -169,14 +169,17 @@ export default abstract class CircleCiConfigHook extends Hook {
     // Avoid duplicating jobs (this can happen when check() fails when the version is wrong)
     if (!jobs.some((candidateJob) => isEqual(candidateJob, job))) {
       jobs.push(job)
-      if (this.addToNightly) {
-        // clone job and remove waiting for approvals
-        const clonedJob = JSON.parse(JSON.stringify(job))
-        clonedJob[this.job].requires = clonedJob[this.job].requires.filter(
-          (x: string) => x !== 'waiting-for-approval'
-        )
-        nightlyJobs.push(clonedJob)
-      }
+    }
+    if (this.addToNightly && !nightlyJobs.some((candidateJob) => isEqual(candidateJob, job))) {
+      const nightlyJob = this.jobOptions
+        ? {
+            [this.job]: {
+              ...this.jobOptions,
+              requires: this.jobOptions.requires?.filter((x: string) => x !== 'waiting-for-approval')
+            }
+          }
+        : this.job
+      nightlyJobs.push(nightlyJob)
     }
 
     const serialised = automatedComment + yaml.dump(config)
