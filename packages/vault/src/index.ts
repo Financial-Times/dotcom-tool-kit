@@ -77,19 +77,21 @@ export class VaultEnvVars {
     }
   }
 
-  private async handleLocalToken(): Promise<string> {
+  private async getLocalToken(): Promise<string> {
     try {
       console.log('checking for current token')
       const vaultToken = await fs.readFile(this.vaultTokenFile, {
         encoding: 'utf8'
       })
       console.log('testing current token')
-      const validToken = await this.fetchTest(vaultToken)
-      if (validToken) {
+      const isValidToken = await this.fetchTest(vaultToken)
+      if (isValidToken) {
         console.log('success!')
         return vaultToken
       } else {
-        throw new ToolKitError('current token invalid, requesting new one...')
+        const message = 'current token invalid, requesting new one...'
+        console.error(message)
+        throw new ToolKitError(message)
       }
     } catch {
       throw new ToolKitError('no current vault token found, requesting new token....')
@@ -130,16 +132,12 @@ export class VaultEnvVars {
     } else {
       // developer's local machine
       try {
-        const token = await this.handleLocalToken()
+        const token = await this.getLocalToken()
         return token
       } catch {
         if (VAULT_AUTH_GITHUB_TOKEN) {
-          try {
-            const token = await this.getTokenFromVault(VAULT_AUTH_GITHUB_TOKEN)
-            return token
-          } catch (err) {
-            throw err
-          }
+          const token = await this.getTokenFromVault(VAULT_AUTH_GITHUB_TOKEN)
+          return token
         } else {
           const error = new ToolKitError(`VAULT_AUTH_GITHUB_TOKEN variable is not set`)
           error.details = `Follow the guide at https://github.com/Financial-Times/vault/wiki/Getting-Started-With-Vault`
