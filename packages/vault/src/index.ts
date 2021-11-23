@@ -9,8 +9,6 @@ import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/vault'
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID
 const VAULT_ADDR = 'https://vault.in.ft.com/v1'
-const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
-const CIRCLECI = process.env.CIRCLECI
 
 export type Environment = 'production' | 'continuous-integration' | 'development'
 
@@ -21,6 +19,7 @@ export type VaultSettings = {
 
 type ReturnFetch = {
   data: Secrets
+  status: number
 }
 
 type Secrets = {
@@ -42,6 +41,7 @@ type Token = {
 export class VaultEnvVars {
   vaultPath: VaultOptions
   environment: string
+  vaultTokenFile: string
 
   constructor({ environment, vaultPath }: VaultSettings) {
     this.environment = environment
@@ -58,6 +58,7 @@ export class VaultEnvVars {
     }
 
     this.vaultPath = options
+    this.vaultTokenFile = path.join(os.homedir(), '.vault-token')
   }
 
   async get(): Promise<Secrets> {
@@ -65,7 +66,56 @@ export class VaultEnvVars {
     return this.fetchSecrets(token)
   }
 
+  private async fetchTest(token: string): Promise<boolean> {
+    try {
+      await fetch<ReturnFetch>(`${VAULT_ADDR}/secret?help=1`, {
+        headers: { 'X-Vault-Token': token }
+      })
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  private async getLocalToken(): Promise<string> {
+    try {
+      console.log('checking for current token')
+      const vaultToken = await fs.readFile(this.vaultTokenFile, {
+        encoding: 'utf8'
+      })
+      console.log('testing current token')
+      const isValidToken = await this.fetchTest(vaultToken)
+      if (isValidToken) {
+        console.log('success!')
+        return vaultToken
+      } else {
+        const message = 'current token invalid, requesting new one...'
+        console.error(message)
+        throw new ToolKitError(message)
+      }
+    } catch {
+      throw new ToolKitError('no current vault token found, requesting new token....')
+    }
+  }
+
+  private async getTokenFromVault(githubToken: string) {
+    try {
+      console.log(`you are not logged in to vault, logging you in...`)
+      const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({ token: githubToken })
+      })
+      await fs.writeFile(this.vaultTokenFile, token.auth.client_token)
+      return token.auth.client_token
+    } catch {
+      throw new ToolKitError('unable to complete vault authentication')
+    }
+  }
+
   private async getAuthToken(): Promise<string> {
+    const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN
+    const CIRCLECI = process.env.CIRCLECI
     if (CIRCLECI) {
       try {
         const json = await fetch<Token>(`${VAULT_ADDR}/auth/approle/login`, {
@@ -82,28 +132,17 @@ export class VaultEnvVars {
     } else {
       // developer's local machine
       try {
-        const vaultTokenFile = await fs.readFile(path.join(os.homedir(), '.vault-token'), {
-          encoding: 'utf8'
-        })
-        if (vaultTokenFile) {
-          return vaultTokenFile
-        } else if (VAULT_AUTH_GITHUB_TOKEN) {
-          console.log(`You are not logged in, logging you in...`)
-          const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ token: VAULT_AUTH_GITHUB_TOKEN })
-          })
-          return token.auth.client_token
+        const token = await this.getLocalToken()
+        return token
+      } catch {
+        if (VAULT_AUTH_GITHUB_TOKEN) {
+          const token = await this.getTokenFromVault(VAULT_AUTH_GITHUB_TOKEN)
+          return token
         } else {
           const error = new ToolKitError(`VAULT_AUTH_GITHUB_TOKEN variable is not set`)
           error.details = `Follow the guide at https://github.com/Financial-Times/vault/wiki/Getting-Started-With-Vault`
           throw error
         }
-      } catch {
-        const error = new ToolKitError(`Vault login failed`)
-        error.details = `Please check your .vault-token is present`
-        throw error
       }
     }
   }

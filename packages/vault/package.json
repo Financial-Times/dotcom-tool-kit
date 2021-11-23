@@ -32,5 +32,9 @@
   ],
   "volta": {
     "extends": "../../package.json"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "node-fetch": "^1.7.3"
   }
 }
