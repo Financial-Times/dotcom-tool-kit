@@ -1,9 +1,9 @@
+import { getVaultOptions } from './getVaultOptions'
 import fetch from '@financial-times/n-fetch'
 import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { getOptions } from '@dotcom-tool-kit/options'
 import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/vault'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
@@ -39,14 +39,19 @@ type Token = {
 }
 
 export class VaultEnvVars {
-  vaultPath: VaultOptions
+  vaultPath: VaultOptions | undefined
   environment: string
   vaultTokenFile: string
 
   constructor({ environment, vaultPath }: VaultSettings) {
     this.environment = environment
-    const options = vaultPath || getOptions('@dotcom-tool-kit/vault')
-    if (!options || !('team' in options && 'app' in options)) {
+    this.vaultPath = vaultPath
+    this.vaultTokenFile = path.join(os.homedir(), '.vault-token')
+  }
+
+  async get(): Promise<Secrets> {
+    const options = this.vaultPath ?? (await getVaultOptions())
+    if (!('team' in options && 'app' in options)) {
       const error = new ToolKitError('Vault options not found in your Tool Kit configuration')
       error.details = `"team" and "app" are needed to get your app's secrets from vault, e.g.
         options:
@@ -56,14 +61,8 @@ export class VaultEnvVars {
             `
       throw error
     }
-
-    this.vaultPath = options
-    this.vaultTokenFile = path.join(os.homedir(), '.vault-token')
-  }
-
-  async get(): Promise<Secrets> {
     const token = await this.getAuthToken()
-    return this.fetchSecrets(token)
+    return this.fetchSecrets(token, options)
   }
 
   private async fetchTest(token: string): Promise<boolean> {
@@ -147,27 +146,27 @@ export class VaultEnvVars {
     }
   }
 
-  private async fetchSecrets(token: string): Promise<Secrets> {
+  private async fetchSecrets(token: string, vaultPath: VaultOptions): Promise<Secrets> {
     const headers = {
       headers: { 'X-Vault-Token': token }
     }
 
     try {
-      console.log(`vault add: ${VAULT_ADDR}, team: ${this.vaultPath.team}, env: ${this.environment}`)
+      console.log(`vault add: ${VAULT_ADDR}, team: ${vaultPath.team}, env: ${this.environment}`)
       const allShared = await fetch<ReturnFetch>(
-        `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/shared/${this.environment}`,
+        `${VAULT_ADDR}/secret/teams/${vaultPath.team}/shared/${this.environment}`,
         headers
       ).then((json) => json.data)
       console.log(`allShared: ${Object.keys(allShared)}`)
 
       const appEnv = await fetch<ReturnFetch>(
-        `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/${this.environment}`,
+        `${VAULT_ADDR}/secret/teams/${vaultPath.team}/${vaultPath.app}/${this.environment}`,
         headers
       ).then((json) => json.data)
       console.log(`appEnv: ${Object.keys(appEnv)}`)
 
       const appShared = await fetch<RequiredShared>(
-        `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/shared`,
+        `${VAULT_ADDR}/secret/teams/${vaultPath.team}/${vaultPath.app}/shared`,
         headers
       ).then((json) => json.data)
       console.log(`appShared: ${appShared}`)

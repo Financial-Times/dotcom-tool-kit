@@ -11,6 +11,7 @@
     "@dotcom-tool-kit/options": "file:../options",
     "@dotcom-tool-kit/types": "file:../types",
     "@financial-times/n-fetch": "^1.0.0-beta.7",
+    "cosmiconfig": "^7.0.1",
     "fs": "0.0.1-security",
     "os": "^0.1.2",
     "path": "^0.12.7",
