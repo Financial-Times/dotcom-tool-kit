@@ -66,7 +66,7 @@ describe('CircleCI config hook', () => {
                   })
                 ])
               },
-              'nightly': {
+              nightly: {
                 jobs: expect.arrayContaining([
                   expect.objectContaining({
                     'test-job': {
