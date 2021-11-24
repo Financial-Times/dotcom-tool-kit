@@ -2,16 +2,16 @@
   "extends": "../../tsconfig.settings.json",
   "references": [
     {
-      "path": "../wait-for-ok"
+      "path": "../../lib/wait-for-ok"
     },
     {
-      "path": "../error"
+      "path": "../../lib/error"
     },
     {
-      "path": "../types"
+      "path": "../../lib/types"
     },
     {
-      "path": "../hook"
+      "path": "../../lib/hook"
     }
   ],
   "compilerOptions": {

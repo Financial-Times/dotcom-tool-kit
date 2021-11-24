@@ -1,0 +1,37 @@
+{
+  "name": "@dotcom-tool-kit/prettier",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "cd ../../ ; npx jest --silent --projects plugins/prettier"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "fast-glob": "^3.2.7",
+    "prettier": "^2.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "plugins/prettier"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/prettier",
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ],
+  "devDependencies": {
+    "@jest/globals": "^26.6.2",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6"
+  },
+  "volta": {
+    "extends": "../../package.json"
+  }
+}

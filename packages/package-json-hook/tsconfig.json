@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.settings.json",
-  "compilerOptions": {
-    "outDir": "lib",
-    "rootDir": "src"
-  },
-  "references": [{ "path": "../hook" }],
-  "include": ["src/**/*"]
-}

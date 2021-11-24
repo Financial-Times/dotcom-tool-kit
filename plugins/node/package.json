@@ -1,0 +1,31 @@
+{
+  "name": "@dotcom-tool-kit/node",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/state": "file:../../lib/state",
+    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/vault": "file:../../lib/vault",
+    "get-port": "^5.1.1",
+    "wait-port": "^0.2.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "plugins/node"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/node",
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ]
+}

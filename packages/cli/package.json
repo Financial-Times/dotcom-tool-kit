@@ -28,11 +28,11 @@
     "ts-node": "^8.10.2"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "file:../error",
-    "@dotcom-tool-kit/hook": "file:../hook",
-    "@dotcom-tool-kit/options": "file:../options",
-    "@dotcom-tool-kit/types": "file:../types",
-    "@dotcom-tool-kit/wait-for-ok": "file:../wait-for-ok",
+    "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/hook": "file:../../lib/hook",
+    "@dotcom-tool-kit/options": "file:../../lib/options",
+    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/wait-for-ok": "file:../../lib/wait-for-ok",
     "ansi-colors": "^4.1.1",
     "cosmiconfig": "^7.0.0",
     "import-from": "^3.0.0",

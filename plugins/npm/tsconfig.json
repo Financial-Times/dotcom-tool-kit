@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "references": [
+    {
+      "path": "../../lib/error"
+    },
+    {
+      "path": "../../lib/package-json-hook"
+    },
+    {
+      "path": "../../lib/husky-hook"
+    },
+    {
+      "path": "../../lib/types"
+    }
+  ],
+  "include": ["src/**/*"]
+}

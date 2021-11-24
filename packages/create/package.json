@@ -11,8 +11,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/error": "file:../error",
-    "@dotcom-tool-kit/types": "file:../types",
+    "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/types": "file:../../lib/types",
     "@financial-times/package-json": "^3.0.0",
     "@quarterto/parse-makefile-rules": "^1.1.0",
     "dotcom-tool-kit": "file:../cli",

@@ -120,14 +120,14 @@ Object {
               "plugin": [Circular],
             },
           },
-          "id": "../../../../circleci-heroku",
+          "id": "../../../../../plugins/circleci-heroku",
           "parent": Object {
             "id": "successful test root",
             "root": "packages/cli/test/files/successful",
           },
-          "root": "packages/circleci-heroku/lib/index.js",
+          "root": "plugins/circleci-heroku/lib/index.js",
         },
-        "root": "packages/heroku/lib/index.js",
+        "root": "plugins/heroku/lib/index.js",
         "tasks": Array [
           [Function],
           [Function],
@@ -231,12 +231,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
       "tasks": Array [
         "HerokuProduction",
@@ -334,12 +334,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
       "tasks": Array [
         "HerokuReview",
@@ -437,12 +437,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
       "tasks": Array [
         "HerokuStaging",
@@ -540,12 +540,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
       "tasks": Array [
         "HerokuTeardown",
@@ -577,12 +577,12 @@ Object {
       "id": "test:review",
       "plugin": Object {
         "hooks": Object {},
-        "id": "../../../../n-test",
+        "id": "../../../../../plugins/n-test",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/n-test/lib/index.js",
+        "root": "plugins/n-test/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -595,12 +595,12 @@ Object {
       "id": "test:staged",
       "plugin": Object {
         "hooks": Object {},
-        "id": "../../../../eslint",
+        "id": "../../../../../plugins/eslint",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/eslint/lib/index.js",
+        "root": "plugins/eslint/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -613,12 +613,12 @@ Object {
       "id": "test:staging",
       "plugin": Object {
         "hooks": Object {},
-        "id": "../../../../n-test",
+        "id": "../../../../../plugins/n-test",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/n-test/lib/index.js",
+        "root": "plugins/n-test/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -747,14 +747,14 @@ Object {
               "plugin": [Circular],
             },
           },
-          "id": "../../../../circleci-heroku",
+          "id": "../../../../../plugins/circleci-heroku",
           "parent": Object {
             "id": "successful test root",
             "root": "packages/cli/test/files/successful",
           },
-          "root": "packages/circleci-heroku/lib/index.js",
+          "root": "plugins/circleci-heroku/lib/index.js",
         },
-        "root": "packages/circleci/lib/index.js",
+        "root": "plugins/circleci/lib/index.js",
       },
     },
     "build:local": BuildLocal {
@@ -897,14 +897,14 @@ Object {
                 "plugin": [Circular],
               },
             },
-            "id": "../../../../circleci-heroku",
+            "id": "../../../../../plugins/circleci-heroku",
             "parent": Object {
               "id": "successful test root",
               "root": "packages/cli/test/files/successful",
             },
-            "root": "packages/circleci-heroku/lib/index.js",
+            "root": "plugins/circleci-heroku/lib/index.js",
           },
-          "root": "packages/heroku/lib/index.js",
+          "root": "plugins/heroku/lib/index.js",
           "tasks": Array [
             [Function],
             [Function],
@@ -912,7 +912,7 @@ Object {
             [Function],
           ],
         },
-        "root": "packages/npm/lib/index.js",
+        "root": "plugins/npm/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -1032,14 +1032,14 @@ Object {
               "plugin": [Circular],
             },
           },
-          "id": "../../../../circleci-heroku",
+          "id": "../../../../../plugins/circleci-heroku",
           "parent": Object {
             "id": "successful test root",
             "root": "packages/cli/test/files/successful",
           },
-          "root": "packages/circleci-heroku/lib/index.js",
+          "root": "plugins/circleci-heroku/lib/index.js",
         },
-        "root": "packages/heroku/lib/index.js",
+        "root": "plugins/heroku/lib/index.js",
         "tasks": Array [
           [Function],
           [Function],
@@ -1162,14 +1162,14 @@ Object {
               "plugin": [Circular],
             },
           },
-          "id": "../../../../circleci-heroku",
+          "id": "../../../../../plugins/circleci-heroku",
           "parent": Object {
             "id": "successful test root",
             "root": "packages/cli/test/files/successful",
           },
-          "root": "packages/circleci-heroku/lib/index.js",
+          "root": "plugins/circleci-heroku/lib/index.js",
         },
-        "root": "packages/heroku/lib/index.js",
+        "root": "plugins/heroku/lib/index.js",
         "tasks": Array [
           [Function],
           [Function],
@@ -1267,12 +1267,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
     },
     "deploy:review": DeployReview {
@@ -1364,12 +1364,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
     },
     "deploy:staging": DeployStaging {
@@ -1461,12 +1461,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
     },
     "release:remote": ReleaseRemote {
@@ -1583,14 +1583,14 @@ Object {
               "plugin": [Circular],
             },
           },
-          "id": "../../../../circleci-heroku",
+          "id": "../../../../../plugins/circleci-heroku",
           "parent": Object {
             "id": "successful test root",
             "root": "packages/cli/test/files/successful",
           },
-          "root": "packages/circleci-heroku/lib/index.js",
+          "root": "plugins/circleci-heroku/lib/index.js",
         },
-        "root": "packages/heroku/lib/index.js",
+        "root": "plugins/heroku/lib/index.js",
         "tasks": Array [
           [Function],
           [Function],
@@ -1739,14 +1739,14 @@ Object {
                 "plugin": [Circular],
               },
             },
-            "id": "../../../../circleci-heroku",
+            "id": "../../../../../plugins/circleci-heroku",
             "parent": Object {
               "id": "successful test root",
               "root": "packages/cli/test/files/successful",
             },
-            "root": "packages/circleci-heroku/lib/index.js",
+            "root": "plugins/circleci-heroku/lib/index.js",
           },
-          "root": "packages/heroku/lib/index.js",
+          "root": "plugins/heroku/lib/index.js",
           "tasks": Array [
             [Function],
             [Function],
@@ -1754,7 +1754,7 @@ Object {
             [Function],
           ],
         },
-        "root": "packages/npm/lib/index.js",
+        "root": "plugins/npm/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -1849,12 +1849,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
     },
     "test:ci": TestCI {
@@ -1975,14 +1975,14 @@ Object {
               "plugin": [Circular],
             },
           },
-          "id": "../../../../circleci-heroku",
+          "id": "../../../../../plugins/circleci-heroku",
           "parent": Object {
             "id": "successful test root",
             "root": "packages/cli/test/files/successful",
           },
-          "root": "packages/circleci-heroku/lib/index.js",
+          "root": "plugins/circleci-heroku/lib/index.js",
         },
-        "root": "packages/circleci/lib/index.js",
+        "root": "plugins/circleci/lib/index.js",
       },
     },
     "test:local": TestLocal {
@@ -2125,14 +2125,14 @@ Object {
                 "plugin": [Circular],
               },
             },
-            "id": "../../../../circleci-heroku",
+            "id": "../../../../../plugins/circleci-heroku",
             "parent": Object {
               "id": "successful test root",
               "root": "packages/cli/test/files/successful",
             },
-            "root": "packages/circleci-heroku/lib/index.js",
+            "root": "plugins/circleci-heroku/lib/index.js",
           },
-          "root": "packages/heroku/lib/index.js",
+          "root": "plugins/heroku/lib/index.js",
           "tasks": Array [
             [Function],
             [Function],
@@ -2140,7 +2140,7 @@ Object {
             [Function],
           ],
         },
-        "root": "packages/npm/lib/index.js",
+        "root": "plugins/npm/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -2235,12 +2235,12 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
     },
     "test:staging": TestStaging {
@@ -2332,25 +2332,25 @@ Object {
           },
           "test:staging": [Circular],
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
     },
   },
   "options": Object {
-    "../../../../eslint": Object {
+    "../../../../../plugins/eslint": Object {
       "forPlugin": Object {
         "hooks": Object {},
-        "id": "../../../../eslint",
+        "id": "../../../../../plugins/eslint",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/eslint/lib/index.js",
+        "root": "plugins/eslint/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -2365,15 +2365,15 @@ Object {
         "root": "packages/cli/test/files/successful",
       },
     },
-    "../../../../mocha": Object {
+    "../../../../../plugins/mocha": Object {
       "forPlugin": Object {
         "hooks": Object {},
-        "id": "../../../../mocha",
+        "id": "../../../../../plugins/mocha",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/mocha/lib/index.js",
+        "root": "plugins/mocha/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -2386,15 +2386,15 @@ Object {
         "root": "packages/cli/test/files/successful",
       },
     },
-    "../../../../n-test": Object {
+    "../../../../../plugins/n-test": Object {
       "forPlugin": Object {
         "hooks": Object {},
-        "id": "../../../../n-test",
+        "id": "../../../../../plugins/n-test",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/n-test/lib/index.js",
+        "root": "plugins/n-test/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -2414,12 +2414,12 @@ Object {
       },
       "plugin": Object {
         "hooks": Object {},
-        "id": "../../../../eslint",
+        "id": "../../../../../plugins/eslint",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/eslint/lib/index.js",
+        "root": "plugins/eslint/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -2432,12 +2432,12 @@ Object {
       },
       "plugin": Object {
         "hooks": Object {},
-        "id": "../../../../mocha",
+        "id": "../../../../../plugins/mocha",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/mocha/lib/index.js",
+        "root": "plugins/mocha/lib/index.js",
         "tasks": Array [
           [Function],
         ],
@@ -2445,7 +2445,7 @@ Object {
     },
   },
   "plugins": Object {
-    "../../../../circleci-heroku": Object {
+    "../../../../../plugins/circleci-heroku": Object {
       "DeployProduction": [Function],
       "DeployReview": [Function],
       "DeployStaging": [Function],
@@ -2535,45 +2535,45 @@ Object {
           "plugin": [Circular],
         },
       },
-      "id": "../../../../circleci-heroku",
+      "id": "../../../../../plugins/circleci-heroku",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
-      "root": "packages/circleci-heroku/lib/index.js",
+      "root": "plugins/circleci-heroku/lib/index.js",
     },
-    "../../../../eslint": Object {
+    "../../../../../plugins/eslint": Object {
       "hooks": Object {},
-      "id": "../../../../eslint",
+      "id": "../../../../../plugins/eslint",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
-      "root": "packages/eslint/lib/index.js",
+      "root": "plugins/eslint/lib/index.js",
       "tasks": Array [
         [Function],
       ],
     },
-    "../../../../mocha": Object {
+    "../../../../../plugins/mocha": Object {
       "hooks": Object {},
-      "id": "../../../../mocha",
+      "id": "../../../../../plugins/mocha",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
-      "root": "packages/mocha/lib/index.js",
+      "root": "plugins/mocha/lib/index.js",
       "tasks": Array [
         [Function],
       ],
     },
-    "../../../../n-test": Object {
+    "../../../../../plugins/n-test": Object {
       "hooks": Object {},
-      "id": "../../../../n-test",
+      "id": "../../../../../plugins/n-test",
       "parent": Object {
         "id": "successful test root",
         "root": "packages/cli/test/files/successful",
       },
-      "root": "packages/n-test/lib/index.js",
+      "root": "plugins/n-test/lib/index.js",
       "tasks": Array [
         [Function],
       ],
@@ -2697,14 +2697,14 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
-      "root": "packages/circleci/lib/index.js",
+      "root": "plugins/circleci/lib/index.js",
     },
     "@dotcom-tool-kit/heroku": Object {
       "hooks": Object {
@@ -2821,14 +2821,14 @@ Object {
             "plugin": [Circular],
           },
         },
-        "id": "../../../../circleci-heroku",
+        "id": "../../../../../plugins/circleci-heroku",
         "parent": Object {
           "id": "successful test root",
           "root": "packages/cli/test/files/successful",
         },
-        "root": "packages/circleci-heroku/lib/index.js",
+        "root": "plugins/circleci-heroku/lib/index.js",
       },
-      "root": "packages/heroku/lib/index.js",
+      "root": "plugins/heroku/lib/index.js",
       "tasks": Array [
         [Function],
         [Function],
@@ -2977,14 +2977,14 @@ Object {
               "plugin": [Circular],
             },
           },
-          "id": "../../../../circleci-heroku",
+          "id": "../../../../../plugins/circleci-heroku",
           "parent": Object {
             "id": "successful test root",
             "root": "packages/cli/test/files/successful",
           },
-          "root": "packages/circleci-heroku/lib/index.js",
+          "root": "plugins/circleci-heroku/lib/index.js",
         },
-        "root": "packages/heroku/lib/index.js",
+        "root": "plugins/heroku/lib/index.js",
         "tasks": Array [
           [Function],
           [Function],
@@ -2992,7 +2992,7 @@ Object {
           [Function],
         ],
       },
-      "root": "packages/npm/lib/index.js",
+      "root": "plugins/npm/lib/index.js",
       "tasks": Array [
         [Function],
       ],
@@ -3116,14 +3116,14 @@ Object {
               "plugin": [Circular],
             },
           },
-          "id": "../../../../circleci-heroku",
+          "id": "../../../../../plugins/circleci-heroku",
           "parent": Object {
             "id": "successful test root",
             "root": "packages/cli/test/files/successful",
           },
-          "root": "packages/circleci-heroku/lib/index.js",
+          "root": "plugins/circleci-heroku/lib/index.js",
         },
-        "root": "packages/heroku/lib/index.js",
+        "root": "plugins/heroku/lib/index.js",
         "tasks": Array [
           [Function],
           [Function],
@@ -3131,7 +3131,7 @@ Object {
           [Function],
         ],
       },
-      "root": "packages/vault/lib/index.js",
+      "root": "lib/vault/lib/index.js",
     },
   },
   "root": "packages/cli",

@@ -1,8 +1,8 @@
 plugins:
-  - '../../../../webpack'
-  - '../../../../babel'
-  - '../../../../npm'
-  - '../../../../circleci-heroku'
+  - '../../../../../plugins/webpack'
+  - '../../../../../plugins/babel'
+  - '../../../../../plugins/npm'
+  - '../../../../../plugins/circleci-heroku'
 
 options:
 
