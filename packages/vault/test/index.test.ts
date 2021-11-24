@@ -2,6 +2,7 @@ import { describe, it, beforeAll, beforeEach, afterAll, jest, expect } from '@je
 import { VaultEnvVars } from '../src/index'
 import fetch from '@financial-times/n-fetch'
 import { mocked } from 'ts-jest/utils'
+import { getVaultOptions } from '../src/getVaultOptions'
 import fs from 'fs'
 
 let CIRCLECI: string
@@ -17,6 +18,12 @@ const mockedFetch = mocked(fetch, true)
 jest.mock('path', () => {
   return {
     join: jest.fn(() => '.vault-token')
+  }
+})
+
+jest.mock('../src/getVaultOptions', () => {
+  return {
+    getVaultOptions: jest.fn(() => ({ app: 'test-app-1', team: 'test-team-1' }))
   }
 })
 
@@ -39,6 +46,10 @@ const vault = new VaultEnvVars({
     app: 'test-app',
     team: 'test-team'
   }
+})
+
+const vaultNoOpts = new VaultEnvVars({
+  environment: 'development'
 })
 
 describe(`local vault token retrieval`, () => {
@@ -103,5 +114,13 @@ describe(`local vault token retrieval`, () => {
 
     expect(fs.promises.writeFile).toBeCalledTimes(1)
     expect(token).toEqual('ccc')
+  })
+
+  it('should check for toolkit options if none provided during instantiation', () => {
+    mockedFetch.mockImplementationOnce(async () => Promise.resolve({ auth: { client_token: 'aaa' } }))
+    process.env.VAULT_AUTH_GITHUB_TOKEN = 'abc'
+    vaultNoOpts.get()
+
+    expect(getVaultOptions).toBeCalledTimes(1)
   })
 })
