@@ -35,9 +35,9 @@ If you have multiple plugins installed that configure different tasks to run on 
 
 ### Plugins that define hooks
 
-- [`circleci`](packages/circleci/readme.md)
-- [`heroku`](packages/heroku/readme.md)
-- [`npm`](packages/npm/readme.md)
+- [`circleci`](plugins/circleci/readme.md)
+- [`heroku`](plugins/heroku/readme.md)
+- [`npm`](plugins/npm/readme.md)
 
 ## Configuration
 
@@ -58,7 +58,7 @@ or via a separate file, `.toolkitrc`, which can be YAML or JSON format:
 plugins: []
 ```
 
-A Tool Kit plugin can also contain configuration, allowing plugins to provide defaults. App configuration will always override plugin configuration. For an example of a complete configuration file, see the [`.toolkitrc.yml` in the `frontend-app` plugin](packages/frontend-app/.toolkitrc.yml).
+A Tool Kit plugin can also contain configuration, allowing plugins to provide defaults. App configuration will always override plugin configuration. For an example of a complete configuration file, see the [`.toolkitrc.yml` in the `frontend-app` plugin](plugins/frontend-app/.toolkitrc.yml).
 
 ### Options
 
@@ -101,7 +101,7 @@ If multiple plugins try to configure the same hooks, that's a conflict, and you 
 
 ## Development
 
-Tool Kit is a monorepo. The [`packages`](/packages) folder contains several different parts published separately to `npm`. [`packages/cli`](/packages/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export tasks that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
+Tool Kit is a monorepo. The [`plugins`](/plugins) folder contains several different parts published separately to `npm`. [`core/cli`](/core/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export tasks that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
 
 Tool Kit requires Node v12. To install the dependencies and link internal packages together, run:
 
@@ -109,7 +109,7 @@ Tool Kit requires Node v12. To install the dependencies and link internal packag
 npm install
 ```
 
-There's a testing sandbox at [`packages/sandbox`](/packages/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
+There's a testing sandbox at [`core/sandbox`](/core/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
 
 Tool Kit tasks are implemented via a simple `async run()` function, and written in Typescript.
 
@@ -127,7 +127,7 @@ and the script will create the plugin folder and add all the necessary configura
 
 
 To configure your plugin, do the following steps:
-- define the hook in packages/name-of-plugin/src/index.ts
+- define the hook in plugins/name-of-plugin/src/index.ts
   ```
   import Name-of-plugin from './tasks/name-of-plugin'
   import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
@@ -145,14 +145,14 @@ To configure your plugin, do the following steps:
     '<any name, eg. dummy:local>': HookName,
   }
   ```
-  you can find an example of this in packages/npm/src/index.ts
-- [optional] you can define the tasks used by the plugin in packages/name-of-plugin/.toolkit.yml, otherwise the default task is set 
+  you can find an example of this in plugins/npm/src/index.ts
+- [optional] you can define the tasks used by the plugin in plugins/name-of-plugin/.toolkit.yml, otherwise the default task is set 
   ```
   hooks:
     '<name of the hooks defined>:<local|ci|*>': name-of-plugin
     (you can add more if you want here)
   ```
-- [add the plugin](#plugins) to `packages/sandbox/.toolkitrc.yml`.
+- [add the plugin](#plugins) to `core/sandbox/.toolkitrc.yml`.
 
 
 Finally, build the created plugin by going to the root directory of this repository and running build:
@@ -165,8 +165,8 @@ npm run build
 To test your plugin, you can install it in the sandbox package:
 
 ```sh
-cd packages/sandbox
-npm install ../name-of-plugin
+cd core/sandbox
+npm install ../../plugins/name-of-plugin
 npx dotcom-tool-kit --install
 ```
 

@@ -83,7 +83,7 @@ are actually stored for the task. You should pass a `Schema` to `Task` if your
 plugin takes options, but it is safe to ignore this type parameter if your
 plugin does not.
 
-You should also follow the convention of storing your schema at `<tool kit root>/packages/types/schema/<package name>.ts`, and export it from the module as
+You should also follow the convention of storing your schema at `<tool kit root>/lib/types/schema/<package name>.ts`, and export it from the module as
 `Schema`. This allows the `create` package to dynamically read the schema and
 prompt the user for options to set when they are initialising Tool Kit and its
 plugins.
