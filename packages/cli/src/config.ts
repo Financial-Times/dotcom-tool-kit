@@ -1,10 +1,10 @@
 import path from 'path'
 
-import type { TaskClass } from '@dotcom-tool-kit/task'
-import type { HookTask, HookClass } from './hook'
-import { loadPluginConfig, Plugin } from './plugin'
+import type { HookTask } from './hook'
+import { loadPluginConfig } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
+import type { TaskClass, Hook, Plugin } from '@dotcom-tool-kit/types'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,
@@ -28,14 +28,14 @@ export interface Config {
   tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
-  hooks: { [id: string]: HookClass | Conflict<HookClass> }
+  hooks: { [id: string]: Hook | Conflict<Hook> }
 }
 
 export interface ValidConfig extends Config {
   tasks: { [id: string]: TaskClass }
   hookTasks: { [id: string]: HookTask }
   options: { [id: string]: PluginOptions }
-  hooks: { [id: string]: HookClass }
+  hooks: { [id: string]: Hook }
 }
 
 const coreRoot = path.resolve(__dirname, '../')
@@ -148,8 +148,7 @@ export async function validateConfig(config: Config): Promise<ValidConfig> {
 
 export async function checkInstall(config: ValidConfig): Promise<void> {
   const definedHooks = withoutConflicts(Object.values(config.hooks))
-  const uninstalledHooks = await asyncFilter(definedHooks, async (Hook) => {
-    const hook = new Hook()
+  const uninstalledHooks = await asyncFilter(definedHooks, async (hook) => {
     return !(await hook.check())
   })
 
@@ -175,3 +174,8 @@ export async function loadConfig({ validate = true } = {}): Promise<ValidConfig 
 
   return validate ? validateConfig(config) : config
 }
+
+// abstract class TestBase {}
+// class Test extends TestBase {}
+// const testBase = TestBase
+// const test = new testBase()

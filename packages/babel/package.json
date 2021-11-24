@@ -14,7 +14,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "keywords": [],
   "dependencies": {
-    "@dotcom-tool-kit/task": "file:../task"
+    "@dotcom-tool-kit/types": "file:../types"
   },
   "files": [
     "/lib",

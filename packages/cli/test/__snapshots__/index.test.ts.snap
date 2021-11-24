@@ -7,9 +7,27 @@ Object {
       "id": "cleanup:remote",
       "plugin": Object {
         "hooks": Object {
-          "build:remote": [Function],
-          "cleanup:remote": [Function],
-          "release:remote": [Function],
+          "build:remote": BuildRemote {
+            "field": "scripts",
+            "hook": "build:remote",
+            "id": "build:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "cleanup:remote": CleanupRemote {
+            "field": "scripts",
+            "hook": "cleanup:remote",
+            "id": "cleanup:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "release:remote": ReleaseRemote {
+            "field": "scripts",
+            "hook": "release:remote",
+            "id": "release:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
         },
         "id": "@dotcom-tool-kit/heroku",
         "parent": Object {
@@ -19,12 +37,88 @@ Object {
           "TestReview": [Function],
           "TestStaging": [Function],
           "hooks": Object {
-            "deploy:production": [Function],
-            "deploy:review": [Function],
-            "deploy:staging": [Function],
-            "teardown:staging": [Function],
-            "test:review": [Function],
-            "test:staging": [Function],
+            "deploy:production": DeployProduction {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:production",
+              "job": "tool-kit/heroku-promote",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/test",
+                  "tool-kit/e2e-test-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:review": DeployReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:review",
+              "job": "tool-kit/heroku-provision",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:staging": DeployStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:staging",
+              "job": "tool-kit/heroku-staging",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "teardown:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "teardown:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:review": TestReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:review",
+              "job": "tool-kit/e2e-test-review",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-provision",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
           },
           "id": "../../../../circleci-heroku",
           "parent": Object {
@@ -54,12 +148,88 @@ Object {
         "TestReview": [Function],
         "TestStaging": [Function],
         "hooks": Object {
-          "deploy:production": [Function],
-          "deploy:review": [Function],
-          "deploy:staging": [Function],
-          "teardown:staging": [Function],
-          "test:review": [Function],
-          "test:staging": [Function],
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -81,12 +251,88 @@ Object {
         "TestReview": [Function],
         "TestStaging": [Function],
         "hooks": Object {
-          "deploy:production": [Function],
-          "deploy:review": [Function],
-          "deploy:staging": [Function],
-          "teardown:staging": [Function],
-          "test:review": [Function],
-          "test:staging": [Function],
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -108,12 +354,88 @@ Object {
         "TestReview": [Function],
         "TestStaging": [Function],
         "hooks": Object {
-          "deploy:production": [Function],
-          "deploy:review": [Function],
-          "deploy:staging": [Function],
-          "teardown:staging": [Function],
-          "test:review": [Function],
-          "test:staging": [Function],
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -135,12 +457,88 @@ Object {
         "TestReview": [Function],
         "TestStaging": [Function],
         "hooks": Object {
-          "deploy:production": [Function],
-          "deploy:review": [Function],
-          "deploy:staging": [Function],
-          "teardown:staging": [Function],
-          "test:review": [Function],
-          "test:staging": [Function],
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -178,6 +576,7 @@ Object {
     "test:review": Object {
       "id": "test:review",
       "plugin": Object {
+        "hooks": Object {},
         "id": "../../../../n-test",
         "parent": Object {
           "id": "successful test root",
@@ -195,6 +594,7 @@ Object {
     "test:staged": Object {
       "id": "test:staged",
       "plugin": Object {
+        "hooks": Object {},
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
@@ -212,6 +612,7 @@ Object {
     "test:staging": Object {
       "id": "test:staging",
       "plugin": Object {
+        "hooks": Object {},
         "id": "../../../../n-test",
         "parent": Object {
           "id": "successful test root",
@@ -228,24 +629,1722 @@ Object {
     },
   },
   "hooks": Object {
-    "build:ci": [Function],
-    "build:local": [Function],
-    "build:remote": [Function],
-    "cleanup:remote": [Function],
-    "deploy:production": [Function],
-    "deploy:review": [Function],
-    "deploy:staging": [Function],
-    "release:remote": [Function],
-    "run:local": [Function],
-    "teardown:staging": [Function],
-    "test:ci": [Function],
-    "test:local": [Function],
-    "test:review": [Function],
-    "test:staging": [Function],
+    "build:ci": BuildCI {
+      "circleConfigPath": ".circleci/config.yml",
+      "id": "build:ci",
+      "job": "tool-kit/build",
+      "jobOptions": Object {
+        "requires": Array [
+          "tool-kit/setup",
+          "waiting-for-approval",
+        ],
+      },
+      "plugin": Object {
+        "BuildCI": [Function],
+        "TestCI": [Function],
+        "hooks": Object {
+          "build:ci": [Circular],
+          "test:ci": TestCI {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:ci",
+            "job": "tool-kit/test",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/build",
+              ],
+            },
+            "plugin": [Circular],
+          },
+        },
+        "id": "@dotcom-tool-kit/circleci",
+        "parent": Object {
+          "DeployProduction": [Function],
+          "DeployReview": [Function],
+          "DeployStaging": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
+          "hooks": Object {
+            "deploy:production": DeployProduction {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:production",
+              "job": "tool-kit/heroku-promote",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/test",
+                  "tool-kit/e2e-test-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:review": DeployReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:review",
+              "job": "tool-kit/heroku-provision",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:staging": DeployStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:staging",
+              "job": "tool-kit/heroku-staging",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "teardown:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "teardown:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:review": TestReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:review",
+              "job": "tool-kit/e2e-test-review",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-provision",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+          },
+          "id": "../../../../circleci-heroku",
+          "parent": Object {
+            "id": "successful test root",
+            "root": "packages/cli/test/files/successful",
+          },
+          "root": "packages/circleci-heroku/lib/index.js",
+        },
+        "root": "packages/circleci/lib/index.js",
+      },
+    },
+    "build:local": BuildLocal {
+      "field": "scripts",
+      "hook": "build:local",
+      "id": "build:local",
+      "key": "build",
+      "plugin": Object {
+        "PackageJsonHook": [Function],
+        "hooks": Object {
+          "build:local": [Circular],
+          "run:local": RunLocal {
+            "field": "scripts",
+            "hook": "run:local",
+            "id": "run:local",
+            "key": "start",
+            "plugin": [Circular],
+          },
+          "test:local": TestLocal {
+            "field": "scripts",
+            "hook": "test:local",
+            "id": "test:local",
+            "key": "test",
+            "plugin": [Circular],
+          },
+        },
+        "id": "@dotcom-tool-kit/npm",
+        "parent": Object {
+          "hooks": Object {
+            "build:remote": BuildRemote {
+              "field": "scripts",
+              "hook": "build:remote",
+              "id": "build:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+            "cleanup:remote": CleanupRemote {
+              "field": "scripts",
+              "hook": "cleanup:remote",
+              "id": "cleanup:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+            "release:remote": ReleaseRemote {
+              "field": "scripts",
+              "hook": "release:remote",
+              "id": "release:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+          },
+          "id": "@dotcom-tool-kit/heroku",
+          "parent": Object {
+            "DeployProduction": [Function],
+            "DeployReview": [Function],
+            "DeployStaging": [Function],
+            "TestReview": [Function],
+            "TestStaging": [Function],
+            "hooks": Object {
+              "deploy:production": DeployProduction {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:production",
+                "job": "tool-kit/heroku-promote",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "only": "main",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/test",
+                    "tool-kit/e2e-test-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "deploy:review": DeployReview {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:review",
+                "job": "tool-kit/heroku-provision",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/setup",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "deploy:staging": DeployStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:staging",
+                "job": "tool-kit/heroku-staging",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "only": "main",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/setup",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "teardown:staging": TestStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "teardown:staging",
+                "job": "tool-kit/e2e-test-staging",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "test:review": TestReview {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "test:review",
+                "job": "tool-kit/e2e-test-review",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-provision",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "test:staging": TestStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "test:staging",
+                "job": "tool-kit/e2e-test-staging",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+            },
+            "id": "../../../../circleci-heroku",
+            "parent": Object {
+              "id": "successful test root",
+              "root": "packages/cli/test/files/successful",
+            },
+            "root": "packages/circleci-heroku/lib/index.js",
+          },
+          "root": "packages/heroku/lib/index.js",
+          "tasks": Array [
+            [Function],
+            [Function],
+            [Function],
+            [Function],
+          ],
+        },
+        "root": "packages/npm/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
+      },
+    },
+    "build:remote": BuildRemote {
+      "field": "scripts",
+      "hook": "build:remote",
+      "id": "build:remote",
+      "key": "heroku-postbuild",
+      "plugin": Object {
+        "hooks": Object {
+          "build:remote": [Circular],
+          "cleanup:remote": CleanupRemote {
+            "field": "scripts",
+            "hook": "cleanup:remote",
+            "id": "cleanup:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "release:remote": ReleaseRemote {
+            "field": "scripts",
+            "hook": "release:remote",
+            "id": "release:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+        },
+        "id": "@dotcom-tool-kit/heroku",
+        "parent": Object {
+          "DeployProduction": [Function],
+          "DeployReview": [Function],
+          "DeployStaging": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
+          "hooks": Object {
+            "deploy:production": DeployProduction {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:production",
+              "job": "tool-kit/heroku-promote",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/test",
+                  "tool-kit/e2e-test-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:review": DeployReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:review",
+              "job": "tool-kit/heroku-provision",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:staging": DeployStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:staging",
+              "job": "tool-kit/heroku-staging",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "teardown:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "teardown:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:review": TestReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:review",
+              "job": "tool-kit/e2e-test-review",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-provision",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+          },
+          "id": "../../../../circleci-heroku",
+          "parent": Object {
+            "id": "successful test root",
+            "root": "packages/cli/test/files/successful",
+          },
+          "root": "packages/circleci-heroku/lib/index.js",
+        },
+        "root": "packages/heroku/lib/index.js",
+        "tasks": Array [
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+        ],
+      },
+    },
+    "cleanup:remote": CleanupRemote {
+      "field": "scripts",
+      "hook": "cleanup:remote",
+      "id": "cleanup:remote",
+      "key": "heroku-postbuild",
+      "plugin": Object {
+        "hooks": Object {
+          "build:remote": BuildRemote {
+            "field": "scripts",
+            "hook": "build:remote",
+            "id": "build:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "cleanup:remote": [Circular],
+          "release:remote": ReleaseRemote {
+            "field": "scripts",
+            "hook": "release:remote",
+            "id": "release:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+        },
+        "id": "@dotcom-tool-kit/heroku",
+        "parent": Object {
+          "DeployProduction": [Function],
+          "DeployReview": [Function],
+          "DeployStaging": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
+          "hooks": Object {
+            "deploy:production": DeployProduction {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:production",
+              "job": "tool-kit/heroku-promote",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/test",
+                  "tool-kit/e2e-test-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:review": DeployReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:review",
+              "job": "tool-kit/heroku-provision",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:staging": DeployStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:staging",
+              "job": "tool-kit/heroku-staging",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "teardown:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "teardown:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:review": TestReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:review",
+              "job": "tool-kit/e2e-test-review",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-provision",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+          },
+          "id": "../../../../circleci-heroku",
+          "parent": Object {
+            "id": "successful test root",
+            "root": "packages/cli/test/files/successful",
+          },
+          "root": "packages/circleci-heroku/lib/index.js",
+        },
+        "root": "packages/heroku/lib/index.js",
+        "tasks": Array [
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+        ],
+      },
+    },
+    "deploy:production": DeployProduction {
+      "circleConfigPath": ".circleci/config.yml",
+      "id": "deploy:production",
+      "job": "tool-kit/heroku-promote",
+      "jobOptions": Object {
+        "filters": Object {
+          "branches": Object {
+            "only": "main",
+          },
+        },
+        "requires": Array [
+          "tool-kit/test",
+          "tool-kit/e2e-test-staging",
+        ],
+      },
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": [Circular],
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+    },
+    "deploy:review": DeployReview {
+      "circleConfigPath": ".circleci/config.yml",
+      "id": "deploy:review",
+      "job": "tool-kit/heroku-provision",
+      "jobOptions": Object {
+        "filters": Object {
+          "branches": Object {
+            "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+          },
+        },
+        "requires": Array [
+          "tool-kit/setup",
+        ],
+      },
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": [Circular],
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+    },
+    "deploy:staging": DeployStaging {
+      "circleConfigPath": ".circleci/config.yml",
+      "id": "deploy:staging",
+      "job": "tool-kit/heroku-staging",
+      "jobOptions": Object {
+        "filters": Object {
+          "branches": Object {
+            "only": "main",
+          },
+        },
+        "requires": Array [
+          "tool-kit/setup",
+        ],
+      },
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": [Circular],
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+    },
+    "release:remote": ReleaseRemote {
+      "field": "scripts",
+      "hook": "release:remote",
+      "id": "release:remote",
+      "key": "heroku-postbuild",
+      "plugin": Object {
+        "hooks": Object {
+          "build:remote": BuildRemote {
+            "field": "scripts",
+            "hook": "build:remote",
+            "id": "build:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "cleanup:remote": CleanupRemote {
+            "field": "scripts",
+            "hook": "cleanup:remote",
+            "id": "cleanup:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "release:remote": [Circular],
+        },
+        "id": "@dotcom-tool-kit/heroku",
+        "parent": Object {
+          "DeployProduction": [Function],
+          "DeployReview": [Function],
+          "DeployStaging": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
+          "hooks": Object {
+            "deploy:production": DeployProduction {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:production",
+              "job": "tool-kit/heroku-promote",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/test",
+                  "tool-kit/e2e-test-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:review": DeployReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:review",
+              "job": "tool-kit/heroku-provision",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:staging": DeployStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:staging",
+              "job": "tool-kit/heroku-staging",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "teardown:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "teardown:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:review": TestReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:review",
+              "job": "tool-kit/e2e-test-review",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-provision",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+          },
+          "id": "../../../../circleci-heroku",
+          "parent": Object {
+            "id": "successful test root",
+            "root": "packages/cli/test/files/successful",
+          },
+          "root": "packages/circleci-heroku/lib/index.js",
+        },
+        "root": "packages/heroku/lib/index.js",
+        "tasks": Array [
+          [Function],
+          [Function],
+          [Function],
+          [Function],
+        ],
+      },
+    },
+    "run:local": RunLocal {
+      "field": "scripts",
+      "hook": "run:local",
+      "id": "run:local",
+      "key": "start",
+      "plugin": Object {
+        "PackageJsonHook": [Function],
+        "hooks": Object {
+          "build:local": BuildLocal {
+            "field": "scripts",
+            "hook": "build:local",
+            "id": "build:local",
+            "key": "build",
+            "plugin": [Circular],
+          },
+          "run:local": [Circular],
+          "test:local": TestLocal {
+            "field": "scripts",
+            "hook": "test:local",
+            "id": "test:local",
+            "key": "test",
+            "plugin": [Circular],
+          },
+        },
+        "id": "@dotcom-tool-kit/npm",
+        "parent": Object {
+          "hooks": Object {
+            "build:remote": BuildRemote {
+              "field": "scripts",
+              "hook": "build:remote",
+              "id": "build:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+            "cleanup:remote": CleanupRemote {
+              "field": "scripts",
+              "hook": "cleanup:remote",
+              "id": "cleanup:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+            "release:remote": ReleaseRemote {
+              "field": "scripts",
+              "hook": "release:remote",
+              "id": "release:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+          },
+          "id": "@dotcom-tool-kit/heroku",
+          "parent": Object {
+            "DeployProduction": [Function],
+            "DeployReview": [Function],
+            "DeployStaging": [Function],
+            "TestReview": [Function],
+            "TestStaging": [Function],
+            "hooks": Object {
+              "deploy:production": DeployProduction {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:production",
+                "job": "tool-kit/heroku-promote",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "only": "main",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/test",
+                    "tool-kit/e2e-test-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "deploy:review": DeployReview {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:review",
+                "job": "tool-kit/heroku-provision",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/setup",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "deploy:staging": DeployStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:staging",
+                "job": "tool-kit/heroku-staging",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "only": "main",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/setup",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "teardown:staging": TestStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "teardown:staging",
+                "job": "tool-kit/e2e-test-staging",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "test:review": TestReview {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "test:review",
+                "job": "tool-kit/e2e-test-review",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-provision",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "test:staging": TestStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "test:staging",
+                "job": "tool-kit/e2e-test-staging",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+            },
+            "id": "../../../../circleci-heroku",
+            "parent": Object {
+              "id": "successful test root",
+              "root": "packages/cli/test/files/successful",
+            },
+            "root": "packages/circleci-heroku/lib/index.js",
+          },
+          "root": "packages/heroku/lib/index.js",
+          "tasks": Array [
+            [Function],
+            [Function],
+            [Function],
+            [Function],
+          ],
+        },
+        "root": "packages/npm/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
+      },
+    },
+    "teardown:staging": TestStaging {
+      "circleConfigPath": ".circleci/config.yml",
+      "id": "teardown:staging",
+      "job": "tool-kit/e2e-test-staging",
+      "jobOptions": Object {
+        "requires": Array [
+          "tool-kit/heroku-staging",
+        ],
+      },
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": [Circular],
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+    },
+    "test:ci": TestCI {
+      "circleConfigPath": ".circleci/config.yml",
+      "id": "test:ci",
+      "job": "tool-kit/test",
+      "jobOptions": Object {
+        "requires": Array [
+          "tool-kit/build",
+        ],
+      },
+      "plugin": Object {
+        "BuildCI": [Function],
+        "TestCI": [Function],
+        "hooks": Object {
+          "build:ci": BuildCI {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "build:ci",
+            "job": "tool-kit/build",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/setup",
+                "waiting-for-approval",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:ci": [Circular],
+        },
+        "id": "@dotcom-tool-kit/circleci",
+        "parent": Object {
+          "DeployProduction": [Function],
+          "DeployReview": [Function],
+          "DeployStaging": [Function],
+          "TestReview": [Function],
+          "TestStaging": [Function],
+          "hooks": Object {
+            "deploy:production": DeployProduction {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:production",
+              "job": "tool-kit/heroku-promote",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/test",
+                  "tool-kit/e2e-test-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:review": DeployReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:review",
+              "job": "tool-kit/heroku-provision",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:staging": DeployStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:staging",
+              "job": "tool-kit/heroku-staging",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "teardown:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "teardown:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:review": TestReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:review",
+              "job": "tool-kit/e2e-test-review",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-provision",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+          },
+          "id": "../../../../circleci-heroku",
+          "parent": Object {
+            "id": "successful test root",
+            "root": "packages/cli/test/files/successful",
+          },
+          "root": "packages/circleci-heroku/lib/index.js",
+        },
+        "root": "packages/circleci/lib/index.js",
+      },
+    },
+    "test:local": TestLocal {
+      "field": "scripts",
+      "hook": "test:local",
+      "id": "test:local",
+      "key": "test",
+      "plugin": Object {
+        "PackageJsonHook": [Function],
+        "hooks": Object {
+          "build:local": BuildLocal {
+            "field": "scripts",
+            "hook": "build:local",
+            "id": "build:local",
+            "key": "build",
+            "plugin": [Circular],
+          },
+          "run:local": RunLocal {
+            "field": "scripts",
+            "hook": "run:local",
+            "id": "run:local",
+            "key": "start",
+            "plugin": [Circular],
+          },
+          "test:local": [Circular],
+        },
+        "id": "@dotcom-tool-kit/npm",
+        "parent": Object {
+          "hooks": Object {
+            "build:remote": BuildRemote {
+              "field": "scripts",
+              "hook": "build:remote",
+              "id": "build:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+            "cleanup:remote": CleanupRemote {
+              "field": "scripts",
+              "hook": "cleanup:remote",
+              "id": "cleanup:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+            "release:remote": ReleaseRemote {
+              "field": "scripts",
+              "hook": "release:remote",
+              "id": "release:remote",
+              "key": "heroku-postbuild",
+              "plugin": [Circular],
+            },
+          },
+          "id": "@dotcom-tool-kit/heroku",
+          "parent": Object {
+            "DeployProduction": [Function],
+            "DeployReview": [Function],
+            "DeployStaging": [Function],
+            "TestReview": [Function],
+            "TestStaging": [Function],
+            "hooks": Object {
+              "deploy:production": DeployProduction {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:production",
+                "job": "tool-kit/heroku-promote",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "only": "main",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/test",
+                    "tool-kit/e2e-test-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "deploy:review": DeployReview {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:review",
+                "job": "tool-kit/heroku-provision",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/setup",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "deploy:staging": DeployStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "deploy:staging",
+                "job": "tool-kit/heroku-staging",
+                "jobOptions": Object {
+                  "filters": Object {
+                    "branches": Object {
+                      "only": "main",
+                    },
+                  },
+                  "requires": Array [
+                    "tool-kit/setup",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "teardown:staging": TestStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "teardown:staging",
+                "job": "tool-kit/e2e-test-staging",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "test:review": TestReview {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "test:review",
+                "job": "tool-kit/e2e-test-review",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-provision",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+              "test:staging": TestStaging {
+                "circleConfigPath": ".circleci/config.yml",
+                "id": "test:staging",
+                "job": "tool-kit/e2e-test-staging",
+                "jobOptions": Object {
+                  "requires": Array [
+                    "tool-kit/heroku-staging",
+                  ],
+                },
+                "plugin": [Circular],
+              },
+            },
+            "id": "../../../../circleci-heroku",
+            "parent": Object {
+              "id": "successful test root",
+              "root": "packages/cli/test/files/successful",
+            },
+            "root": "packages/circleci-heroku/lib/index.js",
+          },
+          "root": "packages/heroku/lib/index.js",
+          "tasks": Array [
+            [Function],
+            [Function],
+            [Function],
+            [Function],
+          ],
+        },
+        "root": "packages/npm/lib/index.js",
+        "tasks": Array [
+          [Function],
+        ],
+      },
+    },
+    "test:review": TestReview {
+      "circleConfigPath": ".circleci/config.yml",
+      "id": "test:review",
+      "job": "tool-kit/e2e-test-review",
+      "jobOptions": Object {
+        "requires": Array [
+          "tool-kit/heroku-provision",
+        ],
+      },
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": [Circular],
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+    },
+    "test:staging": TestStaging {
+      "circleConfigPath": ".circleci/config.yml",
+      "id": "test:staging",
+      "job": "tool-kit/e2e-test-staging",
+      "jobOptions": Object {
+        "requires": Array [
+          "tool-kit/heroku-staging",
+        ],
+      },
+      "plugin": Object {
+        "DeployProduction": [Function],
+        "DeployReview": [Function],
+        "DeployStaging": [Function],
+        "TestReview": [Function],
+        "TestStaging": [Function],
+        "hooks": Object {
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": [Circular],
+        },
+        "id": "../../../../circleci-heroku",
+        "parent": Object {
+          "id": "successful test root",
+          "root": "packages/cli/test/files/successful",
+        },
+        "root": "packages/circleci-heroku/lib/index.js",
+      },
+    },
   },
   "options": Object {
     "../../../../eslint": Object {
       "forPlugin": Object {
+        "hooks": Object {},
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
@@ -268,6 +2367,7 @@ Object {
     },
     "../../../../mocha": Object {
       "forPlugin": Object {
+        "hooks": Object {},
         "id": "../../../../mocha",
         "parent": Object {
           "id": "successful test root",
@@ -288,6 +2388,7 @@ Object {
     },
     "../../../../n-test": Object {
       "forPlugin": Object {
+        "hooks": Object {},
         "id": "../../../../n-test",
         "parent": Object {
           "id": "successful test root",
@@ -312,6 +2413,7 @@ Object {
         "files": "**/*.js",
       },
       "plugin": Object {
+        "hooks": Object {},
         "id": "../../../../eslint",
         "parent": Object {
           "id": "successful test root",
@@ -329,6 +2431,7 @@ Object {
         "files": "test/**/*.js",
       },
       "plugin": Object {
+        "hooks": Object {},
         "id": "../../../../mocha",
         "parent": Object {
           "id": "successful test root",
@@ -349,12 +2452,88 @@ Object {
       "TestReview": [Function],
       "TestStaging": [Function],
       "hooks": Object {
-        "deploy:production": [Function],
-        "deploy:review": [Function],
-        "deploy:staging": [Function],
-        "teardown:staging": [Function],
-        "test:review": [Function],
-        "test:staging": [Function],
+        "deploy:production": DeployProduction {
+          "circleConfigPath": ".circleci/config.yml",
+          "id": "deploy:production",
+          "job": "tool-kit/heroku-promote",
+          "jobOptions": Object {
+            "filters": Object {
+              "branches": Object {
+                "only": "main",
+              },
+            },
+            "requires": Array [
+              "tool-kit/test",
+              "tool-kit/e2e-test-staging",
+            ],
+          },
+          "plugin": [Circular],
+        },
+        "deploy:review": DeployReview {
+          "circleConfigPath": ".circleci/config.yml",
+          "id": "deploy:review",
+          "job": "tool-kit/heroku-provision",
+          "jobOptions": Object {
+            "filters": Object {
+              "branches": Object {
+                "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+              },
+            },
+            "requires": Array [
+              "tool-kit/setup",
+            ],
+          },
+          "plugin": [Circular],
+        },
+        "deploy:staging": DeployStaging {
+          "circleConfigPath": ".circleci/config.yml",
+          "id": "deploy:staging",
+          "job": "tool-kit/heroku-staging",
+          "jobOptions": Object {
+            "filters": Object {
+              "branches": Object {
+                "only": "main",
+              },
+            },
+            "requires": Array [
+              "tool-kit/setup",
+            ],
+          },
+          "plugin": [Circular],
+        },
+        "teardown:staging": TestStaging {
+          "circleConfigPath": ".circleci/config.yml",
+          "id": "teardown:staging",
+          "job": "tool-kit/e2e-test-staging",
+          "jobOptions": Object {
+            "requires": Array [
+              "tool-kit/heroku-staging",
+            ],
+          },
+          "plugin": [Circular],
+        },
+        "test:review": TestReview {
+          "circleConfigPath": ".circleci/config.yml",
+          "id": "test:review",
+          "job": "tool-kit/e2e-test-review",
+          "jobOptions": Object {
+            "requires": Array [
+              "tool-kit/heroku-provision",
+            ],
+          },
+          "plugin": [Circular],
+        },
+        "test:staging": TestStaging {
+          "circleConfigPath": ".circleci/config.yml",
+          "id": "test:staging",
+          "job": "tool-kit/e2e-test-staging",
+          "jobOptions": Object {
+            "requires": Array [
+              "tool-kit/heroku-staging",
+            ],
+          },
+          "plugin": [Circular],
+        },
       },
       "id": "../../../../circleci-heroku",
       "parent": Object {
@@ -364,6 +2543,7 @@ Object {
       "root": "packages/circleci-heroku/lib/index.js",
     },
     "../../../../eslint": Object {
+      "hooks": Object {},
       "id": "../../../../eslint",
       "parent": Object {
         "id": "successful test root",
@@ -375,6 +2555,7 @@ Object {
       ],
     },
     "../../../../mocha": Object {
+      "hooks": Object {},
       "id": "../../../../mocha",
       "parent": Object {
         "id": "successful test root",
@@ -386,6 +2567,7 @@ Object {
       ],
     },
     "../../../../n-test": Object {
+      "hooks": Object {},
       "id": "../../../../n-test",
       "parent": Object {
         "id": "successful test root",
@@ -400,8 +2582,29 @@ Object {
       "BuildCI": [Function],
       "TestCI": [Function],
       "hooks": Object {
-        "build:ci": [Function],
-        "test:ci": [Function],
+        "build:ci": BuildCI {
+          "circleConfigPath": ".circleci/config.yml",
+          "id": "build:ci",
+          "job": "tool-kit/build",
+          "jobOptions": Object {
+            "requires": Array [
+              "tool-kit/setup",
+              "waiting-for-approval",
+            ],
+          },
+          "plugin": [Circular],
+        },
+        "test:ci": TestCI {
+          "circleConfigPath": ".circleci/config.yml",
+          "id": "test:ci",
+          "job": "tool-kit/test",
+          "jobOptions": Object {
+            "requires": Array [
+              "tool-kit/build",
+            ],
+          },
+          "plugin": [Circular],
+        },
       },
       "id": "@dotcom-tool-kit/circleci",
       "parent": Object {
@@ -411,12 +2614,88 @@ Object {
         "TestReview": [Function],
         "TestStaging": [Function],
         "hooks": Object {
-          "deploy:production": [Function],
-          "deploy:review": [Function],
-          "deploy:staging": [Function],
-          "teardown:staging": [Function],
-          "test:review": [Function],
-          "test:staging": [Function],
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -429,9 +2708,27 @@ Object {
     },
     "@dotcom-tool-kit/heroku": Object {
       "hooks": Object {
-        "build:remote": [Function],
-        "cleanup:remote": [Function],
-        "release:remote": [Function],
+        "build:remote": BuildRemote {
+          "field": "scripts",
+          "hook": "build:remote",
+          "id": "build:remote",
+          "key": "heroku-postbuild",
+          "plugin": [Circular],
+        },
+        "cleanup:remote": CleanupRemote {
+          "field": "scripts",
+          "hook": "cleanup:remote",
+          "id": "cleanup:remote",
+          "key": "heroku-postbuild",
+          "plugin": [Circular],
+        },
+        "release:remote": ReleaseRemote {
+          "field": "scripts",
+          "hook": "release:remote",
+          "id": "release:remote",
+          "key": "heroku-postbuild",
+          "plugin": [Circular],
+        },
       },
       "id": "@dotcom-tool-kit/heroku",
       "parent": Object {
@@ -441,12 +2738,88 @@ Object {
         "TestReview": [Function],
         "TestStaging": [Function],
         "hooks": Object {
-          "deploy:production": [Function],
-          "deploy:review": [Function],
-          "deploy:staging": [Function],
-          "teardown:staging": [Function],
-          "test:review": [Function],
-          "test:staging": [Function],
+          "deploy:production": DeployProduction {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:production",
+            "job": "tool-kit/heroku-promote",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/test",
+                "tool-kit/e2e-test-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:review": DeployReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:review",
+            "job": "tool-kit/heroku-provision",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "deploy:staging": DeployStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "deploy:staging",
+            "job": "tool-kit/heroku-staging",
+            "jobOptions": Object {
+              "filters": Object {
+                "branches": Object {
+                  "only": "main",
+                },
+              },
+              "requires": Array [
+                "tool-kit/setup",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "teardown:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "teardown:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:review": TestReview {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:review",
+            "job": "tool-kit/e2e-test-review",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-provision",
+              ],
+            },
+            "plugin": [Circular],
+          },
+          "test:staging": TestStaging {
+            "circleConfigPath": ".circleci/config.yml",
+            "id": "test:staging",
+            "job": "tool-kit/e2e-test-staging",
+            "jobOptions": Object {
+              "requires": Array [
+                "tool-kit/heroku-staging",
+              ],
+            },
+            "plugin": [Circular],
+          },
         },
         "id": "../../../../circleci-heroku",
         "parent": Object {
@@ -466,16 +2839,52 @@ Object {
     "@dotcom-tool-kit/npm": Object {
       "PackageJsonHook": [Function],
       "hooks": Object {
-        "build:local": [Function],
-        "run:local": [Function],
-        "test:local": [Function],
+        "build:local": BuildLocal {
+          "field": "scripts",
+          "hook": "build:local",
+          "id": "build:local",
+          "key": "build",
+          "plugin": [Circular],
+        },
+        "run:local": RunLocal {
+          "field": "scripts",
+          "hook": "run:local",
+          "id": "run:local",
+          "key": "start",
+          "plugin": [Circular],
+        },
+        "test:local": TestLocal {
+          "field": "scripts",
+          "hook": "test:local",
+          "id": "test:local",
+          "key": "test",
+          "plugin": [Circular],
+        },
       },
       "id": "@dotcom-tool-kit/npm",
       "parent": Object {
         "hooks": Object {
-          "build:remote": [Function],
-          "cleanup:remote": [Function],
-          "release:remote": [Function],
+          "build:remote": BuildRemote {
+            "field": "scripts",
+            "hook": "build:remote",
+            "id": "build:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "cleanup:remote": CleanupRemote {
+            "field": "scripts",
+            "hook": "cleanup:remote",
+            "id": "cleanup:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "release:remote": ReleaseRemote {
+            "field": "scripts",
+            "hook": "release:remote",
+            "id": "release:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
         },
         "id": "@dotcom-tool-kit/heroku",
         "parent": Object {
@@ -485,12 +2894,88 @@ Object {
           "TestReview": [Function],
           "TestStaging": [Function],
           "hooks": Object {
-            "deploy:production": [Function],
-            "deploy:review": [Function],
-            "deploy:staging": [Function],
-            "teardown:staging": [Function],
-            "test:review": [Function],
-            "test:staging": [Function],
+            "deploy:production": DeployProduction {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:production",
+              "job": "tool-kit/heroku-promote",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/test",
+                  "tool-kit/e2e-test-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:review": DeployReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:review",
+              "job": "tool-kit/heroku-provision",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:staging": DeployStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:staging",
+              "job": "tool-kit/heroku-staging",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "teardown:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "teardown:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:review": TestReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:review",
+              "job": "tool-kit/e2e-test-review",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-provision",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
           },
           "id": "../../../../circleci-heroku",
           "parent": Object {
@@ -514,12 +2999,31 @@ Object {
     },
     "@dotcom-tool-kit/vault": Object {
       "VaultEnvVars": [Function],
+      "hooks": Object {},
       "id": "@dotcom-tool-kit/vault",
       "parent": Object {
         "hooks": Object {
-          "build:remote": [Function],
-          "cleanup:remote": [Function],
-          "release:remote": [Function],
+          "build:remote": BuildRemote {
+            "field": "scripts",
+            "hook": "build:remote",
+            "id": "build:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "cleanup:remote": CleanupRemote {
+            "field": "scripts",
+            "hook": "cleanup:remote",
+            "id": "cleanup:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
+          "release:remote": ReleaseRemote {
+            "field": "scripts",
+            "hook": "release:remote",
+            "id": "release:remote",
+            "key": "heroku-postbuild",
+            "plugin": [Circular],
+          },
         },
         "id": "@dotcom-tool-kit/heroku",
         "parent": Object {
@@ -529,12 +3033,88 @@ Object {
           "TestReview": [Function],
           "TestStaging": [Function],
           "hooks": Object {
-            "deploy:production": [Function],
-            "deploy:review": [Function],
-            "deploy:staging": [Function],
-            "teardown:staging": [Function],
-            "test:review": [Function],
-            "test:staging": [Function],
+            "deploy:production": DeployProduction {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:production",
+              "job": "tool-kit/heroku-promote",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/test",
+                  "tool-kit/e2e-test-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:review": DeployReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:review",
+              "job": "tool-kit/heroku-provision",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "ignore": "/(^renovate-.*|^nori/.*|^main)/",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "deploy:staging": DeployStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "deploy:staging",
+              "job": "tool-kit/heroku-staging",
+              "jobOptions": Object {
+                "filters": Object {
+                  "branches": Object {
+                    "only": "main",
+                  },
+                },
+                "requires": Array [
+                  "tool-kit/setup",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "teardown:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "teardown:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:review": TestReview {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:review",
+              "job": "tool-kit/e2e-test-review",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-provision",
+                ],
+              },
+              "plugin": [Circular],
+            },
+            "test:staging": TestStaging {
+              "circleConfigPath": ".circleci/config.yml",
+              "id": "test:staging",
+              "job": "tool-kit/e2e-test-staging",
+              "jobOptions": Object {
+                "requires": Array [
+                  "tool-kit/heroku-staging",
+                ],
+              },
+              "plugin": [Circular],
+            },
           },
           "id": "../../../../circleci-heroku",
           "parent": Object {

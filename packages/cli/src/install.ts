@@ -5,9 +5,7 @@ import { Config, loadConfig } from './config'
 export default async function installHooks(): Promise<Config> {
   const config = await loadConfig()
 
-  const tasks = Object.values(config.hooks).map((Hook) => async () => {
-    const hook = new Hook()
-
+  const tasks = Object.values(config.hooks).map((hook) => async () => {
     if (!(await hook.check())) {
       await hook.install()
     }

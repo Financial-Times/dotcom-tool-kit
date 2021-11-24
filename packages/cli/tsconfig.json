@@ -8,7 +8,10 @@
       "path": "../error"
     },
     {
-      "path": "../task"
+      "path": "../types"
+    },
+    {
+      "path": "../hook"
     }
   ],
   "compilerOptions": {

@@ -3,6 +3,9 @@
   "references": [
     {
       "path": "../state"
+    },
+    {
+      "path": "../types"
     }
   ],
   "compilerOptions": {

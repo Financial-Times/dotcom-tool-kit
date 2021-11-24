@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig.settings.json",
-  "references": [{ "path": "../types" }],
+  "references": [{ "path": "../types" }, { "path": "../error" }],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
-  }
+  },
+  "include": ["src/**/*"]
 }

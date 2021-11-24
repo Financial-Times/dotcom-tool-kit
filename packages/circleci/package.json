@@ -7,6 +7,7 @@
     "test": "cd ../../ ; npx jest --silent --projects packages/circleci"
   },
   "dependencies": {
+    "@dotcom-tool-kit/types": "file:../types",
     "@dotcom-tool-kit/state": "file:../state",
     "js-yaml": "^4.1.0",
     "lodash.isequal": "^4.5.0"
@@ -23,9 +24,9 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/circleci",
   "devDependencies": {
     "@jest/globals": "^26.6.2",
+    "@types/jest": "^26.0.24",
     "@types/js-yaml": "^4.0.3",
-    "@types/lodash.isequal": "^4.5.5",
-    "@types/jest": "^26.0.24"
+    "@types/lodash.isequal": "^4.5.5"
   },
   "files": [
     "/lib",

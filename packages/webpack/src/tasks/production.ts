@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { WebpackSchema } from '@dotcom-tool-kit/types/lib/schema/webpack'
 import runWebpack from '../run-webpack'
 

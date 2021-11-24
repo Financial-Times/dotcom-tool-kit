@@ -12,7 +12,6 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../error",
     "@dotcom-tool-kit/state": "file:../state",
-    "@dotcom-tool-kit/task": "file:../task",
     "@dotcom-tool-kit/types": "file:../types",
     "@dotcom-tool-kit/vault": "file:../vault",
     "get-port": "^5.1.1",

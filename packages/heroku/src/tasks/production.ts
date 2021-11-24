@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { HerokuOptions, HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'

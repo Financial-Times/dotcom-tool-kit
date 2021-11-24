@@ -24,6 +24,10 @@ function makeConfigPathsRelative(config: Config) {
 
   for (const hook of Object.values(config.hooks)) {
     if (hook.plugin) makeRootRelative(hook.plugin)
+    const circleHook = hook as any
+    if (circleHook.circleConfigPath) {
+      circleHook.circleConfigPath = path.relative(process.cwd(), circleHook.circleConfigPath)
+    }
   }
 
   for (const task of Object.values(config.tasks)) {

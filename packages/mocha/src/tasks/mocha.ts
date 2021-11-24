@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import MochaCore from 'mocha'
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'

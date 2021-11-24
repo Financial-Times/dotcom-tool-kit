@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
 import { setConfigVars } from '../setConfigVars'
@@ -32,11 +32,7 @@ options:
 
       //apply vars from vault
 
-      await setConfigVars(
-        appName,
-        'production',
-        this.options.systemCode
-      )
+      await setConfigVars(appName, 'production', this.options.systemCode)
 
       //scale up staging
       await scaleDyno(appName, 1)

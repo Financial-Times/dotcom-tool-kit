@@ -14,7 +14,7 @@
     "@dotcom-tool-kit/error": "file:../error",
     "@dotcom-tool-kit/husky-hook": "file:../husky-hook",
     "@dotcom-tool-kit/package-json-hook": "file:../package-json-hook",
-    "@dotcom-tool-kit/task": "file:../task"
+    "@dotcom-tool-kit/types": "file:../types"
   },
   "repository": {
     "type": "git",

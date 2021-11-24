@@ -8,9 +8,6 @@
       "path": "../state"
     },
     {
-      "path": "../task"
-    },
-    {
       "path": "../error"
     },
     {

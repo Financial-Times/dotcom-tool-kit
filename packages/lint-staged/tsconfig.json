@@ -4,6 +4,6 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "references": [{ "path": "../hook" }],
+  "references": [{ "path": "../hook" }, { "path": "../types" }],
   "include": ["src/**/*"]
 }

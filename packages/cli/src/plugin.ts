@@ -2,21 +2,13 @@ import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
 
-import type { TaskClass } from '@dotcom-tool-kit/task'
-import type { HookTask, HookClass } from './hook'
 import { Conflict, isConflict } from './conflict'
 import { Config, PluginOptions } from './config'
+import type { HookTask } from './hook'
+import { styles } from './messages'
 import { loadToolKitRC, RCFile } from './rc-file'
-
-export interface Plugin {
-  id: string
-  root: string
-  parent?: Plugin
-  tasks?: TaskClass[]
-  hooks?: {
-    [id: string]: HookClass
-  }
-}
+import { ToolKitError } from '@dotcom-tool-kit/error'
+import { Hook, instantiatePlugin, Plugin, TaskClass } from '@dotcom-tool-kit/types'
 
 export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<Config> {
   const { plugins = [], hooks = {}, options = {} } = await loadToolKitRC(plugin.root)
@@ -123,7 +115,18 @@ export async function loadPlugin(id: string, config: Config, parent?: Plugin): P
 
   // load plugin relative to the parent plugin
   const pluginRoot = resolveFrom(root, id)
-  const basePlugin = importFrom(root, id) as Plugin
+  const rawPlugin = importFrom(root, id)
+  let basePlugin
+  try {
+    basePlugin = instantiatePlugin(rawPlugin)
+  } catch (error) {
+    if (error instanceof ToolKitError) {
+      error.details = `the package ${styles.plugin(id)} at ${styles.filepath(
+        pluginRoot
+      )} is not a valid plugin`
+    }
+    throw error
+  }
   const plugin: Plugin = {
     ...basePlugin,
     id,
@@ -164,11 +167,7 @@ export async function loadPlugin(id: string, config: Config, parent?: Plugin): P
     config.hooks,
     plugin.hooks,
 
-    (
-      existingHook: HookClass | Conflict<HookClass>,
-      newHook: HookClass,
-      hookId
-    ): HookClass | Conflict<HookClass> => {
+    (existingHook: Hook | Conflict<Hook>, newHook: Hook, hookId): Hook | Conflict<Hook> => {
       newHook.id = hookId
       newHook.plugin = plugin
 

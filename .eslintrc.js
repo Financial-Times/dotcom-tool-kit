@@ -12,9 +12,9 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['jest.config.js'],
+      files: ['*.js'],
       rules: {
-        // Jest config files don't support ES6 module imports
+        // We are still using CommonJS imports in our JS files
         '@typescript-eslint/no-var-requires': 'off'
       }
     }
