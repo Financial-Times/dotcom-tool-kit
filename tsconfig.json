@@ -32,7 +32,7 @@
       "path": "plugins/upload-assets-to-s3"
     },
     {
-      "path": "packages/cli"
+      "path": "core/cli"
     },
     {
       "path": "plugins/circleci"
@@ -56,7 +56,7 @@
       "path": "plugins/circleci-heroku"
     },
     {
-      "path": "packages/create"
+      "path": "core/create"
     },
     {
       "path": "lib/types"

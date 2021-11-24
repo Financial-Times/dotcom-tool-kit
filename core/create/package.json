@@ -26,10 +26,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
-    "directory": "packages/create"
+    "directory": "core/create"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/packages/create",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/core/create",
   "files": [
     "/lib",
     ".toolkitrc.yml"

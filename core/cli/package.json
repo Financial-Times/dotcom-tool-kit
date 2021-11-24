@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
-    "directory": "packages/cli"
+    "directory": "core/cli"
   },
   "homepage": "https://github.com/financial-times/dotcom-tool-kit",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
@@ -17,7 +17,7 @@
     "dotcom-tool-kit": "./bin/run"
   },
   "scripts": {
-    "test": "cd ../../ ; npx jest --silent --projects packages/cli"
+    "test": "cd ../../ ; npx jest --silent --projects core/cli"
   },
   "devDependencies": {
     "@jest/globals": "^26.6.2",
