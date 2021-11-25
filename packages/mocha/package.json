@@ -12,7 +12,7 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../error",
     "@dotcom-tool-kit/types": "file:../types",
-    "fs": "0.0.1-security",
+    "fs": "0.0.2",
     "glob": "^7.1.7",
     "mocha": "^8.3.2"
   },
