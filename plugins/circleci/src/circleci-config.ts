@@ -126,10 +126,17 @@ export default abstract class CircleCiConfigHook extends Hook {
     const config = (await this.getCircleConfig()) ?? {
       version: 2.1,
       orbs: { 'tool-kit': 'financial-times/dotcom-tool-kit@dev:alpha' },
+      jobs: {
+        checkout: {
+          docker: [{ image: 'cimg/base:stable' }],
+          steps: ['checkout', 'tool-kit/persist-workspace']
+        }
+      },
       workflows: {
         version: 2,
         'tool-kit': {
           jobs: [
+            'checkout',
             {
               'waiting-for-approval': {
                 type: 'approval',
@@ -138,7 +145,7 @@ export default abstract class CircleCiConfigHook extends Hook {
             },
             {
               'tool-kit/setup': {
-                requires: ['waiting-for-approval']
+                requires: ['checkout', 'waiting-for-approval']
               }
             }
           ]
