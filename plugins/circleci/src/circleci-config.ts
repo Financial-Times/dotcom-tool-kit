@@ -130,11 +130,15 @@ export default abstract class CircleCiConfigHook extends Hook {
         version: 2,
         'tool-kit': {
           jobs: [
-            'tool-kit/setup',
             {
               'waiting-for-approval': {
                 type: 'approval',
                 filters: { branches: { only: '/(^renovate-.*|^nori/.*)/' } }
+              }
+            },
+            {
+              'tool-kit/setup': {
+                requires: ['waiting-for-approval']
               }
             }
           ]
