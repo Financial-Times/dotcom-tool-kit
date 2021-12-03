@@ -1,0 +1,9 @@
+plugins:
+  - '../../../../../plugins/webpack'
+  - '../../../../../plugins/babel'
+  - '../../../../../plugins/npm'
+  - '../../../../../plugins/circleci-heroku'
+
+options:
+
+hooks:

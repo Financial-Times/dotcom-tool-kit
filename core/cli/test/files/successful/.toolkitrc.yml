@@ -1,0 +1,22 @@
+plugins:
+  - '../../../../../plugins/eslint'
+  - '../../../../../plugins/mocha'
+  - '../../../../../plugins/n-test'
+  - '../../../../../plugins/circleci-heroku' # test:local hook via npm plugin and test:ci hook
+
+options:
+  '../../../../../plugins/eslint':
+    files:
+      - webpack.config.js
+  '../../../../../plugins/mocha':
+    testDir: './mocha_tests'
+  '../../../../../plugins/n-test':
+    host: 'https://example.com'
+
+hooks:
+  'test:local':
+    - Mocha
+    - Eslint
+  'test:ci':
+    - Mocha
+    - Eslint

@@ -1,0 +1,38 @@
+{
+  "name": "@dotcom-tool-kit/circleci",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "cd ../../ ; npx jest --silent --projects plugins/circleci"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/state": "file:../../lib/state",
+    "js-yaml": "^4.1.0",
+    "lodash.isequal": "^4.5.0"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "plugins/circleci"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/circleci",
+  "devDependencies": {
+    "@jest/globals": "^26.6.2",
+    "@types/jest": "^26.0.24",
+    "@types/js-yaml": "^4.0.3",
+    "@types/lodash.isequal": "^4.5.5"
+  },
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ],
+  "volta": {
+    "extends": "../../package.json"
+  }
+}

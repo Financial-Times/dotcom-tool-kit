@@ -1,0 +1,31 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "references": [
+    {
+      "path": "../../lib/wait-for-ok"
+    },
+    {
+      "path": "../../lib/state"
+    },
+    {
+      "path": "../../lib/error"
+    },
+    {
+      "path": "../../lib/vault"
+    },
+    {
+      "path": "../../lib/package-json-hook"
+    },
+    {
+      "path": "../npm"
+    },
+    {
+      "path": "../../lib/types"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "@dotcom-tool-kit/mocha",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "cd ../../ ; npx jest --silent --projects plugins/mocha"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "fs": "0.0.1-security",
+    "glob": "^7.1.7",
+    "mocha": "^8.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "plugins/mocha"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/mocha",
+  "devDependencies": {
+    "@jest/globals": "^26.6.2",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2"
+  },
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ],
+  "volta": {
+    "extends": "../../package.json"
+  }
+}

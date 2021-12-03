@@ -1,0 +1,18 @@
+plugins:
+  - '../../../../../plugins/webpack'
+  - '../../../../../plugins/babel'
+  - '../../../../../plugins/circleci' # for build:ci hook
+  - '../../../../../plugins/heroku' # for build:remote hook and build:local via npm plugin
+
+options:
+
+hooks:
+  build:local:
+    - WebpackDevelopment
+    - BabelDevelopment
+  build:ci:
+    - WebpackProduction
+    - BabelProduction
+  build:remote:
+    - WebpackProduction
+    - BabelProduction

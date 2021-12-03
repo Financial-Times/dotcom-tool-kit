@@ -2,91 +2,91 @@
   "files": [],
   "references": [
     {
-      "path": "packages/babel"
+      "path": "plugins/babel"
     },
     {
-      "path": "packages/state"
+      "path": "lib/state"
     },
     {
-      "path": "packages/vault"
+      "path": "lib/vault"
     },
     {
-      "path": "packages/wait-for-ok"
+      "path": "lib/wait-for-ok"
     },
     {
-      "path": "packages/webpack"
+      "path": "plugins/webpack"
     },
     {
-      "path": "packages/eslint"
+      "path": "plugins/eslint"
     },
     {
-      "path": "packages/mocha"
+      "path": "plugins/mocha"
     },
     {
-      "path": "packages/n-test"
+      "path": "plugins/n-test"
     },
     {
-      "path": "packages/heroku"
+      "path": "plugins/heroku"
     },
     {
-      "path": "packages/upload-assets-to-s3"
+      "path": "plugins/upload-assets-to-s3"
     },
     {
-      "path": "packages/cli"
+      "path": "core/cli"
     },
     {
-      "path": "packages/circleci"
+      "path": "plugins/circleci"
     },
     {
-      "path": "packages/error"
+      "path": "lib/error"
     },
     {
-      "path": "packages/package-json-hook"
+      "path": "lib/package-json-hook"
     },
     {
-      "path": "packages/circleci"
+      "path": "plugins/circleci"
     },
     {
-      "path": "packages/heroku"
+      "path": "plugins/heroku"
     },
     {
-      "path": "packages/npm"
+      "path": "plugins/npm"
     },
     {
-      "path": "packages/circleci-heroku"
+      "path": "plugins/circleci-heroku"
     },
     {
-      "path": "packages/create"
+      "path": "core/create"
     },
     {
-      "path": "packages/types"
+      "path": "lib/types"
     },
     {
-      "path": "packages/prettier"
+      "path": "plugins/prettier"
     },
     {
-      "path": "packages/options"
+      "path": "lib/options"
     },
     {
-      "path": "packages/node"
+      "path": "plugins/node"
     },
     {
-      "path": "packages/next-router"
+      "path": "plugins/next-router"
     },
     {
-      "path": "packages/husky-hook"
+      "path": "lib/husky-hook"
     },
     {
-      "path": "packages/husky-npm"
+      "path": "plugins/husky-npm"
     },
     {
-      "path": "packages/lint-staged"
+      "path": "plugins/lint-staged"
     },
     {
-      "path": "packages/lint-staged-npm"
+      "path": "plugins/lint-staged-npm"
     },
     {
-      "path": "packages/hook"
+      "path": "lib/hook"
     }
   ]
 }

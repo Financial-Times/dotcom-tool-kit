@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "lint": "eslint --ext .ts packages",
+    "lint": "eslint --ext .ts core plugins lib",
     "postinstall": "athloi exec -- npm install --no-package-lock",
     "prettier": "prettier --write '**/*.{ts,js,json}'",
     "create-plugin": "./scripts/create-plugin.js",
@@ -39,7 +39,9 @@
     "typescript": "~4.4.2"
   },
   "workspaces": [
-    "packages/*",
+    "core/*",
+    "plugins/*",
+    "lib/*",
     "types/*"
   ],
   "husky": {

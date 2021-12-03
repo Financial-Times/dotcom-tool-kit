@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "references": [
+    {
+      "path": "../../lib/vault"
+    },
+    {
+      "path": "../../lib/state"
+    },
+    {
+      "path": "../../lib/error"
+    },
+    {
+      "path": "../../lib/types"
+    }
+  ],
+  "include": ["src/**/*"]
+}
