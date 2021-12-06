@@ -9,8 +9,13 @@ type JobConfig = {
   filters?: { branches: { only?: string; ignore?: string } }
 }
 
+type TriggerConfig = {
+  schedule?: { cron: string; filters?: { branches: { only?: string; ignore?: string } } }
+}
+
 type Workflow = {
   jobs?: (string | { [job: string]: JobConfig })[]
+  triggers?: (string | { [trigger: string]: TriggerConfig })[]
 }
 
 interface CircleConfig {
@@ -32,6 +37,7 @@ export default abstract class CircleCiConfigHook extends Hook {
   _versionTag?: string
   abstract job: string
   jobOptions: JobConfig = {}
+  addToNightly?: boolean
 
   async getCircleConfigRaw(): Promise<string | undefined> {
     if (!this._circleConfigRaw) {
@@ -72,18 +78,10 @@ export default abstract class CircleCiConfigHook extends Hook {
 
   async check(): Promise<boolean> {
     const config = await this.getCircleConfig()
-    const workflows = config?.workflows
-    // If the config has just one workflow defined check that one, else check
-    // the workflow named 'tool-kit'
-    const workflowName =
-      workflows && Object.keys(workflows).length === 2
-        ? // If the objects has two keys we know at least one isn't 'version'
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          Object.keys(workflows).find((workflow) => workflow !== 'version')!
-        : 'tool-kit'
-    const workflow = workflows?.[workflowName] as Workflow | undefined
-    const jobs = workflow?.jobs
-    if (!jobs) {
+    const workflows = config?.workflows as Record<string, Workflow | undefined> | undefined
+    const jobs = workflows?.['tool-kit']?.jobs
+    const nightlyJobs = workflows?.['nightly']?.jobs
+    if (!jobs || !nightlyJobs) {
       return false
     }
 
@@ -99,11 +97,15 @@ export default abstract class CircleCiConfigHook extends Hook {
       }
     }
 
-    return jobs.some(
-      (job) =>
-        (typeof job === 'string' && job === this.job) ||
-        (typeof job === 'object' && job.hasOwnProperty(this.job))
-    )
+    function hasJob(expectedJob: string, jobs: NonNullable<Workflow['jobs']>): boolean {
+      return jobs.some(
+        (job) =>
+          (typeof job === 'string' && job === expectedJob) ||
+          (typeof job === 'object' && job.hasOwnProperty(expectedJob))
+      )
+    }
+
+    return hasJob(this.job, jobs) && (!this.addToNightly || hasJob(this.job, nightlyJobs))
   }
 
   async install(): Promise<void> {
@@ -129,6 +131,17 @@ export default abstract class CircleCiConfigHook extends Hook {
               }
             }
           ]
+        },
+        nightly: {
+          triggers: [
+            {
+              schedule: {
+                cron: '0 0 * * *',
+                filters: { branches: { only: 'main' } }
+              }
+            }
+          ],
+          jobs: ['tool-kit/setup']
         }
       }
     }
@@ -138,19 +151,35 @@ export default abstract class CircleCiConfigHook extends Hook {
       config.orbs['tool-kit'] = `financial-times/dotcom-tool-kit@${currentVersion}`
     }
 
-    if (!(config.workflows?.['tool-kit'] as Workflow).jobs) {
+    const workflows = config.workflows as Record<string, Workflow>
+    const jobs = workflows?.['tool-kit']?.jobs
+    const nightlyJobs = workflows?.['nightly']?.jobs
+    if (!jobs) {
       throw new Error(
         'Found malformed CircleCI config that was automatically generated. Please delete and install again'
       )
     }
-    // TypeScript can't seem to pick up that we've already checked the optional
-    // properties here
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const jobs = (config.workflows!['tool-kit'] as Workflow).jobs!
+    if (!nightlyJobs) {
+      throw new Error(
+        'Found an older version of the CircleCI config without a nightly workflow. Please delete and install again'
+      )
+    }
+
     const job = this.jobOptions ? { [this.job]: this.jobOptions } : this.job
     // Avoid duplicating jobs (this can happen when check() fails when the version is wrong)
     if (!jobs.some((candidateJob) => isEqual(candidateJob, job))) {
       jobs.push(job)
+    }
+    if (this.addToNightly && !nightlyJobs.some((candidateJob) => isEqual(candidateJob, job))) {
+      const nightlyJob = this.jobOptions
+        ? {
+            [this.job]: {
+              ...this.jobOptions,
+              requires: this.jobOptions.requires?.filter((x: string) => x !== 'waiting-for-approval')
+            }
+          }
+        : this.job
+      nightlyJobs.push(nightlyJob)
     }
 
     const serialised = automatedComment + yaml.dump(config)

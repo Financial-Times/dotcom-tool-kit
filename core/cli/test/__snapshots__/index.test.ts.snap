@@ -630,6 +630,7 @@ Object {
   },
   "hooks": Object {
     "build:ci": BuildCI {
+      "addToNightly": true,
       "circleConfigPath": ".circleci/config.yml",
       "id": "build:ci",
       "job": "tool-kit/build",
@@ -645,6 +646,7 @@ Object {
         "hooks": Object {
           "build:ci": [Circular],
           "test:ci": TestCI {
+            "addToNightly": true,
             "circleConfigPath": ".circleci/config.yml",
             "id": "test:ci",
             "job": "tool-kit/test",
@@ -1858,6 +1860,7 @@ Object {
       },
     },
     "test:ci": TestCI {
+      "addToNightly": true,
       "circleConfigPath": ".circleci/config.yml",
       "id": "test:ci",
       "job": "tool-kit/test",
@@ -1871,6 +1874,7 @@ Object {
         "TestCI": [Function],
         "hooks": Object {
           "build:ci": BuildCI {
+            "addToNightly": true,
             "circleConfigPath": ".circleci/config.yml",
             "id": "build:ci",
             "job": "tool-kit/build",
@@ -2583,6 +2587,7 @@ Object {
       "TestCI": [Function],
       "hooks": Object {
         "build:ci": BuildCI {
+          "addToNightly": true,
           "circleConfigPath": ".circleci/config.yml",
           "id": "build:ci",
           "job": "tool-kit/build",
@@ -2595,6 +2600,7 @@ Object {
           "plugin": [Circular],
         },
         "test:ci": TestCI {
+          "addToNightly": true,
           "circleConfigPath": ".circleci/config.yml",
           "id": "test:ci",
           "job": "tool-kit/test",

@@ -2,3 +2,5 @@
 workflows:
   tool-kit:
     jobs: []
+  nightly:
+    jobs: []
