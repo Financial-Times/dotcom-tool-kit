@@ -1,5 +1,5 @@
 import { hasToolKitConflicts, ToolKitConflictError } from '@dotcom-tool-kit/error'
-import type { Schema, SchemaType } from '@dotcom-tool-kit/types/src/schema'
+import type { Schema, SchemaPromptGenerator, SchemaType } from '@dotcom-tool-kit/types/src/schema'
 import loadPackageJson from '@financial-times/package-json'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
@@ -348,8 +348,10 @@ async function optionsPrompt(config: Config): Promise<boolean> {
       continue
     }
 
-    const [optional, required] = partition(Object.entries(options), ([, optionType]) =>
-      optionType.endsWith('?')
+    const [optional, required] = partition(
+      Object.entries(options),
+      (schema): schema is [string, `${SchemaType}?`] =>
+        typeof schema[1] === 'string' && schema[1].endsWith('?')
     )
     const anyRequired = required.length > 0
 
@@ -358,8 +360,22 @@ async function optionsPrompt(config: Config): Promise<boolean> {
 
     if (anyRequired) {
       console.log(`Please now configure the options for the ${styledPlugin} plugin.`)
-      // safe to cast as we know none of the types end in '?'
-      const cancelled = await optionsPromptForPlugin(plugin, required as [string, SchemaType][])
+      const [schemas, generators] = partition(
+        required,
+        (schema): schema is [string, SchemaType] => typeof schema[1] === 'string'
+      )
+      let cancelled = await optionsPromptForPlugin(plugin, schemas)
+      const onCancel = () => {
+        cancelled = true
+      }
+      if (!cancelled) {
+        for (const [optionName, generator] of generators as [string, SchemaPromptGenerator<unknown>][]) {
+          toolKitConfig.options[plugin][optionName] = await generator(prompt, onCancel)
+          if (cancelled) {
+            break
+          }
+        }
+      }
       if (cancelled) {
         delete toolKitConfig.options[plugin]
         return true
