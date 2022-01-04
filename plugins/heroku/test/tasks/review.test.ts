@@ -18,9 +18,9 @@ jest.mock('../../src/herokuClient', () => {
   return {
     get: jest.fn((path: string) => {
       if (path.includes('test-pipeline')) {
-        return { id: 'test-pipeline-id' }
+        return Promise.resolve({ id: 'test-pipeline-id' })
       } else {
-        Promise.reject()
+        return Promise.reject()
       }
     })
   }
