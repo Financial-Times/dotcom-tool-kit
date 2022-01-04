@@ -1,7 +1,7 @@
 import { SchemaOutput, SchemaPromptGenerator } from '../schema'
 
 export interface HerokuScaling {
-  [app: string]: { [appType: string]: { size: string; quantity: number } }
+  [app: string]: { [processType: string]: { size: string; quantity: number } }
 }
 
 const scaling: SchemaPromptGenerator<HerokuScaling> = async (prompt, onCancel) => {
@@ -17,21 +17,21 @@ const scaling: SchemaPromptGenerator<HerokuScaling> = async (prompt, onCancel) =
       },
       { onCancel }
     )
-    const { appType, size, quantity, moreApps } = await prompt(
+    const { processType, size, quantity, moreApps } = await prompt(
       [
         {
-          name: 'appType',
+          name: 'processType',
           type: 'text',
           initial: 'web',
-          message: `What type of app is ${app}?`
+          message: `What is the process type of ${app}?`
         },
         { name: 'size', type: 'text', initial: 'standard-1X', message: `What should the size of ${app} be?` },
-        { name: 'quantity', type: 'number', message: `How many ${app} processes should be run?` },
+        { name: 'quantity', type: 'number', message: `What should the dyno size of ${app} be?` },
         { name: 'moreApps', type: 'confirm', message: 'Are there more Heroku apps in this pipeline?' }
       ],
       { onCancel }
     )
-    scaling[app] = { [appType]: { size, quantity } }
+    scaling[app] = { [processType]: { size, quantity } }
     allAppsConfigured = !moreApps
   }
   return scaling

@@ -30,18 +30,19 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
 
 options:
   '@dotcom-tool-kit/heroku':
-    app-name:
-      web:
-        size: standard-1x
-        quantity: 2`
+    scaling:
+      ft-next-static-eu:
+        web:
+          size: standard-1x
+          quantity: 2`
 
         throw error
       }
 
       for (const [appName, typeConfig] of Object.entries(scaling)) {
         console.log(`scaling app ${appName}...`)
-        for (const [appType, { quantity, size }] of Object.entries(typeConfig)) {
-          await scaleDyno(appName, quantity, appType, size)
+        for (const [processType, { quantity, size }] of Object.entries(typeConfig)) {
+          await scaleDyno(appName, quantity, processType, size)
         }
         console.log(`${appName} has been successfully scaled`)
       }
