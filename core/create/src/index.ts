@@ -19,7 +19,8 @@ import { Logger } from './logger'
 
 const exec = promisify(_exec)
 
-const { version }: { version: string } = JSON.parse(
+const developmentVersion = '0.0.0-development'
+const { version: createVersion }: { version: string } = JSON.parse(
   readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8')
 )
 
@@ -128,7 +129,19 @@ async function executeMigration(deleteConfig: boolean) {
   for (const pkg of packagesToInstall) {
     packageJson.requireDependency({
       pkg,
-      version,
+      version:
+        // Use relative file paths if running the create script locally
+        createVersion !== developmentVersion
+          ? createVersion
+          : 'file:' +
+            path.relative(
+              '',
+              path.join(
+                __dirname,
+                '../../../',
+                pkg === 'dotcom-tool-kit' ? 'core/cli' : `plugins/${pkg.slice(17)}`
+              )
+            ),
       field: 'devDependencies'
     })
   }
