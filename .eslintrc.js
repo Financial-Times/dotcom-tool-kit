@@ -3,6 +3,7 @@ module.exports = {
   extends: [
     '@financial-times/eslint-config-next',
     'prettier',
+    'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended'
   ],
