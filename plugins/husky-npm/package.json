@@ -12,6 +12,9 @@
   "dependencies": {
     "@dotcom-tool-kit/husky-hook": "file:../../lib/husky-hook"
   },
+  "peerDependencies": {
+    "husky": "^4.3.8"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
