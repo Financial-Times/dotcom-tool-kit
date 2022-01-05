@@ -14,24 +14,24 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@dotcom-tool-kit/circleci-heroku": "file:../circleci-heroku",
-    "@dotcom-tool-kit/eslint": "file:../eslint",
-    "@dotcom-tool-kit/frontend-app": "file:../frontend-app",
-    "@dotcom-tool-kit/lint-staged": "file:../lint-staged",
-    "@dotcom-tool-kit/lint-staged-npm": "file:../lint-staged-npm",
-    "@dotcom-tool-kit/mocha": "file:../mocha",
-    "@dotcom-tool-kit/n-test": "file:../n-test",
-    "@dotcom-tool-kit/npm": "file:../npm",
-    "@dotcom-tool-kit/prettier": "file:../prettier",
-    "@dotcom-tool-kit/upload-assets-to-s3": "file:../upload-assets-to-s3",
+    "@dotcom-tool-kit/circleci-heroku": "file:../../plugins/circleci-heroku",
+    "@dotcom-tool-kit/eslint": "file:../../plugins/eslint",
+    "@dotcom-tool-kit/frontend-app": "file:../../plugins/frontend-app",
+    "@dotcom-tool-kit/lint-staged": "file:../../plugins/lint-staged",
+    "@dotcom-tool-kit/lint-staged-npm": "file:../../plugins/lint-staged-npm",
+    "@dotcom-tool-kit/mocha": "file:../../plugins/mocha",
+    "@dotcom-tool-kit/n-test": "file:../../plugins/n-test",
+    "@dotcom-tool-kit/npm": "file:../../plugins/npm",
+    "@dotcom-tool-kit/prettier": "file:../../plugins/prettier",
+    "@dotcom-tool-kit/upload-assets-to-s3": "file:../../plugins/upload-assets-to-s3",
     "dotcom-tool-kit": "file:../cli"
   },
   "volta": {
     "extends": "../../package.json"
   },
   "dependencies": {
-    "@dotcom-tool-kit/next-router": "file:../next-router",
-    "@dotcom-tool-kit/node": "file:../node"
+    "@dotcom-tool-kit/next-router": "file:../../plugins/next-router",
+    "@dotcom-tool-kit/node": "file:../../plugins/node"
   },
   "husky": {
     "pre-commit": "dotcom-tool-kit git:precommit"

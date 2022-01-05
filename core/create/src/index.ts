@@ -1,5 +1,5 @@
 import { hasToolKitConflicts, ToolKitConflictError } from '@dotcom-tool-kit/error'
-import type { Schema, SchemaType } from '@dotcom-tool-kit/types/src/schema'
+import type { Schema, SchemaPromptGenerator, SchemaType } from '@dotcom-tool-kit/types/src/schema'
 import loadPackageJson from '@financial-times/package-json'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
@@ -19,7 +19,8 @@ import { Logger } from './logger'
 
 const exec = promisify(_exec)
 
-const { version }: { version: string } = JSON.parse(
+const developmentVersion = '0.0.0-development'
+const { version: createVersion }: { version: string } = JSON.parse(
   readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8')
 )
 
@@ -128,7 +129,19 @@ async function executeMigration(deleteConfig: boolean) {
   for (const pkg of packagesToInstall) {
     packageJson.requireDependency({
       pkg,
-      version,
+      version:
+        // Use relative file paths if running the create script locally
+        createVersion !== developmentVersion
+          ? createVersion
+          : 'file:' +
+            path.relative(
+              '',
+              path.join(
+                __dirname,
+                '../../../',
+                pkg === 'dotcom-tool-kit' ? 'core/cli' : `plugins/${pkg.slice(17)}`
+              )
+            ),
       field: 'devDependencies'
     })
   }
@@ -348,8 +361,10 @@ async function optionsPrompt(config: Config): Promise<boolean> {
       continue
     }
 
-    const [optional, required] = partition(Object.entries(options), ([, optionType]) =>
-      optionType.endsWith('?')
+    const [optional, required] = partition(
+      Object.entries(options),
+      (schema): schema is [string, `${SchemaType}?`] =>
+        typeof schema[1] === 'string' && schema[1].endsWith('?')
     )
     const anyRequired = required.length > 0
 
@@ -358,8 +373,22 @@ async function optionsPrompt(config: Config): Promise<boolean> {
 
     if (anyRequired) {
       console.log(`Please now configure the options for the ${styledPlugin} plugin.`)
-      // safe to cast as we know none of the types end in '?'
-      const cancelled = await optionsPromptForPlugin(plugin, required as [string, SchemaType][])
+      const [schemas, generators] = partition(
+        required,
+        (schema): schema is [string, SchemaType] => typeof schema[1] === 'string'
+      )
+      let cancelled = await optionsPromptForPlugin(plugin, schemas)
+      const onCancel = () => {
+        cancelled = true
+      }
+      if (!cancelled) {
+        for (const [optionName, generator] of generators as [string, SchemaPromptGenerator<unknown>][]) {
+          toolKitConfig.options[plugin][optionName] = await generator(prompt, onCancel)
+          if (cancelled) {
+            break
+          }
+        }
+      }
       if (cancelled) {
         delete toolKitConfig.options[plugin]
         return true

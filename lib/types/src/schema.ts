@@ -1,7 +1,9 @@
-// TODO: add support for more flexible union type and array/record generics
+import type prompts from 'prompts'
+
 export type ScalarSchemaType = 'string' | 'number' | 'boolean' | `|${string},${string}` | 'unknown'
 export type SchemaType = ScalarSchemaType | `array.${ScalarSchemaType}` | `record.${ScalarSchemaType}`
-export type ModifiedSchemaType = SchemaType | `${SchemaType}?`
+export type SchemaPromptGenerator<T> = (prompt: typeof prompts, onCancel: () => void) => Promise<T>
+export type ModifiedSchemaType = SchemaType | `${SchemaType}?` | SchemaPromptGenerator<unknown>
 
 export type Schema = {
   readonly [option: string]: ModifiedSchemaType
@@ -41,6 +43,11 @@ export type SchemaOutput<T extends Schema> = {
         ? SchemaTypeOutput<S>
         : never
       : never
+  } &
+  {
+    -readonly [option in keyof T as T[option] extends SchemaPromptGenerator<unknown>
+      ? option
+      : never]: T[option] extends SchemaPromptGenerator<infer R> ? R : never
   }
 
 import type { ESLintOptions } from './schema/eslint'
