@@ -94,6 +94,14 @@ jobs:
           paths:
             - build
 
+  lint:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run ESLint
+          command: npm run lint
+
   test:
     <<: *container_config_node
     steps:
@@ -127,6 +135,9 @@ workflows:
       - test:
           requires:
             - build
+      - lint:
+          requires:
+            - build
 
   renovate-nori-build-test:
     jobs:
@@ -140,6 +151,9 @@ workflows:
       - test:
           requires:
             - build
+      - lint:
+          requires:
+            - build
 
   build-test-publish:
     jobs:
@@ -151,16 +165,22 @@ workflows:
             <<: *filters_release_build
           requires:
             - build
+      - lint:
+          filters:
+            <<: *filters_release_build
+          requires:
+            - build
       - publish:
           filters:
             <<: *filters_release_build
           requires:
+            - lint
             - test
 
   nightly:
     triggers:
       - schedule:
-          cron: "0 0 * * *"
+          cron: '0 0 * * *'
           filters:
             <<: *filters_only_main
     jobs:
