@@ -186,7 +186,10 @@ continue, though naturally the optional ones may be skipped. These options will
 be added to your `.toolkitrc`. In the future, we will add support for default
 values in the migration tool (they are already available within Tool Kit
 itself,) so that for most cases you could accept default values, even for fields
-that are required.
+that are required. Some plugins will have specially-made prompts to allow
+setting options for more complex scenarios, such as the Heroku plugin which
+prompts you to fill in scaling information for each app you have in your
+project's Heroku pipeline.
 
 ### Migrating Your Makefile
 
