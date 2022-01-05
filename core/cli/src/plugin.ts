@@ -5,9 +5,9 @@ import mergeWith from 'lodash.mergewith'
 import { Conflict, isConflict } from './conflict'
 import { Config, PluginOptions } from './config'
 import type { HookTask } from './hook'
-import { styles } from './messages'
 import { loadToolKitRC, RCFile } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import styles from '@dotcom-tool-kit/styles'
 import { Hook, instantiatePlugin, Plugin, TaskClass } from '@dotcom-tool-kit/types'
 
 export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<Config> {

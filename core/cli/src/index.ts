@@ -1,8 +1,8 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { checkInstall, loadConfig } from './config'
-import { styles } from './messages'
 import { getOptions, setOptions } from '@dotcom-tool-kit/options'
 import type { Options } from '@dotcom-tool-kit/types/src/schema'
+import styles from '@dotcom-tool-kit/styles'
 
 type ErrorSummary = {
   hook: string

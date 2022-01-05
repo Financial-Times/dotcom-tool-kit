@@ -1,30 +1,8 @@
-import colours from 'ansi-colors'
-
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { HookTask } from './hook'
+import s from '@dotcom-tool-kit/styles'
 import type { Plugin, Hook, TaskClass } from '@dotcom-tool-kit/types'
-
-// consistent styling use cases for terminal colours
-// don't use ansi-colors directly, define a style please
-const s = {
-  hook: colours.magenta,
-  task: colours.blueBright,
-  plugin: colours.cyan,
-  URL: colours.cyan.underline,
-  filepath: colours.italic,
-  app: colours.green,
-  option: colours.blue,
-  makeTarget: colours.grey.italic,
-  heading: colours.bold,
-  dim: colours.grey,
-  title: colours.bold.underline,
-  error: (string: string): string => `${colours.red.bold('‼︎')} ${s.title(string)}`,
-  warning: (string: string): string => `${colours.yellow.bold('⚠︎')} ${s.title(string)}`,
-  ruler: (): string => s.dim('─'.repeat(process.stdout.columns / 2))
-}
-
-export { s as styles }
 
 const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>
   `- ${s.task(conflict.conflicting[0].id || 'unknown task')} ${s.dim(

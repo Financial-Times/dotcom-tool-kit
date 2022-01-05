@@ -89,6 +89,9 @@
       "path": "lib/hook"
     },
     {
+      "path": "lib/styles"
+    },
+    {
       "path": "plugins/jest"
     }
   ]

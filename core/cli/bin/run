@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const c = require('ansi-colors')
 const argv = require('minimist')(process.argv.slice(2), {
   boolean: ['help', 'install'],
   '--': true

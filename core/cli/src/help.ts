@@ -1,6 +1,6 @@
 import { checkInstall, loadConfig } from './config'
 import { setOptions } from '@dotcom-tool-kit/options'
-import { styles } from './messages'
+import styles from '@dotcom-tool-kit/styles'
 
 export default async function showHelp(hooks: string[]): Promise<void> {
   const config = await loadConfig()
