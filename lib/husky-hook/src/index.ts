@@ -1,6 +1,6 @@
 import { PackageJsonHelper } from '@dotcom-tool-kit/hook'
 
-type HuskyHooks = {
+type HuskyField = {
   hooks?: {
     [hook: string]: string
   }
@@ -12,7 +12,7 @@ export abstract class HuskyHook extends PackageJsonHelper {
   async install(): Promise<void> {
     let command = `dotcom-tool-kit ${this.hook}`
 
-    const huskyHooks = this.packageJson.getField<HuskyHooks>(this.field) || {}
+    const huskyHooks = this.packageJson.getField<HuskyField>(this.field) || {}
 
     if(!huskyHooks.hooks) {
       huskyHooks.hooks = {}
@@ -31,7 +31,7 @@ export abstract class HuskyHook extends PackageJsonHelper {
   }
 
   async check(): Promise<boolean> {
-    const husky = this.packageJson.getField<HuskyHooks>(this.field)
+    const husky = this.packageJson.getField<HuskyField>(this.field)
     return husky?.hooks?.[this.key]?.includes(this.hook) ?? false
   }
 
