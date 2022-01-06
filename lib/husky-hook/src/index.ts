@@ -29,4 +29,10 @@ export abstract class HuskyHook extends PackageJsonHelper {
     this.packageJson.setField(this.field, huskyHooks)
     this.packageJson.writeChanges()
   }
+
+  async check(): Promise<boolean> {
+    const husky = this.packageJson.getField<HuskyHooks>(this.field)
+    return husky?.hooks?.[this.key]?.includes(this.hook) ?? false
+  }
+
 }
