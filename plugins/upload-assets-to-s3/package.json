@@ -10,9 +10,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/error": "file:../../lib/error",
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/error": "0.0.0-development",
+    "@dotcom-tool-kit/logger": "0.0.0-development",
+    "@dotcom-tool-kit/types": "0.0.0-development",
     "aws-sdk": "^2.901.0",
     "glob": "^7.1.6",
     "mime": "^2.5.2"

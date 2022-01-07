@@ -4,7 +4,6 @@
   "version": "0.0.0-development",
   "scripts": {
     "lint": "eslint --ext .ts core plugins lib",
-    "postinstall": "athloi exec -- npm install --no-package-lock",
     "prettier": "prettier --write '**/*.{ts,js,json}'",
     "create-plugin": "./scripts/create-plugin.js",
     "clean-up-packages": "./scripts/clean-up-packages.sh",
