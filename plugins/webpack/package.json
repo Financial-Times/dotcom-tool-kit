@@ -17,9 +17,9 @@
     "test": "cd ../../ ; npx jest --silent --projects plugins/webpack"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "file:../../lib/error",
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/error": "0.0.0-development",
+    "@dotcom-tool-kit/logger": "0.0.0-development",
+    "@dotcom-tool-kit/types": "0.0.0-development",
     "webpack-cli": "^4.6.0"
   },
   "peerDependencies": {
