@@ -2,6 +2,7 @@ import { Task } from '@dotcom-tool-kit/types'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { register } from 'ft-next-router'
 import { readState } from '@dotcom-tool-kit/state'
+import styles from '@dotcom-tool-kit/styles'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { NextRouterSchema } from '@dotcom-tool-kit/types/lib/schema/next-router'
@@ -12,7 +13,9 @@ export default class NextRouter extends Task<typeof NextRouterSchema> {
   async run(): Promise<void> {
     if (!this.options.appName) {
       const error = new ToolKitError('your app name must be configured to use next-router')
-      error.details = `this should be the same as its "name" field in next-service-registry. configure it in your .toolkitrc.yml, e.g.:
+      error.details = `this should be the same as its "name" field in next-service-registry. configure it in your ${styles.filepath(
+        '.toolkitrc.yml'
+      )}, e.g.:
 
 options:
   '@dotcom-tool-kit/next-router':
@@ -36,7 +39,7 @@ options:
         ...process.env,
         ...vaultEnv
       },
-      stdio: 'inherit'
+      stdio: ['inherit', 'inherit', 'pipe', 'ipc']
     })
 
     await new Promise<void>((resolve, reject) => {
@@ -45,8 +48,10 @@ options:
         if (code === 0) {
           resolve()
         } else {
-          // TODO capture output from next-router and use ToolKitError?
-          reject(new Error(`couldn't start next-router. there's probably more information above.`))
+          const error = new ToolKitError("couldn't start next-router.")
+          child.stderr?.setEncoding('utf8')
+          error.details = child.stderr?.read()
+          reject(error)
         }
       })
     })
@@ -54,7 +59,9 @@ options:
     const local = readState('local')
     if (!local) {
       const error = new ToolKitError('no locally running app found')
-      error.details = `make sure there's a task running your app, e.g. via the "node" plugin, configured to run before the next-router task.`
+      error.details = `make sure there's a task running your app, e.g. via the ${styles.plugin(
+        'node'
+      )} plugin, configured to run before the ${styles.task('NextRouter')} task.`
       throw error
     }
 

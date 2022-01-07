@@ -2,7 +2,13 @@
   "extends": "../../tsconfig.settings.json",
   "references": [
     {
+      "path": "../../lib/error"
+    },
+    {
       "path": "../../lib/state"
+    },
+    {
+      "path": "../../lib/styles"
     },
     {
       "path": "../../lib/types"

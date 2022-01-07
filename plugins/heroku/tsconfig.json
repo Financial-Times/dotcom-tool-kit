@@ -21,6 +21,9 @@
     },
     {
       "path": "../../lib/types"
+    },
+    {
+      "path": "../../lib/styles"
     }
   ],
   "compilerOptions": {

@@ -32,7 +32,7 @@ export default async function installHooks(): Promise<Config> {
 
   if (errors.length) {
     const error = new ToolKitError('could not automatically install hooks:')
-    error.details = errors.map((error) => error.message).join('\n\n')
+    error.details = errors.map((error) => `- ${error.message}`).join('\n')
     throw error
   }
 

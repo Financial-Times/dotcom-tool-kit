@@ -4,6 +4,8 @@ import aws from 'aws-sdk'
 import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
+import { ToolKitError } from '@dotcom-tool-kit/error'
+import styles from '@dotcom-tool-kit/styles'
 import {
   UploadAssetsToS3Options,
   UploadAssetsToS3Schema
@@ -79,7 +81,7 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
       }
       currentBucket = params.Bucket
       const data = await s3.upload(params).promise()
-      console.log(`Uploaded ${basename} to ${data.Location}`)
+      console.log(`Uploaded ${styles.filepath(basename)} to ${styles.URL(data.Location)}`)
     } else {
       for (const bucket of bucketByEnv) {
         const params = {
@@ -93,11 +95,14 @@ const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aw
         }
         currentBucket = params.Bucket
         const data = await s3.upload(params).promise()
-        console.log(`Uploaded ${basename} to ${data.Location}`)
+        console.log(`Uploaded ${styles.filepath(basename)} to ${styles.URL(data.Location)}`)
       }
     }
-  } catch (error) {
-    console.error(`Upload of ${basename} to ${currentBucket} failed`)
+  } catch (err) {
+    const error = new ToolKitError(`Upload of ${basename} to ${currentBucket} failed`)
+    if (err instanceof Error) {
+      error.details = err.message
+    }
     throw error
   }
 }

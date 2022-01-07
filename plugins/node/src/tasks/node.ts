@@ -4,6 +4,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { writeState } from '@dotcom-tool-kit/state'
+import styles from '@dotcom-tool-kit/styles'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 
@@ -28,11 +29,14 @@ export default class Node extends Task<typeof NodeSchema> {
       }))
 
     if (!entry) {
-      const error = new ToolKitError('the Node tasks requires an `entry` option')
-      error.details = 'this is the entrypoint for your app, e.g. `server/app.js`'
+      const error = new ToolKitError(
+        `the ${styles.task('Node')} task requires an ${styles.option('entry')} option`
+      )
+      error.details = `this is the entrypoint for your app, e.g. ${styles.filepath('server/app.js')}`
       throw error
     }
 
+    console.log('starting the child node process...')
     const child = fork(entry, {
       env: {
         ...vaultEnv,

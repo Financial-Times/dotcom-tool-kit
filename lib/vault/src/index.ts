@@ -79,17 +79,17 @@ export class VaultEnvVars {
 
   private async getLocalToken(): Promise<string> {
     try {
-      console.log('checking for current token')
+      console.log('checking for current vault token')
       const vaultToken = await fs.readFile(this.vaultTokenFile, {
         encoding: 'utf8'
       })
-      console.log('testing current token')
+      console.log('testing current vault token')
       const isValidToken = await this.fetchTest(vaultToken)
       if (isValidToken) {
-        console.log('success!')
+        console.log('success testing current vault token!')
         return vaultToken
       } else {
-        const message = 'current token invalid, requesting new one...'
+        const message = 'current vault token invalid, requesting new one...'
         console.error(message)
         throw new ToolKitError(message)
       }
@@ -170,7 +170,7 @@ export class VaultEnvVars {
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/shared`,
         headers
       ).then((json) => json.data)
-      console.log(`appShared: ${appShared}`)
+      console.log(`appShared: ${JSON.stringify(appShared)}`)
 
       const required: Secrets = {}
 

@@ -12,6 +12,7 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../../lib/error",
     "@dotcom-tool-kit/package-json-hook": "file:../../lib/package-json-hook",
+    "@dotcom-tool-kit/styles": "file:../../lib/styles",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "fast-glob": "^3.2.7",
     "prettier": "^2.2.1"

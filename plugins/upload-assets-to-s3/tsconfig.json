@@ -6,6 +6,12 @@
   },
   "references": [
     {
+      "path": "../../lib/error"
+    },
+    {
+      "path": "../../lib/styles"
+    },
+    {
       "path": "../../lib/types"
     }
   ],

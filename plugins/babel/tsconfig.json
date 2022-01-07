@@ -6,6 +6,9 @@
   },
   "references": [
     {
+      "path": "../../lib/styles"
+    },
+    {
       "path": "../../lib/types"
     }
   ]

@@ -41,7 +41,7 @@ ${availableHooks}`
     const errors: ErrorSummary[] = []
 
     if (!config.hookTasks[hook]) {
-      console.warn(styles.warning(`no task configured for ${hook}: skipping assignment...}`))
+      console.warn(styles.warning(`no task configured for ${hook}: skipping assignment...`))
       continue
     }
     const assignment = config.hookTasks[hook]

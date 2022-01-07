@@ -1,3 +1,4 @@
+import styles from '@dotcom-tool-kit/styles'
 import { Task } from '@dotcom-tool-kit/types'
 import { SmokeTestSchema, SmokeTestOptions } from '@dotcom-tool-kit/types/lib/schema/n-test'
 import { SmokeTest } from '@financial-times/n-test'
@@ -19,6 +20,7 @@ export default class NTest extends Task<typeof SmokeTestSchema> {
     }
 
     const smokeTest = new SmokeTest(this.options)
+    console.log(`Running smoke test${this.options.host ? ` for URL ${styles.URL(this.options.host)}` : ''}`)
     await smokeTest.run()
   }
 }

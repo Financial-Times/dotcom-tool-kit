@@ -21,7 +21,7 @@ async function repeatedCheckForSuccessStatus(reviewAppId: string): Promise<boole
   const result = await pRetry(checkForSuccessStatus, {
     onFailedAttempt: (error) => {
       const { attemptNumber, retriesLeft } = error
-      console.log(`attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`) // eslint-disable-line no-console
+      console.log(`attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`)
     },
     factor: 1,
     retries: NUM_RETRIES,

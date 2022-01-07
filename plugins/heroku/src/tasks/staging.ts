@@ -1,5 +1,6 @@
 import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import styles from '@dotcom-tool-kit/styles'
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
 import { setConfigVars } from '../setConfigVars'
 import { scaleDyno } from '../scaleDyno'
@@ -14,7 +15,9 @@ export default class HerokuStaging extends Task<typeof HerokuSchema> {
     try {
       if (!this.options.pipeline || !this.options.systemCode) {
         const error = new ToolKitError('no pipeline and/or system code option in your Tool Kit configuration')
-        error.details = `the Heroku plugin needs to know your pipeline name and Biz Ops' system code to deploy staging. add it to your configuration, e.g.:
+        error.details = `the ${styles.plugin(
+          'Heroku'
+        )} plugin needs to know your pipeline name and Biz Ops' system code to deploy staging. add it to your configuration, e.g.:
 
 options:
   '@dotcom-tool-kit/heroku':

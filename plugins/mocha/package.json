@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/styles": "file:../../lib/styles",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "fs": "0.0.1-security",
     "glob": "^7.1.7",

@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/state": "file:../../lib/state",
+    "@dotcom-tool-kit/styles": "file:../../lib/styles",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "@financial-times/n-test": "^3.0.1"
   },

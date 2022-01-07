@@ -6,7 +6,7 @@ const argv = require('minimist')(process.argv.slice(2), {
 })
 
 const { runTasks, showHelp, installHooks } = require('../lib')
-const { styles } = require('../lib/messages')
+const styles = require('@dotcom-tool-kit/styles').default
 
 async function main() {
   try {
@@ -30,6 +30,7 @@ async function main() {
     }
   } catch (error) {
     if (error.details) {
+      console.log(styles.ruler())
       console.error(styles.error(error.message) + '\n\n' + error.details)
     } else {
       console.error(error.stack)

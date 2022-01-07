@@ -1,3 +1,4 @@
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import pRetry from 'p-retry'
 import heroku from './herokuClient'
 import type { HerokuApiResGetRelease } from 'heroku-client'
@@ -14,7 +15,7 @@ export default async function checkIfStagingUpdated(appName: string, releaseId: 
     )
     console.log(`existing staging app status: ${existingStagingRelease.current}`)
     if (existingStagingRelease.current)
-      throw new Error(`Staging app not yet updated - current is still release id: ${releaseId}`)
+      throw new ToolKitError(`Staging app not yet updated - current is still release id: ${releaseId}`)
 
     return true
   }
@@ -22,7 +23,7 @@ export default async function checkIfStagingUpdated(appName: string, releaseId: 
   const result = await pRetry(checkForSuccessStatus, {
     onFailedAttempt: (error) => {
       const { attemptNumber, retriesLeft } = error
-      console.log(`attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`) // eslint-disable-line no-console
+      console.log(`attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`)
     },
     factor: 1,
     retries: NUM_RETRIES,

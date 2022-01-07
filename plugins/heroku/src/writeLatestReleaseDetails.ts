@@ -1,6 +1,7 @@
 import heroku from './herokuClient'
 import type { HerokuApiResGetRelease, HerokuApiGetSlug } from 'heroku-client'
 import { writeState } from '@dotcom-tool-kit/state'
+import styles from '@dotcom-tool-kit/styles'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import checkIfStagingUpdated from './checkIfStagingUpdated'
 
@@ -20,7 +21,9 @@ async function findLatestRelease(appName: string): Promise<ReleaseDetails> {
 
   if (!latestFound) {
     throw new ToolKitError(
-      'Could not find the current app details for staging, check that deploy:staging ran successfully'
+      `Could not find the current app details for staging, check that ${styles.hook(
+        'deploy:staging'
+      )} ran successfully`
     )
   }
   console.log(`current staging app found with id: ${latestFound.id}`)

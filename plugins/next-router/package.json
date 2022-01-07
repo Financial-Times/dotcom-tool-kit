@@ -12,6 +12,7 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../../lib/error",
     "@dotcom-tool-kit/state": "file:../../lib/state",
+    "@dotcom-tool-kit/styles": "file:../../lib/styles",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "@dotcom-tool-kit/vault": "file:../../lib/vault",
     "ft-next-router": "^1.0.0"
