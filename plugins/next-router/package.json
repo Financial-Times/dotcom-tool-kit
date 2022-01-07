@@ -10,11 +10,11 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/error": "file:../../lib/error",
-    "@dotcom-tool-kit/state": "file:../../lib/state",
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "@dotcom-tool-kit/types": "file:../../lib/types",
-    "@dotcom-tool-kit/vault": "file:../../lib/vault",
+    "@dotcom-tool-kit/error": "0.0.0-development",
+    "@dotcom-tool-kit/state": "0.0.0-development",
+    "@dotcom-tool-kit/logger": "0.0.0-development",
+    "@dotcom-tool-kit/types": "0.0.0-development",
+    "@dotcom-tool-kit/vault": "0.0.0-development",
     "ft-next-router": "^1.0.0"
   },
   "repository": {
