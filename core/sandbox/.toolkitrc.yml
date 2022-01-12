@@ -4,6 +4,7 @@ plugins:
   - '@dotcom-tool-kit/next-router'
   - '@dotcom-tool-kit/prettier'
   - '@dotcom-tool-kit/lint-staged-npm'
+  - '@dotcom-tool-kit/jest'
 
 hooks:
   run:local:
@@ -18,3 +19,5 @@ options:
     appName: static # for testing
   '@dotcom-tool-kit/lint-staged-npm':
     formatGlob: index.js
+  '@dotcom-tool-kit/jest':
+    configPath: 'jest.config.js'

@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "build": "dotcom-tool-kit build:local",
     "format": "dotcom-tool-kit format:local",
+    "build": "dotcom-tool-kit build:local",
     "test": "dotcom-tool-kit test:local",
-    "heroku-postbuild": "dotcom-tool-kit release:remote build:remote cleanup:remote",
-    "start": "dotcom-tool-kit run:local"
+    "start": "dotcom-tool-kit run:local",
+    "heroku-postbuild": "dotcom-tool-kit build:remote release:remote cleanup:remote"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +34,10 @@
     "@dotcom-tool-kit/node": "file:../../plugins/node"
   },
   "husky": {
-    "pre-commit": "dotcom-tool-kit git:precommit"
+    "pre-commit": "dotcom-tool-kit git:precommit",
+    "hooks": {
+      "pre-commit": "dotcom-tool-kit git:precommit"
+    }
   },
   "lint-staged": {
     "index.js": "dotcom-tool-kit format:staged --",
