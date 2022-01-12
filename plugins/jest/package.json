@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd ../../ ; npx jest --silent --projects plugins/jest"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -23,5 +23,8 @@
   "files": [
     "/lib",
     ".toolkitrc.yml"
-  ]
+  ],
+  "devDependencies": {
+    "@jest/globals": "^27.4.6"
+  }
 }
