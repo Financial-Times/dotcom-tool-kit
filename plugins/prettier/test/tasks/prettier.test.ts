@@ -2,6 +2,9 @@ import { describe, it, expect, afterEach, beforeAll } from '@jest/globals'
 import * as path from 'path'
 import Prettier from '../../src/tasks/prettier'
 import { promises as fsp } from 'fs'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 
@@ -32,7 +35,7 @@ describe('prettier', () => {
   })
 
   it('should format the correct file with default configOptions', async () => {
-    const task = new Prettier({
+    const task = new Prettier(logger, {
       files: [path.join(testDirectory, 'unformatted.ts')]
     })
     await task.run()
@@ -42,7 +45,7 @@ describe('prettier', () => {
 
   it('should use configFile if present', async () => {
     // having the configuration file be named .prettierrc-test.json hides it from being found by prettier on other non-test occasions.
-    const task = new Prettier({
+    const task = new Prettier(logger, {
       files: [path.join(testDirectory, 'unformatted.ts')],
       configFile: path.join(__dirname, '../.prettierrc-test.json')
     })
@@ -52,7 +55,7 @@ describe('prettier', () => {
   })
 
   it('should use configOptions if configFile not found', async () => {
-    const task = new Prettier({
+    const task = new Prettier(logger, {
       files: [path.join(testDirectory, 'unformatted.ts')],
       configFile: '/incorrect/.prettierrc.js',
       configOptions: {

@@ -2,6 +2,9 @@ import { describe, it, expect, jest } from '@jest/globals'
 import { getHerokuStagingApp } from '../src/getHerokuStagingApp'
 import { readState, writeState } from '@dotcom-tool-kit/state'
 import { writeLatestReleaseDetails } from '../src/writeLatestReleaseDetails'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 const ciState = {
   version: 'ci-version'
@@ -39,36 +42,36 @@ jest.mock('../src/writeLatestReleaseDetails', () => {
 
 describe('getHerokuStagingApp', () => {
   it('retreives data from state', async () => {
-    await getHerokuStagingApp()
+    await getHerokuStagingApp(logger)
 
     expect(readState).toBeCalledTimes(2)
   })
 
   it('writes app name to state', async () => {
-    await getHerokuStagingApp()
+    await getHerokuStagingApp(logger)
 
     expect(writeState).toBeCalledWith('staging', { appName: 'staging-app-name' })
   })
 
   it('calls writeLatestReleaseDetails with correct parameters', async () => {
-    await getHerokuStagingApp()
+    await getHerokuStagingApp(logger)
 
-    expect(writeLatestReleaseDetails).toBeCalledWith('staging-app-name', 'ci-version')
+    expect(writeLatestReleaseDetails).toBeCalledWith(logger, 'staging-app-name', 'ci-version')
   })
 
   it('returns the app name', async () => {
-    const appName = await getHerokuStagingApp()
+    const appName = await getHerokuStagingApp(logger)
 
     expect(appName).toEqual(name)
   })
 
   it('does not throw when successful', async () => {
-    await expect(getHerokuStagingApp()).resolves.not.toThrow()
+    await expect(getHerokuStagingApp(logger)).resolves.not.toThrow()
   })
 
   it('throws when unsuccessful', async () => {
     stagingState.appIds[0] = 'wrong-id'
 
-    await expect(getHerokuStagingApp()).rejects.toThrowError()
+    await expect(getHerokuStagingApp(logger)).rejects.toThrowError()
   })
 })

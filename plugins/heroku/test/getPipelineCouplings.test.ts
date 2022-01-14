@@ -2,6 +2,9 @@ import { describe, it, expect, jest } from '@jest/globals'
 import { getPipelineCouplings } from '../src/getPipelineCouplings'
 import heroku from '../src/herokuClient'
 import { writeState } from '@dotcom-tool-kit/state'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 type Pipeline = {
   [key: string]: {
@@ -48,25 +51,25 @@ jest.mock('@dotcom-tool-kit/state', () => {
 
 describe('getPipelineCouplings', () => {
   it('calls heroku api twice', async () => {
-    await getPipelineCouplings(pipelineName)
+    await getPipelineCouplings(logger, pipelineName)
 
     expect(heroku.get).toHaveBeenCalledTimes(2)
   })
 
   it('writes app ids to state', async () => {
-    await getPipelineCouplings(pipelineName)
+    await getPipelineCouplings(logger, pipelineName)
 
     expect(writeState).toHaveBeenNthCalledWith(1, 'production', { appIds: ['prod-appID'] })
     expect(writeState).toHaveBeenNthCalledWith(2, 'staging', { appIds: ['staging-appID'] })
   })
 
   it('does not throw when successful', async () => {
-    await expect(getPipelineCouplings(pipelineName)).resolves.not.toThrow()
+    await expect(getPipelineCouplings(logger, pipelineName)).resolves.not.toThrow()
   })
 
   it('throws when unsuccessful', async () => {
     const wrongPipelineName = 'wrong-test-pipeline-name'
 
-    await expect(getPipelineCouplings(wrongPipelineName)).rejects.toThrowError()
+    await expect(getPipelineCouplings(logger, wrongPipelineName)).rejects.toThrowError()
   })
 })

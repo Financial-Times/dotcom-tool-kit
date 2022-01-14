@@ -2,10 +2,12 @@ import { describe, it, expect, beforeAll } from '@jest/globals'
 import aws from 'aws-sdk'
 import * as path from 'path'
 import { mocked } from 'ts-jest/utils'
+import winston, { Logger } from 'winston'
 import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'
 jest.mock('aws-sdk')
 
 const mockedAWS = mocked(aws, true)
+const logger = (winston as unknown) as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 
@@ -17,7 +19,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should upload all globbed files for review', async () => {
-    const task = new UploadAssetsToS3({
+    const task = new UploadAssetsToS3(logger, {
       directory: testDirectory
     })
     process.env.NODE_ENV = 'branch'
@@ -29,7 +31,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should upload all globbed files for prod', async () => {
-    const task = new UploadAssetsToS3({
+    const task = new UploadAssetsToS3(logger, {
       directory: testDirectory
     })
     process.env.NODE_ENV = 'production'
@@ -41,7 +43,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should use correct Content-Encoding for compressed files', async () => {
-    const task = new UploadAssetsToS3({
+    const task = new UploadAssetsToS3(logger, {
       extensions: 'gz',
       directory: testDirectory
     })
@@ -55,13 +57,13 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should print an error when AWS fails', async () => {
-    const mockError = new Error('mock 404')
+    const mockError = 'mock 404'
 
     mockedAWS.S3.prototype.upload.mockReturnValueOnce({
-      promise: jest.fn().mockRejectedValue(mockError)
+      promise: jest.fn().mockRejectedValue(new Error(mockError))
     } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
 
-    const task = new UploadAssetsToS3({
+    const task = new UploadAssetsToS3(logger, {
       directory: testDirectory
     })
 
@@ -69,7 +71,7 @@ describe('upload-assets-to-s3', () => {
     try {
       await task.run()
     } catch (e) {
-      expect(e).toEqual(mockError)
+      expect(e.details).toEqual(mockError)
     }
   })
 })

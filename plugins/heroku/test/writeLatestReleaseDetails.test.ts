@@ -1,6 +1,9 @@
 import { writeState } from '@dotcom-tool-kit/state/lib'
 import { describe, it, expect, jest } from '@jest/globals'
 import { writeLatestReleaseDetails } from '../src/writeLatestReleaseDetails'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 const stagingAppName = 'staging-app-name'
 const version = 'match-version-commit-id'
@@ -61,20 +64,22 @@ jest.mock('@dotcom-tool-kit/state', () => {
 
 describe('writeLatestResleaseDetails', () => {
   it(`throws when it can't find a latest release`, async () => {
-    await expect(writeLatestReleaseDetails('randon-app-name', version)).rejects.toThrow()
+    await expect(writeLatestReleaseDetails(logger, 'randon-app-name', version)).rejects.toThrow()
   })
 
   it('writes slug id to state file', async () => {
-    await writeLatestReleaseDetails(stagingAppName, version)
+    await writeLatestReleaseDetails(logger, stagingAppName, version)
 
     expect(writeState).toBeCalledWith('staging', { slugId: 'slug-id-2' })
   })
 
   it('throws when staging does not update to the latest commit', async () => {
-    await expect(writeLatestReleaseDetails(stagingAppName, 'never-match-version-commit-id')).rejects.toThrow()
+    await expect(
+      writeLatestReleaseDetails(logger, stagingAppName, 'never-match-version-commit-id')
+    ).rejects.toThrow()
   })
 
   it('returns without throwing when successful', async () => {
-    await expect(writeLatestReleaseDetails(stagingAppName, version)).resolves.not.toThrow()
+    await expect(writeLatestReleaseDetails(logger, stagingAppName, version)).resolves.not.toThrow()
   })
 })

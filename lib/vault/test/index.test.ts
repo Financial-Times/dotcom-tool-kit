@@ -3,6 +3,9 @@ import { VaultEnvVars } from '../src/index'
 import fetch from '@financial-times/n-fetch'
 import { mocked } from 'ts-jest/utils'
 import fs from 'fs'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 let CIRCLECI: string
 if (process.env.CIRCLECI) {
@@ -33,7 +36,7 @@ jest.mock('fs', () => ({
   }
 }))
 
-const vault = new VaultEnvVars({
+const vault = new VaultEnvVars(logger, {
   environment: 'development',
   vaultPath: {
     app: 'test-app',

@@ -4,6 +4,9 @@ import { getHerokuReviewApp } from '../../src/getHerokuReviewApp'
 import { setConfigVars } from '../../src/setConfigVars'
 import { gtg } from '../../src/gtg'
 import heroku from '../../src/herokuClient'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 type State = {
   [key: string]: string
@@ -54,7 +57,7 @@ jest.mock('../../src/gtg', () => {
 
 describe('review', () => {
   it('should fail when pipeline option is missing', async () => {
-    const task = new Review({})
+    const task = new Review(logger, {})
 
     try {
       await task.run()
@@ -64,7 +67,7 @@ describe('review', () => {
   })
 
   it('should call pass in the pipeline id to heroku api call', async () => {
-    const task = new Review({ pipeline })
+    const task = new Review(logger, { pipeline })
 
     await task.run()
 
@@ -73,16 +76,16 @@ describe('review', () => {
   })
 
   it('should return review app id from get heroku review app', async () => {
-    const task = new Review({ pipeline })
+    const task = new Review(logger, { pipeline })
 
     await task.run()
 
     expect(getHerokuReviewApp).toBeCalledTimes(1)
-    expect(getHerokuReviewApp).toBeCalledWith('test-pipeline-id')
+    expect(getHerokuReviewApp).toBeCalledWith(expect.anything(), 'test-pipeline-id')
   })
 
   it('should fail if either vault option is missing', async () => {
-    let task = new Review({ pipeline })
+    let task = new Review(logger, { pipeline })
 
     try {
       await task.run()
@@ -90,7 +93,7 @@ describe('review', () => {
       expect(err).toBeTruthy()
     }
 
-    task = new Review({ pipeline })
+    task = new Review(logger, { pipeline })
 
     try {
       await task.run()
@@ -100,7 +103,7 @@ describe('review', () => {
   })
 
   it('should write app id to state', async () => {
-    const task = new Review({ pipeline })
+    const task = new Review(logger, { pipeline })
 
     await task.run()
 
@@ -108,24 +111,24 @@ describe('review', () => {
   })
 
   it('should call setConfigVars with vault team and vault app', async () => {
-    const task = new Review({ pipeline })
+    const task = new Review(logger, { pipeline })
 
     await task.run()
 
-    expect(setConfigVars).toBeCalledWith(appId, 'continuous-integration')
+    expect(setConfigVars).toBeCalledWith(expect.anything(), appId, 'continuous-integration')
   })
 
   it('should call gtg with appName', async () => {
-    const task = new Review({ pipeline })
+    const task = new Review(logger, { pipeline })
 
     await task.run()
 
-    expect(gtg).toBeCalledWith(appId, 'review')
+    expect(gtg).toBeCalledWith(expect.anything(), appId, 'review')
   })
 
   it('should throw an error if it fails', async () => {
     pipeline = 'wrong-pipeline-name'
-    const task = new Review({ pipeline })
+    const task = new Review(logger, { pipeline })
 
     try {
       await task.run()

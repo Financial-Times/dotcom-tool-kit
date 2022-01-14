@@ -12,6 +12,7 @@ Object {
             "hook": "build:remote",
             "id": "build:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "cleanup:remote": CleanupRemote {
@@ -19,6 +20,7 @@ Object {
             "hook": "cleanup:remote",
             "id": "cleanup:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "release:remote": ReleaseRemote {
@@ -26,6 +28,7 @@ Object {
             "hook": "release:remote",
             "id": "release:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -52,6 +55,7 @@ Object {
                   "tool-kit/e2e-test-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
@@ -68,6 +72,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
@@ -84,6 +89,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
@@ -95,6 +101,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:review": TestReview {
@@ -106,6 +113,7 @@ Object {
                   "tool-kit/heroku-provision",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
@@ -117,6 +125,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -163,6 +172,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -179,6 +189,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -195,6 +206,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -206,6 +218,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -217,6 +230,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -228,6 +242,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -266,6 +281,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -282,6 +298,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -298,6 +315,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -309,6 +327,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -320,6 +339,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -331,6 +351,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -369,6 +390,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -385,6 +407,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -401,6 +424,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -412,6 +436,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -423,6 +448,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -434,6 +460,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -472,6 +499,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -488,6 +516,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -504,6 +533,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -515,6 +545,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -526,6 +557,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -537,6 +569,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -640,6 +673,7 @@ Object {
           "waiting-for-approval",
         ],
       },
+      "logger": DerivedLogger {},
       "plugin": Object {
         "BuildCI": [Function],
         "TestCI": [Function],
@@ -655,6 +689,7 @@ Object {
                 "tool-kit/build",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -681,6 +716,7 @@ Object {
                   "tool-kit/e2e-test-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
@@ -697,6 +733,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
@@ -713,6 +750,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
@@ -724,6 +762,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:review": TestReview {
@@ -735,6 +774,7 @@ Object {
                   "tool-kit/heroku-provision",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
@@ -746,6 +786,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -764,6 +805,7 @@ Object {
       "hook": "build:local",
       "id": "build:local",
       "key": "build",
+      "logger": DerivedLogger {},
       "plugin": Object {
         "PackageJsonHook": [Function],
         "hooks": Object {
@@ -773,6 +815,7 @@ Object {
             "hook": "run:local",
             "id": "run:local",
             "key": "start",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:local": TestLocal {
@@ -780,6 +823,7 @@ Object {
             "hook": "test:local",
             "id": "test:local",
             "key": "test",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -791,6 +835,7 @@ Object {
               "hook": "build:remote",
               "id": "build:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "cleanup:remote": CleanupRemote {
@@ -798,6 +843,7 @@ Object {
               "hook": "cleanup:remote",
               "id": "cleanup:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "release:remote": ReleaseRemote {
@@ -805,6 +851,7 @@ Object {
               "hook": "release:remote",
               "id": "release:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -831,6 +878,7 @@ Object {
                     "tool-kit/e2e-test-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "deploy:review": DeployReview {
@@ -847,6 +895,7 @@ Object {
                     "tool-kit/setup",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "deploy:staging": DeployStaging {
@@ -863,6 +912,7 @@ Object {
                     "tool-kit/setup",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "teardown:staging": TestStaging {
@@ -874,6 +924,7 @@ Object {
                     "tool-kit/heroku-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "test:review": TestReview {
@@ -885,6 +936,7 @@ Object {
                     "tool-kit/heroku-provision",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "test:staging": TestStaging {
@@ -896,6 +948,7 @@ Object {
                     "tool-kit/heroku-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
             },
@@ -925,6 +978,7 @@ Object {
       "hook": "build:remote",
       "id": "build:remote",
       "key": "heroku-postbuild",
+      "logger": DerivedLogger {},
       "plugin": Object {
         "hooks": Object {
           "build:remote": [Circular],
@@ -933,6 +987,7 @@ Object {
             "hook": "cleanup:remote",
             "id": "cleanup:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "release:remote": ReleaseRemote {
@@ -940,6 +995,7 @@ Object {
             "hook": "release:remote",
             "id": "release:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -966,6 +1022,7 @@ Object {
                   "tool-kit/e2e-test-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
@@ -982,6 +1039,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
@@ -998,6 +1056,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
@@ -1009,6 +1068,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:review": TestReview {
@@ -1020,6 +1080,7 @@ Object {
                   "tool-kit/heroku-provision",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
@@ -1031,6 +1092,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -1055,6 +1117,7 @@ Object {
       "hook": "cleanup:remote",
       "id": "cleanup:remote",
       "key": "heroku-postbuild",
+      "logger": DerivedLogger {},
       "plugin": Object {
         "hooks": Object {
           "build:remote": BuildRemote {
@@ -1062,6 +1125,7 @@ Object {
             "hook": "build:remote",
             "id": "build:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "cleanup:remote": [Circular],
@@ -1070,6 +1134,7 @@ Object {
             "hook": "release:remote",
             "id": "release:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -1096,6 +1161,7 @@ Object {
                   "tool-kit/e2e-test-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
@@ -1112,6 +1178,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
@@ -1128,6 +1195,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
@@ -1139,6 +1207,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:review": TestReview {
@@ -1150,6 +1219,7 @@ Object {
                   "tool-kit/heroku-provision",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
@@ -1161,6 +1231,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -1195,6 +1266,7 @@ Object {
           "tool-kit/e2e-test-staging",
         ],
       },
+      "logger": DerivedLogger {},
       "plugin": Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
@@ -1217,6 +1289,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -1233,6 +1306,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -1244,6 +1318,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -1255,6 +1330,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -1266,6 +1342,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -1291,6 +1368,7 @@ Object {
           "tool-kit/setup",
         ],
       },
+      "logger": DerivedLogger {},
       "plugin": Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
@@ -1313,6 +1391,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": [Circular],
@@ -1330,6 +1409,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -1341,6 +1421,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -1352,6 +1433,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -1363,6 +1445,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -1388,6 +1471,7 @@ Object {
           "tool-kit/setup",
         ],
       },
+      "logger": DerivedLogger {},
       "plugin": Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
@@ -1410,6 +1494,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -1426,6 +1511,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": [Circular],
@@ -1438,6 +1524,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -1449,6 +1536,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -1460,6 +1548,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -1476,6 +1565,7 @@ Object {
       "hook": "release:remote",
       "id": "release:remote",
       "key": "heroku-postbuild",
+      "logger": DerivedLogger {},
       "plugin": Object {
         "hooks": Object {
           "build:remote": BuildRemote {
@@ -1483,6 +1573,7 @@ Object {
             "hook": "build:remote",
             "id": "build:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "cleanup:remote": CleanupRemote {
@@ -1490,6 +1581,7 @@ Object {
             "hook": "cleanup:remote",
             "id": "cleanup:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "release:remote": [Circular],
@@ -1517,6 +1609,7 @@ Object {
                   "tool-kit/e2e-test-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
@@ -1533,6 +1626,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
@@ -1549,6 +1643,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
@@ -1560,6 +1655,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:review": TestReview {
@@ -1571,6 +1667,7 @@ Object {
                   "tool-kit/heroku-provision",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
@@ -1582,6 +1679,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -1606,6 +1704,7 @@ Object {
       "hook": "run:local",
       "id": "run:local",
       "key": "start",
+      "logger": DerivedLogger {},
       "plugin": Object {
         "PackageJsonHook": [Function],
         "hooks": Object {
@@ -1614,6 +1713,7 @@ Object {
             "hook": "build:local",
             "id": "build:local",
             "key": "build",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "run:local": [Circular],
@@ -1622,6 +1722,7 @@ Object {
             "hook": "test:local",
             "id": "test:local",
             "key": "test",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -1633,6 +1734,7 @@ Object {
               "hook": "build:remote",
               "id": "build:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "cleanup:remote": CleanupRemote {
@@ -1640,6 +1742,7 @@ Object {
               "hook": "cleanup:remote",
               "id": "cleanup:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "release:remote": ReleaseRemote {
@@ -1647,6 +1750,7 @@ Object {
               "hook": "release:remote",
               "id": "release:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -1673,6 +1777,7 @@ Object {
                     "tool-kit/e2e-test-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "deploy:review": DeployReview {
@@ -1689,6 +1794,7 @@ Object {
                     "tool-kit/setup",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "deploy:staging": DeployStaging {
@@ -1705,6 +1811,7 @@ Object {
                     "tool-kit/setup",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "teardown:staging": TestStaging {
@@ -1716,6 +1823,7 @@ Object {
                     "tool-kit/heroku-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "test:review": TestReview {
@@ -1727,6 +1835,7 @@ Object {
                     "tool-kit/heroku-provision",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "test:staging": TestStaging {
@@ -1738,6 +1847,7 @@ Object {
                     "tool-kit/heroku-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
             },
@@ -1771,6 +1881,7 @@ Object {
           "tool-kit/heroku-staging",
         ],
       },
+      "logger": DerivedLogger {},
       "plugin": Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
@@ -1793,6 +1904,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -1809,6 +1921,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -1825,6 +1938,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": [Circular],
@@ -1837,6 +1951,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -1848,6 +1963,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -1869,6 +1985,7 @@ Object {
           "tool-kit/build",
         ],
       },
+      "logger": DerivedLogger {},
       "plugin": Object {
         "BuildCI": [Function],
         "TestCI": [Function],
@@ -1884,6 +2001,7 @@ Object {
                 "waiting-for-approval",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:ci": [Circular],
@@ -1911,6 +2029,7 @@ Object {
                   "tool-kit/e2e-test-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
@@ -1927,6 +2046,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
@@ -1943,6 +2063,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
@@ -1954,6 +2075,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:review": TestReview {
@@ -1965,6 +2087,7 @@ Object {
                   "tool-kit/heroku-provision",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
@@ -1976,6 +2099,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -1994,6 +2118,7 @@ Object {
       "hook": "test:local",
       "id": "test:local",
       "key": "test",
+      "logger": DerivedLogger {},
       "plugin": Object {
         "PackageJsonHook": [Function],
         "hooks": Object {
@@ -2002,6 +2127,7 @@ Object {
             "hook": "build:local",
             "id": "build:local",
             "key": "build",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "run:local": RunLocal {
@@ -2009,6 +2135,7 @@ Object {
             "hook": "run:local",
             "id": "run:local",
             "key": "start",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:local": [Circular],
@@ -2021,6 +2148,7 @@ Object {
               "hook": "build:remote",
               "id": "build:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "cleanup:remote": CleanupRemote {
@@ -2028,6 +2156,7 @@ Object {
               "hook": "cleanup:remote",
               "id": "cleanup:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "release:remote": ReleaseRemote {
@@ -2035,6 +2164,7 @@ Object {
               "hook": "release:remote",
               "id": "release:remote",
               "key": "heroku-postbuild",
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -2061,6 +2191,7 @@ Object {
                     "tool-kit/e2e-test-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "deploy:review": DeployReview {
@@ -2077,6 +2208,7 @@ Object {
                     "tool-kit/setup",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "deploy:staging": DeployStaging {
@@ -2093,6 +2225,7 @@ Object {
                     "tool-kit/setup",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "teardown:staging": TestStaging {
@@ -2104,6 +2237,7 @@ Object {
                     "tool-kit/heroku-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "test:review": TestReview {
@@ -2115,6 +2249,7 @@ Object {
                     "tool-kit/heroku-provision",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
               "test:staging": TestStaging {
@@ -2126,6 +2261,7 @@ Object {
                     "tool-kit/heroku-staging",
                   ],
                 },
+                "logger": DerivedLogger {},
                 "plugin": [Circular],
               },
             },
@@ -2159,6 +2295,7 @@ Object {
           "tool-kit/heroku-provision",
         ],
       },
+      "logger": DerivedLogger {},
       "plugin": Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
@@ -2181,6 +2318,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -2197,6 +2335,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -2213,6 +2352,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -2224,6 +2364,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": [Circular],
@@ -2236,6 +2377,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -2256,6 +2398,7 @@ Object {
           "tool-kit/heroku-staging",
         ],
       },
+      "logger": DerivedLogger {},
       "plugin": Object {
         "DeployProduction": [Function],
         "DeployReview": [Function],
@@ -2278,6 +2421,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -2294,6 +2438,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -2310,6 +2455,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -2321,6 +2467,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -2332,6 +2479,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": [Circular],
@@ -2471,6 +2619,7 @@ Object {
               "tool-kit/e2e-test-staging",
             ],
           },
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "deploy:review": DeployReview {
@@ -2487,6 +2636,7 @@ Object {
               "tool-kit/setup",
             ],
           },
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "deploy:staging": DeployStaging {
@@ -2503,6 +2653,7 @@ Object {
               "tool-kit/setup",
             ],
           },
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "teardown:staging": TestStaging {
@@ -2514,6 +2665,7 @@ Object {
               "tool-kit/heroku-staging",
             ],
           },
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "test:review": TestReview {
@@ -2525,6 +2677,7 @@ Object {
               "tool-kit/heroku-provision",
             ],
           },
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "test:staging": TestStaging {
@@ -2536,6 +2689,7 @@ Object {
               "tool-kit/heroku-staging",
             ],
           },
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
       },
@@ -2597,6 +2751,7 @@ Object {
               "waiting-for-approval",
             ],
           },
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "test:ci": TestCI {
@@ -2609,6 +2764,7 @@ Object {
               "tool-kit/build",
             ],
           },
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
       },
@@ -2635,6 +2791,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -2651,6 +2808,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -2667,6 +2825,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -2678,6 +2837,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -2689,6 +2849,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -2700,6 +2861,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -2719,6 +2881,7 @@ Object {
           "hook": "build:remote",
           "id": "build:remote",
           "key": "heroku-postbuild",
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "cleanup:remote": CleanupRemote {
@@ -2726,6 +2889,7 @@ Object {
           "hook": "cleanup:remote",
           "id": "cleanup:remote",
           "key": "heroku-postbuild",
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "release:remote": ReleaseRemote {
@@ -2733,6 +2897,7 @@ Object {
           "hook": "release:remote",
           "id": "release:remote",
           "key": "heroku-postbuild",
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
       },
@@ -2759,6 +2924,7 @@ Object {
                 "tool-kit/e2e-test-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:review": DeployReview {
@@ -2775,6 +2941,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "deploy:staging": DeployStaging {
@@ -2791,6 +2958,7 @@ Object {
                 "tool-kit/setup",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "teardown:staging": TestStaging {
@@ -2802,6 +2970,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:review": TestReview {
@@ -2813,6 +2982,7 @@ Object {
                 "tool-kit/heroku-provision",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "test:staging": TestStaging {
@@ -2824,6 +2994,7 @@ Object {
                 "tool-kit/heroku-staging",
               ],
             },
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -2850,6 +3021,7 @@ Object {
           "hook": "build:local",
           "id": "build:local",
           "key": "build",
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "run:local": RunLocal {
@@ -2857,6 +3029,7 @@ Object {
           "hook": "run:local",
           "id": "run:local",
           "key": "start",
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
         "test:local": TestLocal {
@@ -2864,6 +3037,7 @@ Object {
           "hook": "test:local",
           "id": "test:local",
           "key": "test",
+          "logger": DerivedLogger {},
           "plugin": [Circular],
         },
       },
@@ -2875,6 +3049,7 @@ Object {
             "hook": "build:remote",
             "id": "build:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "cleanup:remote": CleanupRemote {
@@ -2882,6 +3057,7 @@ Object {
             "hook": "cleanup:remote",
             "id": "cleanup:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "release:remote": ReleaseRemote {
@@ -2889,6 +3065,7 @@ Object {
             "hook": "release:remote",
             "id": "release:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -2915,6 +3092,7 @@ Object {
                   "tool-kit/e2e-test-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
@@ -2931,6 +3109,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
@@ -2947,6 +3126,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
@@ -2958,6 +3138,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:review": TestReview {
@@ -2969,6 +3150,7 @@ Object {
                   "tool-kit/heroku-provision",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
@@ -2980,6 +3162,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },
@@ -3014,6 +3197,7 @@ Object {
             "hook": "build:remote",
             "id": "build:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "cleanup:remote": CleanupRemote {
@@ -3021,6 +3205,7 @@ Object {
             "hook": "cleanup:remote",
             "id": "cleanup:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
           "release:remote": ReleaseRemote {
@@ -3028,6 +3213,7 @@ Object {
             "hook": "release:remote",
             "id": "release:remote",
             "key": "heroku-postbuild",
+            "logger": DerivedLogger {},
             "plugin": [Circular],
           },
         },
@@ -3054,6 +3240,7 @@ Object {
                   "tool-kit/e2e-test-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:review": DeployReview {
@@ -3070,6 +3257,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "deploy:staging": DeployStaging {
@@ -3086,6 +3274,7 @@ Object {
                   "tool-kit/setup",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "teardown:staging": TestStaging {
@@ -3097,6 +3286,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:review": TestReview {
@@ -3108,6 +3298,7 @@ Object {
                   "tool-kit/heroku-provision",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
             "test:staging": TestStaging {
@@ -3119,6 +3310,7 @@ Object {
                   "tool-kit/heroku-staging",
                 ],
               },
+              "logger": DerivedLogger {},
               "plugin": [Circular],
             },
           },

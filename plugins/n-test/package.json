@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/state": "file:../../lib/state",
     "@dotcom-tool-kit/logger": "file:../../lib/logger",
+    "@dotcom-tool-kit/state": "file:../../lib/state",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "@financial-times/n-test": "^3.0.1"
   },
@@ -24,7 +24,8 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/n-test",
   "devDependencies": {
     "@jest/globals": "^27.4.6",
-    "@types/jest": "^27.4.0"
+    "@types/jest": "^27.4.0",
+    "winston": "^3.4.0"
   },
   "files": [
     "/lib",

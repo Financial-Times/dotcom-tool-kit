@@ -3,6 +3,9 @@ import * as path from 'path'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Config, loadConfig, validateConfig } from '../src/config'
 import { loadPluginConfig } from '../src/plugin'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
 jest.setTimeout(15000)
@@ -37,9 +40,10 @@ function makeConfigPathsRelative(config: Config) {
 
 describe('cli', () => {
   it('should load plugins correctly', async () => {
-    const config = await loadConfig()
+    const config = await loadConfig(logger)
 
     await loadPluginConfig(
+      logger,
       { id: 'successful test root', root: path.join(__dirname, 'files/successful') },
       config
     )
@@ -51,9 +55,10 @@ describe('cli', () => {
   })
 
   it('should indicate when there are conflicts', async () => {
-    const config = await loadConfig({ validate: false })
+    const config = await loadConfig(logger, { validate: false })
 
     await loadPluginConfig(
+      logger,
       { id: 'conflicted test root', root: path.join(__dirname, 'files/conflicted') },
       config
     )
@@ -65,9 +70,10 @@ describe('cli', () => {
   })
 
   it('should succeed when conflicts are resolved', async () => {
-    const config = await loadConfig({ validate: false })
+    const config = await loadConfig(logger, { validate: false })
 
     await loadPluginConfig(
+      logger,
       {
         id: 'resolved test root',
         root: path.join(__dirname, 'files/conflict-resolution')

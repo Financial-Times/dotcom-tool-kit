@@ -11,10 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "@dotcom-tool-kit/npm": "file:../npm",
     "@dotcom-tool-kit/package-json-hook": "file:../../lib/package-json-hook",
     "@dotcom-tool-kit/state": "file:../../lib/state",
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "@dotcom-tool-kit/vault": "file:../../lib/vault",
     "@dotcom-tool-kit/wait-for-ok": "file:../../lib/wait-for-ok",
