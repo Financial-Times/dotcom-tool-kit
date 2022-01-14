@@ -10,8 +10,10 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/types": "file:../../lib/types",
-    "jest-cli": "^27.4.7"
+    "@dotcom-tool-kit/types": "file:../../lib/types"
+  },
+  "peerDependencies": {
+    "jest-cli": "27.x"
   },
   "repository": {
     "type": "git",

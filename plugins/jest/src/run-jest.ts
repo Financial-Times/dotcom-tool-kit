@@ -1,9 +1,9 @@
 import { fork } from 'child_process'
-import type { JestOptions } from '@dotcom-tool-kit/types/lib/schema/jest'
-
+import type { JestOptions, JestMode } from '@dotcom-tool-kit/types/lib/schema/jest'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 const jestCLIPath = require.resolve('jest-cli/bin/jest')
 
-export default function runJest(mode: string, options: JestOptions) : Promise<void> {
+export default function runJest(mode: JestMode, options: JestOptions) : Promise<void> {
     return new Promise((resolve, reject) => {
         const config = [
           mode === 'ci' ? '--ci' : '', 
@@ -15,7 +15,7 @@ export default function runJest(mode: string, options: JestOptions) : Promise<vo
           if (code === 0) {
             resolve()
           } else {
-            reject(new Error(`Jest returned an error`))
+            reject(new ToolKitError(`Jest returned an error`))
           }
         })
       })

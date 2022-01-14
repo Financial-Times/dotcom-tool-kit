@@ -5,7 +5,7 @@ import EventEmitter from 'events'
 
 jest.mock('child_process', () => ({
     fork: jest.fn(() => {
-      // return a fake emitter that immediately sends an "exit" event, so the webpack task resolves
+      // return a fake emitter that immediately sends an "exit" event, so the jest task resolves
       const emitter = new EventEmitter()
       process.nextTick(() => {
         emitter.emit('exit', 0)

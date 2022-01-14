@@ -20,11 +20,13 @@
     "@dotcom-tool-kit/lint-staged": "file:../../plugins/lint-staged",
     "@dotcom-tool-kit/lint-staged-npm": "file:../../plugins/lint-staged-npm",
     "@dotcom-tool-kit/mocha": "file:../../plugins/mocha",
+    "@dotcom-tool-kit/jest": "file:../../plugins/jest",
     "@dotcom-tool-kit/n-test": "file:../../plugins/n-test",
     "@dotcom-tool-kit/npm": "file:../../plugins/npm",
     "@dotcom-tool-kit/prettier": "file:../../plugins/prettier",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../../plugins/upload-assets-to-s3",
-    "dotcom-tool-kit": "file:../cli"
+    "dotcom-tool-kit": "file:../cli",
+    "jest-cli": "^27.4.7"
   },
   "volta": {
     "extends": "../../package.json"
@@ -34,7 +36,6 @@
     "@dotcom-tool-kit/node": "file:../../plugins/node"
   },
   "husky": {
-    "pre-commit": "dotcom-tool-kit git:precommit",
     "hooks": {
       "pre-commit": "dotcom-tool-kit git:precommit"
     }
