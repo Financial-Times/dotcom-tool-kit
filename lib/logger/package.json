@@ -23,6 +23,11 @@
     "extends": "../../package.json"
   },
   "dependencies": {
-    "ansi-colors": "^4.1.1"
+    "@dotcom-tool-kit/error": "file:../error",
+    "ansi-colors": "^4.1.1",
+    "hook-std": "^2.0.0"
+  },
+  "devDependencies": {
+    "winston": "^3.4.0"
   }
 }

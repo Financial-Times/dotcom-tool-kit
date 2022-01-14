@@ -2,8 +2,7 @@ import prettier from 'prettier'
 import { PrettierOptions, PrettierSchema } from '@dotcom-tool-kit/types/lib/schema/prettier'
 import { promises as fsp } from 'fs'
 import fg from 'fast-glob'
-import hookStd from 'hook-std'
-import { styles } from '@dotcom-tool-kit/logger'
+import { hookConsole, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
@@ -62,17 +61,11 @@ export default class Prettier extends Task<typeof PrettierSchema> {
       prettierConfig = options.configOptions
     }
 
-    const { unhook: unhookStd } = hookStd.stderr({ silent: true }, (output) => {
-      this.logger.info(output.trim(), { process: 'prettier' })
-    })
-    const { unhook: unhookErr } = hookStd.stderr({ silent: true }, (output) => {
-      this.logger.warn(output.trim(), { process: 'prettier' })
-    })
+    const unhook = hookConsole(this.logger, 'prettier')
     await fsp.writeFile(
       filepath,
       prettier.format(fileContent, { ...(prettierConfig as prettier.Options), filepath })
     )
-    unhookStd()
-    unhookErr()
+    unhook()
   }
 }

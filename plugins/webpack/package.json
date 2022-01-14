@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "webpack-cli": "^4.6.0"
   },
