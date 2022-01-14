@@ -3,7 +3,7 @@ import * as yaml from 'js-yaml'
 import isEqual from 'lodash.isequal'
 import path from 'path'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Hook } from '@dotcom-tool-kit/types'
 
 type JobConfig = {

@@ -4,7 +4,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { writeState } from '@dotcom-tool-kit/state'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 

@@ -5,7 +5,7 @@
       "path": "../../lib/error"
     },
     {
-      "path": "../../lib/styles"
+      "path": "../../lib/logger"
     },
     {
       "path": "../../lib/types"

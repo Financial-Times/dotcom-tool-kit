@@ -2,7 +2,7 @@ import colours from 'ansi-colors'
 
 // consistent styling use cases for terminal colours
 // don't use ansi-colors directly, define a style please
-const styles = {
+export const styles = {
   hook: colours.magenta,
   task: colours.blueBright,
   plugin: colours.cyan,
@@ -20,5 +20,3 @@ const styles = {
   warning: (string: string): string => `${styles.warningHighlight.bold('⚠︎')} ${styles.title(string)}`,
   ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2))
 }
-
-export default styles

@@ -23,7 +23,7 @@
       "path": "../../lib/types"
     },
     {
-      "path": "../../lib/styles"
+      "path": "../../lib/logger"
     }
   ],
   "compilerOptions": {

@@ -8,7 +8,7 @@ import { Config, PluginOptions } from './config'
 import type { HookTask } from './hook'
 import { loadToolKitRC, RCFile } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Hook, instantiatePlugin, Plugin, TaskClass } from '@dotcom-tool-kit/types'
 
 export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: Config): Promise<Config> {

@@ -1,6 +1,6 @@
 import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
 import { setConfigVars } from '../setConfigVars'
 import { scaleDyno } from '../scaleDyno'

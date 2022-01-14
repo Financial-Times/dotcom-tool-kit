@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../../lib/error",
-    "@dotcom-tool-kit/styles": "file:../../lib/styles",
+    "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "aws-sdk": "^2.901.0",
     "glob": "^7.1.6",

@@ -6,7 +6,7 @@ const argv = require('minimist')(process.argv.slice(2), {
 })
 
 const { runTasks, showHelp, installHooks } = require('../lib')
-const styles = require('@dotcom-tool-kit/styles').default
+const { styles } = require('@dotcom-tool-kit/logger')
 const winston = require('winston')
 
 async function main() {
@@ -23,7 +23,7 @@ async function main() {
           labels += `[${styles.task(info.task)}]`
         }
         if (info.process) {
-          labels += `[${styles.filepath(info.process)}]`
+          labels += `[${styles.dim(info.process)}]`
         }
 
         if (info.level === 'error') {

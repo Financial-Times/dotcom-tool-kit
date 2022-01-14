@@ -1,6 +1,6 @@
 import { hasToolKitConflicts, ToolKitConflictError } from '@dotcom-tool-kit/error'
 import type { Schema, SchemaPromptGenerator, SchemaType } from '@dotcom-tool-kit/types/src/schema'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import loadPackageJson from '@financial-times/package-json'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'

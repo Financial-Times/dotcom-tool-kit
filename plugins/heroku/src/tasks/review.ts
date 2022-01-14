@@ -1,4 +1,4 @@
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { getHerokuReviewApp } from '../getHerokuReviewApp'
 import { gtg } from '../gtg'

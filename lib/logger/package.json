@@ -1,5 +1,5 @@
 {
-  "name": "@dotcom-tool-kit/styles",
+  "name": "@dotcom-tool-kit/logger",
   "version": "0.0.0-development",
   "description": "",
   "main": "lib",
@@ -12,10 +12,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/financial-times/dotcom-tool-kit.git",
-    "directory": "lib/styles"
+    "directory": "lib/logger"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/styles",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/logger",
   "files": [
     "/lib"
   ],

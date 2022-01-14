@@ -1,7 +1,7 @@
 import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { HerokuSchema, HerokuOptions } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import { scaleDyno } from '../scaleDyno'
 import { setSlug } from '../setSlug'

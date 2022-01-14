@@ -1,4 +1,4 @@
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 
 export default class BabelDevelopment extends Task {

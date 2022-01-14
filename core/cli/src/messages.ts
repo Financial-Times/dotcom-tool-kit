@@ -1,7 +1,7 @@
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { HookTask } from './hook'
-import s from '@dotcom-tool-kit/styles'
+import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Plugin, Hook, TaskClass } from '@dotcom-tool-kit/types'
 
 const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>

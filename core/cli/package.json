@@ -31,7 +31,7 @@
     "@dotcom-tool-kit/error": "file:../../lib/error",
     "@dotcom-tool-kit/hook": "file:../../lib/hook",
     "@dotcom-tool-kit/options": "file:../../lib/options",
-    "@dotcom-tool-kit/styles": "file:../../lib/styles",
+    "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "@dotcom-tool-kit/wait-for-ok": "file:../../lib/wait-for-ok",
     "cosmiconfig": "^7.0.0",

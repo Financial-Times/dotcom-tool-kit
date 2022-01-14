@@ -3,7 +3,7 @@ import { PrettierOptions, PrettierSchema } from '@dotcom-tool-kit/types/lib/sche
 import { promises as fsp } from 'fs'
 import fg from 'fast-glob'
 import hookStd from 'hook-std'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 

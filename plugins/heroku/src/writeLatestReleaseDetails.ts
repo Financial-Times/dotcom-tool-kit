@@ -2,7 +2,7 @@ import heroku from './herokuClient'
 import type { HerokuApiResGetRelease, HerokuApiGetSlug } from 'heroku-client'
 import type { Logger } from 'winston'
 import { writeState } from '@dotcom-tool-kit/state'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import checkIfStagingUpdated from './checkIfStagingUpdated'
 

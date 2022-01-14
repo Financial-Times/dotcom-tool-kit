@@ -5,7 +5,7 @@ import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import {
   UploadAssetsToS3Options,
   UploadAssetsToS3Schema

@@ -1,6 +1,6 @@
 import { checkInstall, loadConfig } from './config'
 import { setOptions } from '@dotcom-tool-kit/options'
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Logger } from 'winston'
 
 export default async function showHelp(logger: Logger, hooks: string[]): Promise<void> {

@@ -1,4 +1,4 @@
-import styles from '@dotcom-tool-kit/styles'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { SmokeTestSchema } from '@dotcom-tool-kit/types/lib/schema/n-test'
 import { SmokeTest } from '@financial-times/n-test'
