@@ -20,7 +20,7 @@ export default class HerokuTeardown extends Task {
     const appName = state.appName
 
     try {
-      await scaleDyno(appName, 0)
+      await scaleDyno(this.logger, appName, 0)
     } catch {
       throw new ToolKitError(`Unable to scale down dyno for ${styles.app(appName)}`)
     }

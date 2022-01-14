@@ -24,7 +24,7 @@ options:
       throw error
     }
 
-    const vault = new VaultEnvVars({
+    const vault = new VaultEnvVars(this.logger, {
       environment: 'development',
       vaultPath: {
         app: 'next-router',

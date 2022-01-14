@@ -1,6 +1,7 @@
 import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
+import { Logger } from 'winston'
 
 import { Conflict, isConflict } from './conflict'
 import { Config, PluginOptions } from './config'
@@ -10,11 +11,11 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import styles from '@dotcom-tool-kit/styles'
 import { Hook, instantiatePlugin, Plugin, TaskClass } from '@dotcom-tool-kit/types'
 
-export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<Config> {
+export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: Config): Promise<Config> {
   const { plugins = [], hooks = {}, options = {} } = await loadToolKitRC(plugin.root)
 
   // load any plugins requested by this plugin
-  await loadPlugins(plugins, config, plugin)
+  await loadPlugins(logger, plugins, config, plugin)
 
   // load plugin hook tasks. do this after loading child plugins, so
   // parent hooks get assigned after child hooks and can override them
@@ -105,7 +106,12 @@ export async function loadPluginConfig(plugin: Plugin, config: Config): Promise<
   return config
 }
 
-export async function loadPlugin(id: string, config: Config, parent?: Plugin): Promise<Plugin> {
+export async function loadPlugin(
+  logger: Logger,
+  id: string,
+  config: Config,
+  parent?: Plugin
+): Promise<Plugin> {
   // don't load duplicate plugins
   if (id in config.plugins) {
     return config.plugins[id]
@@ -118,7 +124,7 @@ export async function loadPlugin(id: string, config: Config, parent?: Plugin): P
   const rawPlugin = importFrom(root, id)
   let basePlugin
   try {
-    basePlugin = instantiatePlugin(rawPlugin)
+    basePlugin = instantiatePlugin(rawPlugin, logger)
   } catch (error) {
     if (error instanceof ToolKitError) {
       error.details = `the package ${styles.plugin(id)} at ${styles.filepath(
@@ -184,11 +190,16 @@ export async function loadPlugin(id: string, config: Config, parent?: Plugin): P
     }
   )
 
-  await loadPluginConfig(plugin, config)
+  await loadPluginConfig(logger, plugin, config)
 
   return plugin
 }
 
-export function loadPlugins(plugins: string[], config: Config, parent?: Plugin): Promise<Plugin[]> {
-  return Promise.all(plugins.map((plugin) => loadPlugin(plugin, config, parent)))
+export function loadPlugins(
+  logger: Logger,
+  plugins: string[],
+  config: Config,
+  parent?: Plugin
+): Promise<Plugin[]> {
+  return Promise.all(plugins.map((plugin) => loadPlugin(logger, plugin, config, parent)))
 }

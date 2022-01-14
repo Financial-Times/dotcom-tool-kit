@@ -6,7 +6,7 @@ export default class LintStaged extends Task {
   static description = ''
 
   async run(): Promise<void> {
-    console.log('running lint-staged...')
+    this.logger.verbose('running lint-staged...')
     const wasSuccessful = await lintStaged()
 
     if (!wasSuccessful) {

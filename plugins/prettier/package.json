@@ -15,6 +15,7 @@
     "@dotcom-tool-kit/styles": "file:../../lib/styles",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "fast-glob": "^3.2.7",
+    "hook-std": "^2.0.0",
     "prettier": "^2.2.1"
   },
   "repository": {

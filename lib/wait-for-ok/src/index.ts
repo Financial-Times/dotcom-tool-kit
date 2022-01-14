@@ -1,29 +1,29 @@
-import { FetchError } from 'node-fetch'
-import fetch from 'node-fetch'
+import fetch, { FetchError } from 'node-fetch'
+import type { Logger } from 'winston'
 
 const TWO_MINUTES = 2 * 60 * 1000
 
-function waitForOk(url: string): Promise<void> {
+function waitForOk(logger: Logger, url: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const checkGtg = async () => {
-      console.log(`⏳ polling: ${url}`)
+      logger.info(`⏳ polling: ${url}`)
 
       try {
         const response = await fetch(url, { timeout: 2000, follow: 0 })
 
         if (response.ok) {
-          console.log(`✅ ${url} ok!`)
+          logger.info(`✅ ${url} ok!`)
           clearTimeout(timeout)
           clearInterval(checker)
           return resolve()
         }
-        console.log(
+        logger.error(
           `❌ ${url} not ok, it's responding with status of ${response.status}, response.ok: ${response.ok}`
         )
       } catch (err) {
         if (err instanceof FetchError && err.type && err.type === 'request-timeout') {
-          console.log(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that.`)
-          console.log("You're amazing, by the way. I don't say that often enough. But you really are.")
+          logger.warn(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that.`)
+          logger.warn("You're amazing, by the way. I don't say that often enough. But you really are.")
         } else {
           clearInterval(checker)
           return reject(new Error(`😿 ${url} Error: ${err}`))

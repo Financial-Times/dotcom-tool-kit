@@ -44,7 +44,7 @@ export default abstract class CircleCiConfigHook extends Hook {
   async getCircleConfigRaw(): Promise<string | undefined> {
     if (!this._circleConfigRaw) {
       try {
-        console.log(`trying to read CircleCI config at ${styles.filepath(this.circleConfigPath)}...`)
+        this.logger.verbose(`trying to read CircleCI config at ${styles.filepath(this.circleConfigPath)}...`)
         this._circleConfigRaw = await fs.readFile(this.circleConfigPath, 'utf8')
       } catch (err) {
         // Not an error if config file doesn't exist
@@ -71,7 +71,7 @@ export default abstract class CircleCiConfigHook extends Hook {
   async getVersionTag(): Promise<string | undefined> {
     if (!this._versionTag) {
       const packageJsonPath = path.join(__dirname, '../package.json')
-      console.log(`reading package.json at ${styles.filepath(packageJsonPath)}...`)
+      this.logger.verbose(`reading package.json at ${styles.filepath(packageJsonPath)}...`)
       const currentManifest = await fs.readFile(packageJsonPath, 'utf8')
       if (currentManifest) {
         this._versionTag = JSON.parse(currentManifest).version
@@ -194,11 +194,11 @@ export default abstract class CircleCiConfigHook extends Hook {
 
     const serialised = automatedComment + yaml.dump(config)
     const circleConfigDir = path.dirname(this.circleConfigPath)
-    console.log(`making directory at ${styles.filepath(circleConfigDir)}...`)
+    this.logger.verbose(`making directory at ${styles.filepath(circleConfigDir)}...`)
     // Enable recursive option so that mkdir doesn't throw if the directory
     // already exists.
     await fs.mkdir(circleConfigDir, { recursive: true })
-    console.log(`writing CircleCI config to ${styles.filepath(this.circleConfigPath)}...`)
+    this.logger.info(`writing CircleCI config to ${styles.filepath(this.circleConfigPath)}...`)
     await fs.writeFile(this.circleConfigPath, serialised)
   }
 }

@@ -1,9 +1,10 @@
 import { checkInstall, loadConfig } from './config'
 import { setOptions } from '@dotcom-tool-kit/options'
 import styles from '@dotcom-tool-kit/styles'
+import { Logger } from 'winston'
 
-export default async function showHelp(hooks: string[]): Promise<void> {
-  const config = await loadConfig()
+export default async function showHelp(logger: Logger, hooks: string[]): Promise<void> {
+  const config = await loadConfig(logger)
 
   if (hooks.length === 0) {
     hooks = Object.keys(config.hooks).sort()
@@ -19,7 +20,7 @@ export default async function showHelp(hooks: string[]): Promise<void> {
 
   const missingHooks = hooks.filter((hook) => !config.hooks[hook])
 
-  console.log(`
+  logger.info(`
 🧰 ${styles.title(`welcome to ${styles.app('Tool Kit')}!`)}
 
 Tool Kit is modern, maintainable & modular developer tooling for FT.com projects.
@@ -46,7 +47,7 @@ ${
     if (Hook) {
       const tasks = config.hookTasks[hook]
       /* eslint-disable @typescript-eslint/no-explicit-any -- Object.constructor does not consider static properties */
-      console.log(`${styles.heading(hook)}
+      logger.info(`${styles.heading(hook)}
 ${(Hook.constructor as any).description ? (Hook.constructor as any).description + '\n' : ''}
 ${
   tasks && tasks.tasks.length
@@ -63,10 +64,8 @@ ${styles.ruler()}
   }
 
   if (missingHooks.length) {
-    console.warn(
-      styles.warning(
-        `no such ${missingHooks.length > 1 ? 'hooks' : 'hook'} ${missingHooks.map(styles.hook).join(', ')}`
-      )
+    logger.warn(
+      `no such ${missingHooks.length > 1 ? 'hooks' : 'hook'} ${missingHooks.map(styles.hook).join(', ')}`
     )
   }
 }

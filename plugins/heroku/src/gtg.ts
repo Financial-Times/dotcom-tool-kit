@@ -1,9 +1,10 @@
 import heroku from './herokuClient'
 import type { HerokuApiResGetGtg } from 'heroku-client'
+import type { Logger } from 'winston'
 import { waitForOk } from '@dotcom-tool-kit/wait-for-ok'
 import { State, writeState } from '@dotcom-tool-kit/state'
 
-async function gtg(appIdName: string, environment: keyof State, id = true): Promise<void> {
+async function gtg(logger: Logger, appIdName: string, environment: keyof State, id = true): Promise<void> {
   let appName = appIdName
   //gtg called with id rather than name; get name from Heroku
   if (id) {
@@ -15,7 +16,7 @@ async function gtg(appIdName: string, environment: keyof State, id = true): Prom
 
   const url = `https://${appName}.herokuapp.com/__gtg`
 
-  return waitForOk(url)
+  return waitForOk(logger, url)
 }
 
 export { gtg }

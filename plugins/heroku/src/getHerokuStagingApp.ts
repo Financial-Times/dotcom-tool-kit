@@ -2,9 +2,10 @@ import { readState, writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import heroku from './herokuClient'
 import type { HerokuApiResGetStaging } from 'heroku-client'
+import type { Logger } from 'winston'
 import { writeLatestReleaseDetails } from './writeLatestReleaseDetails'
 
-async function getHerokuStagingApp(): Promise<string> {
+async function getHerokuStagingApp(logger: Logger): Promise<string> {
   const ciState = readState('ci')
   const stagingState = readState('staging')
 
@@ -17,10 +18,10 @@ async function getHerokuStagingApp(): Promise<string> {
   const { name: appName }: HerokuApiResGetStaging = await heroku.get(`/apps/${appId}`)
 
   writeState('staging', { appName })
-  console.log(`retrieving details for ${appName}'s latest release...`)
+  logger.verbose(`retrieving details for ${appName}'s latest release...`)
 
   try {
-    await writeLatestReleaseDetails(appName, version)
+    await writeLatestReleaseDetails(logger, appName, version)
   } catch {
     throw new ToolKitError(
       `Error finding release details for ${appName}, please refer to the app's build logs to check that it has built correctly`

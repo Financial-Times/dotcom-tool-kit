@@ -1,16 +1,18 @@
+import type { Logger } from 'winston'
 import heroku from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { VaultEnvVars, Environment } from '@dotcom-tool-kit/vault'
 
 async function setConfigVars(
+  logger: Logger,
   appIdName: string,
   environment: Environment,
   systemCode?: string
 ): Promise<void> {
   try {
-    console.log(`setting config vars for ${appIdName}`)
+    logger.info(`setting config vars for ${appIdName}`)
 
-    const vaultEnvVars = new VaultEnvVars({
+    const vaultEnvVars = new VaultEnvVars(logger, {
       environment
     })
 
@@ -22,9 +24,9 @@ async function setConfigVars(
 
     await heroku.patch(`/apps/${appIdName}/config-vars`, { body: configVars })
 
-    console.log('the following values have been set:', Object.keys(configVars).join(', '))
+    logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
 
-    console.log(`${appIdName} config vars have been updated successfully.`)
+    logger.info(`${appIdName} config vars have been updated successfully.`)
   } catch (err) {
     const error = new ToolKitError(`Error updating config vars`)
     if (err instanceof Error) {

@@ -9,7 +9,7 @@ export class BuildCI extends CircleCiConfigHook {
 
 export class TestCI extends CircleCiConfigHook {
   job = 'tool-kit/test'
-  jobOptions = { requires: [new BuildCI().job] }
+  jobOptions = { requires: [new BuildCI(this.logger).job] }
   addToNightly = true
 }
 
@@ -26,6 +26,7 @@ const envVars = {
 
 function pluginInit() {
   if (process.env.CIRCLECI) {
+    // eslint-disable-next-line no-console
     console.log(`writing circle ci environment variables to state...`)
     writeState('ci', envVars)
   }

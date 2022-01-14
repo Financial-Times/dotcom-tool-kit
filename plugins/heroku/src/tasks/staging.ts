@@ -27,20 +27,20 @@ options:
         throw error
       }
 
-      console.log(`retrieving pipeline details...`)
-      await getPipelineCouplings(this.options.pipeline)
+      this.logger.verbose(`retrieving pipeline details...`)
+      await getPipelineCouplings(this.logger, this.options.pipeline)
 
-      console.log(`restrieving staging app details...`)
-      const appName = await getHerokuStagingApp()
+      this.logger.verbose(`restrieving staging app details...`)
+      const appName = await getHerokuStagingApp(this.logger)
 
       //apply vars from vault
 
-      await setConfigVars(appName, 'production', this.options.systemCode)
+      await setConfigVars(this.logger, appName, 'production', this.options.systemCode)
 
       //scale up staging
-      await scaleDyno(appName, 1)
+      await scaleDyno(this.logger, appName, 1)
 
-      await gtg(appName, 'staging', false)
+      await gtg(this.logger, appName, 'staging', false)
     } catch (err) {
       if (err instanceof ToolKitError) {
         throw err

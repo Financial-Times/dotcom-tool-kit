@@ -25,8 +25,8 @@ export default class Eslint extends Task<typeof ESLintSchema> {
       error.exitCode = errorCount
       throw error
     } else {
-      console.log(styles.title('ESLint output was:'))
-      console.log(resultText)
+      this.logger.info(styles.title('ESLint output was:'))
+      this.logger.info(resultText)
     }
   }
 }

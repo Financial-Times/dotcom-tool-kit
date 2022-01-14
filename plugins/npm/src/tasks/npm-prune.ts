@@ -7,7 +7,7 @@ export default class NpmPrune extends Task {
 
   async run(): Promise<void> {
     try {
-      console.log('pruning dev dependencies...')
+      this.logger.verbose('pruning dev dependencies...')
       await exec.exec(`npm prune --production`, [], {
         cwd: './'
       })

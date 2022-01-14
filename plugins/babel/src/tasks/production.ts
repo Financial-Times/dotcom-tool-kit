@@ -5,10 +5,8 @@ export default class BabelProduction extends Task {
   static description = 'build babel'
 
   async run(): Promise<void> {
-    console.log(
-      `${styles.warning(
-        `${styles.plugin('babel')} plugin is currently a stub (${styles.task('BabelProduction')} task)`
-      )}`
+    this.logger.warn(
+      `${styles.plugin('babel')} plugin is currently a stub (${styles.task('BabelProduction')} task)`
     )
   }
 }

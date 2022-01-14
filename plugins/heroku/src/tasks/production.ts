@@ -11,17 +11,17 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
 
   async run(): Promise<void> {
     try {
-      console.log('retrieving staging slug...')
+      this.logger.verbose('retrieving staging slug...')
       const state = readState('staging')
       if (!state) {
         throw new ToolKitError('could not find staging state information')
       }
       const { slugId } = state
 
-      console.log('promoting staging to production....')
-      await setSlug(slugId)
+      this.logger.verbose('promoting staging to production....')
+      await setSlug(this.logger, slugId)
 
-      console.log('staging has been successfully promoted to production')
+      this.logger.info('staging has been successfully promoted to production')
 
       const { scaling } = this.options as HerokuOptions
 
@@ -43,11 +43,11 @@ options:
       }
 
       for (const [appName, typeConfig] of Object.entries(scaling)) {
-        console.log(`scaling app ${styles.app(appName)}...`)
+        this.logger.verbose(`scaling app ${styles.app(appName)}...`)
         for (const [processType, { quantity, size }] of Object.entries(typeConfig)) {
-          await scaleDyno(appName, quantity, processType, size)
+          await scaleDyno(this.logger, appName, quantity, processType, size)
         }
-        console.log(`${styles.app(appName)} has been successfully scaled`)
+        this.logger.info(`${styles.app(appName)} has been successfully scaled`)
       }
     } catch (err) {
       if (err instanceof ToolKitError) {

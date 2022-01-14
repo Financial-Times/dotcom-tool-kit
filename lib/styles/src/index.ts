@@ -14,8 +14,10 @@ const styles = {
   heading: colours.bold,
   dim: colours.grey,
   title: colours.bold.underline,
-  error: (string: string): string => `${colours.red.bold('‼︎')} ${styles.title(string)}`,
-  warning: (string: string): string => `${colours.yellow.bold('⚠︎')} ${styles.title(string)}`,
+  errorHighlight: colours.red,
+  error: (string: string): string => `${styles.errorHighlight.bold('‼︎')} ${styles.title(string)}`,
+  warningHighlight: colours.yellow,
+  warning: (string: string): string => `${styles.warningHighlight.bold('⚠︎')} ${styles.title(string)}`,
   ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2))
 }
 

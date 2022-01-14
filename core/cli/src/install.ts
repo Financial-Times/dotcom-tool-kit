@@ -1,9 +1,10 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { setOptions } from '@dotcom-tool-kit/options'
+import { Logger } from 'winston'
 import { Config, loadConfig } from './config'
 
-export default async function installHooks(): Promise<Config> {
-  const config = await loadConfig()
+export default async function installHooks(logger: Logger): Promise<Config> {
+  const config = await loadConfig(logger)
 
   const tasks = Object.values(config.hooks).map((hook) => async () => {
     if (!(await hook.check())) {

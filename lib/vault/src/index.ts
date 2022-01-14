@@ -2,6 +2,7 @@ import fetch from '@financial-times/n-fetch'
 import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
+import type { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/vault'
@@ -42,8 +43,11 @@ export class VaultEnvVars {
   vaultPath: VaultOptions
   environment: string
   vaultTokenFile: string
+  logger: Logger
 
-  constructor({ environment, vaultPath }: VaultSettings) {
+  constructor(logger: Logger, { environment, vaultPath }: VaultSettings) {
+    this.logger = logger
+
     this.environment = environment
     const options = vaultPath || getOptions('@dotcom-tool-kit/vault')
     if (!options || !('team' in options && 'app' in options)) {
@@ -79,18 +83,18 @@ export class VaultEnvVars {
 
   private async getLocalToken(): Promise<string> {
     try {
-      console.log('checking for current vault token')
+      this.logger.debug('checking for current vault token')
       const vaultToken = await fs.readFile(this.vaultTokenFile, {
         encoding: 'utf8'
       })
-      console.log('testing current vault token')
+      this.logger.debug('testing current vault token')
       const isValidToken = await this.fetchTest(vaultToken)
       if (isValidToken) {
-        console.log('success testing current vault token!')
+        this.logger.verbose('success testing current vault token!')
         return vaultToken
       } else {
         const message = 'current vault token invalid, requesting new one...'
-        console.error(message)
+        this.logger.error(message)
         throw new ToolKitError(message)
       }
     } catch {
@@ -100,7 +104,7 @@ export class VaultEnvVars {
 
   private async getTokenFromVault(githubToken: string) {
     try {
-      console.log(`you are not logged in to vault, logging you in...`)
+      this.logger.info(`you are not logged in to vault, logging you in...`)
       const token = await fetch<Token>(`${VAULT_ADDR}/auth/github/login`, {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
@@ -153,24 +157,24 @@ export class VaultEnvVars {
     }
 
     try {
-      console.log(`vault add: ${VAULT_ADDR}, team: ${this.vaultPath.team}, env: ${this.environment}`)
+      this.logger.debug(`vault add: ${VAULT_ADDR}, team: ${this.vaultPath.team}, env: ${this.environment}`)
       const allShared = await fetch<ReturnFetch>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/shared/${this.environment}`,
         headers
       ).then((json) => json.data)
-      console.log(`allShared: ${Object.keys(allShared)}`)
+      this.logger.debug(`allShared: ${Object.keys(allShared)}`)
 
       const appEnv = await fetch<ReturnFetch>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/${this.environment}`,
         headers
       ).then((json) => json.data)
-      console.log(`appEnv: ${Object.keys(appEnv)}`)
+      this.logger.debug(`appEnv: ${Object.keys(appEnv)}`)
 
       const appShared = await fetch<RequiredShared>(
         `${VAULT_ADDR}/secret/teams/${this.vaultPath.team}/${this.vaultPath.app}/shared`,
         headers
       ).then((json) => json.data)
-      console.log(`appShared: ${JSON.stringify(appShared)}`)
+      this.logger.debug(`appShared: ${JSON.stringify(appShared)}`)
 
       const required: Secrets = {}
 
@@ -179,7 +183,7 @@ export class VaultEnvVars {
           required[envVar] = allShared[envVar]
         }
       })
-      console.log(`required: ${Object.keys(required)}`)
+      this.logger.debug(`required: ${Object.keys(required)}`)
 
       return Object.assign({}, required, appEnv)
     } catch {

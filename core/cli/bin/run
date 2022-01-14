@@ -7,13 +7,47 @@ const argv = require('minimist')(process.argv.slice(2), {
 
 const { runTasks, showHelp, installHooks } = require('../lib')
 const styles = require('@dotcom-tool-kit/styles').default
+const winston = require('winston')
 
 async function main() {
+  const logger = winston.createLogger({
+    format: winston.format.printf((info) => {
+      let { message } = info
+
+      if (!info.skipformat) {
+        let labels = ''
+        if (info.hook) {
+          labels += `[${styles.hook(info.hook)}]`
+        }
+        if (info.task) {
+          labels += `[${styles.task(info.task)}]`
+        }
+        if (info.process) {
+          labels += `[${styles.filepath(info.process)}]`
+        }
+
+        if (info.level === 'error') {
+          message = styles.error(message)
+          labels = styles.errorHighlight(labels)
+        } else if (info.level === 'warn') {
+          message = styles.warning(message)
+          labels = styles.warningHighlight(labels)
+        }
+
+        if (labels) {
+          message = `${labels} ${message}`
+        }
+      }
+
+      return message
+    }),
+    transports: [new winston.transports.Console()]
+  })
   try {
     if (argv.install) {
-      await installHooks()
+      await installHooks(logger)
     } else if (argv.help || argv._.length === 0) {
-      await showHelp(argv._)
+      await showHelp(logger, argv._)
     } else {
       if (argv['--'].length > 0) {
         // The `--` in a command such as `dotcom-tool-kit test:staged --`
@@ -23,17 +57,19 @@ async function main() {
         // the command becomes something like `dotcom-tool-kit test:staged --
         // index.js`. When this command is executed it runs the configured task
         // where the file path arguments would then be extracted.
-        await runTasks(argv._, argv['--'])
+        await runTasks(logger, argv._, argv['--'])
       } else {
-        await runTasks(argv._)
+        await runTasks(logger, argv._)
       }
     }
   } catch (error) {
     if (error.details) {
-      console.log(styles.ruler())
-      console.error(styles.error(error.message) + '\n\n' + error.details)
+      logger.error('', { skipformat: true })
+      logger.error(error.message)
+      logger.error(styles.ruler(), { skipformat: true })
+      logger.error(error.details, { skipformat: true })
     } else {
-      console.error(error.stack)
+      logger.error(error.stack)
     }
 
     process.exitCode = error.exitCode || 1

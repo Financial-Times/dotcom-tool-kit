@@ -27,6 +27,7 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
-    "@jest/globals": "^27.4.6"
+    "@jest/globals": "^27.4.6",
+    "winston": "^3.4.0"
   }
 }

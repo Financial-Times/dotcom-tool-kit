@@ -16,6 +16,7 @@ import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
 import { Logger } from './logger'
+import winston from 'winston'
 
 const exec = promisify(_exec)
 
@@ -38,6 +39,7 @@ const configPath = path.join(process.cwd(), '.toolkitrc.yml')
 const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
 
 const logger = new Logger()
+const winstonLogger = winston.createLogger()
 
 async function mainPrompt() {
   return prompt(
@@ -165,7 +167,7 @@ async function executeMigration(deleteConfig: boolean) {
     ? logger.logPromise(fs.unlink(circleConfigPath), 'removing old CircleCI config')
     : Promise.resolve()
 
-  const initialTasks = Promise.all([installPromise, configPromise, unlinkPromise])
+  const initialTasks = Promise.all([installPromise, configPromise, unlinkPromise]).then(() => winstonLogger)
 
   return logger.logPromiseWait(initialTasks, installHooks, 'installing Tool Kit hooks')
 }
@@ -218,7 +220,7 @@ sound alright?`
 
   if (confirm) {
     const configPromise = logger.logPromise(
-      fs.writeFile(configPath, configFile),
+      fs.writeFile(configPath, configFile).then(() => winstonLogger),
       `recreating ${styles.filepath('.toolkitrc.yml')}`
     )
     // Clear config cache now that config has been updated
@@ -372,7 +374,7 @@ async function optionsPrompt(config: Config): Promise<boolean> {
     toolKitConfig.options[plugin] = {}
 
     if (anyRequired) {
-      console.log(`Please now configure the options for the ${styledPlugin} plugin.`)
+      winstonLogger.info(`Please now configure the options for the ${styledPlugin} plugin.`)
       const [schemas, generators] = partition(
         required,
         (schema): schema is [string, SchemaType] => typeof schema[1] === 'string'
@@ -383,7 +385,11 @@ async function optionsPrompt(config: Config): Promise<boolean> {
       }
       if (!cancelled) {
         for (const [optionName, generator] of generators as [string, SchemaPromptGenerator<unknown>][]) {
-          toolKitConfig.options[plugin][optionName] = await generator(prompt, onCancel)
+          toolKitConfig.options[plugin][optionName] = await generator(
+            winstonLogger.child({ plugin }),
+            prompt,
+            onCancel
+          )
           if (cancelled) {
             break
           }
@@ -462,8 +468,8 @@ async function makefileHint() {
   if (makefile) {
     const rules = parseMakefileRules(makefile)
     const targets = Object.keys(rules)
-    console.log(`${styles.ruler()}\n`)
-    console.log(
+    winstonLogger.info(`${styles.ruler()}\n`)
+    winstonLogger.info(
       "We recommend deleting your old Makefile as it will no longer be used. In the \
 future you can run tasks with 'npm run' instead. Make sure that you won't be \
 deleting any task logic that hasn't already been migrated to Tool Kit. If you \
@@ -485,10 +491,10 @@ team know."
     const suggestionsFound = suggested.length > 0
 
     if (suggestionsFound) {
-      console.log("\nWe've found some targets in your Makefile which could be migrated to Tool Kit:")
+      winstonLogger.info("\nWe've found some targets in your Makefile which could be migrated to Tool Kit:")
       for (const [target, suggestion] of suggested) {
         if (suggestion) {
-          console.log(
+          winstonLogger.info(
             `- Your ${styles.makeTarget(target)} target is likely handled by the ${styles.hook(
               suggestion
             )} hook in Tool Kit`
@@ -498,13 +504,13 @@ team know."
     }
 
     if (unrecognised.length > 0) {
-      console.log(
+      winstonLogger.info(
         `\nWe don't know if these${
           suggestionsFound ? ' other' : ''
         } Makefile targets can be migrated to Tool Kit. Please check what they're doing:`
       )
       for (const [target] of unrecognised) {
-        console.log(`- ${styles.makeTarget(target)}`)
+        winstonLogger.info(`- ${styles.makeTarget(target)}`)
       }
     }
   }
@@ -560,7 +566,7 @@ async function main() {
 
 main().catch((error) => {
   if (!error.logged) {
-    console.log(error.stack)
+    winstonLogger.error(error.stack)
   }
   process.exit(1)
 })
