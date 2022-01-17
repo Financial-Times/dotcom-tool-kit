@@ -3,7 +3,7 @@ import { checkInstall, loadConfig } from './config'
 import { getOptions, setOptions } from '@dotcom-tool-kit/options'
 import type { Options } from '@dotcom-tool-kit/types/src/schema'
 import { styles } from '@dotcom-tool-kit/logger'
-import { Logger } from 'winston'
+import type { Logger } from 'winston'
 
 type ErrorSummary = {
   hook: string

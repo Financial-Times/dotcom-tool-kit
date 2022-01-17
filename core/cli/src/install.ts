@@ -1,6 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { setOptions } from '@dotcom-tool-kit/options'
-import { Logger } from 'winston'
+import type { Logger } from 'winston'
 import { Config, loadConfig } from './config'
 
 export default async function installHooks(logger: Logger): Promise<Config> {

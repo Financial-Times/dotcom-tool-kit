@@ -1,6 +1,6 @@
 import { hasToolKitConflicts, ToolKitConflictError } from '@dotcom-tool-kit/error'
 import type { Schema, SchemaPromptGenerator, SchemaType } from '@dotcom-tool-kit/types/src/schema'
-import { styles } from '@dotcom-tool-kit/logger'
+import { createLogger, styles } from '@dotcom-tool-kit/logger'
 import loadPackageJson from '@financial-times/package-json'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
@@ -16,7 +16,6 @@ import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
 import { Logger } from './logger'
-import winston from 'winston'
 
 const exec = promisify(_exec)
 
@@ -39,7 +38,7 @@ const configPath = path.join(process.cwd(), '.toolkitrc.yml')
 const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
 
 const logger = new Logger()
-const winstonLogger = winston.createLogger()
+const winstonLogger = createLogger()
 
 async function mainPrompt() {
   return prompt(

@@ -1,7 +1,7 @@
 import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import mergeWith from 'lodash.mergewith'
-import { Logger } from 'winston'
+import type { Logger } from 'winston'
 
 import { Conflict, isConflict } from './conflict'
 import { Config, PluginOptions } from './config'

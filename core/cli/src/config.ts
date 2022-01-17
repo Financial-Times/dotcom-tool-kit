@@ -1,5 +1,5 @@
 import path from 'path'
-import { Logger } from 'winston'
+import type { Logger } from 'winston'
 
 import type { HookTask } from './hook'
 import { loadPluginConfig } from './plugin'

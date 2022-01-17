@@ -22,8 +22,7 @@
     "lodash.partition": "^4.6.0",
     "ordinal": "^1.0.3",
     "prompts": "^2.4.1",
-    "tslib": "^2.3.1",
-    "winston": "^3.4.0"
+    "tslib": "^2.3.1"
   },
   "repository": {
     "type": "git",

@@ -6,44 +6,10 @@ const argv = require('minimist')(process.argv.slice(2), {
 })
 
 const { runTasks, showHelp, installHooks } = require('../lib')
-const { styles } = require('@dotcom-tool-kit/logger')
-const winston = require('winston')
+const { createLogger, styles } = require('@dotcom-tool-kit/logger')
 
 async function main() {
-  const logger = winston.createLogger({
-    format: winston.format.printf((info) => {
-      let { message } = info
-
-      if (!info.skipformat) {
-        let labels = ''
-        if (info.hook) {
-          labels += `[${styles.hook(info.hook)}]`
-        }
-        if (info.task) {
-          labels += `[${styles.task(info.task)}]`
-        }
-        if (info.process) {
-          labels += `[${styles.dim(info.process)}]`
-        }
-
-        if (info.level === 'error') {
-          message = styles.error(message)
-          labels = styles.errorHighlight(labels)
-        } else if (info.level === 'warn') {
-          message = styles.warning(message)
-          labels = styles.warningHighlight(labels)
-        }
-
-        if (labels) {
-          message = `${labels} ${message}`
-        }
-      }
-
-      return message
-    }),
-    level: process.env.LOG_LEVEL,
-    transports: [new winston.transports.Console()]
-  })
+  const logger = createLogger()
   try {
     if (argv.install) {
       await installHooks(logger)
