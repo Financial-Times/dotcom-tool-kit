@@ -1,8 +1,6 @@
 plugins:
   - '@dotcom-tool-kit/webpack'
-  - '@dotcom-tool-kit/babel'
-  - '@dotcom-tool-kit/npm'
-  - '@dotcom-tool-kit/circleci-heroku'
+  - '@dotcom-tool-kit/backend-app'
 
 hooks:
   'build:local':

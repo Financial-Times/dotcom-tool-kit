@@ -47,8 +47,8 @@ async function mainPrompt() {
         type: 'select',
         message: `What kind of app is ${styles.app(packageJson.getField('name'))}?`,
         choices: [
-          { title: 'A user-facing (frontend) app', value: 'frontend-app' }
-          // { title: 'A service/backend app', value: 'service-app' }
+          { title: 'A user-facing (frontend) app', value: 'frontend-app' },
+          { title: 'A service (backend) app', value: 'backend-app' }
         ]
       },
       {
