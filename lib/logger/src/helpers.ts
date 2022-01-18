@@ -1,28 +1,43 @@
 import { ChildProcess } from 'child_process'
-import hookStd from 'hook-std'
 import { Transform } from 'stream'
-import type { Logger } from 'winston'
+import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-
-// winston will add a newline itself
-function trimTrailingNewline(message: string): string {
-  return message.endsWith('\n') ? message.slice(0, -1) : message
-}
+import { rootLogger } from './logger'
+import { HookTransport, consoleTransport } from './transports'
 
 // This function hooks winston into console.log statements. Most useful for when
 // calling functions from external libraries that you expect will do their own
 // logging.
-export function hookConsole(logger: Logger, process: string): hookStd.Unhook {
-  const { unhook: unhookStd } = hookStd.stderr({ silent: true }, (output) => {
-    logger.info(trimTrailingNewline(output), { process })
-  })
-  const { unhook: unhookErr } = hookStd.stderr({ silent: true }, (output) => {
-    logger.warn(trimTrailingNewline(output), { process })
-  })
+export function hookConsole(logger: Logger, processName: string): () => void {
+  function writeShim(level: string): NodeJS.WriteStream['write'] {
+    return (message: string, encoding?, writeCallback?) => {
+      if (typeof encoding === 'function') {
+        writeCallback = encoding
+      }
+      logger.log(level, message, { process: processName, writeCallback })
+      return true
+    }
+  }
+
+  // TODO make this thread-safe?
+  const { write: stdoutWrite } = process.stdout
+  process.stdout.write = writeShim('info')
+  const { write: stderrWrite } = process.stderr
+  process.stderr.write = writeShim('warn')
+
+  const hook = (message: string, writeCallback: () => void) => {
+    stdoutWrite.call(process.stdout, message, 'utf8', writeCallback)
+  }
+  const hookTransport = new HookTransport({ hook })
+
+  // Can only remove the transports from the logger you originally added them
+  // to, not any child loggers
+  rootLogger.remove(consoleTransport).add(hookTransport)
 
   return () => {
-    unhookStd()
-    unhookErr()
+    process.stdout.write = stdoutWrite
+    process.stderr.write = stderrWrite
+    rootLogger.remove(hookTransport).add(consoleTransport)
   }
 }
 
@@ -39,7 +54,7 @@ export function hookFork(logger: Logger, process: string, child: ChildProcess): 
         decodeStrings: false,
         readableObjectMode: true,
         transform: (data, _enc, callback) => {
-          callback(null, { level: 'info', message: trimTrailingNewline(data) })
+          callback(null, { level: 'info', message: data.endsWith('\n') ? data.slice(0, -1) : data })
         }
       })
     )

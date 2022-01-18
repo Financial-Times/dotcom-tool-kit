@@ -25,7 +25,11 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../error",
     "ansi-colors": "^4.1.1",
-    "hook-std": "^2.0.0",
-    "winston": "^3.4.0"
+    "triple-beam": "^1.3.0",
+    "winston": "^3.4.0",
+    "winston-transport": "^4.4.2"
+  },
+  "devDependencies": {
+    "@types/triple-beam": "^1.3.2"
   }
 }
