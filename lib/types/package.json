@@ -28,7 +28,7 @@
     "lodash.mapvalues": "^4.6.0"
   },
   "devDependencies": {
-    "@jest/globals": "^26.6.2",
+    "@jest/globals": "^27.4.6",
     "@types/lodash.isplainobject": "^4.0.6",
     "@types/lodash.mapvalues": "^4.6.6",
     "@types/prompts": "^2.0.14"

@@ -17,7 +17,7 @@ console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
 console.log('📥 installing dependencies')
-execSync('npm install ../task')
+execSync('npm install ../../lib/types')
 
 console.log('🔣 adding metadata to package.json')
 
@@ -46,7 +46,7 @@ const tsconfig = {
   },
   references: [
     {
-      path: '../task'
+      path: '../../lib/types'
     }
   ],
   include: ['src/**/*']
@@ -68,7 +68,7 @@ fs.mkdirSync('src/tasks', { recursive: true })
 
 fs.writeFileSync(
   `src/tasks/${name}.ts`,
-  `import { Task} from '@dotcom-tool-kit/task'
+  `import { Task } from '@dotcom-tool-kit/types'
 
 export default class ${camelCaseName} extends Task {
    static description = ''

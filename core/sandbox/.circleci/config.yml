@@ -44,3 +44,18 @@ workflows:
       - tool-kit/test:
           requires:
             - tool-kit/build
+  nightly:
+    triggers:
+      - schedule:
+          cron: 0 0 * * *
+          filters:
+            branches:
+              only: main
+    jobs:
+      - tool-kit/setup
+      - tool-kit/build:
+          requires:
+            - tool-kit/setup
+      - tool-kit/test:
+          requires:
+            - tool-kit/build

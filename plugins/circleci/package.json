@@ -23,8 +23,8 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/circleci",
   "devDependencies": {
-    "@jest/globals": "^26.6.2",
-    "@types/jest": "^26.0.24",
+    "@jest/globals": "^27.4.6",
+    "@types/jest": "^27.4.0",
     "@types/js-yaml": "^4.0.3",
     "@types/lodash.isequal": "^4.5.5"
   },

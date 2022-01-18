@@ -20,7 +20,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/package-json-hook",
   "devDependencies": {
-    "@jest/globals": "^26.6.2"
+    "@jest/globals": "^27.4.6"
   },
   "files": [
     "/lib",

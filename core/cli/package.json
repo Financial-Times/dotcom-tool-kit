@@ -20,7 +20,7 @@
     "test": "cd ../../ ; npx jest --silent --projects core/cli"
   },
   "devDependencies": {
-    "@jest/globals": "^26.6.2",
+    "@jest/globals": "^27.4.6",
     "@types/lodash.mergewith": "^4.6.6",
     "@types/node": "^12.20.24",
     "chai": "^4.3.4",

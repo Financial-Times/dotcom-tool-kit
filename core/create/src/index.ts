@@ -56,11 +56,11 @@ async function mainPrompt() {
         type: 'multiselect',
         message: 'Would you like to install any additional plugins?',
         choices: [
-          // {
-          //   title: 'Jest',
-          //   value: 'jest',
-          //   description: 'a delightful JavaScript Testing Framework with a focus on simplicity'
-          // },
+          {
+            title: 'Jest',
+            value: 'jest',
+            description: 'a delightful JavaScript Testing Framework with a focus on simplicity'
+          },
           {
             title: 'Mocha',
             value: 'mocha',
