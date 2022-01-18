@@ -25,8 +25,7 @@
     "@dotcom-tool-kit/npm": "file:../../plugins/npm",
     "@dotcom-tool-kit/prettier": "file:../../plugins/prettier",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../../plugins/upload-assets-to-s3",
-    "dotcom-tool-kit": "file:../cli",
-    "jest-cli": "^27.4.7"
+    "dotcom-tool-kit": "file:../cli"
   },
   "volta": {
     "extends": "../../package.json"

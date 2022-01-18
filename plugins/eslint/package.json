@@ -22,7 +22,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/eslint",
   "devDependencies": {
-    "@jest/globals": "^26.6.2",
+    "@jest/globals": "^27.4.6",
     "@types/eslint": "^7.2.13"
   },
   "files": [
