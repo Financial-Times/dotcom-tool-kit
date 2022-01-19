@@ -2,7 +2,7 @@ import { Task } from '@dotcom-tool-kit/types'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { register } from 'ft-next-router'
 import { readState } from '@dotcom-tool-kit/state'
-import { styles } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { NextRouterSchema } from '@dotcom-tool-kit/types/lib/schema/next-router'
@@ -39,22 +39,10 @@ options:
         ...process.env,
         ...vaultEnv
       },
-      stdio: ['inherit', 'inherit', 'pipe', 'ipc']
+      silent: true
     })
-
-    await new Promise<void>((resolve, reject) => {
-      // command will exit immediately, hopefully having started the router in the background
-      child.on('exit', (code) => {
-        if (code === 0) {
-          resolve()
-        } else {
-          const error = new ToolKitError("couldn't start next-router.")
-          child.stderr?.setEncoding('utf8')
-          error.details = child.stderr?.read()
-          reject(error)
-        }
-      })
-    })
+    hookFork(this.logger, 'next-router', child)
+    await waitOnExit('next-router', child)
 
     const local = readState('local')
     if (!local) {
@@ -65,6 +53,11 @@ options:
       throw error
     }
 
-    await register({ service: this.options.appName, port: local.port })
+    const unhook = hookConsole(this.logger, 'ft-next-router')
+    try {
+      await register({ service: this.options.appName, port: local.port })
+    } finally {
+      unhook()
+    }
   }
 }

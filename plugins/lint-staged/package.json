@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/hook": "file:../../lib/hook",
+    "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "lint-staged": "^11.2.3"
   },

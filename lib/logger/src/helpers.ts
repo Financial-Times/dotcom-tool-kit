@@ -4,29 +4,65 @@ import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger } from './logger'
 import { HookTransport, consoleTransport } from './transports'
+import ansiRegex from 'ansi-regex'
+
+const ansiRegexText = ansiRegex().source
+const whitespaceRegex = /\s|\n/g
+const startRegex = new RegExp(`^(?:(?:${ansiRegexText})|\s|\n)+`)
+const endRegex = new RegExp(`(?:(?:${ansiRegexText})|\s|\n)+$`)
+
+// Trim whitespace whilst preserving ANSI escape codes
+function ansiTrim(message: string): string {
+  let start = 0
+  let ansiStart = ''
+  const startResult = message.match(startRegex)
+  if (startResult !== null) {
+    ansiStart = startResult[0]
+    start = ansiStart.length
+  }
+  let end
+  let ansiEnd = ''
+  const endResult = message.match(endRegex)
+  if (endResult !== null) {
+    ansiEnd = endResult[0]
+    end = -ansiEnd.length
+  }
+  return (
+    ansiStart.replace(whitespaceRegex, '') + message.slice(start, end) + ansiEnd.replace(whitespaceRegex, '')
+  )
+}
 
 // This function hooks winston into console.log statements. Most useful for when
 // calling functions from external libraries that you expect will do their own
 // logging.
 export function hookConsole(logger: Logger, processName: string): () => void {
-  function writeShim(level: string): NodeJS.WriteStream['write'] {
+  function writeShim(stream: NodeJS.WriteStream, level: string): NodeJS.WriteStream['write'] {
     return (message: string, encoding?, writeCallback?) => {
-      if (typeof encoding === 'function') {
-        writeCallback = encoding
+      // HACK allow winston logs from other threads to go straight through
+      if (message.startsWith('[')) {
+        if (typeof encoding === 'function') {
+          return stream.write(message, encoding)
+        } else {
+          return stream.write(message, encoding, writeCallback as (err?: Error) => void)
+        }
+      } else {
+        if (typeof encoding === 'function') {
+          writeCallback = encoding
+        }
+        logger.log(level, ansiTrim(message), { process: processName, writeCallback })
+        return true
       }
-      logger.log(level, message, { process: processName, writeCallback })
-      return true
     }
   }
 
   // TODO make this thread-safe?
   const { write: stdoutWrite } = process.stdout
-  process.stdout.write = writeShim('info')
+  process.stdout.write = writeShim(process.stdout, 'info')
   const { write: stderrWrite } = process.stderr
-  process.stderr.write = writeShim('warn')
+  process.stderr.write = writeShim(process.stderr, 'warn')
 
   const hook = (message: string, writeCallback: () => void) => {
-    stdoutWrite.call(process.stdout, message, 'utf8', writeCallback)
+    stdoutWrite.call(process.stdout, message + '\n', 'utf8', writeCallback)
   }
   const hookTransport = new HookTransport({ hook })
 

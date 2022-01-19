@@ -1,4 +1,4 @@
-import { styles } from '@dotcom-tool-kit/logger'
+import { hookConsole, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import MochaCore from 'mocha'
 import { glob } from 'glob'
@@ -30,6 +30,7 @@ export default class Mocha extends Task<typeof MochaSchema> {
       mocha.addFile(file)
     })
 
+    const unhook = hookConsole(this.logger, 'mocha')
     await new Promise<void>((resolve, reject) => {
       mocha.run((failures) => {
         if (failures > 0) {
@@ -40,6 +41,6 @@ export default class Mocha extends Task<typeof MochaSchema> {
           resolve()
         }
       })
-    })
+    }).finally(() => unhook())
   }
 }

@@ -4,7 +4,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { writeState } from '@dotcom-tool-kit/state'
-import { styles } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork, styles } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 
@@ -43,13 +43,19 @@ export default class Node extends Task<typeof NodeSchema> {
         PORT: port.toString(),
         ...process.env
       },
-      stdio: 'inherit'
+      silent: true
     })
+    hookFork(this.logger, entry, child)
 
-    await waitPort({
-      host: 'localhost',
-      port: port
-    })
+    const unhook = hookConsole(this.logger, 'wait-port')
+    try {
+      await waitPort({
+        host: 'localhost',
+        port: port
+      })
+    } finally {
+      unhook()
+    }
 
     writeState('local', { port })
   }

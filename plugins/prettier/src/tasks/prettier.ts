@@ -62,10 +62,13 @@ export default class Prettier extends Task<typeof PrettierSchema> {
     }
 
     const unhook = hookConsole(this.logger, 'prettier')
-    await fsp.writeFile(
-      filepath,
-      prettier.format(fileContent, { ...(prettierConfig as prettier.Options), filepath })
-    )
-    unhook()
+    try {
+      await fsp.writeFile(
+        filepath,
+        prettier.format(fileContent, { ...(prettierConfig as prettier.Options), filepath })
+      )
+    } finally {
+      unhook()
+    }
   }
 }
