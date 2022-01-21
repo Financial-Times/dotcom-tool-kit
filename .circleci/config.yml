@@ -132,6 +132,21 @@ jobs:
           name: Run package tests
           command: npm run test
 
+  release-please:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Update release-please release PR
+          command: npx release-please release-pr \
+            --token=${RELEASE_PLEASE_GITHUB_TOKEN} \
+            --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+      - run:
+          name: Release any unreleased PR merges
+          command: npx release-please github-release \
+            --token=${RELEASE_PLEASE_GITHUB_TOKEN} \
+            --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+
   publish:
     <<: *container_config_node
     steps:
@@ -141,11 +156,8 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >
             ${HOME}/.npmrc
       - run:
-          name: Bump version
-          command: npx athloi version ${CIRCLE_TAG}
-      - run:
           name: NPM publish
-          command: npx athloi publish -- --access=public
+          command: npm publish --workspaces --access=public
 
   prepublish:
     <<: *container_config_node
@@ -156,11 +168,8 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >
             ${HOME}/.npmrc
       - run:
-          name: Bump version
-          command: npx athloi version ${CIRCLE_TAG}
-      - run:
           name: NPM publish
-          command: npx athloi publish -- --access=public --tag=prerelease
+          command: npm publish --workspaces --access=public --tag=prerelease
 
 workflows:
   version: 2
@@ -188,6 +197,12 @@ workflows:
           matrix:
             parameters:
               node-version: [ "16.14", "14.19" ]
+      - release-please:
+          filters:
+            <<: *filters_only_main
+          requires:
+            - test-v16.14
+            - lint-v16.14
 
   renovate-nori-build-test:
     jobs:
