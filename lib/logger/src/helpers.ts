@@ -1,5 +1,5 @@
 import { ChildProcess } from 'child_process'
-import { Transform } from 'stream'
+import { Readable, Transform } from 'stream'
 import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger } from './logger'
@@ -79,22 +79,31 @@ export function hookConsole(logger: Logger, processName: string): () => void {
 
 // This function hooks winston into the stdout and stderr of child processes
 // that we have spawned forked. Useful for when you need to invoke a CLI tool.
-export function hookFork(logger: Logger, process: string, child: ChildProcess): void {
+export function hookFork(logger: Logger, process: string, child: ChildProcess, logStdErr = true): void {
+  function hookStream(stream: Readable, level: string) {
+    stream.setEncoding('utf8')
+    stream
+      .pipe(
+        new Transform({
+          decodeStrings: false,
+          readableObjectMode: true,
+          transform: (data, _enc, callback) => {
+            // Put messages on a new line so we don't break fancy layouts, e.g.,
+            // tables, with our metadata
+            callback(null, { level, message: '\n' + (data.endsWith('\n') ? data.slice(0, -1) : data) })
+          }
+        })
+      )
+      .pipe(logger.child({ process }), { end: false })
+  }
+
   if (!child.stdout) {
     throw new ToolKitError(`failed to fork ${process} process`)
   }
-  child.stdout.setEncoding('utf8')
-  child.stdout
-    .pipe(
-      new Transform({
-        decodeStrings: false,
-        readableObjectMode: true,
-        transform: (data, _enc, callback) => {
-          callback(null, { level: 'info', message: data.endsWith('\n') ? data.slice(0, -1) : data })
-        }
-      })
-    )
-    .pipe(logger.child({ process }), { end: false })
+  hookStream(child.stdout, 'info')
+  if (logStdErr && child.stderr) {
+    hookStream(child.stderr, 'warn')
+  }
 }
 
 // Wait for a child process to finish, returning successfully if they terminate

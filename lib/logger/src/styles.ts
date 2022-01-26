@@ -17,6 +17,6 @@ export const styles = {
   errorHighlight: colours.red,
   error: (string: string): string => `${styles.errorHighlight.bold('‼︎')} ${styles.title(string)}`,
   warningHighlight: colours.yellow,
-  warning: (string: string): string => `${styles.warningHighlight.bold('⚠︎')} ${styles.title(string)}`,
+  warning: (string: string): string => styles.warningHighlight.bold('⚠︎') + ' ' + string,
   ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2))
 }
