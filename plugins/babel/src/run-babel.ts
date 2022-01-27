@@ -28,6 +28,7 @@ export async function runBabel(
     transformOptions = transformOptions ? { ...transformOptions, configFile } : { configFile }
   }
 
+  logger.info('running babel')
   const unhook = hookConsole(logger, 'babel')
   await Promise.all(
     files.map(async (file) => {
