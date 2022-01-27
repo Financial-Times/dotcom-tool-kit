@@ -7,7 +7,7 @@ export default class LintStaged extends Task {
   static description = ''
 
   async run(): Promise<void> {
-    this.logger.verbose('running lint-staged...')
+    this.logger.info('running lint-staged')
     const unhook = hookConsole(this.logger, 'lint-staged')
     const wasSuccessful = await lintStaged().finally(unhook)
 

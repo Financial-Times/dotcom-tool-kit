@@ -10,7 +10,7 @@ export default function runJest(logger: Logger, mode: JestMode, options: JestOpt
     mode === 'ci' ? '--ci' : '',
     options.configPath ? `--config=${options.configPath}` : ''
   ]
-  logger.verbose(`Running: jest ${args.join(' ')}`)
+  logger.info(`running jest ${args.join(' ')}`)
   const child = fork(jestCLIPath, args, { silent: true })
   hookFork(logger, 'jest', child)
   return waitOnExit('jest', child)
