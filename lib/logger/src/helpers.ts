@@ -115,9 +115,8 @@ export function waitOnExit(process: string, child: ChildProcess): Promise<void> 
       if (code === 0) {
         resolve()
       } else {
-        const error = new ToolKitError(`${process} process returned an error`)
-        child.stderr?.setEncoding('utf8')
-        error.details = child.stderr?.read()
+        const error = new ToolKitError(`${process} process returned a non-zero exit code (${code})`)
+        error.details = 'error output has been logged above ☝️'
         reject(error)
       }
     })
