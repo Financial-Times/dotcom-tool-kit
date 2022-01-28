@@ -7,11 +7,11 @@ const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
 export default function runWebpack(logger: Logger, options: WebpackOptions): Promise<void> {
   logger.info('starting Webpack...')
-  const child = fork(
-    webpackCLIPath,
-    ['build', `--mode=${options.mode}`, options.configPath ? `--config=${options.configPath}` : ''],
-    { silent: true }
-  )
+  const args = ['build', '--color', `--mode=${options.mode}`]
+  if (options.configPath) {
+    args.push(`--config=${options.configPath}`)
+  }
+  const child = fork(webpackCLIPath, args, { silent: true })
   hookFork(logger, 'webpack', child)
   return waitOnExit('webpack', child)
 }
