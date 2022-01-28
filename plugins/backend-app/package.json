@@ -2,12 +2,11 @@
   "name": "@dotcom-tool-kit/backend-app",
   "version": "0.0.0-development",
   "description": "",
-  "main": "lib",
+  "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/types": "file:../../lib/types",
     "@dotcom-tool-kit/babel": "file:../babel",
     "@dotcom-tool-kit/circleci-heroku": "file:../circleci-heroku",
     "@dotcom-tool-kit/npm": "file:../npm",
@@ -19,9 +18,5 @@
     "directory": "plugins/backend-app"
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
-  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/backend-app",
-  "files": [
-    "/lib",
-    ".toolkitrc.yml"
-  ]
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/backend-app"
 }
