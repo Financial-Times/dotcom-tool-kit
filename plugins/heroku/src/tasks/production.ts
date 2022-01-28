@@ -1,6 +1,7 @@
 import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
+import { styles } from '@dotcom-tool-kit/logger'
 import { HerokuSchema, HerokuOptions } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import { scaleDyno } from '../scaleDyno'
 import { setSlug } from '../setSlug'
@@ -10,23 +11,25 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
 
   async run(): Promise<void> {
     try {
-      console.log('retrieving staging slug...')
+      this.logger.verbose('retrieving staging slug...')
       const state = readState('staging')
       if (!state) {
         throw new ToolKitError('could not find staging state information')
       }
       const { slugId } = state
 
-      console.log('promoting staging to production....')
-      await setSlug(slugId)
+      this.logger.verbose('promoting staging to production....')
+      await setSlug(this.logger, slugId)
 
-      console.log('staging has been successfully promoted to production')
+      this.logger.info('staging has been successfully promoted to production')
 
       const { scaling } = this.options as HerokuOptions
 
       if (!scaling) {
         const error = new ToolKitError('your heroku pipeline must have its scaling configured')
-        error.details = `configure it in your .toolkitrc.yml, with a quantity and size for each production app, e.g.:
+        error.details = `configure it in your ${styles.filepath(
+          '.toolkitrc.yml'
+        )}, with a quantity and size for each production app, e.g.:
 
 options:
   '@dotcom-tool-kit/heroku':
@@ -40,11 +43,11 @@ options:
       }
 
       for (const [appName, typeConfig] of Object.entries(scaling)) {
-        console.log(`scaling app ${appName}...`)
+        this.logger.verbose(`scaling app ${styles.app(appName)}...`)
         for (const [processType, { quantity, size }] of Object.entries(typeConfig)) {
-          await scaleDyno(appName, quantity, processType, size)
+          await scaleDyno(this.logger, appName, quantity, processType, size)
         }
-        console.log(`${appName} has been successfully scaled`)
+        this.logger.info(`${styles.app(appName)} has been successfully scaled`)
       }
     } catch (err) {
       if (err instanceof ToolKitError) {

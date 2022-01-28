@@ -2,6 +2,8 @@ import { promises as fs } from 'fs'
 import * as yaml from 'js-yaml'
 import isEqual from 'lodash.isequal'
 import path from 'path'
+import { ToolKitError } from '@dotcom-tool-kit/error'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Hook } from '@dotcom-tool-kit/types'
 
 type JobConfig = {
@@ -42,6 +44,7 @@ export default abstract class CircleCiConfigHook extends Hook {
   async getCircleConfigRaw(): Promise<string | undefined> {
     if (!this._circleConfigRaw) {
       try {
+        this.logger.verbose(`trying to read CircleCI config at ${styles.filepath(this.circleConfigPath)}...`)
         this._circleConfigRaw = await fs.readFile(this.circleConfigPath, 'utf8')
       } catch (err) {
         // Not an error if config file doesn't exist
@@ -67,7 +70,9 @@ export default abstract class CircleCiConfigHook extends Hook {
 
   async getVersionTag(): Promise<string | undefined> {
     if (!this._versionTag) {
-      const currentManifest = await fs.readFile(path.join(__dirname, '../package.json'), 'utf8')
+      const packageJsonPath = path.join(__dirname, '../package.json')
+      this.logger.verbose(`reading package.json at ${styles.filepath(packageJsonPath)}...`)
+      const currentManifest = await fs.readFile(packageJsonPath, 'utf8')
       if (currentManifest) {
         this._versionTag = JSON.parse(currentManifest).version
       }
@@ -111,8 +116,10 @@ export default abstract class CircleCiConfigHook extends Hook {
   async install(): Promise<void> {
     const rawConfig = await this.getCircleConfigRaw()
     if (rawConfig && !rawConfig.startsWith(automatedComment)) {
-      throw new Error(
-        `Please update your CircleCI config to include the \`${this.job}\` job in the 'tool-kit' workflow`
+      throw new ToolKitError(
+        `Please update your CircleCI config to include the \`${styles.hook(
+          this.job
+        )}\` job in the ${styles.heading('tool-kit')} workflow`
       )
     }
 
@@ -154,15 +161,18 @@ export default abstract class CircleCiConfigHook extends Hook {
     const workflows = config.workflows as Record<string, Workflow>
     const jobs = workflows?.['tool-kit']?.jobs
     const nightlyJobs = workflows?.['nightly']?.jobs
+    const error = new ToolKitError('Found malformed CircleCI config that was automatically generated.')
     if (!jobs) {
-      throw new Error(
-        'Found malformed CircleCI config that was automatically generated. Please delete and install again'
-      )
+      error.details = 'Please delete and install again'
+      throw error
     }
     if (!nightlyJobs) {
-      throw new Error(
-        'Found an older version of the CircleCI config without a nightly workflow. Please delete and install again'
-      )
+      error.details = `The CircleCI config was missing a '${styles.heading(
+        'nightly'
+      )}' workflow, so was likely generated with an old version of the ${styles.plugin(
+        'circleci'
+      )} plugin. Please delete the config and install again`
+      throw error
     }
 
     const job = this.jobOptions ? { [this.job]: this.jobOptions } : this.job
@@ -183,9 +193,12 @@ export default abstract class CircleCiConfigHook extends Hook {
     }
 
     const serialised = automatedComment + yaml.dump(config)
+    const circleConfigDir = path.dirname(this.circleConfigPath)
+    this.logger.verbose(`making directory at ${styles.filepath(circleConfigDir)}...`)
     // Enable recursive option so that mkdir doesn't throw if the directory
     // already exists.
-    await fs.mkdir(path.dirname(this.circleConfigPath), { recursive: true })
+    await fs.mkdir(circleConfigDir, { recursive: true })
+    this.logger.info(`writing CircleCI config to ${styles.filepath(this.circleConfigPath)}...`)
     await fs.writeFile(this.circleConfigPath, serialised)
   }
 }

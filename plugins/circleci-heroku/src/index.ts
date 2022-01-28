@@ -16,18 +16,18 @@ export class DeployStaging extends CircleCiConfigHook {
 
 export class TestReview extends CircleCiConfigHook {
   job = 'tool-kit/e2e-test-review'
-  jobOptions = { requires: [new DeployReview().job] }
+  jobOptions = { requires: [new DeployReview(this.logger).job] }
 }
 
 export class TestStaging extends CircleCiConfigHook {
   job = 'tool-kit/e2e-test-staging'
-  jobOptions = { requires: [new DeployStaging().job] }
+  jobOptions = { requires: [new DeployStaging(this.logger).job] }
 }
 
 export class DeployProduction extends CircleCiConfigHook {
   job = 'tool-kit/heroku-promote'
   jobOptions = {
-    requires: [new TestCI().job, new TestStaging().job],
+    requires: [new TestCI(this.logger).job, new TestStaging(this.logger).job],
     filters: { branches: { only: 'main' } }
   }
 }

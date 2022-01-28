@@ -8,8 +8,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended'
   ],
   rules: {
-    // This is a CLI application so we want to be logging
-    'no-console': 'off'
+    // We use winston's logging instead
+    'no-console': 'error'
   },
   overrides: [
     {

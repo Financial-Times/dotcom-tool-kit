@@ -1,8 +1,13 @@
 import type prompts from 'prompts'
+import type { Logger } from 'winston'
 
 export type ScalarSchemaType = 'string' | 'number' | 'boolean' | `|${string},${string}` | 'unknown'
 export type SchemaType = ScalarSchemaType | `array.${ScalarSchemaType}` | `record.${ScalarSchemaType}`
-export type SchemaPromptGenerator<T> = (prompt: typeof prompts, onCancel: () => void) => Promise<T>
+export type SchemaPromptGenerator<T> = (
+  logger: Logger,
+  prompt: typeof prompts,
+  onCancel: () => void
+) => Promise<T>
 export type ModifiedSchemaType = SchemaType | `${SchemaType}?` | SchemaPromptGenerator<unknown>
 
 export type Schema = {

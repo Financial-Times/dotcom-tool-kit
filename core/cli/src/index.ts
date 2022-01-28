@@ -1,8 +1,9 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { checkInstall, loadConfig } from './config'
-import { styles } from './messages'
 import { getOptions, setOptions } from '@dotcom-tool-kit/options'
 import type { Options } from '@dotcom-tool-kit/types/src/schema'
+import { styles } from '@dotcom-tool-kit/logger'
+import type { Logger } from 'winston'
 
 type ErrorSummary = {
   hook: string
@@ -10,8 +11,8 @@ type ErrorSummary = {
   error: Error
 }
 
-export async function runTasks(hooks: string[], files?: string[]): Promise<void> {
-  const config = await loadConfig()
+export async function runTasks(logger: Logger, hooks: string[], files?: string[]): Promise<void> {
+  const config = await loadConfig(logger)
 
   const availableHooks = Object.keys(config.hooks)
     .sort()
@@ -41,7 +42,7 @@ ${availableHooks}`
     const errors: ErrorSummary[] = []
 
     if (!config.hookTasks[hook]) {
-      console.warn(styles.warning(`no task configured for ${hook}: skipping assignment...}`))
+      logger.warn(`no task configured for ${hook}: skipping assignment...`)
       continue
     }
     const assignment = config.hookTasks[hook]
@@ -53,7 +54,7 @@ ${availableHooks}`
       // `Task` is an abstract class. here we know it's a concrete subclass
       // but typescript doesn't, so cast it to any.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const task = new (Task as any)(options)
+      const task = new (Task as any)(logger, options)
 
       try {
         await task.run(files)
@@ -82,7 +83,7 @@ ${error.details}`
                 : ''
             }`
         )
-        .join(`\n${styles.dim(styles.ruler())}\n`)
+        .join(`${styles.dim(styles.ruler())}\n`)
 
       error.exitCode = errors.length + 1
       throw error

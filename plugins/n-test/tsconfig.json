@@ -10,6 +10,9 @@
       "path": "../../lib/state"
     },
     {
+      "path": "../../lib/logger"
+    },
+    {
       "path": "../../lib/types"
     }
   ]

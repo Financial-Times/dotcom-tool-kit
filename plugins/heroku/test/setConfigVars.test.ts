@@ -2,6 +2,9 @@ import { describe, it, expect, jest } from '@jest/globals'
 import { setConfigVars } from '../src/setConfigVars'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import heroku from '../src/herokuClient'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -62,26 +65,26 @@ jest.mock('@dotcom-tool-kit/vault', () => {
 
 describe('setConfigVars', () => {
   it('passes its settings to vault env vars and receives secrets ', async () => {
-    await setConfigVars(appName, environment, systemCode)
+    await setConfigVars(logger, appName, environment, systemCode)
 
     const settings = {
       environment
     }
 
-    expect(VaultEnvVars).toHaveBeenLastCalledWith(settings)
+    expect(VaultEnvVars).toHaveBeenLastCalledWith(logger, settings)
   })
 
   it('sends an update to the app with the correct path and body', async () => {
-    await setConfigVars(appName, environment, systemCode)
+    await setConfigVars(logger, appName, environment, systemCode)
 
     expect(heroku.patch).toBeCalledWith('/apps/test-staging-app-name/config-vars', patchBody)
   })
 
   it('throws if the app was not patched with config vars', async () => {
-    await expect(setConfigVars('wrong-app-name', environment, systemCode)).rejects.toThrowError()
+    await expect(setConfigVars(logger, 'wrong-app-name', environment, systemCode)).rejects.toThrowError()
   })
 
   it('resolves if successful', async () => {
-    await expect(setConfigVars(appName, environment, systemCode)).resolves.not.toThrow()
+    await expect(setConfigVars(logger, appName, environment, systemCode)).resolves.not.toThrow()
   })
 })

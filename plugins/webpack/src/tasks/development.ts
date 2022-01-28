@@ -6,7 +6,7 @@ export default class WebpackDevelopment extends Task<typeof WebpackSchema> {
   static description = 'build webpack'
 
   async run(): Promise<void> {
-    await runWebpack({
+    await runWebpack(this.logger, {
       ...this.options,
       mode: 'development'
     })

@@ -12,6 +12,9 @@
       "path": "../../lib/error"
     },
     {
+      "path": "../../lib/logger"
+    },
+    {
       "path": "../../lib/options"
     }
   ],

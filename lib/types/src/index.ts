@@ -1,6 +1,7 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import isPlainObject from 'lodash.isplainobject'
 import mapValues from 'lodash.mapvalues'
+import type { Logger } from 'winston'
 import { Schema, SchemaOutput } from './schema'
 
 export abstract class Task<O extends Schema = Record<string, never>> {
@@ -10,13 +11,12 @@ export abstract class Task<O extends Schema = Record<string, never>> {
 
   static defaultOptions: Record<string, unknown> = {}
   options: SchemaOutput<O>
+  logger: Logger
 
-  constructor(options: Partial<SchemaOutput<O>> = {}) {
-    this.options = Object.assign(
-      {},
-      (this.constructor as typeof Task).defaultOptions as SchemaOutput<O>,
-      options
-    )
+  constructor(logger: Logger, options: Partial<SchemaOutput<O>> = {}) {
+    const staticThis = this.constructor as typeof Task
+    this.options = Object.assign({}, staticThis.defaultOptions as SchemaOutput<O>, options)
+    this.logger = logger.child({ task: staticThis.id })
   }
 
   abstract run(files?: string[]): Promise<void>
@@ -27,7 +27,12 @@ export type TaskClass = typeof Task
 export abstract class Hook {
   id?: string
   plugin?: Plugin
+  logger: Logger
   static description?: string
+
+  constructor(logger: Logger) {
+    this.logger = logger.child({ hook: this.constructor.name })
+  }
 
   abstract check(): Promise<boolean>
   abstract install(): Promise<void>
@@ -46,14 +51,14 @@ export interface Plugin {
 export interface RawPlugin extends Omit<Plugin, 'parent' | 'hooks'> {
   parent?: RawPlugin
   hooks?: {
-    [id: string]: { new (): Hook }
+    [id: string]: { new (logger: Logger): Hook }
   }
 }
 
-export function instantiatePlugin(plugin: unknown): Plugin {
+export function instantiatePlugin(plugin: unknown, logger: Logger): Plugin {
   const rawPlugin = plugin as RawPlugin
 
-  const parent = rawPlugin.parent && instantiatePlugin(rawPlugin.parent)
+  const parent = rawPlugin.parent && instantiatePlugin(rawPlugin.parent, logger)
 
   if (
     rawPlugin.tasks &&
@@ -73,7 +78,7 @@ export function instantiatePlugin(plugin: unknown): Plugin {
   }
 
   const hooks = mapValues(rawPlugin.hooks, (Hook) => {
-    return new Hook()
+    return new Hook(logger)
   })
   return { ...rawPlugin, parent, hooks }
 }

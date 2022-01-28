@@ -1,6 +1,9 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import Production from '../../src/tasks/production'
 import * as utils from '../../src/setSlug'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 jest.mock('@dotcom-tool-kit/state', () => {
   return {
@@ -16,20 +19,20 @@ const productionOptions = { scaling: { 'test-app': { web: { size: 'standard-1x',
 describe('staging', () => {
   it('should call set slug with slug id', async () => {
     mockSetSlug.mockImplementation(() => Promise.resolve([]))
-    const task = new Production(productionOptions)
+    const task = new Production(logger, productionOptions)
     await task.run()
 
-    expect(utils.setSlug).toBeCalledWith('slug-id')
+    expect(utils.setSlug).toBeCalledWith(expect.anything(), 'slug-id')
   })
 
   it('should resolve when completed successfully', async () => {
-    const task = new Production(productionOptions)
+    const task = new Production(logger, productionOptions)
     await expect(task.run()).resolves.not.toThrow()
   })
 
   it('should throw if it completes unsuccessfully', async () => {
     mockSetSlug.mockImplementation(() => Promise.reject())
-    const task = new Production(productionOptions)
+    const task = new Production(logger, productionOptions)
     await expect(task.run()).rejects.toThrowError()
   })
 })

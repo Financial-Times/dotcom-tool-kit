@@ -1,9 +1,10 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { setOptions } from '@dotcom-tool-kit/options'
+import type { Logger } from 'winston'
 import { Config, loadConfig } from './config'
 
-export default async function installHooks(): Promise<Config> {
-  const config = await loadConfig()
+export default async function installHooks(logger: Logger): Promise<Config> {
+  const config = await loadConfig(logger)
 
   const tasks = Object.values(config.hooks).map((hook) => async () => {
     if (!(await hook.check())) {
@@ -32,7 +33,7 @@ export default async function installHooks(): Promise<Config> {
 
   if (errors.length) {
     const error = new ToolKitError('could not automatically install hooks:')
-    error.details = errors.map((error) => error.message).join('\n\n')
+    error.details = errors.map((error) => `- ${error.message}`).join('\n')
     throw error
   }
 

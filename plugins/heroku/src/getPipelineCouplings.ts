@@ -1,13 +1,14 @@
 import heroku from './herokuClient'
 import type { HerokuApiResGetPipeline, HerokuApiResGetPipelineApps } from 'heroku-client'
+import type { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { State, writeState } from '@dotcom-tool-kit/state'
 
-async function getPipelineCouplings(pipelineName: string): Promise<void> {
-  console.log(`retrieving pipeline id for ${pipelineName}`)
+async function getPipelineCouplings(logger: Logger, pipelineName: string): Promise<void> {
+  logger.verbose(`retrieving pipeline id for ${pipelineName}`)
   const piplelineDetails: HerokuApiResGetPipeline = await heroku.get(`/pipelines/${pipelineName}`)
 
-  console.log(`getting product app ids for pipeline id: ${piplelineDetails.id}`)
+  logger.verbose(`getting product app ids for pipeline id: ${piplelineDetails.id}`)
   const couplings: HerokuApiResGetPipelineApps[] = await heroku.get(
     `/pipelines/${piplelineDetails.id}/pipeline-couplings`
   )
@@ -22,7 +23,7 @@ async function getPipelineCouplings(pipelineName: string): Promise<void> {
       throw error
     }
     const appIds = apps.map((app) => app.app.id)
-    console.log(`writing ${stage} app ids to state: ${appIds}`)
+    logger.verbose(`writing ${stage} app ids to state: ${appIds}`)
 
     writeState(stage, { appIds })
   })

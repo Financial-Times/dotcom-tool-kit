@@ -3,6 +3,9 @@ import DevelopmentWebpack from '../../src/tasks/development'
 import ProductionWebpack from '../../src/tasks/production'
 import { fork } from 'child_process'
 import EventEmitter from 'events'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 jest.mock('child_process', () => ({
   fork: jest.fn(() => {
@@ -14,6 +17,7 @@ jest.mock('child_process', () => ({
     return emitter
   })
 }))
+jest.mock('@dotcom-tool-kit/logger')
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
@@ -21,28 +25,28 @@ describe('webpack', () => {
   describe('development', () => {
     it('should call webpack cli with correct arguments', async () => {
       const configPath = 'webpack.config.js'
-      const task = new DevelopmentWebpack({ configPath })
+      const task = new DevelopmentWebpack(logger, { configPath })
       await task.run()
 
-      expect(fork).toBeCalledWith(webpackCLIPath, [
-        'build',
-        '--mode=development',
-        '--config=webpack.config.js'
-      ])
+      expect(fork).toBeCalledWith(
+        webpackCLIPath,
+        ['build', '--mode=development', '--config=webpack.config.js'],
+        { silent: true }
+      )
     })
   })
 
   describe('production', () => {
     it('should call webpack cli with correct arguments', async () => {
       const configPath = 'webpack.config.js'
-      const task = new ProductionWebpack({ configPath })
+      const task = new ProductionWebpack(logger, { configPath })
       await task.run()
 
-      expect(fork).toBeCalledWith(webpackCLIPath, [
-        'build',
-        '--mode=production',
-        '--config=webpack.config.js'
-      ])
+      expect(fork).toBeCalledWith(
+        webpackCLIPath,
+        ['build', '--mode=production', '--config=webpack.config.js'],
+        { silent: true }
+      )
     })
   })
 })

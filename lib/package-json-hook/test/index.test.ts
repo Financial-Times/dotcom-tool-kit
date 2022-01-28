@@ -2,6 +2,9 @@ import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import { promises as fs } from 'fs'
 import { PackageJsonHook } from '../src'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 describe('package.json hook', () => {
   class TestHook extends PackageJsonHook {
@@ -18,21 +21,21 @@ describe('package.json hook', () => {
   describe('check', () => {
     it('should return true when package.json has hook call in script', async () => {
       process.chdir(path.join(__dirname, 'files', 'with-hook'))
-      const hook = new TestHook()
+      const hook = new TestHook(logger)
 
       expect(await hook.check()).toBeTruthy()
     })
 
     it('should return true when script includes other hooks', async () => {
       process.chdir(path.join(__dirname, 'files', 'multiple-hooks'))
-      const hook = new TestHook()
+      const hook = new TestHook(logger)
 
       expect(await hook.check()).toBeTruthy()
     })
 
     it(`should return false when package.json doesn't have hook call in script`, async () => {
       process.chdir(path.join(__dirname, 'files', 'without-hook'))
-      const hook = new TestHook()
+      const hook = new TestHook(logger)
 
       expect(await hook.check()).toBeFalsy()
     })
@@ -48,7 +51,7 @@ describe('package.json hook', () => {
       process.chdir(base)
 
       try {
-        const hook = new TestHook()
+        const hook = new TestHook(logger)
         await hook.install()
 
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
@@ -68,7 +71,7 @@ describe('package.json hook', () => {
       process.chdir(base)
 
       try {
-        const hook = new TestHook()
+        const hook = new TestHook(logger)
         await hook.install()
 
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))

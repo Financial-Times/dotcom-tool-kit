@@ -2,6 +2,9 @@ import { describe, it, expect, jest } from '@jest/globals'
 import { getHerokuReviewApp } from '../src/getHerokuReviewApp'
 import { repeatedCheckForSuccessStatus } from '../src/repeatedCheckForSuccessStatus'
 import heroku from '../src/herokuClient'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 const pipelineId = 'pipeline-id'
 
@@ -46,14 +49,14 @@ jest.mock('../src/repeatedCheckForSuccessStatus', () => {
 
 describe('getHerokuReviewApp', () => {
   it('gets calls heroku api with its pipeline id', async () => {
-    await getHerokuReviewApp(pipelineId)
+    await getHerokuReviewApp(logger, pipelineId)
 
     expect(heroku.get).toBeCalledTimes(1)
     expect(heroku.get).toBeCalledWith(`/pipelines/${pipelineId}/review-apps`)
   })
 
   it('checks for success if the review app is creating', async () => {
-    await getHerokuReviewApp(pipelineId)
+    await getHerokuReviewApp(logger, pipelineId)
 
     expect(repeatedCheckForSuccessStatus).toBeCalledTimes(1)
   })
@@ -61,13 +64,13 @@ describe('getHerokuReviewApp', () => {
   it(`doesn't check for success if the review app has been created`, async () => {
     reviewApps[0].status = 'created'
 
-    await getHerokuReviewApp(pipelineId)
+    await getHerokuReviewApp(logger, pipelineId)
 
     expect(repeatedCheckForSuccessStatus).toBeCalledTimes(0)
   })
 
   it('returns the review app id if successful', async () => {
-    const reviewAppId = await getHerokuReviewApp(pipelineId)
+    const reviewAppId = await getHerokuReviewApp(logger, pipelineId)
 
     expect(reviewAppId).toEqual('test-app-id')
   })
@@ -75,6 +78,6 @@ describe('getHerokuReviewApp', () => {
   it('errors if there is no review app for the branch', async () => {
     branch = 'wrong-branch'
 
-    await expect(getHerokuReviewApp(pipelineId)).rejects.toThrowError()
+    await expect(getHerokuReviewApp(logger, pipelineId)).rejects.toThrowError()
   })
 })

@@ -4,8 +4,8 @@ export interface HerokuScaling {
   [app: string]: { [processType: string]: { size: string; quantity: number } }
 }
 
-const scaling: SchemaPromptGenerator<HerokuScaling> = async (prompt, onCancel) => {
-  console.log('You must configure the scaling for each of the Heroku apps in your pipeline.')
+const scaling: SchemaPromptGenerator<HerokuScaling> = async (logger, prompt, onCancel) => {
+  logger.error('You must configure the scaling for each of the Heroku apps in your pipeline.')
   const scaling: HerokuScaling = {}
   let allAppsConfigured = false
   while (!allAppsConfigured) {

@@ -4,6 +4,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { writeState } from '@dotcom-tool-kit/state'
+import { hookConsole, hookFork, styles } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 
@@ -16,7 +17,7 @@ export default class Node extends Task<typeof NodeSchema> {
 
   async run(): Promise<void> {
     const { entry } = this.options
-    const vault = new VaultEnvVars({
+    const vault = new VaultEnvVars(this.logger, {
       environment: 'development'
     })
 
@@ -28,24 +29,33 @@ export default class Node extends Task<typeof NodeSchema> {
       }))
 
     if (!entry) {
-      const error = new ToolKitError('the Node tasks requires an `entry` option')
-      error.details = 'this is the entrypoint for your app, e.g. `server/app.js`'
+      const error = new ToolKitError(
+        `the ${styles.task('Node')} task requires an ${styles.option('entry')} option`
+      )
+      error.details = `this is the entrypoint for your app, e.g. ${styles.filepath('server/app.js')}`
       throw error
     }
 
+    this.logger.verbose('starting the child node process...')
     const child = fork(entry, {
       env: {
         ...vaultEnv,
         PORT: port.toString(),
         ...process.env
       },
-      stdio: 'inherit'
+      silent: true
     })
+    hookFork(this.logger, entry, child)
 
-    await waitPort({
-      host: 'localhost',
-      port: port
-    })
+    const unhook = hookConsole(this.logger, 'wait-port')
+    try {
+      await waitPort({
+        host: 'localhost',
+        port: port
+      })
+    } finally {
+      unhook()
+    }
 
     writeState('local', { port })
   }

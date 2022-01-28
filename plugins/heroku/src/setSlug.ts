@@ -2,8 +2,9 @@ import heroku from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { gtg } from './gtg'
+import type { Logger } from 'winston'
 
-function setSlug(slug: string): Promise<void[]> {
+function setSlug(logger: Logger, slug: string): Promise<void[]> {
   const state = readState(`production`)
 
   if (!state) {
@@ -12,7 +13,7 @@ function setSlug(slug: string): Promise<void[]> {
 
   const appIds = state.appIds
 
-  console.log(`updating slug id ${slug} on production app ${appIds}`)
+  logger.info(`updating slug id ${slug} on production app ${appIds}`)
   const latestRelease = appIds.map((appId) =>
     heroku
       .post(`/apps/${appId}/releases`, {
@@ -27,7 +28,7 @@ function setSlug(slug: string): Promise<void[]> {
         error.details = err
         throw error
       })
-      .then((response) => gtg(response.app.name, 'production', false))
+      .then((response) => gtg(logger, response.app.name, 'production', false))
   )
 
   return Promise.all(latestRelease)

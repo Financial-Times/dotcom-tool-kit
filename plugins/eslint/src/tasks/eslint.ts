@@ -1,4 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { ESLintOptions, ESLintSchema } from '@dotcom-tool-kit/types/lib/schema/eslint'
 import { ESLint } from 'eslint'
@@ -24,7 +25,8 @@ export default class Eslint extends Task<typeof ESLintSchema> {
       error.exitCode = errorCount
       throw error
     } else {
-      console.log(resultText)
+      this.logger.info(styles.title('ESLint output was:'))
+      this.logger.info(resultText)
     }
   }
 }

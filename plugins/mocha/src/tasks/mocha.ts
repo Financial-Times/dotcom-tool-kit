@@ -1,3 +1,4 @@
+import { hookConsole, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import MochaCore from 'mocha'
 import { glob } from 'glob'
@@ -13,12 +14,15 @@ export default class Mocha extends Task<typeof MochaSchema> {
 
   async run(): Promise<void> {
     const mocha = new MochaCore()
-    console.log(this.options)
 
     const files = glob.sync(this.options.files)
     if (files.length === 0) {
       const error = new ToolKitError('No test files found')
-      error.details = `We looked for files matching ${this.options.files}, but there weren't any. Set options."@dotcom-tool-kit/mocha".files in your Tool Kit configuration to change this file pattern.`
+      error.details = `We looked for files matching ${styles.filepath(
+        this.options.files
+      )}, but there weren't any. Set ${styles.title(
+        'options."@dotcom-tool-kit/mocha".files'
+      )} in your Tool Kit configuration to change this file pattern.`
       throw error
     }
 
@@ -26,17 +30,17 @@ export default class Mocha extends Task<typeof MochaSchema> {
       mocha.addFile(file)
     })
 
+    const unhook = hookConsole(this.logger, 'mocha')
     await new Promise<void>((resolve, reject) => {
       mocha.run((failures) => {
         if (failures > 0) {
           const error = new ToolKitError('mocha tests failed')
-          // empty details to prevent printing error stack
-          error.details = ' '
+          error.details = 'please fix the test failures and retry'
           reject(error)
         } else {
           resolve()
         }
       })
-    })
+    }).finally(() => unhook())
   }
 }

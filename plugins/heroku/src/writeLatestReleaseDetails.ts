@@ -1,6 +1,8 @@
 import heroku from './herokuClient'
 import type { HerokuApiResGetRelease, HerokuApiGetSlug } from 'heroku-client'
+import type { Logger } from 'winston'
 import { writeState } from '@dotcom-tool-kit/state'
+import { styles } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import checkIfStagingUpdated from './checkIfStagingUpdated'
 
@@ -13,17 +15,19 @@ type ReleaseDetails = {
   status: string
 }
 
-async function findLatestRelease(appName: string): Promise<ReleaseDetails> {
-  console.log(`retrieving details for current ${appName} release...`)
+async function findLatestRelease(logger: Logger, appName: string): Promise<ReleaseDetails> {
+  logger.verbose(`retrieving details for current ${appName} release...`)
   const releases: HerokuApiResGetRelease[] = await heroku.get(`/apps/${appName}/releases`)
   const latestFound = releases.find((release: { current: boolean }) => release.current)
 
   if (!latestFound) {
     throw new ToolKitError(
-      'Could not find the current app details for staging, check that deploy:staging ran successfully'
+      `Could not find the current app details for staging, check that ${styles.hook(
+        'deploy:staging'
+      )} ran successfully`
     )
   }
-  console.log(`current staging app found with id: ${latestFound.id}`)
+  logger.debug(`current staging app found with id: ${latestFound.id}`)
 
   const { commit }: HerokuApiGetSlug = await heroku.get(`/apps/${appName}/slugs/${latestFound.slug.id}`)
   const { slug, id, status } = latestFound
@@ -32,7 +36,7 @@ async function findLatestRelease(appName: string): Promise<ReleaseDetails> {
 
 let latest: ReleaseDetails
 
-async function compare(appName: string, version: string, attempt = 1): Promise<boolean> {
+async function compare(logger: Logger, appName: string, version: string, attempt = 1): Promise<boolean> {
   if (attempt > 3) {
     throw new ToolKitError(
       `There was a problem with updating your staging app, please check that it's updated to the correct version`
@@ -42,17 +46,17 @@ async function compare(appName: string, version: string, attempt = 1): Promise<b
     return true
   } else {
     if (latest?.id) {
-      await checkIfStagingUpdated(appName, latest.id)
+      await checkIfStagingUpdated(logger, appName, latest.id)
     }
-    latest = await findLatestRelease(appName)
-    return compare(appName, version, attempt + 1)
+    latest = await findLatestRelease(logger, appName)
+    return compare(logger, appName, version, attempt + 1)
   }
 }
 
-async function writeLatestReleaseDetails(appName: string, version: string): Promise<void> {
+async function writeLatestReleaseDetails(logger: Logger, appName: string, version: string): Promise<void> {
   try {
-    console.log(`checking ${appName} is deployed with the latest commit...`)
-    await compare(appName, version)
+    logger.verbose(`checking ${appName} is deployed with the latest commit...`)
+    await compare(logger, appName, version)
   } catch {
     const error = new ToolKitError(`your staging does not have your latest commit`)
     error.details = `
@@ -63,7 +67,7 @@ async function writeLatestReleaseDetails(appName: string, version: string): Prom
   }
 
   if (latest.status === 'succeeded') {
-    console.log(`current slug id found and writing to state file: ${latest.slug.id}`)
+    logger.info(`current slug id found and writing to state file: ${latest.slug.id}`)
     writeState('staging', { slugId: latest.slug.id })
     return
   } else {

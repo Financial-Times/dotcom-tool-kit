@@ -1,16 +1,17 @@
 import pRetry from 'p-retry'
 import heroku from './herokuClient'
 import type { HerokuApiResGetReview } from 'heroku-client'
+import type { Logger } from 'winston'
 
 const NUM_RETRIES = process.env.HEROKU_REVIEW_APP_NUM_RETRIES
   ? parseInt(process.env.HEROKU_REVIEW_APP_NUM_RETRIES)
   : 60
 
-async function repeatedCheckForSuccessStatus(reviewAppId: string): Promise<boolean> {
+async function repeatedCheckForSuccessStatus(logger: Logger, reviewAppId: string): Promise<boolean> {
   async function checkForSuccessStatus() {
-    console.log(`review app id: ${reviewAppId}`)
+    logger.debug(`review app id: ${reviewAppId}`)
     const reviewApp: HerokuApiResGetReview = await heroku.get(`/review-apps/${reviewAppId}`)
-    console.log(`review app status: ${reviewApp.status}`)
+    logger.debug(`review app status: ${reviewApp.status}`)
     if (reviewApp.status === 'deleted') throw new pRetry.AbortError(`Review app was deleted`)
     if (reviewApp.status !== 'created')
       throw new Error(`App build for app id: ${reviewAppId} not yet finished`)
@@ -21,7 +22,7 @@ async function repeatedCheckForSuccessStatus(reviewAppId: string): Promise<boole
   const result = await pRetry(checkForSuccessStatus, {
     onFailedAttempt: (error) => {
       const { attemptNumber, retriesLeft } = error
-      console.log(`attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`) // eslint-disable-line no-console
+      logger.warn(`attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`)
     },
     factor: 1,
     retries: NUM_RETRIES,

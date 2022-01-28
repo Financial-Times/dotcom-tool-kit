@@ -3,6 +3,9 @@ import * as path from 'path'
 import * as puppeteer from 'puppeteer'
 import NTest from '../../src/tasks/n-test'
 import { writeState } from '@dotcom-tool-kit/state'
+import winston, { Logger } from 'winston'
+
+const logger = (winston as unknown) as Logger
 
 const configAbsolutePath = path.join(__dirname, '../files/smoke.js')
 // n-test prepends the CWD to the given config path
@@ -10,7 +13,7 @@ const configPath = path.relative('', configAbsolutePath)
 
 describe('n-test', () => {
   it('should pass when no errors', async () => {
-    const task = new NTest({
+    const task = new NTest(logger, {
       config: configPath
     })
 
@@ -18,7 +21,7 @@ describe('n-test', () => {
   })
 
   it('should fail when there are errors', async () => {
-    const task = new NTest({
+    const task = new NTest(logger, {
       config: configPath
     })
 
@@ -34,7 +37,7 @@ describe('n-test', () => {
 
   it('should get app name from state', async () => {
     writeState('review', { appName: 'some-test-app' })
-    const task = new NTest({
+    const task = new NTest(logger, {
       config: configPath
     })
 

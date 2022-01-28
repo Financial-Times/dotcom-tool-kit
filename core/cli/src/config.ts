@@ -1,4 +1,5 @@
 import path from 'path'
+import type { Logger } from 'winston'
 
 import type { HookTask } from './hook'
 import { loadPluginConfig } from './plugin'
@@ -159,12 +160,13 @@ export async function checkInstall(config: ValidConfig): Promise<void> {
   }
 }
 
-export function loadConfig(options?: { validate?: true }): Promise<ValidConfig>
-export function loadConfig(options?: { validate?: false }): Promise<Config>
+export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
+export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<Config>
 
-export async function loadConfig({ validate = true } = {}): Promise<ValidConfig | Config> {
+export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | Config> {
   // start loading config and child plugins, starting from the consumer app directory
   const config = await loadPluginConfig(
+    logger,
     {
       id: 'app root',
       root: process.cwd()

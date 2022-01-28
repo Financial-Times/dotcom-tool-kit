@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../../lib/error",
+    "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "@dotcom-tool-kit/npm": "file:../npm",
     "@dotcom-tool-kit/package-json-hook": "file:../../lib/package-json-hook",
     "@dotcom-tool-kit/state": "file:../../lib/state",
@@ -33,7 +34,8 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/heroku",
   "devDependencies": {
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json",
-    "@types/p-retry": "^3.0.1"
+    "@types/p-retry": "^3.0.1",
+    "winston": "^3.4.0"
   },
   "files": [
     "/lib",

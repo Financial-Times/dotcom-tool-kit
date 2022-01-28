@@ -6,16 +6,19 @@
   },
   "references": [
     {
-      "path": "../../lib/vault"
+      "path": "../../lib/error"
     },
     {
       "path": "../../lib/state"
     },
     {
-      "path": "../../lib/error"
+      "path": "../../lib/logger"
     },
     {
       "path": "../../lib/types"
+    },
+    {
+      "path": "../../lib/vault"
     }
   ],
   "include": ["src/**/*"]

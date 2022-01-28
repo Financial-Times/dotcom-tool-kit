@@ -1,5 +1,6 @@
 import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { styles } from '@dotcom-tool-kit/logger'
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
 import { setConfigVars } from '../setConfigVars'
 import { scaleDyno } from '../scaleDyno'
@@ -14,7 +15,9 @@ export default class HerokuStaging extends Task<typeof HerokuSchema> {
     try {
       if (!this.options.pipeline || !this.options.systemCode) {
         const error = new ToolKitError('no pipeline and/or system code option in your Tool Kit configuration')
-        error.details = `the Heroku plugin needs to know your pipeline name and Biz Ops' system code to deploy staging. add it to your configuration, e.g.:
+        error.details = `the ${styles.plugin(
+          'Heroku'
+        )} plugin needs to know your pipeline name and Biz Ops' system code to deploy staging. add it to your configuration, e.g.:
 
 options:
   '@dotcom-tool-kit/heroku':
@@ -24,20 +27,20 @@ options:
         throw error
       }
 
-      console.log(`retrieving pipeline details...`)
-      await getPipelineCouplings(this.options.pipeline)
+      this.logger.verbose(`retrieving pipeline details...`)
+      await getPipelineCouplings(this.logger, this.options.pipeline)
 
-      console.log(`restrieving staging app details...`)
-      const appName = await getHerokuStagingApp()
+      this.logger.verbose(`restrieving staging app details...`)
+      const appName = await getHerokuStagingApp(this.logger)
 
       //apply vars from vault
 
-      await setConfigVars(appName, 'production', this.options.systemCode)
+      await setConfigVars(this.logger, appName, 'production', this.options.systemCode)
 
       //scale up staging
-      await scaleDyno(appName, 1)
+      await scaleDyno(this.logger, appName, 1)
 
-      await gtg(appName, 'staging', false)
+      await gtg(this.logger, appName, 'staging', false)
     } catch (err) {
       if (err instanceof ToolKitError) {
         throw err

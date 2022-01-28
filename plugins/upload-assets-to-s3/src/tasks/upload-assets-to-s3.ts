@@ -4,6 +4,8 @@ import aws from 'aws-sdk'
 import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
+import { ToolKitError } from '@dotcom-tool-kit/error'
+import { styles } from '@dotcom-tool-kit/logger'
 import {
   UploadAssetsToS3Options,
   UploadAssetsToS3Schema
@@ -24,7 +26,78 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
   }
 
   async run(): Promise<void> {
-    await uploadAssetsToS3(this.options)
+    await this.uploadAssetsToS3(this.options)
+  }
+  async uploadFile(file: string, options: UploadAssetsToS3Options, s3: aws.S3): Promise<void> {
+    const basename = file.split('/').splice(1).join('/') // remove first directory only
+    const type = getFileType(basename)
+    const encoding = getFileEncoding(basename)
+    const key = path.posix.join(options.destination, basename)
+
+    const params = {
+      Bucket: '',
+      Key: key,
+      Body: fs.createReadStream(file),
+      ACL: 'public-read',
+      ContentType: `${type}; charset=utf-8`,
+      ContentEncoding: encoding,
+      CacheControl: options.cacheControl
+    }
+
+    const bucketByEnv = process.env.NODE_ENV === 'branch' ? options.reviewBucket : options.prodBucket
+    let currentBucket = ''
+
+    try {
+      if (typeof bucketByEnv === 'string') {
+        const params = {
+          Bucket: bucketByEnv,
+          Key: key,
+          Body: fs.createReadStream(file),
+          ACL: 'public-read',
+          ContentType: `${type}; charset=utf-8`,
+          ContentEncoding: encoding,
+          CacheControl: options.cacheControl
+        }
+        currentBucket = params.Bucket
+        const data = await s3.upload(params).promise()
+        this.logger.info(`Uploaded ${styles.filepath(basename)} to ${styles.URL(data.Location)}`)
+      } else {
+        for (const bucket of bucketByEnv) {
+          const params = {
+            Bucket: bucket,
+            Key: key,
+            Body: fs.createReadStream(file),
+            ACL: 'public-read',
+            ContentType: `${type}; charset=utf-8`,
+            ContentEncoding: encoding,
+            CacheControl: options.cacheControl
+          }
+          currentBucket = params.Bucket
+          const data = await s3.upload(params).promise()
+          this.logger.info(`Uploaded ${styles.filepath(basename)} to ${styles.URL(data.Location)}`)
+        }
+      }
+    } catch (err) {
+      const error = new ToolKitError(`Upload of ${basename} to ${currentBucket} failed`)
+      if (err instanceof Error) {
+        error.details = err.message
+      }
+      throw error
+    }
+  }
+
+  async uploadAssetsToS3(options: UploadAssetsToS3Options): Promise<void> {
+    // Wrap extensions in braces if there are multiple
+    const extensions = options.extensions.includes(',') ? `{${options.extensions}}` : options.extensions
+    const globFile = `${options.directory}/**/*${extensions}`
+    const files = glob.sync(globFile)
+
+    const s3 = new aws.S3({
+      accessKeyId: options.accessKeyId,
+      secretAccessKey: options.secretAccessKey
+    })
+
+    await Promise.all(files.map((file) => this.uploadFile(file, options, s3)))
   }
 }
 
@@ -45,73 +118,4 @@ const getFileEncoding = (filename: string) => {
     case '.br':
       return 'br'
   }
-}
-
-const uploadFile = async (file: string, options: UploadAssetsToS3Options, s3: aws.S3) => {
-  const basename = file.split('/').splice(1).join('/') // remove first directory only
-  const type = getFileType(basename)
-  const encoding = getFileEncoding(basename)
-  const key = path.posix.join(options.destination, basename)
-
-  const params = {
-    Bucket: '',
-    Key: key,
-    Body: fs.createReadStream(file),
-    ACL: 'public-read',
-    ContentType: `${type}; charset=utf-8`,
-    ContentEncoding: encoding,
-    CacheControl: options.cacheControl
-  }
-
-  const bucketByEnv = process.env.NODE_ENV === 'branch' ? options.reviewBucket : options.prodBucket
-  let currentBucket = ''
-
-  try {
-    if (typeof bucketByEnv === 'string') {
-      const params = {
-        Bucket: bucketByEnv,
-        Key: key,
-        Body: fs.createReadStream(file),
-        ACL: 'public-read',
-        ContentType: `${type}; charset=utf-8`,
-        ContentEncoding: encoding,
-        CacheControl: options.cacheControl
-      }
-      currentBucket = params.Bucket
-      const data = await s3.upload(params).promise()
-      console.log(`Uploaded ${basename} to ${data.Location}`)
-    } else {
-      for (const bucket of bucketByEnv) {
-        const params = {
-          Bucket: bucket,
-          Key: key,
-          Body: fs.createReadStream(file),
-          ACL: 'public-read',
-          ContentType: `${type}; charset=utf-8`,
-          ContentEncoding: encoding,
-          CacheControl: options.cacheControl
-        }
-        currentBucket = params.Bucket
-        const data = await s3.upload(params).promise()
-        console.log(`Uploaded ${basename} to ${data.Location}`)
-      }
-    }
-  } catch (error) {
-    console.error(`Upload of ${basename} to ${currentBucket} failed`)
-    throw error
-  }
-}
-
-async function uploadAssetsToS3(options: UploadAssetsToS3Options) {
-  // Wrap extensions in braces if there are multiple
-  const extensions = options.extensions.includes(',') ? `{${options.extensions}}` : options.extensions
-  const globFile = `${options.directory}/**/*${extensions}`
-  const files = glob.sync(globFile)
-
-  const s3 = new aws.S3({
-    accessKeyId: options.accessKeyId,
-    secretAccessKey: options.secretAccessKey
-  })
-
-  return Promise.all(files.map((file) => uploadFile(file, options, s3)))
 }

@@ -1,20 +1,19 @@
 #!/usr/bin/env node
 
-const c = require('ansi-colors')
 const argv = require('minimist')(process.argv.slice(2), {
   boolean: ['help', 'install'],
   '--': true
 })
 
 const { runTasks, showHelp, installHooks } = require('../lib')
-const { styles } = require('../lib/messages')
+const { rootLogger, styles } = require('@dotcom-tool-kit/logger')
 
 async function main() {
   try {
     if (argv.install) {
-      await installHooks()
+      await installHooks(rootLogger)
     } else if (argv.help || argv._.length === 0) {
-      await showHelp(argv._)
+      await showHelp(rootLogger, argv._)
     } else {
       if (argv['--'].length > 0) {
         // The `--` in a command such as `dotcom-tool-kit test:staged --`
@@ -24,16 +23,19 @@ async function main() {
         // the command becomes something like `dotcom-tool-kit test:staged --
         // index.js`. When this command is executed it runs the configured task
         // where the file path arguments would then be extracted.
-        await runTasks(argv._, argv['--'])
+        await runTasks(rootLogger, argv._, argv['--'])
       } else {
-        await runTasks(argv._)
+        await runTasks(rootLogger, argv._)
       }
     }
   } catch (error) {
     if (error.details) {
-      console.error(styles.error(error.message) + '\n\n' + error.details)
+      rootLogger.error('', { skipformat: true })
+      rootLogger.error(error.message)
+      rootLogger.error(styles.ruler(), { skipformat: true })
+      rootLogger.error(error.details, { skipformat: true })
     } else {
-      console.error(error.stack)
+      rootLogger.error(error.stack)
     }
 
     process.exitCode = error.exitCode || 1

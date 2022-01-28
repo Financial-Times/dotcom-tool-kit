@@ -25,15 +25,16 @@
     "@types/node": "^12.20.24",
     "chai": "^4.3.4",
     "globby": "^10.0.2",
-    "ts-node": "^8.10.2"
+    "ts-node": "^8.10.2",
+    "winston": "^3.4.0"
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "file:../../lib/error",
     "@dotcom-tool-kit/hook": "file:../../lib/hook",
+    "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "@dotcom-tool-kit/options": "file:../../lib/options",
     "@dotcom-tool-kit/types": "file:../../lib/types",
     "@dotcom-tool-kit/wait-for-ok": "file:../../lib/wait-for-ok",
-    "ansi-colors": "^4.1.1",
     "cosmiconfig": "^7.0.0",
     "import-from": "^3.0.0",
     "lodash.mergewith": "^4.6.2",
