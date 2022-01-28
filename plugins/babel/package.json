@@ -12,10 +12,15 @@
   },
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/main/plugins/babel",
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "scripts": {
+    "test": "cd ../../ ; npx jest --silent --projects plugins/babel"
+  },
   "keywords": [],
   "dependencies": {
+    "@dotcom-tool-kit/error": "file:../../lib/error",
     "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "@dotcom-tool-kit/types": "file:../../lib/types"
+    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "fast-glob": "^3.2.11"
   },
   "files": [
     "/lib",
@@ -23,5 +28,13 @@
   ],
   "volta": {
     "extends": "../../package.json"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@jest/globals": "^27.4.6",
+    "winston": "^3.4.0"
+  },
+  "peerDependencies": {
+    "@babel/core": "7.x"
   }
 }

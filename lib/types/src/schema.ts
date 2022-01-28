@@ -66,6 +66,7 @@ import type { NodeOptions } from './schema/node'
 import type { NextRouterOptions } from './schema/next-router'
 import type { PrettierOptions } from './schema/prettier'
 import type { LintStagedNpmOptions } from './schema/lint-staged-npm'
+import type { BabelOptions } from './schema/babel'
 
 export type Options = {
   '@dotcom-tool-kit/eslint'?: ESLintOptions
@@ -79,4 +80,5 @@ export type Options = {
   '@dotcom-tool-kit/next-router'?: NextRouterOptions
   '@dotcom-tool-kit/prettier'?: PrettierOptions
   '@dotcom-tool-kit/lint-staged-npm'?: LintStagedNpmOptions
+  '@dotcom-tool-kit/babel'?: BabelOptions
 }

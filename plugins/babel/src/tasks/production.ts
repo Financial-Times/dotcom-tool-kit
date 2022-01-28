@@ -1,12 +1,11 @@
-import { styles } from '@dotcom-tool-kit/logger'
+import { runBabel } from '../run-babel'
 import { Task } from '@dotcom-tool-kit/types'
+import { BabelSchema } from '@dotcom-tool-kit/types/lib/schema/babel'
 
-export default class BabelProduction extends Task {
+export default class BabelProduction extends Task<typeof BabelSchema> {
   static description = 'build babel'
 
   async run(): Promise<void> {
-    this.logger.warn(
-      `${styles.plugin('babel')} plugin is currently a stub (${styles.task('BabelProduction')} task)`
-    )
+    await runBabel(this.logger, this.options, { envName: 'production' })
   }
 }
