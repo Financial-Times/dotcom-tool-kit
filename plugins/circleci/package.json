@@ -29,7 +29,7 @@
     "@types/jest": "^27.4.0",
     "@types/js-yaml": "^4.0.3",
     "@types/lodash.isequal": "^4.5.5",
-    "winston": "^3.4.0"
+    "winston": "^3.5.1"
   },
   "files": [
     "/lib",

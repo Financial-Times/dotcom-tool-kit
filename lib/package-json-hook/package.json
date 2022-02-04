@@ -21,7 +21,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/package-json-hook",
   "devDependencies": {
     "@jest/globals": "^27.4.6",
-    "winston": "^3.4.0"
+    "winston": "^3.5.1"
   },
   "files": [
     "/lib",

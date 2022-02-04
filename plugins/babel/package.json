@@ -32,7 +32,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
     "@jest/globals": "^27.4.6",
-    "winston": "^3.4.0"
+    "winston": "^3.5.1"
   },
   "peerDependencies": {
     "@babel/core": "7.x"

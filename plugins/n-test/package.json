@@ -25,7 +25,7 @@
   "devDependencies": {
     "@jest/globals": "^27.4.6",
     "@types/jest": "^27.4.0",
-    "winston": "^3.4.0"
+    "winston": "^3.5.1"
   },
   "files": [
     "/lib",
