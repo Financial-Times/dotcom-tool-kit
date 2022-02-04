@@ -35,7 +35,7 @@
   "devDependencies": {
     "@types/financial-times__package-json": "file:../../types/financial-times__package-json",
     "@types/p-retry": "^3.0.1",
-    "winston": "^3.4.0"
+    "winston": "^3.5.1"
   },
   "files": [
     "/lib",

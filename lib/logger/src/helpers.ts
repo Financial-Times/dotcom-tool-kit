@@ -1,6 +1,6 @@
 import { ChildProcess } from 'child_process'
 import { Readable, Transform } from 'stream'
-import { Logger, level as LogLevel } from 'winston'
+import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger } from './logger'
 import { HookTransport, consoleTransport } from './transports'
@@ -36,7 +36,7 @@ function ansiTrim(message: string): string {
 // calling functions from external libraries that you expect will do their own
 // logging.
 export function hookConsole(logger: Logger, processName: string): () => void {
-  function writeShim(stream: NodeJS.WriteStream, level: LogLevel): NodeJS.WriteStream['write'] {
+  function writeShim(stream: NodeJS.WriteStream, level: string): NodeJS.WriteStream['write'] {
     return (message: string, encoding?, writeCallback?) => {
       // HACK allow winston logs from other threads to go straight through
       if (message.startsWith('[')) {
