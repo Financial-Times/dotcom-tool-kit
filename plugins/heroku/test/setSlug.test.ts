@@ -14,6 +14,7 @@ const goodHerokuResponse = [
 ]
 
 const mockHerokuPost = jest.spyOn(heroku, 'post')
+jest.mock('../src/setConfigVars')
 
 jest.mock('../src/gtg', () => {
   return {
