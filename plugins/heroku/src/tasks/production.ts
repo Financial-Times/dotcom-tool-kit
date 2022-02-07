@@ -19,7 +19,7 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
       const { slugId } = state
 
       this.logger.verbose('promoting staging to production....')
-      await setSlug(this.logger, slugId)
+      await setSlug(this.logger, slugId, this.options.systemCode)
 
       this.logger.info('staging has been successfully promoted to production')
 
