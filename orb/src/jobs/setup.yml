@@ -1,9 +1,9 @@
 parameters:
   node-version:
-    default: "12.22"
+    default: '12.22'
     type: string
   npm-version:
-    default: "7"
+    default: '7'
     type: string
 
 executor:
@@ -16,4 +16,5 @@ steps:
       version: <<parameters.npm-version>>
   - change-api/install-jq
   - node/install-packages
-  - persist-workspace
+  - persist-workspace:
+      path: .
