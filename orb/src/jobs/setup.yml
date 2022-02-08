@@ -17,3 +17,4 @@ steps:
   - change-api/install-jq
   - node/install-packages
   - persist-workspace
+      path: .

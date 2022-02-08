@@ -13,3 +13,4 @@ steps:
       name: Run the project build-production task
       command: npx dotcom-tool-kit build:ci
   - persist-workspace
+      path: .
