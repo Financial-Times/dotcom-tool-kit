@@ -1,6 +1,6 @@
 parameters:
   node-version:
-    default: "12.22"
+    default: '12.22'
     type: string
 
 executor:
@@ -12,5 +12,5 @@ steps:
   - run:
       name: Run the project build-production task
       command: npx dotcom-tool-kit build:ci
-  - persist-workspace
+  - persist-workspace:
       path: .
