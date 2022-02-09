@@ -5,7 +5,7 @@ import { gtg } from './gtg'
 import type { Logger } from 'winston'
 import { setConfigVars } from './setConfigVars'
 
-async function setSlug(logger: Logger, slug: string, systemCode?: string): Promise<void[]> {
+async function promoteStagingToProduction(logger: Logger, slug: string, systemCode?: string): Promise<void[]> {
   const state = readState(`production`)
 
   if (!state) {
@@ -40,4 +40,4 @@ async function setSlug(logger: Logger, slug: string, systemCode?: string): Promi
   return Promise.all(latestRelease)
 }
 
-export { setSlug }
+export { promoteStagingToProduction }
