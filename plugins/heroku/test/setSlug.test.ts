@@ -38,8 +38,10 @@ describe('setSlug', () => {
   it('calls setConfigVars for each appIds', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
-    await setSlug(logger, slugId)
-    expect(setConfigVars).toBeCalledTimes(2)
+    const systemCode = 'test-app'
+    await setSlug(logger, slugId, systemCode)
+    expect(setConfigVars).toHaveBeenNthCalledWith(1, logger, 'app-id-1', 'production', systemCode)
+    expect(setConfigVars).toHaveBeenNthCalledWith(2, logger, 'app-id-2', 'production', systemCode)
   })
 
   it('calls heroku api for each app', async () => {
