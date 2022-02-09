@@ -11,7 +11,7 @@ executor:
   tag: <<parameters.node-version>>
 
 steps:
-  - checkout
+  - attach-workspace
   - node/install-npm:
       version: <<parameters.npm-version>>
   - change-api/install-jq
