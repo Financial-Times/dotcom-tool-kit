@@ -4,7 +4,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
 import { HerokuSchema, HerokuOptions } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import { scaleDyno } from '../scaleDyno'
-import { setSlug } from '../setSlug'
+import { promoteStagingToProduction } from '../promoteStagingToProduction'
 
 export default class HerokuProduction extends Task<typeof HerokuSchema> {
   static description = ''
@@ -19,7 +19,7 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
       const { slugId } = state
 
       this.logger.verbose('promoting staging to production....')
-      await setSlug(this.logger, slugId)
+      await promoteStagingToProduction(this.logger, slugId, this.options.systemCode)
 
       this.logger.info('staging has been successfully promoted to production')
 

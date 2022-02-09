@@ -1,8 +1,9 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { setSlug } from '../src/setSlug'
+import { promoteStagingToProduction } from '../src/promoteStagingToProduction'
 import heroku from '../src/herokuClient'
 import { gtg } from '../src/gtg'
 import winston, { Logger } from 'winston'
+import { setConfigVars } from '../src/setConfigVars'
 
 const logger = (winston as unknown) as Logger
 
@@ -14,6 +15,12 @@ const goodHerokuResponse = [
 ]
 
 const mockHerokuPost = jest.spyOn(heroku, 'post')
+
+jest.mock('../src/setConfigVars', () => {
+  return {
+    setConfigVars: jest.fn()
+  }
+})
 
 jest.mock('../src/gtg', () => {
   return {
@@ -27,11 +34,20 @@ jest.mock('@dotcom-tool-kit/state', () => {
   }
 })
 
-describe('setSlug', () => {
+describe('promoteStagingToProduction', () => {
+  it('calls setConfigVars for each appIds', async () => {
+    mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
+    mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
+    const systemCode = 'test-app'
+    await promoteStagingToProduction(logger, slugId, systemCode)
+    expect(setConfigVars).toHaveBeenNthCalledWith(1, logger, 'app-id-1', 'production', systemCode)
+    expect(setConfigVars).toHaveBeenNthCalledWith(2, logger, 'app-id-2', 'production', systemCode)
+  })
+
   it('calls heroku api for each app', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
-    await setSlug(logger, slugId)
+    await promoteStagingToProduction(logger, slugId)
 
     expect(heroku.post).toHaveBeenCalledTimes(2)
   })
@@ -39,7 +55,7 @@ describe('setSlug', () => {
   it('calls heroku api with different app ids for each app', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
-    await setSlug(logger, slugId)
+    await promoteStagingToProduction(logger, slugId)
 
     expect(heroku.post).toHaveBeenNthCalledWith(1, `/apps/${appIds[0]}/releases`, {
       body: { slug: 'slug-id' }
@@ -52,7 +68,7 @@ describe('setSlug', () => {
   it('calls gtg for each app', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
-    await setSlug(logger, slugId)
+    await promoteStagingToProduction(logger, slugId)
 
     expect(gtg).toHaveBeenNthCalledWith(1, logger, 'app-name-1', 'production', false)
     expect(gtg).toHaveBeenNthCalledWith(2, logger, 'app-name-2', 'production', false)
@@ -62,18 +78,18 @@ describe('setSlug', () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
 
-    await expect(setSlug(logger, slugId)).resolves.not.toThrow()
+    await expect(promoteStagingToProduction(logger, slugId)).resolves.not.toThrow()
   })
 
   it('throws when unsuccessful', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.reject())
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
 
-    await expect(setSlug(logger, slugId)).rejects.toThrow()
+    await expect(promoteStagingToProduction(logger, slugId)).rejects.toThrow()
 
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.reject())
 
-    await expect(setSlug(logger, slugId)).rejects.toThrow()
+    await expect(promoteStagingToProduction(logger, slugId)).rejects.toThrow()
   })
 })
