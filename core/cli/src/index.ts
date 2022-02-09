@@ -1,7 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { checkInstall, loadConfig } from './config'
-import { getOptions, setOptions } from '@dotcom-tool-kit/options'
-import type { Options } from '@dotcom-tool-kit/types/src/schema'
+import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
 
@@ -32,7 +31,7 @@ ${availableHooks}`
 
   for (const pluginOptions of Object.values(config.options)) {
     if (pluginOptions.forPlugin) {
-      setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
+      setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }
   }
 
@@ -49,7 +48,7 @@ ${availableHooks}`
 
     for (const id of assignment.tasks) {
       const Task = config.tasks[id]
-      const options = Task.plugin ? getOptions(Task.plugin.id as keyof Options) : {}
+      const options = Task.plugin ? getOptions(Task.plugin.id as OptionKey) : {}
 
       // `Task` is an abstract class. here we know it's a concrete subclass
       // but typescript doesn't, so cast it to any.
@@ -58,12 +57,12 @@ ${availableHooks}`
 
       try {
         await task.run(files)
-      } catch (error: any) {
+      } catch (error) {
         // allow subsequent hook tasks to run on error
         errors.push({
           hook,
           task: id,
-          error
+          error: error as Error
         })
       }
     }
@@ -72,7 +71,7 @@ ${availableHooks}`
       const error = new ToolKitError(`error running tasks for ${styles.hook(hook)}`)
       error.details = errors
         .map(
-          ({ hook, task, error }) =>
+          ({ task, error }) =>
             `${styles.heading(`${styles.task(task)}:`)}
 
 ${error.message}${

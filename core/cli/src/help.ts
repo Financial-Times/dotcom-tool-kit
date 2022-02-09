@@ -1,5 +1,5 @@
 import { checkInstall, loadConfig } from './config'
-import { setOptions } from '@dotcom-tool-kit/options'
+import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
 
@@ -12,7 +12,7 @@ export default async function showHelp(logger: Logger, hooks: string[]): Promise
 
   for (const pluginOptions of Object.values(config.options)) {
     if (pluginOptions.forPlugin) {
-      setOptions(pluginOptions.forPlugin.id as any, pluginOptions.options)
+      setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }
   }
 

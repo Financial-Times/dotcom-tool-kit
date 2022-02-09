@@ -6,7 +6,7 @@ import { setConfigVars } from '../setConfigVars'
 import { scaleDyno } from '../scaleDyno'
 import { gtg } from '../gtg'
 import { getPipelineCouplings } from '../getPipelineCouplings'
-import { HerokuOptions, HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
+import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
 
 export default class HerokuStaging extends Task<typeof HerokuSchema> {
   static description = ''
