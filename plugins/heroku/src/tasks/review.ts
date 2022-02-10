@@ -28,12 +28,12 @@ options:
       }
 
       const pipeline: HerokuApiResPipeline = await herokuClient.get(`/pipelines/${this.options.pipeline}`)
+      
+      await setConfigVars(this.logger, 'review-app', 'continuous-integration', undefined, pipeline.id)
 
       const reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)
 
       writeState('review', { appId: reviewAppId })
-
-      await setConfigVars(this.logger, reviewAppId, 'continuous-integration')
 
       await gtg(this.logger, reviewAppId, 'review')
     } catch (err) {

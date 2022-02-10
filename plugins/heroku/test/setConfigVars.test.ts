@@ -20,6 +20,7 @@ const vaultPath = {
   app: 'vault-app'
 }
 const systemCode = 'test-system-code'
+const pipelineId = 'test-pipeline-id'
 
 const secrets = {
   secret1: 'secret-1',
@@ -27,11 +28,15 @@ const secrets = {
   secret3: 'secret-3'
 }
 
-const patchBody = {
+const prodPatchBody = {
   body: {
     SYSTEM_CODE: 'test-system-code',
     ...secrets
   }
+}
+
+const reviewPatchBody = {
+  body: secrets
 }
 class VaultEnvVarsMock {
   vaultPath: VaultPath
@@ -50,7 +55,7 @@ class VaultEnvVarsMock {
 jest.mock('../src/herokuClient', () => {
   return {
     patch: jest.fn((str: string, options: { [key: string]: { [key: string]: string } }) => {
-      if (!str.includes('test-staging-app-name')) {
+      if (!str.includes('test-staging-app-name') && !str.includes('review')) {
         throw new Error()
       }
     })
@@ -74,10 +79,16 @@ describe('setConfigVars', () => {
     expect(VaultEnvVars).toHaveBeenLastCalledWith(logger, settings)
   })
 
-  it('sends an update to the app with the correct path and body', async () => {
+  it('sends an update to the app with the correct path and body for prod and staging', async () => {
     await setConfigVars(logger, appName, environment, systemCode)
 
-    expect(heroku.patch).toBeCalledWith('/apps/test-staging-app-name/config-vars', patchBody)
+    expect(heroku.patch).toBeCalledWith('/apps/test-staging-app-name/config-vars', prodPatchBody)
+  })
+  
+  it('sends an update to the app with the correct path and body for review-app', async () => {
+    await setConfigVars(logger, 'review-app', 'continuous-integration', undefined, pipelineId)
+
+    expect(heroku.patch).toBeCalledWith(`/pipelines/${pipelineId}/stage/review/config-vars`, reviewPatchBody)
   })
 
   it('throws if the app was not patched with config vars', async () => {

@@ -7,7 +7,8 @@ async function setConfigVars(
   logger: Logger,
   appIdName: string,
   environment: Environment,
-  systemCode?: string
+  systemCode?: string,
+  pipelineId?:string
 ): Promise<void> {
   try {
     logger.info(`setting config vars for ${appIdName}`)
@@ -22,7 +23,11 @@ async function setConfigVars(
       configVars.SYSTEM_CODE = systemCode
     }
 
-    await heroku.patch(`/apps/${appIdName}/config-vars`, { body: configVars })
+    const endpoint = appIdName === 'review-app' ? 
+      `/pipelines/${pipelineId}/stage/review/config-vars`:
+      `/apps/${appIdName}/config-vars`
+
+    await heroku.patch(endpoint, { body: configVars })
 
     logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
 

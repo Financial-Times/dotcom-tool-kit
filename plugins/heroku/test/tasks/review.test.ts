@@ -115,7 +115,7 @@ describe('review', () => {
 
     await task.run()
 
-    expect(setConfigVars).toBeCalledWith(expect.anything(), appId, 'continuous-integration')
+    expect(setConfigVars).toBeCalledWith(expect.anything(), 'review-app', 'continuous-integration', undefined, 'test-pipeline-id')
   })
 
   it('should call gtg with appName', async () => {
