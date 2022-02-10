@@ -23,15 +23,16 @@ async function setConfigVars(
       configVars.SYSTEM_CODE = systemCode
     }
 
-    const endpoint = appIdName === 'review-app' ? 
-      `/pipelines/${pipelineId}/stage/review/config-vars`:
-      `/apps/${appIdName}/config-vars`
-
-    await heroku.patch(endpoint, { body: configVars })
+    if (appIdName === 'review-app') {
+      await heroku.patch(`/pipelines/${pipelineId}/stage/review/config-vars`, { body: configVars })
+    } else {
+      await heroku.patch(`/apps/${appIdName}/config-vars`, { body: configVars })
+    }
 
     logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
-
+    
     logger.info(`${appIdName} config vars have been updated successfully.`)
+
   } catch (err) {
     const error = new ToolKitError(`Error updating config vars`)
     if (err instanceof Error) {
