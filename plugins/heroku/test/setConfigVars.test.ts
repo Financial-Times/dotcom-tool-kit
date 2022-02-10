@@ -1,5 +1,5 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { setConfigVars } from '../src/setConfigVars'
+import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
@@ -55,7 +55,7 @@ class VaultEnvVarsMock {
 jest.mock('../src/herokuClient', () => {
   return {
     patch: jest.fn((str: string, options: { [key: string]: { [key: string]: string } }) => {
-      if (!str.includes('test-staging-app-name') && !str.includes('review')) {
+      if (str.includes('wrong')) {
         throw new Error()
       }
     })
@@ -70,7 +70,7 @@ jest.mock('@dotcom-tool-kit/vault', () => {
 
 describe('setConfigVars', () => {
   it('passes its settings to vault env vars and receives secrets ', async () => {
-    await setConfigVars(logger, appName, environment, systemCode)
+    await setAppConfigVars(logger, appName, environment, systemCode)
 
     const settings = {
       environment
@@ -80,22 +80,26 @@ describe('setConfigVars', () => {
   })
 
   it('sends an update to the app with the correct path and body for prod and staging', async () => {
-    await setConfigVars(logger, appName, environment, systemCode)
+    await setAppConfigVars(logger, appName, environment, systemCode)
 
     expect(heroku.patch).toBeCalledWith('/apps/test-staging-app-name/config-vars', prodPatchBody)
   })
   
   it('sends an update to the app with the correct path and body for review-app', async () => {
-    await setConfigVars(logger, 'review-app', 'continuous-integration', undefined, pipelineId)
+    await setStageConfigVars(logger, 'review', 'continuous-integration', pipelineId)
 
     expect(heroku.patch).toBeCalledWith(`/pipelines/${pipelineId}/stage/review/config-vars`, reviewPatchBody)
   })
 
-  it('throws if the app was not patched with config vars', async () => {
-    await expect(setConfigVars(logger, 'wrong-app-name', environment, systemCode)).rejects.toThrowError()
+  it('app function throws if the app was not patched with config vars', async () => {
+    await expect(setAppConfigVars(logger, 'wrong-app-name', environment, systemCode)).rejects.toThrowError()
+  })
+
+  it('stage function throws if the app was not patched with config vars', async () => {
+    await expect(setStageConfigVars(logger, 'review', environment, 'wrong-pipeline')).rejects.toThrowError()
   })
 
   it('resolves if successful', async () => {
-    await expect(setConfigVars(logger, appName, environment, systemCode)).resolves.not.toThrow()
+    await expect(setAppConfigVars(logger, appName, environment, systemCode)).resolves.not.toThrow()
   })
 })

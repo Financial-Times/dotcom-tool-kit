@@ -2,7 +2,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { getHerokuReviewApp } from '../getHerokuReviewApp'
 import { gtg } from '../gtg'
-import { setConfigVars } from '../setConfigVars'
+import { setStageConfigVars } from '../setConfigVars'
 import { writeState } from '@dotcom-tool-kit/state'
 import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import { ToolKitError } from '@dotcom-tool-kit/error'
@@ -29,7 +29,7 @@ options:
 
       const pipeline: HerokuApiResPipeline = await herokuClient.get(`/pipelines/${this.options.pipeline}`)
       
-      await setConfigVars(this.logger, 'review-app', 'continuous-integration', undefined, pipeline.id)
+      await setStageConfigVars(this.logger, 'review', 'continuous-integration', pipeline.id)
 
       const reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)
 
