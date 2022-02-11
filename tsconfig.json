@@ -93,6 +93,9 @@
     },
     {
       "path": "plugins/jest"
+    },
+    {
+      "path": "plugins/circleci-npm"
     }
   ]
 }
