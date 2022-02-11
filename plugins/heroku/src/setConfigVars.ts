@@ -61,7 +61,7 @@ async function setStageConfigVars(
     logger.info(`config vars for ${stage} stage have been updated successfully.`)
 
   } catch (err) {
-    const error = new ToolKitError(`Error updating config vars for ${stage} stage`)
+    const error = new ToolKitError(`Error updating config vars for ${stage} stage, pipelineID: ${pipelineId}`)
     if (err instanceof Error) {
       error.details = err.message
     }
