@@ -21,7 +21,8 @@ export const hooks = {
 const envVars = {
   branch: process.env.CIRCLE_BRANCH,
   repo: process.env.CIRCLE_PROJECT_REPONAME,
-  version: process.env.CIRCLE_SHA1
+  version: process.env.CIRCLE_SHA1,
+  tag: process.env.CIRCLE_TAG
 }
 
 function pluginInit() {
