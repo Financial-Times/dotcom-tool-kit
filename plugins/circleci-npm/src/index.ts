@@ -1,8 +1,8 @@
-import CircleCiNpm from './tasks/circleci-npm'
 import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
+import NpmPublish, { semVerRegex } from '@dotcom-tool-kit/npm/src/tasks/npm-publish'
 
 export const tasks = [
-  CircleCiNpm
+  NpmPublish
 ]
 
 class PublishHook extends CircleCiConfigHook {
@@ -11,7 +11,7 @@ class PublishHook extends CircleCiConfigHook {
     requires: ['tool-kit/test'],
     filters: {
       branches: { ignore: '/.*/' },
-      tags: { only: '/^v\\d+\\.\\d+\\.\\d+(-.+)?/' }
+      tags: { only: semVerRegex }
     }
   }
 }
