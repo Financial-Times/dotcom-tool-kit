@@ -1,3 +1,6 @@
 plugins:
   - '@dotcom-tool-kit/circleci'
   - '@dotcom-tool-kit/npm'
+
+hooks:
+  'publish:tag': NpmPublish

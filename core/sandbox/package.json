@@ -25,6 +25,7 @@
     "@dotcom-tool-kit/next-router": "file:../../plugins/next-router",
     "@dotcom-tool-kit/nodemon": "file:../../plugins/nodemon",
     "@dotcom-tool-kit/npm": "file:../../plugins/npm",
+    "@dotcom-tool-kit/circleci-npm": "file:../../plugins/circleci-npm",
     "@dotcom-tool-kit/prettier": "file:../../plugins/prettier",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../../plugins/upload-assets-to-s3",
     "dotcom-tool-kit": "file:../cli",
