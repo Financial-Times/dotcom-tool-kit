@@ -47,14 +47,18 @@ async function setStageConfigVars(
 ): Promise<void> {
   try {
     logger.info(`setting config vars for ${stage} stage`)
-
+    console.log('new vault client instance') //eslint-disable-line
     const vaultEnvVars = new VaultEnvVars(logger, {
       environment
     })
-
+    console.log('getting secrets') //eslint-disable-line
     const configVars = await vaultEnvVars.get()
 
+    console.log('got secrets', Object.keys(configVars).join(', ')) //eslint-disable-line
+
     await heroku.patch(`/pipelines/${pipelineId}/stage/${stage}/config-vars`, { body: configVars })
+
+    console.log('this should not print rn') //eslint-disable-line
 
     logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
     
