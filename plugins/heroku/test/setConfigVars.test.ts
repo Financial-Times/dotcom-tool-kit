@@ -86,7 +86,7 @@ describe('setConfigVars', () => {
   })
   
   it('sends an update to the app with the correct path and body for review-app', async () => {
-    await setStageConfigVars(logger, 'review', 'continuous-integration', pipelineId)
+    await setStageConfigVars(logger, 'review', 'production', pipelineId)
 
     expect(heroku.patch).toBeCalledWith(`/pipelines/${pipelineId}/stage/review/config-vars`, reviewPatchBody)
   })

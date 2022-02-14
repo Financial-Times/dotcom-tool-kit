@@ -108,7 +108,7 @@ describe('review', () => {
 
     await task.run()
 
-    expect(setStageConfigVars).toBeCalledWith(expect.anything(), 'review', 'continuous-integration', 'test-pipeline-id')
+    expect(setStageConfigVars).toBeCalledWith(expect.anything(), 'review', 'production', 'test-pipeline-id')
   })
 
   it('should write app id to state', async () => {
