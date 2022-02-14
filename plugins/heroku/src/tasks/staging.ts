@@ -2,7 +2,7 @@ import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
-import { setAppConfigVars } from '../setConfigVars'
+import { setConfigVars } from '../setConfigVars'
 import { scaleDyno } from '../scaleDyno'
 import { gtg } from '../gtg'
 import { getPipelineCouplings } from '../getPipelineCouplings'
@@ -35,7 +35,7 @@ options:
 
       //apply vars from vault
 
-      await setAppConfigVars(this.logger, appName, 'production', this.options.systemCode)
+      await setConfigVars(this.logger, appName, 'production', this.options.systemCode)
 
       //scale up staging
       await scaleDyno(this.logger, appName, 1)
