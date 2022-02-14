@@ -14,7 +14,10 @@
     "@dotcom-tool-kit/error": "file:../../lib/error",
     "@dotcom-tool-kit/husky-hook": "file:../../lib/husky-hook",
     "@dotcom-tool-kit/package-json-hook": "file:../../lib/package-json-hook",
-    "@dotcom-tool-kit/types": "file:../../lib/types"
+    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "libnpmpack": "^3.1.0",
+    "libnpmpublish": "^5.0.1",
+    "pacote": "^12.0.3"
   },
   "repository": {
     "type": "git",
