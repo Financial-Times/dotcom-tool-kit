@@ -2,7 +2,7 @@ import { describe, it, expect, jest } from '@jest/globals'
 import Staging from '../../src/tasks/staging'
 import { getPipelineCouplings } from '../../src/getPipelineCouplings'
 import { getHerokuStagingApp } from '../../src/getHerokuStagingApp'
-import { setAppConfigVars } from '../../src/setConfigVars'
+import { setConfigVars } from '../../src/setConfigVars'
 import { scaleDyno } from '../../src/scaleDyno'
 import { gtg } from '../../src/gtg'
 import winston, { Logger } from 'winston'
@@ -27,7 +27,7 @@ jest.mock('../../src/getHerokuStagingApp', () => {
 
 jest.mock('../../src/setConfigVars', () => {
   return {
-    setAppConfigVars: jest.fn(() => false)
+    setConfigVars: jest.fn(() => false)
   }
 })
 
@@ -90,12 +90,12 @@ describe('staging', () => {
     }
   })
 
-  it('should call setAppConfigVars with vault team, vault app and system code', async () => {
+  it('should call setConfigVars with vault team, vault app and system code', async () => {
     const task = new Staging(logger, { pipeline, systemCode })
 
     await task.run()
 
-    expect(setAppConfigVars).toBeCalledWith(expect.anything(), appName, 'production', systemCode)
+    expect(setConfigVars).toBeCalledWith(expect.anything(), appName, 'production', systemCode)
   })
 
   it('should call scaleDyno', async () => {
