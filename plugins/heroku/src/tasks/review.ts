@@ -29,7 +29,7 @@ options:
 
       const pipeline: HerokuApiResPipeline = await herokuClient.get(`/pipelines/${this.options.pipeline}`)
       
-      await setStageConfigVars(this.logger, 'review', 'continuous-integration', pipeline.id)
+      await setStageConfigVars(this.logger, 'review', 'production', pipeline.id)
 
       const reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)
 
