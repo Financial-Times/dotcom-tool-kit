@@ -16,7 +16,10 @@
     },
     {
       "path": "../../lib/types"
-    }
+    },
+    {
+      "path": "../../lib/state"
+    },
   ],
   "include": ["src/**/*"]
 }
