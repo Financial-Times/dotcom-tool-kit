@@ -7,6 +7,12 @@
   "references": [
     {
       "path": "../../lib/types"
+    },
+    {
+      "path": "../circleci"
+    },
+    {
+      "path": "../npm"
     }
   ],
   "include": [

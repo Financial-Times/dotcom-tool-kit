@@ -5,7 +5,8 @@ const stateFile = target ? `${target}/.toolkitstate.json` : '.toolkitstate.json'
 interface CIState {
   repo: string
   branch: string
-  version: string
+  version: string,
+  tag: string
 }
 
 export interface ReviewState {

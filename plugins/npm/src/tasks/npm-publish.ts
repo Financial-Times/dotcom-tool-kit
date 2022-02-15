@@ -1,16 +1,17 @@
 import { ToolKitError } from '@dotcom-tool-kit/error/src'
 import { Task } from '@dotcom-tool-kit/types'
-const pacote = require('pacote')
-const { readState } = require('@dotcom-tool-kit/state')
-const pack = require('libnpmpack')
-const { publish } = require('libnpmpublish')
+import pacote from 'pacote'
+import { readState } from '@dotcom-tool-kit/state'
+import pack from 'libnpmpack'
+import { publish } from 'libnpmpublish'
+import { styles } from '@dotcom-tool-kit/logger'
 
 export const semVerRegex = /^v\d+\.\d+\.\d+(-.+)?/
 
 export default class NpmPublish extends Task {
   static description = ''
   
-  handleTagValidity(tag: string) {
+  handleTagValidity(tag: string): void {
     if(!!tag) {
         throw new ToolKitError('CIRCLE_TAG environment variable not found. Make sure you are running this on a release version!')
     }
@@ -25,7 +26,15 @@ export default class NpmPublish extends Task {
     const packagePath = process.cwd()
     const manifest = await pacote.manifest(packagePath)
 
-    const { tag } = readState('ci')
+    const ci = readState('ci')
+    
+    if(!ci) {
+      throw new ToolKitError(
+        `Could not find state for ci, check that ${styles.hook('publish:ci')} ran successfully`
+      )
+    }
+
+    const tag = ci.tag
 
     this.handleTagValidity(tag)
 
