@@ -1,9 +1,7 @@
 import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import NpmPublish, { semVerRegex } from '@dotcom-tool-kit/npm/lib/tasks/npm-publish'
 
-export const tasks = [
-  NpmPublish
-]
+export const tasks = [NpmPublish]
 
 class PublishHook extends CircleCiConfigHook {
   job = 'tool-kit/publish'
