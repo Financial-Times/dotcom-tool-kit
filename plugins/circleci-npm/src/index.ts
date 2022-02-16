@@ -17,7 +17,7 @@ class PublishHook extends CircleCiConfigHook {
 }
 
 export const hooks = {
-  'publish:ci': PublishHook
+  'publish:tag': PublishHook
 }
 
 
