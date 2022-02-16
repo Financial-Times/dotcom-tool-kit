@@ -1,0 +1,14 @@
+parameters:
+  node-version:
+    default: '12.22'
+    type: string
+
+executor:
+  name: node/default
+  tag: <<parameters.node-version>>
+
+steps:
+  - attach-workspace
+  - run:
+      name: Publish to npm
+      command: npx dotcom-tool-kit publish:tag
