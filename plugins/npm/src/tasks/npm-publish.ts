@@ -1,4 +1,4 @@
-import { ToolKitError } from '@dotcom-tool-kit/error/src'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Task } from '@dotcom-tool-kit/types'
 import pacote from 'pacote'
 import { readState } from '@dotcom-tool-kit/state'
