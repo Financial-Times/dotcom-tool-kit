@@ -68,10 +68,10 @@ export function instantiatePlugin(plugin: unknown, logger: Logger): Plugin {
   }
 
   if (
-    rawPlugin.hooks && //true
+    rawPlugin.hooks &&
     !(
-      isPlainObject(rawPlugin.hooks) && // true
-      Object.values(rawPlugin.hooks).every((hook) => hook.prototype instanceof Hook) //false
+      isPlainObject(rawPlugin.hooks) &&
+      Object.values(rawPlugin.hooks).every((hook) => hook.prototype instanceof Hook)
     )
   ) {
     throw new ToolKitError('hooks are not valid')

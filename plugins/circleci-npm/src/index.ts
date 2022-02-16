@@ -11,7 +11,7 @@ class PublishHook extends CircleCiConfigHook {
     requires: ['tool-kit/test'],
     filters: {
       branches: { ignore: '/.*/' },
-      tags: { only: semVerRegex }
+      tags: { only: `${semVerRegex}` }
     }
   }
 }
