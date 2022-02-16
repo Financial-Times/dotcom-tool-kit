@@ -30,7 +30,7 @@ export default class NpmPublish extends Task {
     
     if(!ci) {
       throw new ToolKitError(
-        `Could not find state for ci, check that ${styles.hook('publish:ci')} ran successfully`
+        `Could not find state for ci, check that ${styles.hook('publish:tag')} ran successfully`
       )
     }
 
