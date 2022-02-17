@@ -12,10 +12,10 @@ export default class NpmPublish extends Task {
   static description = ''
   
   handleTagValidity(tag: string): void {
-    if(!!tag) {
+    if(!tag) {
         throw new ToolKitError('CIRCLE_TAG environment variable not found. Make sure you are running this on a release version!')
     }
-    if(!!semVerRegex.test(tag)) {
+    if(!semVerRegex.test(tag)) {
         throw new ToolKitError(`CIRCLE_TAG does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`)
     }
   }
