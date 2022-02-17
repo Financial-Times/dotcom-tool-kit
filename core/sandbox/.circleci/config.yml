@@ -2,16 +2,34 @@
 version: 2.1
 orbs:
   tool-kit: financial-times/dotcom-tool-kit@dev:alpha
+jobs:
+  checkout:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - tool-kit/persist-workspace:
+          path: .
 workflows:
   version: 2
   tool-kit:
     jobs:
-      - tool-kit/setup
+      - checkout
       - waiting-for-approval:
           type: approval
           filters:
             branches:
               only: /(^renovate-.*|^nori/.*)/
+      - tool-kit/setup:
+          requires:
+            - checkout
+            - waiting-for-approval
+      - tool-kit/build:
+          requires:
+            - tool-kit/setup
+      - tool-kit/test:
+          requires:
+            - tool-kit/build
       - tool-kit/heroku-provision:
           requires:
             - tool-kit/setup
@@ -37,13 +55,15 @@ workflows:
           filters:
             branches:
               only: main
-      - tool-kit/build:
-          requires:
-            - tool-kit/setup
-            - waiting-for-approval
-      - tool-kit/test:
-          requires:
-            - tool-kit/build
+      # if repo is a component instead of app, use publish instead of heroku jobs
+      # - tool-kit/publish:
+      #     requires:
+      #       - tool-kit/test
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /^v\d+\.\d+\.\d+(-.+)?/
   nightly:
     triggers:
       - schedule:
