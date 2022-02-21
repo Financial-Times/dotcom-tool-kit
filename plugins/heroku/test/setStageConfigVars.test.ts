@@ -1,5 +1,5 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { setAppConfigVars, setStageConfigVars } from '../src/setStageConfigVars'
+import { setStageConfigVars } from '../src/setStageConfigVars'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
