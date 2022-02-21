@@ -1,6 +1,7 @@
 import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { getHerokuReviewApp } from '../getHerokuReviewApp'
+import { buildHerokuReviewApp } from '../buildHerokuReviewApp'
 import { gtg } from '../gtg'
 import { setConfigVars } from '../setConfigVars'
 import { writeState } from '@dotcom-tool-kit/state'
@@ -29,7 +30,11 @@ options:
 
       const pipeline: HerokuApiResPipeline = await herokuClient.get(`/pipelines/${this.options.pipeline}`)
 
-      const reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)
+      let reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)
+
+      if (!reviewAppId) {
+        reviewAppId = await buildHerokuReviewApp(this.logger, pipeline.id)
+      }
 
       writeState('review', { appId: reviewAppId })
 

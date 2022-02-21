@@ -5,7 +5,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus'
 
-async function getHerokuReviewApp(logger: Logger, pipelineId: string): Promise<string> {
+async function getHerokuReviewApp(logger: Logger, pipelineId: string): Promise<string | undefined> {
   const state = readState('ci')
 
   if (!state) {
@@ -13,6 +13,7 @@ async function getHerokuReviewApp(logger: Logger, pipelineId: string): Promise<s
   }
 
   const branch = state.branch
+
   const reviewApps: HerokuApiResGetReview[] = await heroku.get(`/pipelines/${pipelineId}/review-apps`)
 
   const reviewApp = reviewApps.find(
@@ -21,18 +22,11 @@ async function getHerokuReviewApp(logger: Logger, pipelineId: string): Promise<s
     }
   )
 
-  if (!reviewApp) {
-    const error = new ToolKitError(`Unable to find a viable review app for ${branch} branch`)
-    error.details = `if this is the first time you've received this message, try re-running the workflow. otherwise check that you have automatic deploys configured and working on your review-app in Heroku`
-    throw error
-  }
-
-  if (reviewApp.status === 'creating') {
-    logger.debug('here', reviewApp.status)
+  if (reviewApp?.status === 'creating') {
     await repeatedCheckForSuccessStatus(logger, reviewApp.id)
   }
-
-  return reviewApp.app.id
+  
+  return reviewApp?.app.id
 }
 
 export { getHerokuReviewApp }
