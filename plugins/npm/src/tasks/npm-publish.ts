@@ -5,6 +5,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import pack from 'libnpmpack'
 import { publish } from 'libnpmpublish'
 import { styles } from '@dotcom-tool-kit/logger'
+import { readdirSync } from 'fs'
 
 export const semVerRegex = /^v\d+\.\d+\.\d+(-.+)?/
 
@@ -18,6 +19,13 @@ export default class NpmPublish extends Task {
     if(!semVerRegex.test(tag)) {
         throw new ToolKitError(`CIRCLE_TAG does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`)
     }
+  }
+
+  async listPackedFiles(packagePath: string): Promise<void> {
+    this.logger.info('packing these files:')
+    readdirSync(packagePath).forEach(fileDir => {
+      this.logger.info(fileDir)
+    })
   }
 
   async run(): Promise<void> {
@@ -47,6 +55,7 @@ export default class NpmPublish extends Task {
     // overwrite version from the package.json with the version from e.g. the git tag
     manifest.version = tag.replace(/^v/, '')
 
+    await this.listPackedFiles(packagePath)
     const tarball = await pack(packagePath)
 
     await publish(manifest, tarball, {
