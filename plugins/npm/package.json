@@ -29,7 +29,8 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/npm",
   "devDependencies": {
     "@types/libnpmpublish": "^4.0.1",
-    "@types/pacote": "^11.1.3"
+    "@types/pacote": "^11.1.3",
+    "winston": "^3.5.1"
   },
   "files": [
     "/lib",
