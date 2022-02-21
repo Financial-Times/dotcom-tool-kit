@@ -75,9 +75,11 @@ describe('getHerokuReviewApp', () => {
     expect(reviewAppId).toEqual('test-app-id')
   })
 
-  it('errors if there is no review app for the branch', async () => {
+  it('returns an undefined review app id if unsuccessful ', async () => {
     branch = 'wrong-branch'
 
-    await expect(getHerokuReviewApp(logger, pipelineId)).rejects.toThrowError()
+    const reviewAppId = await getHerokuReviewApp(logger, pipelineId)
+
+    expect(reviewAppId).toEqual(undefined)
   })
 })
