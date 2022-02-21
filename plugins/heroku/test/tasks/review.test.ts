@@ -1,7 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import Review from '../../src/tasks/review'
 import { getHerokuReviewApp } from '../../src/getHerokuReviewApp'
-import { setStageConfigVars } from '../../src/setConfigVars'
+import { setStageConfigVars } from '../../src/setStageConfigVars'
 import { gtg } from '../../src/gtg'
 import heroku from '../../src/herokuClient'
 import winston, { Logger } from 'winston'
@@ -14,7 +14,8 @@ type State = {
 
 const state: State = {}
 
-let pipeline = 'test-pipeline'
+let pipeline = 'test-pipeline-name'
+const pipelineId = 'test-pipeline-id'
 const appId = 'test-review-app-id'
 
 jest.mock('../../src/herokuClient', () => {
@@ -35,7 +36,7 @@ jest.mock('../../src/getHerokuReviewApp', () => {
   }
 })
 
-jest.mock('../../src/setConfigVars', () => {
+jest.mock('../../src/setStageConfigVars', () => {
   return {
     setStageConfigVars: jest.fn()
   }
@@ -107,7 +108,7 @@ describe('review', () => {
 
     await task.run()
 
-    expect(setStageConfigVars).toBeCalledWith(expect.anything(), 'review', 'production', 'test-pipeline-id')
+    expect(setStageConfigVars).toBeCalledWith(expect.anything(), 'review', 'production', 'test-pipeline-name')
   })
 
   it('should write app id to state', async () => {
