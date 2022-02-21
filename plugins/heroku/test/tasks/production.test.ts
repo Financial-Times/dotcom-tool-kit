@@ -14,15 +14,15 @@ jest.mock('@dotcom-tool-kit/state', () => {
 jest.mock('../../src/scaleDyno')
 
 const mockpromoteStagingToProduction = jest.spyOn(utils, 'promoteStagingToProduction')
-const productionOptions = { systemCode: 'next-health', scaling: { 'test-app': { web: { size: 'standard-1x', quantity: 1 } } } }
+const productionOptions = { systemCode: 'next-health', pipeline: 'pipeline-name', scaling: { 'test-app': { web: { size: 'standard-1x', quantity: 1 } } } }
 
 describe('staging', () => {
-  it('should call set slug with slug id and system code', async () => {
+  it('should call promote stating to production with slug id, pipeline name and system code', async () => {
     mockpromoteStagingToProduction.mockImplementation(() => Promise.resolve([]))
     const task = new Production(logger, productionOptions)
     await task.run()
 
-    expect(utils.promoteStagingToProduction).toBeCalledWith(expect.anything(), 'slug-id', 'next-health')
+    expect(utils.promoteStagingToProduction).toBeCalledWith(expect.anything(), 'slug-id', 'pipeline-name', 'next-health')
   })
 
   it('should resolve when completed successfully', async () => {
