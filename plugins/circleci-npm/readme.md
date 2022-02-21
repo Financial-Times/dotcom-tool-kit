@@ -1,6 +1,6 @@
 # `circleci-npm` Tool Kit plugin
 
-This plugin is for managing Tool Kit hooks that are run from npm scripts (such as `npm run test`).
+This plugin is for managing the `publish:tag` hook that is run from circleci to publish the built package to the npm registry.
 
 ## Installation
 
