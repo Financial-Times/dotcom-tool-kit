@@ -44,6 +44,8 @@ async function setStageConfigVars(
   stage: Stage,
   environment: Environment,
   pipelineId: string,
+  systemCode?: string,
+
 ): Promise<void> {
   try {
     logger.info(`setting config vars for ${stage} stage`)
@@ -53,6 +55,10 @@ async function setStageConfigVars(
     })
 
     const configVars = await vaultEnvVars.get()
+
+    if (systemCode) {
+      configVars.SYSTEM_CODE = systemCode
+    }
 
     await heroku.patch(`/pipelines/${pipelineId}/stage/${stage}/config-vars`, { body: configVars })
 
