@@ -62,7 +62,14 @@ references:
   filters_release_build: &filters_release_build
     tags:
       only:
-        - /^v\d+\.\d+\.\d+(?:-\w+\.\d+)?$/
+        - /^v\d+\.\d+\.\d+$/
+    branches:
+      ignore: /.*/
+  
+  filters_prerelease_build: &filters_release_build
+    tags:
+      only:
+        - /^v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
     branches:
       ignore: /.*/
 
@@ -123,6 +130,21 @@ jobs:
       - run:
           name: NPM publish
           command: npx athloi publish -- --access=public
+          
+  prepublish:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Set npm auth token
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ${HOME}/.npmrc
+      - run:
+          name: Bump version
+          command: npx athloi version ${CIRCLE_TAG}
+      - run:
+          name: NPM publish
+          command: npx athloi publish -- --access=public --tag=prerelease
+
 
 workflows:
   version: 2
@@ -173,6 +195,28 @@ workflows:
       - publish:
           filters:
             <<: *filters_release_build
+          requires:
+            - lint
+            - test
+  
+  build-test-prepublish:
+    jobs:
+      - build:
+          filters:
+            <<: *filters_prerelease_build
+      - test:
+          filters:
+            <<: *filters_prerelease_build
+          requires:
+            - build
+      - lint:
+          filters:
+            <<: *filters_prerelease_build
+          requires:
+            - build
+      - prepublish:
+          filters:
+            <<: *filters_prerelease_build
           requires:
             - lint
             - test
