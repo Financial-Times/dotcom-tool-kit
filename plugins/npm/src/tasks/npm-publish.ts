@@ -5,7 +5,8 @@ import { readState } from '@dotcom-tool-kit/state'
 import pack from 'libnpmpack'
 import { publish } from 'libnpmpublish'
 import { styles } from '@dotcom-tool-kit/logger'
-import { readdirSync } from 'fs'
+import tar from 'tar'
+import { PassThrough as PassThroughStream } from 'stream';
 
 export const semVerRegex = /^v\d+\.\d+\.\d+(-.+)?/
 
@@ -21,12 +22,13 @@ export default class NpmPublish extends Task {
     }
   }
 
-  async listPackedFiles(packagePath: string): Promise<void> {
-    this.logger.info('packing these files:')
-    readdirSync(packagePath).forEach(fileDir => {
-      this.logger.info(fileDir)
-    })
-  }
+  async listPackedFiles(tarball: Buffer): Promise<void> {
+    this.logger.info('packed files:')
+
+    new PassThroughStream()
+      .end(tarball)
+      .pipe(tar.t({onentry: entry => this.logger.info(`- ${styles.filepath(entry.header.path)}`)}))
+    }
 
   async run(): Promise<void> {
     this.logger.info('preparing to publish your npm package....')
@@ -55,8 +57,9 @@ export default class NpmPublish extends Task {
     // overwrite version from the package.json with the version from e.g. the git tag
     manifest.version = tag.replace(/^v/, '')
 
-    await this.listPackedFiles(packagePath)
     const tarball = await pack(packagePath)
+
+    await this.listPackedFiles(tarball)
 
     await publish(manifest, tarball, {
         access: 'public',
