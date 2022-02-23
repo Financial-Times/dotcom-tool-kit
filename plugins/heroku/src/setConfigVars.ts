@@ -2,6 +2,7 @@ import type { Logger } from 'winston'
 import heroku from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { VaultEnvVars, Environment } from '@dotcom-tool-kit/vault'
+import { HerokuApiResPipeline } from 'heroku-client'
 
 type Stage = 'test' | 'development' | 'review' | 'staging' | 'production'
 
@@ -43,7 +44,7 @@ async function setStageConfigVars(
   logger: Logger,
   stage: Stage,
   environment: Environment,
-  pipelineId: string,
+  pipelineName: string,
   systemCode?: string,
 
 ): Promise<void> {
@@ -59,8 +60,9 @@ async function setStageConfigVars(
     if (systemCode) {
       configVars.SYSTEM_CODE = systemCode
     }
+    const pipeline: HerokuApiResPipeline = await heroku.get(`/pipelines/${pipelineName}`)
 
-    await heroku.patch(`/pipelines/${pipelineId}/stage/${stage}/config-vars`, { body: configVars })
+    await heroku.patch(`/pipelines/${pipeline.id}/stage/${stage}/config-vars`, { body: configVars })
 
     logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
 
