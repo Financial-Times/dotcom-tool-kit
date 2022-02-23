@@ -3,11 +3,10 @@ import { promoteStagingToProduction } from '../src/promoteStagingToProduction'
 import heroku from '../src/herokuClient'
 import { gtg } from '../src/gtg'
 import winston, { Logger } from 'winston'
-import { setStageConfigVars } from '../src/setStageConfigVars'
+import { setConfigVars } from '../src/setConfigVars'
 
 const logger = (winston as unknown) as Logger
 
-const pipelineName = 'pipeline-name'
 const slugId = 'slug-id'
 const appIds = ['app-id-1', 'app-id-2']
 const goodHerokuResponse = [
@@ -17,7 +16,7 @@ const goodHerokuResponse = [
 
 const mockHerokuPost = jest.spyOn(heroku, 'post')
 
-jest.mock('../src/setStageConfigVars', () => {
+jest.mock('../src/setConfigVars', () => {
   return {
     setConfigVars: jest.fn()
   }
@@ -40,14 +39,15 @@ describe('promoteStagingToProduction', () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
     const systemCode = 'test-app'
-    await promoteStagingToProduction(logger, slugId, pipelineName, systemCode)
-    expect(setStageConfigVars).toHaveBeenCalledWith(logger, 'app-id-1', 'production', pipelineName, systemCode)
+    await promoteStagingToProduction(logger, slugId, systemCode)
+    expect(setConfigVars).toHaveBeenNthCalledWith(1, logger, 'app-id-1', 'production', systemCode)
+    expect(setConfigVars).toHaveBeenNthCalledWith(2, logger, 'app-id-2', 'production', systemCode)
   })
 
   it('calls heroku api for each app', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
-    await promoteStagingToProduction(logger, slugId, pipelineName)
+    await promoteStagingToProduction(logger, slugId)
 
     expect(heroku.post).toHaveBeenCalledTimes(2)
   })
@@ -55,7 +55,7 @@ describe('promoteStagingToProduction', () => {
   it('calls heroku api with different app ids for each app', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
-    await promoteStagingToProduction(logger, slugId, pipelineName)
+    await promoteStagingToProduction(logger, slugId)
 
     expect(heroku.post).toHaveBeenNthCalledWith(1, `/apps/${appIds[0]}/releases`, {
       body: { slug: 'slug-id' }
@@ -68,7 +68,7 @@ describe('promoteStagingToProduction', () => {
   it('calls gtg for each app', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
-    await promoteStagingToProduction(logger, slugId, pipelineName)
+    await promoteStagingToProduction(logger, slugId)
 
     expect(gtg).toHaveBeenNthCalledWith(1, logger, 'app-name-1', 'production', false)
     expect(gtg).toHaveBeenNthCalledWith(2, logger, 'app-name-2', 'production', false)
@@ -78,18 +78,18 @@ describe('promoteStagingToProduction', () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[0]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
 
-    await expect(promoteStagingToProduction(logger, slugId, pipelineName)).resolves.not.toThrow()
+    await expect(promoteStagingToProduction(logger, slugId)).resolves.not.toThrow()
   })
 
   it('throws when unsuccessful', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.reject())
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
 
-    await expect(promoteStagingToProduction(logger, slugId, pipelineName)).rejects.toThrow()
+    await expect(promoteStagingToProduction(logger, slugId)).rejects.toThrow()
 
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
     mockHerokuPost.mockImplementationOnce(async () => Promise.reject())
 
-    await expect(promoteStagingToProduction(logger, slugId, pipelineName)).rejects.toThrow()
+    await expect(promoteStagingToProduction(logger, slugId)).rejects.toThrow()
   })
 })

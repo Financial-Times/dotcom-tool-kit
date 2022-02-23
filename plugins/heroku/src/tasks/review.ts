@@ -3,7 +3,7 @@ import { Task } from '@dotcom-tool-kit/types'
 import { getHerokuReviewApp } from '../getHerokuReviewApp'
 import { buildHerokuReviewApp } from '../buildHerokuReviewApp'
 import { gtg } from '../gtg'
-import { setStageConfigVars } from '../setStageConfigVars'
+import { setStageConfigVars } from '../setConfigVars'
 import { writeState } from '@dotcom-tool-kit/state'
 import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import { ToolKitError } from '@dotcom-tool-kit/error'
@@ -28,9 +28,9 @@ options:
         throw error
       }
 
-      await setStageConfigVars(this.logger, 'review', 'production', this.options.pipeline)
-
       const pipeline: HerokuApiResPipeline = await herokuClient.get(`/pipelines/${this.options.pipeline}`)
+      
+      await setStageConfigVars(this.logger, 'review', 'production', pipeline.id)
 
       let reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)
 

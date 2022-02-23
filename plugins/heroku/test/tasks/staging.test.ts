@@ -2,7 +2,7 @@ import { describe, it, expect, jest } from '@jest/globals'
 import Staging from '../../src/tasks/staging'
 import { getPipelineCouplings } from '../../src/getPipelineCouplings'
 import { getHerokuStagingApp } from '../../src/getHerokuStagingApp'
-import { setStageConfigVars } from '../../src/setStageConfigVars'
+import { setStageConfigVars } from '../../src/setConfigVars'
 import { scaleDyno } from '../../src/scaleDyno'
 import { gtg } from '../../src/gtg'
 import winston, { Logger } from 'winston'
@@ -25,7 +25,7 @@ jest.mock('../../src/getHerokuStagingApp', () => {
   }
 })
 
-jest.mock('../../src/setStageConfigVars', () => {
+jest.mock('../../src/setConfigVars', () => {
   return {
     setStageConfigVars: jest.fn(() => false)
   }
