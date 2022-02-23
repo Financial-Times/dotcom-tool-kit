@@ -27,11 +27,11 @@ options:
         throw error
       }
 
-      // setting config vars on staging from the vault production directory
-      await setStageConfigVars(this.logger, 'staging', 'production', this.options.pipeline, this.options.systemCode)
-
       this.logger.verbose(`retrieving pipeline details...`)
       await getPipelineCouplings(this.logger, this.options.pipeline)
+
+      // setting config vars on staging from the vault production directory
+      await setStageConfigVars(this.logger, 'staging', 'production', this.options.pipeline, this.options.systemCode)
 
       this.logger.verbose(`restrieving staging app details...`)
       const appName = await getHerokuStagingApp(this.logger)
