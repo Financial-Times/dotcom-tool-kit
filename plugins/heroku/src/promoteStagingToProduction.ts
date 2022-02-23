@@ -3,16 +3,14 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { gtg } from './gtg'
 import type { Logger } from 'winston'
-import { setStageConfigVars } from './setStageConfigVars'
+import { setAppConfigVars } from './setConfigVars'
 
-async function promoteStagingToProduction(logger: Logger, slug: string, pipelineName: string, systemCode?: string): Promise<void[]> {
+async function promoteStagingToProduction(logger: Logger, slug: string, systemCode?: string): Promise<void[]> {
   const state = readState(`production`)
 
   if (!state) {
     throw new ToolKitError('Could not find production state information')
   }
-
-  await setStageConfigVars(logger, 'production', 'production', pipelineName, systemCode)
 
   const appIds = state.appIds
 
@@ -35,6 +33,10 @@ async function promoteStagingToProduction(logger: Logger, slug: string, pipeline
       .then((response) => gtg(logger, response.app.name, 'production', false))
   )
   
+  for(const id of appIds) {
+    await setAppConfigVars(logger, id, 'production', systemCode)
+  }
+
   return Promise.all(latestRelease)
 }
 
