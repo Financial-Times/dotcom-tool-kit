@@ -16,7 +16,10 @@ const vaultPath = {
   app: 'vault-app'
 }
 const systemCode = 'test-system-code'
-const pipelineId = 'test-pipeline-id'
+const pipeline = {
+  id: 'test-pipeline-id'
+} 
+const pipelineName = 'test-pipeline-name'
 
 const secrets = {
   secret1: 'secret-1',
@@ -47,10 +50,16 @@ class VaultEnvVarsMock {
 }
 jest.mock('../src/herokuClient', () => {
   return {
-    patch: jest.fn((str: string, options: { [key: string]: { [key: string]: string } }) => {
+    patch: jest.fn((str: string) => {
       if (str.includes('wrong')) {
         throw new Error()
       }
+    }),
+    get: jest.fn((str: string) => {
+      if (str.includes('wrong')) {
+        throw new Error()
+      }
+      return {id: 'test-pipeline-id'}
     })
   }
 })
@@ -77,9 +86,9 @@ describe('setConfigVars', () => {
   })
 
   it('sends an update to the app with the correct path and body for review-app', async () => {
-    await setStageConfigVars(logger, 'review', 'continuous-integration', pipelineId)
+    await setStageConfigVars(logger, 'review', 'production', pipelineName)
 
-    expect(heroku.patch).toBeCalledWith(`/pipelines/${pipelineId}/stage/review/config-vars`, reviewPatchBody)
+    expect(heroku.patch).toBeCalledWith(`/pipelines/${pipeline.id}/stage/review/config-vars`, reviewPatchBody)
   })
 
   it('app function throws if the app was not patched with config vars', async () => {
