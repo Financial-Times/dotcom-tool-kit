@@ -2,7 +2,7 @@ import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
-import { setStageConfigVars } from '../setConfigVars'
+import { setAppConfigVars } from '../setConfigVars'
 import { scaleDyno } from '../scaleDyno'
 import { gtg } from '../gtg'
 import { getPipelineCouplings } from '../getPipelineCouplings'
@@ -27,14 +27,14 @@ options:
         throw error
       }
 
-      // setting config vars on staging from the vault production directory
-      await setStageConfigVars(this.logger, 'staging', 'production', this.options.pipeline, this.options.systemCode)
-
       this.logger.verbose(`retrieving pipeline details...`)
       await getPipelineCouplings(this.logger, this.options.pipeline)
 
       this.logger.verbose(`restrieving staging app details...`)
       const appName = await getHerokuStagingApp(this.logger)
+
+      // setting config vars on staging from the vault production directory
+      await setAppConfigVars(this.logger, appName, 'production', this.options.systemCode)
 
       //scale up staging
       await scaleDyno(this.logger, appName, 1)
