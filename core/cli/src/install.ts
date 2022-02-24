@@ -2,7 +2,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import type { Logger } from 'winston'
 import { Config, loadConfig } from './config'
-
+import { postInstall } from './postInstall'
 export default async function installHooks(logger: Logger): Promise<Config> {
   const config = await loadConfig(logger)
 
@@ -30,6 +30,8 @@ export default async function installHooks(logger: Logger): Promise<Config> {
       }
     }
   }
+  // Hack: for now we will do a postinstall, later we shall refactor circleciconfighook so we dont need to postinstall
+  await postInstall(logger)
 
   if (errors.length) {
     const error = new ToolKitError('could not automatically install hooks:')
