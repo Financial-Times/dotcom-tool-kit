@@ -6,21 +6,21 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { Hook } from '@dotcom-tool-kit/types'
 
-type JobConfig = {
+export type JobConfig = {
   requires?: string[]
-  filters?: { branches: { only?: string; ignore?: string } }
+  filters?: { branches?: { only?: string; ignore?: string }, tags?: { only?: string} }
 }
 
 type TriggerConfig = {
   schedule?: { cron: string; filters?: { branches: { only?: string; ignore?: string } } }
 }
 
-type Workflow = {
+export type Workflow = {
   jobs?: (string | { [job: string]: JobConfig })[]
   triggers?: (string | { [trigger: string]: TriggerConfig })[]
 }
 
-interface CircleConfig {
+export interface CircleConfig {
   version: number
   orbs: { [orb: string]: string }
   workflows?: {

@@ -28,7 +28,7 @@ export default class NpmPublish extends Task {
     new PassThroughStream()
       .end(tarball)
       .pipe(tar.t({onentry: entry => this.logger.info(`- ${styles.filepath(entry.header.path)}`)}))
-    }
+  }
 
   async run(): Promise<void> {
     this.logger.info('preparing to publish your npm package....')

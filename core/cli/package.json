@@ -22,6 +22,7 @@
   "devDependencies": {
     "@dotcom-tool-kit/circleci": "file:../../plugins/circleci",
     "@jest/globals": "^27.4.6",
+    "@types/js-yaml": "^4.0.5",
     "@types/lodash.mergewith": "^4.6.6",
     "@types/node": "^12.20.24",
     "chai": "^4.3.4",
@@ -38,6 +39,7 @@
     "@dotcom-tool-kit/wait-for-ok": "file:../../lib/wait-for-ok",
     "cosmiconfig": "^7.0.0",
     "import-from": "^3.0.0",
+    "js-yaml": "^4.1.0",
     "lodash.mergewith": "^4.6.2",
     "minimist": "^1.2.5",
     "resolve-from": "^5.0.0",

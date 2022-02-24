@@ -15,6 +15,7 @@
   "description": "",
   "devDependencies": {
     "@dotcom-tool-kit/circleci-heroku": "file:../../plugins/circleci-heroku",
+    "@dotcom-tool-kit/circleci-npm": "file:../../plugins/circleci-npm",
     "@dotcom-tool-kit/eslint": "file:../../plugins/eslint",
     "@dotcom-tool-kit/frontend-app": "file:../../plugins/frontend-app",
     "@dotcom-tool-kit/jest": "file:../../plugins/jest",
@@ -23,7 +24,6 @@
     "@dotcom-tool-kit/mocha": "file:../../plugins/mocha",
     "@dotcom-tool-kit/n-test": "file:../../plugins/n-test",
     "@dotcom-tool-kit/npm": "file:../../plugins/npm",
-    "@dotcom-tool-kit/circleci-npm": "file:../../plugins/circleci-npm",
     "@dotcom-tool-kit/prettier": "file:../../plugins/prettier",
     "@dotcom-tool-kit/upload-assets-to-s3": "file:../../plugins/upload-assets-to-s3",
     "dotcom-tool-kit": "file:../cli"
