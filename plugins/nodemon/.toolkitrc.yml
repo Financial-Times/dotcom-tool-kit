@@ -1,0 +1,5 @@
+plugins:
+  - '@dotcom-tool-kit/vault'
+
+hooks:
+  'run:local': Nodemon
