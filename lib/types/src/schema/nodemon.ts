@@ -1,7 +1,8 @@
 import { SchemaOutput } from '../schema'
 
 export const NodemonSchema = {
-  entry: 'string?'
+  entry: 'string?',
+  configPath: 'string?'
 } as const
 export type NodemonOptions = SchemaOutput<typeof NodemonSchema>
 

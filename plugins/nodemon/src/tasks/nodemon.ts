@@ -15,7 +15,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
   }
 
   async run(): Promise<void> {
-    const { entry } = this.options
+    const { entry, configPath } = this.options
     const vault = new VaultEnvVars(this.logger, {
       environment: 'development'
     })
@@ -42,7 +42,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
       PORT: port.toString(),
       ...process.env
     }
-    nodemon({ script: entry, env, stdout: false })
+    nodemon({ script: entry, env, stdout: false, configFile: configPath })
     nodemon.on('readable', () => {
       // These fields aren't specified in the type declaration for some reason
       const { stdout, stderr } = (nodemon as unknown) as { stdout: Readable; stderr: Readable }
