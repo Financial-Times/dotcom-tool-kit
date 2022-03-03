@@ -7,13 +7,13 @@ const NUM_RETRIES = process.env.HEROKU_BUILD_NUM_RETRIES
   ? parseInt(process.env.HEROKU_BUILD_NUM_RETRIES)
   : 10
 
-async function repeatedCheckForBuildSuccess(logger: Logger, appName: string, buildId: string): Promise<boolean> {
+async function repeatedCheckForBuildSuccess(logger: Logger, appName: string, buildId: string): Promise<string> {
   async function checkForSuccessStatus() {
     const buildInfo: HerokuApiResBuild = await heroku.get(`/apps/${appName}/builds/${buildId}`)
     logger.debug(`build status: ${buildInfo.status}`)
-    if (buildInfo.status !== 'succeeded')
+    if (buildInfo.status !== 'succeeded' || buildInfo.slug === null)
       throw new Error(`Build for app ${appName} not yet finished`)
-    return true
+    return buildInfo.slug.id
   }
 
   const result = await pRetry(checkForSuccessStatus, {
