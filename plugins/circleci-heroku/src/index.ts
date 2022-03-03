@@ -27,7 +27,7 @@ export class TestStaging extends CircleCiConfigHook {
 export class DeployProduction extends CircleCiConfigHook {
   job = 'tool-kit/heroku-promote'
   jobOptions = {
-    requires: [new TestCI(this.logger).job, new TestStaging(this.logger).job],
+    requires: [new TestStaging(this.logger).job, new TestCI(this.logger).job],
     filters: { branches: { only: 'main' } }
   }
 }

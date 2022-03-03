@@ -51,8 +51,8 @@ Object {
                   },
                 },
                 "requires": Array [
-                  "tool-kit/test",
                   "tool-kit/e2e-test-staging",
+                  "tool-kit/test",
                 ],
               },
               "logger": DerivedLogger {},
@@ -168,8 +168,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -277,8 +277,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -386,8 +386,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -495,8 +495,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -711,8 +711,8 @@ Object {
                   },
                 },
                 "requires": Array [
-                  "tool-kit/test",
                   "tool-kit/e2e-test-staging",
+                  "tool-kit/test",
                 ],
               },
               "logger": DerivedLogger {},
@@ -873,8 +873,8 @@ Object {
                     },
                   },
                   "requires": Array [
-                    "tool-kit/test",
                     "tool-kit/e2e-test-staging",
+                    "tool-kit/test",
                   ],
                 },
                 "logger": DerivedLogger {},
@@ -1017,8 +1017,8 @@ Object {
                   },
                 },
                 "requires": Array [
-                  "tool-kit/test",
                   "tool-kit/e2e-test-staging",
+                  "tool-kit/test",
                 ],
               },
               "logger": DerivedLogger {},
@@ -1156,8 +1156,8 @@ Object {
                   },
                 },
                 "requires": Array [
-                  "tool-kit/test",
                   "tool-kit/e2e-test-staging",
+                  "tool-kit/test",
                 ],
               },
               "logger": DerivedLogger {},
@@ -1261,8 +1261,8 @@ Object {
           },
         },
         "requires": Array [
-          "tool-kit/test",
           "tool-kit/e2e-test-staging",
+          "tool-kit/test",
         ],
       },
       "logger": DerivedLogger {},
@@ -1386,8 +1386,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -1489,8 +1489,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -1604,8 +1604,8 @@ Object {
                   },
                 },
                 "requires": Array [
-                  "tool-kit/test",
                   "tool-kit/e2e-test-staging",
+                  "tool-kit/test",
                 ],
               },
               "logger": DerivedLogger {},
@@ -1772,8 +1772,8 @@ Object {
                     },
                   },
                   "requires": Array [
-                    "tool-kit/test",
                     "tool-kit/e2e-test-staging",
+                    "tool-kit/test",
                   ],
                 },
                 "logger": DerivedLogger {},
@@ -1899,8 +1899,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -2023,8 +2023,8 @@ Object {
                   },
                 },
                 "requires": Array [
-                  "tool-kit/test",
                   "tool-kit/e2e-test-staging",
+                  "tool-kit/test",
                 ],
               },
               "logger": DerivedLogger {},
@@ -2185,8 +2185,8 @@ Object {
                     },
                   },
                   "requires": Array [
-                    "tool-kit/test",
                     "tool-kit/e2e-test-staging",
+                    "tool-kit/test",
                   ],
                 },
                 "logger": DerivedLogger {},
@@ -2312,8 +2312,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -2415,8 +2415,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -2613,8 +2613,8 @@ Object {
               },
             },
             "requires": Array [
-              "tool-kit/test",
               "tool-kit/e2e-test-staging",
+              "tool-kit/test",
             ],
           },
           "logger": DerivedLogger {},
@@ -2784,8 +2784,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -2917,8 +2917,8 @@ Object {
                 },
               },
               "requires": Array [
-                "tool-kit/test",
                 "tool-kit/e2e-test-staging",
+                "tool-kit/test",
               ],
             },
             "logger": DerivedLogger {},
@@ -3085,8 +3085,8 @@ Object {
                   },
                 },
                 "requires": Array [
-                  "tool-kit/test",
                   "tool-kit/e2e-test-staging",
+                  "tool-kit/test",
                 ],
               },
               "logger": DerivedLogger {},
@@ -3233,8 +3233,8 @@ Object {
                   },
                 },
                 "requires": Array [
-                  "tool-kit/test",
                   "tool-kit/e2e-test-staging",
+                  "tool-kit/test",
                 ],
               },
               "logger": DerivedLogger {},
