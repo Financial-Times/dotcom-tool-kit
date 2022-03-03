@@ -42,9 +42,12 @@ declare module 'heroku-client' {
     name: string
   }
 
-  export type HerokuApiResPostBuild = {
+  export type HerokuApiResBuild = {
     id: string
     status: string
+    slug: null | {
+      id: string,
+      }
   }
 
   export type HerokuApiResGetGtg = {
