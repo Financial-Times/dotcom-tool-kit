@@ -4,6 +4,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import { gtg } from './gtg'
 import type { Logger } from 'winston'
 import { setAppConfigVars } from './setConfigVars'
+import { HerokuApiResPost } from 'heroku-client'
 
 async function promoteStagingToProduction(logger: Logger, slug: string, systemCode?: string): Promise<void[]> {
   const state = readState(`production`)
@@ -18,7 +19,7 @@ async function promoteStagingToProduction(logger: Logger, slug: string, systemCo
 
   const latestRelease = appIds.map((appId) =>
     heroku
-      .post(`/apps/${appId}/releases`, {
+      .post<HerokuApiResPost>(`/apps/${appId}/releases`, {
         body: {
           slug
         }

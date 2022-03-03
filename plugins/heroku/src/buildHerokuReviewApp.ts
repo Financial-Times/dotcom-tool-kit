@@ -1,5 +1,5 @@
 import heroku from './herokuClient'
-import type { HerokuApiResGetReview } from 'heroku-client'
+import type { HerokuApiResGetReview, HerokuApiResPost } from 'heroku-client'
 import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus'
@@ -13,7 +13,7 @@ async function buildHerokuReviewApp(
   const { branch, repo, source_blob } = await getRepoDetails(logger)
 
   logger.info(`creating review app for ${branch} branch on ${repo}...`)
-  const reviewAppBuild = await heroku.post(`/review-apps`, {
+  const reviewAppBuild: HerokuApiResPost = await heroku.post(`/review-apps`, {
     body: {
       branch: branch,
       pipeline: pipelineId,
