@@ -18,7 +18,7 @@ async function createBuild(logger: Logger, appName: string): Promise<HerokuApiRe
 		})
 		return buildInfo
 	} catch(err) {
-		const error = new ToolKitError(`Unable to create build from latest tarball `)
+		const error = new ToolKitError('Unable to create build from latest tarball')
 		if (err instanceof Error) {
 			error.details = err.message
 		  }
