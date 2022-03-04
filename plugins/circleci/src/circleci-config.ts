@@ -129,7 +129,14 @@ export default abstract class CircleCiConfigHook extends Hook {
       jobs: {
         checkout: {
           docker: [{ image: 'cimg/base:stable' }],
-          steps: ['checkout', 'tool-kit/persist-workspace']
+          steps: [
+            'checkout',
+            {
+              'tool-kit/persist-workspace': {
+                path: '.'
+              }
+            }
+          ]
         }
       },
       workflows: {
