@@ -54,11 +54,11 @@
     "@types/superagent": "^4.1.10"
   },
   "volta": {
-    "node": "12.22.5",
+    "node": "16.14.0",
     "npm": "7.17.0"
   },
   "engines": {
-    "node": "12.x",
+    "node": "14.x || 16.x",
     "npm": "7.x || 8.x"
   }
 }
