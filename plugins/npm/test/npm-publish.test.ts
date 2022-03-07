@@ -38,6 +38,16 @@ describe('NpmPublish', () => {
         await expect(async () => { await task.run() }).rejects.toThrow(new ToolKitError('CIRCLE_TAG environment variable not found. Make sure you are running this on a release version!'))
     })
 
+    it('should return prerelease if match prerelease regex in getNpmTag', () => {
+        const task = new NpmPublish(logger)
+        expect(task.getNpmTag('v1.6.0-beta.1')).toEqual('prerelease')
+    })
+
+    it('should return latest if match latest regex in getNpmTag', () => {
+        const task = new NpmPublish(logger)
+        expect(task.getNpmTag('v1.6.0')).toEqual('latest')
+    })
+
     it('should throw error if tag does not match semver regex', async () => {
         readStateMock.mockReturnValue({tag: 'random-branch', repo: '', branch: '', version: ''})
         

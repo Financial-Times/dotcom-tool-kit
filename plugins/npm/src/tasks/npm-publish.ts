@@ -9,17 +9,25 @@ import tar from 'tar'
 import { PassThrough as PassThroughStream } from 'stream';
 
 export const semVerRegex = /^v\d+\.\d+\.\d+(-.+)?/
+export const prereleaseRegex = /^v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
+export const releaseRegex = /^v\d+\.\d+\.\d+$/
+
+type TagType = "prerelease" | "latest"
 
 export default class NpmPublish extends Task {
   static description = ''
   
-  handleTagValidity(tag: string): void {
+  getNpmTag(tag: string): TagType {
     if(!tag) {
         throw new ToolKitError('CIRCLE_TAG environment variable not found. Make sure you are running this on a release version!')
     }
-    if(!semVerRegex.test(tag)) {
-        throw new ToolKitError(`CIRCLE_TAG does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`)
+    if(prereleaseRegex.test(tag)) {
+      return 'prerelease'
     }
+    if(releaseRegex.test(tag)) { 
+      return 'latest'
+    }
+    throw new ToolKitError(`CIRCLE_TAG does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`)
   }
 
   async listPackedFiles(tarball: Buffer): Promise<void> {
@@ -46,8 +54,8 @@ export default class NpmPublish extends Task {
 
     const tag = ci.tag
 
-    this.handleTagValidity(tag)
-
+    const npmTag = this.getNpmTag(tag)
+    
     this.logger.info(`tag ${tag} ready to be published`)
 
     if (!process.env.NPM_AUTH_TOKEN) {
@@ -63,6 +71,7 @@ export default class NpmPublish extends Task {
 
     await publish(manifest, tarball, {
         access: 'public',
+        defaultTag: npmTag, 
         forceAuth: {
             token: process.env.NPM_AUTH_TOKEN
         }

@@ -2,7 +2,8 @@ import path from 'path'
 import { promises as fs } from 'fs'
 import { semVerRegex } from '@dotcom-tool-kit/npm/lib/tasks/npm-publish'
 import * as yaml from 'js-yaml'
-import { CircleConfig, Workflow, JobConfig } from '@dotcom-tool-kit/circleci/lib/circleci-config'
+import type {Workflow, JobConfig } from '@dotcom-tool-kit/circleci/lib/circleci-config'
+import { CircleConfig } from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { merge } from 'lodash'
 import type { Logger } from 'winston'
 
@@ -17,7 +18,7 @@ export async function postInstall(logger: Logger) {
     logger.info('running postInstall step')
     const circleConfig: CircleConfig = yaml.load(rawCircleConfig) as CircleConfig
     const jobs = (circleConfig.workflows as Record<string, Workflow>)?.['tool-kit']?.jobs
-    jobs?.forEach((job, index) => {
+    jobs?.forEach((job: string | Record<string, JobConfig> , index: number) => {
       const tagsFilterConfig: JobConfig = { filters : { tags: { only: `${semVerRegex}` }} }
       if(typeof job === "string") {
         jobs[index] = {[job]: tagsFilterConfig }
