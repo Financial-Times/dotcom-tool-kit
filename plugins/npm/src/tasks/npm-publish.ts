@@ -56,7 +56,7 @@ export default class NpmPublish extends Task {
 
     const npmTag = this.getNpmTag(tag)
     
-    this.logger.info(`tag ${tag} ready to be published`)
+    this.logger.info(`version ${tag} ready to be published with ${npmTag} tag`)
 
     if (!process.env.NPM_AUTH_TOKEN) {
         throw new ToolKitError('NPM_AUTH_TOKEN environment variable not found! Make sure your project is pulling in the env vars from /teams/next/circleci/component')
