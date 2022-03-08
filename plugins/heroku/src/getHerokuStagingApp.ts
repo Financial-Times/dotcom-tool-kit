@@ -14,17 +14,14 @@ async function getHerokuStagingApp(): Promise<string> {
   
   try {
     const { name: appName }: HerokuApiResGetStaging = await heroku.get(`/apps/${appId}`)
-  
     writeState('staging', { appName })
-  
     return appName
   } catch (err) {
 		const error = new ToolKitError('Unable to find latest app or write it to state')
 		if (err instanceof Error) {
 			error.details = err.message
 		  } 
-		throw Error
+		throw error
   }
 }
-
 export { getHerokuStagingApp }
