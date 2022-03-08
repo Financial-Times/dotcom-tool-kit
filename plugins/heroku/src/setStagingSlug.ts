@@ -19,7 +19,7 @@ async function setStagingSlug(logger: Logger, appName: string, slug: string): Pr
 		if (err instanceof Error) {
 			error.details = err.message
 		  }
-		throw Error
+		throw error
       }
 }
 

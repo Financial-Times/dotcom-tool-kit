@@ -2,7 +2,7 @@ import type { Logger } from 'winston'
 import heroku from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import type { HerokuApiResBuild } from 'heroku-client'
-import getRepoDetails from './githubApi'
+import { getRepoDetails } from './githubApi'
 
 async function createBuild(logger: Logger, appName: string): Promise<HerokuApiResBuild> {
 	try {
@@ -22,7 +22,7 @@ async function createBuild(logger: Logger, appName: string): Promise<HerokuApiRe
 		if (err instanceof Error) {
 			error.details = err.message
 		  }
-		throw Error
+		throw error
 	}
 }
 
