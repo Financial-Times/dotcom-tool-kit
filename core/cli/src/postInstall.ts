@@ -2,9 +2,8 @@ import path from 'path'
 import { promises as fs } from 'fs'
 import { semVerRegex } from '@dotcom-tool-kit/npm/lib/tasks/npm-publish'
 import * as yaml from 'js-yaml'
-import type {Workflow, JobConfig } from '@dotcom-tool-kit/circleci/lib/circleci-config'
-import { CircleConfig } from '@dotcom-tool-kit/circleci/lib/circleci-config'
-import { merge } from 'lodash'
+import { Workflow, JobConfig, CircleConfig } from '@dotcom-tool-kit/types/lib/schema/circleci'
+import merge from 'lodash.merge'
 import type { Logger } from 'winston'
 
 /**
