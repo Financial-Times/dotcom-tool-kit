@@ -1,6 +1,6 @@
 plugins:
   - '@dotcom-tool-kit/frontend-app'
-  - '@dotcom-tool-kit/node'
+  - '@dotcom-tool-kit/nodemon'
   - '@dotcom-tool-kit/next-router'
   - '@dotcom-tool-kit/prettier'
   - '@dotcom-tool-kit/lint-staged-npm'
@@ -8,7 +8,7 @@ plugins:
 
 hooks:
   run:local:
-    - Node
+    - Nodemon
     - NextRouter
 
 options:

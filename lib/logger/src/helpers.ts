@@ -79,7 +79,12 @@ export function hookConsole(logger: Logger, processName: string): () => void {
 
 // This function hooks winston into the stdout and stderr of child processes
 // that we have spawned forked. Useful for when you need to invoke a CLI tool.
-export function hookFork(logger: Logger, process: string, child: ChildProcess, logStdErr = true): void {
+export function hookFork(
+  logger: Logger,
+  process: string,
+  child: Pick<ChildProcess, 'stdout' | 'stderr'>,
+  logStdErr = true
+): void {
   function hookStream(stream: Readable, level: string) {
     stream.setEncoding('utf8')
     stream
