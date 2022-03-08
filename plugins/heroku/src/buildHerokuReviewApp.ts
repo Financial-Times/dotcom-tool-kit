@@ -3,7 +3,7 @@ import type { HerokuApiResGetReview, HerokuApiResPost } from 'heroku-client'
 import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus'
-import getRepoDetails from './githubApi'
+import { getRepoDetails } from './githubApi'
 
 async function buildHerokuReviewApp(
 	logger: Logger,
