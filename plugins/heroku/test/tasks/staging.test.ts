@@ -4,22 +4,31 @@ import { getPipelineCouplings } from '../../src/getPipelineCouplings'
 import { getHerokuStagingApp } from '../../src/getHerokuStagingApp'
 import { setAppConfigVars } from '../../src/setConfigVars'
 import { scaleDyno } from '../../src/scaleDyno'
+import { setStagingSlug } from '../../src/setStagingSlug'
+import { repeatedCheckForBuildSuccess } from '../../src/repeatedCheckForBuildSuccess'
 import { gtg } from '../../src/gtg'
 import winston, { Logger } from 'winston'
+import { createBuild } from '../../src/createBuild'
 
 const logger = (winston as unknown) as Logger
 
 const pipeline = 'test-pipeline'
 const appName = 'test-appName'
 const systemCode = 'test-systemCode'
+const buildInfo = {
+  id: 'build-id',
+  slug: null,
+  status: 'notfinished'
+}
+const slugId = 'test-slug-id'
 
-jest.mock('../../src/getPipelineCouplings', () => {
+jest.mock('../../src/getPipelineCouplings', () => { 
   return {
     getPipelineCouplings: jest.fn()
   }
 })
 
-jest.mock('../../src/getHerokuStagingApp', () => {
+jest.mock('../../src/getHerokuStagingApp', () => { 
   return {
     getHerokuStagingApp: jest.fn(() => 'test-appName')
   }
@@ -28,6 +37,24 @@ jest.mock('../../src/getHerokuStagingApp', () => {
 jest.mock('../../src/setConfigVars', () => {
   return {
     setAppConfigVars: jest.fn(() => false)
+  }
+})
+
+jest.mock('../../src/createBuild', () => {
+  return {
+    createBuild: jest.fn(() => (buildInfo))
+  }
+})
+
+jest.mock('../../src/repeatedCheckForBuildSuccess', () => {
+    return {
+      repeatedCheckForBuildSuccess: jest.fn(() => (slugId))
+    }
+  })
+
+jest.mock('../../src/setStagingSlug', () => {
+  return {
+    setStagingSlug: jest.fn()
   }
 })
 
@@ -44,8 +71,31 @@ jest.mock('../../src/gtg', () => {
 })
 
 describe('staging', () => {
-  it('should fail when pipeline or system code option is missing', async () => {
+
+  beforeEach(() => {
+    buildInfo.slug = null
+  })
+
+  it('should fail when both options are missing', async () => {
     const task = new Staging(logger, {})
+
+    try {
+      await task.run()
+    } catch (err) {
+      expect(err).toBeTruthy()
+    }
+  })
+
+  it('should fail if either option is missing', async () => {
+    let task = new Staging(logger, { pipeline })
+
+    try {
+      await task.run()
+    } catch (err) {
+      expect(err).toBeTruthy()
+    }
+
+    task = new Staging(logger, { pipeline, systemCode })
 
     try {
       await task.run()
@@ -72,30 +122,35 @@ describe('staging', () => {
     expect(getHerokuStagingApp).toReturnWith(appName)
   })
 
-  it('should fail if either vault option is missing', async () => {
-    let task = new Staging(logger, { pipeline })
-
-    try {
-      await task.run()
-    } catch (err) {
-      expect(err).toBeTruthy()
-    }
-
-    task = new Staging(logger, { pipeline, systemCode })
-
-    try {
-      await task.run()
-    } catch (err) {
-      expect(err).toBeTruthy()
-    }
-  })
-
   it('should call setAppConfigVars with vault team, vault app and system code', async () => {
     const task = new Staging(logger, { pipeline, systemCode })
 
     await task.run()
 
     expect(setAppConfigVars).toBeCalledWith(expect.anything(), 'test-appName', 'production', systemCode)
+  })
+
+
+  it('should call createBuild with app name', async () => {
+    const task = new Staging(logger, { pipeline, systemCode })
+
+    await task.run()
+
+    expect(createBuild).toBeCalledWith(expect.anything(), appName)
+  })
+
+  it(`should call repeatedCheckForBuildSuccess if the slug id isn't present`, async () => {
+    const task = new Staging(logger, { pipeline, systemCode })
+    await task.run()
+
+    expect(repeatedCheckForBuildSuccess).toBeCalledWith(expect.anything(), appName, buildInfo.id)
+  })
+
+  it('should call setStagingSlug with app name and slug id', async () => {
+    const task = new Staging(logger, { pipeline, systemCode })
+    await task.run()
+    
+    expect(setStagingSlug).toBeCalledWith(expect.anything(), appName, slugId)
   })
 
   it('should call scaleDyno', async () => {
@@ -123,4 +178,11 @@ describe('staging', () => {
       expect(err).toBeTruthy()
     }
   })
+
+  it('should resolve successfully when complete', async () => {
+    const task = new Staging(logger, { pipeline, systemCode })
+
+    await expect(task.run()).resolves.not.toThrow()
+  })
+
 })

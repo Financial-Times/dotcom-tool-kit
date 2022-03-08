@@ -16,7 +16,7 @@ export type repoDetails = {
   }
 }
 
-export default async function getRepoDetails(logger: Logger): Promise<repoDetails> {
+async function getRepoDetails(logger: Logger): Promise<repoDetails> {
   const state = readState('ci')
 
   if (!state) {
@@ -57,3 +57,5 @@ export default async function getRepoDetails(logger: Logger): Promise<repoDetail
     throw err
   }
 }
+
+export { getRepoDetails }
