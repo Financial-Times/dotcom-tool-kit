@@ -60,6 +60,9 @@ declare module 'heroku-client' {
       id: string
       name: string
     }
+    slug: {
+      id: string
+    }
   }
 
   export type HerokuApiReqOptions = {

@@ -11,7 +11,7 @@ const slug = 'test-slug-id'
 describe('setStagingSlug', () => {
 
 	it('posts to heroku api with app name and slug id', async () => {
-		mockHerokuPost.mockImplementation(async () => Promise.resolve())
+		mockHerokuPost.mockImplementation(async () => Promise.resolve({ slug: {id: 'test-slug-id'}}))
 		
 		await setStagingSlug(logger, appName, slug)
 
@@ -25,7 +25,7 @@ describe('setStagingSlug', () => {
 	})
 
 	it('resolves if successful', async () => {
-		mockHerokuPost.mockImplementation(async () => Promise.resolve())
+		mockHerokuPost.mockImplementation(async () => Promise.resolve({ slug: {id: 'test-slug-id'}}))
 		
 		await expect(setStagingSlug(logger, appName, slug)).resolves.not.toThrow()
 	})
