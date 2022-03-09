@@ -2,6 +2,12 @@ description: >
   Attaches workspace to the current working directory. Useful when you want to
   reuse artifacts from a previous job.
 
+parameters:
+  at:
+    type: string
+    default: .
+    description: Path to persist to workspace
+
 steps:
   - attach_workspace:
-      at: .
+      at: << parameters.at >>

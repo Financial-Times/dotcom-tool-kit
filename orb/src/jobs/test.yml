@@ -8,7 +8,8 @@ executor:
   tag: <<parameters.node-version>>
 
 steps:
-  - attach-workspace
+  - attach-workspace:
+      at: ./tmp
   - run:
       name: Run tests
       command: "npx dotcom-tool-kit test:ci"
