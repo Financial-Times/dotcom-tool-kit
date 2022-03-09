@@ -5,7 +5,7 @@ import type { Logger } from 'winston'
 
 const NUM_RETRIES = process.env.HEROKU_BUILD_NUM_RETRIES
   ? parseInt(process.env.HEROKU_BUILD_NUM_RETRIES)
-  : 10
+  : 60
 
 async function repeatedCheckForBuildSuccess(logger: Logger, appName: string, buildId: string): Promise<string> {
   async function checkForSuccessStatus() {
