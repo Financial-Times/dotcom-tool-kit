@@ -193,6 +193,7 @@ workflows:
           requires:
             - build
       - publish:
+          context: npm-publish-token
           filters:
             <<: *filters_release_build
           requires:
@@ -215,6 +216,7 @@ workflows:
           requires:
             - build
       - prepublish:
+          context: npm-publish-token
           filters:
             <<: *filters_prerelease_build
           requires:
