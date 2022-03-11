@@ -8,72 +8,80 @@ references:
   #
   # Workspace
   #
-  container_config_node: &container_config_node
+  container_config_node:
+    &container_config_node
     working_directory: ~/project/build
     docker:
       - image: cimg/node:12.22
 
   workspace_root: &workspace_root ~/project
 
-  attach_workspace: &attach_workspace
+  attach_workspace:
+    &attach_workspace
     attach_workspace:
       at: *workspace_root
 
-  #
   # Cache creation
   #
-  create_cache: &create_cache
+  create_cache:
+    &create_cache
     save_cache:
       key: cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
       paths:
         - ./node_modules/
 
-  #
   # Cache restoration
   #
-  restore_cache: &restore_cache
+  restore_cache:
+    &restore_cache
     restore_cache:
       keys:
         - cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
 
-  #
   # Filters
   #
-  filters_only_main: &filters_only_main
+  filters_only_main:
+    &filters_only_main
     branches:
       only:
         - main
 
-  filters_only_renovate_nori: &filters_only_renovate_nori
+  filters_only_renovate_nori:
+    &filters_only_renovate_nori
     branches:
       only: /(^renovate-.*|^nori\/.*)/
 
-  filters_ignore_tags_renovate_nori_build: &filters_ignore_tags_renovate_nori_build
+  filters_ignore_tags_renovate_nori_build:
+    &filters_ignore_tags_renovate_nori_build
     tags:
       ignore: /.*/
     branches:
       ignore: /(^renovate-.*|^nori\/.*|^gh-pages)/
 
-  filters_main_branch: &filters_main_branch
+  filters_main_branch:
+    &filters_main_branch
     branches:
       only:
         - main
 
-  filters_release_build: &filters_release_build
+  filters_release_build:
+    &filters_release_build
     tags:
       only:
         - /^v\d+\.\d+\.\d+$/
     branches:
       ignore: /.*/
-  
-  filters_prerelease_build: &filters_prerelease_build
+
+  filters_prerelease_build:
+    &filters_prerelease_build
     tags:
       only:
         - /^v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
     branches:
       ignore: /.*/
 
-  filters_orbs_release_build: &filters_orbs_release_build
+  filters_orbs_release_build:
+    &filters_orbs_release_build
     tags:
       only:
         # CircleCI doesn't allow prerelease versions to be published
@@ -123,28 +131,29 @@ jobs:
       - *attach_workspace
       - run:
           name: Set npm auth token
-          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ${HOME}/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >
+            ${HOME}/.npmrc
       - run:
           name: Bump version
           command: npx athloi version ${CIRCLE_TAG}
       - run:
           name: NPM publish
           command: npx athloi publish -- --access=public
-          
+
   prepublish:
     <<: *container_config_node
     steps:
       - *attach_workspace
       - run:
           name: Set npm auth token
-          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ${HOME}/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >
+            ${HOME}/.npmrc
       - run:
           name: Bump version
           command: npx athloi version ${CIRCLE_TAG}
       - run:
           name: NPM publish
           command: npx athloi publish -- --access=public --tag=prerelease
-
 
 workflows:
   version: 2
@@ -193,13 +202,15 @@ workflows:
           requires:
             - build
       - publish:
-          context: npm-publish-token
+          context:
+            - npm-publish-token
+            - npm-publish-token
           filters:
             <<: *filters_release_build
           requires:
             - lint
             - test
-  
+
   build-test-prepublish:
     jobs:
       - build:
@@ -216,7 +227,9 @@ workflows:
           requires:
             - build
       - prepublish:
-          context: npm-publish-token
+          context:
+            - npm-publish-token
+            - npm-publish-token
           filters:
             <<: *filters_prerelease_build
           requires:
@@ -247,6 +260,7 @@ workflows:
           source-dir: orb/src
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
+          context: npm-publish-token
           orb-name: financial-times/dotcom-tool-kit
           requires:
             - orb-tools/lint
@@ -264,6 +278,7 @@ workflows:
           filters:
             <<: *filters_orbs_release_build
       - orb-tools/publish:
+          context: npm-publish-token
           attach-workspace: true
           # Strip leading 'v' from git tag
           orb-ref: financial-times/dotcom-tool-kit@${CIRCLE_TAG:1}
