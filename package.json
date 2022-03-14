@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0-development",
   "scripts": {
-    "lint": "eslint --ext .ts core plugins lib",
+    "lint": "eslint --ext .ts,.js core plugins lib",
     "prettier": "prettier --write '**/*.{ts,js,json}'",
     "create-plugin": "./scripts/create-plugin.js",
     "clean-up-packages": "./scripts/clean-up-packages.sh",
