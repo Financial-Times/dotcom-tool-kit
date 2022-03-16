@@ -249,12 +249,10 @@ workflows:
           filters:
             <<: *filters_release_build
           requires:
-            - lint-v<< matrix.node-version >>
-            - test-v<< matrix.node-version >>
-          name: publish-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ "16.14", "14.19" ]
+            - lint-v14.19
+            - lint-v16.14
+            - test-v14.19
+            - test-v16.14
 
   build-test-prepublish:
     jobs:
@@ -288,12 +286,10 @@ workflows:
           filters:
             <<: *filters_prerelease_build
           requires:
-            - lint-v<< matrix.node-version >>
-            - test-v<< matrix.node-version >>
-          name: prepublish-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ "16.14", "14.19" ]
+            - lint-v14.19
+            - lint-v16.14
+            - test-v14.19
+            - test-v16.14
 
   nightly:
     triggers:
