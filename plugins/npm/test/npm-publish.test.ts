@@ -27,7 +27,7 @@ describe('NpmPublish', () => {
         
         const task = new NpmPublish(logger)
         await expect(async () => { await task.run() }).rejects.toThrow(new ToolKitError(
-          `Could not find state for ci, check that ${styles.hook('publish:tag')} ran successfully`
+          `Could not find state for ci, check that you are running this task on circleci`
         ))
     })
 
