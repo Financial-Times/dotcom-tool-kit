@@ -48,7 +48,7 @@ export default class NpmPublish extends Task {
     
     if(!ci) {
       throw new ToolKitError(
-        `Could not find state for ci, check that ${styles.hook('publish:tag')} ran successfully`
+        `Could not find state for ci, check that you are running this task on circleci`
       )
     }
 
@@ -59,7 +59,7 @@ export default class NpmPublish extends Task {
     this.logger.info(`version ${tag} ready to be published with ${npmTag} tag`)
 
     if (!process.env.NPM_AUTH_TOKEN) {
-        throw new ToolKitError('NPM_AUTH_TOKEN environment variable not found! Make sure your project is pulling in the env vars from /teams/next/circleci/component')
+        throw new ToolKitError('NPM_AUTH_TOKEN environment variable not found! Make sure you have added the npm-publish-token context under toolkit/publish job in your circleci config')
     }
 
     // overwrite version from the package.json with the version from e.g. the git tag

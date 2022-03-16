@@ -14,40 +14,64 @@ workflows:
   version: 2
   tool-kit:
     jobs:
-      - checkout
+      - checkout:
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - waiting-for-approval:
           type: approval
           filters:
             branches:
               only: /(^renovate-.*|^nori/.*)/
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/setup:
           requires:
             - checkout
             - waiting-for-approval
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/build:
           requires:
             - tool-kit/setup
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/test:
           requires:
             - tool-kit/build
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/heroku-provision:
           requires:
             - tool-kit/setup
           filters:
             branches:
               ignore: /(^renovate-.*|^nori/.*|^main)/
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/heroku-staging:
           requires:
             - tool-kit/setup
           filters:
             branches:
               only: main
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/e2e-test-review:
           requires:
             - tool-kit/heroku-provision
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/e2e-test-staging:
           requires:
             - tool-kit/heroku-staging
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/heroku-promote:
           requires:
             - tool-kit/test
@@ -55,15 +79,16 @@ workflows:
           filters:
             branches:
               only: main
-      # if repo is a component instead of app, use publish instead of heroku jobs
-      # - tool-kit/publish:
-      #     requires:
-      #       - tool-kit/test
-      #     filters:
-      #       branches:
-      #         ignore: /.*/
-      #       tags:
-      #         only: /^v\d+\.\d+\.\d+(-.+)?/
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
+      - tool-kit/publish:
+          requires:
+            - tool-kit/test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
   nightly:
     triggers:
       - schedule:
