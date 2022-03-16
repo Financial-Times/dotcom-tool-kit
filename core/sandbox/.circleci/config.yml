@@ -82,6 +82,7 @@ workflows:
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
       - tool-kit/publish:
+          context: npm-publish-token
           requires:
             - tool-kit/test
           filters:

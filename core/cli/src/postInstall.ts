@@ -30,8 +30,7 @@ export async function postInstall(logger: Logger) {
           const job: Pair = (jobItem as YAMLMap).items[0]
           const existingFilter: Pair | undefined = job.value.items.filter((item: Pair) => item.key.value === 'filters')[0]
           const merged = existingFilter ? merge(existingFilter.toJSON(), tagsFilterConfig) : tagsFilterConfig
-          const mergedValue = merged['filters']
-          const node = YAML.createNode(mergedValue)
+          const node = YAML.createNode(merged['filters'])
           job.value.set('filters', node);
         }
       })
