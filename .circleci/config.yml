@@ -249,9 +249,7 @@ workflows:
           filters:
             <<: *filters_release_build
           requires:
-            - lint-v14.19
             - lint-v16.14
-            - test-v14.19
             - test-v16.14
 
   build-test-prepublish:
@@ -286,9 +284,7 @@ workflows:
           filters:
             <<: *filters_prerelease_build
           requires:
-            - lint-v14.19
             - lint-v16.14
-            - test-v14.19
             - test-v16.14
 
   nightly:
