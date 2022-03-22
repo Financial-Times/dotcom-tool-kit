@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "references": [
+    {
+      "path": "../../lib/types"
+    },
+    {
+      "path": "../circleci"
+    },
+    {
+      "path": "../npm"
+    }
+  ],
+  "include": [
+    "src/**/*"
+  ]
+}

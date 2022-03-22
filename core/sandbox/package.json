@@ -15,6 +15,7 @@
   "description": "",
   "devDependencies": {
     "@dotcom-tool-kit/circleci-heroku": "file:../../plugins/circleci-heroku",
+    "@dotcom-tool-kit/circleci-npm": "file:../../plugins/circleci-npm",
     "@dotcom-tool-kit/eslint": "file:../../plugins/eslint",
     "@dotcom-tool-kit/frontend-app": "file:../../plugins/frontend-app",
     "@dotcom-tool-kit/jest": "file:../../plugins/jest",

@@ -5,6 +5,7 @@ plugins:
   - '@dotcom-tool-kit/prettier'
   - '@dotcom-tool-kit/lint-staged-npm'
   - '@dotcom-tool-kit/jest'
+  - '@dotcom-tool-kit/circleci-npm'
 
 hooks:
   run:local:

@@ -96,6 +96,9 @@
     },
     {
       "path": "plugins/nodemon"
+    },
+    {
+      "path": "plugins/circleci-npm"
     }
   ]
 }
