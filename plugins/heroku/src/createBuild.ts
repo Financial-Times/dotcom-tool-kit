@@ -8,12 +8,10 @@ async function createBuild(logger: Logger, appName: string): Promise<HerokuApiRe
 	try {
 		logger.info(`getting latest tarball path for ${appName}...`)
 		const { branch, source_blob } = await getRepoDetails(logger)
-		source_blob.checksum = null
-
 		logger.info(`creating new build for ${appName} from ${branch}...`)
 		const buildInfo: HerokuApiResBuild = await heroku.post(`/apps/${appName}/builds`, {
 			body: {
-				source_blob
+				source_blob: {...source_blob, checksum: null}
 			  }
 		})
 		return buildInfo

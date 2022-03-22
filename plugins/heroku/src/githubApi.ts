@@ -12,7 +12,6 @@ export type repoDetails = {
   source_blob: {
     url: string
     version: string
-    checksum?: null
   }
 }
 
