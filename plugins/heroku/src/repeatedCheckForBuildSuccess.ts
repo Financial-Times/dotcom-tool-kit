@@ -11,8 +11,9 @@ async function repeatedCheckForBuildSuccess(logger: Logger, appName: string, bui
   async function checkForSuccessStatus() {
     const buildInfo: HerokuApiResBuild = await heroku.get(`/apps/${appName}/builds/${buildId}`)
     logger.debug(`build status: ${buildInfo.status}`)
-    if (buildInfo.status !== 'succeeded' || buildInfo.slug === null)
+    if (buildInfo.status !== 'succeeded' || buildInfo.slug === null) {
       throw new Error(`Build for app ${appName} not yet finished`)
+    }
     return buildInfo.slug.id
   }
 
