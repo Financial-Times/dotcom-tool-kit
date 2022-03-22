@@ -25,18 +25,18 @@ async function buildHerokuReviewApp(
 
   logger.info(`checking review app for success status...`)
 
-  const successStatus = await repeatedCheckForSuccessStatus(logger, reviewAppBuild.id)
-
-  const reviewApp: HerokuApiResGetReview = await heroku.get(`/review-apps/${reviewAppBuild.id}`)
-
-  if (successStatus) {
-    return reviewApp.app.id
-  } else {
+  try {
+    await repeatedCheckForSuccessStatus(logger, reviewAppBuild.id)
+  } catch (err) {
     const error = new ToolKitError(`the review-app did not reach success status within the time limit.`)
     error.details = `If this is the first time that you're seeing this error, please try again as it can be slower to build at peak times.
                     The review-app build request was attempted on repo: ${repo}, branch: ${branch}, version: ${source_blob.version}.`
     throw error
   }
+  
+  const reviewApp: HerokuApiResGetReview = await heroku.get(`/review-apps/${reviewAppBuild.id}`)
+
+  return reviewApp.app.id
 }
 
 export { buildHerokuReviewApp }

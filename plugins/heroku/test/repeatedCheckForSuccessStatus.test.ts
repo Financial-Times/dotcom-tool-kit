@@ -38,6 +38,6 @@ describe('repeatedCheckForSuccessStatus', () => {
   it('returns true if the review app is successfully polled', async () => {
     reviewApp.status = 'created'
 
-    await expect(repeatedCheckForSuccessStatus(logger, reviewAppId)).resolves.toBeTruthy()
+    await expect(repeatedCheckForSuccessStatus(logger, reviewAppId)).resolves
   })
 })
