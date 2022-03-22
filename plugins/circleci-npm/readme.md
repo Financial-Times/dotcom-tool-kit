@@ -39,7 +39,7 @@ If you don't have the automated comment in your `config.yml` and therefore choos
 			only: /^v\d+\.\d+\.\d+(-.+)?/
 ```
 
-The tool-kit/publish job is triggered in your circleci pipeline when your branch name matches the semver format eg. v1.6.0-beta.1 , v1.6.0. If your branch name is a beta version ie. v1.6.0-beta.1, then the publish job will tag your branch as a prerelease version. But if your branch name is a release version ie. v1.6.0, then the publish job will tag your branch as the latest version.
+The tool-kit/publish job is triggered in your circleci pipeline once you do a release with a tag matching the semver format, e.g. `v1.6.0-beta.1`, `v1.6.0`. If your tag is a beta version, i.e. `v1.6.0-beta.1`, then the publish job will tag your build as a prerelease version. But if your tag is a release version, i.e. `v1.6.0`, then the publish job will tag your build as the latest version.
 
 ## Hooks
 
