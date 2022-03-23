@@ -7,19 +7,19 @@ const NUM_RETRIES = process.env.HEROKU_REVIEW_APP_NUM_RETRIES
   ? parseInt(process.env.HEROKU_REVIEW_APP_NUM_RETRIES)
   : 60
 
-async function repeatedCheckForSuccessStatus(logger: Logger, reviewAppId: string): Promise<boolean> {
+async function repeatedCheckForSuccessStatus(logger: Logger, reviewAppId: string): Promise<void> {
   async function checkForSuccessStatus() {
     logger.debug(`review app id: ${reviewAppId}`)
     const reviewApp: HerokuApiResGetReview = await heroku.get(`/review-apps/${reviewAppId}`)
     logger.debug(`review app status: ${reviewApp.status}`)
     if (reviewApp.status === 'deleted') throw new pRetry.AbortError(`Review app was deleted`)
-    if (reviewApp.status !== 'created')
+    if (reviewApp.status !== 'created') {
       throw new Error(`App build for app id: ${reviewAppId} not yet finished`)
-
+    }
     return true
   }
 
-  const result = await pRetry(checkForSuccessStatus, {
+  await pRetry(checkForSuccessStatus, {
     onFailedAttempt: (error) => {
       const { attemptNumber, retriesLeft } = error
       logger.warn(`attempt ${attemptNumber} failed. There are ${retriesLeft} retries left.`)
@@ -28,8 +28,6 @@ async function repeatedCheckForSuccessStatus(logger: Logger, reviewAppId: string
     retries: NUM_RETRIES,
     minTimeout: 10 * 1000
   })
-
-  return result
 }
 
 export { repeatedCheckForSuccessStatus }

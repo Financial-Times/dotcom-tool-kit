@@ -1,7 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import Review from '../../src/tasks/review'
 import { getHerokuReviewApp } from '../../src/getHerokuReviewApp'
-import { setConfigVars } from '../../src/setConfigVars'
+import { setStageConfigVars } from '../../src/setConfigVars'
 import { gtg } from '../../src/gtg'
 import heroku from '../../src/herokuClient'
 import winston, { Logger } from 'winston'
@@ -37,7 +37,7 @@ jest.mock('../../src/getHerokuReviewApp', () => {
 
 jest.mock('../../src/setConfigVars', () => {
   return {
-    setConfigVars: jest.fn()
+    setStageConfigVars: jest.fn()
   }
 })
 
@@ -102,20 +102,20 @@ describe('review', () => {
     }
   })
 
+  it('should call setStageConfigVars with vault team and vault app', async () => {
+    const task = new Review(logger, { pipeline })
+
+    await task.run()
+
+    expect(setStageConfigVars).toBeCalledWith(expect.anything(), 'review', 'production', 'test-pipeline-id')
+  })
+
   it('should write app id to state', async () => {
     const task = new Review(logger, { pipeline })
 
     await task.run()
 
     expect(state.review).toEqual(appId)
-  })
-
-  it('should call setConfigVars with vault team and vault app', async () => {
-    const task = new Review(logger, { pipeline })
-
-    await task.run()
-
-    expect(setConfigVars).toBeCalledWith(expect.anything(), appId, 'continuous-integration')
   })
 
   it('should call gtg with appName', async () => {

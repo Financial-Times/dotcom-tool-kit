@@ -42,6 +42,14 @@ declare module 'heroku-client' {
     name: string
   }
 
+  export type HerokuApiResBuild = {
+    id: string
+    status: string
+    slug: null | {
+      id: string,
+      }
+  }
+
   export type HerokuApiResGetGtg = {
     name: string
   }
@@ -51,6 +59,9 @@ declare module 'heroku-client' {
     app: {
       id: string
       name: string
+    }
+    slug: {
+      id: string
     }
   }
 
@@ -71,6 +82,6 @@ declare module 'heroku-client' {
     constructor(options: HerokuClassOptions)
     get<T>(path: string, options?: HerokuApiReqOptions): Promise<T>
     patch<T>(path: string, options?: HerokuApiReqOptions): Promise<T>
-    post(path: string, options?: HerokuApiReqOptions): Promise<HerokuApiResPost>
+    post<T>(path: string, options?: HerokuApiReqOptions): Promise<T>
   }
 }

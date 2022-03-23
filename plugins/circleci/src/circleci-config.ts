@@ -142,7 +142,7 @@ export default abstract class CircleCiConfigHook extends Hook {
               }
             }
           ],
-          jobs: ['tool-kit/setup']
+          jobs: ['checkout', 'tool-kit/setup']
         }
       }
     }

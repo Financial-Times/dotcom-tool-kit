@@ -3,7 +3,7 @@ import { promoteStagingToProduction } from '../src/promoteStagingToProduction'
 import heroku from '../src/herokuClient'
 import { gtg } from '../src/gtg'
 import winston, { Logger } from 'winston'
-import { setConfigVars } from '../src/setConfigVars'
+import { setAppConfigVars } from '../src/setConfigVars'
 
 const logger = (winston as unknown) as Logger
 
@@ -18,7 +18,7 @@ const mockHerokuPost = jest.spyOn(heroku, 'post')
 
 jest.mock('../src/setConfigVars', () => {
   return {
-    setConfigVars: jest.fn()
+    setAppConfigVars: jest.fn()
   }
 })
 
@@ -40,8 +40,8 @@ describe('promoteStagingToProduction', () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
     const systemCode = 'test-app'
     await promoteStagingToProduction(logger, slugId, systemCode)
-    expect(setConfigVars).toHaveBeenNthCalledWith(1, logger, 'app-id-1', 'production', systemCode)
-    expect(setConfigVars).toHaveBeenNthCalledWith(2, logger, 'app-id-2', 'production', systemCode)
+    expect(setAppConfigVars).toHaveBeenNthCalledWith(1, logger, 'app-id-1', 'production', systemCode)
+    expect(setAppConfigVars).toHaveBeenNthCalledWith(2, logger, 'app-id-2', 'production', systemCode)
   })
 
   it('calls heroku api for each app', async () => {
