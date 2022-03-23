@@ -9,7 +9,7 @@ import winston, { Logger } from 'winston'
 const logger = (winston as unknown) as Logger
 
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
-jest.setTimeout(15000)
+jest.setTimeout(20000)
 
 function makeRootRelative(thing: { root: string }) {
   thing.root = path.relative(process.cwd(), thing.root)
