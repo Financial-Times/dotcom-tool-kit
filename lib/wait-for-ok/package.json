@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/wait-for-ok",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "lib",
   "scripts": {

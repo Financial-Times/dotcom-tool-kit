@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/babel",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -17,9 +17,9 @@
   },
   "keywords": [],
   "dependencies": {
-    "@dotcom-tool-kit/error": "0.0.0-development",
-    "@dotcom-tool-kit/logger": "0.0.0-development",
-    "@dotcom-tool-kit/types": "0.0.0-development",
+    "@dotcom-tool-kit/error": "^1.9.0",
+    "@dotcom-tool-kit/logger": "^1.9.0",
+    "@dotcom-tool-kit/types": "^1.9.0",
     "fast-glob": "^3.2.11"
   },
   "files": [

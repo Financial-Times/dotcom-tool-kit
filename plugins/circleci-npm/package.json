@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci-npm",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "lib",
   "scripts": {

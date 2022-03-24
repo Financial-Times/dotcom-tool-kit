@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/jest",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/logger": "0.0.0-development",
-    "@dotcom-tool-kit/types": "0.0.0-development"
+    "@dotcom-tool-kit/logger": "^1.9.0",
+    "@dotcom-tool-kit/types": "^1.9.0"
   },
   "peerDependencies": {
     "jest-cli": "27.x"
