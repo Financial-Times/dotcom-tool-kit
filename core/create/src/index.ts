@@ -8,21 +8,17 @@ import { ValidConfig } from 'dotcom-tool-kit/lib/config'
 import installHooks from 'dotcom-tool-kit/lib/install'
 import { explorer, RCFile } from 'dotcom-tool-kit/lib/rc-file'
 import type { Config } from 'dotcom-tool-kit/src/config'
-import { promises as fs, readFileSync } from 'fs'
+import { promises as fs } from 'fs'
 import * as yaml from 'js-yaml'
 import partition from 'lodash.partition'
 import ordinal from 'ordinal'
+import pacote from 'pacote'
 import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
 import { Logger } from './logger'
 
 const exec = promisify(_exec)
-
-const developmentVersion = '0.0.0-development'
-const { version: createVersion }: { version: string } = JSON.parse(
-  readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8')
-)
 
 const packagesToInstall = ['dotcom-tool-kit']
 const packagesToRemove: string[] = []
@@ -129,19 +125,7 @@ async function executeMigration(deleteConfig: boolean) {
   for (const pkg of packagesToInstall) {
     packageJson.requireDependency({
       pkg,
-      version:
-        // Use relative file paths if running the create script locally
-        createVersion !== developmentVersion
-          ? createVersion
-          : 'file:' +
-            path.relative(
-              '',
-              path.join(
-                __dirname,
-                '../../../',
-                pkg === 'dotcom-tool-kit' ? 'core/cli' : `plugins/${pkg.slice(17)}`
-              )
-            ),
+      version: (await pacote.manifest(pkg)).version,
       field: 'devDependencies'
     })
   }

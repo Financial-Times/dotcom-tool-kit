@@ -24,7 +24,7 @@ console.log('🔣 adding metadata to package.json')
 const pkg = JSON.parse(fs.readFileSync('package.json'))
 
 pkg.main = 'lib'
-pkg.version = '0.0.0-development'
+pkg.version = '0.1.0'
 pkg.repository = {
   type: 'git',
   url: 'https://github.com/financial-times/dotcom-tool-kit.git',
