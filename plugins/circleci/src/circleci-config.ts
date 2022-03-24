@@ -175,7 +175,7 @@ export default abstract class CircleCiConfigHook extends Hook {
 
     const serialised = automatedComment + yaml.dump(config)
     const circleConfigDir = path.dirname(this.circleConfigPath)
-    this.logger.verbose(`making directory at ${styles.filepath(circleConfigDir)}...`)
+    this.logger.info(`making directory at ${styles.filepath(circleConfigDir)}...`)
     // Enable recursive option so that mkdir doesn't throw if the directory
     // already exists.
     await fs.mkdir(circleConfigDir, { recursive: true })
