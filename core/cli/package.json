@@ -1,6 +1,6 @@
 {
   "name": "dotcom-tool-kit",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "modern, maintainable, modular developer tooling for FT.com projects",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "test": "cd ../../ ; npx jest --silent --projects core/cli"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/circleci": "^1.8.0",
+    "@dotcom-tool-kit/circleci": "^1.9.0",
     "@jest/globals": "^27.4.6",
     "@types/lodash.merge": "^4.6.6",
     "@types/lodash.mergewith": "^4.6.6",
