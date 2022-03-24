@@ -10,7 +10,7 @@
     "clean-up-packages": "./scripts/clean-up-packages.sh",
     "build": "tsc --build --verbose tsconfig.json",
     "watch": "tsc --build --watch --verbose tsconfig.json",
-    "test": "jest --silent",
+    "test": "jest --silent --runInBand",
     "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine"
   },
   "lint-staged": {
