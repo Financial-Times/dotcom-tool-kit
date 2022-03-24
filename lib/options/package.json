@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/options",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/types": "0.0.0-development"
+    "@dotcom-tool-kit/types": "^1.9.0"
   },
   "repository": {
     "type": "git",
