@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/state",
-  "version": "0.0.0-development",
+  "version": "1.8.0",
   "description": "",
   "main": "lib",
   "scripts": {

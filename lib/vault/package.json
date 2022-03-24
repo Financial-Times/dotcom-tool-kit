@@ -1,15 +1,15 @@
 {
   "name": "@dotcom-tool-kit/vault",
-  "version": "0.0.0-development",
+  "version": "1.8.0",
   "description": "",
   "main": "lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "0.0.0-development",
-    "@dotcom-tool-kit/options": "0.0.0-development",
-    "@dotcom-tool-kit/types": "0.0.0-development",
+    "@dotcom-tool-kit/error": "^1.8.0",
+    "@dotcom-tool-kit/options": "^1.8.0",
+    "@dotcom-tool-kit/types": "^1.8.0",
     "@financial-times/n-fetch": "^1.0.0-beta.7",
     "fs": "0.0.1-security",
     "os": "^0.1.2",

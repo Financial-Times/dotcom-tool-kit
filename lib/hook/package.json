@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/hook",
-  "version": "0.0.0-development",
+  "version": "1.8.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -24,8 +24,8 @@
     "extends": "../../package.json"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "0.0.0-development",
-    "@dotcom-tool-kit/types": "0.0.0-development",
+    "@dotcom-tool-kit/error": "^1.8.0",
+    "@dotcom-tool-kit/types": "^1.8.0",
     "@financial-times/package-json": "^3.0.0",
     "lodash.isplainobject": "^4.0.6",
     "lodash.mapvalues": "^4.6.0"

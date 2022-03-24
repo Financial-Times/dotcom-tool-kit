@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci-heroku",
-  "version": "0.0.0-development",
+  "version": "1.8.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci": "0.0.0-development",
-    "@dotcom-tool-kit/heroku": "0.0.0-development"
+    "@dotcom-tool-kit/circleci": "^1.8.0",
+    "@dotcom-tool-kit/heroku": "^1.8.0"
   },
   "repository": {
     "type": "git",
