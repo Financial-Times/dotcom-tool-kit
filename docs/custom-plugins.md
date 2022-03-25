@@ -36,7 +36,7 @@ For something like Rollup, you'd probably expect it to run for local development
 
 The Webpack plugin [runs by default](https://github.com/Financial-Times/dotcom-tool-kit/blob/main/plugins/webpack/.toolkitrc.yml) on the `build:local`, `build:ci`, and `build:remote` hooks, which sound like exactly the hooks you're looking for.
 
-To get Rollup to run at these points, you'll need to create a subclass of the `Task` class from `@dotcom-tool-kit/types`, implement the `run` method, and export it in an array of `tasks`. Your `index.js` might look like this:
+To get Rollup to run at these points, you'll need to create a subclass of the `Task` class from `@dotcom-tool-kit/types`, implement the `run` method, and export it in an array of `tasks`. Your `toolkit/rollup/index.js` might look like this:
 
 ```js
 const { Task } = require('@dotcom-tool-kit/types')
@@ -86,7 +86,7 @@ If you find yourself asking a question like "how do I run a Tool Kit task from a
 
 Hooks have a loose naming convention of `category:environment`. This is only meant for humans to be able to intuitively understand which hooks are related; it's not required by the Tool Kit core itself.
 
-Let's say you want to run some task on the npm `prepare` script (which automatically runs after `npm install` and before `npm publish`). We'll call that hook `prepare:local`. Create a subclass of the `Hook` class from `@dotcom-tool-kit/types`, implement the `check` and `install` methods, and export a `hooks` object to map it to the name we're giving it. Your `index.js` might include:
+Let's say you want to run some task on the npm `prepare` script (which automatically runs after `npm install` and before `npm publish`). We'll call that hook `prepare:local`, and the plugin will live in `toolkit/npm-prepare` ([structured as above](#common-plugin-structure)). Create a subclass of the `Hook` class from `@dotcom-tool-kit/types`, implement the `check` and `install` methods, and export a `hooks` object to map it to the name we're giving it. Your `toolkit/npm-prepare/index.js` might include:
 
 ```js
 const { Hook } = require('@dotcom-tool-kit/types')
