@@ -121,7 +121,7 @@ export const hooks = {
 }
 ```
 
-There are a handful of common base classes that Tool Kit includes for common hook usecases (such as CircleCI configuration or npm `package.json` scripts) that you can use those instead of implementing your hook completely from scratch. For example, we can build our `prepare:local` hook on top of the `PackageJsonHook` built-in class:
+There are a handful of common base classes that Tool Kit includes for common hook usecases (such as CircleCI configuration or npm `package.json` scripts) that you can use, instead of implementing your hook completely from scratch. For example, we can build our `prepare:local` hook on top of the `PackageJsonHook` built-in class:
 
 ```js
 const { PackageJsonHook } = require('@dotcom-tool-kit/package-json-hook')
