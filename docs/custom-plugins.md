@@ -138,6 +138,6 @@ After you've implemented your hook, running `dotcom-tool-kit --install` will add
 
 - You can create new custom **tasks** to run tooling that Tool Kit doesn't support yet
 - You can create custom **hooks** to run Tool Kit tasks in new scenarios
-- Please [talk to the Platforms team](https://financialtimes.slack.com/archives/C3TJ6KXEU) if you need help writing a custom plugin, want to discuss your use case, or to propose new features you think might be useful across multiple repositories & teams
+- Please [talk to the Platforms team](https://financialtimes.slack.com/archives/C02TRE2V2Q1) if you need help writing a custom plugin, want to discuss your use case, or to propose new features you think might be useful across multiple repositories & teams
 
 ✌️
