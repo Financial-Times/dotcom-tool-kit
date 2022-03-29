@@ -8,5 +8,5 @@
 node_modules
 package-lock.json
 *.tsbuildinfo
-.toolkitstate.json
+/.toolkitstate
 coverage
