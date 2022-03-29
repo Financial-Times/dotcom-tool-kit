@@ -2,7 +2,7 @@ import path from 'path'
 import * as fs from 'fs'
 
 const target = process.env.INIT_CWD || process.cwd()
-const stateDir = target ? path.join(target, '/.toolkitstate') : '.toolkitstate'
+const stateDir = target ? path.join(target, '.toolkitstate') : '.toolkitstate'
 
 interface CIState {
   repo: string
