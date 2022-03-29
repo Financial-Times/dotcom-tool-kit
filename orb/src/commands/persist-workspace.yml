@@ -5,7 +5,7 @@ description: >
 parameters:
   path:
     type: string
-    default: .toolkitstate.json
+    default: .toolkitstate
     description: Path to persist to workspace
 
 steps:
