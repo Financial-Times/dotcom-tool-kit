@@ -1,6 +1,8 @@
+import path from 'path'
 import * as fs from 'fs'
+
 const target = process.env.INIT_CWD || process.cwd()
-const stateDir = target ? `${target}/.toolkitstate` : '/.toolkitstate'
+const stateDir = target ? path.join(target, '/.toolkitstate') : '.toolkitstate'
 
 interface CIState {
   repo: string
@@ -38,32 +40,29 @@ export interface State {
 
 export function readState<T extends keyof State>(stage: T): State[T] | null {
   if (fs.existsSync(stateDir)) {
-    const file = `${stateDir}/${stage}.json`
-    if (fs.existsSync(file)) {
-      const readStateContent = JSON.parse(fs.readFileSync(file, { encoding: 'utf-8' }))
-      try {
-        return readStateContent
-      } catch {
-        return null
-      }
+    const fileName = `${stage}.json`
+    const filePath = path.join(stateDir, fileName)
+    if (fs.existsSync(filePath)) {
+      return JSON.parse(fs.readFileSync(filePath, { encoding: 'utf-8' }))
     }
   }
   return null
 }
 
 export function writeState<T extends keyof State>(stage: T, value: Partial<State[T]>): State[T] | null {
-  const file = `${stateDir}/${stage}.json`
+  const fileName = `${stage}.json`
+  const filePath = path.join(stateDir, fileName)
   let readStateContent
   if (fs.existsSync(stateDir)) {
-    if (fs.existsSync(file)) {
-      readStateContent = JSON.parse(fs.readFileSync(file, { encoding: 'utf-8' }))
-      for (const [key, val] of Object.entries(value)) {
-        readStateContent[key] = val
-      }
-    } 
+    if (fs.existsSync(filePath)) {
+      readStateContent = Object.assign(
+        JSON.parse(fs.readFileSync(filePath, { encoding: 'utf-8' })),
+        value
+      )
+    }
   } else {
     fs.mkdirSync(stateDir)
   }
-  fs.writeFileSync(file, JSON.stringify(readStateContent || value, null, 2))
+  fs.writeFileSync(filePath, JSON.stringify(readStateContent || value, null, 2))
   return readState(stage)
 }
