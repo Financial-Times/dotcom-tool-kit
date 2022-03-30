@@ -2,6 +2,7 @@
   "bootstrap-sha": "62ffb5b3798929fec1e5299710e182205c3dacc1",
   "plugins": ["node-workspace"],
   "changelog-type": "github",
+  "pin-prereleases": true,
   "packages": {
     "core/cli": {},
     "core/create": {},
