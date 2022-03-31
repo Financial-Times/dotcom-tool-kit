@@ -10,10 +10,6 @@ npm install
 
 There's a testing sandbox at [`core/sandbox`](/core/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
 
-Tool Kit tasks are implemented via a simple `async run()` function, and written in Typescript.
-
-In the future, there will be unit and integration tests for every package.
-
 ### Creating a plugin
 
 There's a script to create a skeleton plugin. Run:
@@ -27,7 +23,7 @@ and the script will create the plugin folder and add all the necessary configura
 
 To configure your plugin, do the following steps:
 - define the hook in plugins/name-of-plugin/src/index.ts
-  ```
+  ```typescript
   import Name-of-plugin from './tasks/name-of-plugin'
   import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
 
@@ -46,19 +42,21 @@ To configure your plugin, do the following steps:
   ```
   you can find an example of this in plugins/npm/src/index.ts
 - [optional] you can define the tasks used by the plugin in plugins/name-of-plugin/.toolkit.yml, otherwise the default task is set
-  ```
+  ```yaml
   hooks:
     '<name of the hooks defined>:<local|ci|*>': name-of-plugin
-    (you can add more if you want here)
+    # you can add more if you want here
   ```
 - [add the plugin](#plugins) to `core/sandbox/.toolkitrc.yml`.
 
 
 Finally, build the created plugin by going to the root directory of this repository and running build:
+
 ```sh
 cd ../../
 npm run build
 ```
+
 (Alternatively, you can run ```npm run watch``` in the root directory and it will rebuild the ts files that you've changed in these steps)
 
 To test your plugin, you can install it in the sandbox package:
@@ -73,11 +71,13 @@ You can check if it's installed by running the help command:
 ```sh
 npx dotcom-tool-kit --help
 ```
+
 ## Running the created plugin
 After you have completed the steps in creating a plugin, you can run its hook:
 ```sh
 npx dotcom-tool-kit <hook eg. build:local>
 ```
+
 ## Plugin structure
 
 Tool Kit plugins are Node modules. Any code in the entry point of the plugin will be run when Tool Kit starts up and loads the plugin. If a plugin includes tasks, it should export a `tasks` array, contains [task classes](#tasks):
@@ -94,7 +94,7 @@ export const tasks = [ Webpack ]
 A task extends the class `Task`, implementing its abstract asynchronous `run` function. You should also specify a `description` field which will be displayed in the help menu. Note that any options for the plugin defined in the configuration will be passed to the `options` field.
 
 ```typescript
-import { Task } from '@dotcom-tool-kit/task'
+import { Task } from '@dotcom-tool-kit/types'
 
 type WebpackOptions = {
   configPath?: string
