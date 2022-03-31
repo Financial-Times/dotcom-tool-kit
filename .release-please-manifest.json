@@ -13,7 +13,7 @@
   "lib/wait-for-ok": "1.8.0",
   "plugins/babel": "1.8.0",
   "plugins/backend-app": "1.8.0",
-  "plugins/circleci": "1.8.0",
+  "plugins/circleci": "1.8.0-beta.1",
   "plugins/circleci-heroku": "1.8.0",
   "plugins/circleci-npm": "1.8.0",
   "plugins/eslint": "1.8.0",
