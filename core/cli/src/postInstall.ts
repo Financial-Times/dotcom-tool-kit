@@ -11,7 +11,7 @@ import { automatedComment, JobConfig, Workflow } from '@dotcom-tool-kit/types/li
  * This step adds the tags only filter to rest of the jobs in the workflow if there is a job that contains the semverRegex.
  * CircleCI will only run the jobs if the rest of the jobs have the tags filter. 
  */
-export async function postInstall(logger: Logger) {
+export async function postInstall(logger: Logger): Promise<void> {
   const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
   try {
     const rawCircleConfig = await fs.readFile(circleConfigPath, 'utf8')
