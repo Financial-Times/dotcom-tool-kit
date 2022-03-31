@@ -142,9 +142,15 @@ export default abstract class CircleCiConfigHook extends Hook {
               }
             }
           ],
-          jobs: ['checkout', 'tool-kit/setup']
-        }
+          jobs: [
+            'checkout', 
+            {
+              'tool-kit/setup': {
+                requires: ['checkout']
+              }
+        }],
       }
+    }
     }
 
     const currentVersion = await this.getVersionTag()
