@@ -11,12 +11,17 @@ async function scaleDyno(
   size?: string
 ): Promise<void> {
   logger.info(`scaling dyno for ${appName}...`)
-
-  const appFormation: HerokuApiResPatch[] = await heroku.patch(`/apps/${appName}/formation`, {
-    body: {
-      updates: [{ quantity, size, type }]
-    }
-  })
+  let appFormation: HerokuApiResPatch[]
+  logger.info(`scaleDyno - quantity: ${quantity}, size: ${size}, type: ${type}`)
+  try {
+    appFormation = await heroku.patch(`/apps/${appName}/formation`, {
+      body: {
+        updates: [{ quantity, size, type }]
+      }
+    })
+  } catch (err) {
+    throw err
+  }
 
   if (appFormation[0].quantity === quantity && appFormation[0].type === type) {
     return

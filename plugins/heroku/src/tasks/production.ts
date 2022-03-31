@@ -45,6 +45,7 @@ options:
       for (const [appName, typeConfig] of Object.entries(scaling)) {
         this.logger.verbose(`scaling app ${styles.app(appName)}...`)
         for (const [processType, { quantity, size }] of Object.entries(typeConfig)) {
+          this.logger.info(`production - appName: ${appName}, quantity: ${quantity}, processType: ${processType}, size ${size}`)
           await scaleDyno(this.logger, appName, quantity, processType, size)
         }
         this.logger.info(`${styles.app(appName)} has been successfully scaled`)
