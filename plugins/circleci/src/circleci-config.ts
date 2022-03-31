@@ -4,6 +4,7 @@ import isEqual from 'lodash.isequal'
 import path from 'path'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
+import { getOptions } from '@dotcom-tool-kit/options'
 import { Hook } from '@dotcom-tool-kit/types'
 import { Workflow, JobConfig, CircleConfig, automatedComment } from '@dotcom-tool-kit/types/lib/circleci'
 const developmentVersion = '0.0.0-development'
@@ -143,14 +144,15 @@ export default abstract class CircleCiConfigHook extends Hook {
             }
           ],
           jobs: [
-            'checkout', 
+            'checkout',
             {
               'tool-kit/setup': {
                 requires: ['checkout']
               }
-        }],
+            }
+          ]
+        }
       }
-    }
     }
 
     const currentVersion = await this.getVersionTag()
@@ -175,7 +177,12 @@ export default abstract class CircleCiConfigHook extends Hook {
       throw error
     }
 
-    const job = this.jobOptions ? { [this.job]: this.jobOptions } : this.job
+    const job = {
+      [this.job]: {
+        'node-version': getOptions('@dotcom-tool-kit/circleci')?.nodeVersion ?? '16.14-browsers',
+        ...this.jobOptions
+      }
+    }
     // Avoid duplicating jobs (this can happen when check() fails when the version is wrong)
     if (!jobs.some((candidateJob) => isEqual(candidateJob, job))) {
       jobs.push(job)

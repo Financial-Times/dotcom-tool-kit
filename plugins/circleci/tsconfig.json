@@ -12,6 +12,9 @@
     },
     {
       "path": "../../lib/types"
+    },
+    {
+      "path": "../../lib/options"
     }
   ],
   "compilerOptions": {

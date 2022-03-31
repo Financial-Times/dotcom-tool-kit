@@ -68,6 +68,7 @@ import type { NextRouterOptions } from './schema/next-router'
 import type { PrettierOptions } from './schema/prettier'
 import type { LintStagedNpmOptions } from './schema/lint-staged-npm'
 import type { BabelOptions } from './schema/babel'
+import type { CircleCIOptions } from './schema/circleci'
 
 export type Options = {
   '@dotcom-tool-kit/eslint'?: ESLintOptions
@@ -83,4 +84,5 @@ export type Options = {
   '@dotcom-tool-kit/prettier'?: PrettierOptions
   '@dotcom-tool-kit/lint-staged-npm'?: LintStagedNpmOptions
   '@dotcom-tool-kit/babel'?: BabelOptions
+  '@dotcom-tool-kit/circleci'?: CircleCIOptions
 }
