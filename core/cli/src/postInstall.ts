@@ -1,6 +1,6 @@
 import path from 'path'
 import { promises as fs } from 'fs'
-import { semVerRegex } from '@dotcom-tool-kit/npm/lib/tasks/npm-publish'
+import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
 import * as YAML from "yaml";
 import { Pair, YAMLMap, YAMLSeq } from "yaml/types";
 import merge from 'lodash.merge'

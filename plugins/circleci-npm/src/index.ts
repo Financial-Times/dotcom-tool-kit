@@ -1,5 +1,6 @@
 import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
-import NpmPublish, { semVerRegex } from '@dotcom-tool-kit/npm/lib/tasks/npm-publish'
+import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
+import NpmPublish from '@dotcom-tool-kit/npm/lib/tasks/npm-publish'
 
 export const tasks = [NpmPublish]
 
@@ -18,5 +19,3 @@ class PublishHook extends CircleCiConfigHook {
 export const hooks = {
   'publish:tag': PublishHook
 }
-
-
