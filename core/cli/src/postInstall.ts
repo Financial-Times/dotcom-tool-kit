@@ -5,7 +5,7 @@ import * as YAML from "yaml";
 import { Pair, YAMLMap, YAMLSeq } from "yaml/types";
 import merge from 'lodash.merge'
 import type { Logger } from 'winston'
-import { automatedComment, JobConfig, Workflow } from '@dotcom-tool-kit/types/lib/circleci'
+import { automatedComment, JobConfig } from '@dotcom-tool-kit/types/lib/circleci'
 
 /**
  * This step adds the tags only filter to rest of the jobs in the workflow if there is a job that contains the semverRegex.
