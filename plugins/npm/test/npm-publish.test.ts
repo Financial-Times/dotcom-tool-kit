@@ -1,4 +1,5 @@
-import NpmPublish, { semVerRegex } from '../src/tasks/npm-publish'
+import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
+import NpmPublish from '../src/tasks/npm-publish'
 import winston, { Logger } from 'winston'
 import { ToolKitError } from '../../../lib/error/lib'
 import * as state from '@dotcom-tool-kit/state'
@@ -23,7 +24,7 @@ jest.mock('libnpmpublish', () => {
 describe('NpmPublish', () => {
     it('should throw an error if ci is not found in state', async () => {
         readStateMock.mockReturnValue(null)
-        
+
         const task = new NpmPublish(logger)
         await expect(async () => { await task.run() }).rejects.toThrow(new ToolKitError(
           `Could not find state for ci, check that you are running this task on circleci`
@@ -32,7 +33,7 @@ describe('NpmPublish', () => {
 
     it('should throw error if tag is not found', async () => {
         readStateMock.mockReturnValue({tag: '', repo: '', branch: '', version: ''})
-        
+
         const task = new NpmPublish(logger)
         await expect(async () => { await task.run() }).rejects.toThrow(new ToolKitError('CIRCLE_TAG environment variable not found. Make sure you are running this on a release version!'))
     })
@@ -49,7 +50,7 @@ describe('NpmPublish', () => {
 
     it('should throw error if tag does not match semver regex', async () => {
         readStateMock.mockReturnValue({tag: 'random-branch', repo: '', branch: '', version: ''})
-        
+
         const task = new NpmPublish(logger)
         await expect(async () => { await task.run() }).rejects.toThrow(new ToolKitError(`CIRCLE_TAG does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`))
     })
@@ -59,7 +60,7 @@ describe('NpmPublish', () => {
         readStateMock.mockReturnValue({tag: 'v1.2.3-beta.2', repo: '', branch: '', version: ''})
         const listPackedFilesSpy = jest.spyOn(NpmPublish.prototype, 'listPackedFiles')
         listPackedFilesSpy.mockImplementation(() => Promise.resolve())
-        
+
         const task = new NpmPublish(logger)
         await task.run()
 
@@ -68,4 +69,3 @@ describe('NpmPublish', () => {
         expect(publish).toBeCalled()
     })
 })
-

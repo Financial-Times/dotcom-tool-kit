@@ -1,5 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Task } from '@dotcom-tool-kit/types'
+import { semVerRegex, prereleaseRegex, releaseRegex } from '@dotcom-tool-kit/types/lib/npm'
 import pacote from 'pacote'
 import { readState } from '@dotcom-tool-kit/state'
 import pack from 'libnpmpack'
@@ -8,15 +9,11 @@ import { styles } from '@dotcom-tool-kit/logger'
 import tar from 'tar'
 import { PassThrough as PassThroughStream } from 'stream';
 
-export const semVerRegex = /^v\d+\.\d+\.\d+(-.+)?/
-export const prereleaseRegex = /^v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
-export const releaseRegex = /^v\d+\.\d+\.\d+$/
-
 type TagType = "prerelease" | "latest"
 
 export default class NpmPublish extends Task {
   static description = ''
-  
+
   getNpmTag(tag: string): TagType {
     if(!tag) {
         throw new ToolKitError('CIRCLE_TAG environment variable not found. Make sure you are running this on a release version!')
@@ -24,7 +21,7 @@ export default class NpmPublish extends Task {
     if(prereleaseRegex.test(tag)) {
       return 'prerelease'
     }
-    if(releaseRegex.test(tag)) { 
+    if(releaseRegex.test(tag)) {
       return 'latest'
     }
     throw new ToolKitError(`CIRCLE_TAG does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`)
@@ -45,7 +42,7 @@ export default class NpmPublish extends Task {
     const manifest = await pacote.manifest(packagePath)
 
     const ci = readState('ci')
-    
+
     if(!ci) {
       throw new ToolKitError(
         `Could not find state for ci, check that you are running this task on circleci`
@@ -55,7 +52,7 @@ export default class NpmPublish extends Task {
     const tag = ci.tag
 
     const npmTag = this.getNpmTag(tag)
-    
+
     this.logger.info(`version ${tag} ready to be published with ${npmTag} tag`)
 
     if (!process.env.NPM_AUTH_TOKEN) {
@@ -71,7 +68,7 @@ export default class NpmPublish extends Task {
 
     await publish(manifest, tarball, {
         access: 'public',
-        defaultTag: npmTag, 
+        defaultTag: npmTag,
         forceAuth: {
             token: process.env.NPM_AUTH_TOKEN
         }
