@@ -61,18 +61,18 @@ describe('CircleCI config hook', () => {
               'tool-kit': {
                 jobs: expect.arrayContaining([
                   expect.objectContaining({
-                    'test-job': {
+                    'test-job': expect.objectContaining({
                       requires: ['another-job']
-                    }
+                    })
                   })
                 ])
               },
               nightly: {
                 jobs: expect.arrayContaining([
                   expect.objectContaining({
-                    'test-job': {
+                    'test-job': expect.objectContaining({
                       requires: ['another-job']
-                    }
+                    })
                   })
                 ])
               }
