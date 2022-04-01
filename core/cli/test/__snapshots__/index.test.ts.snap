@@ -969,6 +969,7 @@ Object {
         "root": "plugins/npm/lib/index.js",
         "tasks": Array [
           [Function],
+          [Function],
         ],
       },
     },
@@ -1868,6 +1869,7 @@ Object {
         "root": "plugins/npm/lib/index.js",
         "tasks": Array [
           [Function],
+          [Function],
         ],
       },
     },
@@ -2280,6 +2282,7 @@ Object {
         },
         "root": "plugins/npm/lib/index.js",
         "tasks": Array [
+          [Function],
           [Function],
         ],
       },
@@ -3181,6 +3184,7 @@ Object {
       "root": "plugins/npm/lib/index.js",
       "tasks": Array [
         [Function],
+        [Function],
       ],
     },
     "@dotcom-tool-kit/vault": Object {
@@ -3339,6 +3343,7 @@ Object {
     "Mocha": [Function],
     "NTest": [Function],
     "NpmPrune": [Function],
+    "NpmPublish": [Function],
   },
 }
 `;
