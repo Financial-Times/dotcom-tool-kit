@@ -24,5 +24,8 @@
   "files": [
     "/lib",
     ".toolkitrc.yml"
-  ]
+  ],
+  "peerDependencies": {
+    "dotcom-tool-kit": "1.x"
+  }
 }
