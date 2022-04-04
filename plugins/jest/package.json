@@ -14,7 +14,8 @@
     "@dotcom-tool-kit/types": "^1.9.0"
   },
   "peerDependencies": {
-    "jest-cli": "27.x"
+    "jest-cli": "27.x",
+    "dotcom-tool-kit": "1.x"
   },
   "repository": {
     "type": "git",

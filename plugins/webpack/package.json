@@ -23,7 +23,8 @@
     "webpack-cli": "^4.6.0"
   },
   "peerDependencies": {
-    "webpack": "4.x.x || 5.x.x"
+    "webpack": "4.x.x || 5.x.x",
+    "dotcom-tool-kit": "1.x"
   },
   "devDependencies": {
     "@jest/globals": "^27.4.6",

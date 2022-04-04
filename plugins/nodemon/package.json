@@ -17,7 +17,8 @@
     "get-port": "^5.1.1"
   },
   "peerDependencies": {
-    "nodemon": "2.x"
+    "nodemon": "2.x",
+    "dotcom-tool-kit": "1.x"
   },
   "repository": {
     "type": "git",

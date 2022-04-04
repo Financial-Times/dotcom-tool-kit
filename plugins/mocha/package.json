@@ -36,5 +36,8 @@
   ],
   "volta": {
     "extends": "../../package.json"
+  },
+  "peerDependencies": {
+    "dotcom-tool-kit": "1.x"
   }
 }

@@ -35,6 +35,7 @@
     "winston": "^3.5.1"
   },
   "peerDependencies": {
-    "@babel/core": "7.x"
+    "@babel/core": "7.x",
+    "dotcom-tool-kit": "1.x"
   }
 }
