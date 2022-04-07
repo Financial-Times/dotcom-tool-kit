@@ -22,7 +22,6 @@
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
-    "@financial-times/athloi": "^2.0.0",
     "@financial-times/eslint-config-next": "^3.0.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^12.20.24",
