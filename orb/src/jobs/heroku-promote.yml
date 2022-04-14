@@ -1,6 +1,6 @@
 parameters:
   node-version:
-    default: "12.22"
+    default: "16.14"
     type: string
   systemCode:
     default: $CIRCLE_PROJECT_REPONAME

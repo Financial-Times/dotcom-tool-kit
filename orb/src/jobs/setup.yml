@@ -1,9 +1,9 @@
 parameters:
   node-version:
-    default: '12.22'
+    default: '16.14'
     type: string
   npm-version:
-    default: '7'
+    default: '8'
     type: string
 
 executor:
@@ -12,8 +12,7 @@ executor:
 
 steps:
   - attach-workspace
-  - node/install-npm:
-      version: <<parameters.npm-version>>
+  - run: sudo npm install -g npm@<<parameters.npm-version>>
   - change-api/install-jq
   - node/install-packages
   - persist-workspace:

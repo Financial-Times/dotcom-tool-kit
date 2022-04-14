@@ -1,7 +1,7 @@
 # temp workaround for heroku-staging's .toolkitstate.json being overwritten by the build job
 parameters:
   node-version:
-    default: '12.22'
+    default: '16.14'
     type: string
 
 executor:
