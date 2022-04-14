@@ -1,14 +1,14 @@
 {
   "name": "@dotcom-tool-kit/frontend-app",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/backend-app": "file:../backend-app",
-    "@dotcom-tool-kit/webpack": "file:../webpack"
+    "@dotcom-tool-kit/backend-app": "^1.9.0",
+    "@dotcom-tool-kit/webpack": "^1.9.0"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/frontend-app",
   "volta": {
     "extends": "../../package.json"
+  },
+  "peerDependencies": {
+    "dotcom-tool-kit": "1.x"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/webpack",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -17,13 +17,14 @@
     "test": "cd ../../ ; npx jest --silent --projects plugins/webpack"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "file:../../lib/error",
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/error": "^1.9.0",
+    "@dotcom-tool-kit/logger": "^1.9.0",
+    "@dotcom-tool-kit/types": "^1.9.0",
     "webpack-cli": "^4.6.0"
   },
   "peerDependencies": {
-    "webpack": "4.x.x || 5.x.x"
+    "webpack": "4.x.x || 5.x.x",
+    "dotcom-tool-kit": "1.x"
   },
   "devDependencies": {
     "@jest/globals": "^27.4.6",

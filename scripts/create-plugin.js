@@ -24,7 +24,7 @@ console.log('🔣 adding metadata to package.json')
 const pkg = JSON.parse(fs.readFileSync('package.json'))
 
 pkg.main = 'lib'
-pkg.version = '0.0.0-development'
+pkg.version = '0.1.0'
 pkg.repository = {
   type: 'git',
   url: 'https://github.com/financial-times/dotcom-tool-kit.git',
@@ -34,6 +34,9 @@ pkg.bugs = 'https://github.com/financial-times/dotcom-tool-kit/issues'
 pkg.homepage = `https://github.com/financial-times/dotcom-tool-kit/tree/main/${directory}`
 pkg.author = 'FT.com Platforms Team <platforms-team.customer-products@ft.com>'
 pkg.files = ['/lib', '.toolkitrc.yml']
+pkg.peerDependencies = {
+  'dotcom-tool-kit': '1.x'
+}
 
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
 

@@ -1,10 +1,9 @@
 {
   "name": "dotcom-tool-kit",
   "private": true,
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "scripts": {
-    "lint": "eslint --ext .ts core plugins lib",
-    "postinstall": "athloi exec -- npm install --no-package-lock",
+    "lint": "eslint --ext .ts,.js core plugins lib",
     "prettier": "prettier --write '**/*.{ts,js,json}'",
     "create-plugin": "./scripts/create-plugin.js",
     "clean-up-packages": "./scripts/clean-up-packages.sh",
@@ -21,7 +20,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "devDependencies": {
-    "@financial-times/athloi": "^2.0.0",
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
     "@financial-times/eslint-config-next": "^3.0.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^12.20.24",
@@ -35,6 +35,7 @@
     "jest": "^27.4.7",
     "lint-staged": "^10.5.4",
     "prettier": "2.2.1",
+    "release-please": "^13.8.0",
     "ts-jest": "^27.1.3",
     "typescript": "~4.4.2"
   },
@@ -47,6 +48,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
+      "commit-msg": "commitlint --edit",
       "post-checkout": "npm run clean-up-packages -- $HUSKY_GIT_PARAMS"
     }
   },
@@ -55,7 +57,7 @@
   },
   "volta": {
     "node": "16.14.0",
-    "npm": "7.17.0"
+    "npm": "8.5.4"
   },
   "engines": {
     "node": "14.x || 16.x",

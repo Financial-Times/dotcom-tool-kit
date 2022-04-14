@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/lint-staged-npm",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/husky-npm": "file:../husky-npm",
-    "@dotcom-tool-kit/lint-staged": "file:../lint-staged",
-    "@dotcom-tool-kit/options": "file:../../lib/options"
+    "@dotcom-tool-kit/husky-npm": "^1.9.0",
+    "@dotcom-tool-kit/lint-staged": "^1.9.0",
+    "@dotcom-tool-kit/options": "^1.9.0"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
   ],
   "volta": {
     "extends": "../../package.json"
+  },
+  "peerDependencies": {
+    "dotcom-tool-kit": "1.x"
   }
 }

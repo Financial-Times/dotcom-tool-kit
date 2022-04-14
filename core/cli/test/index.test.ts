@@ -3,7 +3,6 @@ import * as path from 'path'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Config, loadConfig, validateConfig } from '../src/config'
 import { loadPluginConfig } from '../src/plugin'
-import type CircleCIConfigHook from '@dotcom-tool-kit/circleci/src/circleci-config'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger
@@ -28,7 +27,10 @@ function makeConfigPathsRelative(config: Config) {
 
   for (const hook of Object.values(config.hooks)) {
     if (hook.plugin) makeRootRelative(hook.plugin)
-    const circleHook = hook as CircleCIConfigHook
+    // We can't use the real CircleCI plugin hook type as that would cause a
+    // circular dependency between the two packages.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const circleHook = hook as any
     if (circleHook.circleConfigPath) {
       circleHook.circleConfigPath = path.relative(process.cwd(), circleHook.circleConfigPath)
     }

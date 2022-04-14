@@ -1,6 +1,6 @@
 {
   "name": "dotcom-tool-kit",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "modern, maintainable, modular developer tooling for FT.com projects",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -20,7 +20,6 @@
     "test": "cd ../../ ; npx jest --silent --projects core/cli"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/circleci": "file:../../plugins/circleci",
     "@jest/globals": "^27.4.6",
     "@types/lodash.merge": "^4.6.6",
     "@types/lodash.mergewith": "^4.6.6",
@@ -31,12 +30,12 @@
     "winston": "^3.5.1"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "file:../../lib/error",
-    "@dotcom-tool-kit/hook": "file:../../lib/hook",
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "@dotcom-tool-kit/options": "file:../../lib/options",
-    "@dotcom-tool-kit/types": "file:../../lib/types",
-    "@dotcom-tool-kit/wait-for-ok": "file:../../lib/wait-for-ok",
+    "@dotcom-tool-kit/error": "^1.9.0",
+    "@dotcom-tool-kit/hook": "^1.9.0",
+    "@dotcom-tool-kit/logger": "^1.9.0",
+    "@dotcom-tool-kit/options": "^1.9.0",
+    "@dotcom-tool-kit/types": "^1.9.0",
+    "@dotcom-tool-kit/wait-for-ok": "^1.9.0",
     "cosmiconfig": "^7.0.0",
     "import-from": "^3.0.0",
     "lodash.merge": "^4.6.2",

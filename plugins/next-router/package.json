@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/next-router",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,11 +10,11 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/error": "file:../../lib/error",
-    "@dotcom-tool-kit/state": "file:../../lib/state",
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "@dotcom-tool-kit/types": "file:../../lib/types",
-    "@dotcom-tool-kit/vault": "file:../../lib/vault",
+    "@dotcom-tool-kit/error": "^1.9.0",
+    "@dotcom-tool-kit/state": "^1.9.0",
+    "@dotcom-tool-kit/logger": "^1.9.0",
+    "@dotcom-tool-kit/types": "^1.9.0",
+    "@dotcom-tool-kit/vault": "^1.9.0",
     "ft-next-router": "^1.0.0"
   },
   "repository": {
@@ -27,5 +27,8 @@
   "files": [
     "/lib",
     ".toolkitrc.yml"
-  ]
+  ],
+  "peerDependencies": {
+    "dotcom-tool-kit": "1.x"
+  }
 }

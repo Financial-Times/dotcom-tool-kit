@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/n-test",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "@dotcom-tool-kit/state": "file:../../lib/state",
-    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/logger": "^1.9.0",
+    "@dotcom-tool-kit/state": "^1.9.0",
+    "@dotcom-tool-kit/types": "^1.9.0",
     "@financial-times/n-test": "^3.0.1"
   },
   "repository": {
@@ -33,5 +33,8 @@
   ],
   "volta": {
     "extends": "../../package.json"
+  },
+  "peerDependencies": {
+    "dotcom-tool-kit": "1.x"
   }
 }

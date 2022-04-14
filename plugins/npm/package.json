@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/npm",
-  "version": "0.0.0-development",
+  "version": "1.9.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,11 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "@actions/exec": "^1.1.0",
-    "@dotcom-tool-kit/error": "file:../../lib/error",
-    "@dotcom-tool-kit/husky-hook": "file:../../lib/husky-hook",
-    "@dotcom-tool-kit/package-json-hook": "file:../../lib/package-json-hook",
-    "@dotcom-tool-kit/state": "file:../../lib/state",
-    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/error": "^1.9.0",
+    "@dotcom-tool-kit/husky-hook": "^1.9.0",
+    "@dotcom-tool-kit/package-json-hook": "^1.9.0",
+    "@dotcom-tool-kit/state": "^1.9.0",
+    "@dotcom-tool-kit/types": "^1.9.0",
     "libnpmpack": "^3.1.0",
     "libnpmpublish": "^5.0.1",
     "pacote": "^12.0.3",
@@ -40,5 +40,8 @@
   ],
   "volta": {
     "extends": "../../package.json"
+  },
+  "peerDependencies": {
+    "dotcom-tool-kit": "1.x"
   }
 }
