@@ -130,11 +130,11 @@ To configure your plugin, do the following steps:
 - define the hook in plugins/name-of-plugin/src/index.ts
   ```
   import Name-of-plugin from './tasks/name-of-plugin'
-  import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
+  import { PackageJsonScriptHook } from '@dotcom-tool-kit/package-json-hook'
 
   ...
 
-  class HookName extends PackageJsonHook {
+  class HookName extends PackageJsonScriptHook {
     static description = '...'
 
     script = 'name-of-plugin'
@@ -146,7 +146,7 @@ To configure your plugin, do the following steps:
   }
   ```
   you can find an example of this in plugins/npm/src/index.ts
-- [optional] you can define the tasks used by the plugin in plugins/name-of-plugin/.toolkit.yml, otherwise the default task is set 
+- [optional] you can define the tasks used by the plugin in plugins/name-of-plugin/.toolkit.yml, otherwise the default task is set
   ```
   hooks:
     '<name of the hooks defined>:<local|ci|*>': name-of-plugin
@@ -175,7 +175,7 @@ You can check if it's installed by running the help command:
 npx dotcom-tool-kit --help
 ```
 ### Running the created plugin
-After you have completed the steps in creating a plugin, you can run its hook: 
+After you have completed the steps in creating a plugin, you can run its hook:
 ```sh
 npx dotcom-tool-kit <hook eg. build:local>
 ```

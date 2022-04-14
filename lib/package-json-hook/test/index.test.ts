@@ -1,13 +1,13 @@
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import { promises as fs } from 'fs'
-import { PackageJsonHook } from '../src'
+import { PackageJsonScriptHook } from '../src'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger
 
 describe('package.json hook', () => {
-  class TestHook extends PackageJsonHook {
+  class TestHook extends PackageJsonScriptHook {
     key = 'test-hook'
     hook = 'test:hook'
   }
