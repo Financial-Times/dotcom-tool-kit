@@ -92,7 +92,7 @@ references:
     tags:
       only:
         # CircleCI doesn't allow prerelease versions to be published
-        - /^orb-\d+\.\d+\.\d+$/
+        - /^orb-v\d+\.\d+\.\d+$/
     branches:
       ignore: /.*/
 
@@ -356,8 +356,8 @@ workflows:
             <<: *filters_orbs_release_build
       - orb-tools/publish:
           attach-workspace: true
-          # Strip leading 'v' from git tag
-          orb-ref: financial-times/dotcom-tool-kit@${CIRCLE_TAG:1}
+          # Strip leading 'orb-v' from git tag
+          orb-ref: financial-times/dotcom-tool-kit@${CIRCLE_TAG:5}
           filters:
             <<: *filters_orbs_release_build
           requires:

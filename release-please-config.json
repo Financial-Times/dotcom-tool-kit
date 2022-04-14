@@ -16,6 +16,9 @@
     "lib/types": {},
     "lib/vault": {},
     "lib/wait-for-ok": {},
+    "orb": {
+      "release-type": "simple"
+    },
     "plugins/babel": {},
     "plugins/backend-app": {},
     "plugins/circleci": {},

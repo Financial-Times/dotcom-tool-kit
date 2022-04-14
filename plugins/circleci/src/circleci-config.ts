@@ -8,7 +8,7 @@ import { getOptions } from '@dotcom-tool-kit/options'
 import { Hook } from '@dotcom-tool-kit/types'
 import { Workflow, JobConfig, CircleConfig, automatedComment } from '@dotcom-tool-kit/types/lib/circleci'
 
-const majorOrbVersion = '1'
+const majorOrbVersion = '2'
 
 export default abstract class CircleCiConfigHook extends Hook {
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')

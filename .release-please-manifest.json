@@ -11,6 +11,7 @@
   "lib/types": "1.9.0",
   "lib/vault": "1.9.0",
   "lib/wait-for-ok": "1.9.0",
+  "orb": "1.9.0",
   "plugins/babel": "1.9.0",
   "plugins/backend-app": "1.9.0",
   "plugins/circleci": "1.9.0",
