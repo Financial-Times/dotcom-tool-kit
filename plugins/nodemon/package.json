@@ -18,7 +18,7 @@
   },
   "peerDependencies": {
     "nodemon": "2.x",
-    "dotcom-tool-kit": "1.x"
+    "dotcom-tool-kit": "2.x"
   },
   "repository": {
     "type": "git",
