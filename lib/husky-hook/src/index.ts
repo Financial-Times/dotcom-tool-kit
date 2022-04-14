@@ -1,4 +1,4 @@
-import { PackageJsonHelper } from '@dotcom-tool-kit/hook'
+import { PackageJsonHelper } from '@dotcom-tool-kit/package-json-hook'
 
 type HuskyField = {
   hooks?: {

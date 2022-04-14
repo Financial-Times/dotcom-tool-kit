@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.0",
-    "@dotcom-tool-kit/hook": "^2.0.0",
     "@dotcom-tool-kit/logger": "^2.0.0",
     "@dotcom-tool-kit/options": "^2.0.0",
     "@dotcom-tool-kit/types": "^2.0.0",

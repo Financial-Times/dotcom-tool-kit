@@ -12,14 +12,13 @@
     },
     {
       "path": "../../lib/types"
-    },
-    {
-      "path": "../../lib/hook"
     }
   ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
