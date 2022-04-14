@@ -1,15 +1,8 @@
 plugins:
   - '@dotcom-tool-kit/npm'
   - '@dotcom-tool-kit/circleci-heroku'
-  - '@dotcom-tool-kit/babel'
   - '@dotcom-tool-kit/node'
 
 hooks:
   'run:local':
     - Node
-  'build:local':
-    - BabelDevelopment
-  'build:ci':
-    - BabelProduction
-  'build:remote':
-    - BabelProduction
