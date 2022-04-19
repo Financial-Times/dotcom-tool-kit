@@ -63,7 +63,7 @@ references:
     tags:
       ignore: /.*/
     branches:
-      ignore: /(^renovate-.*|^nori\/.*|^gh-pages)/
+      ignore: /(^renovate-.*|^nori\/.*|^gh-pages|^main$)/
 
   filters_main_branch:
     &filters_main_branch
@@ -179,7 +179,7 @@ workflows:
     jobs:
       - build:
           filters:
-            <<: *filters_ignore_tags_renovate_nori_build
+            <<: *filters_ignore_tags_renovate_nori_build_main
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
@@ -198,12 +198,12 @@ workflows:
           matrix:
             parameters:
               node-version: [ "16.14", "14.19" ]
+
+  release-please:
+    jobs:
       - release-please:
           filters:
             <<: *filters_only_main
-          requires:
-            - test-v16.14
-            - lint-v16.14
 
   renovate-nori-build-test:
     jobs:
