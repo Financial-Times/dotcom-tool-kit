@@ -19,6 +19,7 @@
     "lib/vault": {},
     "lib/wait-for-ok": {},
     "orb": {
+      "package-name": "orb",
       "release-type": "simple"
     },
     "plugins/babel": {},
