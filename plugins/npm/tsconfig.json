@@ -12,14 +12,13 @@
       "path": "../../lib/package-json-hook"
     },
     {
-      "path": "../../lib/husky-hook"
-    },
-    {
       "path": "../../lib/types"
     },
     {
       "path": "../../lib/state"
     },
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
