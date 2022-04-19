@@ -4,216 +4,135 @@
 
 [![CircleCI](https://circleci.com/gh/Financial-Times/dotcom-tool-kit.svg?style=svg&circle-token=f1f296a3a084deef4caabb72cfaf9617a654d244)](https://circleci.com/gh/Financial-Times/dotcom-tool-kit)
 
-...is a modern approach to developer tooling for FT.com applications and components. The tools are **modular**: projects with different requirements can install different sets of plugins, which are all surfaced through a single command-line interface.
+Tool Kit is modern developer tooling for FT.com repositories. It's fully modular, allowing repos that need different tooling to install separate plugins that work consistently together.
 
-Tool Kit is under active develpment. Anything can and probably will change.
+## Installing and using Tool Kit
 
-## TL;DR for Customer Products developers
+### Interactive installation & migration
 
-* Tool Kit replaces your app's `Makefile`, as well as `n-gage` and `n-heroku-tools`
-* You don't run Tool Kit directly, you run it using npm scripts, CircleCI jobs, and other similar tooling
-* Tool Kit [automatically manages](#hooks) the configuration for this tooling, so your repo is always consistent
-* Apps that have different requirements can install different plugins, instead of having to update and maintain nonstandard `Makefile` tasks
-
-## Hooks
-
-Tool Kit manages the build lifecycle for your app. Plugins can define **hooks** that can be run by developers, or other tooling like CI and hosting platforms. Hooks are things like `build`, `test` and `deploy` that are run during development, on CI servers, and on hosting platforms.
-
-Tool Kit plugins manage the configuration to run their hooks automatically from other tooling. When Tool Kit loads, it verifies the configuration exists, and exits if something is missing. You can run `npx dotcom-tool-kit --install`, which will install most configuration automatically, and provide instructions to follow for any configuration it can't automatically install.
-
-To allow apps to choose what they run, a hook defined by one plugin can be configured to run a task from another plugin.
-
-For example, the `npm` plugin defines a `test:local` hook to be run by the `test` script in your package.json (i.e., what is run when you call `npm run test`) but it doesn't define what tests to run itself. That's handled by a plugin like `mocha`, which can be configured to run on the `test:local` hook, to run your Mocha test suite when you run `npm run test`.
-
-Plugins can set a default task to run on a particular hook, to reduce configuration for common cases. For example, the `mocha` plugin configures itself to `test:*` hooks by default.
-
-Plugins can also define default hooks for other plugins they depend on, allowing you to install preset plugins for common use cases that define and configure tasks for all the hooks your app needs.
-
-If you, or a plugin, tries to configure a task to run on a hook that doesn't exist (which could be because you've not installed the plugin that defines it, or you've made a typo), Tool Kit will error, and list the available hooks.
-
-If you have multiple plugins installed that configure different tasks to run on the same hame, you'll need to [resolve the conflict](docs/resolving-hook-conflicts.md).
-
-### Plugins that define hooks
-
-- [`circleci`](plugins/circleci/readme.md)
-- [`heroku`](plugins/heroku/readme.md)
-- [`npm`](plugins/npm/readme.md)
-
-## Configuration
-
-Tool Kit supports configuration via a `toolkit` field in `package.json`:
-
-```json
-{
-   ...
-   "toolkit": {
-      "plugins": [...]
-   }
-}
-```
-
-or via a separate file, `.toolkitrc`, which can be YAML or JSON format:
-
-```yaml
-plugins: []
-```
-
-A Tool Kit plugin can also contain configuration, allowing plugins to provide defaults. App configuration will always override plugin configuration. For an example of a complete configuration file, see the [`.toolkitrc.yml` in the `frontend-app` plugin](plugins/frontend-app/.toolkitrc.yml).
-
-### Options
-
-#### `plugins`
-
-A list of Tool Kit plugins to load. These plugins should be listed as `devDependencies` in your app's `package.json`.
-
-#### `options`
-
-An object containing options for Tool Kit plugins. The keys are the names of plugins, and the values are an options object which will be passed into that plugin's tasks:
-
-```yaml
-options:
-  "@dotcom-tool-kit/eslint":
-    files:
-      - "**/*.js"
-```
-
-#### `hooks`
-
-An object configuring which tasks run on which [hooks](#hooks):
-
-```yaml
-hooks:
-  "build:local": WebpackDevelopment
-```
-
-A hook can be configured to run a single task, or a list of task, which will run in sequence:
-
-```yaml
-hooks:
-  "build:local":
-    - WebpackDevelopment
-    - BabelDevelopment
-```
-
-A plugin can list its own tasks, or tasks from any other plugin included by the app.
-
-If multiple plugins try to configure the same hooks, that's a conflict, and you won't be able to run Tool Kit without [resolving the conflict](docs/resolving-hook-conflicts.md) in a parent plugin, or your app.
-
-## Development
-
-Tool Kit is a monorepo. The [`plugins`](/plugins) folder contains several different parts published separately to `npm`. [`core/cli`](/core/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](#configuration). These plugins export tasks that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
-
-Tool Kit requires Node v12. To install the dependencies and link internal packages together, run:
+For an empty repository (containing at least a valid `package.json`), or to migrate an existing repo from [n-gage](https://github.com/financial-times/n-gage), you can run the interactive Tool Kit init script:
 
 ```sh
-npm install
+npm init @dotcom-tool-kit
 ```
 
-There's a testing sandbox at [`core/sandbox`](/core/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
+See [the migration guide](./docs/migrating-to-tool-kit.md) for a full explanation of what this script does.
 
-Tool Kit tasks are implemented via a simple `async run()` function, and written in Typescript.
+### Installing and configuring manually
 
-In the future, there will be unit and integration tests for every package.
-
-### Creating a plugin
-
-There's a script to create a skeleton plugin. Run:
+Install the core of Tool Kit as a `devDependency`:
 
 ```sh
-npm run create-plugin -- name-of-plugin
+npm install --save-dev dotcom-tool-kit
 ```
 
-and the script will create the plugin folder and add all the necessary configuration to get it building with Typescript.
+On its own, Tool Kit doesn't do anything, so you'll need to install some [plugins](./plugins) to give it functionality, e.g. running Jest tests with `npm run test`:
 
-
-To configure your plugin, do the following steps:
-- define the hook in plugins/name-of-plugin/src/index.ts
-  ```
-  import Name-of-plugin from './tasks/name-of-plugin'
-  import { PackageJsonScriptHook } from '@dotcom-tool-kit/package-json-hook'
-
-  ...
-
-  class HookName extends PackageJsonScriptHook {
-    static description = '...'
-
-    script = 'name-of-plugin'
-    hook = '<the hook you defined in the name-of-plugin's toolkit.yml, eg. dummy:local>'
-  }
-
-  export const hooks = {
-    '<any name, eg. dummy:local>': HookName,
-  }
-  ```
-  you can find an example of this in plugins/npm/src/index.ts
-- [optional] you can define the tasks used by the plugin in plugins/name-of-plugin/.toolkit.yml, otherwise the default task is set
-  ```
-  hooks:
-    '<name of the hooks defined>:<local|ci|*>': name-of-plugin
-    (you can add more if you want here)
-  ```
-- [add the plugin](#plugins) to `core/sandbox/.toolkitrc.yml`.
-
-
-Finally, build the created plugin by going to the root directory of this repository and running build:
 ```sh
-cd ../../
-npm run build
+npm install --save-dev @dotcom-tool-kit/npm @dotcom-tool-kit/jest
 ```
-(Alternatively, you can run ```npm run watch``` in the root directory and it will rebuild the ts files that you've changed in these steps)
 
-To test your plugin, you can install it in the sandbox package:
+Add a `.toolkitrc.yml` to the root of your repository to include these plugins:
+
+```yml
+plugins:
+  - '@dotcom-tool-kit/npm'
+  - '@dotcom-tool-kit/jest'
+```
+
+Every time you add a new plugin, you should tell Tool Kit to install configuration files in your repository:
 
 ```sh
-cd core/sandbox
-npm install ../../plugins/name-of-plugin
 npx dotcom-tool-kit --install
 ```
 
-You can check if it's installed by running the help command:
+### Running Tool Kit
+
+You don't run Tool Kit directly; its plugins can install themselves for you to run Tool Kit tasks from e.g. `package.json` scripts. With the `npm` plugin installed, `--install` will add some scripts to `package.json`, so you can run Jest with:
+
+```sh
+npm run test
+```
+
+At any time, you can run `--help` to see what plugins you have installed, what configuration files they're managing, and what tasks you can run with them:
+
 ```sh
 npx dotcom-tool-kit --help
 ```
-## Running the created plugin
-After you have completed the steps in creating a plugin, you can run its hook:
-```sh
-npx dotcom-tool-kit <hook eg. build:local>
-```
-## Plugin structure
 
-Tool Kit plugins are Node modules. Any code in the entry point of the plugin will be run when Tool Kit starts up and loads the plugin. If a plugin includes tasks, it should export a `tasks` array, contains [task classes](#tasks):
+## How Tool Kit works
 
-```typescript
-import Webpack from './tasks/webpack'
+### Plugins
 
-export const tasks = [ Webpack ]
-}
-```
+<img width="200" src="etc/plugin.svg" align="right">
+
+Tool Kit is a fully modular set of developer tooling. Not every project requires the same tooling, so to make sure different projects only have to install and configure what they need, Tool Kit is made of several **plugins** that you can install separately to provide different groups of functionality, like [the `npm` plugin](plugins/npm), which lets Tool Kit manage things like `package.json` scripts.
+
+This means a project that uses Jest for its tests can install [the `jest` plugin](plugins/jest), and a project using Mocha can install [the `mocha` plugin](plugins/mocha), and be able to run them consistently anywhere they're needed, e.g. the `npm run test` script. Plugins can depend on other plugins, so we can also publish plugins like `frontend-app` that bundle up most of the tooling you'll need into a single package.
+
+And if there's something you want to use in your repo that's not yet supported by Tool Kit, you can write a [custom plugin](docs/custom-plugins.md) so it can work consistently with any officially-supported tooling.
+
+Plugins provide **tasks**, which provide the code for running external tooling, and **hooks**, which manage configuration files in your repo that will be running tooling.
 
 ### Tasks
 
-A task extends the class `Task`, implementing its abstract asynchronous `run` function. You should also specify a `description` field which will be displayed in the help menu. Note that any options for the plugin defined in the configuration will be passed to the `options` field.
+A **task** is a lightweight abstraction for running some tooling from outside of Tool Kit. Tasks are written in TypeScript, so we can make use of modern Javascript-based tooling and libraries, easily provide structured logging and actionable error messages, and debug them more easily than things like Bash scripts.
 
-```typescript
-import { Task } from '@dotcom-tool-kit/task'
+An example of a task is `JestLocal` from the `jest` plugin, which abstracts running Jest tests in a local development environment. Some tasks support [configuration](#configuration) . This doesn't replace any native configuration that tooling might have (like a `jest.config.js`).
 
-type WebpackOptions = {
-  configPath?: string
-}
+### Hooks
 
-export default class Webpack extends Task<WebpackOptions> {
-  static description = 'bundle your code with webpack'
+<img width="200" src="etc/running-hook.svg" align="right">
 
-  async run(): Promise<void> {
-    // do things here
-  }
-}
+A **hook** is the glue between configuration in your repo that will be running Tool Kit and the tasks themselves. Things like scripts in `package.json` or jobs in your CircleCI config can be automatically managed and kept consistent by hooks.
+
+For example, the `test:local` hook in the `npm` package ensures the `test` script is defined in `package.json` to run `dotcom-tool-kit test:local`, then any tasks that are configured to run on `test:local` will be run when you run `npm run test`.
+
+Plugins can set a default hook for their tasks to run on; for example, the `JestLocal` task runs by default on the `test:local` hook. If you've got multiple tasks trying to run on the same hook by default, you'll need to [configure which you want to run](./docs/resolving-hook-conflicts.md).
+
+<img width="200" src="etc/installing-hook.svg" align="right">
+
+Hooks are there to be **installed** in your repository. Hook classes contain an `install` method that updates the relevant configuration files to run that hook. This lets Tool Kit plugins automatically manage files like `package.json` or `.circleci/config.yml`. Any changes made by hook installation should be committed.
+
+When Tool Kit starts up, it checks whether the hooks in your plugins are correctly installed, and will print an error if they're not. This prevents repos from getting out of sync with what Tool Kit expects, ensuring repos are fully consistent and controlled by Tool Kit plugins.
+
+### Configuration
+
+The `.toolkitrc.yml` file in your repo determines everything about how Tool Kit runs in that repo. It controls what plugins are included (which determine what hooks and tasks are available), gives you fine-grained control over what tasks are running on what hooks, and lets you provide options to plugins.
+
+An example `.toolkitrc.yml` might look like:
+
+```yml
+plugins:
+  # provides the test:local hooks
+  - '@dotcom-tool-kit/npm'
+  # provides the JestLocal task
+  - '@dotcom-tool-kit/jest'
+  # provides the Eslint task
+  - '@dotcom-tool-kit/eslint'
+
+hooks:
+  # run both Jest and ESlint when running `npm run test`
+  # required to resolve the conflict between their defaults
+  test:local:
+    - Eslint
+    - JestLocal
+
+options:
+  # ESlint plugin needs to know which files to run ESlint on.
+  # there's a default setting, but your repo might need something else
+  '@dotcom-tool-kit/eslint':
+    files:
+      - server/**/*.js
 ```
 
+The options available for each plugin are documented in their readmes. If the tooling that a plugin is using has its own method of configuration (like `.eslintrc`, `.babelrc`, `jest.config.js`, `webpack.config.js`), Tool Kit options aren't used for that; they're not merged with that config and don't replace it. Tool Kit options are only for things that need to be known to run the tooling in the first place, or where tooling doesn't provide its own configuration.
 
 ## Contributing
 
-Tool Kit is organised as a monorepo with all the different plugins and libraries stored in a single repository. This allows us to quickly investigate and make changes across the whole codebase, as well as making installation easier by sharing dependencies. However, release versions are not kept in sync between the packages, as we do not want to have to a major version bump for every package whenever we release a breaking change for a single package.
+Tool Kit is organised as a monorepo with all the different plugins and libraries stored in a single repository. This allows us to quickly investigate and make changes across the whole codebase, as well as making installation easier by sharing dependencies. See the [developer documentation](./docs/developing-tool-kit.md) for a full explanation of the internal architecture of Tool Kit.
+
+Release versions are not kept in sync between the packages, as we do not want to have to a major version bump for every package whenever we release a breaking change for a single package.
 
 We use [release-please](https://github.com/googleapis/release-please) to manage releases and versioning. Every time we make a merge to main, release-please checks which packages have been changed, and creates a PR to make new releases for them. It uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard to determine whether updates require a patch, minor, or major version bump, and we use [commitlint](https://commitlint.js.org) to enforce the standard in all of our commits.
 
@@ -223,14 +142,3 @@ feat(circleci): add support for nightly workflows
 ```
 
 Note that new plugins should be created with a version number of `0.1.0`. This indicates that the package is still in the early stages of development and could be subject to many breaking changes before it's stabilised. Committing breaking changes whilst your package is `<1.0.0` are treated as minor bumps (`0.2.0`) and both new features and bug fixes as patch bumps (`0.1.1`.) When you're ready, you can release a 1.0 of your plugin by including `Release-As: 1.0.0` in the body of the release commit.
-
-
-## How does Tool Kit relate to...
-
-### n-gage/n-heroku-tools
-
-Tool Kit is a replacement for these tools built on modern, reliable, testable technologies.
-
-### Page Kit
-
-Page Kit provides common page-level components and an asset pipeline for user-facing FT.com applications. Tool Kit complements this by providing tooling to manage the application while developing.
