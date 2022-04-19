@@ -1,4 +1,4 @@
-import { HuskyHook } from '@dotcom-tool-kit/husky-hook'
+import { HuskyHook } from './husky-hook'
 
 class GitPrecommit extends HuskyHook {
   key = 'pre-commit'

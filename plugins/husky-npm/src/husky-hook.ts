@@ -34,5 +34,4 @@ export abstract class HuskyHook extends PackageJsonHelper {
     const husky = this.packageJson.getField<HuskyField>(this.field)
     return husky?.hooks?.[this.key]?.includes(this.hook) ?? false
   }
-
 }

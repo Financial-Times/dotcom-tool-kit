@@ -6,8 +6,10 @@
   },
   "references": [
     {
-      "path": "../../lib/husky-hook"
+      "path": "../../lib/package-json-hook"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
