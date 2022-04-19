@@ -4,7 +4,7 @@ If your app requires some tooling that's not part of Tool Kit, you can write a c
 
 If you're looking to implement tooling in your repository that would require things like custom `npm` scripts, Bash scripts, or editing the Tool Kit-managed CircleCI config, **you should be writing a custom plugin**.
 
-A custom plugin can be written for a single repo or distributed as an npm package to be consumed by multiple repos owned by your team. The custom plugins themselves will be maintained and supported **by your team**, not Platforms. 
+A custom plugin can be written for a single repo or distributed as an npm package to be consumed by multiple repos owned by your team. The custom plugins themselves will be maintained and supported **by your team**, not Platforms.
 
 If there's wide demand for a particular custom plugin (for example, if it starts being used across multiple teams), we will consider adopting that plugin into Tool Kit. Writing a custom plugin (rather than implementing the tooling another way) will make it much more likely for us to be able to add the feature to Tool Kit.
 
@@ -52,7 +52,6 @@ class Rollup extends Task {
     // print any config warnings to the console
     warnings.flush()
 
-    
     for (const optionsEntry of options) {
       const bundle = await rollup.rollup(optionsEntry)
       await Promise.all(optionsEntry.output.map(bundle.write))
@@ -105,7 +104,7 @@ class PrepareHook extends Hook {
   async check() {
     return this.packageJson.getField('scripts')?.prepare === 'dotcom-tool-kit prepare:local'
   }
-  
+
   async install() {
     this.packageJson.requireScript({
       stage: 'prepare',
@@ -121,12 +120,12 @@ export const hooks = {
 }
 ```
 
-There are a handful of common base classes that Tool Kit includes for common hook usecases (such as CircleCI configuration or npm `package.json` scripts) that you can use, instead of implementing your hook completely from scratch. For example, we can build our `prepare:local` hook on top of the `PackageJsonHook` built-in class:
+There are a handful of common base classes that Tool Kit includes for common hook usecases (such as CircleCI configuration or npm `package.json` scripts) that you can use, instead of implementing your hook completely from scratch. For example, we can build our `prepare:local` hook on top of the `PackageJsonScriptHook` built-in class:
 
 ```js
-const { PackageJsonHook } = require('@dotcom-tool-kit/package-json-hook')
+const { PackageJsonScriptHook } = require('@dotcom-tool-kit/package-json-hook')
 
-class PrepareHook extends PackageJsonHook {
+class PrepareHook extends PackageJsonScriptHook {
   key = 'prepare'
   hook = 'prepare:local'
 }

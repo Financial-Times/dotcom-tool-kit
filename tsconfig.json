@@ -86,9 +86,6 @@
       "path": "plugins/lint-staged-npm"
     },
     {
-      "path": "lib/hook"
-    },
-    {
       "path": "lib/logger"
     },
     {

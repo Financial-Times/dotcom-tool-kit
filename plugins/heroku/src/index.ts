@@ -2,19 +2,19 @@ import HerokuProduction from './tasks/production'
 import HerokuStaging from './tasks/staging'
 import HerokuReview from './tasks/review'
 import HerokuTeardown from './tasks/teardown'
-import { PackageJsonHook } from '@dotcom-tool-kit/package-json-hook'
+import { PackageJsonScriptHook } from '@dotcom-tool-kit/package-json-hook'
 
-class BuildRemote extends PackageJsonHook {
+class BuildRemote extends PackageJsonScriptHook {
   key = 'heroku-postbuild'
   hook = 'build:remote'
 }
 
-class CleanupRemote extends PackageJsonHook {
+class CleanupRemote extends PackageJsonScriptHook {
   key = 'heroku-postbuild'
   hook = 'cleanup:remote'
 }
 
-class ReleaseRemote extends PackageJsonHook {
+class ReleaseRemote extends PackageJsonScriptHook {
   key = 'heroku-postbuild'
   hook = 'release:remote'
 }

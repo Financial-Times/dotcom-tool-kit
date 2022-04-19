@@ -1,6 +1,8 @@
 {
   "bootstrap-sha": "bc6f822e7a6927b65b63c91021ede10dad73006f",
-  "plugins": ["node-workspace"],
+  "plugins": [
+    "node-workspace"
+  ],
   "changelog-type": "github",
   "prerelease": true,
   "bump-minor-pre-major": true,
@@ -9,7 +11,6 @@
     "core/cli": {},
     "core/create": {},
     "lib/error": {},
-    "lib/hook": {},
     "lib/husky-hook": {},
     "lib/logger": {},
     "lib/options": {},

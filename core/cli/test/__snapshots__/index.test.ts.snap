@@ -806,7 +806,7 @@ Object {
       "key": "build",
       "logger": DerivedLogger {},
       "plugin": Object {
-        "PackageJsonHook": [Function],
+        "PackageJsonScriptHook": [Function],
         "hooks": Object {
           "build:local": [Circular],
           "run:local": RunLocal {
@@ -1706,7 +1706,7 @@ Object {
       "key": "start",
       "logger": DerivedLogger {},
       "plugin": Object {
-        "PackageJsonHook": [Function],
+        "PackageJsonScriptHook": [Function],
         "hooks": Object {
           "build:local": BuildLocal {
             "field": "scripts",
@@ -2120,7 +2120,7 @@ Object {
       "key": "test",
       "logger": DerivedLogger {},
       "plugin": Object {
-        "PackageJsonHook": [Function],
+        "PackageJsonScriptHook": [Function],
         "hooks": Object {
           "build:local": BuildLocal {
             "field": "scripts",
@@ -3014,7 +3014,7 @@ Object {
       ],
     },
     "@dotcom-tool-kit/npm": Object {
-      "PackageJsonHook": [Function],
+      "PackageJsonScriptHook": [Function],
       "hooks": Object {
         "build:local": BuildLocal {
           "field": "scripts",

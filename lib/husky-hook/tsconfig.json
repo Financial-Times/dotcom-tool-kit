@@ -4,6 +4,12 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "references": [{ "path": "../hook" }],
-  "include": ["src/**/*"]
+  "references": [
+    {
+      "path": "../package-json-hook"
+    }
+  ],
+  "include": [
+    "src/**/*"
+  ]
 }

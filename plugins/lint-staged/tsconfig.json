@@ -4,6 +4,15 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "references": [{ "path": "../../lib/hook" }, { "path": "../../lib/logger" }],
-  "include": ["src/**/*"]
+  "references": [
+    {
+      "path": "../../lib/package-json-hook"
+    },
+    {
+      "path": "../../lib/logger"
+    }
+  ],
+  "include": [
+    "src/**/*"
+  ]
 }
