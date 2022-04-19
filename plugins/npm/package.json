@@ -12,7 +12,6 @@
   "dependencies": {
     "@actions/exec": "^1.1.0",
     "@dotcom-tool-kit/error": "^2.0.0",
-    "@dotcom-tool-kit/husky-hook": "^2.0.0",
     "@dotcom-tool-kit/package-json-hook": "^2.0.0",
     "@dotcom-tool-kit/state": "^2.0.0",
     "@dotcom-tool-kit/types": "^2.0.0",
