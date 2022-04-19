@@ -1,6 +1,6 @@
 {
   "name": "dotcom-tool-kit",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "description": "modern, maintainable, modular developer tooling for FT.com projects",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -30,12 +30,12 @@
     "winston": "^3.5.1"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "^1.9.0",
-    "@dotcom-tool-kit/hook": "^1.9.0",
-    "@dotcom-tool-kit/logger": "^1.9.0",
-    "@dotcom-tool-kit/options": "^1.9.0",
-    "@dotcom-tool-kit/types": "^1.9.0",
-    "@dotcom-tool-kit/wait-for-ok": "^1.9.0",
+    "@dotcom-tool-kit/error": "^2.0.0",
+    "@dotcom-tool-kit/hook": "^2.0.0",
+    "@dotcom-tool-kit/logger": "^2.0.0",
+    "@dotcom-tool-kit/options": "^2.0.0",
+    "@dotcom-tool-kit/types": "^2.0.0",
+    "@dotcom-tool-kit/wait-for-ok": "^2.0.0",
     "cosmiconfig": "^7.0.0",
     "import-from": "^3.0.0",
     "lodash.merge": "^4.6.2",
