@@ -2,7 +2,6 @@
   "core/cli": "2.0.0",
   "core/create": "2.0.0",
   "lib/error": "2.0.0",
-  "lib/hook": "2.0.0",
   "lib/husky-hook": "2.0.0",
   "lib/logger": "2.0.0",
   "lib/options": "2.0.0",
