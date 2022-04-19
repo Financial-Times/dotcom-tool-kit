@@ -9,7 +9,7 @@ Each job is a very simple wrapper that calls its respective hook, where most of 
 ```yaml
 parameters:
   node-version:
-    default: '12.22'
+    default: '16.14'
     type: string
 
 executor:

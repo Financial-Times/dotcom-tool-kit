@@ -1,6 +1,6 @@
 parameters:
   node-version:
-    default: "12.22-browsers"
+    default: "16.14-browsers"
     type: string
 
 executor:
