@@ -58,7 +58,7 @@ references:
     branches:
       only: /(^renovate-.*|^nori\/.*)/
 
-  filters_ignore_tags_renovate_nori_build:
+  filters_ignore_tags_renovate_nori_build_main:
     &filters_ignore_tags_renovate_nori_build
     tags:
       ignore: /.*/
