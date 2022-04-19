@@ -11,7 +11,6 @@
     "core/cli": {},
     "core/create": {},
     "lib/error": {},
-    "lib/husky-hook": {},
     "lib/logger": {},
     "lib/options": {},
     "lib/package-json-hook": {},
