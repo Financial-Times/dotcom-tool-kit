@@ -26,7 +26,7 @@ Install the core of Tool Kit as a `devDependency`:
 npm install --save-dev dotcom-tool-kit
 ```
 
-On its own, Tool Kit doesn't do anything, so you'll need to install some [plugins](./plugins) to give it functionality, e.g. running Jest tests with `npm run test`:
+On its own, Tool Kit doesn't do anything, so you'll need to install some [plugins](./plugins) to give it functionality. For example, if you want to run Jest tests with `npm run test` via Tool Kit, you can install the `jest` and `npm` plugins:
 
 ```sh
 npm install --save-dev @dotcom-tool-kit/npm @dotcom-tool-kit/jest
@@ -40,7 +40,7 @@ plugins:
   - '@dotcom-tool-kit/jest'
 ```
 
-Every time you add a new plugin, you should tell Tool Kit to install configuration files in your repository:
+Every time you change your `.toolkitrc.yml`, e.g. adding or removing a plugin, you should tell Tool Kit to install configuration files in your repository:
 
 ```sh
 npx dotcom-tool-kit --install
@@ -48,7 +48,7 @@ npx dotcom-tool-kit --install
 
 ### Running Tool Kit
 
-You don't run Tool Kit directly; its plugins can install themselves for you to run Tool Kit tasks from e.g. `package.json` scripts. With the `npm` plugin installed, `--install` will add some scripts to `package.json`, so you can run Jest with:
+You don't run Tool Kit directly; you run plugin tasks using things like npm scripts, automatically configured in your `package.json` by Tool Kit. With the `npm` and `jest` plugins installed, Jest tests are run with the npm `test` script:
 
 ```sh
 npm run test
