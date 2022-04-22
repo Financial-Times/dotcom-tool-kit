@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { render, Box, Text, useInput, BoxProps } from 'ink'
+import { render, Box, BoxProps, Text, useApp, useInput } from 'ink'
 import BigText from 'ink-big-text'
 import winston from 'winston'
 import { loadConfig } from 'dotcom-tool-kit/lib/config'
@@ -36,52 +36,104 @@ const List = (props: ListProps) => (
   </SelectableBox>
 )
 
+const getItemLengths = (plugin: Plugin): { hooksLength: number; tasksLength: number } => {
+  const hooksLength = (plugin.hooks && Object.keys(plugin.hooks).length) ?? 0
+  const tasksLength = (plugin.tasks && Object.keys(plugin.tasks).length) ?? 0
+  return { hooksLength, tasksLength }
+}
+
 interface PluginDetailsProps {
   plugin: Plugin
   selected: boolean
+  cursor: number
 }
-const PluginDetails = (props: PluginDetailsProps) => (
-  <SelectableBox selected={props.selected} width={72} flexDirection="column">
-    <Text>Included by {styles.plugin(props.plugin.parent!.id)}</Text>
-    {props.plugin.hooks && Object.keys(props.plugin.hooks).length > 0 && (
-      <>
-        <Text>Defines the following hooks:</Text>
-        {Object.keys(props.plugin.hooks).map((hook) => (
-          <Text key={hook}>- {styles.hook(hook)}</Text>
-        ))}
-      </>
-    )}
-    {props.plugin.tasks && props.plugin.tasks.length > 0 && (
-      <>
-        <Text>Defines the following tasks:</Text>
-        {props.plugin.tasks.map((task) => (
-          <Text key={task.id!}>- {styles.task(task.id!)}</Text>
-        ))}
-      </>
-    )}
-  </SelectableBox>
-)
+const PluginDetails = (props: PluginDetailsProps) => {
+  const { hooksLength, tasksLength } = getItemLengths(props.plugin)
+  return (
+    <SelectableBox selected={props.selected} width={72} flexDirection="column">
+      <Text>
+        Included by{' '}
+        <Text bold={props.selected && props.cursor === 0}>{styles.plugin(props.plugin.parent!.id)}</Text>
+      </Text>
+      {hooksLength > 0 && (
+        <>
+          <Text>Defines the following hooks:</Text>
+          {Object.keys(props.plugin.hooks!).map((hook, index) => (
+            <Text key={hook}>
+              - <Text bold={props.selected && props.cursor === index + 1}>{styles.hook(hook)}</Text>
+            </Text>
+          ))}
+        </>
+      )}
+      {tasksLength > 0 && (
+        <>
+          <Text>Defines the following tasks:</Text>
+          {props.plugin.tasks!.map((task, index) => (
+            <Text key={task.id!}>
+              -{' '}
+              <Text bold={props.selected && props.cursor === index + 1 + hooksLength}>
+                {styles.task(task.id!)}
+              </Text>
+            </Text>
+          ))}
+        </>
+      )}
+    </SelectableBox>
+  )
+}
 
 interface PluginsViewProps {
   plugins: [string, Plugin][]
 }
 
 const PluginsView = (props: PluginsViewProps) => {
-  const [cursor, setCursor] = useState(0)
+  const { exit } = useApp()
+  const [listCursor, setListCursor] = useState(0)
+  const [detailsCursor, setDetailsCursor] = useState(0)
   const [detailsSelected, setDetailsSelected] = useState(false)
+
+  const selectedPlugin = props.plugins[listCursor][1]
+
   useInput((input, key) => {
-    const maxCursor = props.plugins.length - 1
-    if (!detailsSelected && (key.downArrow || input === 'j')) {
-      setCursor(cursor === maxCursor ? 0 : cursor + 1)
+    const maxListCursor = props.plugins.length - 1
+    const { hooksLength, tasksLength } = getItemLengths(selectedPlugin)
+    const maxDetailsCursor = hooksLength + tasksLength
+    if (key.downArrow || input === 'j') {
+      if (detailsSelected) {
+        setDetailsCursor(detailsCursor === maxDetailsCursor ? 0 : detailsCursor + 1)
+      } else {
+        setListCursor(listCursor === maxListCursor ? 0 : listCursor + 1)
+        setDetailsCursor(0)
+      }
     }
-    if (!detailsSelected && (key.upArrow || input === 'k')) {
-      setCursor(cursor === 0 ? maxCursor : cursor - 1)
+    if (key.upArrow || input === 'k') {
+      if (detailsSelected) {
+        setDetailsCursor(detailsCursor === 0 ? maxDetailsCursor : detailsCursor - 1)
+      } else {
+        setListCursor(listCursor === 0 ? maxListCursor : listCursor - 1)
+        setDetailsCursor(0)
+      }
     }
-    if (!detailsSelected && (key.return || key.rightArrow || input === 'l')) {
-      setDetailsSelected(true)
+    if (key.return || key.rightArrow || input === 'l') {
+      if (detailsSelected) {
+        if (detailsCursor === 0) {
+          const parentPluginIndex = props.plugins.findIndex(
+            ([pluginName]) => pluginName === selectedPlugin.parent!.id
+          )
+          if (parentPluginIndex !== -1) {
+            setListCursor(parentPluginIndex)
+            setDetailsCursor(0)
+          }
+        }
+      } else {
+        setDetailsSelected(true)
+      }
     }
     if (detailsSelected && (key.escape || key.leftArrow || input === 'h')) {
       setDetailsSelected(false)
+    }
+    if (input === 'q') {
+      exit()
     }
   })
   return (
@@ -89,9 +141,9 @@ const PluginsView = (props: PluginsViewProps) => {
       <List
         items={props.plugins.map(([id]) => styles.plugin(id))}
         selected={!detailsSelected}
-        cursor={cursor}
+        cursor={listCursor}
       />
-      <PluginDetails plugin={props.plugins[cursor][1]} selected={detailsSelected} />
+      <PluginDetails plugin={selectedPlugin} selected={detailsSelected} cursor={detailsCursor} />
     </Box>
   )
 }
