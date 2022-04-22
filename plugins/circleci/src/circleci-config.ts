@@ -6,7 +6,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { Hook } from '@dotcom-tool-kit/types'
-import { Workflow, JobConfig, CircleConfig, automatedComment } from '@dotcom-tool-kit/types/lib/circleci'
+import { Workflow, JobConfig, CircleConfig, automatedComment, ComputedJob } from '@dotcom-tool-kit/types/lib/circleci'
 
 const majorOrbVersion = '2'
 
@@ -18,6 +18,8 @@ export default abstract class CircleCiConfigHook extends Hook {
   abstract job: string
   jobOptions: JobConfig = {}
   addToNightly?: boolean
+
+  computedJob: Record<string, ComputedJob> = {};
 
   async getCircleConfigRaw(): Promise<string | undefined> {
     if (!this._circleConfigRaw) {
@@ -51,6 +53,14 @@ export default abstract class CircleCiConfigHook extends Hook {
     const workflows = config?.workflows as Record<string, Workflow | undefined> | undefined
     const jobs = workflows?.['tool-kit']?.jobs
     const nightlyJobs = workflows?.['nightly']?.jobs
+
+    this.computedJob = {
+      [this.job]: {
+        'node-version': getOptions('@dotcom-tool-kit/circleci')?.nodeVersion ?? '16.14-browsers',
+        ...this.jobOptions
+      }
+    }
+
     if (!jobs || !nightlyJobs) {
       return false
     }
@@ -66,15 +76,10 @@ export default abstract class CircleCiConfigHook extends Hook {
       }
     }
 
-    function hasJob(expectedJob: string, jobs: NonNullable<Workflow['jobs']>): boolean {
-      return jobs.some(
-        (job) =>
-          (typeof job === 'string' && job === expectedJob) ||
-          (typeof job === 'object' && job.hasOwnProperty(expectedJob))
-      )
+    function hasJob(expectedJob: any, jobs: NonNullable<Workflow['jobs']>): boolean {
+      return jobs.some((job) => isEqual(expectedJob, job))
     }
-
-    return hasJob(this.job, jobs) && (!this.addToNightly || hasJob(this.job, nightlyJobs))
+    return hasJob(this.computedJob, jobs) && (!this.addToNightly || hasJob(this.computedJob, nightlyJobs))
   }
 
   async install(): Promise<void> {
@@ -164,17 +169,21 @@ export default abstract class CircleCiConfigHook extends Hook {
       throw error
     }
 
-    const job = {
-      [this.job]: {
-        'node-version': getOptions('@dotcom-tool-kit/circleci')?.nodeVersion ?? '16.14-browsers',
-        ...this.jobOptions
-      }
+    const hasJob = (jobs: NonNullable<Workflow['jobs']>): boolean => {
+      return !jobs.some((candidateJob, index) => { 
+                if(Object.keys(candidateJob)[0] === this.job && !isEqual(candidateJob, this.computedJob)) {
+                  jobs[index] = this.computedJob; return true
+                }
+                return false
+      })
     }
-    // Avoid duplicating jobs (this can happen when check() fails when the version is wrong)
-    if (!jobs.some((candidateJob) => isEqual(candidateJob, job))) {
-      jobs.push(job)
+
+    // Avoid duplicating jobs (this can happen when check() fails when the version is wrong). 
+    // Replace original job with new job if it needs updating, and if job does not yet exist in config.yml we append.
+    if (hasJob(jobs)) {
+      jobs.push(this.computedJob)
     }
-    if (this.addToNightly && !nightlyJobs.some((candidateJob) => isEqual(candidateJob, job))) {
+    if (this.addToNightly && hasJob(nightlyJobs)) {
       const nightlyJob = this.jobOptions
         ? {
             [this.job]: {
@@ -186,7 +195,7 @@ export default abstract class CircleCiConfigHook extends Hook {
       nightlyJobs.push(nightlyJob)
     }
 
-    const serialised = automatedComment + yaml.dump(config)
+    const serialised = automatedComment + yaml.dump(config, {noRefs: true})
     const circleConfigDir = path.dirname(this.circleConfigPath)
     this.logger.verbose(`making directory at ${styles.filepath(circleConfigDir)}...`)
     // Enable recursive option so that mkdir doesn't throw if the directory

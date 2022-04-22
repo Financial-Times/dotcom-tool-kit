@@ -6,6 +6,10 @@ export type JobConfig = {
     filters?: { branches?: { only?: string; ignore?: string }, tags?: { only?: string} }
 }
 
+export type ComputedJob = {
+    'node-version': string,
+} & JobConfig
+
 type TriggerConfig = {
     schedule?: { cron: string; filters?: { branches: { only?: string; ignore?: string } } }
 }
