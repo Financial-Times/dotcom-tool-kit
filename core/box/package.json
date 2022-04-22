@@ -1,0 +1,40 @@
+{
+  "name": "@dotcom-tool-kit/box",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "lib",
+  "bin": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@dotcom-tool-kit/logger": "file:../../lib/logger",
+    "dotcom-tool-kit": "file:../cli",
+    "ink": "^3.2.0",
+    "ink-big-text": "^1.2.0",
+    "react": "^17.0.2",
+    "winston": "^3.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "core/box"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/core/box",
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ],
+  "volta": {
+    "extends": "../../package.json"
+  },
+  "devDependencies": {
+    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@types/ink-big-text": "^1.2.1",
+    "@types/react": "^17.0.39"
+  }
+}

@@ -105,6 +105,9 @@
     },
     {
       "path": "plugins/cypress"
+    },
+    {
+      "path": "core/box"
     }
   ]
 }
