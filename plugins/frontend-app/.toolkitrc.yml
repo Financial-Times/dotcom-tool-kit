@@ -1,14 +1,3 @@
 plugins:
   - '@dotcom-tool-kit/webpack'
   - '@dotcom-tool-kit/backend-app'
-
-hooks:
-  'build:local':
-    - WebpackDevelopment
-    - BabelDevelopment
-  'build:ci':
-    - WebpackProduction
-    - BabelProduction
-  'build:remote':
-    - WebpackProduction
-    - BabelProduction
