@@ -57,6 +57,9 @@ describe('CircleCI config hook', () => {
 
         expect(config).toEqual(
           expect.objectContaining({
+            orbs: {
+              "tool-kit": "financial-times/dotcom-tool-kit@2",
+            },
             workflows: {
               'tool-kit': {
                 jobs: expect.arrayContaining([

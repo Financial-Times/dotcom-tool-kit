@@ -19,8 +19,6 @@ export default abstract class CircleCiConfigHook extends Hook {
   jobOptions: JobConfig = {}
   addToNightly?: boolean
 
-  computedJob: Record<string, ComputedJob> = {};
-
   async getCircleConfigRaw(): Promise<string | undefined> {
     if (!this._circleConfigRaw) {
       try {
@@ -48,18 +46,22 @@ export default abstract class CircleCiConfigHook extends Hook {
     return this._circleConfig
   }
 
+  getComputedJob(): Record<string, ComputedJob> {
+    return {
+      [this.job]: {
+        'node-version': getOptions('@dotcom-tool-kit/circleci')?.nodeVersion ?? '16.14-browsers',
+        ...this.jobOptions
+      }
+    }
+  }
+
   async check(): Promise<boolean> {
     const config = await this.getCircleConfig()
     const workflows = config?.workflows as Record<string, Workflow | undefined> | undefined
     const jobs = workflows?.['tool-kit']?.jobs
     const nightlyJobs = workflows?.['nightly']?.jobs
 
-    this.computedJob = {
-      [this.job]: {
-        'node-version': getOptions('@dotcom-tool-kit/circleci')?.nodeVersion ?? '16.14-browsers',
-        ...this.jobOptions
-      }
-    }
+    const computedJob = this.getComputedJob()
 
     if (!jobs || !nightlyJobs) {
       return false
@@ -79,7 +81,7 @@ export default abstract class CircleCiConfigHook extends Hook {
     function hasJob(expectedJob: any, jobs: NonNullable<Workflow['jobs']>): boolean {
       return jobs.some((job) => isEqual(expectedJob, job))
     }
-    return hasJob(this.computedJob, jobs) && (!this.addToNightly || hasJob(this.computedJob, nightlyJobs))
+    return hasJob(computedJob, jobs) && (!this.addToNightly || hasJob(computedJob, nightlyJobs))
   }
 
   async install(): Promise<void> {
@@ -169,10 +171,12 @@ export default abstract class CircleCiConfigHook extends Hook {
       throw error
     }
 
+    const computedJob = this.getComputedJob()
+
     const hasJob = (jobs: NonNullable<Workflow['jobs']>): boolean => {
       return !jobs.some((candidateJob, index) => { 
-                if(Object.keys(candidateJob)[0] === this.job && !isEqual(candidateJob, this.computedJob)) {
-                  jobs[index] = this.computedJob; return true
+                if(Object.keys(candidateJob)[0] === this.job && !isEqual(candidateJob, computedJob)) {
+                  jobs[index] = computedJob; return true
                 }
                 return false
       })
@@ -181,7 +185,7 @@ export default abstract class CircleCiConfigHook extends Hook {
     // Avoid duplicating jobs (this can happen when check() fails when the version is wrong). 
     // Replace original job with new job if it needs updating, and if job does not yet exist in config.yml we append.
     if (hasJob(jobs)) {
-      jobs.push(this.computedJob)
+      jobs.push(computedJob)
     }
     if (this.addToNightly && hasJob(nightlyJobs)) {
       const nightlyJob = this.jobOptions

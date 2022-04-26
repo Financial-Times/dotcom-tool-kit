@@ -1,7 +1,13 @@
 workflows:
   tool-kit:
     jobs:
-      - test-job
+      - test-job:
+          node-version: 16.14-browsers
+          requires:
+            - another-job
   nightly:
     jobs:
-      - test-job
+      - test-job:
+          node-version: 16.14-browsers
+          requires:
+            - another-job
