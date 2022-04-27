@@ -1,3 +1,8 @@
 plugins:
   - '@dotcom-tool-kit/webpack'
   - '@dotcom-tool-kit/backend-app'
+
+hooks:
+  'run:local':
+    - Node
+    - WebpackWatch
