@@ -22,7 +22,7 @@ The script will create the plugin folder and add all the necessary configuration
 
 ## Development workflow
 
-At the root of the repository, `npm run watch` will run the Typescript compiler and build files when you change them. It's recommended to leave that running whil you develop things.
+At the root of the repository, `npm run watch` will run the Typescript compiler and build files when you change them. It's recommended to leave that running while you develop things.
 
 ### Manually testing a plugin
 
