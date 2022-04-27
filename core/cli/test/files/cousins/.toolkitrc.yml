@@ -1,0 +1,9 @@
+plugins:
+  - '../../../../../plugins/frontend-app'
+  - '../../../../../plugins/babel'
+  - '../../../../../plugins/npm'
+  - '../../../../../plugins/circleci-heroku'
+
+options:
+
+hooks:
