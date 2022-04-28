@@ -90,6 +90,16 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v\d+\.\d+\.\d+(-.+)?/
+      - tool-kit/publish:
+          node-version: 16.14-browsers
+          context: npm-publish-token
+          requires:
+            - tool-kit/test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
   nightly:
     triggers:
       - schedule:
