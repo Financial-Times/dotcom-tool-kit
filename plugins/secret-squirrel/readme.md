@@ -14,15 +14,17 @@ And add it to your repo's `.toolkitrc.yml`:
 
 ```yml
 plugins:
-  - '@dotcom-tool-kit/secret-squirrel
+  - '@dotcom-tool-kit/secret-squirrel'
 ```
 
-You will need a plugin that provides a hook to run the `SecretSquirrel` task. By default, the task runs on the `git:precommit` hook. One plugin that provides that hook is [`husky-npm`](../husky-npm); installing that alongside this plugin will enforce Secret Squirrel running on before every commit. You can also configure Secret Squirrel to run on any other hook; for example, if you want to run it with `npm run test`, you could install the `npm` plugin and manually configure Secret Squirrel to run on `npm`'s `test:local` hook:
+You will need a plugin that provides a hook to run the `SecretSquirrel` task. By default, the task runs on the `git:precommit` hook. One plugin that provides that hook is [`husky-npm`](../husky-npm); installing that alongside this plugin will enforce Secret Squirrel running on before every commit.
+
+You can also configure Secret Squirrel to run on any other hook; for example, if you want to run it with `npm run test`, you could install the `npm` plugin and manually configure Secret Squirrel to run on `npm`'s `test:local` hook:
 
 ```yml
 plugins:
-  - '@dotcom-tool-kit/secret-squirrel
-  - '@dotcom-tool-kit/npm
+  - '@dotcom-tool-kit/secret-squirrel'
+  - '@dotcom-tool-kit/npm'
 
 hooks:
   'test:local': SecretSquirrel
