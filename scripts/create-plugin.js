@@ -17,7 +17,7 @@ console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
 console.log('📥 installing dependencies')
-execSync('npm install ../../lib/types')
+execSync('npm install @dotcom-tool-kit/types')
 
 console.log('🔣 adding metadata to package.json')
 
