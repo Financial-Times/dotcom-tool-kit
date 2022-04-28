@@ -8,8 +8,9 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/circleci-heroku": "^2.0.0",
+    "@dotcom-tool-kit/node": "^2.0.0",
     "@dotcom-tool-kit/npm": "^2.0.0",
-    "@dotcom-tool-kit/node": "^2.0.0"
+    "@dotcom-tool-kit/secret-squirrel": "file:../secret-squirrel"
   },
   "repository": {
     "type": "git",
