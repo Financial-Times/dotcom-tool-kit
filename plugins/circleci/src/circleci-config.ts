@@ -6,7 +6,13 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { Hook } from '@dotcom-tool-kit/types'
-import { Workflow, JobConfig, CircleConfig, automatedComment, ComputedJob } from '@dotcom-tool-kit/types/lib/circleci'
+import {
+  Workflow,
+  JobConfig,
+  CircleConfig,
+  automatedComment,
+  ComputedJob
+} from '@dotcom-tool-kit/types/lib/circleci'
 
 const majorOrbVersion = '2'
 
@@ -172,22 +178,27 @@ export default abstract class CircleCiConfigHook extends Hook {
     }
 
     const computedJob = this.getComputedJob()
-
-    const hasJob = (jobs: NonNullable<Workflow['jobs']>): boolean => {
-      return !jobs.some((candidateJob, index) => { 
-                if(Object.keys(candidateJob)[0] === this.job && !isEqual(candidateJob, computedJob)) {
-                  jobs[index] = computedJob; return true
-                }
-                return false
+    console.log('this.jobOptions', this.jobOptions)
+    const findJobThatNeedsUpdating = (jobs: NonNullable<Workflow['jobs']>): number => {
+      return jobs.findIndex((candidateJob) => {
+        console.log('Object.keys(candidateJob)[0]',Object.keys(candidateJob)[0])
+        console.log('this.job',this.job)
+        console.log('candidateJob',candidateJob)
+        console.log('computedJob',computedJob)
+        return (Object.keys(candidateJob)[0] === this.job && !isEqual(candidateJob, computedJob))
       })
     }
-
-    // Avoid duplicating jobs (this can happen when check() fails when the version is wrong). 
+    const jobIndex = findJobThatNeedsUpdating(jobs)
+    const needsUpdating = jobIndex !== -1
+    console.log(`${this.job} needsUpdating`, needsUpdating)
+    // Avoid duplicating jobs (this can happen when check() fails when the version is wrong).
     // Replace original job with new job if it needs updating, and if job does not yet exist in config.yml we append.
-    if (hasJob(jobs)) {
+    if (needsUpdating) {
+      jobs[jobIndex] = computedJob
       jobs.push(computedJob)
     }
-    if (this.addToNightly && hasJob(nightlyJobs)) {
+    if (this.addToNightly && needsUpdating) {
+      jobs[jobIndex] = computedJob
       const nightlyJob = this.jobOptions
         ? {
             [this.job]: {
@@ -199,7 +210,7 @@ export default abstract class CircleCiConfigHook extends Hook {
       nightlyJobs.push(nightlyJob)
     }
 
-    const serialised = automatedComment + yaml.dump(config, {noRefs: true})
+    const serialised = automatedComment + yaml.dump(config, { noRefs: true })
     const circleConfigDir = path.dirname(this.circleConfigPath)
     this.logger.verbose(`making directory at ${styles.filepath(circleConfigDir)}...`)
     // Enable recursive option so that mkdir doesn't throw if the directory
