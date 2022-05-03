@@ -6,6 +6,7 @@ plugins:
   - '@dotcom-tool-kit/lint-staged-npm'
   - '@dotcom-tool-kit/jest'
   - '@dotcom-tool-kit/circleci-npm'
+  - '@dotcom-tool-kit/pa11y'
 
 hooks:
   run:local:
