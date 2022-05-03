@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v2.0.0...package-json-hook-v2.1.0) (2022-05-03)
+
+
+### Features
+
+* remove hook package and move PackageJsonHelper into package-json-hook ([b22e5d3](https://github.com/Financial-Times/dotcom-tool-kit/commit/b22e5d36ebfdc50cfa57586489a1107e35631bcc))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v1.9.0...package-json-hook-v2.0.0) (2022-04-19)
 
 

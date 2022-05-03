@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci-heroku",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/circleci": "^2.0.0",
-    "@dotcom-tool-kit/heroku": "^2.0.0"
+    "@dotcom-tool-kit/heroku": "^2.0.1"
   },
   "repository": {
     "type": "git",
