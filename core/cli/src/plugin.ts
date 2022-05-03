@@ -11,6 +11,16 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { Hook, instantiatePlugin, Plugin, TaskClass } from '@dotcom-tool-kit/types'
 
+function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
+  if (!possibleDescendent.parent) {
+    return false
+  } else if (possibleDescendent.parent === possibleAncestor) {
+    return true
+  } else {
+    return isDescendent(possibleAncestor, possibleDescendent.parent)
+  }
+}
+
 export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: Config): Promise<Config> {
   const { plugins = [], hooks = {}, options = {} } = await loadToolKitRC(plugin.root)
 
@@ -40,13 +50,12 @@ export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: C
         return newHookTask
       }
 
-      const existingFromSibling =
-        existingHookTask.plugin.parent && existingHookTask.plugin.parent === plugin.parent
+      const existingFromDescendent = isDescendent(plugin, existingHookTask.plugin)
 
-      // if the existing hook was from a sibling, that's a conflict
+      // plugins can only override hook tasks from their descendents, otherwise that's a conflict
       // return a conflict either listing this hook and the siblings,
       // or merging in a previously-generated hook
-      if (existingFromSibling) {
+      if (!existingFromDescendent) {
         const conflicting = isConflict(existingHookTask) ? existingHookTask.conflicting : [existingHookTask]
 
         const conflict: Conflict<HookTask> = {
@@ -80,13 +89,12 @@ export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: C
         return pluginOptions
       }
 
-      const existingFromSibling =
-        existingOptions.plugin.parent && existingOptions.plugin.parent === plugin.parent
+      const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
 
-      // if the existing options were from a sibling, that's a conflict
+      // plugins can only override options from their descendents, otherwise it's a conflict
       // return a conflict either listing these options and the sibling's,
       // or merging in previously-generated options
-      if (existingFromSibling) {
+      if (!existingFromDescendent) {
         const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
 
         const conflict: Conflict<PluginOptions> = {
