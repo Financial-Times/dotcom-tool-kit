@@ -33,7 +33,7 @@ options:
       this.logger.verbose(`retrieving pipeline details...`)
       await getPipelineCouplings(this.logger, this.options.pipeline)
 
-      this.logger.verbose(`restrieving staging app details...`)
+      this.logger.verbose(`retrieving staging app details...`)
       const appName = await getHerokuStagingApp()
 
       // setting config vars on staging from the vault production directory
