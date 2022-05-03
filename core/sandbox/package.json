@@ -5,9 +5,10 @@
   "scripts": {
     "format": "dotcom-tool-kit format:local",
     "build": "dotcom-tool-kit build:local",
-    "test": "dotcom-tool-kit test:local",
+    "test": "dotcom-tool-kit test:review",
     "start": "dotcom-tool-kit run:local",
-    "heroku-postbuild": "dotcom-tool-kit build:remote release:remote cleanup:remote"
+    "heroku-postbuild": "dotcom-tool-kit build:remote release:remote cleanup:remote",
+    "watch": "tsc --build --watch --verbose tsconfig.json"
   },
   "keywords": [],
   "author": "",
@@ -42,5 +43,8 @@
   "lint-staged": {
     "index.js": "dotcom-tool-kit format:staged --",
     "**/*.js": "dotcom-tool-kit test:staged --"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/pa11y": "file:../../plugins/pa11y"
   }
 }
