@@ -3,7 +3,7 @@ import { WebpackSchema } from '@dotcom-tool-kit/types/lib/schema/webpack'
 import runWebpack from '../run-webpack'
 
 export default class WebpackWatch extends Task<typeof WebpackSchema> {
-  static description = 'run webpack in watch mode in the background'
+  static description = 'Run Webpack in watch mode in the background'
 
   async run(): Promise<void> {
     // don't wait for Webpack to exit, to leave it running in the background
