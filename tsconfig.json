@@ -93,6 +93,9 @@
     },
     {
       "path": "plugins/circleci-npm"
+    },
+    {
+      "path": "plugins/secret-squirrel"
     }
   ]
 }
