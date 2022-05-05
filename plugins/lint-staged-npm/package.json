@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/lint-staged-npm",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/husky-npm": "^2.0.0",
-    "@dotcom-tool-kit/lint-staged": "^2.0.0",
+    "@dotcom-tool-kit/husky-npm": "^2.1.0",
+    "@dotcom-tool-kit/lint-staged": "^2.1.0",
     "@dotcom-tool-kit/options": "^2.0.0"
   },
   "repository": {
