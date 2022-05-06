@@ -141,7 +141,7 @@ async function executeMigration(deleteConfig: boolean): Promise<Config> {
   packageJson.writeChanges()
 
   await logger.logPromise(exec('npm install'), 'installing dependencies')
-  // we need to import installHooks from the app itself instead of npx or else loadPlugin will load rawPlugin from npx and Task will be loaded from the app, leading to task.prototype failing the instanceof Task check
+  // we need to import installHooks from the app itself instead of npx or else loadPlugin will load rawPlugin from npx and Task will be loaded from the app, leading to task.prototype failing the instanceof Task check.
   const installHooks = (importFrom(process.cwd(), 'dotcom-tool-kit/lib/install') as {
     default: typeof installHooksType
   }).default
