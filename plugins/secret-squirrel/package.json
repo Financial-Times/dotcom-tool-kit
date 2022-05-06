@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/secret-squirrel",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -26,6 +26,6 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/logger": "^2.0.0",
-    "@dotcom-tool-kit/types": "^2.0.0"
+    "@dotcom-tool-kit/types": "^2.1.0"
   }
 }
