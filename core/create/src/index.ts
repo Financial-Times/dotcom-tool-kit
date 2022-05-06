@@ -17,6 +17,7 @@ import prompt from 'prompts'
 import { promisify } from 'util'
 import { Logger } from './logger'
 import importFrom from 'import-from'
+import installHooksType from 'dotcom-tool-kit/lib/install'
 
 const exec = promisify(_exec)
 
@@ -141,7 +142,9 @@ async function executeMigration(deleteConfig: boolean): Promise<Config> {
 
   await logger.logPromise(exec('npm install'), 'installing dependencies')
   // we need to import installHooks from the app itself instead of npx or else loadPlugin will load rawPlugin from npx and Task will be loaded from the app, leading to task.prototype failing the instanceof Task check
-  const installHooks: any = ((await importFrom(process.cwd(), 'dotcom-tool-kit/lib/install')) as any).default
+  const installHooks = (importFrom(process.cwd(), 'dotcom-tool-kit/lib/install') as {
+    default: typeof installHooksType
+  }).default
 
   const configPromise = logger.logPromise(
     fs.writeFile(configPath, configFile),
@@ -211,8 +214,9 @@ sound alright?`
     // Clear config cache now that config has been updated
     explorer.clearSearchCache()
 
-    const installHooks: any = ((await importFrom(process.cwd(), 'dotcom-tool-kit/lib/install')) as any)
-      .default
+    const installHooks = (importFrom(process.cwd(), 'dotcom-tool-kit/lib/install') as {
+      default: typeof installHooksType
+    }).default
 
     return logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
   }
