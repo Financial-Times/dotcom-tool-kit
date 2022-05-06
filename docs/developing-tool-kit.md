@@ -135,7 +135,7 @@ This lets different plugins define the same abstractly labelled hooks with diffe
 
 #### Defining options
 
-Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. Options are defined in the `@dotcom-tool-kit/types` package, in the `schema` files. Create a file in `src/schema` for your plugin, which should export a `NameOfPluginSchema` object (that should also be exported as `Schema`), and a `NameOfPluginOptions` type that uses the `SchemaOutput` generic type:
+Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. Options are defined in the `@dotcom-tool-kit/types` package, in the `schema` files. Create a file in [`src/schema`](../lib/types/src/schema) for your plugin, which should export a `NameOfPluginSchema` object (that should also be exported as `Schema`), and a `NameOfPluginOptions` type that uses the `SchemaOutput` generic type:
 
 ```typescript
 import { SchemaOutput } from '../schema'
