@@ -5,7 +5,6 @@ import loadPackageJson from '@financial-times/package-json'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
 import { ValidConfig } from 'dotcom-tool-kit/lib/config'
-import installHooks from 'dotcom-tool-kit/lib/install'
 import { explorer, RCFile } from 'dotcom-tool-kit/lib/rc-file'
 import type { Config } from 'dotcom-tool-kit/src/config'
 import { promises as fs } from 'fs'
@@ -17,6 +16,8 @@ import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
 import { Logger } from './logger'
+import importFrom from 'import-from'
+import installHooksType from 'dotcom-tool-kit/lib/install'
 
 const exec = promisify(_exec)
 
@@ -121,7 +122,7 @@ sound good?`
   })
 }
 
-async function executeMigration(deleteConfig: boolean) {
+async function executeMigration(deleteConfig: boolean): Promise<Config> {
   for (const pkg of packagesToInstall) {
     const { version } = await pacote.manifest(pkg)
     packageJson.requireDependency({
@@ -139,7 +140,11 @@ async function executeMigration(deleteConfig: boolean) {
 
   packageJson.writeChanges()
 
-  const installPromise = logger.logPromise(exec('npm install'), 'installing dependencies')
+  await logger.logPromise(exec('npm install'), 'installing dependencies')
+  // we need to import installHooks from the app itself instead of npx or else loadPlugin will load rawPlugin from npx and Task will be loaded from the app, leading to task.prototype failing the instanceof Task check
+  const installHooks = (importFrom(process.cwd(), 'dotcom-tool-kit/lib/install') as {
+    default: typeof installHooksType
+  }).default
 
   const configPromise = logger.logPromise(
     fs.writeFile(configPath, configFile),
@@ -150,12 +155,12 @@ async function executeMigration(deleteConfig: boolean) {
     ? logger.logPromise(fs.unlink(circleConfigPath), 'removing old CircleCI config')
     : Promise.resolve()
 
-  const initialTasks = Promise.all([installPromise, configPromise, unlinkPromise]).then(() => winstonLogger)
+  const initialTasks = Promise.all([configPromise, unlinkPromise]).then(() => winstonLogger)
 
   return logger.logPromiseWait(initialTasks, installHooks, 'installing Tool Kit hooks')
 }
 
-async function handleTaskConflict(error: ToolKitConflictError) {
+async function handleTaskConflict(error: ToolKitConflictError): Promise<Config | undefined> {
   const orderedHooks: { [hook: string]: string[] } = {}
 
   for (const conflict of error.conflicts) {
@@ -208,6 +213,11 @@ sound alright?`
     )
     // Clear config cache now that config has been updated
     explorer.clearSearchCache()
+
+    const installHooks = (importFrom(process.cwd(), 'dotcom-tool-kit/lib/install') as {
+      default: typeof installHooksType
+    }).default
+
     return logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
   }
 }

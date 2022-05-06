@@ -7,11 +7,12 @@ plugins:
   - '@dotcom-tool-kit/jest'
   - '@dotcom-tool-kit/circleci-npm'
   - '@dotcom-tool-kit/pa11y'
+  - '@dotcom-tool-kit/secret-squirrel'
 
 hooks:
-  run:local:
-    - Nodemon
-    - NextRouter
+  git:precommit:
+    - SecretSquirrel
+    - LintStaged
 
 options:
   '@dotcom-tool-kit/vault':

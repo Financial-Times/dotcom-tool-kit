@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.0.0...dotcom-tool-kit-v2.1.0) (2022-05-03)
+
+
+### Features
+
+* remove hook package and move PackageJsonHelper into package-json-hook ([b22e5d3](https://github.com/Financial-Times/dotcom-tool-kit/commit/b22e5d36ebfdc50cfa57586489a1107e35631bcc))
+
+
+### Bug Fixes
+
+* ensure we correctly consider conflicts from cousin plugins ([0a38996](https://github.com/Financial-Times/dotcom-tool-kit/commit/0a389967f6b1f2181e2d76935392c4b1a658c27b))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v1.9.0...dotcom-tool-kit-v2.0.0) (2022-04-19)
 
 

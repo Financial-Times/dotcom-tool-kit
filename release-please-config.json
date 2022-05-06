@@ -1,8 +1,6 @@
 {
   "bootstrap-sha": "bc6f822e7a6927b65b63c91021ede10dad73006f",
-  "plugins": [
-    "node-workspace"
-  ],
+  "plugins": ["node-workspace"],
   "changelog-type": "github",
   "prerelease": true,
   "bump-minor-pre-major": true,
@@ -41,6 +39,7 @@
     "plugins/nodemon": {},
     "plugins/npm": {},
     "plugins/prettier": {},
+    "plugins/secret-squirrel": {},
     "plugins/upload-assets-to-s3": {},
     "plugins/webpack": {}
   }

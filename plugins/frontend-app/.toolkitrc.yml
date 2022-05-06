@@ -1,3 +1,9 @@
 plugins:
   - '@dotcom-tool-kit/webpack'
   - '@dotcom-tool-kit/backend-app'
+
+hooks:
+  'run:local':
+    - WebpackDevelopment # run a webpack compile before starting the server because dotcom-server-asset-loader expects a manifest to exist
+    - Node
+    - WebpackWatch
