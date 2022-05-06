@@ -3,7 +3,7 @@ import { WebpackSchema } from '@dotcom-tool-kit/types/lib/schema/webpack'
 import runWebpack from '../run-webpack'
 
 export default class WebpackDevelopment extends Task<typeof WebpackSchema> {
-  static description = 'build webpack'
+  static description = 'Run Webpack in development mode'
 
   async run(): Promise<void> {
     await runWebpack(this.logger, {

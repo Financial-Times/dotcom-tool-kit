@@ -1,3 +1,5 @@
 console.log('LOADING WEBPACK CONFIG')
 
-module.exports = {}
+module.exports = {
+  entry: './client/index.js'
+}

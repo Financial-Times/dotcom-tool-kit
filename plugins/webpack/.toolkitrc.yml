@@ -2,3 +2,4 @@ hooks:
   'build:local': WebpackDevelopment
   'build:ci': WebpackProduction
   'build:remote': WebpackProduction
+  'run:local': WebpackWatch

@@ -9,9 +9,6 @@ plugins:
   - '@dotcom-tool-kit/secret-squirrel'
 
 hooks:
-  run:local:
-    - Nodemon
-    - NextRouter
   git:precommit:
     - SecretSquirrel
     - LintStaged
