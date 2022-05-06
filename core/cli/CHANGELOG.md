@@ -1,5 +1,12 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.0.0...dotcom-tool-kit-v2.1.0) (2022-05-03)
 
 

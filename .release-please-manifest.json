@@ -1,12 +1,12 @@
 {
   "core/cli": "2.1.0",
-  "core/create": "2.0.0",
+  "core/create": "2.0.2",
   "lib/error": "2.0.0",
   "lib/logger": "2.0.0",
   "lib/options": "2.0.0",
   "lib/package-json-hook": "2.1.0",
   "lib/state": "2.0.0",
-  "lib/types": "2.0.0",
+  "lib/types": "2.1.0",
   "lib/vault": "2.0.0",
   "lib/wait-for-ok": "2.0.0",
   "orb": "2.0.0",
@@ -16,7 +16,7 @@
   "plugins/circleci-heroku": "2.0.0",
   "plugins/circleci-npm": "2.0.0",
   "plugins/eslint": "2.0.0",
-  "plugins/frontend-app": "2.0.1",
+  "plugins/frontend-app": "2.1.0",
   "plugins/heroku": "2.0.1",
   "plugins/husky-npm": "2.1.0",
   "plugins/jest": "2.0.0",
@@ -29,7 +29,7 @@
   "plugins/nodemon": "2.0.0",
   "plugins/npm": "2.0.1",
   "plugins/prettier": "2.0.0",
-  "plugins/secret-squirrel": "0.1.0",
+  "plugins/secret-squirrel": "1.0.0",
   "plugins/upload-assets-to-s3": "2.0.0",
-  "plugins/webpack": "2.0.0"
+  "plugins/webpack": "2.1.0"
 }
