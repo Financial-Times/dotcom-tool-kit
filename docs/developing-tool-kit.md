@@ -164,6 +164,15 @@ import { getOptions } from '@dotcom-tool-kit/options'
 const options = getOptions('@dotcom-tool-kit/name-of-plugin')
 ```
 
+The options defined in the schema are set by plugins or apps in their `.toolkitrc.yml`. For example, the `files` option defined above would be configured like this:
+
+```yml
+options:
+  '@dotcom-tool-kit/eslint':
+    files:
+      - '**/*.js'
+```
+
 To avoid boilerplate for tasks (the most common use case for options), when defining a task, you can pass a type parameter to the `Task` superclass, which accepts a schema type. The options for this plugin are then available as `this.options`. A task can also define a static `defaultOptions` field, which will provide default values for any options not set in configuration files.
 
 ```typescript
