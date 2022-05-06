@@ -41,7 +41,7 @@ hooks:
 ## Tasks
 
 | Task | Description | Default hooks |
-|-|-|
+|-|-|-|
 | `WebpackDevelopment` | Run Webpack in development mode | `build:local` |
 | `WebpackProduction` | Run Webpack in production mode | `build:ci`, `build:remote` |
 | `WebpackWatch` | Run Webpack in watch mode in the background | `run:local` |
