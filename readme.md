@@ -88,7 +88,7 @@ A **hook** is the glue between configuration in your repo that will be running T
 
 For example, the `test:local` hook in the `npm` plugin ensures the `test` script is defined in `package.json` to run `dotcom-tool-kit test:local`, then any tasks that are configured to run on `test:local` will be run when you run `npm run test`.
 
-Plugins can set a default hook for their tasks to run on; for example, the `JestLocal` task runs by default on the `test:local` hook. If you've got multiple tasks trying to run on the same hook by default, you'll need to [configure which you want to run](./docs/resolving-hook-conflicts.md).
+Plugins can set a default hook for their tasks to run on; for example, the `JestLocal` task [runs by default on the `test:local` hook](./plugins/jest/.toolkitrc.yml#L2). If you've got multiple tasks trying to run on the same hook by default, you'll need to [configure which you want to run](./docs/resolving-hook-conflicts.md).
 
 <img width="200" src="etc/installing-hook.svg" align="right">
 
