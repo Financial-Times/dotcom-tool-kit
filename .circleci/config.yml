@@ -103,7 +103,7 @@ jobs:
       - checkout
       - *restore_cache
       - node/install-npm:
-          version: '7'
+          version: '8'
       - run:
           name: Install project dependencies
           command: npm install

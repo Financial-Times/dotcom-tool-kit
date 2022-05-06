@@ -10,11 +10,11 @@ async function setAppConfigVars(
   logger: Logger,
   appIdName: string,
   environment: Environment,
-  systemCode?: string,
+  systemCode?: string
 ): Promise<void> {
   try {
     logger.info(`setting config vars for ${appIdName}`)
-  
+
     const vaultEnvVars = new VaultEnvVars(logger, {
       environment
     })
@@ -30,7 +30,6 @@ async function setAppConfigVars(
     logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
 
     logger.info(`${appIdName} config vars have been updated successfully.`)
-
   } catch (err) {
     const error = new ToolKitError(`Error updating config vars for ${appIdName} app`)
     if (err instanceof Error) {
@@ -45,8 +44,7 @@ async function setStageConfigVars(
   stage: Stage,
   environment: Environment,
   pipelineName: string,
-  systemCode?: string,
-
+  systemCode?: string
 ): Promise<void> {
   try {
     logger.info(`setting config vars for ${stage} stage`)
@@ -60,6 +58,13 @@ async function setStageConfigVars(
     if (systemCode) {
       configVars.SYSTEM_CODE = systemCode
     }
+    // Some of our code expects review apps to have their NODE_ENV set to
+    // 'branch' so that they can change behaviour for them (e.g., mocking out
+    // writes to production DB's.)
+    if (stage === 'review') {
+      configVars.NODE_ENV = 'branch'
+    }
+
     const pipeline: HerokuApiResPipeline = await heroku.get(`/pipelines/${pipelineName}`)
 
     await heroku.patch(`/pipelines/${pipeline.id}/stage/${stage}/config-vars`, { body: configVars })
@@ -67,7 +72,6 @@ async function setStageConfigVars(
     logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
 
     logger.info(`config vars for ${stage} stage have been updated successfully.`)
-
   } catch (err) {
     const error = new ToolKitError(`Error updating config vars for ${stage} stage`)
     if (err instanceof Error) {

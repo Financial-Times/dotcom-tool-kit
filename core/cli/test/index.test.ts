@@ -72,6 +72,21 @@ describe('cli', () => {
     expect(config).toHaveProperty('hookTasks.build:local.conflicting')
   })
 
+  it('should indicate when there are conflicts between plugins that are cousins in the tree', async () => {
+    const config = await loadConfig(logger, { validate: false })
+
+    await loadPluginConfig(
+      logger,
+      { id: 'conflicted test root', root: path.join(__dirname, 'files/cousins') },
+      config
+    )
+
+    expect(() => validateConfig(config)).rejects.toBeInstanceOf(ToolKitError)
+    expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
+    expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
+    expect(config).toHaveProperty('hookTasks.build:local.conflicting')
+  })
+
   it('should succeed when conflicts are resolved', async () => {
     const config = await loadConfig(logger, { validate: false })
 

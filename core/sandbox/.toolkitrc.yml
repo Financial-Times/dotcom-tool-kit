@@ -23,3 +23,5 @@ options:
     formatGlob: index.js
   '@dotcom-tool-kit/jest':
     configPath: 'jest.config.js'
+  '@dotcom-tool-kit/pa11y':
+    host: 'https://ft.com'
