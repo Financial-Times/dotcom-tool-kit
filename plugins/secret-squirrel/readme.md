@@ -33,5 +33,5 @@ hooks:
 ## Tasks
 
 | Task | Description | Default hook |
-|-|-|
+|-|-|-|
 | `SecretSquirrel` | run Secret Squirrel to check for secrets in your repo | `git:precommit` |
