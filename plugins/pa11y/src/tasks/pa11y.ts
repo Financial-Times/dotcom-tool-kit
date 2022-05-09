@@ -12,7 +12,13 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
       this.options.host = `https://${reviewState.appName}.com`
     }
 
-    const results = await pa11y(this.options.host ? this.options.host : '')
+    if (this.options.host === null || this.options.host === undefined) {
+      const error = new ToolKitError('Pa11y host error')
+      error.details = 'Host on pa11y cant be null or undefined'
+      throw error
+    }
+
+    const results = await pa11y(this.options.host)
     const issues = results.issues
 
     type issue = {
@@ -25,18 +31,21 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
 
     this.logger.info(`\n Running Pa11y on ${results.pageUrl}, document title ${results.documentTitle} \n`)
     if (results.issues?.length > 0) {
+      const errorList: Array<string> = []
+      const error = new ToolKitError('Pally has found some errors')
       results.issues.forEach((issue: issue, i: number) => {
-        const error = new ToolKitError(
-          issue.typeCode === 1
-            ? `Pa11y failed run due to a technical fault`
-            : `Pa11y ran successfully but there are errors in the page`
-        )
-        error.details = `Issue #${i + 1} of ${issues.length}: \n TypeCode: ${issue?.typeCode} \n Type: ${
+        const e = `\nIssue #${i + 1} of ${issues.length}: \n TypeCode: ${issue?.typeCode} \n Type: ${
           issue?.type
         } \n Message: ${issue?.message} \n Context: ${issue?.context} \n Selector: ${issue?.selector} \n`
-        throw error
+        errorList.push(
+          issue.typeCode === 1
+            ? 'Pa11y failed run due to a technical fault' + e
+            : `Pa11y ran successfully but there are errors in the page` + e
+        )
       })
+      error.details = errorList.join('\n\n')
+      throw error
     }
-    if (issues.length === 0) this.logger.info(`Pa11y ran successfully, and there are no errors`)
+    this.logger.info(`Pa11y ran successfully, and there are no errors`)
   }
 }
