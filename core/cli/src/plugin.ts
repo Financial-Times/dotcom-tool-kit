@@ -37,10 +37,7 @@ export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: C
       tasks: Array.isArray(configHookTask) ? configHookTask : [configHookTask]
     }
 
-    // this hook task might not have been set yet, in which case use the new one
-    if (!existingHookTask) {
-      config.hookTasks[id] = newHookTask
-    } else {
+    if (existingHookTask) {
       const existingFromDescendent = isDescendent(plugin, existingHookTask.plugin)
 
       // plugins can only override hook tasks from their descendents, otherwise that's a conflict
@@ -60,6 +57,9 @@ export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: C
         // so the parent always overrides it
         config.hookTasks[id] = newHookTask
       }
+    } else {
+      // this hook task might not have been set yet, in which case use the new one
+      config.hookTasks[id] = newHookTask
     }
   }
 
@@ -74,32 +74,30 @@ export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: C
       forPlugin: config.plugins[id]
     }
 
-    // this options key might not have been set yet, in which case use the new one
-    if (!existingOptions) {
-      config.options[id] = pluginOptions
-      continue
-    }
+    if (existingOptions) {
+      const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
 
-    const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
+      // plugins can only override options from their descendents, otherwise it's a conflict
+      // return a conflict either listing these options and the sibling's,
+      // or merging in previously-generated options
+      if (!existingFromDescendent) {
+        const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
 
-    // plugins can only override options from their descendents, otherwise it's a conflict
-    // return a conflict either listing these options and the sibling's,
-    // or merging in previously-generated options
-    if (!existingFromDescendent) {
-      const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
+        const conflict: Conflict<PluginOptions> = {
+          plugin,
+          conflicting: conflicting.concat(pluginOptions)
+        }
 
-      const conflict: Conflict<PluginOptions> = {
-        plugin,
-        conflicting: conflicting.concat(pluginOptions)
+        config.options[id] = conflict
+      } else {
+        // if we're here, any existing options are from a child plugin,
+        // so merge in overrides from the parent
+        config.options[id] = { ...existingOptions, ...pluginOptions }
       }
-
-      config.options[id] = conflict
-      continue
+    } else {
+      // this options key might not have been set yet, in which case use the new one
+      config.options[id] = pluginOptions
     }
-
-    // if we're here, any existing options are from a child plugin,
-    // so merge in overrides from the parent
-    config.options[id] = { ...existingOptions, ...pluginOptions }
   }
 
   return config
@@ -149,16 +147,15 @@ export async function loadPlugin(
     newTask.plugin = plugin
     newTask.id = taskId
 
-    if (!existingTask) {
+    if (existingTask) {
+      const conflicting = isConflict(existingTask) ? existingTask.conflicting : [existingTask]
+
+      config.tasks[taskId] = {
+        plugin,
+        conflicting: conflicting.concat(newTask)
+      }
+    } else {
       config.tasks[taskId] = newTask
-      continue
-    }
-
-    const conflicting = isConflict(existingTask) ? existingTask.conflicting : [existingTask]
-
-    config.tasks[taskId] = {
-      plugin,
-      conflicting: conflicting.concat(newTask)
     }
   }
 
@@ -170,16 +167,15 @@ export async function loadPlugin(
     newHook.id = hookId
     newHook.plugin = plugin
 
-    if (!existingHook) {
+    if (existingHook) {
+      const conflicting = isConflict(existingHook) ? existingHook.conflicting : [existingHook]
+
+      config.hooks[hookId] = {
+        plugin,
+        conflicting: conflicting.concat(newHook)
+      }
+    } else {
       config.hooks[hookId] = newHook
-      continue
-    }
-
-    const conflicting = isConflict(existingHook) ? existingHook.conflicting : [existingHook]
-
-    config.hooks[hookId] = {
-      plugin,
-      conflicting: conflicting.concat(newHook)
     }
   }
 
