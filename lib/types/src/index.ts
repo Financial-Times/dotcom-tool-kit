@@ -1,6 +1,3 @@
-import { ToolKitError } from '@dotcom-tool-kit/error'
-import isPlainObject from 'lodash.isplainobject'
-import mapValues from 'lodash.mapvalues'
 import type { Logger } from 'winston'
 import { Schema, SchemaOutput } from './schema'
 
@@ -65,32 +62,4 @@ export interface RawPlugin extends Omit<Plugin, 'parent' | 'hooks'> {
   hooks?: {
     [id: string]: { new (logger: Logger): Hook }
   }
-}
-
-export function instantiatePlugin(plugin: unknown, logger: Logger): Plugin {
-  const rawPlugin = plugin as RawPlugin
-
-  const parent = rawPlugin.parent && instantiatePlugin(rawPlugin.parent, logger)
-
-  if (
-    rawPlugin.tasks &&
-    !(Array.isArray(rawPlugin.tasks) && rawPlugin.tasks.every((task) => task.prototype instanceof Task))
-  ) {
-    throw new ToolKitError('tasks are not valid')
-  }
-
-  if (
-    rawPlugin.hooks &&
-    !(
-      isPlainObject(rawPlugin.hooks) &&
-      Object.values(rawPlugin.hooks).every((hook) => hook.prototype instanceof Hook)
-    )
-  ) {
-    throw new ToolKitError('hooks are not valid')
-  }
-
-  const hooks = mapValues(rawPlugin.hooks, (Hook) => {
-    return new Hook(logger)
-  })
-  return { ...rawPlugin, parent, hooks }
 }

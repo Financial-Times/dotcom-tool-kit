@@ -8,7 +8,9 @@ import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import { instantiatePlugin, Plugin } from '@dotcom-tool-kit/types'
+import { Hook, Plugin, RawPlugin, Task } from '@dotcom-tool-kit/types'
+import isPlainObject from 'lodash.isplainobject'
+import mapValues from 'lodash.mapvalues'
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {
@@ -101,6 +103,34 @@ export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: C
   }
 
   return config
+}
+
+export function instantiatePlugin(plugin: unknown, logger: Logger): Plugin {
+  const rawPlugin = plugin as RawPlugin
+
+  const parent = rawPlugin.parent && instantiatePlugin(rawPlugin.parent, logger)
+
+  if (
+    rawPlugin.tasks &&
+    !(Array.isArray(rawPlugin.tasks) && rawPlugin.tasks.every((task) => task.prototype instanceof Task))
+  ) {
+    throw new ToolKitError('tasks are not valid')
+  }
+
+  if (
+    rawPlugin.hooks &&
+    !(
+      isPlainObject(rawPlugin.hooks) &&
+      Object.values(rawPlugin.hooks).every((hook) => hook.prototype instanceof Hook)
+    )
+  ) {
+    throw new ToolKitError('hooks are not valid')
+  }
+
+  const hooks = mapValues(rawPlugin.hooks, (Hook) => {
+    return new Hook(logger)
+  })
+  return { ...rawPlugin, parent, hooks }
 }
 
 export async function loadPlugin(
