@@ -38,6 +38,18 @@ export abstract class Hook {
   abstract install(): Promise<void>
 }
 
+export interface RawRCFile {
+  plugins?: string[] | null
+  hooks?: { [id: string]: string | string[] } | null
+  options?: { [id: string]: Record<string, unknown> } | null
+}
+
+export interface RCFile {
+  plugins: string[]
+  hooks: { [id: string]: string | string[] }
+  options: { [id: string]: Record<string, unknown> }
+}
+
 export interface Plugin {
   id: string
   root: string
