@@ -1,15 +1,14 @@
 import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
-import mergeWith from 'lodash.mergewith'
 import type { Logger } from 'winston'
 
 import { Conflict, isConflict } from './conflict'
 import { Config, PluginOptions } from './config'
 import type { HookTask } from './hook'
-import { loadToolKitRC, RCFile } from './rc-file'
+import { loadToolKitRC } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import { Hook, instantiatePlugin, Plugin, TaskClass } from '@dotcom-tool-kit/types'
+import { instantiatePlugin, Plugin } from '@dotcom-tool-kit/types'
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {
@@ -22,34 +21,26 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
 }
 
 export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: Config): Promise<Config> {
-  const { plugins = [], hooks = {}, options = {} } = await loadToolKitRC(plugin.root)
+  const { plugins, hooks, options } = await loadToolKitRC(plugin.root)
 
   // load any plugins requested by this plugin
   await loadPlugins(logger, plugins, config, plugin)
 
   // load plugin hook tasks. do this after loading child plugins, so
   // parent hooks get assigned after child hooks and can override them
-  mergeWith(
-    config.hookTasks,
-    hooks,
-
+  for (const [id, configHookTask] of Object.entries(hooks)) {
     // handle conflicts between hooks from different plugins
-    (
-      existingHookTask: HookTask | Conflict<HookTask> | undefined,
-      configHookTask: string | string[],
-      id
-    ): HookTask | Conflict<HookTask> => {
-      const newHookTask: HookTask = {
-        id,
-        plugin,
-        tasks: Array.isArray(configHookTask) ? configHookTask : [configHookTask]
-      }
+    const existingHookTask = config.hookTasks[id]
+    const newHookTask: HookTask = {
+      id,
+      plugin,
+      tasks: Array.isArray(configHookTask) ? configHookTask : [configHookTask]
+    }
 
-      // this hook task might not have been set yet, in which case use the new one
-      if (!existingHookTask) {
-        return newHookTask
-      }
-
+    // this hook task might not have been set yet, in which case use the new one
+    if (!existingHookTask) {
+      config.hookTasks[id] = newHookTask
+    } else {
       const existingFromDescendent = isDescendent(plugin, existingHookTask.plugin)
 
       // plugins can only override hook tasks from their descendents, otherwise that's a conflict
@@ -63,53 +54,53 @@ export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: C
           conflicting: conflicting.concat(newHookTask)
         }
 
-        return conflict
+        config.hookTasks[id] = conflict
+      } else {
+        // if we're here, any existing hook is from a child plugin,
+        // so the parent always overrides it
+        config.hookTasks[id] = newHookTask
       }
-
-      // if we're here, any existing hook is from a child plugin,
-      // so the parent always overrides it
-      return newHookTask
     }
-  )
+  }
 
   // merge options from this plugin's config with any options we've collected already
   // TODO this is almost the exact same code as for hooks, refactor
-  mergeWith(
-    config.options,
-    options,
-    (existingOptions: PluginOptions | Conflict<PluginOptions>, configOptions: RCFile['options'], id) => {
-      const pluginOptions: PluginOptions = {
-        options: configOptions,
-        plugin,
-        forPlugin: config.plugins[id]
-      }
+  for (const [id, configOptions] of Object.entries(options)) {
+    const existingOptions = config.options[id]
 
-      // this options key might not have been set yet, in which case use the new one
-      if (!existingOptions) {
-        return pluginOptions
-      }
-
-      const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
-
-      // plugins can only override options from their descendents, otherwise it's a conflict
-      // return a conflict either listing these options and the sibling's,
-      // or merging in previously-generated options
-      if (!existingFromDescendent) {
-        const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
-
-        const conflict: Conflict<PluginOptions> = {
-          plugin,
-          conflicting: conflicting.concat(pluginOptions)
-        }
-
-        return conflict
-      }
-
-      // if we're here, any existing options are from a child plugin,
-      // so merge in overrides from the parent
-      return { ...existingOptions, ...pluginOptions }
+    const pluginOptions: PluginOptions = {
+      options: configOptions,
+      plugin,
+      forPlugin: config.plugins[id]
     }
-  )
+
+    // this options key might not have been set yet, in which case use the new one
+    if (!existingOptions) {
+      config.options[id] = pluginOptions
+      continue
+    }
+
+    const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
+
+    // plugins can only override options from their descendents, otherwise it's a conflict
+    // return a conflict either listing these options and the sibling's,
+    // or merging in previously-generated options
+    if (!existingFromDescendent) {
+      const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
+
+      const conflict: Conflict<PluginOptions> = {
+        plugin,
+        conflicting: conflicting.concat(pluginOptions)
+      }
+
+      config.options[id] = conflict
+      continue
+    }
+
+    // if we're here, any existing options are from a child plugin,
+    // so merge in overrides from the parent
+    config.options[id] = { ...existingOptions, ...pluginOptions }
+  }
 
   return config
 }
@@ -151,52 +142,46 @@ export async function loadPlugin(
   config.plugins[id] = plugin
 
   // add plugin tasks to our task registry, handling any conflicts
-  mergeWith(
-    config.tasks,
-    Object.fromEntries((plugin.tasks || []).map((task) => [task.name, task])),
-    (
-      existingTask: TaskClass | Conflict<TaskClass>,
-      newTask: TaskClass,
-      taskId
-    ): TaskClass | Conflict<TaskClass> => {
-      newTask.plugin = plugin
-      newTask.id = taskId
+  for (const newTask of plugin.tasks || []) {
+    const taskId = newTask.name
+    const existingTask = config.tasks[taskId]
 
-      if (!existingTask) {
-        return newTask
-      }
+    newTask.plugin = plugin
+    newTask.id = taskId
 
-      const conflicting = isConflict(existingTask) ? existingTask.conflicting : [existingTask]
-
-      return {
-        plugin,
-        conflicting: conflicting.concat(newTask)
-      }
+    if (!existingTask) {
+      config.tasks[taskId] = newTask
+      continue
     }
-  )
+
+    const conflicting = isConflict(existingTask) ? existingTask.conflicting : [existingTask]
+
+    config.tasks[taskId] = {
+      plugin,
+      conflicting: conflicting.concat(newTask)
+    }
+  }
 
   // add hooks to the registry, handling any conflicts
   // TODO refactor with command conflict handler
-  mergeWith(
-    config.hooks,
-    plugin.hooks,
+  for (const [hookId, newHook] of Object.entries(plugin.hooks || [])) {
+    const existingHook = config.hooks[hookId]
 
-    (existingHook: Hook | Conflict<Hook>, newHook: Hook, hookId): Hook | Conflict<Hook> => {
-      newHook.id = hookId
-      newHook.plugin = plugin
+    newHook.id = hookId
+    newHook.plugin = plugin
 
-      if (!existingHook) {
-        return newHook
-      }
-
-      const conflicting = isConflict(existingHook) ? existingHook.conflicting : [existingHook]
-
-      return {
-        plugin,
-        conflicting: conflicting.concat(newHook)
-      }
+    if (!existingHook) {
+      config.hooks[hookId] = newHook
+      continue
     }
-  )
+
+    const conflicting = isConflict(existingHook) ? existingHook.conflicting : [existingHook]
+
+    config.hooks[hookId] = {
+      plugin,
+      conflicting: conflicting.concat(newHook)
+    }
+  }
 
   await loadPluginConfig(logger, plugin, config)
 
