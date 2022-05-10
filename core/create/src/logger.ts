@@ -1,10 +1,15 @@
-import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
-import importFrom from 'import-from'
 import type { Spinner } from 'komatsu'
 import Komatsu from 'komatsu'
 
-type LoggerError = Error & {
+export type LoggerError = Error & {
   logged?: boolean
+}
+
+export type labels = {
+  waiting: string
+  pending: string
+  done: string
+  fail: string
 }
 
 // TODO backport this to Komatsu mainline?
@@ -26,17 +31,10 @@ export class Logger extends Komatsu {
     return super.renderSymbol(spinner)
   }
 
-  async logPromiseWait<T, U>(wait: Promise<T>, run: (interim: T) => Promise<U>, label: string): Promise<U> {
+  async logPromiseWait<T>(wait: Promise<T>, labels: labels): Promise<{ interim: any; id: string }> {
     const id = Math.floor(parseInt(`zzzzzz`, 36) * Math.random())
       .toString(36)
       .padStart(6, '0')
-
-    const labels = {
-      waiting: `not ${label} yet`,
-      pending: label,
-      done: `finished ${label}`,
-      fail: `error with ${label}`
-    }
 
     this.log(id, { message: labels.waiting, status: 'not-started' })
 
@@ -50,33 +48,6 @@ export class Logger extends Komatsu {
       throw error
     }
 
-    try {
-      this.log(id, { message: labels.pending })
-
-      const result = await run(interim)
-      this.log(id, { status: 'done', message: labels.done })
-      return result
-    } catch (error) {
-      const loggerError = error as LoggerError
-
-      const hasToolKitConflicts = (importFrom(
-        process.cwd(),
-        '@dotcom-tool-kit/error'
-      ) as typeof ToolkitErrorModule).hasToolKitConflicts
-      // hack to suppress error when installHooks promise fails seeing as it's
-      // recoverable
-      if (hasToolKitConflicts(error)) {
-        this.log(id, { status: 'done', message: 'finished installing hooks, but found conflicts' })
-      } else {
-        this.log(id, {
-          status: 'fail',
-          message: labels.fail,
-          error: loggerError.logged ? undefined : loggerError
-        })
-      }
-
-      loggerError.logged = true
-      throw loggerError
-    }
+    return { interim, id }
   }
 }
