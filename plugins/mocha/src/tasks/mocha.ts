@@ -1,6 +1,7 @@
 import { hookConsole, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import MochaCore from 'mocha'
+import { loadRc} from 'mocha/lib/cli';
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { MochaOptions, MochaSchema } from '@dotcom-tool-kit/types/lib/schema/mocha'
@@ -13,7 +14,8 @@ export default class Mocha extends Task<typeof MochaSchema> {
   }
 
   async run(): Promise<void> {
-    const mocha = new MochaCore()
+    const mocharc = loadRc()
+    const mocha = new MochaCore(mocharc)
 
     const files = glob.sync(this.options.files)
     if (files.length === 0) {
