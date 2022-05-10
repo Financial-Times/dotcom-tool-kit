@@ -1,4 +1,5 @@
-import { hasToolKitConflicts } from '@dotcom-tool-kit/error'
+import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
+import importFrom from 'import-from'
 import type { Spinner } from 'komatsu'
 import Komatsu from 'komatsu'
 
@@ -58,6 +59,10 @@ export class Logger extends Komatsu {
     } catch (error) {
       const loggerError = error as LoggerError
 
+      const hasToolKitConflicts = (importFrom(
+        process.cwd(),
+        '@dotcom-tool-kit/error'
+      ) as typeof ToolkitErrorModule).hasToolKitConflicts
       // hack to suppress error when installHooks promise fails seeing as it's
       // recoverable
       if (hasToolKitConflicts(error)) {
