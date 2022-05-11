@@ -25,10 +25,16 @@ And install this plugin's hooks:
 npx dotcom-tool-kit --install
 ```
 
+## Options
+
+| Key           | Description                             | Default value |
+| ------------- | --------------------------------------- | ------------- |
+| `nodeVersion` | Define Node Version for CircleCI to use | `undefined`   |
+
 ## Hooks
 
-| Event         | Description                                              | Installed to...                        | Default Hooks |
-| ------------- | -------------------------------------------------------- | ---------------------- | -------------- |
-| `build:ci`    | Compile any assets or code required for your app to run. |`build` job in `.circle/config.yml`    | `WebpackProduction`, `BabelProduction` |
-| `test:ci`     | Run your app's test suite.   |                            | `test` job in `.circle/config.yml`     | `Eslint`, `Mocha`, `JestCi` |
-| `test:review` | Run your app's E2E tests against a deployed Review App.  | `e2e-test` job in `.circle/config.yml` | `NTest`, `Pa11y` |
+| Event         | Description                                              | Installed to...                        | Default Hooks                          |
+| ------------- | -------------------------------------------------------- | -------------------------------------- | -------------------------------------- | --------------------------- |
+| `build:ci`    | Compile any assets or code required for your app to run. | `build` job in `.circle/config.yml`    | `WebpackProduction`, `BabelProduction` |
+| `test:ci`     | Run your app's test suite.                               |                                        | `test` job in `.circle/config.yml`     | `Eslint`, `Mocha`, `JestCi` |
+| `test:review` | Run your app's E2E tests against a deployed Review App.  | `e2e-test` job in `.circle/config.yml` | `NTest`, `Pa11y`                       |
