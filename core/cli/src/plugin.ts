@@ -8,7 +8,7 @@ import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import { Hook, Plugin, RawPlugin, Task } from '@dotcom-tool-kit/types'
+import { Hook, Plugin, PluginModule, RawPluginModule, Task } from '@dotcom-tool-kit/types'
 import isPlainObject from 'lodash.isplainobject'
 import mapValues from 'lodash.mapvalues'
 
@@ -105,10 +105,8 @@ export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: C
   return config
 }
 
-export function instantiatePlugin(plugin: unknown, logger: Logger): Plugin {
-  const rawPlugin = plugin as RawPlugin
-
-  const parent = rawPlugin.parent && instantiatePlugin(rawPlugin.parent, logger)
+export function validatePlugin(plugin: unknown): asserts plugin is PluginModule {
+  const rawPlugin = plugin as RawPluginModule
 
   if (
     rawPlugin.tasks &&
@@ -126,11 +124,6 @@ export function instantiatePlugin(plugin: unknown, logger: Logger): Plugin {
   ) {
     throw new ToolKitError('hooks are not valid')
   }
-
-  const hooks = mapValues(rawPlugin.hooks, (Hook) => {
-    return new Hook(logger)
-  })
-  return { ...rawPlugin, parent, hooks }
 }
 
 export async function loadPlugin(
@@ -148,20 +141,10 @@ export async function loadPlugin(
 
   // load plugin relative to the parent plugin
   const pluginRoot = resolveFrom(root, id)
-  const rawPlugin = importFrom(root, id)
-  let basePlugin
-  try {
-    basePlugin = instantiatePlugin(rawPlugin, logger)
-  } catch (error) {
-    if (error instanceof ToolKitError) {
-      error.details = `the package ${styles.plugin(id)} at ${styles.filepath(
-        pluginRoot
-      )} is not a valid plugin`
-    }
-    throw error
-  }
+  const pluginModule = importFrom(root, id)
+  validatePlugin(pluginModule)
+
   const plugin: Plugin = {
-    ...basePlugin,
     id,
     root: pluginRoot,
     parent
@@ -170,7 +153,7 @@ export async function loadPlugin(
   config.plugins[id] = plugin
 
   // add plugin tasks to our task registry, handling any conflicts
-  for (const newTask of plugin.tasks || []) {
+  for (const newTask of pluginModule.tasks || []) {
     const taskId = newTask.name
     const existingTask = config.tasks[taskId]
 
@@ -191,8 +174,9 @@ export async function loadPlugin(
 
   // add hooks to the registry, handling any conflicts
   // TODO refactor with command conflict handler
-  for (const [hookId, newHook] of Object.entries(plugin.hooks || [])) {
+  for (const [hookId, hookClass] of Object.entries(pluginModule.hooks || [])) {
     const existingHook = config.hooks[hookId]
+    const newHook = new hookClass(logger)
 
     newHook.id = hookId
     newHook.plugin = plugin

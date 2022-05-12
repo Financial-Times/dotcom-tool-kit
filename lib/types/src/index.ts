@@ -19,7 +19,9 @@ export abstract class Task<O extends Schema = Record<string, never>> {
   abstract run(files?: string[]): Promise<void>
 }
 
-export type TaskClass = typeof Task
+export type TaskClass = {
+  new <O extends Schema>(logger: Logger, options: Partial<SchemaOutput<O>>): Task<O>
+} & typeof Task
 
 export abstract class Hook {
   id?: string
@@ -34,6 +36,8 @@ export abstract class Hook {
   abstract check(): Promise<boolean>
   abstract install(): Promise<void>
 }
+
+export type HookClass = { new (logger: Logger): Hook } & typeof Hook
 
 export interface RawRCFile {
   plugins?: string[] | null
@@ -51,15 +55,15 @@ export interface Plugin {
   id: string
   root: string
   parent?: Plugin
+  module?: PluginModule
+  config?: RCFile
+}
+
+export interface RawPluginModule {
   tasks?: TaskClass[]
   hooks?: {
-    [id: string]: Hook
+    [id: string]: HookClass
   }
 }
 
-export interface RawPlugin extends Omit<Plugin, 'parent' | 'hooks'> {
-  parent?: RawPlugin
-  hooks?: {
-    [id: string]: { new (logger: Logger): Hook }
-  }
-}
+export type PluginModule = Required<RawPluginModule>
