@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.0.0...types-v2.1.0) (2022-05-06)
+
+
+### Features
+
+* **webpack:** add watch mode command for run:local by default ([001a881](https://github.com/Financial-Times/dotcom-tool-kit/commit/001a881c85e5e123cc43075e367c3825c0538d4f))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v1.9.0...types-v2.0.0) (2022-04-19)
 
 

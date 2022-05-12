@@ -38,6 +38,7 @@
     "plugins/node": {},
     "plugins/nodemon": {},
     "plugins/npm": {},
+    "plugins/pa11y": {},
     "plugins/prettier": {},
     "plugins/secret-squirrel": {},
     "plugins/upload-assets-to-s3": {},

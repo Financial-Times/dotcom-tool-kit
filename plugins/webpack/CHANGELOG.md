@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/webpack-v2.0.0...webpack-v2.1.0) (2022-05-06)
+
+
+### Features
+
+* **webpack:** add watch mode command for run:local by default ([001a881](https://github.com/Financial-Times/dotcom-tool-kit/commit/001a881c85e5e123cc43075e367c3825c0538d4f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/webpack-v1.9.0...webpack-v2.0.0) (2022-04-19)
 
 

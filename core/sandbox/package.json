@@ -5,9 +5,10 @@
   "scripts": {
     "format": "dotcom-tool-kit format:local",
     "build": "dotcom-tool-kit build:local",
-    "test": "dotcom-tool-kit test:local",
+    "test": "dotcom-tool-kit test:local test:review",
     "start": "dotcom-tool-kit run:local",
-    "heroku-postbuild": "dotcom-tool-kit build:remote release:remote cleanup:remote"
+    "heroku-postbuild": "dotcom-tool-kit build:remote release:remote cleanup:remote",
+    "watch": "tsc --build --watch --verbose tsconfig.json"
   },
   "keywords": [],
   "author": "",
@@ -30,7 +31,8 @@
     "@dotcom-tool-kit/secret-squirrel": "file:../../plugins/secret-squirrel",
     "@dotcom-tool-kit/upload-assets-to-s3": "^2.0.0",
     "dotcom-tool-kit": "^2.0.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "@dotcom-tool-kit/pa11y": "file:../../plugins/pa11y"
   },
   "volta": {
     "extends": "../../package.json"
@@ -43,5 +45,6 @@
   "lint-staged": {
     "index.js": "dotcom-tool-kit format:staged --",
     "**/*.js": "dotcom-tool-kit test:staged --"
-  }
+  },
+  "dependencies": {}
 }

@@ -1,6 +1,6 @@
 {
   "name": "dotcom-tool-kit",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "modern, maintainable, modular developer tooling for FT.com projects",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -32,8 +32,8 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.0",
     "@dotcom-tool-kit/logger": "^2.0.0",
-    "@dotcom-tool-kit/options": "^2.0.0",
-    "@dotcom-tool-kit/types": "^2.0.0",
+    "@dotcom-tool-kit/options": "^2.0.1",
+    "@dotcom-tool-kit/types": "^2.1.0",
     "@dotcom-tool-kit/wait-for-ok": "^2.0.0",
     "cosmiconfig": "^7.0.0",
     "import-from": "^3.0.0",

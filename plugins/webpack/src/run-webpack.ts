@@ -6,11 +6,14 @@ import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
 export interface RunWebpackOptions {
-  mode: 'production' | 'development',
+  mode: 'production' | 'development'
   watch?: boolean
 }
 
-export default function runWebpack(logger: Logger, options: WebpackOptions & RunWebpackOptions): Promise<void> {
+export default function runWebpack(
+  logger: Logger,
+  options: WebpackOptions & RunWebpackOptions
+): Promise<void> {
   logger.info('starting Webpack...')
   const args = ['build', '--color', `--mode=${options.mode}`]
 
