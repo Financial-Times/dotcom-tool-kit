@@ -7,10 +7,8 @@ import { Config, PluginOptions } from './config'
 import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { styles } from '@dotcom-tool-kit/logger'
 import { Hook, Plugin, PluginModule, RawPluginModule, Task } from '@dotcom-tool-kit/types'
 import isPlainObject from 'lodash.isplainobject'
-import mapValues from 'lodash.mapvalues'
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {
