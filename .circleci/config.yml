@@ -296,7 +296,6 @@ workflows:
     when:
       and:
         - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-        - equal: [ "test scheduled workflow", << pipeline.schedule.name >> ]
     jobs:
       - build:
           name: build-v<< matrix.node-version >>
@@ -334,6 +333,9 @@ workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit
   orb-test-pack:
+    when:
+      not:
+        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       # Lint Yaml files
       - orb-tools/lint:
