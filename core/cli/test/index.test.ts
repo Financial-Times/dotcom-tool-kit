@@ -65,7 +65,7 @@ describe('cli', () => {
       config
     )
 
-    expect(() => validateConfig(config)).rejects.toBeInstanceOf(ToolKitError)
+    expect(() => validateConfig(config)).toThrow(ToolKitError)
     expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
     expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
     expect(config).toHaveProperty('hookTasks.build:local.conflicting')
@@ -80,7 +80,7 @@ describe('cli', () => {
       config
     )
 
-    expect(() => validateConfig(config)).rejects.toBeInstanceOf(ToolKitError)
+    expect(() => validateConfig(config)).toThrow(ToolKitError)
     expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
     expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
     expect(config).toHaveProperty('hookTasks.build:local.conflicting')
