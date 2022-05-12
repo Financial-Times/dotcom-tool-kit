@@ -51,7 +51,7 @@ describe('cli', () => {
       config
     )
 
-    // make every root path in the config relative for consistent snapshots aacross machines
+    // make every root path in the config relative for consistent snapshots across machines
     makeConfigPathsRelative(config)
     expect(config).toMatchSnapshot()
   })
