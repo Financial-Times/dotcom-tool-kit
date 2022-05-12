@@ -99,11 +99,17 @@ describe('cli', () => {
       config
     )
 
-    const validConfig = await validateConfig(config).catch((e) => {
-      e.message += e.details
+    try {
+      validateConfig(config)
+    } catch (e) {
+      if (e instanceof ToolKitError) {
+        e.message += e.details
+      }
+
       throw e
-    })
-    expect(validConfig).not.toHaveProperty('hookTasks.build:local.conflicting')
-    expect(validConfig.hookTasks['build:local'].tasks).toEqual(['WebpackDevelopment', 'BabelDevelopment'])
+    }
+
+    expect(config).not.toHaveProperty('hookTasks.build:local.conflicting')
+    expect(config.hookTasks['build:local'].tasks).toEqual(['WebpackDevelopment', 'BabelDevelopment'])
   })
 })
