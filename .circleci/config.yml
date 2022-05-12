@@ -292,6 +292,23 @@ workflows:
             - lint-v16.14
             - test-v16.14
 
+  test-scheduled-workflow:
+    when:
+      and:
+        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ "test scheduled workflow", << pipeline.schedule.name >> ]
+    jobs:
+      - build:
+          name: build-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: ['16.14', '14.19']
+      - test:
+          name: build-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: ['16.14', '14.19']
+  
   nightly:
     triggers:
       - schedule:
