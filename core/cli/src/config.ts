@@ -56,7 +56,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-export async function validateConfig(config: Config): Promise<ValidConfig> {
+export function validateConfig(config: Config): asserts config is ValidConfig {
   const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
   const hookConflicts = findConflicts(Object.values(config.hooks))
   const taskConflicts = findConflicts(Object.values(config.tasks))
@@ -143,8 +143,6 @@ export async function validateConfig(config: Config): Promise<ValidConfig> {
   if (shouldThrow) {
     throw error
   }
-
-  return config as ValidConfig
 }
 
 export async function checkInstall(config: ValidConfig): Promise<void> {
@@ -174,7 +172,11 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
     createConfig()
   )
 
-  return validate ? validateConfig(config) : config
+  if (validate) {
+    validateConfig(config)
+  }
+
+  return config
 }
 
 // abstract class TestBase {}
