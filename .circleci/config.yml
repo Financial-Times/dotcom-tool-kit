@@ -310,7 +310,9 @@ workflows:
             parameters:
               node-version: ['16.14', '14.19']
       - test:
-          name: build-v<< matrix.node-version >>
+          requires:
+            - build-v<< matrix.node-version >>
+          name: test-v<< matrix.node-version >>
           matrix:
             parameters:
               node-version: ['16.14', '14.19']
