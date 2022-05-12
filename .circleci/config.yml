@@ -293,9 +293,6 @@ workflows:
             - test-v16.14
 
   test-scheduled-workflow:
-    when:
-      and:
-        - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - build:
           name: build-v<< matrix.node-version >>
