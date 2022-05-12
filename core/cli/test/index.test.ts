@@ -50,7 +50,6 @@ describe('cli', () => {
       { id: 'successful test root', root: path.join(__dirname, 'files/successful') },
       config
     )
-    await validateConfig(config)
 
     // make every root path in the config relative for consistent snapshots aacross machines
     makeConfigPathsRelative(config)
