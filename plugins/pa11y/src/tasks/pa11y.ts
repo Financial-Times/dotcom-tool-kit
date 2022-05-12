@@ -46,6 +46,6 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
       error.details = errorList.join('\n\n')
       throw error
     }
-    this.logger.info(`Pa11y ran successfully, and there are no errors`)
+    this.logger.info(`Pa11y ran successfully, and there are no errors.`)
   }
 }
