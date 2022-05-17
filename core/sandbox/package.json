@@ -5,7 +5,7 @@
   "scripts": {
     "format": "dotcom-tool-kit format:local",
     "build": "dotcom-tool-kit build:local",
-    "test": "dotcom-tool-kit test:local test:review",
+    "test": "dotcom-tool-kit test:local",
     "start": "dotcom-tool-kit run:local",
     "heroku-postbuild": "dotcom-tool-kit build:remote release:remote cleanup:remote",
     "watch": "tsc --build --watch --verbose tsconfig.json"
