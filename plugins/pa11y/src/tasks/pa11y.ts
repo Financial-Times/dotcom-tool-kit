@@ -22,7 +22,13 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
       this.options.host = `https://${reviewState.appName}.com`
     }
 
-    const results = await pa11y(this.options.host ?? '')
+    if (this.options.host === null || this.options.host === undefined) {
+      const error = new ToolKitError('Pa11y host error')
+      error.details = 'Host on pa11y cant be null or undefined'
+      throw error
+    }
+
+    const results = await pa11y(this.options)
     const issues = results.issues
 
     this.logger.info(`\n Running Pa11y on ${results.pageUrl}, document title ${results.documentTitle} \n`)
