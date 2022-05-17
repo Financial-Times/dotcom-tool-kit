@@ -96,6 +96,9 @@
     },
     {
       "path": "plugins/secret-squirrel"
+    },
+    {
+      "path": "plugins/pa11y"
     }
   ]
 }

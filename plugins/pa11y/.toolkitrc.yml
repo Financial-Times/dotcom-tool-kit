@@ -1,0 +1,6 @@
+plugins:
+  - '@dotcom-tool-kit/vault'
+
+hooks:
+  'test:review': Pa11y
+  'test:staging': Pa11y
