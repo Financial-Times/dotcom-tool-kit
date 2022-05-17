@@ -4,6 +4,14 @@ import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Pa11ySchema } from '@dotcom-tool-kit/types/lib/schema/pa11y'
 
+type Pa11yIssue = {
+  typeCode: number
+  type: string
+  message: string
+  context: string
+  selector: string
+}
+
 export default class Pa11y extends Task<typeof Pa11ySchema> {
   static description = ''
 
@@ -14,12 +22,12 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
       this.options.host = `https://${reviewState.appName}.com`
     }
 
-    const results = await pa11y(this.options.host)
+    const results = await pa11y(this.options.host ?? '')
     const issues = results.issues
 
     this.logger.info(`\n Running Pa11y on ${results.pageUrl}, document title ${results.documentTitle} \n`)
     if (results.issues?.length > 0) {
-      results.issues.forEach((issue: any, i: number) => {
+      results.issues.forEach((issue: Pa11yIssue, i: number) => {
         const error = new ToolKitError(
           issue.typeCode === 1
             ? `Pa11y failed run due to a technical fault`
