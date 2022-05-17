@@ -2,7 +2,7 @@
   "name": "@dotcom-tool-kit/pa11y",
   "version": "0.1.0",
   "description": "pa11y",
-  "main": "index.js",
+  "main": "lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
