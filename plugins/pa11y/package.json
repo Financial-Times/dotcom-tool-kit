@@ -28,5 +28,8 @@
   ],
   "peerDependencies": {
     "dotcom-tool-kit": "2.x"
+  },
+  "devDependencies": {
+    "@types/pa11y": "^5.3.4"
   }
 }

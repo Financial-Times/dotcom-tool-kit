@@ -28,7 +28,7 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
       throw error
     }
 
-    const results = await pa11y(this.options)
+    const results = await pa11y(this.options.host, this.options)
     const issues = results.issues
 
     this.logger.info(`\n Running Pa11y on ${results.pageUrl}, document title ${results.documentTitle} \n`)
