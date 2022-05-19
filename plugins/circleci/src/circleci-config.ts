@@ -106,6 +106,11 @@ export default abstract class CircleCiConfigHook extends Hook {
       workflows: {
         version: 2,
         'tool-kit': {
+          when: {
+            not: {
+              equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
+            }
+          },
           jobs: [
             'checkout',
             {
@@ -122,14 +127,16 @@ export default abstract class CircleCiConfigHook extends Hook {
           ]
         },
         nightly: {
-          triggers: [
-            {
-              schedule: {
-                cron: '0 0 * * *',
-                filters: { branches: { only: 'main' } }
+          when: {
+            and: [
+              {
+                equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
+              },
+              {
+                equal: ['nightly', '<< pipeline.schedule.name >>']
               }
-            }
-          ],
+            ]
+          },
           jobs: [
             'checkout',
             {
