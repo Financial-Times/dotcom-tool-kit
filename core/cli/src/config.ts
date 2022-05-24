@@ -178,8 +178,3 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
 
   return config
 }
-
-// abstract class TestBase {}
-// class Test extends TestBase {}
-// const testBase = TestBase
-// const test = new testBase()
