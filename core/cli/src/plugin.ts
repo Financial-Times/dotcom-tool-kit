@@ -1,4 +1,3 @@
-import importFrom from 'import-from'
 import resolveFrom from 'resolve-from'
 import type { Logger } from 'winston'
 
