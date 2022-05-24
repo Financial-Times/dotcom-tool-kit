@@ -172,7 +172,7 @@ Object {
             "module": undefined,
             "parent": Object {
               "id": "successful test root",
-              "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+              "root": "core/cli/test/files/successful",
             },
             "rcFile": Object {
               "hooks": Object {
@@ -419,7 +419,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -654,7 +654,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -889,7 +889,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -1124,7 +1124,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -1374,7 +1374,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -1610,7 +1610,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -1836,7 +1836,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -2066,7 +2066,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -2306,7 +2306,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -2540,7 +2540,7 @@ Object {
             "module": undefined,
             "parent": Object {
               "id": "successful test root",
-              "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+              "root": "core/cli/test/files/successful",
             },
             "rcFile": Object {
               "hooks": Object {
@@ -2764,7 +2764,7 @@ Object {
               "module": undefined,
               "parent": Object {
                 "id": "successful test root",
-                "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+                "root": "core/cli/test/files/successful",
               },
               "rcFile": Object {
                 "hooks": Object {
@@ -3007,7 +3007,7 @@ Object {
             "module": undefined,
             "parent": Object {
               "id": "successful test root",
-              "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+              "root": "core/cli/test/files/successful",
             },
             "rcFile": Object {
               "hooks": Object {
@@ -3243,7 +3243,7 @@ Object {
             "module": undefined,
             "parent": Object {
               "id": "successful test root",
-              "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+              "root": "core/cli/test/files/successful",
             },
             "rcFile": Object {
               "hooks": Object {
@@ -3501,7 +3501,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -3746,7 +3746,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -3991,7 +3991,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -4215,7 +4215,7 @@ Object {
             "module": undefined,
             "parent": Object {
               "id": "successful test root",
-              "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+              "root": "core/cli/test/files/successful",
             },
             "rcFile": Object {
               "hooks": Object {
@@ -4444,7 +4444,7 @@ Object {
               "module": undefined,
               "parent": Object {
                 "id": "successful test root",
-                "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+                "root": "core/cli/test/files/successful",
               },
               "rcFile": Object {
                 "hooks": Object {
@@ -4703,7 +4703,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -4937,7 +4937,7 @@ Object {
             "module": undefined,
             "parent": Object {
               "id": "successful test root",
-              "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+              "root": "core/cli/test/files/successful",
             },
             "rcFile": Object {
               "hooks": Object {
@@ -5161,7 +5161,7 @@ Object {
               "module": undefined,
               "parent": Object {
                 "id": "successful test root",
-                "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+                "root": "core/cli/test/files/successful",
               },
               "rcFile": Object {
                 "hooks": Object {
@@ -5420,7 +5420,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -5660,7 +5660,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -5893,7 +5893,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -6142,7 +6142,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -6359,7 +6359,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -6605,7 +6605,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -6826,7 +6826,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -7068,7 +7068,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -7288,7 +7288,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -7524,7 +7524,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -7755,7 +7755,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -7984,7 +7984,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -8214,7 +8214,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -8447,7 +8447,7 @@ Object {
         "module": undefined,
         "parent": Object {
           "id": "successful test root",
-          "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+          "root": "core/cli/test/files/successful",
         },
         "rcFile": Object {
           "hooks": Object {
@@ -8664,7 +8664,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -8888,7 +8888,7 @@ Object {
           "module": undefined,
           "parent": Object {
             "id": "successful test root",
-            "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+            "root": "core/cli/test/files/successful",
           },
           "rcFile": Object {
             "hooks": Object {
@@ -9110,7 +9110,7 @@ Object {
             "module": undefined,
             "parent": Object {
               "id": "successful test root",
-              "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+              "root": "core/cli/test/files/successful",
             },
             "rcFile": Object {
               "hooks": Object {
@@ -9339,7 +9339,7 @@ Object {
             "module": undefined,
             "parent": Object {
               "id": "successful test root",
-              "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+              "root": "core/cli/test/files/successful",
             },
             "rcFile": Object {
               "hooks": Object {
@@ -9602,7 +9602,7 @@ Object {
       "module": undefined,
       "parent": Object {
         "id": "successful test root",
-        "root": "/Users/kara.brightwell/Work/dotcom-tool-kit/core/cli/test/files/successful",
+        "root": "core/cli/test/files/successful",
       },
       "rcFile": Object {
         "hooks": Object {

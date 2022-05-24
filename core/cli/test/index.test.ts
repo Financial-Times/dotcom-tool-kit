@@ -19,6 +19,16 @@ function makeConfigPathsRelative(config: Config) {
 
   for (const plugin of Object.values(config.plugins)) {
     makeRootRelative(plugin)
+
+    if (plugin.parent) {
+      makeRootRelative(plugin.parent)
+
+      if (plugin.children) {
+        for (const child of plugin.children) {
+          makeRootRelative(child)
+        }
+      }
+    }
   }
 
   for (const assignment of Object.values(config.hookTasks)) {
