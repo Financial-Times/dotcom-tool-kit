@@ -20,89 +20,6 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
   }
 }
 
-export async function loadPluginConfig(logger: Logger, plugin: Plugin, config: Config): Promise<Config> {
-  const { plugins, hooks, options } = await loadToolKitRC(plugin.root)
-
-  // load any plugins requested by this plugin
-  await loadPlugins(logger, plugins, config, plugin)
-
-  // load plugin hook tasks. do this after loading child plugins, so
-  // parent hooks get assigned after child hooks and can override them
-  for (const [id, configHookTask] of Object.entries(hooks)) {
-    // handle conflicts between hooks from different plugins
-    const existingHookTask = config.hookTasks[id]
-    const newHookTask: HookTask = {
-      id,
-      plugin,
-      tasks: Array.isArray(configHookTask) ? configHookTask : [configHookTask]
-    }
-
-    if (existingHookTask) {
-      const existingFromDescendent = isDescendent(plugin, existingHookTask.plugin)
-
-      // plugins can only override hook tasks from their descendents, otherwise that's a conflict
-      // return a conflict either listing this hook and the siblings,
-      // or merging in a previously-generated hook
-      if (!existingFromDescendent) {
-        const conflicting = isConflict(existingHookTask) ? existingHookTask.conflicting : [existingHookTask]
-
-        const conflict: Conflict<HookTask> = {
-          plugin,
-          conflicting: conflicting.concat(newHookTask)
-        }
-
-        config.hookTasks[id] = conflict
-      } else {
-        // if we're here, any existing hook is from a child plugin,
-        // so the parent always overrides it
-        config.hookTasks[id] = newHookTask
-      }
-    } else {
-      // this hook task might not have been set yet, in which case use the new one
-      config.hookTasks[id] = newHookTask
-    }
-  }
-
-  // merge options from this plugin's config with any options we've collected already
-  // TODO this is almost the exact same code as for hooks, refactor
-  for (const [id, configOptions] of Object.entries(options)) {
-    const existingOptions = config.options[id]
-
-    const pluginOptions: PluginOptions = {
-      options: configOptions,
-      plugin,
-      forPlugin: config.plugins[id]
-    }
-
-    if (existingOptions) {
-      const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
-
-      // plugins can only override options from their descendents, otherwise it's a conflict
-      // return a conflict either listing these options and the sibling's,
-      // or merging in previously-generated options
-      if (!existingFromDescendent) {
-        const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
-
-        const conflict: Conflict<PluginOptions> = {
-          plugin,
-          conflicting: conflicting.concat(pluginOptions)
-        }
-
-        config.options[id] = conflict
-      } else {
-        // if we're here, any existing options are from a child plugin,
-        // so merge in overrides from the parent
-        config.options[id] = { ...existingOptions, ...pluginOptions }
-      }
-    } else {
-      // this options key might not have been set yet, in which case use the new one
-      config.options[id] = pluginOptions
-    }
-  }
-
-  return config
-}
-
 export function validatePlugin(plugin: unknown): asserts plugin is PluginModule {
   const rawPlugin = plugin as RawPluginModule
 
@@ -124,10 +41,26 @@ export function validatePlugin(plugin: unknown): asserts plugin is PluginModule 
   }
 }
 
-export async function loadPlugin(
+async function importPlugin(pluginPath: string): Promise<PluginModule> {
+  // pluginPath is an absolute resolved path to a plugin module as found from its parent
+  const pluginModule = await import(pluginPath)
+  validatePlugin(pluginModule)
+  return pluginModule
+}
+
+export function loadPlugins(
+  plugins: string[],
+  config: Config,
   logger: Logger,
+  parent?: Plugin
+): Promise<Plugin[]> {
+  return Promise.all(plugins.map((plugin) => loadPlugin(plugin, config, logger, parent)))
+}
+
+export async function loadPlugin(
   id: string,
   config: Config,
+  logger: Logger,
   parent?: Plugin
 ): Promise<Plugin> {
   // don't load duplicate plugins
@@ -135,12 +68,9 @@ export async function loadPlugin(
     return config.plugins[id]
   }
 
-  const root = parent ? parent.root : process.cwd()
-
   // load plugin relative to the parent plugin
-  const pluginRoot = resolveFrom(root, id)
-  const pluginModule = importFrom(root, id)
-  validatePlugin(pluginModule)
+  const root = parent ? parent.root : process.cwd()
+  const pluginRoot = id === 'app root' ? root : resolveFrom(root, id)
 
   const plugin: Plugin = {
     id,
@@ -148,59 +78,150 @@ export async function loadPlugin(
     parent
   }
 
-  config.plugins[id] = plugin
+  // start loading rc file in the background
+  const rcFilePromise = loadToolKitRC(pluginRoot)
 
-  // add plugin tasks to our task registry, handling any conflicts
-  for (const newTask of pluginModule.tasks || []) {
-    const taskId = newTask.name
-    const existingTask = config.tasks[taskId]
+  // start loading module in the background
+  const pluginModulePromise = id === 'app root' ? Promise.resolve(undefined) : importPlugin(pluginRoot)
 
-    newTask.plugin = plugin
-    newTask.id = taskId
+  plugin.rcFile = await rcFilePromise
 
-    if (existingTask) {
-      const conflicting = isConflict(existingTask) ? existingTask.conflicting : [existingTask]
+  // start loading child plugins in the background
+  const childrenPromise = loadPlugins(plugin.rcFile.plugins, config, logger, plugin)
 
-      config.tasks[taskId] = {
-        plugin,
-        conflicting: conflicting.concat(newTask)
-      }
-    } else {
-      config.tasks[taskId] = newTask
-    }
-  }
+  // wait for pending promises concurrently
+  ;[plugin.module, plugin.children] = await Promise.all([pluginModulePromise, childrenPromise])
 
-  // add hooks to the registry, handling any conflicts
-  // TODO refactor with command conflict handler
-  for (const [hookId, hookClass] of Object.entries(pluginModule.hooks || [])) {
-    const existingHook = config.hooks[hookId]
-    const newHook = new hookClass(logger)
-
-    newHook.id = hookId
-    newHook.plugin = plugin
-
-    if (existingHook) {
-      const conflicting = isConflict(existingHook) ? existingHook.conflicting : [existingHook]
-
-      config.hooks[hookId] = {
-        plugin,
-        conflicting: conflicting.concat(newHook)
-      }
-    } else {
-      config.hooks[hookId] = newHook
-    }
-  }
-
-  await loadPluginConfig(logger, plugin, config)
-
-  return plugin
+  return (config.plugins[id] = plugin)
 }
 
-export function loadPlugins(
-  logger: Logger,
-  plugins: string[],
-  config: Config,
-  parent?: Plugin
-): Promise<Plugin[]> {
-  return Promise.all(plugins.map((plugin) => loadPlugin(logger, plugin, config, parent)))
+export function resolvePlugins(plugins: Plugin[], config: Config, logger: Logger): void {
+  for (const plugin of plugins) {
+    resolvePlugin(plugin, config, logger)
+  }
+}
+
+export function resolvePlugin(plugin: Plugin, config: Config, logger: Logger): void {
+  if (plugin.children) {
+    resolvePlugins(plugin.children, config, logger)
+  }
+
+  if (plugin.module) {
+    // add plugin tasks to our task registry, handling any conflicts
+    for (const newTask of plugin.module.tasks || []) {
+      const taskId = newTask.name
+      const existingTask = config.tasks[taskId]
+
+      newTask.plugin = plugin
+      newTask.id = taskId
+
+      if (existingTask) {
+        const conflicting = isConflict(existingTask) ? existingTask.conflicting : [existingTask]
+
+        config.tasks[taskId] = {
+          plugin,
+          conflicting: conflicting.concat(newTask)
+        }
+      } else {
+        config.tasks[taskId] = newTask
+      }
+    }
+
+    // add hooks to the registry, handling any conflicts
+    // TODO refactor with command conflict handler
+    for (const [hookId, hookClass] of Object.entries(plugin.module.hooks || [])) {
+      const existingHook = config.hooks[hookId]
+      const newHook = new hookClass(logger)
+
+      newHook.id = hookId
+      newHook.plugin = plugin
+
+      if (existingHook) {
+        const conflicting = isConflict(existingHook) ? existingHook.conflicting : [existingHook]
+
+        config.hooks[hookId] = {
+          plugin,
+          conflicting: conflicting.concat(newHook)
+        }
+      } else {
+        config.hooks[hookId] = newHook
+      }
+    }
+  }
+
+  if (plugin.rcFile) {
+    // load plugin hook tasks. do this after loading child plugins, so
+    // parent hooks get assigned after child hooks and can override them
+    for (const [id, configHookTask] of Object.entries(plugin.rcFile.hooks)) {
+      // handle conflicts between hooks from different plugins
+      const existingHookTask = config.hookTasks[id]
+      const newHookTask: HookTask = {
+        id,
+        plugin,
+        tasks: Array.isArray(configHookTask) ? configHookTask : [configHookTask]
+      }
+
+      if (existingHookTask) {
+        const existingFromDescendent = isDescendent(plugin, existingHookTask.plugin)
+
+        // plugins can only override hook tasks from their descendents, otherwise that's a conflict
+        // return a conflict either listing this hook and the siblings,
+        // or merging in a previously-generated hook
+        if (!existingFromDescendent) {
+          const conflicting = isConflict(existingHookTask) ? existingHookTask.conflicting : [existingHookTask]
+
+          const conflict: Conflict<HookTask> = {
+            plugin,
+            conflicting: conflicting.concat(newHookTask)
+          }
+
+          config.hookTasks[id] = conflict
+        } else {
+          // if we're here, any existing hook is from a child plugin,
+          // so the parent always overrides it
+          config.hookTasks[id] = newHookTask
+        }
+      } else {
+        // this hook task might not have been set yet, in which case use the new one
+        config.hookTasks[id] = newHookTask
+      }
+    }
+
+    // merge options from this plugin's config with any options we've collected already
+    // TODO this is almost the exact same code as for hooks, refactor
+    for (const [id, configOptions] of Object.entries(plugin.rcFile.options)) {
+      const existingOptions = config.options[id]
+
+      const pluginOptions: PluginOptions = {
+        options: configOptions,
+        plugin,
+        forPlugin: config.plugins[id]
+      }
+
+      if (existingOptions) {
+        const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
+
+        // plugins can only override options from their descendents, otherwise it's a conflict
+        // return a conflict either listing these options and the sibling's,
+        // or merging in previously-generated options
+        if (!existingFromDescendent) {
+          const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
+
+          const conflict: Conflict<PluginOptions> = {
+            plugin,
+            conflicting: conflicting.concat(pluginOptions)
+          }
+
+          config.options[id] = conflict
+        } else {
+          // if we're here, any existing options are from a child plugin,
+          // so merge in overrides from the parent
+          config.options[id] = { ...existingOptions, ...pluginOptions }
+        }
+      } else {
+        // this options key might not have been set yet, in which case use the new one
+        config.options[id] = pluginOptions
+      }
+    }
+  }
 }

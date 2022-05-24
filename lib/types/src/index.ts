@@ -54,7 +54,10 @@ export interface RCFile {
 export interface Plugin {
   id: string
   root: string
+  rcFile?: RCFile
+  module?: PluginModule
   parent?: Plugin
+  children?: Plugin[]
 }
 
 export interface RawPluginModule {
