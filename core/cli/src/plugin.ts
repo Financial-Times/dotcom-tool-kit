@@ -26,7 +26,7 @@ export function validatePlugin(plugin: unknown): asserts plugin is PluginModule 
 
   if (
     rawPlugin.tasks &&
-    !(Array.isArray(rawPlugin.tasks) && rawPlugin.tasks.every((task) => task.prototype instanceof Task))
+    !(Array.isArray(rawPlugin.tasks) && rawPlugin.tasks.every((task) => Task.isCompatible(task)))
   ) {
     throw new ToolKitError('tasks are not valid')
   }
@@ -35,7 +35,7 @@ export function validatePlugin(plugin: unknown): asserts plugin is PluginModule 
     rawPlugin.hooks &&
     !(
       isPlainObject(rawPlugin.hooks) &&
-      Object.values(rawPlugin.hooks).every((hook) => hook.prototype instanceof Hook)
+      Object.values(rawPlugin.hooks).every((hook) => Hook.isCompatible(hook))
     )
   ) {
     throw new ToolKitError('hooks are not valid')
