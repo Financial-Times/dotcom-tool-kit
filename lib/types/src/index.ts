@@ -32,16 +32,16 @@ abstract class Base {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static is<T extends Base>(something: any): something is T {
-    return something[typeSymbol] === this[typeSymbol]
+  static is<T extends Base>(objectToCheck: any): objectToCheck is T {
+    return objectToCheck[typeSymbol] === this[typeSymbol]
   }
 
-  static isCompatible<T extends Base>(something: unknown): something is T {
-    if (!this.is(something)) {
+  static isCompatible<T extends Base>(objectToCheck: unknown): objectToCheck is T {
+    if (!this.is(objectToCheck)) {
       return false
     }
 
-    // something from a plugin is compatible with this CLI if its version
+    // objectToCheck from a plugin is compatible with this CLI if its version
     // is semver-compatible with the @dotcom-tool-kit/types included
     // by the CLI (which is what's calling this). so, prepend ^ to
     // our version, and check our version satisfies that.
@@ -49,7 +49,7 @@ abstract class Base {
     // this lets e.g. a CLI that includes types@2.2.0 load any plugin
     // that depends on any higher minor version of types.
     const range = `^${this.version}`
-    return semver.satisfies(something.version, range)
+    return semver.satisfies(objectToCheck.version, range)
   }
 }
 
