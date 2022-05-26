@@ -8,7 +8,8 @@ references:
   #
   # Workspace
   #
-  container_config_node: &container_config_node
+  container_config_node:
+    &container_config_node
     working_directory: ~/project/build
     docker:
       - image: cimg/node:<< parameters.node-version >>
@@ -19,14 +20,16 @@ references:
 
   workspace_root: &workspace_root ~/project
 
-  attach_workspace: &attach_workspace
+  attach_workspace:
+    &attach_workspace
     attach_workspace:
       at: *workspace_root
 
   #
   # Cache creation
   #
-  create_cache: &create_cache
+  create_cache:
+    &create_cache
     save_cache:
       key: cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
       paths:
@@ -35,7 +38,8 @@ references:
   #
   # Cache restoration
   #
-  restore_cache: &restore_cache
+  restore_cache:
+    &restore_cache
     restore_cache:
       keys:
         - cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
@@ -43,41 +47,48 @@ references:
   #
   # Filters
   #
-  filters_only_main: &filters_only_main
+  filters_only_main:
+    &filters_only_main
     branches:
       only:
         - main
 
-  filters_only_renovate_nori: &filters_only_renovate_nori
+  filters_only_renovate_nori:
+    &filters_only_renovate_nori
     branches:
       only: /(^renovate-.*|^nori\/.*)/
 
-  filters_ignore_tags_renovate_nori_build_main: &filters_ignore_tags_renovate_nori_build_main
+  filters_ignore_tags_renovate_nori_build_main:
+    &filters_ignore_tags_renovate_nori_build_main
     tags:
       ignore: /.*/
     branches:
       ignore: /(^renovate-.*|^nori\/.*|^gh-pages|^main$)/
 
-  filters_main_branch: &filters_main_branch
+  filters_main_branch:
+    &filters_main_branch
     branches:
       only:
         - main
 
-  filters_release_build: &filters_release_build
+  filters_release_build:
+    &filters_release_build
     tags:
       only:
         - /^[\w-]+-v\d+\.\d+\.\d+$/
     branches:
       ignore: /.*/
 
-  filters_prerelease_build: &filters_prerelease_build
+  filters_prerelease_build:
+    &filters_prerelease_build
     tags:
       only:
         - /^[\w-]+-v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
     branches:
       ignore: /.*/
 
-  filters_orbs_release_build: &filters_orbs_release_build
+  filters_orbs_release_build:
+    &filters_orbs_release_build
     tags:
       only:
         # CircleCI doesn't allow prerelease versions to be published
@@ -127,8 +138,7 @@ jobs:
       - *attach_workspace
       - run:
           name: Update release-please release PR
-          command: npx release-please release-pr
-            --token=${RELEASE_PLEASE_GITHUB_TOKEN}
+          command: npx release-please release-pr --token=${RELEASE_PLEASE_GITHUB_TOKEN}
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
       - run:
           name: Release any unreleased PR merges
@@ -165,6 +175,11 @@ workflows:
   version: 2
 
   build-test:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
     jobs:
       - build:
           filters:
@@ -172,29 +187,39 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - test:
           requires:
             - build-v<< matrix.node-version >>
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - lint:
           requires:
             - build-v<< matrix.node-version >>
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
 
   release-please:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
     jobs:
       - release-please:
           filters:
             <<: *filters_only_main
 
   renovate-nori-build-test:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
     jobs:
       - waiting-for-approval:
           type: approval
@@ -206,23 +231,28 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - test:
           requires:
             - build-v<< matrix.node-version >>
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - lint:
           requires:
             - build-v<< matrix.node-version >>
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
 
   build-test-publish:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
     jobs:
       - build:
           filters:
@@ -230,7 +260,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - test:
           filters:
             <<: *filters_release_build
@@ -239,7 +269,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - lint:
           filters:
             <<: *filters_release_build
@@ -248,7 +278,7 @@ workflows:
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - publish:
           context: npm-publish-token
           filters:
@@ -258,6 +288,11 @@ workflows:
             - test-v16.14
 
   build-test-prepublish:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
     jobs:
       - build:
           filters:
@@ -265,7 +300,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - test:
           filters:
             <<: *filters_prerelease_build
@@ -274,7 +309,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - lint:
           filters:
             <<: *filters_prerelease_build
@@ -283,7 +318,7 @@ workflows:
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - prepublish:
           context: npm-publish-token
           filters:
@@ -293,18 +328,21 @@ workflows:
             - test-v16.14
 
   nightly:
-    triggers:
-      - schedule:
-          cron: '0 0 * * *'
-          filters:
-            <<: *filters_only_main
+    when:
+      and:
+        - equal:
+            - scheduled_pipeline
+            - << pipeline.trigger_source >>
+        - equal:
+            - nightly
+            - << pipeline.schedule.name >>
     jobs:
       - build:
           context: next-nightly-build
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
       - test:
           requires:
             - build-v<< matrix.node-version >>
@@ -312,11 +350,16 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: ['16.14', '14.19']
+              node-version: [ '16.14', '14.19' ]
 
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit
   orb-test-pack:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
     jobs:
       # Lint Yaml files
       - orb-tools/lint:
@@ -332,6 +375,11 @@ workflows:
             - orb-tools/pack
 
   orb-integration-test_deploy:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
     jobs:
       # Lint Yaml files
       - orb-tools/lint:
