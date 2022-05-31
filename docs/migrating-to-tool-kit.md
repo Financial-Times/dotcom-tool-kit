@@ -14,6 +14,9 @@ Tool Kit and so will give analogies and guidance based on it. Therefore, this
 text is recommended only for projects already using n-gage, though it _may_ help
 push you in the right direction if you're creating a fresh, new project.
 
+## Prerequisites
+Prior to using the migration tool, please make sure you are using npm 7 or above.
+
 ## The Migration Tool
 
 We have created an interactive tool that will hopefully automate most of the
