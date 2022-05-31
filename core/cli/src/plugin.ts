@@ -2,7 +2,7 @@ import resolveFrom from 'resolve-from'
 import type { Logger } from 'winston'
 
 import { Conflict, isConflict } from './conflict'
-import { Config, PluginOptions } from './config'
+import { RawConfig, PluginOptions } from './config'
 import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
@@ -51,7 +51,7 @@ async function importPlugin(pluginPath: string): Promise<PluginModule> {
 
 export async function loadPlugin(
   id: string,
-  config: Config,
+  config: RawConfig,
   logger: Logger,
   parent?: Plugin
 ): Promise<Plugin> {
@@ -91,7 +91,7 @@ export async function loadPlugin(
   return plugin
 }
 
-export function resolvePlugin(plugin: Plugin, config: Config, logger: Logger): void {
+export function resolvePlugin(plugin: Plugin, config: RawConfig, logger: Logger): void {
   // don't resolve plugins that have already been resolved to prevent self-conflicts
   // between plugins included at multiple points in the tree
   if (config.resolvedPlugins.has(plugin)) {

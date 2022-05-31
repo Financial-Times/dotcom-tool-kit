@@ -7,7 +7,7 @@ import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
 import { ValidConfig } from 'dotcom-tool-kit/lib/config'
 import { explorer } from 'dotcom-tool-kit/lib/rc-file'
-import type { Config } from 'dotcom-tool-kit/src/config'
+import type { RawConfig } from 'dotcom-tool-kit/src/config'
 import { promises as fs } from 'fs'
 import * as yaml from 'js-yaml'
 import partition from 'lodash.partition'
@@ -170,7 +170,7 @@ sound good?`
   })
 }
 
-async function executeMigration(deleteConfig: boolean): Promise<Config> {
+async function executeMigration(deleteConfig: boolean): Promise<RawConfig> {
   for (const pkg of packagesToInstall) {
     const { version } = await pacote.manifest(pkg)
     packageJson.requireDependency({
@@ -205,7 +205,7 @@ async function executeMigration(deleteConfig: boolean): Promise<Config> {
 
 async function handleTaskConflict(
   error: ToolkitErrorModule.ToolKitConflictError
-): Promise<Config | undefined> {
+): Promise<RawConfig | undefined> {
   const orderedHooks: { [hook: string]: string[] } = {}
 
   for (const conflict of error.conflicts) {
@@ -382,7 +382,7 @@ async function optionsPromptForPlugin(plugin: string, options: [string, SchemaTy
   return false
 }
 
-async function optionsPrompt(config: Config): Promise<boolean> {
+async function optionsPrompt(config: RawConfig): Promise<boolean> {
   for (const plugin of Object.keys((config as ValidConfig).plugins)) {
     let options: Schema
     const pluginName = plugin.slice(17)
@@ -568,7 +568,7 @@ async function main() {
   const { confirm } = await confirmationPrompt()
 
   if (confirm) {
-    let config: Config | undefined
+    let config: RawConfig | undefined
     try {
       // Carry out the proposed changes: install + uninstall packages, run
       // --install logic etc.

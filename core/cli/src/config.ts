@@ -23,7 +23,7 @@ export interface PluginOptions {
   forPlugin: Plugin
 }
 
-export interface Config {
+export interface RawConfig {
   root: string
   plugins: { [id: string]: Plugin }
   resolvedPlugins: Set<Plugin>
@@ -33,7 +33,7 @@ export interface Config {
   hooks: { [id: string]: Hook | Conflict<Hook> }
 }
 
-export interface ValidConfig extends Config {
+export interface ValidConfig extends RawConfig {
   tasks: { [id: string]: TaskClass }
   hookTasks: { [id: string]: HookTask }
   options: { [id: string]: PluginOptions }
@@ -42,7 +42,7 @@ export interface ValidConfig extends Config {
 
 const coreRoot = path.resolve(__dirname, '../')
 
-export const createConfig = (): Config => ({
+export const createConfig = (): RawConfig => ({
   root: coreRoot,
   plugins: {},
   resolvedPlugins: new Set(),
@@ -58,7 +58,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-export function validateConfig(config: Config): asserts config is ValidConfig {
+export function validateConfig(config: RawConfig): asserts config is ValidConfig {
   const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
   const hookConflicts = findConflicts(Object.values(config.hooks))
   const taskConflicts = findConflicts(Object.values(config.tasks))
@@ -161,9 +161,9 @@ export async function checkInstall(config: ValidConfig): Promise<void> {
 }
 
 export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
-export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<Config>
+export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<RawConfig>
 
-export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | Config> {
+export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | RawConfig> {
   const config = createConfig()
 
   // start loading config and child plugins, starting from the consumer app directory

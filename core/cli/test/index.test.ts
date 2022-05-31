@@ -1,7 +1,7 @@
 import { describe, jest, it, expect } from '@jest/globals'
 import * as path from 'path'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Config, createConfig, validateConfig } from '../src/config'
+import { RawConfig, createConfig, validateConfig } from '../src/config'
 import winston, { Logger } from 'winston'
 import { loadPlugin, resolvePlugin } from '../src/plugin'
 
@@ -14,7 +14,7 @@ function makeRootRelative(thing: { root: string }) {
   thing.root = path.relative(process.cwd(), thing.root)
 }
 
-function makeConfigPathsRelative(config: Config) {
+function makeConfigPathsRelative(config: RawConfig) {
   makeRootRelative(config)
 
   for (const plugin of Object.values(config.plugins)) {
