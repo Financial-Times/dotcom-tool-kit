@@ -6,8 +6,10 @@ import { Config, PluginOptions } from './config'
 import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Hook, Plugin, PluginModule, RawPluginModule, Task } from '@dotcom-tool-kit/types'
+import { Hook, Plugin, PluginModule, Task } from '@dotcom-tool-kit/types'
 import isPlainObject from 'lodash.isplainobject'
+
+type RawPluginModule = Partial<PluginModule>
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {

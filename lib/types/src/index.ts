@@ -39,14 +39,10 @@ export abstract class Hook {
 
 export type HookClass = { new (logger: Logger): Hook } & typeof Hook
 
-export interface RawRCFile {
-  plugins?: string[] | null
-  hooks?: { [id: string]: string | string[] } | null
-  options?: { [id: string]: Record<string, unknown> } | null
-}
-
 export type RCFile = {
-  [key in keyof RawRCFile]-?: NonNullable<RawRCFile[key]>
+  plugins: string[]
+  hooks: { [id: string]: string | string[] }
+  options: { [id: string]: Record<string, unknown> }
 }
 
 export interface Plugin {
@@ -58,11 +54,9 @@ export interface Plugin {
   children?: Plugin[]
 }
 
-export interface RawPluginModule {
-  tasks?: TaskClass[]
-  hooks?: {
+export interface PluginModule {
+  tasks: TaskClass[]
+  hooks: {
     [id: string]: HookClass
   }
 }
-
-export type PluginModule = Required<RawPluginModule>
