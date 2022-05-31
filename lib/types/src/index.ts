@@ -45,10 +45,8 @@ export interface RawRCFile {
   options?: { [id: string]: Record<string, unknown> } | null
 }
 
-export interface RCFile {
-  plugins: string[]
-  hooks: { [id: string]: string | string[] }
-  options: { [id: string]: Record<string, unknown> }
+export type RCFile = {
+  [key in keyof RawRCFile]-?: NonNullable<RawRCFile[key]>
 }
 
 export interface Plugin {
