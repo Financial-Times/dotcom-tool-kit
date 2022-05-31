@@ -1,4 +1,4 @@
-import { hasToolKitConflicts, ToolKitConflictError } from '@dotcom-tool-kit/error'
+import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import type { Schema, SchemaPromptGenerator, SchemaType } from '@dotcom-tool-kit/types/src/schema'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import loadPackageJson from '@financial-times/package-json'
@@ -15,9 +15,9 @@ import pacote from 'pacote'
 import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
-import { Logger } from './logger'
-import importFrom from 'import-from'
+import { Logger, labels, LoggerError } from './logger'
 import installHooksType from 'dotcom-tool-kit/lib/install'
+import importCwd from 'import-cwd'
 
 const exec = promisify(_exec)
 
@@ -35,6 +35,53 @@ const configPath = path.join(process.cwd(), '.toolkitrc.yml')
 const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
 
 const logger = new Logger()
+
+function installHooks(logger: typeof winstonLogger) {
+  // we need to import installHooks from the app itself instead of npx or else loadPlugin will load rawPlugin from npx and Task will be loaded from the app, leading to task.prototype failing the instanceof Task check
+  return (importCwd('dotcom-tool-kit/lib/install') as {
+    default: typeof installHooksType
+  }).default(logger)
+}
+
+function hasToolKitConflicts(error: unknown) {
+  // we need to import hasToolkitConflicts from the app itself instead of npx or else hasToolkitConflicts and ToolKitConflictError will come from npx but error will come from the app level, leading to error failing the instanceof ToolKitConflictError check
+  return (importCwd('@dotcom-tool-kit/error') as typeof ToolkitErrorModule).hasToolKitConflicts(error)
+}
+
+async function runTasksWithLogger<T, U>(wait: Promise<T>, run: (interim: T) => Promise<U>, label: string) {
+  const labels: labels = {
+    waiting: `not ${label} yet`,
+    pending: label,
+    done: `finished ${label}`,
+    fail: `error with ${label}`
+  }
+
+  const { interim, id } = await logger.logPromiseWait(wait, labels)
+
+  try {
+    logger.log(id, { message: labels.pending })
+
+    const result = await run(interim)
+    logger.log(id, { status: 'done', message: labels.done })
+    return result
+  } catch (error) {
+    const loggerError = error as LoggerError
+    // hack to suppress error when installHooks promise fails seeing as it's
+    // recoverable
+    if (hasToolKitConflicts(error)) {
+      logger.log(id, { status: 'done', message: 'finished installing hooks, but found conflicts' })
+    } else {
+      logger.log(id, {
+        status: 'fail',
+        message: labels.fail,
+        error: loggerError.logged ? undefined : loggerError
+      })
+    }
+
+    loggerError.logged = true
+    throw loggerError
+  }
+}
 
 async function mainPrompt() {
   return prompt(
@@ -141,11 +188,6 @@ async function executeMigration(deleteConfig: boolean): Promise<Config> {
   packageJson.writeChanges()
 
   await logger.logPromise(exec('npm install'), 'installing dependencies')
-  // we need to import installHooks from the app itself instead of npx or else loadPlugin will load rawPlugin from npx and Task will be loaded from the app, leading to task.prototype failing the instanceof Task check.
-  const installHooks = (importFrom(process.cwd(), 'dotcom-tool-kit/lib/install') as {
-    default: typeof installHooksType
-  }).default
-
   const configPromise = logger.logPromise(
     fs.writeFile(configPath, configFile),
     `creating ${styles.filepath('.toolkitrc.yml')}`
@@ -157,10 +199,12 @@ async function executeMigration(deleteConfig: boolean): Promise<Config> {
 
   const initialTasks = Promise.all([configPromise, unlinkPromise]).then(() => winstonLogger)
 
-  return logger.logPromiseWait(initialTasks, installHooks, 'installing Tool Kit hooks')
+  return runTasksWithLogger(initialTasks, installHooks, 'installing Tool Kit hooks')
 }
 
-async function handleTaskConflict(error: ToolKitConflictError): Promise<Config | undefined> {
+async function handleTaskConflict(
+  error: ToolkitErrorModule.ToolKitConflictError
+): Promise<Config | undefined> {
   const orderedHooks: { [hook: string]: string[] } = {}
 
   for (const conflict of error.conflicts) {
@@ -214,11 +258,7 @@ sound alright?`
     // Clear config cache now that config has been updated
     explorer.clearSearchCache()
 
-    const installHooks = (importFrom(process.cwd(), 'dotcom-tool-kit/lib/install') as {
-      default: typeof installHooksType
-    }).default
-
-    return logger.logPromiseWait(configPromise, installHooks, 'installing Tool Kit hooks again')
+    return runTasksWithLogger(configPromise, installHooks, 'installing Tool Kit hooks again')
   }
 }
 
@@ -536,7 +576,7 @@ async function main() {
       if (hasToolKitConflicts(error)) {
         // Additional questions asked if we have any task conflicts, letting the
         // user to specify the order they want tasks to run in.
-        config = await handleTaskConflict(error)
+        config = await handleTaskConflict(error as ToolkitErrorModule.ToolKitConflictError)
       } else {
         throw error
       }
