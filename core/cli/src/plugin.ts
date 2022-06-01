@@ -79,6 +79,8 @@ export async function loadPlugin(
     parent
   }
 
+  config.plugins[id] = plugin
+
   // start loading rc file in the background
   const rcFilePromise = loadToolKitRC(pluginRoot)
 
@@ -93,7 +95,7 @@ export async function loadPlugin(
   // wait for pending promises concurrently
   ;[plugin.module, plugin.children] = await Promise.all([pluginModulePromise, childrenPromise])
 
-  return (config.plugins[id] = plugin)
+  return plugin
 }
 
 export function resolvePlugins(plugins: Plugin[], config: Config, logger: Logger): void {
