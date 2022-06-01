@@ -22,11 +22,11 @@ function makeConfigPathsRelative(config: Config) {
 
     if (plugin.parent) {
       makeRootRelative(plugin.parent)
+    }
 
-      if (plugin.children) {
-        for (const child of plugin.children) {
-          makeRootRelative(child)
-        }
+    if (plugin.children) {
+      for (const child of plugin.children) {
+        makeRootRelative(child)
       }
     }
   }
