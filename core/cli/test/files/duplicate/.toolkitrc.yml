@@ -1,6 +1,6 @@
 plugins:
-  - '../../../../../plugins/backend-app'
-  - '../../../../../plugins/heroku'
+  - '@dotcom-tool-kit/backend-app'
+  - '@dotcom-tool-kit/heroku'
 
 options:
 

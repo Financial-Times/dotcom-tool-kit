@@ -1,8 +1,8 @@
 plugins:
-  - '../../../../../plugins/frontend-app'
-  - '../../../../../plugins/babel'
-  - '../../../../../plugins/npm'
-  - '../../../../../plugins/circleci-heroku'
+  - '@dotcom-tool-kit/frontend-app'
+  - '@dotcom-tool-kit/babel'
+  - '@dotcom-tool-kit/npm'
+  - '@dotcom-tool-kit/circleci-heroku'
 
 options:
 

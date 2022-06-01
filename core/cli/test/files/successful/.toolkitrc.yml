@@ -1,16 +1,16 @@
 plugins:
-  - '../../../../../plugins/eslint'
-  - '../../../../../plugins/mocha'
-  - '../../../../../plugins/n-test'
-  - '../../../../../plugins/circleci-heroku' # test:local hook via npm plugin and test:ci hook
+  - '@dotcom-tool-kit/eslint'
+  - '@dotcom-tool-kit/mocha'
+  - '@dotcom-tool-kit/n-test'
+  - '@dotcom-tool-kit/circleci-heroku' # test:local hook via npm plugin and test:ci hook
 
 options:
-  '../../../../../plugins/eslint':
+  '@dotcom-tool-kit/eslint':
     files:
       - webpack.config.js
-  '../../../../../plugins/mocha':
+  '@dotcom-tool-kit/mocha':
     testDir: './mocha_tests'
-  '../../../../../plugins/n-test':
+  '@dotcom-tool-kit/n-test':
     host: 'https://example.com'
 
 hooks:
