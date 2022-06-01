@@ -99,6 +99,30 @@ describe('cli', () => {
     expect(config).toHaveProperty('hookTasks.build:local.conflicting')
   })
 
+  it('should not have conflicts between multiple of the same plugin', async () => {
+    const config = createConfig()
+
+    const plugin = await loadPlugin('app root', config, logger, {
+      id: 'resolved test root',
+      root: path.join(__dirname, 'files/duplicate')
+    })
+
+    resolvePlugin(plugin, config, logger)
+
+    try {
+      validateConfig(config)
+    } catch (e) {
+      if (e instanceof ToolKitError) {
+        e.message += e.details
+      }
+
+      throw e
+    }
+
+    expect(config).not.toHaveProperty('hooks.build:local.conflicting')
+    expect(config.hooks['build:local'].plugin?.id).toEqual(['@dotcom-tool-kit/npm'])
+  })
+
   it('should succeed when conflicts are resolved', async () => {
     const config = createConfig()
 
