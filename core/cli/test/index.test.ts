@@ -120,7 +120,7 @@ describe('cli', () => {
     }
 
     expect(config).not.toHaveProperty('hooks.build:local.conflicting')
-    expect(config.hooks['build:local'].plugin?.id).toEqual(['@dotcom-tool-kit/npm'])
+    expect(config.hooks['build:local'].plugin?.id).toEqual('@dotcom-tool-kit/npm')
   })
 
   it('should succeed when conflicts are resolved', async () => {
