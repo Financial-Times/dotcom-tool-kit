@@ -7,7 +7,7 @@ const { describe, it } = require('@jest/globals')
 const fs = require('fs')
 const path = require('path')
 const winston = require('winston')
-const { validatePlugin } = require('dotcom-tool-kit/lib/plugin')
+const { validatePlugin } = require('../lib/plugin')
 
 const pluginDir = path.join(__dirname, '../../../plugins')
 
