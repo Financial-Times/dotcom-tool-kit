@@ -49,15 +49,6 @@ async function importPlugin(pluginPath: string): Promise<PluginModule> {
   return pluginModule
 }
 
-export function loadPlugins(
-  plugins: string[],
-  config: Config,
-  logger: Logger,
-  parent?: Plugin
-): Promise<Plugin[]> {
-  return Promise.all(plugins.map((plugin) => loadPlugin(plugin, config, logger, parent)))
-}
-
 export async function loadPlugin(
   id: string,
   config: Config,
@@ -90,18 +81,14 @@ export async function loadPlugin(
   plugin.rcFile = await rcFilePromise
 
   // start loading child plugins in the background
-  const childrenPromise = loadPlugins(plugin.rcFile.plugins, config, logger, plugin)
+  const childrenPromise = Promise.all(
+    plugin.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin))
+  )
 
   // wait for pending promises concurrently
   ;[plugin.module, plugin.children] = await Promise.all([pluginModulePromise, childrenPromise])
 
   return plugin
-}
-
-export function resolvePlugins(plugins: Plugin[], config: Config, logger: Logger): void {
-  for (const plugin of plugins) {
-    resolvePlugin(plugin, config, logger)
-  }
 }
 
 export function resolvePlugin(plugin: Plugin, config: Config, logger: Logger): void {
@@ -112,7 +99,10 @@ export function resolvePlugin(plugin: Plugin, config: Config, logger: Logger): v
   }
 
   if (plugin.children) {
-    resolvePlugins(plugin.children, config, logger)
+    // resolve child plugins first so parents can override the things their children set
+    for (const child of plugin.children) {
+      resolvePlugin(child, config, logger)
+    }
   }
 
   if (plugin.module) {
