@@ -2,7 +2,7 @@ import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
-import { HerokuSchema, HerokuOptions } from '@dotcom-tool-kit/types/lib/schema/heroku'
+import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
 
@@ -18,12 +18,7 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
       }
       const { slugId } = state
 
-      this.logger.verbose('promoting staging to production....')
-      await promoteStagingToProduction(this.logger, slugId, this.options.systemCode)
-
-      this.logger.info('staging has been successfully promoted to production')
-
-      const { scaling } = this.options as HerokuOptions
+      const { scaling } = this.options
 
       if (!scaling) {
         const error = new ToolKitError('your heroku pipeline must have its scaling configured')
@@ -49,6 +44,11 @@ options:
         }
         this.logger.info(`${styles.app(appName)} has been successfully scaled`)
       }
+
+      this.logger.verbose('promoting staging to production....')
+      await promoteStagingToProduction(this.logger, slugId, this.options.systemCode)
+
+      this.logger.info('staging has been successfully promoted to production')
     } catch (err) {
       if (err instanceof ToolKitError) {
         throw err
