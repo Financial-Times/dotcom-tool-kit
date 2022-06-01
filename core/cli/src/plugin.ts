@@ -105,6 +105,12 @@ export function resolvePlugins(plugins: Plugin[], config: Config, logger: Logger
 }
 
 export function resolvePlugin(plugin: Plugin, config: Config, logger: Logger): void {
+  // don't resolve plugins that have already been resolved to prevent self-conflicts
+  // between plugins included at multiple points in the tree
+  if (config.resolvedPlugins.has(plugin)) {
+    return
+  }
+
   if (plugin.children) {
     resolvePlugins(plugin.children, config, logger)
   }
@@ -227,4 +233,6 @@ export function resolvePlugin(plugin: Plugin, config: Config, logger: Logger): v
       }
     }
   }
+
+  config.resolvedPlugins.add(plugin)
 }

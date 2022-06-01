@@ -26,6 +26,7 @@ export interface PluginOptions {
 export interface Config {
   root: string
   plugins: { [id: string]: Plugin }
+  resolvedPlugins: Set<Plugin>
   tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
@@ -44,6 +45,7 @@ const coreRoot = path.resolve(__dirname, '../')
 export const createConfig = (): Config => ({
   root: coreRoot,
   plugins: {},
+  resolvedPlugins: new Set(),
   tasks: {},
   hookTasks: {},
   options: {},
