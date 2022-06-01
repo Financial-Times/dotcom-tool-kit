@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 
 const argv = require('minimist')(process.argv.slice(2), {
-  boolean: ['help', 'install'],
+  boolean: ['help', 'install', 'listPlugins'],
   '--': true
 })
 
-const { runTasks, showHelp, installHooks } = require('../lib')
+const { runTasks, showHelp, installHooks, listPlugins } = require('../lib')
 const { rootLogger, styles } = require('@dotcom-tool-kit/logger')
 
 async function main() {
   try {
     if (argv.install) {
       await installHooks(rootLogger)
+    } else if (argv.listPlugins) {
+      await listPlugins(rootLogger)
     } else if (argv.help || argv._.length === 0) {
       await showHelp(rootLogger, argv._)
     } else {
