@@ -3,8 +3,6 @@ import { checkInstall, loadConfig } from './config'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
-import { Plugin } from '@dotcom-tool-kit/types/src'
-import { Config } from 'cosmiconfig/dist/types'
 import { formatPluginTree } from './messages'
 
 type ErrorSummary = {
