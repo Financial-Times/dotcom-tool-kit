@@ -2,10 +2,10 @@ import path from 'path'
 import type { Logger } from 'winston'
 
 import type { HookTask } from './hook'
-import { loadPluginConfig } from './plugin'
+import { loadPlugin, resolvePlugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import type { TaskClass, Hook, Plugin } from '@dotcom-tool-kit/types'
+import { TaskClass, Hook, Plugin } from '@dotcom-tool-kit/types'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,
@@ -26,6 +26,7 @@ export interface PluginOptions {
 export interface Config {
   root: string
   plugins: { [id: string]: Plugin }
+  resolvedPlugins: Set<Plugin>
   tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
@@ -41,9 +42,10 @@ export interface ValidConfig extends Config {
 
 const coreRoot = path.resolve(__dirname, '../')
 
-const createConfig = (): Config => ({
+export const createConfig = (): Config => ({
   root: coreRoot,
   plugins: {},
+  resolvedPlugins: new Set(),
   tasks: {},
   hookTasks: {},
   options: {},
@@ -56,7 +58,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-export async function validateConfig(config: Config): Promise<ValidConfig> {
+export function validateConfig(config: Config): asserts config is ValidConfig {
   const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
   const hookConflicts = findConflicts(Object.values(config.hooks))
   const taskConflicts = findConflicts(Object.values(config.tasks))
@@ -143,8 +145,6 @@ export async function validateConfig(config: Config): Promise<ValidConfig> {
   if (shouldThrow) {
     throw error
   }
-
-  return config as ValidConfig
 }
 
 export async function checkInstall(config: ValidConfig): Promise<void> {
@@ -164,20 +164,17 @@ export function loadConfig(logger: Logger, options?: { validate?: true }): Promi
 export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<Config>
 
 export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | Config> {
+  const config = createConfig()
+
   // start loading config and child plugins, starting from the consumer app directory
-  const config = await loadPluginConfig(
-    logger,
-    {
-      id: 'app root',
-      root: process.cwd()
-    },
-    createConfig()
-  )
+  const rootPlugin = await loadPlugin('app root', config, logger)
 
-  return validate ? validateConfig(config) : config
+  // collate root plugin and descendent hooks, options etc into config
+  resolvePlugin(rootPlugin, config, logger)
+
+  if (validate) {
+    validateConfig(config)
+  }
+
+  return config
 }
-
-// abstract class TestBase {}
-// class Test extends TestBase {}
-// const testBase = TestBase
-// const test = new testBase()

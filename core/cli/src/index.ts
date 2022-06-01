@@ -3,6 +3,7 @@ import { checkInstall, loadConfig } from './config'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
+import { formatPluginTree } from './messages'
 
 type ErrorSummary = {
   hook: string
@@ -87,6 +88,15 @@ ${error.details}`
       error.exitCode = errors.length + 1
       throw error
     }
+  }
+}
+
+export async function listPlugins(logger: Logger): Promise<void> {
+  const config = await loadConfig(logger, { validate: false })
+
+  const rootPlugin = config.plugins['app root']
+  if (rootPlugin) {
+    logger.info(formatPluginTree(rootPlugin).join('\n'))
   }
 }
 

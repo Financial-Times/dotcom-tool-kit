@@ -1,7 +1,7 @@
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { HookTask } from './hook'
-import { styles as s } from '@dotcom-tool-kit/logger'
+import { styles as s, styles } from '@dotcom-tool-kit/logger'
 import type { Plugin, Hook, TaskClass } from '@dotcom-tool-kit/types'
 
 const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>
@@ -133,3 +133,20 @@ They could be misspelt, or defined by a Tool Kit plugin that isn't used by this 
 
 Available tasks are: ${tasks.map(s.task).join(', ')}.
 `
+
+export function formatPluginTree(plugin: Plugin): string[] {
+  return [
+    styles.plugin(plugin.id),
+    ...(plugin.children ?? []).flatMap((child: Plugin, childIndex: number, children: Plugin[]) =>
+      formatPluginTree(child).map((line: string, lineIndex: number) =>
+        lineIndex === 0
+          ? childIndex === children.length - 1
+            ? `└ ${line}`
+            : `├ ${line}`
+          : childIndex === children.length - 1
+          ? `  ${line}`
+          : `│ ${line}`
+      )
+    )
+  ]
+}

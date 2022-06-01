@@ -1,8 +1,8 @@
 plugins:
-  - '../../../../../plugins/webpack'
-  - '../../../../../plugins/babel'
-  - '../../../../../plugins/npm'
-  - '../../../../../plugins/circleci-heroku'
+  - '@dotcom-tool-kit/webpack'
+  - '@dotcom-tool-kit/babel'
+  - '@dotcom-tool-kit/npm'
+  - '@dotcom-tool-kit/circleci-heroku'
 
 options:
 

@@ -1,8 +1,8 @@
 plugins:
-  - '../../../../../plugins/webpack'
-  - '../../../../../plugins/babel'
-  - '../../../../../plugins/circleci' # for build:ci hook
-  - '../../../../../plugins/heroku' # for build:remote hook and build:local via npm plugin
+  - '@dotcom-tool-kit/webpack'
+  - '@dotcom-tool-kit/babel'
+  - '@dotcom-tool-kit/circleci' # for build:ci hook
+  - '@dotcom-tool-kit/heroku' # for build:remote hook and build:local via npm plugin
 
 options:
 

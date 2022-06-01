@@ -7,7 +7,7 @@ const { describe, it } = require('@jest/globals')
 const fs = require('fs')
 const path = require('path')
 const winston = require('winston')
-const { instantiatePlugin } = require('../lib')
+const { validatePlugin } = require('../lib/plugin')
 
 const pluginDir = path.join(__dirname, '../../../plugins')
 
@@ -20,6 +20,6 @@ describe.each(getPlugins())('%s integration test', (plugin) => {
   const packagePath = path.join(pluginDir, plugin)
   it('should be a valid plugin', () => {
     const pluginPackage = require(packagePath)
-    instantiatePlugin(pluginPackage, winston)
+    validatePlugin(pluginPackage, winston)
   })
 })
