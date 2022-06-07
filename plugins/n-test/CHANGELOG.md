@@ -6,6 +6,12 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.1.0 to ^2.2.0
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v1.9.0...n-test-v2.0.0) (2022-04-19)
 
 

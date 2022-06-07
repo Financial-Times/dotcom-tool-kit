@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.1.0...types-v2.2.0) (2022-06-07)
+
+
+### Features
+
+* add options to pa11y plugin ([7670db7](https://github.com/Financial-Times/dotcom-tool-kit/commit/7670db7f59e9a798b5fc256182534c5c696f700a))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.0.0...types-v2.1.0) (2022-05-06)
 
 

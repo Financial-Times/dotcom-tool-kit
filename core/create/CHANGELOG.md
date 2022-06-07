@@ -6,6 +6,21 @@
   * dependencies
     * dotcom-tool-kit bumped from ^2.0.0 to ^2.1.0
 
+## [2.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.2...create-v2.0.3) (2022-06-07)
+
+
+### Bug Fixes
+
+* error conflict on npm init ([e772760](https://github.com/Financial-Times/dotcom-tool-kit/commit/e772760f26a506e95baa995d998e04622a28bf9d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.1.0 to ^2.2.0
+    * dotcom-tool-kit bumped from ^2.1.1 to ^2.2.0
+
 ### [2.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.0...create-v2.0.2) (2022-05-06)
 
 
