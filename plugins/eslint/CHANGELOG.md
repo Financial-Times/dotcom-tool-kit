@@ -6,6 +6,20 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v2.0.0...eslint-v2.1.0) (2022-06-07)
+
+
+### Features
+
+* **eslint:** use a peer dependency for eslint ([e16be4d](https://github.com/Financial-Times/dotcom-tool-kit/commit/e16be4da9312f50c3ec617bca3d5418c402c3715))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.1.0 to ^2.2.0
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v1.9.0...eslint-v2.0.0) (2022-04-19)
 
 

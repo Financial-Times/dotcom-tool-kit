@@ -1,5 +1,12 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-app bumped from ^2.0.2 to ^2.0.3
+    * @dotcom-tool-kit/webpack bumped from ^2.1.0 to ^2.1.1
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v2.0.1...frontend-app-v2.1.0) (2022-05-06)
 
 
