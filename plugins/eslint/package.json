@@ -36,6 +36,6 @@
   },
   "peerDependencies": {
     "dotcom-tool-kit": "2.x",
-    "eslint": "7.x | 8.x"
+    "eslint": "7.x || 8.x"
   }
 }
