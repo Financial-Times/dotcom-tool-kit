@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
 
+## [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v2.1.0...eslint-v2.1.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* **eslint:** use || instead of | in eslint peerdependency syntax ([6430b82](https://github.com/Financial-Times/dotcom-tool-kit/commit/6430b82a86daa36daf14e3dec0c7cb7646fb6a04))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v2.0.0...eslint-v2.1.0) (2022-06-07)
 
 

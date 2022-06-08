@@ -8,6 +8,13 @@
     * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
     * @dotcom-tool-kit/vault bumped from ^2.0.0 to ^2.0.1
 
+## [2.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v2.0.2...heroku-v2.0.3) (2022-06-08)
+
+
+### Bug Fixes
+
+* **heroku:** scale dynos before promoting them to production ([6a3b53a](https://github.com/Financial-Times/dotcom-tool-kit/commit/6a3b53af7c41bab9a6d1cde98729c7751c986856))
+
 ## [2.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v2.0.1...heroku-v2.0.2) (2022-06-07)
 
 

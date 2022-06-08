@@ -7,6 +7,16 @@
     * @dotcom-tool-kit/options bumped from ^2.0.0 to ^2.0.1
     * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/backend-app bumped from ^2.0.3 to ^2.0.4
+    * @dotcom-tool-kit/heroku bumped from ^2.0.2 to ^2.0.3
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.0.3 to ^2.0.4
+    * @dotcom-tool-kit/frontend-app bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/eslint bumped from ^2.1.0 to ^2.1.1
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.1.0...dotcom-tool-kit-v2.2.0) (2022-06-07)
 
 
