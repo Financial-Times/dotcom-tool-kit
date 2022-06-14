@@ -6,6 +6,7 @@ import type { Logger } from 'winston'
 import {
   joinValidated,
   mapValidated,
+  mapValidationError,
   PluginOptions,
   RawConfig,
   sequenceValidated,
@@ -30,40 +31,53 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
 }
 
 export function validatePlugin(plugin: unknown): Validated<PluginModule> {
-  const makeInvalid = (reason: string): Invalid => ({ valid: false, reasons: [reason] })
-
+  const errors: string[] = []
   const rawPlugin = plugin as RawPluginModule
 
   if (rawPlugin.tasks) {
     if (!Array.isArray(rawPlugin.tasks)) {
-      return makeInvalid(`the exported ${s.dim('tasks')} value from this plugin is not an array`)
-    }
-    const incompatibleTasks = rawPlugin.tasks.filter((task) => !Task.isCompatible(task))
-    if (incompatibleTasks.length === 1) {
-      return makeInvalid(`the task ${s.task(incompatibleTasks[0].name)} is not a compatible instance of Task`)
-    } else if (incompatibleTasks.length > 1) {
-      return makeInvalid(
-        `the tasks ${incompatibleTasks.map((task) => s.task(task.name))} are not compatible instances of Task`
-      )
+      errors.push(`the exported ${s.dim('tasks')} value from this plugin is not an array`)
+    } else {
+      const incompatibleTasks = rawPlugin.tasks.filter((task) => !Task.isCompatible(task))
+      if (incompatibleTasks.length === 1) {
+        errors.push(
+          `the task ${s.task(incompatibleTasks[0].name)} is not a compatible instance of ${s.heading('Task')}`
+        )
+      } else if (incompatibleTasks.length > 1) {
+        errors.push(
+          `the tasks ${incompatibleTasks.map((task) =>
+            s.task(task.name)
+          )} are not compatible instances of ${s.heading('Task')}`
+        )
+      }
     }
   }
 
   if (rawPlugin.hooks) {
     if (!isPlainObject(rawPlugin.hooks)) {
-      return makeInvalid(`the exported ${s.dim('hooks')} value from this plugin is not an object`)
-    }
-    const incompatibleHooks = Object.entries(rawPlugin.hooks).filter(([, hook]) => !Hook.isCompatible(hook))
-    if (incompatibleHooks.length === 1) {
-      return makeInvalid(`the hook ${s.hook(incompatibleHooks[0][0])} is not a compatible instance of Hook`)
-    } else if (incompatibleHooks.length > 1) {
-      return makeInvalid(
-        `the hooks ${incompatibleHooks.map(([id]) => s.hook(id))} are not compatible instances of Hook`
-      )
+      errors.push(`the exported ${s.dim('hooks')} value from this plugin is not an object`)
+    } else {
+      const incompatibleHooks = Object.entries(rawPlugin.hooks).filter(([, hook]) => !Hook.isCompatible(hook))
+      if (incompatibleHooks.length === 1) {
+        errors.push(
+          `the hook ${s.hook(incompatibleHooks[0][0])} is not a compatible instance of ${s.heading('Hook')}`
+        )
+      } else if (incompatibleHooks.length > 1) {
+        errors.push(
+          `the hooks ${incompatibleHooks.map(([id]) =>
+            s.hook(id)
+          )} are not compatible instances of ${s.heading('Hook')}`
+        )
+      }
     }
   }
 
-  const pluginModule = { tasks: rawPlugin.tasks ?? [], hooks: rawPlugin.hooks ?? {} }
-  return { valid: true, value: pluginModule }
+  if (errors.length > 0) {
+    return { valid: false, reasons: errors }
+  } else {
+    const pluginModule = { tasks: rawPlugin.tasks ?? [], hooks: rawPlugin.hooks ?? {} }
+    return { valid: true, value: pluginModule }
+  }
 }
 
 async function importPlugin(pluginPath: string): Promise<Validated<PluginModule>> {
@@ -89,7 +103,12 @@ export async function loadPlugin(
 
   // load plugin relative to the parent plugin
   const root = parent ? parent.root : process.cwd()
-  const pluginRoot = id === 'app root' ? root : resolveFrom(root, id)
+  let pluginRoot: string
+  try {
+    pluginRoot = id === 'app root' ? root : resolveFrom(root, id)
+  } catch (e) {
+    return { valid: false, reasons: [`could not find path for name ${s.filepath(id)}`] }
+  }
 
   const plugin: Valid<Plugin> = {
     valid: true,
@@ -117,8 +136,15 @@ export async function loadPlugin(
   )
 
   // wait for pending promises concurrently
-  const [validatedModule, children] = await Promise.all([pluginModulePromise, childrenPromise])
-  const validatedChildren = sequenceValidated(children)
+  const [module, children] = await Promise.all([pluginModulePromise, childrenPromise])
+
+  const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
+  const validatedModule = mapValidationError(module, (reasons) => [
+    indentReasons(`plugin ${s.plugin(id)} failed to load because:\n- ${reasons.join('\n- ')}`)
+  ])
+  const validatedChildren = mapValidationError(sequenceValidated(children), (reasons) => [
+    indentReasons(`some child plugins of ${s.plugin(id)} failed to load:\n- ${reasons.join('\n- ')}`)
+  ])
 
   return mapValidated(joinValidated(validatedModule, validatedChildren), ([module, children]) => {
     // avoid cloning the plugin value with an object spread as we do object

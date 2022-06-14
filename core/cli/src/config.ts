@@ -41,6 +41,17 @@ export function mapValidated<T, U>(validated: Validated<T>, f: (val: T) => U): V
   }
 }
 
+export function mapValidationError<T>(
+  validated: Validated<T>,
+  f: (reasons: string[]) => string[]
+): Validated<T> {
+  if (validated.valid) {
+    return validated
+  } else {
+    return { valid: false, reasons: f(validated.reasons) }
+  }
+}
+
 export function joinValidated<T, U>(first: Validated<T>, second: Validated<U>): Validated<[T, U]> {
   if (first.valid) {
     if (second.valid) {
