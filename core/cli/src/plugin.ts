@@ -1,3 +1,4 @@
+import { styles as s } from '@dotcom-tool-kit/logger'
 import { Hook, Plugin, PluginModule, Task } from '@dotcom-tool-kit/types'
 import isPlainObject from 'lodash.isplainobject'
 import resolveFrom from 'resolve-from'
@@ -33,21 +34,32 @@ export function validatePlugin(plugin: unknown): Validated<PluginModule> {
 
   const rawPlugin = plugin as RawPluginModule
 
-  if (
-    rawPlugin.tasks &&
-    !(Array.isArray(rawPlugin.tasks) && rawPlugin.tasks.every((task) => Task.isCompatible(task)))
-  ) {
-    return makeInvalid('tasks are not valid')
+  if (rawPlugin.tasks) {
+    if (!Array.isArray(rawPlugin.tasks)) {
+      return makeInvalid(`the exported ${s.dim('tasks')} value from this plugin is not an array`)
+    }
+    const incompatibleTasks = rawPlugin.tasks.filter((task) => !Task.isCompatible(task))
+    if (incompatibleTasks.length === 1) {
+      return makeInvalid(`the task ${s.task(incompatibleTasks[0].name)} is not a compatible instance of Task`)
+    } else if (incompatibleTasks.length > 1) {
+      return makeInvalid(
+        `the tasks ${incompatibleTasks.map((task) => s.task(task.name))} are not compatible instances of Task`
+      )
+    }
   }
 
-  if (
-    rawPlugin.hooks &&
-    !(
-      isPlainObject(rawPlugin.hooks) &&
-      Object.values(rawPlugin.hooks).every((hook) => Hook.isCompatible(hook))
-    )
-  ) {
-    return makeInvalid('hooks are not valid')
+  if (rawPlugin.hooks) {
+    if (!isPlainObject(rawPlugin.hooks)) {
+      return makeInvalid(`the exported ${s.dim('hooks')} value from this plugin is not an object`)
+    }
+    const incompatibleHooks = Object.entries(rawPlugin.hooks).filter(([, hook]) => !Hook.isCompatible(hook))
+    if (incompatibleHooks.length === 1) {
+      return makeInvalid(`the hook ${s.hook(incompatibleHooks[0][0])} is not a compatible instance of Hook`)
+    } else if (incompatibleHooks.length > 1) {
+      return makeInvalid(
+        `the hooks ${incompatibleHooks.map(([id]) => s.hook(id))} are not compatible instances of Hook`
+      )
+    }
   }
 
   const pluginModule = { tasks: rawPlugin.tasks ?? [], hooks: rawPlugin.hooks ?? {} }
@@ -60,7 +72,7 @@ async function importPlugin(pluginPath: string): Promise<Validated<PluginModule>
     const pluginModule = (await import(pluginPath)) as unknown
     return validatePlugin(pluginModule)
   } catch (e) {
-    return { valid: false, reasons: ['an error was thrown when loading this plugin entrypoint'] }
+    return { valid: false, reasons: ["an error was thrown when loading this plugin's entrypoint"] }
   }
 }
 

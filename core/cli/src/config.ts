@@ -230,14 +230,18 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
   // start loading config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
   if (!rootPlugin.valid) {
-    throw new ToolKitError('root plugin was not valid!')
+    const error = new ToolKitError('root plugin was not valid!')
+    error.details = rootPlugin.reasons.join('\n\n')
+    throw error
   }
   const validRootPlugin = rootPlugin.value
 
   const validatedPluginConfig = validatePlugins(config)
 
   if (!validatedPluginConfig.valid) {
-    throw new ToolKitError('config was not valid!')
+    const error = new ToolKitError('config was not valid!')
+    error.details = validatedPluginConfig.reasons.join('\n\n')
+    throw error
   }
   const validPluginConfig = validatedPluginConfig.value
 
