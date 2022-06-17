@@ -1,7 +1,8 @@
 import { SchemaOutput } from '../schema'
 
 export const MochaSchema = {
-  files: 'string'
+  files: 'string',
+  configPath: 'string?'
 } as const
 export type MochaOptions = SchemaOutput<typeof MochaSchema>
 
