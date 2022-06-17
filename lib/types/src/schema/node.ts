@@ -1,7 +1,8 @@
 import { SchemaOutput } from '../schema'
 
 export const NodeSchema = {
-  entry: 'string?'
+  entry: 'string?',
+  args: 'array.string?'
 } as const
 export type NodeOptions = SchemaOutput<typeof NodeSchema>
 
