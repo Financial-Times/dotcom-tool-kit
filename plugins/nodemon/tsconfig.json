@@ -16,6 +16,9 @@
     },
     {
       "path": "../../lib/options"
+    },
+    {
+      "path": "../../lib/state"
     }
   ],
   "include": ["src/**/*"]
