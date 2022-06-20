@@ -36,7 +36,7 @@ export function validatePlugin(plugin: unknown): Validated<PluginModule> {
 
   if (rawPlugin.tasks) {
     if (!Array.isArray(rawPlugin.tasks)) {
-      errors.push(`the exported ${s.dim('tasks')} value from this plugin is not an array`)
+      errors.push(`the exported ${s.code('tasks')} value from this plugin is not an array`)
     } else {
       const incompatibleTasks = rawPlugin.tasks.filter((task) => !Task.isCompatible(task))
       if (incompatibleTasks.length === 1) {
@@ -55,7 +55,7 @@ export function validatePlugin(plugin: unknown): Validated<PluginModule> {
 
   if (rawPlugin.hooks) {
     if (!isPlainObject(rawPlugin.hooks)) {
-      errors.push(`the exported ${s.dim('hooks')} value from this plugin is not an object`)
+      errors.push(`the exported ${s.code('hooks')} value from this plugin is not an object`)
     } else {
       const incompatibleHooks = Object.entries(rawPlugin.hooks).filter(([, hook]) => !Hook.isCompatible(hook))
       if (incompatibleHooks.length === 1) {
