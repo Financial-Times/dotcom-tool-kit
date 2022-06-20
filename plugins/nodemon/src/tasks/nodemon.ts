@@ -2,6 +2,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { NodemonOptions, NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
+import { writeState } from '@dotcom-tool-kit/state'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import getPort from 'get-port'
 import nodemon from 'nodemon'
@@ -68,5 +69,6 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
       nodemonLogger.log(nodemonToWinstonLogLevel(msg.type), msg.message)
     })
     await new Promise((resolve) => nodemon.on('start', resolve))
+    writeState('local', { port })
   }
 }
