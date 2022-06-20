@@ -16,7 +16,7 @@ export default class Node extends Task<typeof NodeSchema> {
   }
 
   async run(): Promise<void> {
-    const { entry } = this.options
+    const { entry, args } = this.options
     const vault = new VaultEnvVars(this.logger, {
       environment: 'development'
     })
@@ -37,7 +37,7 @@ export default class Node extends Task<typeof NodeSchema> {
     }
 
     this.logger.verbose('starting the child node process...')
-    const child = fork(entry, {
+    const child = fork(entry, args, {
       env: {
         ...vaultEnv,
         PORT: port.toString(),
