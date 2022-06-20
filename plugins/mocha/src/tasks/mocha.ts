@@ -1,9 +1,10 @@
-import { hookConsole, styles } from '@dotcom-tool-kit/logger'
+import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
-import MochaCore from 'mocha'
 import { glob } from 'glob'
-import { ToolKitError } from '@dotcom-tool-kit/error'
 import { MochaOptions, MochaSchema } from '@dotcom-tool-kit/types/lib/schema/mocha'
+import { fork } from 'child_process'
+import { promisify } from 'util'
+const mochaCLIPath = require.resolve('mocha/bin/mocha')
 
 export default class Mocha extends Task<typeof MochaSchema> {
   static description = ''
@@ -13,34 +14,12 @@ export default class Mocha extends Task<typeof MochaSchema> {
   }
 
   async run(): Promise<void> {
-    const mocha = new MochaCore()
+    const files = await promisify(glob)(this.options.files)
 
-    const files = glob.sync(this.options.files)
-    if (files.length === 0) {
-      const error = new ToolKitError('No test files found')
-      error.details = `We looked for files matching ${styles.filepath(
-        this.options.files
-      )}, but there weren't any. Set ${styles.title(
-        'options."@dotcom-tool-kit/mocha".files'
-      )} in your Tool Kit configuration to change this file pattern.`
-      throw error
-    }
-
-    files.forEach((file) => {
-      mocha.addFile(file)
-    })
-
-    const unhook = hookConsole(this.logger, 'mocha')
-    await new Promise<void>((resolve, reject) => {
-      mocha.run((failures) => {
-        if (failures > 0) {
-          const error = new ToolKitError('mocha tests failed')
-          error.details = 'please fix the test failures and retry'
-          reject(error)
-        } else {
-          resolve()
-        }
-      })
-    }).finally(() => unhook())
+    const args = [this.options.configPath ? `--config=${this.options.configPath}` : '', ...files]
+    this.logger.info(`running mocha ${args.join(' ')}`)
+    const child = fork(mochaCLIPath, args, { silent: true })
+    hookFork(this.logger, 'mocha', child)
+    return waitOnExit('mocha', child)
   }
 }
