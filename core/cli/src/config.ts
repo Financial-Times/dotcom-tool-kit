@@ -23,9 +23,59 @@ export interface PluginOptions {
   forPlugin: Plugin
 }
 
+export interface Invalid {
+  valid: false
+  reasons: string[]
+}
+export interface Valid<T> {
+  valid: true
+  value: T
+}
+export type Validated<T> = Invalid | Valid<T>
+
+export function mapValidated<T, U>(validated: Validated<T>, f: (val: T) => U): Validated<U> {
+  if (validated.valid) {
+    return { valid: true, value: f(validated.value) }
+  } else {
+    return validated
+  }
+}
+
+export function joinValidated<T, U>(first: Validated<T>, second: Validated<U>): Validated<[T, U]> {
+  if (first.valid) {
+    if (second.valid) {
+      return { valid: true, value: [first.value, second.value] }
+    } else {
+      return second
+    }
+  } else {
+    if (second.valid) {
+      return first
+    } else {
+      return { valid: false, reasons: [...first.reasons, ...second.reasons] }
+    }
+  }
+}
+
+export function sequenceValidated<T>(validated: Validated<T>[]): Validated<T[]> {
+  let sequenced: Validated<T[]> = { valid: true, value: [] }
+  for (const val of validated) {
+    if (sequenced.valid) {
+      if (val.valid) {
+        sequenced.value.push(val.value)
+      } else {
+        sequenced = { valid: false, reasons: val.reasons }
+      }
+    } else if (!val.valid) {
+      sequenced.reasons.push(...val.reasons)
+    }
+  }
+  return sequenced
+}
+
 export interface RawConfig {
   root: string
-  plugins: { [id: string]: Plugin }
+  plugins: { [id: string]: Validated<Plugin> }
   resolvedPlugins: Set<Plugin>
   tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
@@ -33,7 +83,11 @@ export interface RawConfig {
   hooks: { [id: string]: Hook | Conflict<Hook> }
 }
 
-export interface ValidConfig extends RawConfig {
+export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
+  plugins: { [id: string]: Plugin }
+}
+
+export interface ValidConfig extends ValidPluginsConfig {
   tasks: { [id: string]: TaskClass }
   hookTasks: { [id: string]: HookTask }
   options: { [id: string]: PluginOptions }
@@ -58,7 +112,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-export function validateConfig(config: RawConfig): asserts config is ValidConfig {
+export function validateConfig(config: ValidPluginsConfig): asserts config is ValidConfig {
   const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
   const hookConflicts = findConflicts(Object.values(config.hooks))
   const taskConflicts = findConflicts(Object.values(config.tasks))
@@ -147,6 +201,13 @@ export function validateConfig(config: RawConfig): asserts config is ValidConfig
   }
 }
 
+export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig> {
+  const validatedPlugins = sequenceValidated(
+    Object.entries(config.plugins).map(([id, plugin]) => mapValidated(plugin, (p) => [id, p] as const))
+  )
+  return mapValidated(validatedPlugins, (plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
+}
+
 export async function checkInstall(config: ValidConfig): Promise<void> {
   const definedHooks = withoutConflicts(Object.values(config.hooks))
   const uninstalledHooks = await asyncFilter(definedHooks, async (hook) => {
@@ -168,12 +229,23 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
 
   // start loading config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
+  if (!rootPlugin.valid) {
+    throw new ToolKitError('root plugin was not valid!')
+  }
+  const validRootPlugin = rootPlugin.value
+
+  const validatedPluginConfig = validatePlugins(config)
+
+  if (!validatedPluginConfig.valid) {
+    throw new ToolKitError('config was not valid!')
+  }
+  const validPluginConfig = validatedPluginConfig.value
 
   // collate root plugin and descendent hooks, options etc into config
-  resolvePlugin(rootPlugin, config, logger)
+  resolvePlugin(validRootPlugin, validPluginConfig, logger)
 
   if (validate) {
-    validateConfig(config)
+    validateConfig(validPluginConfig)
   }
 
   return config

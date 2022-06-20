@@ -1,13 +1,20 @@
-import resolveFrom from 'resolve-from'
-import type { Logger } from 'winston'
-
-import { Conflict, isConflict } from './conflict'
-import { RawConfig, PluginOptions } from './config'
-import type { HookTask } from './hook'
-import { loadToolKitRC } from './rc-file'
-import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Hook, Plugin, PluginModule, Task } from '@dotcom-tool-kit/types'
 import isPlainObject from 'lodash.isplainobject'
+import resolveFrom from 'resolve-from'
+import type { Logger } from 'winston'
+import {
+  joinValidated,
+  mapValidated,
+  PluginOptions,
+  RawConfig,
+  sequenceValidated,
+  Valid,
+  Validated,
+  ValidPluginsConfig
+} from './config'
+import { Conflict, isConflict } from './conflict'
+import type { HookTask } from './hook'
+import { loadToolKitRC } from './rc-file'
 
 type RawPluginModule = Partial<PluginModule>
 
@@ -21,14 +28,16 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
   }
 }
 
-export function validatePlugin(plugin: unknown): asserts plugin is PluginModule {
+export function validatePlugin(plugin: unknown): Validated<PluginModule> {
+  const makeInvalid = (reason: string): Invalid => ({ valid: false, reasons: [reason] })
+
   const rawPlugin = plugin as RawPluginModule
 
   if (
     rawPlugin.tasks &&
     !(Array.isArray(rawPlugin.tasks) && rawPlugin.tasks.every((task) => Task.isCompatible(task)))
   ) {
-    throw new ToolKitError('tasks are not valid')
+    return makeInvalid('tasks are not valid')
   }
 
   if (
@@ -38,15 +47,21 @@ export function validatePlugin(plugin: unknown): asserts plugin is PluginModule 
       Object.values(rawPlugin.hooks).every((hook) => Hook.isCompatible(hook))
     )
   ) {
-    throw new ToolKitError('hooks are not valid')
+    return makeInvalid('hooks are not valid')
   }
+
+  const pluginModule = { tasks: rawPlugin.tasks ?? [], hooks: rawPlugin.hooks ?? {} }
+  return { valid: true, value: pluginModule }
 }
 
-async function importPlugin(pluginPath: string): Promise<PluginModule> {
-  // pluginPath is an absolute resolved path to a plugin module as found from its parent
-  const pluginModule = await import(pluginPath)
-  validatePlugin(pluginModule)
-  return pluginModule
+async function importPlugin(pluginPath: string): Promise<Validated<PluginModule>> {
+  try {
+    // pluginPath is an absolute resolved path to a plugin module as found from its parent
+    const pluginModule = (await import(pluginPath)) as unknown
+    return validatePlugin(pluginModule)
+  } catch (e) {
+    return { valid: false, reasons: ['an error was thrown when loading this plugin entrypoint'] }
+  }
 }
 
 export async function loadPlugin(
@@ -54,7 +69,7 @@ export async function loadPlugin(
   config: RawConfig,
   logger: Logger,
   parent?: Plugin
-): Promise<Plugin> {
+): Promise<Validated<Plugin>> {
   // don't load duplicate plugins
   if (id in config.plugins) {
     return config.plugins[id]
@@ -64,10 +79,13 @@ export async function loadPlugin(
   const root = parent ? parent.root : process.cwd()
   const pluginRoot = id === 'app root' ? root : resolveFrom(root, id)
 
-  const plugin: Plugin = {
-    id,
-    root: pluginRoot,
-    parent
+  const plugin: Valid<Plugin> = {
+    valid: true,
+    value: {
+      id,
+      root: pluginRoot,
+      parent
+    }
   }
 
   config.plugins[id] = plugin
@@ -76,22 +94,30 @@ export async function loadPlugin(
   const rcFilePromise = loadToolKitRC(pluginRoot)
 
   // start loading module in the background
-  const pluginModulePromise = id === 'app root' ? Promise.resolve(undefined) : importPlugin(pluginRoot)
+  const pluginModulePromise: Promise<Validated<PluginModule | undefined>> =
+    id === 'app root' ? Promise.resolve({ valid: true, value: undefined }) : importPlugin(pluginRoot)
 
-  plugin.rcFile = await rcFilePromise
+  plugin.value.rcFile = await rcFilePromise
 
   // start loading child plugins in the background
   const childrenPromise = Promise.all(
-    plugin.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin))
+    plugin.value.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin.value))
   )
 
   // wait for pending promises concurrently
-  ;[plugin.module, plugin.children] = await Promise.all([pluginModulePromise, childrenPromise])
+  const [validatedModule, children] = await Promise.all([pluginModulePromise, childrenPromise])
+  const validatedChildren = sequenceValidated(children)
 
-  return plugin
+  return mapValidated(joinValidated(validatedModule, validatedChildren), ([module, children]) => {
+    // avoid cloning the plugin value with an object spread as we do object
+    // reference comparisons in multiple places
+    plugin.value.module = module
+    plugin.value.children = children
+    return plugin.value
+  })
 }
 
-export function resolvePlugin(plugin: Plugin, config: RawConfig, logger: Logger): void {
+export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger: Logger): void {
   // don't resolve plugins that have already been resolved to prevent self-conflicts
   // between plugins included at multiple points in the tree
   if (config.resolvedPlugins.has(plugin)) {

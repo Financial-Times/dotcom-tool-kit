@@ -7,7 +7,6 @@ import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
 import { ValidConfig } from 'dotcom-tool-kit/lib/config'
 import { explorer } from 'dotcom-tool-kit/lib/rc-file'
-import type { RawConfig } from 'dotcom-tool-kit/src/config'
 import { promises as fs } from 'fs'
 import * as yaml from 'js-yaml'
 import partition from 'lodash.partition'
@@ -49,7 +48,11 @@ function hasToolKitConflicts(error: unknown) {
   return (importCwd('@dotcom-tool-kit/error') as typeof ToolkitErrorModule).hasToolKitConflicts(error)
 }
 
-async function runTasksWithLogger<T, U>(wait: Promise<T>, run: (interim: T) => Promise<U>, label: string) {
+async function runTasksWithLogger<T, U>(
+  wait: Promise<T>,
+  run: (interim: T) => Promise<U>,
+  label: string
+): Promise<U> {
   const labels: labels = {
     waiting: `not ${label} yet`,
     pending: label,
@@ -170,7 +173,7 @@ sound good?`
   })
 }
 
-async function executeMigration(deleteConfig: boolean): Promise<RawConfig> {
+async function executeMigration(deleteConfig: boolean): Promise<ValidConfig> {
   for (const pkg of packagesToInstall) {
     const { version } = await pacote.manifest(pkg)
     packageJson.requireDependency({
@@ -205,7 +208,7 @@ async function executeMigration(deleteConfig: boolean): Promise<RawConfig> {
 
 async function handleTaskConflict(
   error: ToolkitErrorModule.ToolKitConflictError
-): Promise<RawConfig | undefined> {
+): Promise<ValidConfig | undefined> {
   const orderedHooks: { [hook: string]: string[] } = {}
 
   for (const conflict of error.conflicts) {
@@ -382,8 +385,8 @@ async function optionsPromptForPlugin(plugin: string, options: [string, SchemaTy
   return false
 }
 
-async function optionsPrompt(config: RawConfig): Promise<boolean> {
-  for (const plugin of Object.keys((config as ValidConfig).plugins)) {
+async function optionsPrompt(config: ValidConfig): Promise<boolean> {
+  for (const plugin of Object.keys(config.plugins)) {
     let options: Schema
     const pluginName = plugin.slice(17)
 
@@ -568,7 +571,7 @@ async function main() {
   const { confirm } = await confirmationPrompt()
 
   if (confirm) {
-    let config: RawConfig | undefined
+    let config: ValidConfig | undefined
     try {
       // Carry out the proposed changes: install + uninstall packages, run
       // --install logic etc.
