@@ -6,6 +6,12 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.1.0 to ^2.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.2.0 to ^2.3.0
+
 ## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/secret-squirrel-v0.1.0...secret-squirrel-v1.0.0) (2022-05-06)
 
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.2.0...types-v2.3.0) (2022-06-20)
+
+
+### Features
+
+* **mocha:** allow plugin to pick up .mocharc files ([1ef9fd5](https://github.com/Financial-Times/dotcom-tool-kit/commit/1ef9fd51a50c4a7b53a9655befcb5943838bae97))
+* **node:** allow arbitrary arguments to be set for node process ([32cfe94](https://github.com/Financial-Times/dotcom-tool-kit/commit/32cfe946c49236e2170b625f49152f8f30ab1a15))
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.1.0...types-v2.2.0) (2022-06-07)
 
 
