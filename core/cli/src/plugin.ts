@@ -9,7 +9,7 @@ import {
   mapValidationError,
   PluginOptions,
   RawConfig,
-  sequenceValidated,
+  reduceValidated,
   Valid,
   Validated,
   ValidPluginsConfig
@@ -142,7 +142,7 @@ export async function loadPlugin(
   const validatedModule = mapValidationError(module, (reasons) => [
     indentReasons(`plugin ${s.plugin(id)} failed to load because:\n- ${reasons.join('\n- ')}`)
   ])
-  const validatedChildren = mapValidationError(sequenceValidated(children), (reasons) => [
+  const validatedChildren = mapValidationError(reduceValidated(children), (reasons) => [
     indentReasons(`some child plugins of ${s.plugin(id)} failed to load:\n- ${reasons.join('\n- ')}`)
   ])
 

@@ -68,7 +68,7 @@ export function joinValidated<T, U>(first: Validated<T>, second: Validated<U>): 
   }
 }
 
-export function sequenceValidated<T>(validated: Validated<T>[]): Validated<T[]> {
+export function reduceValidated<T>(validated: Validated<T>[]): Validated<T[]> {
   let sequenced: Validated<T[]> = { valid: true, value: [] }
   for (const val of validated) {
     if (sequenced.valid) {
@@ -213,7 +213,7 @@ export function validateConfig(config: ValidPluginsConfig): asserts config is Va
 }
 
 export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig> {
-  const validatedPlugins = sequenceValidated(
+  const validatedPlugins = reduceValidated(
     Object.entries(config.plugins).map(([id, plugin]) => mapValidated(plugin, (p) => [id, p] as const))
   )
   return mapValidated(validatedPlugins, (plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
