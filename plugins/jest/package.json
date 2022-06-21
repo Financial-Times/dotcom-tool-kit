@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/jest",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/logger": "^2.0.0",
-    "@dotcom-tool-kit/types": "^2.2.0"
+    "@dotcom-tool-kit/types": "^2.3.0"
   },
   "peerDependencies": {
     "jest-cli": "27.x",
