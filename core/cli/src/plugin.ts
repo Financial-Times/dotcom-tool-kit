@@ -1,19 +1,20 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
-import { Hook, Plugin, PluginModule, Task } from '@dotcom-tool-kit/types'
-import isPlainObject from 'lodash.isplainobject'
-import resolveFrom from 'resolve-from'
-import type { Logger } from 'winston'
 import {
+  Hook,
   joinValidated,
   mapValidated,
   mapValidationError,
-  PluginOptions,
-  RawConfig,
+  Plugin,
+  PluginModule,
   reduceValidated,
+  Task,
   Valid,
-  Validated,
-  ValidPluginsConfig
-} from './config'
+  Validated
+} from '@dotcom-tool-kit/types'
+import isPlainObject from 'lodash.isplainobject'
+import resolveFrom from 'resolve-from'
+import type { Logger } from 'winston'
+import { PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from './conflict'
 import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
@@ -38,17 +39,17 @@ export function validatePlugin(plugin: unknown): Validated<PluginModule> {
     if (!Array.isArray(rawPlugin.tasks)) {
       errors.push(`the exported ${s.code('tasks')} value from this plugin is not an array`)
     } else {
-      const incompatibleTasks = rawPlugin.tasks.filter((task) => !Task.isCompatible(task))
-      if (incompatibleTasks.length === 1) {
-        errors.push(
-          `the task ${s.task(incompatibleTasks[0].name)} is not a compatible instance of ${s.heading('Task')}`
+      const validatedTasks = reduceValidated(
+        rawPlugin.tasks.map((task) =>
+          mapValidationError(Task.isCompatible(task), (reasons) => [
+            `the task ${s.task(task.name)} is not a compatible instance of ${s.code(
+              'Task'
+            )}:\n  - ${reasons.join('\n  - ')}`
+          ])
         )
-      } else if (incompatibleTasks.length > 1) {
-        errors.push(
-          `the tasks ${incompatibleTasks.map((task) =>
-            s.task(task.name)
-          )} are not compatible instances of ${s.heading('Task')}`
-        )
+      )
+      if (!validatedTasks.valid) {
+        errors.push(...validatedTasks.reasons)
       }
     }
   }
@@ -57,17 +58,17 @@ export function validatePlugin(plugin: unknown): Validated<PluginModule> {
     if (!isPlainObject(rawPlugin.hooks)) {
       errors.push(`the exported ${s.code('hooks')} value from this plugin is not an object`)
     } else {
-      const incompatibleHooks = Object.entries(rawPlugin.hooks).filter(([, hook]) => !Hook.isCompatible(hook))
-      if (incompatibleHooks.length === 1) {
-        errors.push(
-          `the hook ${s.hook(incompatibleHooks[0][0])} is not a compatible instance of ${s.heading('Hook')}`
+      const validatedHooks = reduceValidated(
+        Object.entries(rawPlugin.hooks).map(([id, hook]) =>
+          mapValidationError(Hook.isCompatible(hook), (reasons) => [
+            `the hook ${s.hook(id)} is not a compatible instance of ${s.code('Hook')}:\n  - ${reasons.join(
+              '\n  - '
+            )}`
+          ])
         )
-      } else if (incompatibleHooks.length > 1) {
-        errors.push(
-          `the hooks ${incompatibleHooks.map(([id]) =>
-            s.hook(id)
-          )} are not compatible instances of ${s.heading('Hook')}`
-        )
+      )
+      if (!validatedHooks.valid) {
+        errors.push(...validatedHooks.reasons)
       }
     }
   }

@@ -5,7 +5,7 @@ import type { HookTask } from './hook'
 import { loadPlugin, resolvePlugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import { TaskClass, Hook, Plugin } from '@dotcom-tool-kit/types'
+import { TaskClass, Hook, mapValidated, Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,
@@ -21,67 +21,6 @@ export interface PluginOptions {
   options: Record<string, unknown>
   plugin: Plugin
   forPlugin: Plugin
-}
-
-export interface Invalid {
-  valid: false
-  reasons: string[]
-}
-export interface Valid<T> {
-  valid: true
-  value: T
-}
-export type Validated<T> = Invalid | Valid<T>
-
-export function mapValidated<T, U>(validated: Validated<T>, f: (val: T) => U): Validated<U> {
-  if (validated.valid) {
-    return { valid: true, value: f(validated.value) }
-  } else {
-    return validated
-  }
-}
-
-export function mapValidationError<T>(
-  validated: Validated<T>,
-  f: (reasons: string[]) => string[]
-): Validated<T> {
-  if (validated.valid) {
-    return validated
-  } else {
-    return { valid: false, reasons: f(validated.reasons) }
-  }
-}
-
-export function joinValidated<T, U>(first: Validated<T>, second: Validated<U>): Validated<[T, U]> {
-  if (first.valid) {
-    if (second.valid) {
-      return { valid: true, value: [first.value, second.value] }
-    } else {
-      return second
-    }
-  } else {
-    if (second.valid) {
-      return first
-    } else {
-      return { valid: false, reasons: [...first.reasons, ...second.reasons] }
-    }
-  }
-}
-
-export function reduceValidated<T>(validated: Validated<T>[]): Validated<T[]> {
-  let sequenced: Validated<T[]> = { valid: true, value: [] }
-  for (const val of validated) {
-    if (sequenced.valid) {
-      if (val.valid) {
-        sequenced.value.push(val.value)
-      } else {
-        sequenced = { valid: false, reasons: val.reasons }
-      }
-    } else if (!val.valid) {
-      sequenced.reasons.push(...val.reasons)
-    }
-  }
-  return sequenced
 }
 
 export interface RawConfig {

@@ -1,17 +1,9 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Plugin } from '@dotcom-tool-kit/types'
+import { Plugin, Valid } from '@dotcom-tool-kit/types'
 import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
-import {
-  createConfig,
-  mapValidated,
-  RawConfig,
-  Valid,
-  validateConfig,
-  validatePlugins,
-  ValidPluginsConfig
-} from '../src/config'
+import { createConfig, validateConfig, validatePlugins, ValidPluginsConfig } from '../src/config'
 import { loadPlugin, resolvePlugin } from '../src/plugin'
 
 const logger = (winston as unknown) as Logger

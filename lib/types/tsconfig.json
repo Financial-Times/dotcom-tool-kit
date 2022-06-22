@@ -3,6 +3,9 @@
   "references": [
     {
       "path": "../error"
+    },
+    {
+      "path": "../logger"
     }
   ],
   "compilerOptions": {
