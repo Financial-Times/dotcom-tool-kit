@@ -78,4 +78,4 @@
         host: 'https://ft.com'
 
 # Pa11y implemented output
-    When pa11y pplugin runs, the output on the terminal will be a list of the issues found, followed for their `errorCode` so they can be reviewed
+    When pa11y plugin runs, the output on the terminal will be a list of the issues found, followed for their `errorCode` so they can be reviewed
