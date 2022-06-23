@@ -19,7 +19,7 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
     const reviewState = readState('review')
     // if we've built a review app, test against that, not the app in the config
     if (reviewState) {
-      this.options.host = `https://${reviewState.appName}.com`
+      this.options.host = `https://${reviewState.appName}.herokuapp.com`
     }
 
     if (this.options.host === null || this.options.host === undefined) {
