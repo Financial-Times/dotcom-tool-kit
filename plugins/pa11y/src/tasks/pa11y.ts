@@ -1,16 +1,9 @@
-import pa11y from 'pa11y'
+import { ToolKitError } from '@dotcom-tool-kit/error'
+import { styles } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/types'
-import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Pa11ySchema } from '@dotcom-tool-kit/types/lib/schema/pa11y'
-
-type Pa11yIssue = {
-  typeCode: number
-  type: string
-  message: string
-  context: string
-  selector: string
-}
+import pa11y from 'pa11y'
 
 export default class Pa11y extends Task<typeof Pa11ySchema> {
   static description = ''
@@ -22,32 +15,38 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
       this.options.host = `https://${reviewState.appName}.herokuapp.com`
     }
 
-    if (this.options.host === null || this.options.host === undefined) {
-      const error = new ToolKitError('Pa11y host error')
-      error.details = 'Host on pa11y cant be null or undefined'
+    if (!this.options.host) {
+      const error = new ToolKitError('no host option in your Tool Kit configuration')
+      error.details = `the ${styles.plugin(
+        'Pa11y'
+      )} plugin needs to know the URL it should be testing when running locally. add it to your configuration, e.g.:
+
+options:
+  '@dotcom-tool-kit/pa11y':
+    host: 'example.ft.com'`
+
       throw error
     }
 
     const results = await pa11y(this.options.host, this.options)
-    const issues = results.issues
 
-    this.logger.info(`\n Running Pa11y on ${results.pageUrl}, document title ${results.documentTitle} \n`)
+    this.logger.info(`Running Pa11y on ${results.pageUrl}, document title ${results.documentTitle}`)
     if (results.issues?.length > 0) {
       const errorList: Array<string> = []
-      const error = new ToolKitError('Pally has found some errors')
-      results.issues.forEach((issue: Pa11yIssue, i: number) => {
-        const e = `\nIssue #${i + 1} of ${issues.length}: \n TypeCode: ${issue?.typeCode} \n Type: ${
+      const error = new ToolKitError('Pa11y found some errors')
+      results.issues.forEach((issue, i, issues) => {
+        const e = `Issue #${i + 1} of ${issues.length}: \n TypeCode: ${issue?.typeCode} \n Type: ${
           issue?.type
         } \n Message: ${issue?.message} \n Context: ${issue?.context} \n Selector: ${issue?.selector} \n`
         errorList.push(
           issue.typeCode === 1
-            ? 'Pa11y failed run due to a technical fault' + e
-            : `Pa11y ran successfully but there are errors in the page` + e
+            ? 'Pa11y failed to run due to a technical fault:\n' + e
+            : 'Pa11y ran successfully but there were errors in the page:\n' + e
         )
       })
       error.details = errorList.join('\n\n')
       throw error
     }
-    this.logger.info(`Pa11y ran successfully, and there are no errors`)
+    this.logger.info('Pa11y ran successfully, and there were no errors')
   }
 }
