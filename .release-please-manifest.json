@@ -28,7 +28,7 @@
   "plugins/node": "2.1.0",
   "plugins/nodemon": "2.0.3",
   "plugins/npm": "2.0.4",
-  "plugins/pa11y": "0.1.2",
+  "plugins/pa11y": "0.1.3",
   "plugins/prettier": "2.0.4",
   "plugins/secret-squirrel": "1.0.2",
   "plugins/upload-assets-to-s3": "2.0.3",
