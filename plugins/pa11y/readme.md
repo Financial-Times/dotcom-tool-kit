@@ -22,10 +22,9 @@
     When pa11y plugin runs, the output on the terminal will be a list of the issues found, followed for their `errorCode` so they can be reviewed
 
 - Output example: 
-    {
-        documentTitle: 'The title of the page that was tested',
-        pageUrl: 'The URL that Pa11y was run against',
-        issue # of total: [
+        Running Pa11y on `The URL that Pa11y was run against`, document title `The title of the page that was tested`
+    
+        Issue # of total: 
             {
                 code: 'WCAG2AA.Principle1.Guideline1_1.1_1_1.H30.2',
                 context: '<a href="https://example.com/"><img src="example.jpg" alt=""/></a>',
@@ -35,5 +34,3 @@
                 typeCode: 1
             }
             // more issues appear here
-        ]
-    }
