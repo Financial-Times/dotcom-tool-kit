@@ -1,6 +1,5 @@
 # Description 
  Pa11y is your automated accessibility testing pal. It runs accessibility tests on your pages via the command line or Node.js, so you can automate your testing process.
- Pa11y requires Node.js 12+ to run
 
 # Pa11y documentation
  `https://github.com/pa11y/pa11y`
