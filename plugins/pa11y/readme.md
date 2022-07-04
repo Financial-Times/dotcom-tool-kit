@@ -6,12 +6,12 @@
 
 # Pa11y configurations added on the project
     Pa11ySchema = {
-        - host: Domain against pa11y will run,
-        - wait: The time in milliseconds to wait before running HTML CodeSniffer on the page,
-        - exceptions: An array of result codes and types that you'd like to ignore. You can find the codes for each rule in the console output and the types are error, warning, and notice. Note: warning and notice messages are ignored by default,
-        - hide: A CSS selector to hide elements from testing, selectors can be comma separated. Elements matching this selector will be hidden from testing by styling them with visibility: hidden,
-        - viewports: The viewport configuration. This can have any of the properties supported by the puppeteer setViewport method `(https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#pagesetviewportviewport),
-        - screenCapturePath: This allows you to capture the screen between other actions, useful to verify that the page looks as you expect before the Pa11y test runs. This action takes the form screen capture <file-path>
+        - host (string): Domain against pa11y will run,
+        - wait (number): The time in milliseconds to wait before running HTML CodeSniffer on the page,
+        - exceptions (array.string): An array of result codes and types that you'd like to ignore. You can find the codes for each rule in the console output and the types are error, warning, and notice. Note: warning and notice messages are ignored by default,
+        - hideElements (array.string): A CSS selector to hide elements from testing, selectors can be comma separated. Elements matching this selector will be hidden from testing by styling them with visibility: hidden,
+        - viewports (array.string): The viewport configuration. This can have any of the properties supported by the puppeteer setViewport method,
+        - screenCapturePath (string): This allows you to capture the screen between other actions, useful to verify that the page looks as you expect before the Pa11y test runs. This action takes the form screen capture <file-path>
     }
 
 # Default config used on the project
