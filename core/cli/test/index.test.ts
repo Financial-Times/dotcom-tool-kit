@@ -1,5 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Plugin, Valid } from '@dotcom-tool-kit/types'
+import { Invalid, Plugin, Valid } from '@dotcom-tool-kit/types'
 import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
@@ -12,6 +12,20 @@ const logger = (winston as unknown) as Logger
 jest.setTimeout(20000)
 
 describe('cli', () => {
+  it('should report when plugins are invalid', async () => {
+    const config = createConfig()
+
+    const plugin = await loadPlugin('app root', config, logger, {
+      id: 'invalid plugin test root',
+      root: path.join(__dirname, 'files/invalid')
+    })
+
+    expect(plugin.valid).toBe(false)
+    const reason = (plugin as Invalid).reasons[0]
+    expect(reason).toContain('type symbol is missing')
+    expect(reason).toContain('plugin is not an object')
+  })
+
   it('should indicate when there are conflicts', async () => {
     const config = createConfig()
 
