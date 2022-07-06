@@ -4,6 +4,15 @@
 # Pa11y documentation
  `https://github.com/pa11y/pa11y`
 
+ # Installation and usage
+    With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-and-using-tool-kit), install this plugin as a dev dependency:
+
+    npm install --save-dev @dotcom-tool-kit/pa11y
+    And add it to your repo's .toolkitrc.yml:
+
+    plugins:
+    - '@dotcom-tool-kit/pa11y'
+
 # Pa11y configurations added on the project
     Pa11ySchema = {
         - host (string): Domain against pa11y will run,
