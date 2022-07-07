@@ -31,6 +31,8 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
   }
 }
 
+const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
+
 export function validatePlugin(plugin: unknown): Validated<PluginModule> {
   const errors: string[] = []
   const rawPlugin = plugin as RawPluginModule
@@ -87,7 +89,15 @@ async function importPlugin(pluginPath: string): Promise<Validated<PluginModule>
     const pluginModule = (await import(pluginPath)) as unknown
     return validatePlugin(pluginModule)
   } catch (e) {
-    return { valid: false, reasons: ["an error was thrown when loading this plugin's entrypoint"] }
+    const err = e as Error
+    return {
+      valid: false,
+      reasons: [
+        `an error was thrown when loading this plugin's entrypoint:\n  ${s.code(
+          indentReasons(err.toString())
+        )}`
+      ]
+    }
   }
 }
 
@@ -139,7 +149,6 @@ export async function loadPlugin(
   // wait for pending promises concurrently
   const [module, children] = await Promise.all([pluginModulePromise, childrenPromise])
 
-  const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
   const validatedModule = mapValidationError(module, (reasons) => [
     indentReasons(`plugin ${s.plugin(id)} failed to load because:\n- ${reasons.join('\n- ')}`)
   ])
