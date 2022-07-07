@@ -3,4 +3,3 @@ plugins:
 
 hooks:
   'test:review': Pa11y
-  'test:staging': Pa11y

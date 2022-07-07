@@ -8,11 +8,11 @@ export default class NTest extends Task<typeof SmokeTestSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    const reviewState = readState('review')
+    const appState = readState('review') ?? readState('staging')
 
-    // if we've built a review app, test against that, not the app in the config
-    if (reviewState) {
-      this.options.host = `https://${reviewState.appName}.herokuapp.com`
+    // if we've built a review or staging app, test against that, not the app in the config
+    if (appState) {
+      this.options.host = `https://${appState.appName}.herokuapp.com`
     }
 
     const smokeTest = new SmokeTest(this.options)
