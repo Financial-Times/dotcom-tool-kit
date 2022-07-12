@@ -15,8 +15,8 @@ plugins:
     - '@dotcom-tool-kit/pa11y'
 ```
 
-# Pa11y configurations added on the project
-    Pa11ySchema:
+## Pa11y configurations added on the project
+Pa11ySchema:
 
 | Value | Type | Description |
 |:---:|:---:|---|
@@ -29,17 +29,17 @@ plugins:
 
     
 
-# Default config used on the project
+## Default config used on the project
 ``` 
     '@dotcom-tool-kit/pa11y':
        host: 'https://ft.com'
 ``` 
 
-# Pa11y implemented output
-    When pa11y plugin runs, the output on the terminal will be a list of the issues found, followed for their `errorCode` so they can be reviewed
+## Pa11y implemented output
+When pa11y plugin runs, the output on the terminal will be a list of the issues found, followed for their `errorCode` so they can be reviewed
 
 - Output example: 
-```
+
         Running Pa11y on `https://www.ft.com/example`, document title `Example page | Financial Times`
     
         Issue # of total: 
@@ -52,4 +52,3 @@ plugins:
                 typeCode: 1
             }
             // more issues appear here
-```
