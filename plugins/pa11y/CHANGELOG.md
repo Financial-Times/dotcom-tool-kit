@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.1.3...pa11y-v0.2.0) (2022-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pa11y:** remove Pa11y task from staging test hook
+
+### Bug Fixes
+
+* **pa11y:** remove Pa11y task from staging test hook ([dea7d5a](https://github.com/Financial-Times/dotcom-tool-kit/commit/dea7d5a61dcc7cde81e6c09fd44667b339948cbf))
+
 ## [0.1.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.1.2...pa11y-v0.1.3) (2022-06-23)
 
 

@@ -18,6 +18,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.2.0 to ^2.3.0
 
+### [2.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v2.0.3...n-test-v2.0.4) (2022-07-12)
+
+
+### Bug Fixes
+
+* **n-test:** set Heroku app name for staging apps too ([87fa024](https://github.com/Financial-Times/dotcom-tool-kit/commit/87fa024de5e3c9ba965757a8693af6bbd197f305))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v1.9.0...n-test-v2.0.0) (2022-04-19)
 
 

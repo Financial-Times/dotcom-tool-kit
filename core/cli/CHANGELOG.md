@@ -36,6 +36,12 @@
     * @dotcom-tool-kit/mocha bumped from ^2.0.2 to ^2.1.0
     * @dotcom-tool-kit/n-test bumped from ^2.0.2 to ^2.0.3
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/n-test bumped from ^2.0.3 to ^2.0.4
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.1.0...dotcom-tool-kit-v2.2.0) (2022-06-07)
 
 
