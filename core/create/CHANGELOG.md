@@ -19,6 +19,12 @@
     * @dotcom-tool-kit/types bumped from ^2.2.0 to ^2.3.0
     * dotcom-tool-kit bumped from ^2.2.1 to ^2.2.2
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * dotcom-tool-kit bumped from ^2.2.2 to ^2.2.3
+
 ## [2.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.2...create-v2.0.3) (2022-06-07)
 
 
