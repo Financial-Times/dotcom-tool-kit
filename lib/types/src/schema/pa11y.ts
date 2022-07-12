@@ -5,7 +5,7 @@ export const Pa11ySchema = {
   wait: 'number?',
   tests: 'array.string?',
   exceptions: 'array.string?',
-  hide: 'array.string?',
+  hideElements: 'string?',
   viewports: 'array.string?',
   screenCapturePath: 'string?'
 } as const
