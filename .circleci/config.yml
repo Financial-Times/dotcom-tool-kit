@@ -137,12 +137,12 @@ jobs:
     steps:
       - *attach_workspace
       - run:
-          name: Update release-please release PR
+          name: Update release-please@13.17.0 release PR
           command: npx release-please release-pr --token=${RELEASE_PLEASE_GITHUB_TOKEN}
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
       - run:
           name: Release any unreleased PR merges
-          command: npx release-please github-release
+          command: npx release-please@13.17.0 github-release
             --token=${RELEASE_PLEASE_GITHUB_TOKEN}
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             --monorepo-tags
