@@ -1,6 +1,13 @@
 {
   "extends": "../../tsconfig.settings.json",
-  "references": [{ "path": "../error" }],
+  "references": [
+    {
+      "path": "../error"
+    },
+    {
+      "path": "../logger"
+    }
+  ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"

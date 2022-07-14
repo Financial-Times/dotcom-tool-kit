@@ -95,8 +95,8 @@ export async function listPlugins(logger: Logger): Promise<void> {
   const config = await loadConfig(logger, { validate: false })
 
   const rootPlugin = config.plugins['app root']
-  if (rootPlugin) {
-    logger.info(formatPluginTree(rootPlugin).join('\n'))
+  if (rootPlugin?.valid) {
+    logger.info(formatPluginTree(rootPlugin.value).join('\n'))
   }
 }
 

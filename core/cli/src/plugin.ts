@@ -1,13 +1,23 @@
+import { styles as s } from '@dotcom-tool-kit/logger'
+import {
+  Hook,
+  joinValidated,
+  mapValidated,
+  mapValidationError,
+  Plugin,
+  PluginModule,
+  reduceValidated,
+  Task,
+  Valid,
+  Validated
+} from '@dotcom-tool-kit/types'
+import isPlainObject from 'lodash.isplainobject'
 import resolveFrom from 'resolve-from'
 import type { Logger } from 'winston'
-
+import { PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from './conflict'
-import { Config, PluginOptions } from './config'
 import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
-import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Hook, Plugin, PluginModule, Task } from '@dotcom-tool-kit/types'
-import isPlainObject from 'lodash.isplainobject'
 
 type RawPluginModule = Partial<PluginModule>
 
@@ -21,40 +31,82 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
   }
 }
 
-export function validatePlugin(plugin: unknown): asserts plugin is PluginModule {
+const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
+
+export function validatePlugin(plugin: unknown): Validated<PluginModule> {
+  const errors: string[] = []
   const rawPlugin = plugin as RawPluginModule
 
-  if (
-    rawPlugin.tasks &&
-    !(Array.isArray(rawPlugin.tasks) && rawPlugin.tasks.every((task) => task.prototype instanceof Task))
-  ) {
-    throw new ToolKitError('tasks are not valid')
+  if (rawPlugin.tasks) {
+    if (!Array.isArray(rawPlugin.tasks)) {
+      errors.push(`the exported ${s.code('tasks')} value from this plugin is not an array`)
+    } else {
+      const validatedTasks = reduceValidated(
+        rawPlugin.tasks.map((task) =>
+          mapValidationError(Task.isCompatible(task), (reasons) => [
+            `the task ${s.task(task.name)} is not a compatible instance of ${s.code(
+              'Task'
+            )}:\n  - ${reasons.join('\n  - ')}`
+          ])
+        )
+      )
+      if (!validatedTasks.valid) {
+        errors.push(...validatedTasks.reasons)
+      }
+    }
   }
 
-  if (
-    rawPlugin.hooks &&
-    !(
-      isPlainObject(rawPlugin.hooks) &&
-      Object.values(rawPlugin.hooks).every((hook) => hook.prototype instanceof Hook)
-    )
-  ) {
-    throw new ToolKitError('hooks are not valid')
+  if (rawPlugin.hooks) {
+    if (!isPlainObject(rawPlugin.hooks)) {
+      errors.push(`the exported ${s.code('hooks')} value from this plugin is not an object`)
+    } else {
+      const validatedHooks = reduceValidated(
+        Object.entries(rawPlugin.hooks).map(([id, hook]) =>
+          mapValidationError(Hook.isCompatible(hook), (reasons) => [
+            `the hook ${s.hook(id)} is not a compatible instance of ${s.code('Hook')}:\n  - ${reasons.join(
+              '\n  - '
+            )}`
+          ])
+        )
+      )
+      if (!validatedHooks.valid) {
+        errors.push(...validatedHooks.reasons)
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    return { valid: false, reasons: errors }
+  } else {
+    const pluginModule = { tasks: rawPlugin.tasks ?? [], hooks: rawPlugin.hooks ?? {} }
+    return { valid: true, value: pluginModule }
   }
 }
 
-async function importPlugin(pluginPath: string): Promise<PluginModule> {
-  // pluginPath is an absolute resolved path to a plugin module as found from its parent
-  const pluginModule = await import(pluginPath)
-  validatePlugin(pluginModule)
-  return pluginModule
+async function importPlugin(pluginPath: string): Promise<Validated<PluginModule>> {
+  try {
+    // pluginPath is an absolute resolved path to a plugin module as found from its parent
+    const pluginModule = (await import(pluginPath)) as unknown
+    return validatePlugin(pluginModule)
+  } catch (e) {
+    const err = e as Error
+    return {
+      valid: false,
+      reasons: [
+        `an error was thrown when loading this plugin's entrypoint:\n  ${s.code(
+          indentReasons(err.toString())
+        )}`
+      ]
+    }
+  }
 }
 
 export async function loadPlugin(
   id: string,
-  config: Config,
+  config: RawConfig,
   logger: Logger,
   parent?: Plugin
-): Promise<Plugin> {
+): Promise<Validated<Plugin>> {
   // don't load duplicate plugins
   if (id in config.plugins) {
     return config.plugins[id]
@@ -62,12 +114,20 @@ export async function loadPlugin(
 
   // load plugin relative to the parent plugin
   const root = parent ? parent.root : process.cwd()
-  const pluginRoot = id === 'app root' ? root : resolveFrom(root, id)
+  let pluginRoot: string
+  try {
+    pluginRoot = id === 'app root' ? root : resolveFrom(root, id)
+  } catch (e) {
+    return { valid: false, reasons: [`could not find path for name ${s.filepath(id)}`] }
+  }
 
-  const plugin: Plugin = {
-    id,
-    root: pluginRoot,
-    parent
+  const plugin: Valid<Plugin> = {
+    valid: true,
+    value: {
+      id,
+      root: pluginRoot,
+      parent
+    }
   }
 
   config.plugins[id] = plugin
@@ -76,22 +136,36 @@ export async function loadPlugin(
   const rcFilePromise = loadToolKitRC(pluginRoot)
 
   // start loading module in the background
-  const pluginModulePromise = id === 'app root' ? Promise.resolve(undefined) : importPlugin(pluginRoot)
+  const pluginModulePromise: Promise<Validated<PluginModule | undefined>> =
+    id === 'app root' ? Promise.resolve({ valid: true, value: undefined }) : importPlugin(pluginRoot)
 
-  plugin.rcFile = await rcFilePromise
+  plugin.value.rcFile = await rcFilePromise
 
   // start loading child plugins in the background
   const childrenPromise = Promise.all(
-    plugin.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin))
+    plugin.value.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin.value))
   )
 
   // wait for pending promises concurrently
-  ;[plugin.module, plugin.children] = await Promise.all([pluginModulePromise, childrenPromise])
+  const [module, children] = await Promise.all([pluginModulePromise, childrenPromise])
 
-  return plugin
+  const validatedModule = mapValidationError(module, (reasons) => [
+    indentReasons(`plugin ${s.plugin(id)} failed to load because:\n- ${reasons.join('\n- ')}`)
+  ])
+  const validatedChildren = mapValidationError(reduceValidated(children), (reasons) => [
+    indentReasons(`some child plugins of ${s.plugin(id)} failed to load:\n- ${reasons.join('\n- ')}`)
+  ])
+
+  return mapValidated(joinValidated(validatedModule, validatedChildren), ([module, children]) => {
+    // avoid cloning the plugin value with an object spread as we do object
+    // reference comparisons in multiple places
+    plugin.value.module = module
+    plugin.value.children = children
+    return plugin.value
+  })
 }
 
-export function resolvePlugin(plugin: Plugin, config: Config, logger: Logger): void {
+export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger: Logger): void {
   // don't resolve plugins that have already been resolved to prevent self-conflicts
   // between plugins included at multiple points in the tree
   if (config.resolvedPlugins.has(plugin)) {

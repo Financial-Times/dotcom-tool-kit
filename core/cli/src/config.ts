@@ -5,7 +5,7 @@ import type { HookTask } from './hook'
 import { loadPlugin, resolvePlugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import { TaskClass, Hook, Plugin } from '@dotcom-tool-kit/types'
+import { TaskClass, Hook, mapValidated, Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
 import {
   formatTaskConflicts,
   formatUndefinedHookTasks,
@@ -23,9 +23,9 @@ export interface PluginOptions {
   forPlugin: Plugin
 }
 
-export interface Config {
+export interface RawConfig {
   root: string
-  plugins: { [id: string]: Plugin }
+  plugins: { [id: string]: Validated<Plugin> }
   resolvedPlugins: Set<Plugin>
   tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
@@ -33,7 +33,11 @@ export interface Config {
   hooks: { [id: string]: Hook | Conflict<Hook> }
 }
 
-export interface ValidConfig extends Config {
+export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
+  plugins: { [id: string]: Plugin }
+}
+
+export interface ValidConfig extends ValidPluginsConfig {
   tasks: { [id: string]: TaskClass }
   hookTasks: { [id: string]: HookTask }
   options: { [id: string]: PluginOptions }
@@ -42,7 +46,7 @@ export interface ValidConfig extends Config {
 
 const coreRoot = path.resolve(__dirname, '../')
 
-export const createConfig = (): Config => ({
+export const createConfig = (): RawConfig => ({
   root: coreRoot,
   plugins: {},
   resolvedPlugins: new Set(),
@@ -58,7 +62,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-export function validateConfig(config: Config): asserts config is ValidConfig {
+export function validateConfig(config: ValidPluginsConfig): asserts config is ValidConfig {
   const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
   const hookConflicts = findConflicts(Object.values(config.hooks))
   const taskConflicts = findConflicts(Object.values(config.tasks))
@@ -147,6 +151,13 @@ export function validateConfig(config: Config): asserts config is ValidConfig {
   }
 }
 
+export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig> {
+  const validatedPlugins = reduceValidated(
+    Object.entries(config.plugins).map(([id, plugin]) => mapValidated(plugin, (p) => [id, p] as const))
+  )
+  return mapValidated(validatedPlugins, (plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
+}
+
 export async function checkInstall(config: ValidConfig): Promise<void> {
   const definedHooks = withoutConflicts(Object.values(config.hooks))
   const uninstalledHooks = await asyncFilter(definedHooks, async (hook) => {
@@ -161,19 +172,34 @@ export async function checkInstall(config: ValidConfig): Promise<void> {
 }
 
 export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
-export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<Config>
+export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<RawConfig>
 
-export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | Config> {
+export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | RawConfig> {
   const config = createConfig()
 
   // start loading config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
+  if (!rootPlugin.valid) {
+    const error = new ToolKitError('root plugin was not valid!')
+    error.details = rootPlugin.reasons.join('\n\n')
+    throw error
+  }
+  const validRootPlugin = rootPlugin.value
+
+  const validatedPluginConfig = validatePlugins(config)
+
+  if (!validatedPluginConfig.valid) {
+    const error = new ToolKitError('config was not valid!')
+    error.details = validatedPluginConfig.reasons.join('\n\n')
+    throw error
+  }
+  const validPluginConfig = validatedPluginConfig.value
 
   // collate root plugin and descendent hooks, options etc into config
-  resolvePlugin(rootPlugin, config, logger)
+  resolvePlugin(validRootPlugin, validPluginConfig, logger)
 
   if (validate) {
-    validateConfig(config)
+    validateConfig(validPluginConfig)
   }
 
   return config

@@ -12,6 +12,7 @@ export const styles = {
   option: colours.blue,
   makeTarget: colours.grey.italic,
   heading: colours.bold,
+  code: colours.grey.italic,
   dim: colours.grey,
   title: colours.bold.underline,
   errorHighlight: colours.red,

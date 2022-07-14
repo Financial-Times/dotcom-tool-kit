@@ -1,8 +1,9 @@
-import { describe, jest, it, expect } from '@jest/globals'
-import * as path from 'path'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Config, createConfig, validateConfig } from '../src/config'
+import { Invalid, Plugin, Valid } from '@dotcom-tool-kit/types'
+import { describe, expect, it, jest } from '@jest/globals'
+import * as path from 'path'
 import winston, { Logger } from 'winston'
+import { createConfig, validateConfig, validatePlugins, ValidPluginsConfig } from '../src/config'
 import { loadPlugin, resolvePlugin } from '../src/plugin'
 
 const logger = (winston as unknown) as Logger
@@ -10,61 +11,19 @@ const logger = (winston as unknown) as Logger
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
 jest.setTimeout(20000)
 
-function makeRootRelative(thing: { root: string }) {
-  thing.root = path.relative(process.cwd(), thing.root)
-}
-
-function makeConfigPathsRelative(config: Config) {
-  makeRootRelative(config)
-
-  for (const plugin of Object.values(config.plugins)) {
-    makeRootRelative(plugin)
-
-    if (plugin.parent) {
-      makeRootRelative(plugin.parent)
-    }
-
-    if (plugin.children) {
-      for (const child of plugin.children) {
-        makeRootRelative(child)
-      }
-    }
-  }
-
-  for (const assignment of Object.values(config.hookTasks)) {
-    makeRootRelative(assignment.plugin)
-  }
-
-  for (const hook of Object.values(config.hooks)) {
-    if (hook.plugin) makeRootRelative(hook.plugin)
-    // We can't use the real CircleCI plugin hook type as that would cause a
-    // circular dependency between the two packages.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const circleHook = hook as any
-    if (circleHook.circleConfigPath) {
-      circleHook.circleConfigPath = path.relative(process.cwd(), circleHook.circleConfigPath)
-    }
-  }
-
-  for (const task of Object.values(config.tasks)) {
-    if (task.plugin) makeRootRelative(task.plugin)
-  }
-}
-
 describe('cli', () => {
-  it('should load plugins correctly', async () => {
+  it('should report when plugins are invalid', async () => {
     const config = createConfig()
 
     const plugin = await loadPlugin('app root', config, logger, {
-      id: 'successful test root',
-      root: path.join(__dirname, 'files/successful')
+      id: 'invalid plugin test root',
+      root: path.join(__dirname, 'files/invalid')
     })
 
-    resolvePlugin(plugin, config, logger)
-
-    // make every root path in the config relative for consistent snapshots across machines
-    makeConfigPathsRelative(config)
-    expect(config).toMatchSnapshot()
+    expect(plugin.valid).toBe(false)
+    const reason = (plugin as Invalid).reasons[0]
+    expect(reason).toContain('type symbol is missing')
+    expect(reason).toContain('plugin is not an object')
   })
 
   it('should indicate when there are conflicts', async () => {
@@ -74,13 +33,18 @@ describe('cli', () => {
       id: 'conflicted test root',
       root: path.join(__dirname, 'files/conflicted')
     })
+    expect(plugin.valid).toBe(true)
 
-    resolvePlugin(plugin, config, logger)
+    const validatedPluginConfig = validatePlugins(config)
+    expect(validatedPluginConfig.valid).toBe(true)
+    const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
-    expect(() => validateConfig(config)).toThrow(ToolKitError)
-    expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
-    expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
-    expect(config).toHaveProperty('hookTasks.build:local.conflicting')
+    resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
+
+    expect(() => validateConfig(validPluginConfig)).toThrow(ToolKitError)
+    expect(validPluginConfig).toHaveProperty('hookTasks.build:ci.conflicting')
+    expect(validPluginConfig).toHaveProperty('hookTasks.build:remote.conflicting')
+    expect(validPluginConfig).toHaveProperty('hookTasks.build:local.conflicting')
   })
 
   it('should indicate when there are conflicts between plugins that are cousins in the tree', async () => {
@@ -90,10 +54,15 @@ describe('cli', () => {
       id: 'conflicted cousin test root',
       root: path.join(__dirname, 'files/cousins')
     })
+    expect(plugin.valid).toBe(true)
 
-    resolvePlugin(plugin, config, logger)
+    const validatedPluginConfig = validatePlugins(config)
+    expect(validatedPluginConfig.valid).toBe(true)
+    const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
-    expect(() => validateConfig(config)).toThrow(ToolKitError)
+    resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
+
+    expect(() => validateConfig(validPluginConfig)).toThrow(ToolKitError)
     expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
     expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
     expect(config).toHaveProperty('hookTasks.build:local.conflicting')
@@ -106,21 +75,26 @@ describe('cli', () => {
       id: 'resolved test root',
       root: path.join(__dirname, 'files/duplicate')
     })
+    expect(plugin.valid).toBe(true)
 
-    resolvePlugin(plugin, config, logger)
+    const validatedPluginConfig = validatePlugins(config)
+    expect(validatedPluginConfig.valid).toBe(true)
+    const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
+
+    resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     try {
-      validateConfig(config)
+      validateConfig(validPluginConfig)
     } catch (e) {
       if (e instanceof ToolKitError) {
-        e.message += e.details
+        e.message += '\n' + e.details
       }
 
       throw e
     }
 
-    expect(config).not.toHaveProperty('hooks.build:local.conflicting')
-    expect(config.hooks['build:local'].plugin?.id).toEqual('@dotcom-tool-kit/npm')
+    expect(validPluginConfig).not.toHaveProperty('hooks.build:local.conflicting')
+    expect(validPluginConfig.hooks['build:local'].plugin?.id).toEqual('@dotcom-tool-kit/npm')
   })
 
   it('should succeed when conflicts are resolved', async () => {
@@ -130,20 +104,28 @@ describe('cli', () => {
       id: 'resolved test root',
       root: path.join(__dirname, 'files/conflict-resolution')
     })
+    expect(plugin.valid).toBe(true)
 
-    resolvePlugin(plugin, config, logger)
+    const validatedPluginConfig = validatePlugins(config)
+    expect(validatedPluginConfig.valid).toBe(true)
+    const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
+
+    resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     try {
-      validateConfig(config)
+      validateConfig(validPluginConfig)
     } catch (e) {
       if (e instanceof ToolKitError) {
-        e.message += e.details
+        e.message += '\n' + e.details
       }
 
       throw e
     }
 
-    expect(config).not.toHaveProperty('hookTasks.build:local.conflicting')
-    expect(config.hookTasks['build:local'].tasks).toEqual(['WebpackDevelopment', 'BabelDevelopment'])
+    expect(validPluginConfig).not.toHaveProperty('hookTasks.build:local.conflicting')
+    expect(validPluginConfig.hookTasks['build:local'].tasks).toEqual([
+      'WebpackDevelopment',
+      'BabelDevelopment'
+    ])
   })
 })
