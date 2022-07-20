@@ -177,7 +177,7 @@ export function loadConfig(logger: Logger, options?: { validate?: false }): Prom
 export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | RawConfig> {
   const config = createConfig()
 
-  // start loading config and child plugins, starting from the consumer app directory
+  // start to load config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
   if (!rootPlugin.valid) {
     const error = new ToolKitError('root plugin was not valid!')
