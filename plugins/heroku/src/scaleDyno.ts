@@ -18,7 +18,7 @@ async function scaleDyno(
     }
   })
 
-  if (appFormation[0].quantity === quantity && appFormation[0].type === type) {
+  if (appFormation.some((formation) => formation.type === type && formation.quantity === quantity)) {
     return
   } else {
     throw new ToolKitError(`something went wrong with scaling the dyno`)
