@@ -18,8 +18,7 @@ async function scaleDyno(
     }
   })
 
-  const appFormationFilteredByType = appFormation.filter(formation => formation.type === type);
-  if (appFormationFilteredByType[0].quantity === quantity && appFormationFilteredByType[0].type === type) {
+  if (appFormation.some((formation) => formation.type === type && formation.quantity === quantity)) {
     return
   } else {
     throw new ToolKitError(`something went wrong with scaling the dyno`)
