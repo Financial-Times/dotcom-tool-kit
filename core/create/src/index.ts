@@ -395,7 +395,7 @@ async function optionsPrompt(config: ValidConfig): Promise<boolean> {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       options = require(`@dotcom-tool-kit/types/lib/schema/${pluginName}`).Schema
     } catch (err) {
-      // An error here should mean that a schema doesn't exist, i.e., there are
+      // An error here should mean that a schema doesn't exist, i.e. there are
       // no options available for the plugin.
       continue
     }
