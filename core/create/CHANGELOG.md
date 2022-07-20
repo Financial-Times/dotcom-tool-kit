@@ -1,16 +1,16 @@
 # Changelog
 
-### Dependencies
+## [2.0.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.5...create-v2.0.6) (2022-07-12)
 
-* The following workspace dependencies were updated
-  * dependencies
-    * dotcom-tool-kit bumped from ^2.0.0 to ^2.1.0
 
 ### Dependencies
 
 * The following workspace dependencies were updated
   * dependencies
-    * dotcom-tool-kit bumped from ^2.2.0 to ^2.2.1
+    * dotcom-tool-kit bumped from ^2.2.2 to ^2.2.3
+
+## [2.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.4...create-v2.0.5) (2022-06-21)
+
 
 ### Dependencies
 
@@ -19,11 +19,14 @@
     * @dotcom-tool-kit/types bumped from ^2.2.0 to ^2.3.0
     * dotcom-tool-kit bumped from ^2.2.1 to ^2.2.2
 
+## [2.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.3...create-v2.0.4) (2022-06-08)
+
+
 ### Dependencies
 
 * The following workspace dependencies were updated
   * dependencies
-    * dotcom-tool-kit bumped from ^2.2.2 to ^2.2.3
+    * dotcom-tool-kit bumped from ^2.2.0 to ^2.2.1
 
 ## [2.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.2...create-v2.0.3) (2022-06-07)
 
@@ -40,7 +43,7 @@
     * @dotcom-tool-kit/types bumped from ^2.1.0 to ^2.2.0
     * dotcom-tool-kit bumped from ^2.1.1 to ^2.2.0
 
-### [2.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.0...create-v2.0.2) (2022-05-06)
+### [2.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.1...create-v2.0.2) (2022-05-06)
 
 
 ### Bug Fixes
@@ -59,6 +62,15 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
     * dotcom-tool-kit bumped from ^2.1.0 to ^2.1.1
+
+### [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.0...create-v2.0.1) (2022-05-05)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * dotcom-tool-kit bumped from ^2.0.0 to ^2.1.0
 
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v1.9.0...create-v2.0.0) (2022-04-19)
 
