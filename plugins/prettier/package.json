@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/prettier",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,9 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.0",
-    "@dotcom-tool-kit/logger": "^2.0.0",
+    "@dotcom-tool-kit/logger": "^2.1.0",
     "@dotcom-tool-kit/package-json-hook": "^2.1.0",
-    "@dotcom-tool-kit/types": "^2.3.0",
+    "@dotcom-tool-kit/types": "^2.4.0",
     "fast-glob": "^3.2.7",
     "hook-std": "^2.0.0",
     "prettier": "^2.2.1"

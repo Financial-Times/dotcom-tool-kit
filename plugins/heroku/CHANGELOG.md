@@ -16,6 +16,23 @@
     * @dotcom-tool-kit/types bumped from ^2.2.0 to ^2.3.0
     * @dotcom-tool-kit/vault bumped from ^2.0.2 to ^2.0.3
 
+### [2.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v2.0.4...heroku-v2.0.5) (2022-07-21)
+
+
+### Bug Fixes
+
+* filter appFormation array by type ([8ea0362](https://github.com/Financial-Times/dotcom-tool-kit/commit/8ea0362f1fe979e7d3505621186257e8d9bf407c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.0.0 to ^2.1.0
+    * @dotcom-tool-kit/npm bumped from ^2.0.4 to ^2.0.5
+    * @dotcom-tool-kit/types bumped from ^2.3.0 to ^2.4.0
+    * @dotcom-tool-kit/vault bumped from ^2.0.3 to ^2.0.4
+
 ## [2.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v2.0.2...heroku-v2.0.3) (2022-06-08)
 
 

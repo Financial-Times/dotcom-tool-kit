@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.3.0...types-v2.4.0) (2022-07-21)
+
+
+### Features
+
+* add validation errors to compatibility test in types package ([ac118b3](https://github.com/Financial-Times/dotcom-tool-kit/commit/ac118b37bdbb30e062a2d559cc37dc36af4bcb73))
+* add validation errors to compatibility test in types package ([5228fab](https://github.com/Financial-Times/dotcom-tool-kit/commit/5228fab26ccee26bd786480bf280f6b91965679f))
+* loosen task and hook instance checks ([ac118b3](https://github.com/Financial-Times/dotcom-tool-kit/commit/ac118b37bdbb30e062a2d559cc37dc36af4bcb73))
+* loosen task and hook instance checks ([d79b7cf](https://github.com/Financial-Times/dotcom-tool-kit/commit/d79b7cfb5aed68be8b451dd2961f1abe3624c7b9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.0.0 to ^2.1.0
+
 ## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.2.0...types-v2.3.0) (2022-06-20)
 
 

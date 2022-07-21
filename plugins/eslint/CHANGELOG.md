@@ -12,6 +12,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.2.0 to ^2.3.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.0.0 to ^2.1.0
+    * @dotcom-tool-kit/types bumped from ^2.3.0 to ^2.4.0
+
 ## [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v2.1.0...eslint-v2.1.1) (2022-06-08)
 
 
