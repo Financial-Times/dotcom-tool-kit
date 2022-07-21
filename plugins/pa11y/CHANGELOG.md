@@ -1,5 +1,11 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.3.0 to ^2.4.0
+
 ## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.1.3...pa11y-v0.2.0) (2022-07-12)
 
 

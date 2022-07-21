@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.6...create-v2.1.0) (2022-07-21)
+
+
+### Features
+
+* **core:** gather errors when loading config and throw all together ([f57a4b4](https://github.com/Financial-Times/dotcom-tool-kit/commit/f57a4b439d1bc80471f5717ed40bdea3156a7a15))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.0.0 to ^2.1.0
+    * @dotcom-tool-kit/types bumped from ^2.3.0 to ^2.4.0
+    * dotcom-tool-kit bumped from ^2.2.3 to ^2.3.0
+
 ## [2.0.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.5...create-v2.0.6) (2022-07-12)
 
 

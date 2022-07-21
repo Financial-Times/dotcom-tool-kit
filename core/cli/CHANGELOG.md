@@ -1,5 +1,39 @@
 # Changelog
 
+## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.2.3...dotcom-tool-kit-v2.3.0) (2022-07-21)
+
+
+### Features
+
+* add style for logging code snippets ([82abb8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/82abb8e44372d0c3afc36b13dd62d888de11cb92))
+* add validation errors to compatibility test in types package ([82abb8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/82abb8e44372d0c3afc36b13dd62d888de11cb92))
+* **cli:** include error message when plugin cannot be imported ([82abb8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/82abb8e44372d0c3afc36b13dd62d888de11cb92))
+* **core:** gather errors when loading config and throw all together ([82abb8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/82abb8e44372d0c3afc36b13dd62d888de11cb92))
+* **core:** group multiple validation errors in a nested list ([82abb8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/82abb8e44372d0c3afc36b13dd62d888de11cb92))
+* **core:** improve error messages when plugins are invalid ([82abb8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/82abb8e44372d0c3afc36b13dd62d888de11cb92))
+* loosen task and hook instance checks ([82abb8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/82abb8e44372d0c3afc36b13dd62d888de11cb92))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.0.0 to ^2.1.0
+    * @dotcom-tool-kit/options bumped from ^2.0.3 to ^2.0.4
+    * @dotcom-tool-kit/types bumped from ^2.3.0 to ^2.4.0
+  * devDependencies
+    * @dotcom-tool-kit/backend-app bumped from ^2.0.5 to ^2.0.6
+    * @dotcom-tool-kit/heroku bumped from ^2.0.4 to ^2.0.5
+    * @dotcom-tool-kit/webpack bumped from ^2.1.2 to ^2.1.3
+    * @dotcom-tool-kit/babel bumped from ^2.0.3 to ^2.0.4
+    * @dotcom-tool-kit/circleci bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/npm bumped from ^2.0.4 to ^2.0.5
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.0.5 to ^2.0.6
+    * @dotcom-tool-kit/frontend-app bumped from ^2.1.3 to ^2.1.4
+    * @dotcom-tool-kit/eslint bumped from ^2.1.2 to ^2.1.3
+    * @dotcom-tool-kit/mocha bumped from ^2.1.0 to ^2.1.1
+    * @dotcom-tool-kit/n-test bumped from ^2.0.4 to ^2.0.5
+
 ## [2.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.2.2...dotcom-tool-kit-v2.2.3) (2022-07-12)
 
 
