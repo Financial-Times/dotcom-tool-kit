@@ -9,7 +9,7 @@ const packageJsonPath = path.resolve(__dirname, '../package.json')
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
 const version: string = packageJson.version
 
-// uses Symbol.for, not Symbol, so they're compatible across different
+// uses Symbol.for, not Symbol, so that they're compatible across different
 // @dotcom-tool-kit/types instances
 
 // used as the name for the property we use to identify classes
@@ -112,10 +112,10 @@ abstract class Base {
       }
     }
 
-    // objectToCheck from a plugin is compatible with this CLI if its version
-    // is semver-compatible with the @dotcom-tool-kit/types included
-    // by the CLI (which is what's calling this). so, prepend ^ to
-    // our version, and check our version satisfies that.
+    // an 'objectToCheck' from a plugin is compatible with this CLI if its
+    // version is semver-compatible with the @dotcom-tool-kit/types included by
+    // the CLI (which is what's calling this). so, prepend ^ to our version,
+    // and check our version satisfies that.
 
     // this lets e.g. a CLI that includes types@2.2.0 load any plugin
     // that depends on any higher minor version of types.

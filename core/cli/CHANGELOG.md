@@ -1,21 +1,16 @@
 # Changelog
 
-### Dependencies
+## [2.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.2.2...dotcom-tool-kit-v2.2.3) (2022-07-12)
 
-* The following workspace dependencies were updated
-  * dependencies
-    * @dotcom-tool-kit/options bumped from ^2.0.0 to ^2.0.1
-    * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
 
 ### Dependencies
 
 * The following workspace dependencies were updated
   * devDependencies
-    * @dotcom-tool-kit/backend-app bumped from ^2.0.3 to ^2.0.4
-    * @dotcom-tool-kit/heroku bumped from ^2.0.2 to ^2.0.3
-    * @dotcom-tool-kit/circleci-heroku bumped from ^2.0.3 to ^2.0.4
-    * @dotcom-tool-kit/frontend-app bumped from ^2.1.1 to ^2.1.2
-    * @dotcom-tool-kit/eslint bumped from ^2.1.0 to ^2.1.1
+    * @dotcom-tool-kit/n-test bumped from ^2.0.3 to ^2.0.4
+
+## [2.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.2.1...dotcom-tool-kit-v2.2.2) (2022-06-21)
+
 
 ### Dependencies
 
@@ -36,11 +31,18 @@
     * @dotcom-tool-kit/mocha bumped from ^2.0.2 to ^2.1.0
     * @dotcom-tool-kit/n-test bumped from ^2.0.2 to ^2.0.3
 
+## [2.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.2.0...dotcom-tool-kit-v2.2.1) (2022-06-08)
+
+
 ### Dependencies
 
 * The following workspace dependencies were updated
   * devDependencies
-    * @dotcom-tool-kit/n-test bumped from ^2.0.3 to ^2.0.4
+    * @dotcom-tool-kit/backend-app bumped from ^2.0.3 to ^2.0.4
+    * @dotcom-tool-kit/heroku bumped from ^2.0.2 to ^2.0.3
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.0.3 to ^2.0.4
+    * @dotcom-tool-kit/frontend-app bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/eslint bumped from ^2.1.0 to ^2.1.1
 
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.1.0...dotcom-tool-kit-v2.2.0) (2022-06-07)
 
@@ -75,6 +77,16 @@
     * @dotcom-tool-kit/eslint bumped from ^2.0.0 to ^2.1.0
     * @dotcom-tool-kit/mocha bumped from ^2.0.0 to ^2.0.2
     * @dotcom-tool-kit/n-test bumped from ^2.0.0 to ^2.0.2
+
+## [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.1.0...dotcom-tool-kit-v2.1.1) (2022-05-09)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/types bumped from ^2.0.0 to ^2.1.0
 
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.0.0...dotcom-tool-kit-v2.1.0) (2022-05-03)
 

@@ -38,7 +38,7 @@ function ansiTrim(message: string): string {
 export function hookConsole(logger: Logger, processName: string): () => void {
   function writeShim(stream: NodeJS.WriteStream, level: string): NodeJS.WriteStream['write'] {
     return (message: string, encoding?, writeCallback?) => {
-      // HACK allow winston logs from other threads to go straight through
+      // HACK: allow winston logs from other threads to go straight through
       if (message.startsWith('[')) {
         if (typeof encoding === 'function') {
           return stream.write(message, encoding)
@@ -55,7 +55,7 @@ export function hookConsole(logger: Logger, processName: string): () => void {
     }
   }
 
-  // TODO make this thread-safe?
+  // TODO: make this thread-safe?
   const { write: stdoutWrite } = process.stdout
   process.stdout.write = writeShim(process.stdout, 'info')
   const { write: stderrWrite } = process.stderr
