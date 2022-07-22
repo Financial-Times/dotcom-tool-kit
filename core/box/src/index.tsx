@@ -97,7 +97,13 @@ const HookDetails = (props: HookDetailsProps) => {
   return (
     <DetailsBox selected={props.selected}>
       <Text>{(props.hook.constructor as HookClass).description}</Text>
-      {props.hook.plugin && <Text>Defined in the {styles.plugin(props.hook.plugin.id)} plugin</Text>}
+      {props.hook.plugin && (
+        <Text>
+          Defined in the{' '}
+          <Text bold={props.selected && props.cursor === 0}>{styles.plugin(props.hook.plugin.id)}</Text>{' '}
+          plugin
+        </Text>
+      )}
       {props.taskIds.length > 0 && (
         <>
           <Text>Calls the following tasks:</Text>
@@ -113,7 +119,10 @@ const HookDetails = (props: HookDetailsProps) => {
           <Text>Appears in the following plugins:</Text>
           {props.pluginIds.map((pluginId, index) => (
             <Text key={pluginId}>
-              - <Text bold={props.selected && props.cursor === index + 1}>{styles.plugin(pluginId)}</Text>
+              -{' '}
+              <Text bold={props.selected && props.cursor === index + 1 + props.taskIds.length}>
+                {styles.plugin(pluginId)}
+              </Text>
             </Text>
           ))}
         </>
@@ -132,7 +141,13 @@ const TaskDetails = (props: TaskDetailsProps) => {
   return (
     <DetailsBox selected={props.selected}>
       <Text>{props.task.description}</Text>
-      {props.task.plugin && <Text>Defined in the {styles.plugin(props.task.plugin.id)} plugin</Text>}
+      {props.task.plugin && (
+        <Text>
+          Defined in the{' '}
+          <Text bold={props.selected && props.cursor === 0}>{styles.plugin(props.task.plugin.id)}</Text>{' '}
+          plugin
+        </Text>
+      )}
       {props.pluginIds.length > 0 && (
         <>
           <Text>Appears in the following plugins:</Text>
@@ -164,15 +179,16 @@ interface NavigationState {
 }
 
 const useNavigation = (
-  maxListCursor: number,
-  getMaxDetailsCursor: (listCursor: number) => number
+  listLength: number,
+  getDetailsLength: (listCursor: number) => number
 ): NavigationState => {
   const { exit } = useApp()
   const [listCursor, setListCursor] = useState(0)
   const [detailsCursor, setDetailsCursor] = useState(0)
   const [detailsSelected, setDetailsSelected] = useState(false)
 
-  const maxDetailsCursor = getMaxDetailsCursor(listCursor)
+  const maxListCursor = listLength - 1
+  const maxDetailsCursor = getDetailsLength(listCursor) - 1
 
   useInput((input, key) => {
     if (key.downArrow || input === 'j') {
@@ -222,9 +238,9 @@ interface PluginsPageProps {
 }
 
 const PluginsPage = (props: PluginsPageProps) => {
-  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.plugins.length - 1, (cursor) => {
+  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.plugins.length, (cursor) => {
     const [, plugin] = props.plugins[cursor]
-    return Object.keys(plugin.module?.hooks ?? {}).length + (plugin.module?.tasks?.length ?? 0)
+    return 1 + Object.keys(plugin.module?.hooks ?? {}).length + (plugin.module?.tasks?.length ?? 0)
   })
   const [, selectedPlugin] = props.plugins[listCursor]
   return (
@@ -254,7 +270,7 @@ interface HooksPageProps {
 }
 
 const HooksPage = (props: HooksPageProps) => {
-  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.hooks.length - 1, (cursor) => {
+  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.hooks.length, (cursor) => {
     const [hookId, hook] = props.hooks[cursor]
     return (
       (hook.plugin ? 1 : 0) + (props.taskMap[hookId]?.length ?? 0) + (props.pluginMap[hookId]?.length ?? 0)
@@ -286,7 +302,7 @@ interface TasksPageProps {
 }
 
 const TasksPage = (props: TasksPageProps) => {
-  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.tasks.length - 1, (cursor) => {
+  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.tasks.length, (cursor) => {
     const [taskId, task] = props.tasks[cursor]
     return (
       (task.plugin ? 1 : 0) + (props.pluginMap[taskId]?.length ?? 0) + (props.hookMap[taskId]?.length ?? 0)
