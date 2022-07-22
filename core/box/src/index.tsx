@@ -145,7 +145,7 @@ const TaskDetails = (props: TaskDetailsProps) => {
       )}
       {props.hookIds.length > 0 && (
         <>
-          <Text>Calls the following hooks:</Text>
+          <Text>Is called by the following hooks:</Text>
           {props.hookIds.map((hookId, index) => (
             <Text key={hookId}>
               - <Text bold={props.selected && props.cursor === index + 1}>{styles.hook(hookId)}</Text>
@@ -319,6 +319,28 @@ interface TabbedViewProps {
 
 const TabbedView = (props: TabbedViewProps) => {
   const [activeTab, setActiveTab] = useState<TabName>('plugins')
+  const pluginsWithHook: Record<string, string[]> = {}
+  const pluginsWithTask: Record<string, string[]> = {}
+  for (const [pluginId, plugin] of Object.entries(props.config.plugins)) {
+    for (const hookId of Object.keys(plugin.module?.hooks ?? {})) {
+      pluginsWithHook[hookId] ??= []
+      pluginsWithHook[hookId].push(pluginId)
+    }
+    for (const taskId of Object.keys(plugin.module?.tasks ?? {})) {
+      pluginsWithTask[taskId] ??= []
+      pluginsWithTask[taskId].push(pluginId)
+    }
+  }
+  const tasksWithHook = Object.entries(props.config.hookTasks).map(
+    ([hookId, hookTask]) => [hookId, hookTask.tasks] as const
+  )
+  const hooksWithTask: Record<string, string[]> = {}
+  for (const [hookId, tasks] of tasksWithHook) {
+    for (const task of tasks) {
+      hooksWithTask[task] ??= []
+      hooksWithTask[task].push(hookId)
+    }
+  }
   return (
     <>
       <Tabs
@@ -334,10 +356,18 @@ const TabbedView = (props: TabbedViewProps) => {
       </Tabs>
       {activeTab === 'plugins' && <PluginsPage plugins={Object.entries(props.config.plugins)} />}
       {activeTab === 'hooks' && (
-        <HooksPage hooks={Object.entries(props.config.hooks)} taskMap={{}} pluginMap={{}} />
+        <HooksPage
+          hooks={Object.entries(props.config.hooks)}
+          taskMap={Object.fromEntries(tasksWithHook)}
+          pluginMap={pluginsWithHook}
+        />
       )}
       {activeTab === 'tasks' && (
-        <TasksPage tasks={Object.entries(props.config.tasks)} pluginMap={{}} hookMap={{}} />
+        <TasksPage
+          tasks={Object.entries(props.config.tasks)}
+          pluginMap={pluginsWithTask}
+          hookMap={hooksWithTask}
+        />
       )}
     </>
   )
