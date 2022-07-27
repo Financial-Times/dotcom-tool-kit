@@ -25,6 +25,20 @@
     * @dotcom-tool-kit/logger bumped from ^2.0.0 to ^2.1.0
     * @dotcom-tool-kit/types bumped from ^2.3.0 to ^2.4.0
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v2.0.5...n-test-v2.1.0) (2022-07-27)
+
+
+### Features
+
+* Update n-test to v4 ([79dc06f](https://github.com/Financial-Times/dotcom-tool-kit/commit/79dc06f1a8cce287ed46c756e20472af15eb1f03))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.4.0 to ^2.5.0
+
 ### [2.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v2.0.3...n-test-v2.0.4) (2022-07-12)
 
 

@@ -6,6 +6,24 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.3.0 to ^2.4.0
 
+## [0.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.2.1...pa11y-v0.3.0) (2022-07-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pa11y:** Instead of passing static options to Pa11y, calling the pa11y-ci binary instead reads config defined in a .pa11yci[.js[on]] file. Seeing as this can be a .js file, the config can be dynamically generated, making the tooling much more flexible. This was how n-gage interfaced with Pa11y.
+
+### Features
+
+* **pa11y:** allow Pa11y to use config defined in .pa11yci ([cf0908c](https://github.com/Financial-Times/dotcom-tool-kit/commit/cf0908c7963e802cfedb955da36607c976aa57dd))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.4.0 to ^2.5.0
+
 ## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.1.3...pa11y-v0.2.0) (2022-07-12)
 
 
