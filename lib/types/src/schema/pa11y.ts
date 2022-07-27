@@ -1,13 +1,7 @@
 import { SchemaOutput } from '../schema'
 
 export const Pa11ySchema = {
-  host: 'string?',
-  wait: 'number?',
-  tests: 'array.string?',
-  exceptions: 'array.string?',
-  hide: 'array.string?',
-  viewports: 'array.string?',
-  screenCapturePath: 'string?'
+  configFile: 'string?'
 } as const
 export type Pa11yOptions = SchemaOutput<typeof Pa11ySchema>
 
