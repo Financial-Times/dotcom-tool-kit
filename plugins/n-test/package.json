@@ -13,7 +13,7 @@
     "@dotcom-tool-kit/logger": "^2.1.0",
     "@dotcom-tool-kit/state": "^2.0.0",
     "@dotcom-tool-kit/types": "^2.4.0",
-    "@financial-times/n-test": "^3.0.1"
+    "@financial-times/n-test": "^4.0.1"
   },
   "repository": {
     "type": "git",
