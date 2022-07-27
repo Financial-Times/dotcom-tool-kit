@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.4.0...types-v2.5.0) (2022-07-27)
+
+
+### Features
+
+* **types:** update Pa11y schema type ([8feb5fb](https://github.com/Financial-Times/dotcom-tool-kit/commit/8feb5fb685536805ae188e44c8905c5fe498ba4c))
+
 ## [2.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.3.0...types-v2.4.0) (2022-07-21)
 
 
