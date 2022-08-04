@@ -36,14 +36,16 @@ function ansiTrim(message: string): string {
 // calling functions from external libraries that you expect will do their own
 // logging.
 export function hookConsole(logger: Logger, processName: string): () => void {
-  function writeShim(stream: NodeJS.WriteStream, level: string): NodeJS.WriteStream['write'] {
-    return (message: string, encoding?, writeCallback?) => {
+  function wrapWrite(stream: NodeJS.WriteStream, level: string): NodeJS.WriteStream['write'] {
+    const { write: originalWrite } = stream
+
+    stream.write = (message: string, encoding?, writeCallback?) => {
       // HACK: allow winston logs from other threads to go straight through
       if (message.startsWith('[')) {
         if (typeof encoding === 'function') {
-          return stream.write(message, encoding)
+          return originalWrite(message, encoding)
         } else {
-          return stream.write(message, encoding, writeCallback as (err?: Error) => void)
+          return originalWrite(message, encoding, writeCallback as (err?: Error) => void)
         }
       } else {
         if (typeof encoding === 'function') {
@@ -53,13 +55,13 @@ export function hookConsole(logger: Logger, processName: string): () => void {
         return true
       }
     }
+    
+    return originalWrite
   }
 
   // TODO: make this thread-safe?
-  const { write: stdoutWrite } = process.stdout
-  process.stdout.write = writeShim(process.stdout, 'info')
-  const { write: stderrWrite } = process.stderr
-  process.stderr.write = writeShim(process.stderr, 'warn')
+  const stdoutWrite = wrapWrite(process.stdout, 'info')
+  const stderrWrite = wrapWrite(process.stderr, 'warn')
 
   const hook = (message: string, writeCallback: () => void) => {
     stdoutWrite.call(process.stdout, message + '\n', 'utf8', writeCallback)
