@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v2.1.0...logger-v2.1.1) (2022-08-05)
+
+
+### Bug Fixes
+
+* prevent infinite recursion when logging "[" ([7eb71c2](https://github.com/Financial-Times/dotcom-tool-kit/commit/7eb71c2a0efe56ce9566fc8efa6b916ed0414a75))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v2.0.0...logger-v2.1.0) (2022-07-21)
 
 
