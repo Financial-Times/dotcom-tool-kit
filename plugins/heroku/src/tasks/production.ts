@@ -37,18 +37,42 @@ options:
         throw error
       }
 
-      for (const [appName, typeConfig] of Object.entries(scaling)) {
-        this.logger.verbose(`scaling app ${styles.app(appName)}...`)
-        for (const [processType, { quantity, size }] of Object.entries(typeConfig)) {
-          await scaleDyno(this.logger, appName, quantity, processType, size)
+      const scale = async () => {
+        for (const [appName, typeConfig] of Object.entries(scaling)) {
+          this.logger.verbose(`scaling app ${styles.app(appName)}...`)
+          for (const [processType, { quantity, size }] of Object.entries(typeConfig)) {
+            await scaleDyno(this.logger, appName, quantity, processType, size)
+          }
+          this.logger.info(`${styles.app(appName)} has been successfully scaled`)
         }
-        this.logger.info(`${styles.app(appName)} has been successfully scaled`)
+      }
+      const promote = async () => {
+        this.logger.verbose('promoting staging to production....')
+        await promoteStagingToProduction(this.logger, slugId, this.options.systemCode)
+        this.logger.info('staging has been successfully promoted to production')
       }
 
-      this.logger.verbose('promoting staging to production....')
-      await promoteStagingToProduction(this.logger, slugId, this.options.systemCode)
+      const productionState = readState('production')
+      const appIds = productionState?.appIds ?? []
 
-      this.logger.info('staging has been successfully promoted to production')
+      // We want to scale apps before promoting them to production as the
+      // preboot phase after promotion can take minutes and scaling is not
+      // possible during that time. However, scaling will fail if this is the
+      // first time the app has been deployed, so do the deployment first then.
+      // Hopefully, there shouldn't be a preboot phase if we don't need to
+      // switch from an old version either so it should be safe to scale the
+      // app immediately afterwards. Maybe.
+      if (appIds.length > 0) {
+        await scale()
+        await promote()
+      } else {
+        // HACK: the simplest way to test Heroku changes
+        this.logger.info(
+          'if you see this log in CircleCI then please message the #cp-platforms-team and receive a free drink of your choice'
+        )
+        await promote()
+        await scale()
+      }
     } catch (err) {
       if (err instanceof ToolKitError) {
         throw err
