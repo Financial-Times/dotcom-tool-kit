@@ -13,7 +13,7 @@ async function getPipelineCouplings(logger: Logger, pipelineName: string): Promi
     `/pipelines/${piplelineDetails.id}/pipeline-couplings`
   )
 
-  const stages: Array<keyof State> = ['production', 'staging']
+  const stages = ['production', 'staging'] as const
 
   stages.forEach((stage) => {
     const apps = couplings.filter((app) => app.stage === stage)
