@@ -5,8 +5,14 @@ class GitPrecommit extends HuskyHook {
   hook = 'git:precommit'
 }
 
+class GitCommitmsg extends HuskyHook {
+  key = 'commit-msg'
+  hook = 'git:commitmsg'
+}
+
 export { HuskyHook }
 
 export const hooks = {
-  'git:precommit': GitPrecommit
+  'git:precommit': GitPrecommit,
+  'git:commitmsg': GitCommitmsg
 }
