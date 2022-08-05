@@ -28,6 +28,13 @@
     * @dotcom-tool-kit/types bumped from ^2.4.0 to ^2.5.0
     * @dotcom-tool-kit/vault bumped from ^2.0.4 to ^2.0.5
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
+    * @dotcom-tool-kit/vault bumped from ^2.0.5 to ^2.0.6
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v2.0.2...node-v2.1.0) (2022-06-20)
 
 

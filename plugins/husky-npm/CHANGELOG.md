@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v2.1.0...husky-npm-v2.2.0) (2022-08-05)
+
+
+### Features
+
+* Add commit message hook to husky plugin ([33d862e](https://github.com/Financial-Times/dotcom-tool-kit/commit/33d862e5d6fbb4039e797495435532626522c0bc))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v2.0.0...husky-npm-v2.1.0) (2022-05-03)
 
 

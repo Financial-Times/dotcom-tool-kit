@@ -1,5 +1,11 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
+
 ## [2.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.4.0...types-v2.5.0) (2022-07-27)
 
 

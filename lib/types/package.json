@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/types",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.0",
-    "@dotcom-tool-kit/logger": "^2.1.0",
+    "@dotcom-tool-kit/logger": "^2.1.1",
     "lodash.isplainobject": "^4.0.6",
     "lodash.mapvalues": "^4.6.0",
     "semver": "^7.3.7"

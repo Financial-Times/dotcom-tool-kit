@@ -24,6 +24,15 @@
     * @dotcom-tool-kit/types bumped from ^2.4.0 to ^2.5.0
     * @dotcom-tool-kit/vault bumped from ^2.0.4 to ^2.0.5
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
+    * @dotcom-tool-kit/npm bumped from ^2.0.6 to ^2.0.7
+    * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
+    * @dotcom-tool-kit/vault bumped from ^2.0.5 to ^2.0.6
+
 ### [2.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v2.0.4...heroku-v2.0.5) (2022-07-21)
 
 

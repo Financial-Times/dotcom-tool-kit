@@ -37,6 +37,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.4.0 to ^2.5.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
+    * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v1.9.0...prettier-v2.0.0) (2022-04-19)
 
 
