@@ -12,6 +12,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
 
+### [0.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.3.1...pa11y-v0.3.2) (2022-08-09)
+
+
+### Bug Fixes
+
+* **pa11y:** resolve path to pa11y-ci binary ([763ec14](https://github.com/Financial-Times/dotcom-tool-kit/commit/763ec147f635d427be467531bde3f651ec93d55e))
+
 ## [0.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.2.1...pa11y-v0.3.0) (2022-07-27)
 
 
