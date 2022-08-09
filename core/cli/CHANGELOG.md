@@ -39,6 +39,15 @@
     * @dotcom-tool-kit/mocha bumped from ^2.1.2 to ^2.1.3
     * @dotcom-tool-kit/n-test bumped from ^2.1.0 to ^2.1.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/backend-app bumped from ^2.0.8 to ^2.0.9
+    * @dotcom-tool-kit/heroku bumped from ^2.0.7 to ^2.0.8
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.0.8 to ^2.0.9
+    * @dotcom-tool-kit/frontend-app bumped from ^2.1.6 to ^2.1.7
+
 ## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.2.3...dotcom-tool-kit-v2.3.0) (2022-07-21)
 
 
