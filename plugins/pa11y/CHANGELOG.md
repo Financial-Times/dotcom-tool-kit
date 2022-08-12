@@ -12,6 +12,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
 
+### [0.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.3.2...pa11y-v0.3.3) (2022-08-11)
+
+
+### Bug Fixes
+
+* set process.env.TEST_URL to review app name in pa11y ([3128a4b](https://github.com/Financial-Times/dotcom-tool-kit/commit/3128a4bd938ac86a5a96fa6f3d893ddb73434995))
+
 ### [0.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.3.1...pa11y-v0.3.2) (2022-08-09)
 
 
