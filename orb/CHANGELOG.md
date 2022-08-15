@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v2.0.0...orb-v2.0.1) (2022-08-15)
+
+
+### Bug Fixes
+
+* pass environment to Change API ([d39292e](https://github.com/Financial-Times/dotcom-tool-kit/commit/d39292e4acd65c17fa476b465d6d770e0a156c39))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v2.0.0...orb-v2.0.0) (2022-05-06)
 
 
