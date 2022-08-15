@@ -23,4 +23,5 @@ steps:
       name: Deploy to production
       command: npx dotcom-tool-kit deploy:production
   - change-api/generate:
+      environment: production
       systemCode: <<parameters.systemCode>>
