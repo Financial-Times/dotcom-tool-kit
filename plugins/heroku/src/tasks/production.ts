@@ -3,6 +3,8 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
 import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
+import type { HerokuApiResGetApp } from 'heroku-client'
+import heroku from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
 
@@ -62,7 +64,7 @@ options:
       // Hopefully, there shouldn't be a preboot phase if we don't need to
       // switch from an old version either so it should be safe to scale the
       // app immediately afterwards. Maybe.
-      if (appIds.length > 0) {
+      if (await this.fetchIfAppHasDeployed(appIds[0])) {
         await scale()
         await promote()
       } else {
@@ -84,5 +86,11 @@ options:
       }
       throw error
     }
+  }
+
+  async fetchIfAppHasDeployed(appId: string): Promise<boolean> {
+    this.logger.verbose(`retrieving app info for ${appId}`)
+    const appInfo: HerokuApiResGetApp = await heroku.get(`/apps/${appId}`)
+    return appInfo.slugSize !== null
   }
 }

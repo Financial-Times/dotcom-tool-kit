@@ -28,6 +28,11 @@ declare module 'heroku-client' {
     stage: string
   }
 
+  export type HerokuApiResGetApp = {
+    id: string
+    slugSize: number | null
+  }
+
   export type HerokuApiResGetReview = {
     id: string
     branch: string
