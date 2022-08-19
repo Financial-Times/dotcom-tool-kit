@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { render, Box, BoxProps, Text, useApp, useInput } from 'ink'
 import { Tabs, Tab } from 'ink-tab'
 import winston from 'winston'
@@ -172,16 +172,34 @@ const TaskDetails = (props: TaskDetailsProps) => {
   )
 }
 
+interface TabPageProps {
+  startingItem?: string
+  onTabChange: (newTab: TabName, itemId: string | undefined) => void
+}
+
+interface NavigationArgs {
+  listLength: number
+  getDetailsLength: (listCursor: number) => number
+  getSelectedItem: (listCursor: number, detailsCursor: number) => [TabName, string | undefined]
+  findItem: (itemId: string) => number
+  startingItem?: string
+  changeTab: (newTab: TabName, itemId: string | undefined) => void
+}
+
 interface NavigationState {
   listCursor: number
   detailsCursor: number
   detailsSelected: boolean
 }
 
-const useNavigation = (
-  listLength: number,
-  getDetailsLength: (listCursor: number) => number
-): NavigationState => {
+const useNavigation = ({
+  listLength,
+  getDetailsLength,
+  getSelectedItem,
+  findItem,
+  startingItem,
+  changeTab
+}: NavigationArgs): NavigationState => {
   const { exit } = useApp()
   const [listCursor, setListCursor] = useState(0)
   const [detailsCursor, setDetailsCursor] = useState(0)
@@ -189,6 +207,12 @@ const useNavigation = (
 
   const maxListCursor = listLength - 1
   const maxDetailsCursor = getDetailsLength(listCursor) - 1
+
+  useEffect(() => {
+    if (startingItem) {
+      setListCursor(findItem(startingItem))
+    }
+  }, [startingItem, findItem])
 
   useInput((input, key) => {
     if (key.downArrow || input === 'j') {
@@ -209,15 +233,8 @@ const useNavigation = (
     }
     if (key.return || key.rightArrow || input === 'l') {
       if (detailsSelected) {
-        // if (detailsCursor === 0) {
-        //   const parentPluginIndex = props.plugins.findIndex(
-        //     ([pluginName]) => pluginName === selectedComponent.parent!.id
-        //   )
-        //   if (parentPluginIndex !== -1) {
-        //     setListCursor(parentPluginIndex)
-        //     setDetailsCursor(0)
-        //   }
-        // }
+        const [newTab, itemId] = getSelectedItem(listCursor, detailsCursor)
+        changeTab(newTab, itemId)
       } else {
         setDetailsSelected(true)
       }
@@ -233,14 +250,36 @@ const useNavigation = (
   return { listCursor, detailsCursor, detailsSelected }
 }
 
-interface PluginsPageProps {
+interface PluginsPageProps extends TabPageProps {
   plugins: [string, Plugin][]
 }
 
 const PluginsPage = (props: PluginsPageProps) => {
-  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.plugins.length, (cursor) => {
-    const [, plugin] = props.plugins[cursor]
-    return 1 + Object.keys(plugin.module?.hooks ?? {}).length + (plugin.module?.tasks?.length ?? 0)
+  const { listCursor, detailsCursor, detailsSelected } = useNavigation({
+    listLength: props.plugins.length,
+    getDetailsLength(cursor) {
+      const [, plugin] = props.plugins[cursor]
+      return 1 + Object.keys(plugin.module?.hooks ?? {}).length + (plugin.module?.tasks?.length ?? 0)
+    },
+    getSelectedItem(listCursor, detailsCursor) {
+      const [, plugin] = props.plugins[listCursor]
+      const hookLength = Object.keys(plugin.module?.hooks ?? {}).length
+      if (detailsCursor === 0) {
+        return ['plugins', plugin.parent?.id ?? plugin.id]
+      } else if (detailsCursor <= hookLength) {
+        return ['hooks', Object.keys(plugin.module?.hooks ?? {})[detailsCursor - 1]]
+      } else {
+        return ['tasks', (plugin.module?.tasks ?? [])[detailsCursor - 1 - hookLength].id]
+      }
+    },
+    findItem: useCallback(
+      (itemId) => {
+        return props.plugins.findIndex(([pluginId]) => pluginId === itemId)
+      },
+      [props.plugins]
+    ),
+    startingItem: props.startingItem,
+    changeTab: props.onTabChange
   })
   const [, selectedPlugin] = props.plugins[listCursor]
   return (
@@ -263,18 +302,44 @@ const PluginsPage = (props: PluginsPageProps) => {
   )
 }
 
-interface HooksPageProps {
+interface HooksPageProps extends TabPageProps {
   hooks: [string, Hook][]
   taskMap: Record<string, string[]>
   pluginMap: Record<string, string[]>
 }
 
 const HooksPage = (props: HooksPageProps) => {
-  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.hooks.length, (cursor) => {
-    const [hookId, hook] = props.hooks[cursor]
-    return (
-      (hook.plugin ? 1 : 0) + (props.taskMap[hookId]?.length ?? 0) + (props.pluginMap[hookId]?.length ?? 0)
-    )
+  const { listCursor, detailsCursor, detailsSelected } = useNavigation({
+    listLength: props.hooks.length,
+    getDetailsLength(cursor) {
+      const [hookId, hook] = props.hooks[cursor]
+      return (
+        (hook.plugin ? 1 : 0) + (props.taskMap[hookId]?.length ?? 0) + (props.pluginMap[hookId]?.length ?? 0)
+      )
+    },
+    getSelectedItem(listCursor, detailsCursor) {
+      const [hookId, hook] = props.hooks[listCursor]
+      if (detailsCursor === 0 && hook.plugin) {
+        return ['plugins', hook.plugin.id]
+      } else if (detailsCursor <= props.taskMap[hookId]?.length ?? 0) {
+        return ['tasks', props.taskMap[hookId][detailsCursor - (hook.plugin ? 1 : 0)]]
+      } else {
+        return [
+          'plugins',
+          props.pluginMap[hookId][
+            detailsCursor - (props.taskMap[hookId]?.length ?? 0) - (hook.plugin ? 1 : 0)
+          ]
+        ]
+      }
+    },
+    findItem: useCallback(
+      (itemId) => {
+        return props.hooks.findIndex(([hookId]) => hookId === itemId)
+      },
+      [props.hooks]
+    ),
+    startingItem: props.startingItem,
+    changeTab: props.onTabChange
   })
   const [hookId, selectedHook] = props.hooks[listCursor]
   return (
@@ -295,18 +360,44 @@ const HooksPage = (props: HooksPageProps) => {
   )
 }
 
-interface TasksPageProps {
+interface TasksPageProps extends TabPageProps {
   tasks: [string, TaskClass][]
   pluginMap: Record<string, string[]>
   hookMap: Record<string, string[]>
 }
 
 const TasksPage = (props: TasksPageProps) => {
-  const { listCursor, detailsCursor, detailsSelected } = useNavigation(props.tasks.length, (cursor) => {
-    const [taskId, task] = props.tasks[cursor]
-    return (
-      (task.plugin ? 1 : 0) + (props.pluginMap[taskId]?.length ?? 0) + (props.hookMap[taskId]?.length ?? 0)
-    )
+  const { listCursor, detailsCursor, detailsSelected } = useNavigation({
+    listLength: props.tasks.length,
+    getDetailsLength(cursor) {
+      const [taskId, task] = props.tasks[cursor]
+      return (
+        (task.plugin ? 1 : 0) + (props.pluginMap[taskId]?.length ?? 0) + (props.hookMap[taskId]?.length ?? 0)
+      )
+    },
+    getSelectedItem(listCursor, detailsCursor) {
+      const [taskId, task] = props.tasks[listCursor]
+      if (detailsCursor === 0 && task.plugin) {
+        return ['plugins', task.plugin.id]
+      } else if (detailsCursor <= props.hookMap[taskId]?.length ?? 0) {
+        return ['hooks', props.hookMap[taskId][detailsCursor - (task.plugin ? 1 : 0)]]
+      } else {
+        return [
+          'plugins',
+          props.pluginMap[taskId][
+            detailsCursor - (props.hookMap[taskId]?.length ?? 0) - (task.plugin ? 1 : 0)
+          ]
+        ]
+      }
+    },
+    findItem: useCallback(
+      (itemId) => {
+        return props.tasks.findIndex(([taskId]) => taskId === itemId)
+      },
+      [props.tasks]
+    ),
+    startingItem: props.startingItem,
+    changeTab: props.onTabChange
   })
   const [taskId, selectedTask] = props.tasks[listCursor]
   return (
@@ -335,6 +426,9 @@ interface TabbedViewProps {
 
 const TabbedView = (props: TabbedViewProps) => {
   const [activeTab, setActiveTab] = useState<TabName>('plugins')
+  const [pluginsStart, setPluginsStart] = useState<string | undefined>()
+  const [hooksStart, setHooksStart] = useState<string | undefined>()
+  const [tasksStart, setTasksStart] = useState<string | undefined>()
   const pluginsWithHook: Record<string, string[]> = {}
   const pluginsWithTask: Record<string, string[]> = {}
   for (const [pluginId, plugin] of Object.entries(props.config.plugins)) {
@@ -357,10 +451,27 @@ const TabbedView = (props: TabbedViewProps) => {
       hooksWithTask[task].push(hookId)
     }
   }
+
+  const handleTabChange = (newTab: TabName, itemId?: string) => {
+    setActiveTab(newTab)
+    if (itemId) {
+      switch (newTab) {
+        case 'plugins':
+          setPluginsStart(itemId)
+          break
+        case 'hooks':
+          setHooksStart(itemId)
+          break
+        case 'tasks':
+          setTasksStart(itemId)
+          break
+      }
+    }
+  }
   return (
     <>
       <Tabs
-        onChange={(newTab: TabName) => setActiveTab(newTab)}
+        onChange={(newTab: TabName) => handleTabChange(newTab)}
         showIndex={false}
         keyMap={{
           previous: [],
@@ -370,19 +481,29 @@ const TabbedView = (props: TabbedViewProps) => {
         <Tab name="hooks">hooks</Tab>
         <Tab name="tasks">tasks</Tab>
       </Tabs>
-      {activeTab === 'plugins' && <PluginsPage plugins={Object.entries(props.config.plugins)} />}
+      {activeTab === 'plugins' && (
+        <PluginsPage
+          plugins={Object.entries(props.config.plugins)}
+          startingItem={pluginsStart}
+          onTabChange={handleTabChange}
+        />
+      )}
       {activeTab === 'hooks' && (
         <HooksPage
           hooks={Object.entries(props.config.hooks)}
           taskMap={Object.fromEntries(tasksWithHook)}
           pluginMap={pluginsWithHook}
+          startingItem={hooksStart}
+          onTabChange={handleTabChange}
         />
       )}
       {activeTab === 'tasks' && (
         <TasksPage
           tasks={Object.entries(props.config.tasks)}
           pluginMap={pluginsWithTask}
+          startingItem={tasksStart}
           hookMap={hooksWithTask}
+          onTabChange={handleTabChange}
         />
       )}
     </>
