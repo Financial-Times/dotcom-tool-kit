@@ -5,7 +5,9 @@ module.exports = {
     'prettier',
     'plugin:import/recommended',
     'plugin:import/typescript',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended'
   ],
   rules: {
     // We use winston's logging instead
@@ -19,5 +21,10 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off'
       }
     }
-  ]
+  ],
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  }
 }
