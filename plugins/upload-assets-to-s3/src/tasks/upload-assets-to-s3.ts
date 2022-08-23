@@ -29,10 +29,11 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
     await this.uploadAssetsToS3(this.options)
   }
   async uploadFile(file: string, options: UploadAssetsToS3Options, s3: aws.S3): Promise<void> {
-    const basename = file.split('/').splice(1).join('/') // remove first directory only
-    const type = getFileType(basename)
-    const encoding = getFileEncoding(basename)
-    const key = path.posix.join(options.destination, basename)
+    const type = getFileType(file)
+    const encoding = getFileEncoding(file)
+    const filepath = path.join(options.directory, file)
+    const body = fs.createReadStream(filepath)
+    const key = path.posix.join(options.destination, file)
 
     const bucketByEnv = process.env.NODE_ENV === 'branch' ? options.reviewBucket : options.prodBucket
     let currentBucket = ''
@@ -42,7 +43,7 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
         const params = {
           Bucket: bucketByEnv,
           Key: key,
-          Body: fs.createReadStream(file),
+          Body: body,
           ACL: 'public-read',
           ContentType: `${type}; charset=utf-8`,
           ContentEncoding: encoding,
@@ -50,13 +51,13 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
         }
         currentBucket = params.Bucket
         const data = await s3.upload(params).promise()
-        this.logger.info(`Uploaded ${styles.filepath(basename)} to ${styles.URL(data.Location)}`)
+        this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(data.Location)}`)
       } else {
         for (const bucket of bucketByEnv) {
           const params = {
             Bucket: bucket,
             Key: key,
-            Body: fs.createReadStream(file),
+            Body: body,
             ACL: 'public-read',
             ContentType: `${type}; charset=utf-8`,
             ContentEncoding: encoding,
@@ -64,11 +65,11 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
           }
           currentBucket = params.Bucket
           const data = await s3.upload(params).promise()
-          this.logger.info(`Uploaded ${styles.filepath(basename)} to ${styles.URL(data.Location)}`)
+          this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(data.Location)}`)
         }
       }
     } catch (err) {
-      const error = new ToolKitError(`Upload of ${basename} to ${currentBucket} failed`)
+      const error = new ToolKitError(`Upload of ${filepath} to ${currentBucket} failed`)
       if (err instanceof Error) {
         error.details = err.message
       }
@@ -79,8 +80,8 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
   async uploadAssetsToS3(options: UploadAssetsToS3Options): Promise<void> {
     // Wrap extensions in braces if there are multiple
     const extensions = options.extensions.includes(',') ? `{${options.extensions}}` : options.extensions
-    const globFile = `${options.directory}/**/*${extensions}`
-    const files = glob.sync(globFile)
+    const globFile = `**/*${extensions}`
+    const files = glob.sync(globFile, { cwd: options.directory })
 
     const s3 = new aws.S3({
       accessKeyId: options.accessKeyId,

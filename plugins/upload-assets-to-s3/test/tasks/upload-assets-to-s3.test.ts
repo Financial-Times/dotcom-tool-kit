@@ -42,6 +42,21 @@ describe('upload-assets-to-s3', () => {
     expect(s3.upload).toHaveBeenCalledTimes(8)
   })
 
+  it('should strip base path from S3 key', async () => {
+    const task = new UploadAssetsToS3(logger, {
+      extensions: 'gz',
+      directory: testDirectory,
+      destination: 'testdir'
+    })
+    process.env.NODE_ENV = 'production'
+
+    await task.run()
+
+    const s3 = mocked(mockedAWS.S3.mock.instances[0])
+    expect(s3.upload).toHaveBeenCalledTimes(2)
+    expect(s3.upload.mock.calls[0][0]).toHaveProperty('Key', 'testdir/nested/test.js.gz')
+  })
+
   it('should use correct Content-Encoding for compressed files', async () => {
     const task = new UploadAssetsToS3(logger, {
       extensions: 'gz',
