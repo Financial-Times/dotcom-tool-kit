@@ -31,6 +31,6 @@
   "plugins/pa11y": "0.3.3",
   "plugins/prettier": "2.0.7",
   "plugins/secret-squirrel": "1.0.5",
-  "plugins/upload-assets-to-s3": "2.0.6",
+  "plugins/upload-assets-to-s3": "2.0.7",
   "plugins/webpack": "2.1.5"
 }
