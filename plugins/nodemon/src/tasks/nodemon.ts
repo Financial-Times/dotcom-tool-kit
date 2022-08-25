@@ -39,8 +39,8 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
     this.logger.verbose('starting the child nodemon process...')
 
     const env = {
-      ...vaultEnv,
       PORT: port.toString(),
+      ...vaultEnv,
       ...process.env
     }
     nodemon({ script: entry, env, stdout: false, configFile: configPath })
