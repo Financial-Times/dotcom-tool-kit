@@ -112,11 +112,13 @@ export async function loadPlugin(
     return config.plugins[id]
   }
 
+  const isAppRoot = id === 'app root'
+
   // load plugin relative to the parent plugin
   const root = parent ? parent.root : process.cwd()
   let pluginRoot: string
   try {
-    pluginRoot = id === 'app root' ? root : resolveFrom(root, id)
+    pluginRoot = isAppRoot ? root : resolveFrom(root, id)
   } catch (e) {
     return { valid: false, reasons: [`could not find path for name ${s.filepath(id)}`] }
   }
@@ -133,11 +135,12 @@ export async function loadPlugin(
   config.plugins[id] = plugin
 
   // start loading rc file in the background
-  const rcFilePromise = loadToolKitRC(pluginRoot)
+  const rcFilePromise = loadToolKitRC(logger, pluginRoot, isAppRoot)
 
   // start loading module in the background
-  const pluginModulePromise: Promise<Validated<PluginModule | undefined>> =
-    id === 'app root' ? Promise.resolve({ valid: true, value: undefined }) : importPlugin(pluginRoot)
+  const pluginModulePromise: Promise<Validated<PluginModule | undefined>> = isAppRoot
+    ? Promise.resolve({ valid: true, value: undefined })
+    : importPlugin(pluginRoot)
 
   plugin.value.rcFile = await rcFilePromise
 
