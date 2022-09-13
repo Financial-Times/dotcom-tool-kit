@@ -21,18 +21,19 @@ plugins:
 
 | Key | Description | Default value |
 |-|-|-|
-| `files` | The glob patterns for lint target files. This can either be an array of string, or a string | `'**/*.js'` |
-| `config` | The [options](https://eslint.org/docs/latest/developer-guide/nodejs-api#-new-eslintoptions) for the ESLint constructor. This allows for additional flexibility as some of these options, such as `errorOnUnmatchedPattern`, are only applicable at this level but not in your eslintrc.* file | n/a |
+| `files` | The glob patterns for lint target files. This can either be a string or an array of strings | `'**/*.js'` |
+| `options` | The [options](https://eslint.org/docs/latest/developer-guide/nodejs-api#-new-eslintoptions) for the ESLint constructor. This allows for additional flexibility as some of these options, such as `errorOnUnmatchedPattern`, are only applicable at this level but not in your eslintrc.* file | n/a |
+| `config` | *Deprecated*. Use `options` instead | n/a |
 
 Example:
 ```
 '@dotcom-tool-kit/eslint':
     files: server/*.js'
-    config:
+    options:
         errorOnUnmatchedPattern: false
 ```
 ## Tasks
 
-| Task | Description | Preconfigured hook |
+| Task | Description | Preconfigured hooks |
 |-|-|-|
 | `Eslint` | runs `eslint` to lint and format target files | `test:local`, `test:ci`, `test:staged` |
