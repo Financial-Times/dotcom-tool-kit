@@ -32,6 +32,20 @@
     * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
     * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v2.1.5...eslint-v2.2.0) (2022-09-14)
+
+
+### Features
+
+* deprecate config in favour for options in eslint ([831324a](https://github.com/Financial-Times/dotcom-tool-kit/commit/831324a40df17ca947fc000f51e011a2e79a4f91))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.5.1 to ^2.6.0
+
 ## [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v2.1.0...eslint-v2.1.1) (2022-06-08)
 
 

@@ -35,6 +35,22 @@
     * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
     * @dotcom-tool-kit/vault bumped from ^2.0.5 to ^2.0.6
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v2.1.3...node-v2.2.0) (2022-09-14)
+
+
+### Features
+
+* **node:** allow specifying ports ([20f797a](https://github.com/Financial-Times/dotcom-tool-kit/commit/20f797a9d547863c2e5fd3a40948ec62e575cbf8))
+* **node:** make vault optional ([cd12619](https://github.com/Financial-Times/dotcom-tool-kit/commit/cd12619346cfc92d67325c7ec4065a228e414f8c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.5.1 to ^2.6.0
+    * @dotcom-tool-kit/vault bumped from ^2.0.6 to ^2.0.7
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v2.0.2...node-v2.1.0) (2022-06-20)
 
 

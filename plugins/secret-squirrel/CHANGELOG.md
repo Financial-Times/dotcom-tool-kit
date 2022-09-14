@@ -32,6 +32,12 @@
     * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
     * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.5.1 to ^2.6.0
+
 ## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/secret-squirrel-v0.1.0...secret-squirrel-v1.0.0) (2022-05-06)
 
 

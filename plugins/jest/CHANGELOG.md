@@ -38,6 +38,12 @@
     * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
     * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.5.1 to ^2.6.0
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v1.9.0...jest-v2.0.0) (2022-04-19)
 
 

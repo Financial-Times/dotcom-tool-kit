@@ -6,6 +6,17 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
 
+## [2.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.5.1...types-v2.6.0) (2022-09-14)
+
+
+### Features
+
+* deprecate config in favour for options in eslint ([831324a](https://github.com/Financial-Times/dotcom-tool-kit/commit/831324a40df17ca947fc000f51e011a2e79a4f91))
+* **node:** allow specifying ports ([20f797a](https://github.com/Financial-Times/dotcom-tool-kit/commit/20f797a9d547863c2e5fd3a40948ec62e575cbf8))
+* **node:** make vault optional ([cd12619](https://github.com/Financial-Times/dotcom-tool-kit/commit/cd12619346cfc92d67325c7ec4065a228e414f8c))
+* **nodemon:** allow specifying preferred ports ([0aab812](https://github.com/Financial-Times/dotcom-tool-kit/commit/0aab812dfab4eb778c5007eb6ddb2db99a9cc3b2))
+* **nodemon:** make vault optional ([9d28d95](https://github.com/Financial-Times/dotcom-tool-kit/commit/9d28d95b7b76fea14741f484d08abc19dc522911))
+
 ## [2.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.4.0...types-v2.5.0) (2022-07-27)
 
 
