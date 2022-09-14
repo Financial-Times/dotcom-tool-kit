@@ -3,7 +3,8 @@ import { SchemaOutput } from '../schema'
 export const NodeSchema = {
   entry: 'string?',
   args: 'array.string?',
-  useVault: 'boolean?'
+  useVault: 'boolean?',
+  ports: 'array.number?'
 } as const
 export type NodeOptions = SchemaOutput<typeof NodeSchema>
 
