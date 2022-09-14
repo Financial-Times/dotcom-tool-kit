@@ -42,6 +42,22 @@
     * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
     * @dotcom-tool-kit/vault bumped from ^2.0.5 to ^2.0.6
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v2.0.7...nodemon-v2.1.0) (2022-09-14)
+
+
+### Features
+
+* **nodemon:** allow specifying preferred ports ([0aab812](https://github.com/Financial-Times/dotcom-tool-kit/commit/0aab812dfab4eb778c5007eb6ddb2db99a9cc3b2))
+* **nodemon:** make vault optional ([9d28d95](https://github.com/Financial-Times/dotcom-tool-kit/commit/9d28d95b7b76fea14741f484d08abc19dc522911))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.5.1 to ^2.6.0
+    * @dotcom-tool-kit/vault bumped from ^2.0.6 to ^2.0.7
+
 ## [2.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v2.0.3...nodemon-v2.0.4) (2022-06-29)
 
 
