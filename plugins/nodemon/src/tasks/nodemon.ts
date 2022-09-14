@@ -13,11 +13,12 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
 
   static defaultOptions: NodemonOptions = {
     entry: './server/app.js',
-    useVault: true
+    useVault: true,
+    ports: [3001, 3002, 3003]
   }
 
   async run(): Promise<void> {
-    const { entry, configPath, useVault } = this.options
+    const { entry, configPath, useVault, ports } = this.options
 
     let vaultEnv = {}
 
@@ -32,7 +33,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
     const port =
       Number(process.env.PORT) ||
       (await getPort({
-        port: [3001, 3002, 3003]
+        port: ports
       }))
 
     if (!entry) {
