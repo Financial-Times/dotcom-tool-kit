@@ -12,16 +12,23 @@ export default class Node extends Task<typeof NodeSchema> {
   static description = ''
 
   static defaultOptions: NodeOptions = {
-    entry: './server/app.js'
+    entry: './server/app.js',
+    useVault: true
   }
 
   async run(): Promise<void> {
-    const { entry, args } = this.options
-    const vault = new VaultEnvVars(this.logger, {
-      environment: 'development'
-    })
+    const { entry, args, useVault } = this.options
 
-    const vaultEnv = await vault.get()
+    let vaultEnv = {}
+
+    if (useVault) {
+      const vault = new VaultEnvVars(this.logger, {
+        environment: 'development'
+      })
+
+      vaultEnv = await vault.get()
+    }
+
     const port =
       Number(process.env.PORT) ||
       (await getPort({
