@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/lint-staged-npm",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/husky-npm": "^2.2.0",
-    "@dotcom-tool-kit/lint-staged": "^2.1.7",
-    "@dotcom-tool-kit/options": "^2.0.7"
+    "@dotcom-tool-kit/lint-staged": "^2.1.8",
+    "@dotcom-tool-kit/options": "^2.0.8"
   },
   "repository": {
     "type": "git",

@@ -50,6 +50,20 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.5.1 to ^2.6.0
 
+### [2.0.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v2.0.8...prettier-v2.0.9) (2022-09-21)
+
+
+### Bug Fixes
+
+* prettier plugin respects .prettierignore ([2a15eab](https://github.com/Financial-Times/dotcom-tool-kit/commit/2a15eab2432cf9b0464bc3c4023f59f136350059))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v1.9.0...prettier-v2.0.0) (2022-04-19)
 
 

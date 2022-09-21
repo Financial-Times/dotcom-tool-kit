@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
 
+### [2.6.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.6.0...types-v2.6.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* prettier plugin respects .prettierignore ([2a15eab](https://github.com/Financial-Times/dotcom-tool-kit/commit/2a15eab2432cf9b0464bc3c4023f59f136350059))
+
 ## [2.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.5.1...types-v2.6.0) (2022-09-14)
 
 

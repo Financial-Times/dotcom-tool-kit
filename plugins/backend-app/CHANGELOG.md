@@ -75,6 +75,14 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.7 to ^2.0.8
     * @dotcom-tool-kit/node bumped from ^2.1.3 to ^2.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.0.10 to ^2.0.11
+    * @dotcom-tool-kit/npm bumped from ^2.0.8 to ^2.0.9
+    * @dotcom-tool-kit/node bumped from ^2.2.0 to ^2.2.1
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v1.9.0...backend-app-v2.0.0) (2022-04-19)
 
 

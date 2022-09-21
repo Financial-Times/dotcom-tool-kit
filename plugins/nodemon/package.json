@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/nodemon",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -12,8 +12,8 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.0",
     "@dotcom-tool-kit/state": "^2.0.0",
-    "@dotcom-tool-kit/types": "^2.6.0",
-    "@dotcom-tool-kit/vault": "^2.0.7",
+    "@dotcom-tool-kit/types": "^2.6.1",
+    "@dotcom-tool-kit/vault": "^2.0.8",
     "get-port": "^5.1.1"
   },
   "peerDependencies": {
