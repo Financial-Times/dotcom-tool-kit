@@ -42,6 +42,13 @@
     * @dotcom-tool-kit/types bumped from ^2.5.0 to ^2.5.1
     * @dotcom-tool-kit/vault bumped from ^2.0.5 to ^2.0.6
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
+    * @dotcom-tool-kit/vault bumped from ^2.0.7 to ^2.0.8
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v2.0.7...nodemon-v2.1.0) (2022-09-14)
 
 
