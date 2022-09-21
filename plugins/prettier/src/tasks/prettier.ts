@@ -11,6 +11,7 @@ export default class Prettier extends Task<typeof PrettierSchema> {
 
   static defaultOptions: PrettierOptions = {
     files: ['**/*.js'],
+    ignoreFile: '.prettierignore',
     configOptions: {
       singleQuote: true,
       useTabs: true,
@@ -59,6 +60,12 @@ export default class Prettier extends Task<typeof PrettierSchema> {
         }), using ${styles.option('configOptions')} instead`
       )
       prettierConfig = options.configOptions
+    }
+
+    const { ignored } = await prettier.getFileInfo(filepath, { ignorePath: this.options.ignoreFile })
+
+    if (ignored) {
+      return
     }
 
     const unhook = hookConsole(this.logger, 'prettier')

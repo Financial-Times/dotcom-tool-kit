@@ -36,7 +36,8 @@ describe('prettier', () => {
 
   it('should format the correct file with default configOptions', async () => {
     const task = new Prettier(logger, {
-      files: [path.join(testDirectory, 'unformatted.ts')]
+      files: [path.join(testDirectory, 'unformatted.ts')],
+      ignoreFile: 'nonexistent prettierignore'
     })
     await task.run()
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
@@ -47,7 +48,8 @@ describe('prettier', () => {
     // having the configuration file be named .prettierrc-test.json hides it from being found by prettier on other non-test occasions.
     const task = new Prettier(logger, {
       files: [path.join(testDirectory, 'unformatted.ts')],
-      configFile: path.join(__dirname, '../.prettierrc-test.json')
+      configFile: path.join(__dirname, '../.prettierrc-test.json'),
+      ignoreFile: 'nonexistent prettierignore'
     })
     await task.run()
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
@@ -58,6 +60,7 @@ describe('prettier', () => {
     const task = new Prettier(logger, {
       files: [path.join(testDirectory, 'unformatted.ts')],
       configFile: '/incorrect/.prettierrc.js',
+      ignoreFile: 'nonexistent prettierignore',
       configOptions: {
         singleQuote: false,
         useTabs: true,
@@ -70,5 +73,18 @@ describe('prettier', () => {
     await task.run()
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
     expect(prettified).toEqual(formattedConfigOptionsFixture)
+  })
+
+  it('should use .prettierignore as ignorefile by default', async () => {
+    const task = new Prettier(logger, {
+      files: [path.join(testDirectory, 'unformatted.ts')]
+    })
+
+    await task.run()
+    const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
+
+    // .prettierignore in the dotcom-tool-kit root includes the prettier fixtures,
+    // so using that ignore file we'd expect this file not to get formatted
+    expect(prettified).toEqual(unformattedFixture)
   })
 })
