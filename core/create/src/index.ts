@@ -7,7 +7,7 @@ import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
 import { ValidConfig } from 'dotcom-tool-kit/lib/config'
 import { explorer } from 'dotcom-tool-kit/lib/rc-file'
-import { promises as fs } from 'fs'
+import { promises as fs, existsSync } from 'fs'
 import * as yaml from 'js-yaml'
 import partition from 'lodash.partition'
 import ordinal from 'ordinal'
@@ -33,6 +33,7 @@ const packageJson = loadPackageJson({ filepath: path.resolve(process.cwd(), 'pac
 let configFile = ''
 const configPath = path.join(process.cwd(), '.toolkitrc.yml')
 const circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
+const eslintConfigPath = path.join(process.cwd(), '.eslintrc.js')
 
 const logger = new Logger()
 
@@ -121,6 +122,12 @@ async function mainPrompt() {
         ].map((choice) => ({ ...choice, title: styles.plugin(choice.title) }))
       },
       {
+        name: 'addEslintConfig',
+        // Only show prompt if eslint was selected and there isn't a eslint config file already
+        type: (prev) => (prev.includes('eslint') && !existsSync(eslintConfigPath) ? 'confirm' : null),
+        message: `Would you like to add a default eslint config file at ${styles.filepath('./eslintrc.js')}?`
+      },
+      {
         name: 'deleteConfig',
         // Skip prompt if CircleCI config doesn't exist
         type: await fs
@@ -147,16 +154,18 @@ async function mainPrompt() {
   )
 }
 
-function confirmationPrompt() {
+function confirmationPrompt(deleteConfig: boolean, addEslintConfig: boolean) {
   return prompt({
     name: 'confirm',
     type: 'confirm',
-    message: (_prev, values) => {
+    message: () => {
       configFile = yaml.dump(toolKitConfig)
       return `so, we're gonna:
 
 install the following packages:
 ${packagesToInstall.map((p) => `- ${styles.plugin(p)}`).join('\n')}\
+
+${addEslintConfig ? `\nadd a default eslint config file at ${styles.filepath('./.eslintrc.js')}` : ''}
 
 ${
   packagesToRemove.length > 0
@@ -167,13 +176,23 @@ ${
 }
 create a ${styles.filepath('.toolkitrc.yml')} containing:
 ${configFile}\
-${values.deleteConfig ? '\nregenerate styles.filepath(".circleci/config.yml")\n' : ''}
+${deleteConfig ? `\nregenerate ${styles.filepath('.circleci/config.yml')}\n` : ''}
 sound good?`
     }
   })
 }
 
-async function executeMigration(deleteConfig: boolean): Promise<ValidConfig> {
+function getEslintConfigContent(): string {
+  const shouldIgnorePatterns = packagesToInstall.includes('@dotcom-tool-kit/frontend-app')
+  const eslintContentString = `module.exports = {
+  extends: ['@financial-times/eslint-config-next'], ${
+    shouldIgnorePatterns ? `\n\tignorePatterns: ['public/**'],` : ''
+  }
+};`
+  return eslintContentString
+}
+
+async function executeMigration(deleteConfig: boolean, addEslintConfig: boolean): Promise<ValidConfig> {
   for (const pkg of packagesToInstall) {
     const { version } = await pacote.manifest(pkg)
     packageJson.requireDependency({
@@ -197,11 +216,20 @@ async function executeMigration(deleteConfig: boolean): Promise<ValidConfig> {
     `creating ${styles.filepath('.toolkitrc.yml')}`
   )
 
+  const eslintConfigPromise = addEslintConfig
+    ? logger.logPromise(
+        fs.writeFile(eslintConfigPath, getEslintConfigContent()),
+        `creating ${styles.filepath('.eslintrc.js')}`
+      )
+    : Promise.resolve()
+
   const unlinkPromise = deleteConfig
     ? logger.logPromise(fs.unlink(circleConfigPath), 'removing old CircleCI config')
     : Promise.resolve()
 
-  const initialTasks = Promise.all([configPromise, unlinkPromise]).then(() => winstonLogger)
+  const initialTasks = Promise.all([configPromise, eslintConfigPromise, unlinkPromise]).then(
+    () => winstonLogger
+  )
 
   return runTasksWithLogger(initialTasks, installHooks, 'installing Tool Kit hooks')
 }
@@ -556,9 +584,12 @@ team know."
 async function main() {
   // Start with the initial prompt which will get most of the information we
   // need for the remainder of the execution
-  const { preset, additional, deleteConfig, uninstall } = await mainPrompt()
+  const { preset, additional, addEslintConfig, deleteConfig, uninstall } = await mainPrompt()
 
   const selectedPackages = [preset, ...additional].map((plugin) => `@dotcom-tool-kit/${plugin}`)
+  if (addEslintConfig) {
+    packagesToInstall.push('@financial-times/eslint-config-next')
+  }
   packagesToInstall.push(...selectedPackages)
   toolKitConfig.plugins.push(...selectedPackages)
 
@@ -568,14 +599,14 @@ async function main() {
 
   // Confirm that the proposed changes are what the user was expecting, giving
   // them a chance to see what we're going to do.
-  const { confirm } = await confirmationPrompt()
+  const { confirm } = await confirmationPrompt(deleteConfig, addEslintConfig)
 
   if (confirm) {
     let config: ValidConfig | undefined
     try {
       // Carry out the proposed changes: install + uninstall packages, run
       // --install logic etc.
-      config = await executeMigration(deleteConfig)
+      config = await executeMigration(deleteConfig, addEslintConfig)
     } catch (error) {
       if (hasToolKitConflicts(error)) {
         // Additional questions asked if we have any task conflicts, letting the

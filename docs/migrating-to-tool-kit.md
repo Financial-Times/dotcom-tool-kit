@@ -79,6 +79,14 @@ using, e.g., the `@dotcom-tool-kit/mocha` plugin if you're using Mocha for unit
 tests, but now is also a good chance to try out new tools you've been meaning to
 integrate into your stack, such as `dotcom-tool-kit/prettier`!
 
+### ESLint Config
+
+```
+Would you like to add a default eslint config file at ./eslintrc.js?
+```
+
+Selecting yes will generate a eslintrc.js file at your project's root directory, which extends the ESLint shared configuration [`@financial-times/eslint-config-next`](https://github.com/Financial-Times/eslint-config-next), and install `@financial-times/eslint-config-next` for you automatically. If you've previously selected `@dotcom-tool-kit/frontend-app` for your app, the generated .eslintrc.js file will look like [this](https://github.com/Financial-Times/next-user-facing-app-template/blob/main/.eslintrc.js), whereas if you've selected `@dotcom-tool-kit/backend-app`, the generated .eslintrc.js file will look like [this](https://github.com/Financial-Times/next-service-app-template/blob/main/.eslintrc.js). 
+
 ### CircleCI Config
 
 ```
