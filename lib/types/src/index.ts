@@ -167,11 +167,12 @@ export type TaskClass = {
   new <O extends Schema>(logger: Logger, options: Partial<SchemaOutput<O>>): Task<O>
 } & typeof Task
 
-export abstract class Hook extends Base {
+export abstract class Hook<State = void> extends Base {
   id?: string
   plugin?: Plugin
   logger: Logger
   static description?: string
+  installGroup?: string
 
   static get [typeSymbol](): symbol {
     return hookSymbol
@@ -188,10 +189,13 @@ export abstract class Hook extends Base {
   }
 
   abstract check(): Promise<boolean>
-  abstract install(): Promise<void>
+  abstract install(state?: State): Promise<State>
+  async commitInstall(_state: State): Promise<void> {
+    return
+  }
 }
 
-export type HookClass = { new (logger: Logger): Hook } & typeof Hook
+export type HookClass = { new (logger: Logger): Hook<void> } & typeof Hook
 
 export type RCFile = {
   plugins: string[]
