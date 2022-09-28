@@ -1,6 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
-import groupBy from 'lodash.groupby'
+import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
 import { loadConfig, ValidConfig } from './config'
 import { postInstall } from './postInstall'

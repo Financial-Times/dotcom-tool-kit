@@ -11,7 +11,7 @@ import {
   Valid,
   Validated
 } from '@dotcom-tool-kit/types'
-import isPlainObject from 'lodash.isplainobject'
+import isPlainObject from 'lodash/isPlainObject'
 import resolveFrom from 'resolve-from'
 import type { Logger } from 'winston'
 import { PluginOptions, RawConfig, ValidPluginsConfig } from './config'

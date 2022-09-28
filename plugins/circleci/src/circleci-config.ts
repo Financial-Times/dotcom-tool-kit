@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs'
-import merge from 'lodash.merge'
+import merge from 'lodash/merge'
 import path from 'path'
 import YAML from 'yaml'
 import { ToolKitError } from '@dotcom-tool-kit/error'
