@@ -7,14 +7,14 @@
     "test": "cd ../../ ; npx jest --silent --projects plugins/circleci"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "^2.0.1",
-    "@dotcom-tool-kit/logger": "^2.1.2",
-    "@dotcom-tool-kit/state": "^2.0.1",
-    "@dotcom-tool-kit/types": "^2.6.2",
-    "js-yaml": "^4.1.0",
+    "@dotcom-tool-kit/error": "^2.0.0",
+    "@dotcom-tool-kit/logger": "^2.1.1",
+    "@dotcom-tool-kit/state": "^2.0.0",
+    "@dotcom-tool-kit/types": "^2.6.1",
     "lodash.isequal": "^4.5.0",
     "lodash.merge": "^4.6.2",
-    "tslib": "^2.3.1"
+    "tslib": "^2.3.1",
+    "yaml": "^2.1.1"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
