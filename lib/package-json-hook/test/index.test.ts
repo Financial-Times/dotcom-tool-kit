@@ -52,31 +52,12 @@ describe('package.json hook', () => {
 
       try {
         const hook = new TestHook(logger)
-        await hook.install()
+        const state = await hook.install()
+        await hook.commitInstall(state)
 
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
         expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook')
-      } finally {
-        await fs.writeFile(pkgPath, originalJson)
-      }
-    })
-
-    it('should prepend hook to a call with an existing hook', async () => {
-      const base = path.join(__dirname, 'files', 'existing-hook')
-
-      const pkgPath = path.join(base, 'package.json')
-      const originalJson = await fs.readFile(pkgPath, 'utf-8')
-
-      process.chdir(base)
-
-      try {
-        const hook = new TestHook(logger)
-        await hook.install()
-
-        const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
-
-        expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook another:hook')
       } finally {
         await fs.writeFile(pkgPath, originalJson)
       }
