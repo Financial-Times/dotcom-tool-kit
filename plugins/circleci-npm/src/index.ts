@@ -1,5 +1,4 @@
 import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
-import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
 
 class PublishHook extends CircleCiConfigHook {
   job = 'tool-kit/publish'
@@ -7,10 +6,10 @@ class PublishHook extends CircleCiConfigHook {
     context: 'npm-publish-token',
     requires: ['tool-kit/test'],
     filters: {
-      branches: { ignore: '/.*/' },
-      tags: { only: `${semVerRegex}` }
+      branches: { ignore: '/.*/' }
     }
   }
+  runOnVersionTags = true
 }
 
 export const hooks = {
