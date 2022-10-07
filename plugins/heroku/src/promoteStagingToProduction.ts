@@ -6,7 +6,11 @@ import type { Logger } from 'winston'
 import { setAppConfigVars } from './setConfigVars'
 import { HerokuApiResPost } from 'heroku-client'
 
-async function promoteStagingToProduction(logger: Logger, slug: string, systemCode?: string): Promise<void[]> {
+async function promoteStagingToProduction(
+  logger: Logger,
+  slug: string,
+  systemCode?: string
+): Promise<void[]> {
   const state = readState(`production`)
 
   if (!state) {
@@ -33,8 +37,8 @@ async function promoteStagingToProduction(logger: Logger, slug: string, systemCo
       })
       .then((response) => gtg(logger, response.app.name, 'production', false))
   )
-  
-  for(const id of appIds) {
+
+  for (const id of appIds) {
     await setAppConfigVars(logger, id, 'production', systemCode)
   }
 

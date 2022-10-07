@@ -1,8 +1,8 @@
 import type { Logger } from 'winston'
-import heroku from './herokuClient'
-import { ToolKitError } from '@dotcom-tool-kit/error'
 import { VaultEnvVars, Environment } from '@dotcom-tool-kit/vault'
-import { HerokuApiResPipeline } from 'heroku-client'
+import { ToolKitError } from '@dotcom-tool-kit/error'
+import heroku from './herokuClient'
+import type { HerokuApiResGetRegion, HerokuApiResPipeline } from 'heroku-client'
 
 type Stage = 'test' | 'development' | 'review' | 'staging' | 'production'
 
@@ -20,6 +20,9 @@ async function setAppConfigVars(
     })
 
     const configVars = await vaultEnvVars.get()
+
+    const { region }: HerokuApiResGetRegion = await heroku.get(`/apps/${appIdName}`)
+    configVars.REGION = region.name.toUpperCase()
 
     if (systemCode) {
       configVars.SYSTEM_CODE = systemCode

@@ -46,8 +46,8 @@ declare module 'heroku-client' {
     id: string
     status: string
     slug: null | {
-      id: string,
-      }
+      id: string
+    }
   }
 
   export type HerokuApiResGetGtg = {
@@ -76,6 +76,12 @@ declare module 'heroku-client' {
 
   export type HerokuApiResPipeline = {
     id: string
+  }
+
+  export type HerokuApiResGetRegion = {
+    region: {
+      name: string
+    }
   }
 
   export default class Heroku {
