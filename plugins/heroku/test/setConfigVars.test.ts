@@ -18,7 +18,7 @@ const vaultPath = {
 const systemCode = 'test-system-code'
 const pipeline = {
   id: 'test-pipeline-id'
-} 
+}
 const pipelineName = 'test-pipeline-name'
 
 const secrets = {
@@ -29,6 +29,7 @@ const secrets = {
 
 const prodPatchBody = {
   body: {
+    REGION: 'EU',
     SYSTEM_CODE: 'test-system-code',
     ...secrets
   }
@@ -59,7 +60,12 @@ jest.mock('../src/herokuClient', () => {
       if (str.includes('wrong')) {
         throw new Error()
       }
-      return {id: 'test-pipeline-id'}
+      return {
+        id: 'test-pipeline-id',
+        region: {
+          name: 'eu'
+        }
+      }
     })
   }
 })
