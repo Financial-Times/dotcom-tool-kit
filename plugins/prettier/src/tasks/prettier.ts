@@ -10,7 +10,7 @@ export default class Prettier extends Task<typeof PrettierSchema> {
   static description = ''
 
   static defaultOptions: PrettierOptions = {
-    files: ['**/*.js'],
+    files: ['**/*.{js,json,jsx,ts,tsx}'],
     ignoreFile: '.prettierignore',
     configOptions: {
       singleQuote: true,
