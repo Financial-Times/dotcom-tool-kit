@@ -5,6 +5,7 @@ import type { Logger } from 'winston'
 import { loadConfig, ValidConfig } from './config'
 import { postInstall } from './postInstall'
 
+// implementation of the Array.some method that supports asynchronous predicates
 async function asyncSome<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
   for (const val of arr) {
     if (await pred(val)) {

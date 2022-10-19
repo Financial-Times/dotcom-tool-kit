@@ -24,6 +24,9 @@ export abstract class PackageJsonHelper extends Hook<PackageJsonState> {
   abstract field: string | string[]
   abstract key: string
   abstract hook: string
+  // Allow some extra characters to be appended to the end of a hooked field.
+  // This is useful if you, for example, need to append the '--' argument
+  // delimiter to commands to allow files to be passed as additional arguments.
   trailingString?: string
 
   installGroup = 'package-json'

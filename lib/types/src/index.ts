@@ -172,6 +172,10 @@ export abstract class Hook<State = void> extends Base {
   plugin?: Plugin
   logger: Logger
   static description?: string
+  // This field is used to collect hooks that share state when running their
+  // install methods. All hooks in the same group will run their install method
+  // one after the other, and then their commitInstall method will be run with
+  // the collected state.
   installGroup?: string
 
   static get [typeSymbol](): symbol {
