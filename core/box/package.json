@@ -13,7 +13,6 @@
     "@dotcom-tool-kit/logger": "file:../../lib/logger",
     "dotcom-tool-kit": "file:../cli",
     "ink": "~3.1.0",
-    "ink-tab": "^4.2.0",
     "react": "^16.14.0",
     "winston": "^3.6.0"
   },

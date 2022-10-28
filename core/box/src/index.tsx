@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { render, Box, BoxProps, Text, useApp, useInput } from 'ink'
-import { Tabs, Tab } from 'ink-tab'
 import winston from 'winston'
 import { loadConfig, ValidConfig } from 'dotcom-tool-kit/lib/config'
 import { styles } from '@dotcom-tool-kit/logger'
@@ -418,14 +417,15 @@ const TasksPage = (props: TasksPageProps) => {
   )
 }
 
-type TabName = 'plugins' | 'hooks' | 'tasks'
+const TabPages = ['plugins', 'hooks', 'tasks'] as const
+type TabName = typeof TabPages[number]
 
 interface TabbedViewProps {
   config: ValidConfig
 }
 
 const TabbedView = (props: TabbedViewProps) => {
-  const [activeTab, setActiveTab] = useState<TabName>('plugins')
+  const [activeTab, setActiveTab] = useState(0)
   const [pluginsStart, setPluginsStart] = useState<string | undefined>()
   const [hooksStart, setHooksStart] = useState<string | undefined>()
   const [tasksStart, setTasksStart] = useState<string | undefined>()
@@ -453,7 +453,7 @@ const TabbedView = (props: TabbedViewProps) => {
   }
 
   const handleTabChange = (newTab: TabName, itemId?: string) => {
-    setActiveTab(newTab)
+    setActiveTab(TabPages.indexOf(newTab))
     if (itemId) {
       switch (newTab) {
         case 'plugins':
@@ -468,44 +468,53 @@ const TabbedView = (props: TabbedViewProps) => {
       }
     }
   }
+  useInput((_, key) => {
+    if (key.tab) {
+      if (key.shift) {
+        const prevTab = activeTab - 1
+        setActiveTab(prevTab < 0 ? TabPages.length - 1 : prevTab)
+      } else {
+        setActiveTab((activeTab + 1) % TabPages.length)
+      }
+    }
+  })
   return (
     <>
-      <Tabs
-        onChange={(newTab: TabName) => handleTabChange(newTab)}
-        showIndex={false}
-        keyMap={{
-          previous: [],
-          next: []
-        }}>
-        <Tab name="plugins">plugins</Tab>
-        <Tab name="hooks">hooks</Tab>
-        <Tab name="tasks">tasks</Tab>
-      </Tabs>
-      {activeTab === 'plugins' && (
-        <PluginsPage
-          plugins={Object.entries(props.config.plugins)}
-          startingItem={pluginsStart}
-          onTabChange={handleTabChange}
-        />
-      )}
-      {activeTab === 'hooks' && (
-        <HooksPage
-          hooks={Object.entries(props.config.hooks)}
-          taskMap={Object.fromEntries(tasksWithHook)}
-          pluginMap={pluginsWithHook}
-          startingItem={hooksStart}
-          onTabChange={handleTabChange}
-        />
-      )}
-      {activeTab === 'tasks' && (
-        <TasksPage
-          tasks={Object.entries(props.config.tasks)}
-          pluginMap={pluginsWithTask}
-          startingItem={tasksStart}
-          hookMap={hooksWithTask}
-          onTabChange={handleTabChange}
-        />
-      )}
+      <Box>
+        {TabPages.map((page, index) => (
+          <React.Fragment key={page}>
+            {index !== 0 && <Text> | </Text>}
+            <Text bold={index === activeTab}>{page}</Text>
+          </React.Fragment>
+        ))}
+      </Box>
+      <Box>
+        {TabPages[activeTab] === 'plugins' && (
+          <PluginsPage
+            plugins={Object.entries(props.config.plugins)}
+            startingItem={pluginsStart}
+            onTabChange={handleTabChange}
+          />
+        )}
+        {TabPages[activeTab] === 'hooks' && (
+          <HooksPage
+            hooks={Object.entries(props.config.hooks)}
+            taskMap={Object.fromEntries(tasksWithHook)}
+            pluginMap={pluginsWithHook}
+            startingItem={hooksStart}
+            onTabChange={handleTabChange}
+          />
+        )}
+        {TabPages[activeTab] === 'tasks' && (
+          <TasksPage
+            tasks={Object.entries(props.config.tasks)}
+            pluginMap={pluginsWithTask}
+            startingItem={tasksStart}
+            hookMap={hooksWithTask}
+            onTabChange={handleTabChange}
+          />
+        )}
+      </Box>
     </>
   )
 }
