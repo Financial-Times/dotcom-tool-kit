@@ -522,7 +522,11 @@ const TabbedView = (props: TabbedViewProps) => {
 async function main() {
   const config = await loadConfig(logger)
 
-  render(<TabbedView config={config} />)
+  render(
+    <React.StrictMode>
+      <TabbedView config={config} />
+    </React.StrictMode>
+  )
 }
 
 main()
