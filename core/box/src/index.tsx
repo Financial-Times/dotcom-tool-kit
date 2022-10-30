@@ -419,6 +419,10 @@ const TasksPage = (props: TasksPageProps) => {
 
 const TabPages = ['plugins', 'hooks', 'tasks'] as const
 type TabName = typeof TabPages[number]
+// Our styling uses ansi-colors, whereas ink uses chalk, and there's no nice
+// way to convert between the two, so lets just copy the appropriate colours
+// as strings.
+const tabColours = { plugins: 'cyan', hooks: 'magenta', tasks: 'blueBright' }
 
 interface TabbedViewProps {
   config: ValidConfig
@@ -484,7 +488,7 @@ const TabbedView = (props: TabbedViewProps) => {
         {TabPages.map((page, index) => (
           <React.Fragment key={page}>
             {index !== 0 && <Text> | </Text>}
-            <Text bold={index === activeTab}>{page}</Text>
+            <Text backgroundColor={index === activeTab ? tabColours[page] : undefined}>{page}</Text>
           </React.Fragment>
         ))}
       </Box>
