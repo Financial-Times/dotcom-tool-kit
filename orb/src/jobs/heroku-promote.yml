@@ -1,7 +1,7 @@
 parameters:
-  node-version:
-    default: "16.14"
-    type: string
+  executor:
+    default: default
+    type: executor
   systemCode:
     default: $CIRCLE_PROJECT_REPONAME
     description: >-
@@ -13,9 +13,7 @@ parameters:
     description: The environment in which the system is being changed.
     type: string
 
-executor:
-  name: node/default
-  tag: <<parameters.node-version>>
+executor: << parameters.executor >>
 
 steps:
   - attach-workspace
