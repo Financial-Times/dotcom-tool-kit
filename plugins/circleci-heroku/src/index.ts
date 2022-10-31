@@ -1,5 +1,7 @@
 import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
+import { getOptions } from '@dotcom-tool-kit/options'
+import type { JobConfig } from '@dotcom-tool-kit/types/src/circleci'
 
 export class DeployReview extends CircleCiConfigHook {
   job = 'tool-kit/heroku-provision'
@@ -14,14 +16,33 @@ export class DeployStaging extends CircleCiConfigHook {
   jobOptions = { requires: ['tool-kit/setup'], filters: { branches: { only: 'main' } } }
 }
 
-export class TestReview extends CircleCiConfigHook {
-  job = 'tool-kit/e2e-test-review'
-  jobOptions = { requires: [new DeployReview(this.logger).job] }
+abstract class CypressCiHook extends CircleCiConfigHook {
+  abstract requiredJobs: string[]
+  _jobOptions?: JobConfig
+
+  get jobOptions(): JobConfig {
+    if (!this._jobOptions) {
+      const options = getOptions('@dotcom-tool-kit/circleci')
+      this._jobOptions = {
+        requires: this.requiredJobs
+      }
+      if (options?.cypressImage) {
+        this.additionalFields = { executors: { cypress: { docker: [{ image: options.cypressImage }] } } }
+        this._jobOptions.executor = 'cypress'
+      }
+    }
+    return this._jobOptions
+  }
 }
 
-export class TestStaging extends CircleCiConfigHook {
+export class TestReview extends CypressCiHook {
+  job = 'tool-kit/e2e-test-review'
+  requiredJobs = [new DeployReview(this.logger).job]
+}
+
+export class TestStaging extends CypressCiHook {
   job = 'tool-kit/e2e-test-staging'
-  jobOptions = { requires: [new DeployStaging(this.logger).job] }
+  requiredJobs = [new DeployStaging(this.logger).job]
 }
 
 export class DeployProduction extends CircleCiConfigHook {

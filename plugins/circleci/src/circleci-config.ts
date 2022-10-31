@@ -156,30 +156,8 @@ If you would like a Tool Kit configured CircleCI config file to be generated for
       )
     }
 
-    const nodeVersionOption = {
-      'node-version': getOptions('@dotcom-tool-kit/circleci')?.nodeVersion ?? '16.14-browsers'
-    }
-    const orbJobs = [
-      {
-        'tool-kit/setup': {
-          requires: ['checkout', 'waiting-for-approval']
-        }
-      },
-      ...Object.entries(state.jobs).map(([job, options]) => ({
-        [job]: {
-          ...options
-        }
-      }))
-    ]
-    for (const job of orbJobs) {
-      const options = Object.values(job)[0] // there should only ever be one field on the job
-      Object.assign(options, nodeVersionOption)
-      if (state.runOnVersionTags) {
-        merge(options, tagFilter)
-      }
-    }
-
-    const newConfig = {
+    const nodeVersion = getOptions('@dotcom-tool-kit/circleci')?.nodeVersion
+    const newConfig: Record<string, unknown> = {
       version: 2.1,
       orbs: {
         'tool-kit': process.env.TOOL_KIT_FORCE_DEV_ORB
@@ -214,7 +192,27 @@ If you would like a Tool Kit configured CircleCI config file to be generated for
                 filters: { branches: { only: '/(^renovate-.*|^nori/.*)/' } }
               }
             },
-            ...orbJobs
+            ...[
+              {
+                'tool-kit/setup': {
+                  requires: ['checkout', 'waiting-for-approval']
+                }
+              },
+              ...Object.entries(state.jobs).map(([job, options]) => ({
+                [job]: {
+                  ...options
+                }
+              }))
+            ].map((job) => {
+              const options = Object.values(job)[0] // there should only ever be one field on the job
+              if (nodeVersion) {
+                options.executor ??= 'node'
+              }
+              if (state.runOnVersionTags) {
+                merge(options, tagFilter)
+              }
+              return job
+            })
           ]
         },
         nightly: {
@@ -243,12 +241,17 @@ If you would like a Tool Kit configured CircleCI config file to be generated for
                 }
               }))
             ].map((job) => {
-              Object.assign(Object.values(job)[0], nodeVersionOption)
+              if (nodeVersion) {
+                Object.values(job)[0].executor ??= 'node'
+              }
               return job
             })
           ]
         }
       }
+    }
+    if (nodeVersion) {
+      newConfig.executors = { node: { docker: [{ image: `cimg/node:${nodeVersion}` }] } }
     }
     merge(newConfig, state.additionalFields)
 
