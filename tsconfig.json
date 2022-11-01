@@ -102,6 +102,9 @@
     },
     {
       "path": "plugins/component"
+    },
+    {
+      "path": "plugins/cypress"
     }
   ]
 }
