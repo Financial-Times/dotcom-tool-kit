@@ -17,6 +17,8 @@ plugins:
     - '@dotcom-tool-kit/eslint'
 ```
 
+running `npx dotcom-tool-kit --help` will show the hooks that Eslint has been applied to. By default these will be `test:local`, `test:ci`, `test:staged`.
+
 ## Options
 
 | Key | Description | Default value |
@@ -32,8 +34,14 @@ Example:
     options:
         errorOnUnmatchedPattern: false
 ```
-## Tasks
+## Exports Tasks
 
 | Task | Description | Preconfigured hooks |
 |-|-|-|
-| `Eslint` | runs `eslint` to lint and format target files | `test:local`, `test:ci`, `test:staged` |
+| `Eslint` | runs `eslint` to lint and format target files | `test:local`, `test:ci`, `test:staged` in the node plugin |
+
+### Exports Hooks
+none
+
+### How did n-gage do this?
+TBC

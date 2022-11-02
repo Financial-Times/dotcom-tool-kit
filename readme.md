@@ -46,13 +46,57 @@ Every time you change your `.toolkitrc.yml`, e.g. adding or removing a plugin, y
 npx dotcom-tool-kit --install
 ```
 
+### Configuration
+
+## Using hooks and tasks
+
+A good place to start with understanding Tool Kit configuration is to review the default set up used by the frontend-app and backend-app plugins. If you have used the migration tool to install Tool Kit you will have selected one of these plugins for your initial configuration and will have the corresponding default hooks and tasks installed on your application already.
+
+The Frontend-app and Backend-app plugins install Tool Kit in your application with a default set of [hooks]() and [tasks]() to manage the tooling your app uses for working locally, working with CI, and releasing remotely.
+
+This diagram shows the default hooks and tasks installed with the Frontend-App and additional hooks and tasks that can be configured as required by your app.
+
+[diagram](https://lucid.app/lucidchart/b14b85ec-329a-4224-8a0b-0a60f2ed37f4/edit?viewport_loc=379%2C-1739%2C5331%2C3268%2C0_0&invitationId=inv_77fa8e7a-af28-4973-b2be-f7943c0f0f0e)
+
+[A list of all available hooks and likely tasks to run on them is here](https://docs.google.com/spreadsheets/d/1YAWkQ7iV8Yq3S54O8RtjgSyrtCAnrNfRtyxCE26zpNI/edit?usp=sharing) [link to table on sep doc?]
+
+## Configuring hooks and tasks with .toolkitrc.yml
+
+The `.toolkitrc.yml` file in your repo determines everything about how Tool Kit runs in that repo. It controls what plugins are included (which determine what hooks and tasks are available), gives you fine-grained control over what tasks are running on what hooks, and lets you provide options to plugins.
+
+An example `.toolkitrc.yml` might look like:
+
+```yml
+plugins:
+  # provides the test:local hooks
+  - '@dotcom-tool-kit/npm'
+  # provides the JestLocal task
+  - '@dotcom-tool-kit/jest'
+  # provides the Eslint task
+  - '@dotcom-tool-kit/eslint'
+
+hooks:
+  # run both Jest and ESlint when running `npm run test`
+  # required to resolve the conflict between their defaults
+  test:local:
+    - Eslint
+    - JestLocal
+
+options:
+  # ESlint plugin needs to know which files to run ESlint on.
+  # there's a default setting, but your repo might need something else
+  '@dotcom-tool-kit/eslint':
+    files:
+      - server/**/*.js
+```
+
+The options available for each plugin are documented in their readmes. If the tooling that a plugin is using has its own method of configuration (like `.eslintrc`, `.babelrc`, `jest.config.js`, `webpack.config.js`), Tool Kit options aren't used for that; they're not merged with that config and don't replace it. Tool Kit options are only for things that need to be known to run the tooling in the first place, or where tooling doesn't provide its own configuration.
+
+See the README's for indvidual plugins for more help with the installation and configuration of their hooks and tasks.
+
 ### Running Tool Kit
 
-You don't run Tool Kit directly; you run plugin tasks using things like npm scripts, automatically configured in your `package.json` by Tool Kit. With the `npm` and `jest` plugins installed, Jest tests are run with the npm `test` script:
-
-```sh
-npm run test
-```
+You don't run Tool Kit directly; you configure it to run tasks...??
 
 At any time, you can run `--help` to see what plugins you have installed, what configuration files they're managing, and what tasks you can run with them:
 
@@ -60,7 +104,7 @@ At any time, you can run `--help` to see what plugins you have installed, what c
 npx dotcom-tool-kit --help
 ```
 
-## How Tool Kit works
+## How Tool Kit works (Question: sep doc??)
 
 ### Plugins
 
@@ -95,38 +139,6 @@ Plugins can set a default hook for their tasks to run on; for example, the `Jest
 Hooks are there to be **installed** in your repository. Hook classes contain an `install` method that updates the relevant configuration files to run that hook. This `install` method is called when you run `npx dotcom-tool-kit --install`. This lets Tool Kit plugins automatically manage files like `package.json` or `.circleci/config.yml`. Any changes made by hook installation should be committed.
 
 When Tool Kit starts up, it checks whether the hooks in your plugins are correctly installed, and will print an error if they're not. This prevents repos from getting out of sync with what Tool Kit expects, ensuring repos are fully consistent and controlled by Tool Kit plugins.
-
-### Configuration
-
-The `.toolkitrc.yml` file in your repo determines everything about how Tool Kit runs in that repo. It controls what plugins are included (which determine what hooks and tasks are available), gives you fine-grained control over what tasks are running on what hooks, and lets you provide options to plugins.
-
-An example `.toolkitrc.yml` might look like:
-
-```yml
-plugins:
-  # provides the test:local hooks
-  - '@dotcom-tool-kit/npm'
-  # provides the JestLocal task
-  - '@dotcom-tool-kit/jest'
-  # provides the Eslint task
-  - '@dotcom-tool-kit/eslint'
-
-hooks:
-  # run both Jest and ESlint when running `npm run test`
-  # required to resolve the conflict between their defaults
-  test:local:
-    - Eslint
-    - JestLocal
-
-options:
-  # ESlint plugin needs to know which files to run ESlint on.
-  # there's a default setting, but your repo might need something else
-  '@dotcom-tool-kit/eslint':
-    files:
-      - server/**/*.js
-```
-
-The options available for each plugin are documented in their readmes. If the tooling that a plugin is using has its own method of configuration (like `.eslintrc`, `.babelrc`, `jest.config.js`, `webpack.config.js`), Tool Kit options aren't used for that; they're not merged with that config and don't replace it. Tool Kit options are only for things that need to be known to run the tooling in the first place, or where tooling doesn't provide its own configuration.
 
 ## Contributing
 
