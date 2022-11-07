@@ -2,6 +2,8 @@
 
 This plugin exposes state from the CircleCI environment for other plugins to consume generically. It also manages Tool Kit hooks that are run from CircleCI workflows.
 
+This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-app), [circleci-heroku](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-heroku), and [circleci-npm](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-npm) plugins so you do not need to install it separately if you are using any of those plugins.
+
 ## Installation
 
 Install `@dotcom-tool-kit/circleci` as a `devDependency` in your app:
@@ -23,12 +25,10 @@ And install this plugin's hooks:
 npx dotcom-tool-kit --install
 ```
 
-This plugin cannot currently automatically install itself to CircleCI configuration, so it will exit, and explain what you need to include in the config.
-
 ## Hooks
 
-| Event         | Description                                              | Installed to...                        |
-| ------------- | -------------------------------------------------------- | -------------------------------------- |
-| `build:ci`    | Compile any assets or code required for your app to run. | `build` job in `.circle/config.yml`    |
-| `test:ci`     | Run your app's test suite.                               | `test` job in `.circle/config.yml`     |
-| `test:review` | Run your app's E2E tests against a deployed Review App.  | `e2e-test` job in `.circle/config.yml` |
+| Event         | Description                                              | Installed to...                        | Default Hooks |
+| ------------- | -------------------------------------------------------- | ---------------------- | -------------- |
+| `build:ci`    | Compile any assets or code required for your app to run. |`build` job in `.circle/config.yml`    | `WebpackProduction`, `BabelProduction` |
+| `test:ci`     | Run your app's test suite.   |                            | `test` job in `.circle/config.yml`     | `Eslint`, `Mocha`, `JestCi` |
+| `test:review` | Run your app's E2E tests against a deployed Review App.  | `e2e-test` job in `.circle/config.yml` | `NTest`, `Pa11y` |
