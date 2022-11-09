@@ -35,6 +35,29 @@
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
     * dotcom-tool-kit bumped from ^2.3.4 to ^2.3.5
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.1.5...create-v2.2.0) (2022-11-09)
+
+
+### Features
+
+* add optional upload-assets-to-s3 plugin when migrating ([376c810](https://github.com/Financial-Times/dotcom-tool-kit/commit/376c810826c409a4d1d985d4938acd2515dcd7c8))
+* include eslint-config-next in tool kit migration script ([7c1e736](https://github.com/Financial-Times/dotcom-tool-kit/commit/7c1e736699bc48b6851b59d6f0e65325d6991302))
+
+
+### Bug Fixes
+
+* **create:** handle npm installation failing ([f67f46f](https://github.com/Financial-Times/dotcom-tool-kit/commit/f67f46fb83074ffa602cbfa6e2572cd424a7f90c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/types bumped from ^2.6.1 to ^2.6.2
+    * dotcom-tool-kit bumped from ^2.3.5 to ^2.3.6
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.0.6...create-v2.1.0) (2022-07-21)
 
 

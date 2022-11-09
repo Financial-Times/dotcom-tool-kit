@@ -44,6 +44,21 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+### [1.0.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/secret-squirrel-v1.0.7...secret-squirrel-v1.0.8) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/types bumped from ^2.6.1 to ^2.6.2
+
 ## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/secret-squirrel-v0.1.0...secret-squirrel-v1.0.0) (2022-05-06)
 
 

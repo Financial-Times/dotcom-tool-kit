@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v2.0.0...wait-for-ok-v2.0.1) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v1.9.0...wait-for-ok-v2.0.0) (2022-04-19)
 
 

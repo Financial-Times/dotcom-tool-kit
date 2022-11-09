@@ -58,6 +58,24 @@
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
     * @dotcom-tool-kit/vault bumped from ^2.0.7 to ^2.0.8
 
+### [2.0.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v2.0.8...next-router-v2.0.9) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/state bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/types bumped from ^2.6.1 to ^2.6.2
+    * @dotcom-tool-kit/vault bumped from ^2.0.8 to ^2.0.9
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v1.9.0...next-router-v2.0.0) (2022-04-19)
 
 

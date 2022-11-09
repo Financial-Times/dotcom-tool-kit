@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v2.1.0...package-json-hook-v2.1.1) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v2.0.0...package-json-hook-v2.1.0) (2022-05-03)
 
 
