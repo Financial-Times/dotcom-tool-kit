@@ -15,6 +15,7 @@
   "plugins/circleci": "2.1.7",
   "plugins/circleci-heroku": "2.0.12",
   "plugins/circleci-npm": "2.0.10",
+  "plugins/component": "0.1.0",
   "plugins/eslint": "2.2.2",
   "plugins/frontend-app": "2.1.10",
   "plugins/heroku": "2.1.0",
