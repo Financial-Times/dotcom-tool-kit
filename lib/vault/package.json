@@ -14,7 +14,8 @@
     "fs": "0.0.1-security",
     "os": "^0.1.2",
     "path": "^0.12.7",
-    "superagent": "^6.1.0"
+    "superagent": "^6.1.0",
+    "tslib": "^2.3.1"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
