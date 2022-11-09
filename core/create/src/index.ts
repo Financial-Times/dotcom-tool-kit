@@ -44,9 +44,19 @@ function installHooks(logger: typeof winstonLogger) {
   }).default(logger)
 }
 
-function hasToolKitConflicts(error: unknown) {
-  // we need to import hasToolkitConflicts from the app itself instead of npx or else hasToolkitConflicts and ToolKitConflictError will come from npx but error will come from the app level, leading to error failing the instanceof ToolKitConflictError check
-  return (importCwd('@dotcom-tool-kit/error') as typeof ToolkitErrorModule).hasToolKitConflicts(error)
+function hasToolKitConflicts(error: unknown): boolean {
+  try {
+    // we need to import hasToolkitConflicts from the app itself instead of npx
+    // or else hasToolkitConflicts and ToolKitConflictError will come from npx
+    // but the error will come from the app level, leading to the error failing
+    // the instanceof ToolKitConflictError check
+    const errorModule = importCwd('@dotcom-tool-kit/error') as typeof ToolkitErrorModule
+    return errorModule.hasToolKitConflicts(error)
+  } catch {
+    // if the error package isn't found then that probably means npm install
+    // has failed and we should be logging out that error
+    return false
+  }
 }
 
 async function runTasksWithLogger<T, U>(
@@ -122,7 +132,7 @@ async function mainPrompt() {
           {
             title: 'Upload assets to S3',
             value: 'upload-assets-to-s3',
-            description: 'required this to make your app\'s CSS and JS available in production'
+            description: "required this to make your app's CSS and JS available in production"
           }
         ].map((choice) => ({ ...choice, title: styles.plugin(choice.title) }))
       },
