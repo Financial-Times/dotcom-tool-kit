@@ -15,7 +15,8 @@
     "@dotcom-tool-kit/types": "^2.6.1",
     "fs": "0.0.1-security",
     "glob": "^7.1.7",
-    "mocha": "^8.3.2"
+    "mocha": "^8.3.2",
+    "tslib": "^2.3.1"
   },
   "repository": {
     "type": "git",

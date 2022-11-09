@@ -22,5 +22,8 @@
   ],
   "volta": {
     "extends": "../../package.json"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
   }
 }

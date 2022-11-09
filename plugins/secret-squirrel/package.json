@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/logger": "^2.1.1",
-    "@dotcom-tool-kit/types": "^2.6.1"
+    "@dotcom-tool-kit/types": "^2.6.1",
+    "tslib": "^2.3.1"
   }
 }
