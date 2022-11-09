@@ -61,6 +61,13 @@
     * @dotcom-tool-kit/backend-app bumped from ^2.0.10 to ^2.0.11
     * @dotcom-tool-kit/webpack bumped from ^2.1.6 to ^2.1.7
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-app bumped from ^2.0.11 to ^2.0.12
+    * @dotcom-tool-kit/webpack bumped from ^2.1.7 to ^2.1.8
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v2.0.1...frontend-app-v2.1.0) (2022-05-06)
 
 

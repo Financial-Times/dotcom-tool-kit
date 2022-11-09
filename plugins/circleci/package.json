@@ -1,16 +1,16 @@
 {
   "name": "@dotcom-tool-kit/circleci",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "",
   "main": "lib",
   "scripts": {
     "test": "cd ../../ ; npx jest --silent --projects plugins/circleci"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "^2.0.0",
-    "@dotcom-tool-kit/logger": "^2.1.1",
-    "@dotcom-tool-kit/state": "^2.0.0",
-    "@dotcom-tool-kit/types": "^2.6.1",
+    "@dotcom-tool-kit/error": "^2.0.1",
+    "@dotcom-tool-kit/logger": "^2.1.2",
+    "@dotcom-tool-kit/state": "^2.0.1",
+    "@dotcom-tool-kit/types": "^2.6.2",
     "js-yaml": "^4.1.0",
     "lodash.isequal": "^4.5.0",
     "tslib": "^2.3.1"

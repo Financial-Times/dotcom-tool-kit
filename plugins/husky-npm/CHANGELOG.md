@@ -1,5 +1,19 @@
 # Changelog
 
+### [2.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v2.2.0...husky-npm-v2.2.1) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/package-json-hook bumped from ^2.1.0 to ^2.1.1
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v2.1.0...husky-npm-v2.2.0) (2022-08-05)
 
 

@@ -67,6 +67,36 @@
     * @dotcom-tool-kit/mocha bumped from ^2.1.4 to ^2.1.5
     * @dotcom-tool-kit/n-test bumped from ^2.1.2 to ^2.1.3
 
+### [2.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.3.5...dotcom-tool-kit-v2.3.6) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/options bumped from ^2.0.8 to ^2.0.9
+    * @dotcom-tool-kit/types bumped from ^2.6.1 to ^2.6.2
+    * @dotcom-tool-kit/wait-for-ok bumped from ^2.0.0 to ^2.0.1
+  * devDependencies
+    * @dotcom-tool-kit/backend-app bumped from ^2.0.11 to ^2.0.12
+    * @dotcom-tool-kit/heroku bumped from ^2.0.10 to ^2.1.0
+    * @dotcom-tool-kit/webpack bumped from ^2.1.7 to ^2.1.8
+    * @dotcom-tool-kit/babel bumped from ^2.0.8 to ^2.0.9
+    * @dotcom-tool-kit/circleci bumped from ^2.1.6 to ^2.1.7
+    * @dotcom-tool-kit/npm bumped from ^2.0.9 to ^2.0.10
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.0.11 to ^2.0.12
+    * @dotcom-tool-kit/frontend-app bumped from ^2.1.9 to ^2.1.10
+    * @dotcom-tool-kit/eslint bumped from ^2.2.1 to ^2.2.2
+    * @dotcom-tool-kit/mocha bumped from ^2.1.5 to ^2.1.6
+    * @dotcom-tool-kit/n-test bumped from ^2.1.3 to ^2.1.4
+
 ### [2.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.3.3...dotcom-tool-kit-v2.3.4) (2022-09-14)
 
 

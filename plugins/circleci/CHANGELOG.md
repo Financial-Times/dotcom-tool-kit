@@ -44,6 +44,23 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+### [2.1.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v2.1.6...circleci-v2.1.7) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/state bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/types bumped from ^2.6.1 to ^2.6.2
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v2.0.0...circleci-v2.1.0) (2022-06-07)
 
 

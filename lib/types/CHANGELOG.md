@@ -6,6 +6,21 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
 
+### [2.6.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.6.1...types-v2.6.2) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.1.2
+
 ### [2.6.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.6.0...types-v2.6.1) (2022-09-21)
 
 

@@ -56,6 +56,22 @@
     * @dotcom-tool-kit/options bumped from ^2.0.7 to ^2.0.8
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+### [2.0.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/vault-v2.0.8...vault-v2.0.9) (2022-11-09)
+
+
+### Bug Fixes
+
+* add tslib to individual plugins ([142363e](https://github.com/Financial-Times/dotcom-tool-kit/commit/142363edb2a82ebf4dc3c8e1b392888ebfd7dc89))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/options bumped from ^2.0.8 to ^2.0.9
+    * @dotcom-tool-kit/types bumped from ^2.6.1 to ^2.6.2
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/vault-v1.9.0...vault-v2.0.0) (2022-04-19)
 
 

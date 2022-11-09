@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/nodemon",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,10 +10,10 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/error": "^2.0.0",
-    "@dotcom-tool-kit/state": "^2.0.0",
-    "@dotcom-tool-kit/types": "^2.6.1",
-    "@dotcom-tool-kit/vault": "^2.0.8",
+    "@dotcom-tool-kit/error": "^2.0.1",
+    "@dotcom-tool-kit/state": "^2.0.1",
+    "@dotcom-tool-kit/types": "^2.6.2",
+    "@dotcom-tool-kit/vault": "^2.0.9",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1"
   },
