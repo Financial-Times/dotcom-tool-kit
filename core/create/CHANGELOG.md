@@ -35,6 +35,13 @@
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
     * dotcom-tool-kit bumped from ^2.3.4 to ^2.3.5
 
+## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.2.0...create-v2.3.0) (2022-11-10)
+
+
+### Features
+
+* **core:** add component option to migration script ([7ad0a44](https://github.com/Financial-Times/dotcom-tool-kit/commit/7ad0a448436b9cc1b284098a439a2e43e7a4ecbd))
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.1.5...create-v2.2.0) (2022-11-09)
 
 
