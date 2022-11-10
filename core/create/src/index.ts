@@ -70,7 +70,8 @@ function hasToolKitConflicts(error: unknown): boolean {
 async function runTasksWithLogger<T, U>(
   wait: Promise<T>,
   run: (interim: T) => Promise<U>,
-  label: string
+  label: string,
+  allowConflicts: boolean
 ): Promise<U> {
   const labels: labels = {
     waiting: `not ${label} yet`,
@@ -91,7 +92,7 @@ async function runTasksWithLogger<T, U>(
     const loggerError = error as LoggerError
     // hack to suppress error when installHooks promise fails seeing as it's
     // recoverable
-    if (hasToolKitConflicts(error)) {
+    if (allowConflicts && hasToolKitConflicts(error)) {
       logger.log(id, { status: 'done', message: 'finished installing hooks, but found conflicts' })
     } else {
       logger.log(id, {
@@ -255,7 +256,7 @@ async function executeMigration(deleteConfig: boolean, addEslintConfig: boolean)
     () => winstonLogger
   )
 
-  return runTasksWithLogger(initialTasks, installHooks, 'installing Tool Kit hooks')
+  return runTasksWithLogger(initialTasks, installHooks, 'installing Tool Kit hooks', true)
 }
 
 async function handleTaskConflict(
@@ -314,7 +315,7 @@ sound alright?`
     // Clear config cache now that config has been updated
     clearConfigCache()
 
-    return runTasksWithLogger(configPromise, installHooks, 'installing Tool Kit hooks again')
+    return runTasksWithLogger(configPromise, installHooks, 'installing Tool Kit hooks again', false)
   }
 }
 
