@@ -35,6 +35,14 @@
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
     * dotcom-tool-kit bumped from ^2.3.4 to ^2.3.5
 
+### [2.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.3.0...create-v2.3.1) (2022-11-10)
+
+
+### Bug Fixes
+
+* **create:** be explicit if second installation attempt fails ([c3c9b64](https://github.com/Financial-Times/dotcom-tool-kit/commit/c3c9b643249f615f1c265a946bd2ccfc435e882e))
+* **create:** clear cache from correct cosmiconfig object ([0930d6f](https://github.com/Financial-Times/dotcom-tool-kit/commit/0930d6fd2d4a1ed2f54ffa2743a7b48ce11041e1))
+
 ## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.2.0...create-v2.3.0) (2022-11-10)
 
 
