@@ -1,0 +1,3 @@
+plugins:
+  - '@dotcom-tool-kit/npm'
+  - '@dotcom-tool-kit/circleci-npm'

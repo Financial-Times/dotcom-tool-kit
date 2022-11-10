@@ -1,0 +1,26 @@
+{
+  "name": "@dotcom-tool-kit/component",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "plugins/component"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/component",
+  "files": [
+    ".toolkitrc.yml"
+  ],
+  "peerDependencies": {
+    "dotcom-tool-kit": "2.x"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/circleci-npm": "^2.0.9",
+    "@dotcom-tool-kit/npm": "^2.0.9"
+  }
+}

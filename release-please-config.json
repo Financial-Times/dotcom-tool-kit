@@ -25,6 +25,7 @@
     "plugins/circleci": {},
     "plugins/circleci-heroku": {},
     "plugins/circleci-npm": {},
+    "plugins/component": {},
     "plugins/eslint": {},
     "plugins/frontend-app": {},
     "plugins/heroku": {},
