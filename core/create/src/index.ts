@@ -6,7 +6,7 @@ import loadPackageJson from '@financial-times/package-json'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
 import { ValidConfig } from 'dotcom-tool-kit/lib/config'
-import { explorer } from 'dotcom-tool-kit/lib/rc-file'
+import type { cosmiconfig } from 'cosmiconfig'
 import { promises as fs, existsSync } from 'fs'
 import * as yaml from 'js-yaml'
 import partition from 'lodash.partition'
@@ -42,6 +42,14 @@ function installHooks(logger: typeof winstonLogger) {
   return (importCwd('dotcom-tool-kit/lib/install') as {
     default: typeof installHooksType
   }).default(logger)
+}
+
+function clearConfigCache() {
+  // we need to import explorer from the app itself instead of npx as this is
+  // the object used by installHooks()
+  return (importCwd('dotcom-tool-kit/lib/rc-file') as {
+    explorer: ReturnType<typeof cosmiconfig>
+  }).explorer.clearSearchCache()
 }
 
 function hasToolKitConflicts(error: unknown): boolean {
@@ -304,7 +312,7 @@ sound alright?`
       `recreating ${styles.filepath('.toolkitrc.yml')}`
     )
     // Clear config cache now that config has been updated
-    explorer.clearSearchCache()
+    clearConfigCache()
 
     return runTasksWithLogger(configPromise, installHooks, 'installing Tool Kit hooks again')
   }
