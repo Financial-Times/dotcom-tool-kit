@@ -5,8 +5,8 @@ import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import loadPackageJson from '@financial-times/package-json'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { exec as _exec } from 'child_process'
-import { ValidConfig } from 'dotcom-tool-kit/lib/config'
-import { explorer } from 'dotcom-tool-kit/lib/rc-file'
+import type { ValidConfig } from 'dotcom-tool-kit/lib/config'
+import type { cosmiconfig } from 'cosmiconfig'
 import { promises as fs, existsSync } from 'fs'
 import * as yaml from 'js-yaml'
 import partition from 'lodash.partition'
@@ -16,7 +16,7 @@ import path from 'path'
 import prompt from 'prompts'
 import { promisify } from 'util'
 import { Logger, labels, LoggerError } from './logger'
-import installHooksType from 'dotcom-tool-kit/lib/install'
+import type installHooksType from 'dotcom-tool-kit/lib/install'
 import importCwd from 'import-cwd'
 
 const exec = promisify(_exec)
@@ -44,6 +44,14 @@ function installHooks(logger: typeof winstonLogger) {
   }).default(logger)
 }
 
+function clearConfigCache() {
+  // we need to import explorer from the app itself instead of npx as this is
+  // the object used by installHooks()
+  return (importCwd('dotcom-tool-kit/lib/rc-file') as {
+    explorer: ReturnType<typeof cosmiconfig>
+  }).explorer.clearSearchCache()
+}
+
 function hasToolKitConflicts(error: unknown): boolean {
   try {
     // we need to import hasToolkitConflicts from the app itself instead of npx
@@ -62,7 +70,8 @@ function hasToolKitConflicts(error: unknown): boolean {
 async function runTasksWithLogger<T, U>(
   wait: Promise<T>,
   run: (interim: T) => Promise<U>,
-  label: string
+  label: string,
+  allowConflicts: boolean
 ): Promise<U> {
   const labels: labels = {
     waiting: `not ${label} yet`,
@@ -83,7 +92,7 @@ async function runTasksWithLogger<T, U>(
     const loggerError = error as LoggerError
     // hack to suppress error when installHooks promise fails seeing as it's
     // recoverable
-    if (hasToolKitConflicts(error)) {
+    if (allowConflicts && hasToolKitConflicts(error)) {
       logger.log(id, { status: 'done', message: 'finished installing hooks, but found conflicts' })
     } else {
       logger.log(id, {
@@ -247,7 +256,7 @@ async function executeMigration(deleteConfig: boolean, addEslintConfig: boolean)
     () => winstonLogger
   )
 
-  return runTasksWithLogger(initialTasks, installHooks, 'installing Tool Kit hooks')
+  return runTasksWithLogger(initialTasks, installHooks, 'installing Tool Kit hooks', true)
 }
 
 async function handleTaskConflict(
@@ -304,9 +313,9 @@ sound alright?`
       `recreating ${styles.filepath('.toolkitrc.yml')}`
     )
     // Clear config cache now that config has been updated
-    explorer.clearSearchCache()
+    clearConfigCache()
 
-    return runTasksWithLogger(configPromise, installHooks, 'installing Tool Kit hooks again')
+    return runTasksWithLogger(configPromise, installHooks, 'installing Tool Kit hooks again', false)
   }
 }
 
