@@ -1,6 +1,6 @@
 {
   "core/cli": "2.3.6",
-  "core/create": "2.3.0",
+  "core/create": "2.3.1",
   "lib/error": "2.0.1",
   "lib/logger": "2.1.2",
   "lib/options": "2.0.9",
