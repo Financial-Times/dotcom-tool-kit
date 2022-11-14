@@ -9,3 +9,4 @@ node_modules
 *.tsbuildinfo
 /.toolkitstate
 coverage
+/.vscode

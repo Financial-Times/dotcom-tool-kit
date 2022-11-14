@@ -22,6 +22,8 @@ const tagFilter = { filters: { tags: { only: `${semVerRegex}` } } }
 
 const isAutomatedConfig = (config: string): boolean => config.startsWith(automatedComment)
 
+const isNotToolKitConfig = (config: string): boolean => !config.includes('tool-kit')
+
 const hasJob = (expectedJob: string, jobs: NonNullable<Workflow['jobs']>): boolean =>
   jobs.some(
     (job) =>
@@ -115,6 +117,19 @@ export default abstract class CircleCiConfigHook extends Hook<CircleCIState> {
 
   async commitInstall(state: CircleCIState): Promise<void> {
     const rawConfig = await this.getCircleConfig()
+
+    if (rawConfig && isNotToolKitConfig(rawConfig)) {
+      throw new ToolKitError(
+        `Your project has an existing CircleCI config file which doesn't contain a ${styles.heading(
+          'tool-kit'
+        )} workflow.
+If you would like a Tool Kit configured CircleCI config file to be generated for you please delete your existing CircleCI ${styles.filepath(
+          'config.yml'
+        )} and re-run:
+${styles.code('npx dotcom-tool-kit --install')}`
+      )
+    }
+
     if (rawConfig && !isAutomatedConfig(rawConfig)) {
       const config = YAML.parse(rawConfig)
       const { jobs, nightlyJobs } = getWorkflowJobs(config)
