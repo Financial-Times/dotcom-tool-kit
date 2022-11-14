@@ -10,6 +10,9 @@ plugins:
   - '@dotcom-tool-kit/pa11y'
 
 hooks:
+  run:local:
+    - Nodemon
+    - NextRouter
   git:precommit:
     - SecretSquirrel
     - LintStaged
