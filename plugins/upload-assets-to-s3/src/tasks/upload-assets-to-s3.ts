@@ -15,8 +15,8 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
   static description = ''
 
   static defaultOptions: UploadAssetsToS3Options = {
-    accessKeyId: process.env.aws_access_hashed_assets || '',
-    secretAccessKey: process.env.aws_secret_hashed_assets || '',
+    accessKeyId: 'aws_access_hashed_assets',
+    secretAccessKey: 'aws_secret_hashed_assets',
     directory: 'public',
     reviewBucket: ['ft-next-hashed-assets-preview'],
     prodBucket: ['ft-next-hashed-assets-prod', 'ft-next-hashed-assets-prod-us'],
@@ -82,10 +82,14 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
     const extensions = options.extensions.includes(',') ? `{${options.extensions}}` : options.extensions
     const globFile = `**/*${extensions}`
     const files = glob.sync(globFile, { cwd: options.directory })
-
     const s3 = new aws.S3({
-      accessKeyId: options.accessKeyId,
-      secretAccessKey: options.secretAccessKey
+      // fallback to default value for accessKeyId if neither accessKeyIdEnvVar or accessKeyId have been provided as options
+      accessKeyId:
+        /* eslint-disable-next-line */
+        process.env[options.accessKeyIdEnvVar ?? options.accessKeyId!],
+      secretAccessKey:
+        /* eslint-disable-next-line */
+        process.env[options.secretAccessKeyEnvVar ?? options.secretAccessKey!]
     })
 
     await Promise.all(files.map((file) => this.uploadFile(file, options, s3)))
