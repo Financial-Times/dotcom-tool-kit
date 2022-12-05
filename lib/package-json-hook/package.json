@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@financial-times/package-json": "^3.0.0",
+    "lodash": "^4.17.21",
     "tslib": "^2.3.1"
   },
   "repository": {
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/package-json-hook",
   "devDependencies": {
     "@jest/globals": "^27.4.6",
+    "@types/lodash": "^4.14.185",
     "winston": "^3.5.1"
   },
   "files": [

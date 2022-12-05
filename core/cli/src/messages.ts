@@ -18,14 +18,14 @@ ${conflicts.map(formatTaskConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatHookConflict = (conflict: Conflict<Hook>): string =>
+const formatHookConflict = (conflict: Conflict<Hook<unknown>>): string =>
   `- ${s.hook(conflict.conflicting[0].id || 'unknown event')} ${s.dim(
     'from plugins'
   )} ${conflict.conflicting
     .map((task) => s.plugin(task.plugin ? task.plugin.id : 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatHookConflicts = (conflicts: Conflict<Hook>[]): string => `${s.heading(
+export const formatHookConflicts = (conflicts: Conflict<Hook<unknown>>[]): string => `${s.heading(
   'There are multiple plugins that include the same hooks'
 )}:
 ${conflicts.map(formatHookConflict).join('\n')}
@@ -107,7 +107,7 @@ ${
 `
 
 export const formatUninstalledHooks = (
-  uninstalledHooks: Hook[]
+  uninstalledHooks: Hook<unknown>[]
 ): string => `These hooks aren't installed into your app:
 
 ${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join('\n')}

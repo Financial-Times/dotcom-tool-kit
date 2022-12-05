@@ -1,13 +1,14 @@
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import { promises as fs } from 'fs'
-import { PackageJsonScriptHook } from '../src'
+import { PackageJsonHelper } from '../src'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger
 
 describe('package.json hook', () => {
-  class TestHook extends PackageJsonScriptHook {
+  class TestHook extends PackageJsonHelper {
+    field: string | string[] = 'scripts'
     key = 'test-hook'
     hook = 'test:hook'
   }
@@ -52,7 +53,8 @@ describe('package.json hook', () => {
 
       try {
         const hook = new TestHook(logger)
-        await hook.install()
+        const state = await hook.install()
+        await hook.commitInstall(state)
 
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
@@ -62,8 +64,8 @@ describe('package.json hook', () => {
       }
     })
 
-    it('should prepend hook to a call with an existing hook', async () => {
-      const base = path.join(__dirname, 'files', 'existing-hook')
+    it(`should append trailingString field`, async () => {
+      const base = path.join(__dirname, 'files', 'without-hook')
 
       const pkgPath = path.join(base, 'package.json')
       const originalJson = await fs.readFile(pkgPath, 'utf-8')
@@ -71,12 +73,42 @@ describe('package.json hook', () => {
       process.chdir(base)
 
       try {
-        const hook = new TestHook(logger)
-        await hook.install()
+        class TestAppendHook extends TestHook {
+          trailingString = '--'
+        }
+
+        const hook = new TestAppendHook(logger)
+        const state = await hook.install()
+        await hook.commitInstall(state)
 
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
-        expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook another:hook')
+        expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook --')
+      } finally {
+        await fs.writeFile(pkgPath, originalJson)
+      }
+    })
+
+    it(`should allow nested field property`, async () => {
+      const base = path.join(__dirname, 'files', 'without-hook')
+
+      const pkgPath = path.join(base, 'package.json')
+      const originalJson = await fs.readFile(pkgPath, 'utf-8')
+
+      process.chdir(base)
+
+      try {
+        class TestNestedHook extends TestHook {
+          field = ['scripts', 'nested']
+        }
+
+        const hook = new TestNestedHook(logger)
+        const state = await hook.install()
+        await hook.commitInstall(state)
+
+        const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
+
+        expect(packageJson).toHaveProperty(['scripts', 'nested', 'test-hook'], 'dotcom-tool-kit test:hook')
       } finally {
         await fs.writeFile(pkgPath, originalJson)
       }

@@ -30,7 +30,7 @@ export interface RawConfig {
   tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
   hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
-  hooks: { [id: string]: Hook | Conflict<Hook> }
+  hooks: { [id: string]: Hook<unknown> | Conflict<Hook<unknown>> }
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
@@ -41,7 +41,7 @@ export interface ValidConfig extends ValidPluginsConfig {
   tasks: { [id: string]: TaskClass }
   hookTasks: { [id: string]: HookTask }
   options: { [id: string]: PluginOptions }
-  hooks: { [id: string]: Hook }
+  hooks: { [id: string]: Hook<unknown> }
 }
 
 const coreRoot = path.resolve(__dirname, '../')
