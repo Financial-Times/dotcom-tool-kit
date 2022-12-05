@@ -1,8 +1,10 @@
 import { SchemaOutput } from '../schema'
 
 export const UploadAssetsToS3Schema = {
-  accessKeyId: 'string',
-  secretAccessKey: 'string',
+  accessKeyIdEnvVar: 'string?',
+  secretAccessKeyEnvVar: 'string?',
+  accessKeyId: 'string?', // @deprecated: use accessKeyIdEnvVar instead
+  secretAccessKey: 'string?', // @deprecated: use secretAccessKeyEnvVar instead
   directory: 'string',
   reviewBucket: 'array.string',
   prodBucket: 'array.string',
