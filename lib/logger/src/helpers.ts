@@ -55,7 +55,7 @@ export function hookConsole(logger: Logger, processName: string): () => void {
         return true
       }
     }
-    
+
     return originalWrite
   }
 
@@ -95,9 +95,7 @@ export function hookFork(
           decodeStrings: false,
           readableObjectMode: true,
           transform: (data, _enc, callback) => {
-            // Put messages on a new line so we don't break fancy layouts, e.g.,
-            // tables, with our metadata
-            callback(null, { level, message: '\n' + (data.endsWith('\n') ? data.slice(0, -1) : data) })
+            callback(null, { level, message: data.endsWith('\n') ? data.slice(0, -1) : data })
           }
         })
       )
