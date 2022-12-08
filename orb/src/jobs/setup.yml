@@ -1,14 +1,12 @@
 parameters:
-  node-version:
-    default: '16.14'
-    type: string
+  executor:
+    default: default
+    type: executor
   npm-version:
     default: '8'
     type: string
 
-executor:
-  name: node/default
-  tag: <<parameters.node-version>>
+executor: << parameters.executor >>
 
 steps:
   - attach-workspace

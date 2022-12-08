@@ -69,6 +69,7 @@ import type { PrettierOptions } from './schema/prettier'
 import type { LintStagedNpmOptions } from './schema/lint-staged-npm'
 import type { BabelOptions } from './schema/babel'
 import type { CircleCIOptions } from './schema/circleci'
+import type { CypressOptions } from './schema/cypress'
 
 export type Options = {
   '@dotcom-tool-kit/eslint'?: ESLintOptions
@@ -85,4 +86,5 @@ export type Options = {
   '@dotcom-tool-kit/lint-staged-npm'?: LintStagedNpmOptions
   '@dotcom-tool-kit/babel'?: BabelOptions
   '@dotcom-tool-kit/circleci'?: CircleCIOptions
+  '@dotcom-tool-kit/cypress'?: CypressOptions
 }

@@ -1,7 +1,8 @@
 import { SchemaOutput } from '../schema'
 
 export const CircleCISchema = {
-  nodeVersion: 'string?'
+  nodeVersion: 'string?',
+  cypressImage: 'string?'
 } as const
 export type CircleCIOptions = SchemaOutput<typeof CircleCISchema>
 

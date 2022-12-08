@@ -1,0 +1,5 @@
+hooks:
+  'test:review': CypressCi
+  'test:staging': CypressCi
+  'e2e:local': CypressLocal
+

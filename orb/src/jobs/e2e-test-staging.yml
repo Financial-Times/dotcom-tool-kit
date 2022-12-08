@@ -1,11 +1,9 @@
 parameters:
-  node-version:
-    default: "16.14-browsers"
-    type: string
+  executor:
+    default: default
+    type: executor
 
-executor:
-  name: node/default
-  tag: <<parameters.node-version>>
+executor: << parameters.executor >>
 
 steps:
   - attach-workspace
