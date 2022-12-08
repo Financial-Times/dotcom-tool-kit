@@ -16,11 +16,11 @@
   "description": "",
   "devDependencies": {
     "@dotcom-tool-kit/circleci-heroku": "^2.0.0",
-    "@dotcom-tool-kit/circleci-npm": "^2.0.0",
+    "@dotcom-tool-kit/circleci-npm": "^3.0.0",
     "@dotcom-tool-kit/eslint": "^2.0.0",
     "@dotcom-tool-kit/frontend-app": "^2.0.0",
     "@dotcom-tool-kit/jest": "^2.0.0",
-    "@dotcom-tool-kit/lint-staged": "^2.0.0",
+    "@dotcom-tool-kit/lint-staged": "^3.0.0",
     "@dotcom-tool-kit/lint-staged-npm": "^2.0.0",
     "@dotcom-tool-kit/mocha": "^2.0.0",
     "@dotcom-tool-kit/n-test": "^2.0.0",
