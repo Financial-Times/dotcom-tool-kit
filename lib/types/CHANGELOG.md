@@ -6,6 +6,26 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.0 to ^2.1.1
 
+## [2.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.6.2...types-v2.7.0) (2022-12-08)
+
+
+### Features
+
+* **circleci-heroku:** add support for using a Cypress docker image ([59f914a](https://github.com/Financial-Times/dotcom-tool-kit/commit/59f914aefdb7beae5e8ea0fac314efbc7194d802))
+* **circleci:** only print jobs that are missing in error ([c75c3ad](https://github.com/Financial-Times/dotcom-tool-kit/commit/c75c3ad6d91fbc5779d2a3fbed853f474babfad0))
+* **cli:** allow state to be shared between install hooks ([aaa5331](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaa533123a48fe9168ec666edeabdd7a8c7428a6))
+* **cypress:** add plugin for running cypress locally and in the CI ([870a50b](https://github.com/Financial-Times/dotcom-tool-kit/commit/870a50b107bfa1f1846d35ba074fd3088cc63563))
+
+
+### Bug Fixes
+
+* **upload-assets-to-s3:** handle AWS keys correctly ([a52db39](https://github.com/Financial-Times/dotcom-tool-kit/commit/a52db39253108cd53494a3cffea043e8e89bdbf7))
+
+
+### Performance Improvements
+
+* improve lodash tree shaking ([454f9cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/454f9cd9984162141c7318165d723593295db678))
+
 ### [2.6.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.6.1...types-v2.6.2) (2022-11-09)
 
 

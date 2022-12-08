@@ -64,6 +64,14 @@
     * @dotcom-tool-kit/lint-staged bumped from ^2.1.7 to ^2.1.8
     * @dotcom-tool-kit/options bumped from ^2.0.7 to ^2.0.8
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/husky-npm bumped from ^2.2.1 to ^3.0.0
+    * @dotcom-tool-kit/lint-staged bumped from ^2.1.9 to ^3.0.0
+    * @dotcom-tool-kit/options bumped from ^2.0.9 to ^2.0.10
+
 ### [2.0.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v2.0.9...lint-staged-npm-v2.0.10) (2022-11-09)
 
 

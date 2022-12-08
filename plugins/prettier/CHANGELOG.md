@@ -50,6 +50,21 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.5.1 to ^2.6.0
 
+### [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v2.1.0...prettier-v2.1.1) (2022-12-08)
+
+
+### Bug Fixes
+
+* **prettier:** remove config for json files ([b6149df](https://github.com/Financial-Times/dotcom-tool-kit/commit/b6149df746449662577225c264fc93654cf222c9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/package-json-hook bumped from ^2.1.1 to ^3.0.0
+    * @dotcom-tool-kit/types bumped from ^2.6.2 to ^2.7.0
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v2.0.9...prettier-v2.1.0) (2022-11-09)
 
 

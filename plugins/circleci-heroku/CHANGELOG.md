@@ -73,6 +73,26 @@
     * @dotcom-tool-kit/circleci bumped from ^2.1.5 to ^2.1.6
     * @dotcom-tool-kit/heroku bumped from ^2.0.9 to ^2.0.10
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v2.0.12...circleci-heroku-v2.1.0) (2022-12-08)
+
+
+### Features
+
+* **circleci-heroku:** add support for using a Cypress docker image ([59f914a](https://github.com/Financial-Times/dotcom-tool-kit/commit/59f914aefdb7beae5e8ea0fac314efbc7194d802))
+
+
+### Bug Fixes
+
+* **circleci-heroku:** run provision step even for nori/renovate builds ([6f48e8c](https://github.com/Financial-Times/dotcom-tool-kit/commit/6f48e8c5d7cb39296222487b34617f491fc4c20e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^2.1.7 to ^3.0.0
+    * @dotcom-tool-kit/heroku bumped from ^2.1.0 to ^2.1.1
+
 ### [2.0.12](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v2.0.11...circleci-heroku-v2.0.12) (2022-11-09)
 
 

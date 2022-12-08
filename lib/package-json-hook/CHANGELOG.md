@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v2.1.1...package-json-hook-v3.0.0) (2022-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **package-json-hook:** share state for package.json hook installers
+
+### Features
+
+* **package-json-hook:** share state for package.json hook installers ([0c8729f](https://github.com/Financial-Times/dotcom-tool-kit/commit/0c8729fc80f9b423189a2ae0e6aa87382b2663a8))
+
 ### [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v2.1.0...package-json-hook-v2.1.1) (2022-11-09)
 
 
