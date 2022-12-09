@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v2.0.1...orb-v3.0.0) (2022-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **orb:** allow the executor to be set for a job
+
+### Features
+
+* **orb:** allow the executor to be set for a job ([3176451](https://github.com/Financial-Times/dotcom-tool-kit/commit/3176451e5dfe93737ef21503d02a2da77d6d87a2))
+
 ### [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v2.0.0...orb-v2.0.1) (2022-08-15)
 
 

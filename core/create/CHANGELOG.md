@@ -35,6 +35,22 @@
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
     * dotcom-tool-kit bumped from ^2.3.4 to ^2.3.5
 
+### [2.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.3.1...create-v2.3.2) (2022-12-08)
+
+
+### Performance Improvements
+
+* improve lodash tree shaking ([454f9cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/454f9cd9984162141c7318165d723593295db678))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.6.2 to ^2.7.0
+  * devDependencies
+    * dotcom-tool-kit bumped from ^2.3.6 to ^2.4.0
+
 ### [2.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.3.0...create-v2.3.1) (2022-11-10)
 
 

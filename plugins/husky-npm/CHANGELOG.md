@@ -1,5 +1,23 @@
 # Changelog
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v2.2.1...husky-npm-v3.0.0) (2022-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **package-json-hook:** share state for package.json hook installers
+
+### Features
+
+* **package-json-hook:** share state for package.json hook installers ([0c8729f](https://github.com/Financial-Times/dotcom-tool-kit/commit/0c8729fc80f9b423189a2ae0e6aa87382b2663a8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/package-json-hook bumped from ^2.1.1 to ^3.0.0
+
 ### [2.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v2.2.0...husky-npm-v2.2.1) (2022-11-09)
 
 

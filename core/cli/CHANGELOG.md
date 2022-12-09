@@ -67,6 +67,38 @@
     * @dotcom-tool-kit/mocha bumped from ^2.1.4 to ^2.1.5
     * @dotcom-tool-kit/n-test bumped from ^2.1.2 to ^2.1.3
 
+## [2.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.3.6...dotcom-tool-kit-v2.4.0) (2022-12-08)
+
+
+### Features
+
+* **cli:** allow state to be shared between install hooks ([aaa5331](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaa533123a48fe9168ec666edeabdd7a8c7428a6))
+
+
+### Performance Improvements
+
+* improve lodash tree shaking ([454f9cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/454f9cd9984162141c7318165d723593295db678))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^2.0.9 to ^2.0.10
+    * @dotcom-tool-kit/types bumped from ^2.6.2 to ^2.7.0
+  * devDependencies
+    * @dotcom-tool-kit/backend-app bumped from ^2.0.12 to ^2.0.13
+    * @dotcom-tool-kit/heroku bumped from ^2.1.0 to ^2.1.1
+    * @dotcom-tool-kit/webpack bumped from ^2.1.8 to ^2.1.9
+    * @dotcom-tool-kit/babel bumped from ^2.0.9 to ^2.0.10
+    * @dotcom-tool-kit/circleci bumped from ^2.1.7 to ^3.0.0
+    * @dotcom-tool-kit/npm bumped from ^2.0.10 to ^2.0.11
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.0.12 to ^2.1.0
+    * @dotcom-tool-kit/frontend-app bumped from ^2.1.10 to ^2.1.11
+    * @dotcom-tool-kit/eslint bumped from ^2.2.2 to ^2.2.3
+    * @dotcom-tool-kit/mocha bumped from ^2.1.6 to ^2.1.7
+    * @dotcom-tool-kit/n-test bumped from ^2.1.4 to ^2.1.5
+
 ### [2.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.3.5...dotcom-tool-kit-v2.3.6) (2022-11-09)
 
 
