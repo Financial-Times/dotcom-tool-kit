@@ -13,7 +13,7 @@ const majorOrbVersion = '2'
 
 interface CircleCIState {
   jobs: Record<string, JobConfig>
-  nightlyJobs: Record<string, JobConfig>
+  nightlyJobs: Record<string, Omit<JobConfig, 'filters'>>
   runOnVersionTags: boolean
   additionalFields: Record<string, unknown>
 }
@@ -106,7 +106,11 @@ export default abstract class CircleCiConfigHook extends Hook<CircleCIState> {
 
     state.jobs[this.job] = this.jobOptions
     if (this.addToNightly) {
-      state.nightlyJobs[this.job] = this.jobOptions
+      const jobOptionsWithoutFilters = {
+        ...this.jobOptions,
+        filters: undefined
+      }
+      state.nightlyJobs[this.job] = jobOptionsWithoutFilters
     }
     if (this.runOnVersionTags) {
       state.runOnVersionTags = true
