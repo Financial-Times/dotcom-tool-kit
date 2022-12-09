@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/babel",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -19,7 +19,7 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.1",
     "@dotcom-tool-kit/logger": "^2.1.2",
-    "@dotcom-tool-kit/types": "^2.6.2",
+    "@dotcom-tool-kit/types": "^2.7.0",
     "fast-glob": "^3.2.11",
     "tslib": "^2.3.1"
   },

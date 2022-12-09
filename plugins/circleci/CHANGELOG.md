@@ -44,6 +44,32 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v2.1.7...circleci-v3.0.0) (2022-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** share state between circleci install hooks
+
+### Features
+
+* **circleci-heroku:** add support for using a Cypress docker image ([59f914a](https://github.com/Financial-Times/dotcom-tool-kit/commit/59f914aefdb7beae5e8ea0fac314efbc7194d802))
+* **circleci:** add new error wording to circleci plugin ([5552c67](https://github.com/Financial-Times/dotcom-tool-kit/commit/5552c675720eea7df76c3434849e8487055296d9))
+* **circleci:** only print jobs that are missing in error ([c75c3ad](https://github.com/Financial-Times/dotcom-tool-kit/commit/c75c3ad6d91fbc5779d2a3fbed853f474babfad0))
+* **circleci:** share state between circleci install hooks ([fb04ccc](https://github.com/Financial-Times/dotcom-tool-kit/commit/fb04ccca5d5681609ce273a62f54de1f2cf86082))
+
+
+### Performance Improvements
+
+* improve lodash tree shaking ([454f9cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/454f9cd9984162141c7318165d723593295db678))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.6.1 to ^2.7.0
+
 ### [2.1.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v2.1.6...circleci-v2.1.7) (2022-11-09)
 
 

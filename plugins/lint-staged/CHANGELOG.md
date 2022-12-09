@@ -50,6 +50,25 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v2.1.9...lint-staged-v3.0.0) (2022-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **package-json-hook:** share state for package.json hook installers
+
+### Features
+
+* **package-json-hook:** share state for package.json hook installers ([0c8729f](https://github.com/Financial-Times/dotcom-tool-kit/commit/0c8729fc80f9b423189a2ae0e6aa87382b2663a8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/package-json-hook bumped from ^2.1.1 to ^3.0.0
+    * @dotcom-tool-kit/types bumped from ^2.6.2 to ^2.7.0
+
 ### [2.1.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v2.1.8...lint-staged-v2.1.9) (2022-11-09)
 
 

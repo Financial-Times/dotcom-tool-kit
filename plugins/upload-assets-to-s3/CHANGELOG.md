@@ -50,6 +50,20 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+### [2.0.11](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v2.0.10...upload-assets-to-s3-v2.0.11) (2022-12-08)
+
+
+### Bug Fixes
+
+* **upload-assets-to-s3:** handle AWS keys correctly ([a52db39](https://github.com/Financial-Times/dotcom-tool-kit/commit/a52db39253108cd53494a3cffea043e8e89bdbf7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.6.2 to ^2.7.0
+
 ### [2.0.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v2.0.9...upload-assets-to-s3-v2.0.10) (2022-11-09)
 
 
