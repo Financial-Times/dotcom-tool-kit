@@ -3,6 +3,9 @@
   "version": "0.0.0-development",
   "description": "",
   "main": "lib",
+  "bin": {
+    "dotcom-tool-kit": "./bin/run"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

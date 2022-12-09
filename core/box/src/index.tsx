@@ -4,7 +4,7 @@ import React from 'react'
 import winston from 'winston'
 import { TabbedView } from './components/TabbedView'
 
-async function main() {
+export async function main(): Promise<void> {
   const logger = winston.createLogger({ silent: true })
   const config = await loadConfig(logger)
 
@@ -14,5 +14,3 @@ async function main() {
     </React.StrictMode>
   )
 }
-
-main()
