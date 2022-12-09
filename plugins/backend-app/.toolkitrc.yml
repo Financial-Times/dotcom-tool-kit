@@ -2,6 +2,8 @@ plugins:
   - '@dotcom-tool-kit/npm'
   - '@dotcom-tool-kit/circleci-heroku'
   - '@dotcom-tool-kit/node'
+  - '@dotcom-tool-kit/husky-npm'
+  - '@dotcom-tool-kit/secret-squirrel'
 
 hooks:
   'run:local':
