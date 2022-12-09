@@ -1,0 +1,88 @@
+import { styles } from '@dotcom-tool-kit/logger'
+import type { PackageJson } from '@financial-times/package-json'
+import { existsSync, promises as fs } from 'fs'
+import path from 'path'
+import prompt from 'prompts'
+
+type PromptNames = 'preset' | 'additional' | 'addEslintConfig' | 'deleteConfig' | 'uninstall'
+
+export interface MainParams {
+  packageJson: PackageJson
+  circleConfigPath: string
+  eslintConfigPath: string
+}
+
+export default async ({
+  packageJson,
+  circleConfigPath,
+  eslintConfigPath
+}: MainParams): Promise<prompt.Answers<PromptNames>> =>
+  prompt(
+    [
+      {
+        name: 'preset',
+        type: 'select',
+        message: `What kind of app is ${styles.app(packageJson.getField('name'))}?`,
+        choices: [
+          { title: 'A user-facing (frontend) app', value: 'frontend-app' },
+          { title: 'A service (backend) app', value: 'backend-app' },
+          { title: 'An npm component', value: 'component' }
+        ]
+      },
+      {
+        name: 'additional',
+        type: 'multiselect',
+        message: 'Would you like to install any additional plugins?',
+        choices: [
+          {
+            title: 'Jest',
+            value: 'jest',
+            description: 'a delightful JavaScript Testing Framework with a focus on simplicity'
+          },
+          {
+            title: 'Mocha',
+            value: 'mocha',
+            description:
+              'a feature-rich JavaScript test framework, making asynchronous testing simple and fun'
+          },
+          { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' },
+          { title: 'Prettier', value: 'prettier', description: 'an opinionated code formatter' },
+          { title: 'lint-staged', value: 'lint-staged', description: 'run linters on git staged files' },
+          {
+            title: 'Upload assets to S3',
+            value: 'upload-assets-to-s3',
+            description: "required this to make your app's CSS and JS available in production"
+          }
+        ].map((choice) => ({ ...choice, title: styles.plugin(choice.title) }))
+      },
+      {
+        name: 'addEslintConfig',
+        // Only show prompt if eslint was selected and there isn't a eslint config file already
+        type: (prev) => (prev.includes('eslint') && !existsSync(eslintConfigPath) ? 'confirm' : null),
+        message: `Would you like to add a default eslint config file at ${styles.filepath('./eslintrc.js')}?`
+      },
+      {
+        name: 'deleteConfig',
+        // Skip prompt if CircleCI config doesn't exist
+        type: await fs
+          .access(circleConfigPath)
+          .then(() => 'confirm' as const)
+          .catch(() => null),
+        // This .relative() call feels redundant at the moment. Maybe we can just
+        // hard-code the config path?
+        message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${styles.filepath(
+          path.relative('', circleConfigPath)
+        )}.`
+      },
+      {
+        name: 'uninstall',
+        type: 'confirm',
+        message: `Should we uninstall obsolete ${styles.app('n-gage')} and ${styles.app(
+          'n-heroku-tools'
+        )} packages?`
+      }
+    ],
+    {
+      onCancel: () => process.exit(1)
+    }
+  )
