@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "jsx": "react"
+  },
+  "references": [{ "path": "../cli" }, { "path": "../../lib/logger" }, { "path": "../../lib/types" }]
+}

@@ -8,6 +8,7 @@
   "packages": {
     "core/cli": {},
     "core/create": {},
+    "core/tool-box": {},
     "lib/error": {},
     "lib/logger": {},
     "lib/options": {},
