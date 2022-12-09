@@ -9,6 +9,7 @@ export class DeployReview extends CircleCiConfigHook {
     requires: ['tool-kit/setup', 'waiting-for-approval'],
     filters: { branches: { ignore: 'main' } }
   }
+  addToNightly = true
 }
 
 export class DeployStaging extends CircleCiConfigHook {
