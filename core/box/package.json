@@ -13,8 +13,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/logger": "file:../../lib/logger",
-    "dotcom-tool-kit": "file:../cli",
+    "@dotcom-tool-kit/logger": "^2.1.2",
+    "dotcom-tool-kit": "^2.4.0",
     "ink": "^3.2.0",
     "react": "^17.0.2",
     "winston": "^3.6.0"
@@ -34,7 +34,7 @@
     "extends": "../../package.json"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/types": "file:../../lib/types",
+    "@dotcom-tool-kit/types": "^2.7.0",
     "@types/react": "^17.0.52"
   }
 }
