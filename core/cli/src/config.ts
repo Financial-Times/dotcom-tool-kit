@@ -200,6 +200,7 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
 
   if (validate) {
     validateConfig(validPluginConfig)
+    return validPluginConfig
   }
 
   return config
