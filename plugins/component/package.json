@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/circleci-npm": "^3.0.0",
-    "@dotcom-tool-kit/npm": "^2.0.11"
+    "@dotcom-tool-kit/husky-npm": "^3.0.0",
+    "@dotcom-tool-kit/npm": "^2.0.11",
+    "@dotcom-tool-kit/secret-squirrel": "^1.0.9"
   }
 }
