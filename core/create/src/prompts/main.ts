@@ -1,20 +1,19 @@
 import { styles } from '@dotcom-tool-kit/logger'
 import type { PackageJson } from '@financial-times/package-json'
-import { existsSync, promises as fs } from 'fs'
-import path from 'path'
+import { existsSync } from 'fs'
 import prompt from 'prompts'
 
 type PromptNames = 'preset' | 'additional' | 'addEslintConfig' | 'deleteConfig' | 'uninstall'
 
 export interface MainParams {
   packageJson: PackageJson
-  circleConfigPath: string
+  originalCircleConfig?: string
   eslintConfigPath: string
 }
 
 export default async ({
   packageJson,
-  circleConfigPath,
+  originalCircleConfig,
   eslintConfigPath
 }: MainParams): Promise<prompt.Answers<PromptNames>> =>
   prompt(
@@ -64,14 +63,9 @@ export default async ({
       {
         name: 'deleteConfig',
         // Skip prompt if CircleCI config doesn't exist
-        type: await fs
-          .access(circleConfigPath)
-          .then(() => 'confirm' as const)
-          .catch(() => null),
-        // This .relative() call feels redundant at the moment. Maybe we can just
-        // hard-code the config path?
+        type: originalCircleConfig ? ('confirm' as const) : null,
         message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${styles.filepath(
-          path.relative('', circleConfigPath)
+          '.circleci/config.yml'
         )}.`
       },
       {

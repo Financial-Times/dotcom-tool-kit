@@ -15,6 +15,7 @@ import confirmationPrompt from './prompts/confirmation'
 import conflictsPrompt, { installHooks } from './prompts/conflicts'
 import mainPrompt from './prompts/main'
 import optionsPrompt from './prompts/options'
+import scheduledPipelinePrompt from './prompts/scheduledPipeline'
 
 const exec = promisify(_exec)
 
@@ -91,11 +92,12 @@ async function main() {
     options: {}
   }
 
+  const originalCircleConfig = await fs.readFile(circleConfigPath, 'utf8').catch(() => undefined)
   // Start with the initial prompt which will get most of the information we
   // need for the remainder of the execution
   const { preset, additional, addEslintConfig, deleteConfig, uninstall } = await mainPrompt({
     packageJson,
-    circleConfigPath,
+    originalCircleConfig,
     eslintConfigPath
   })
 
@@ -121,40 +123,48 @@ async function main() {
     configFile
   })
 
-  if (confirm) {
-    let config: ValidConfig | undefined
-    try {
-      // Carry out the proposed changes: install + uninstall packages, run
-      // --install logic etc.
-      config = await executeMigration(deleteConfig, addEslintConfig, configFile)
-    } catch (error) {
-      if (hasToolKitConflicts(error)) {
-        // Additional questions asked if we have any task conflicts, letting the
-        // user to specify the order they want tasks to run in.
-        config = await conflictsPrompt({
-          error: error as ToolkitErrorModule.ToolKitConflictError,
-          logger,
-          toolKitConfig,
-          configPath
-        })
-      } else {
-        throw error
-      }
-    }
-
-    // Only run final prompts if execution was successful (this also means these
-    // are skipped if the user cancels out of the conflict resolution prompt.)
-    if (config) {
-      // Give the user a chance to set any configurable options for the plugins
-      // they've installed.
-      const cancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath })
-      // Suggest they delete the old n-gage makefile after verifying all its
-      // logic has been migrated to Tool Kit.
-      if (!cancelled) {
-        await makefileHint()
-      }
+  if (!confirm) {
+    return
+  }
+  let config: ValidConfig | undefined
+  try {
+    // Carry out the proposed changes: install + uninstall packages, run
+    // --install logic etc.
+    config = await executeMigration(deleteConfig, addEslintConfig, configFile)
+  } catch (error) {
+    if (hasToolKitConflicts(error)) {
+      // Additional questions asked if we have any task conflicts, letting the
+      // user to specify the order they want tasks to run in.
+      config = await conflictsPrompt({
+        error: error as ToolkitErrorModule.ToolKitConflictError,
+        logger,
+        toolKitConfig,
+        configPath
+      })
+    } else {
+      throw error
     }
   }
+
+  // Only run final prompts if execution was successful (this also means these
+  // are skipped if the user cancels out of the conflict resolution prompt.)
+  if (!config) {
+    return
+  }
+  // Give the user a chance to set any configurable options for the plugins
+  // they've installed.
+  const cancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath })
+  if (cancelled) {
+    return
+  }
+
+  if (originalCircleConfig?.includes('triggers')) {
+    await scheduledPipelinePrompt()
+  }
+
+  // Suggest they delete the old n-gage makefile after verifying all its
+  // logic has been migrated to Tool Kit.
+  await makefileHint()
 }
 
 main().catch((error) => {
