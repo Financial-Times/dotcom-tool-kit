@@ -15,8 +15,8 @@ export default ({
   packagesToInstall,
   packagesToRemove,
   configFile
-}: ConfirmationParams): Promise<prompt.Answers<'confirm'>> =>
-  prompt({
+}: ConfirmationParams): Promise<prompt.Answers<'confirm'>> => {
+  return prompt({
     name: 'confirm',
     type: 'confirm',
     message: () => {
@@ -40,3 +40,4 @@ ${deleteConfig ? `\nregenerate ${styles.filepath('.circleci/config.yml')}\n` : '
 sound good?`
     }
   })
+}

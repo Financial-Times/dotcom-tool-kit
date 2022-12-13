@@ -15,8 +15,8 @@ export default async ({
   packageJson,
   originalCircleConfig,
   eslintConfigPath
-}: MainParams): Promise<prompt.Answers<PromptNames>> =>
-  prompt(
+}: MainParams): Promise<prompt.Answers<PromptNames>> => {
+  return prompt(
     [
       {
         name: 'preset',
@@ -80,3 +80,4 @@ export default async ({
       onCancel: () => process.exit(1)
     }
   )
+}
