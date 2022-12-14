@@ -44,6 +44,21 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+### [3.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v3.0.0...circleci-v3.0.1) (2022-12-14)
+
+
+### Bug Fixes
+
+* **circle:** remove filter job options from nightly jobs ([1c94b6a](https://github.com/Financial-Times/dotcom-tool-kit/commit/1c94b6afc6c9748e910b8d49474df1b105120db0))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
+    * @dotcom-tool-kit/types bumped from ^2.7.0 to ^2.7.1
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v2.1.7...circleci-v3.0.0) (2022-12-08)
 
 

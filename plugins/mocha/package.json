@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/mocha",
-  "version": "2.1.7",
+  "version": "2.2.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.1",
-    "@dotcom-tool-kit/logger": "^2.1.2",
-    "@dotcom-tool-kit/types": "^2.7.0",
+    "@dotcom-tool-kit/logger": "^2.2.0",
+    "@dotcom-tool-kit/types": "^2.7.1",
     "glob": "^7.1.7",
     "tslib": "^2.3.1"
   },

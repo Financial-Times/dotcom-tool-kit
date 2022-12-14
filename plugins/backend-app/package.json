@@ -1,17 +1,17 @@
 {
   "name": "@dotcom-tool-kit/backend-app",
-  "version": "2.0.13",
+  "version": "2.1.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci-heroku": "^2.1.0",
+    "@dotcom-tool-kit/circleci-heroku": "^2.2.0",
     "@dotcom-tool-kit/husky-npm": "^3.0.0",
-    "@dotcom-tool-kit/node": "^2.2.3",
-    "@dotcom-tool-kit/npm": "^2.0.11",
-    "@dotcom-tool-kit/secret-squirrel": "^1.0.9"
+    "@dotcom-tool-kit/node": "^2.2.4",
+    "@dotcom-tool-kit/npm": "^2.0.12",
+    "@dotcom-tool-kit/secret-squirrel": "^1.0.10"
   },
   "repository": {
     "type": "git",

@@ -50,6 +50,26 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.2 to ^2.7.0
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v2.1.7...mocha-v2.2.0) (2022-12-14)
+
+
+### Features
+
+* **mocha:** widen mocha dependency range and make peer ([412d7f9](https://github.com/Financial-Times/dotcom-tool-kit/commit/412d7f9001eb47f53f30d6b1f482c0047aab6cc2))
+
+
+### Bug Fixes
+
+* **mocha:** remove accidentally installed fs package ([01633ef](https://github.com/Financial-Times/dotcom-tool-kit/commit/01633ef7cb81dae339e29a7df3fa7da0d4f9611d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.1.2 to ^2.2.0
+    * @dotcom-tool-kit/types bumped from ^2.7.0 to ^2.7.1
+
 ### [2.1.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v2.1.5...mocha-v2.1.6) (2022-11-09)
 
 

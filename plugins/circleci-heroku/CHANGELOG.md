@@ -73,6 +73,21 @@
     * @dotcom-tool-kit/circleci bumped from ^2.1.5 to ^2.1.6
     * @dotcom-tool-kit/heroku bumped from ^2.0.9 to ^2.0.10
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v2.1.0...circleci-heroku-v2.2.0) (2022-12-14)
+
+
+### Features
+
+* **circleci-heroku:** add heroku-provision to Nightly workflow ([63baa6e](https://github.com/Financial-Times/dotcom-tool-kit/commit/63baa6e942ad87ef82d6804d5541bb22f8ac2c94))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^3.0.0 to ^3.0.1
+    * @dotcom-tool-kit/heroku bumped from ^2.1.1 to ^2.1.2
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v2.0.12...circleci-heroku-v2.1.0) (2022-12-08)
 
 
