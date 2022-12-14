@@ -23,7 +23,7 @@ plugins:
 |-|-|-|
 | `entry` | path to the node application | `'./server/app.js'` |
 | `useVault` | option to run the application with environment variables from Vault | `true` |
-| `ports` | allowed ports to run the application on | `[3001, 3002, 3003]` |
+| `ports` | ports to try to bind to for this application | `[3001, 3002, 3003]` |
 
 ## Tasks
 
