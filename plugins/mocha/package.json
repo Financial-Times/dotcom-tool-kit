@@ -13,9 +13,7 @@
     "@dotcom-tool-kit/error": "^2.0.1",
     "@dotcom-tool-kit/logger": "^2.1.2",
     "@dotcom-tool-kit/types": "^2.7.0",
-    "fs": "0.0.1-security",
     "glob": "^7.1.7",
-    "mocha": "^8.3.2",
     "tslib": "^2.3.1"
   },
   "repository": {
@@ -39,6 +37,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "2.x"
+    "dotcom-tool-kit": "2.x",
+    "mocha": ">=6.x <=10.x"
   }
 }
