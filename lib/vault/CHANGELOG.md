@@ -63,6 +63,13 @@
     * @dotcom-tool-kit/options bumped from ^2.0.9 to ^2.0.10
     * @dotcom-tool-kit/types bumped from ^2.6.2 to ^2.7.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^2.0.10 to ^2.0.11
+    * @dotcom-tool-kit/types bumped from ^2.7.0 to ^2.7.1
+
 ### [2.0.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/vault-v2.0.8...vault-v2.0.9) (2022-11-09)
 
 

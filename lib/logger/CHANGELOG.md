@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v2.1.2...logger-v2.2.0) (2022-12-14)
+
+
+### Features
+
+* **logger:** reduce noise created by metadata prefixes ([0321e6b](https://github.com/Financial-Times/dotcom-tool-kit/commit/0321e6b151d6c4ea9b496c2e5211860163da8a2e))
+
 ### [2.1.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v2.1.1...logger-v2.1.2) (2022-11-09)
 
 

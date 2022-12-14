@@ -7,6 +7,22 @@
     * @dotcom-tool-kit/circleci-npm bumped from ^2.0.9 to ^3.0.0
     * @dotcom-tool-kit/npm bumped from ^2.0.9 to ^2.0.11
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v2.0.1...component-v2.1.0) (2022-12-14)
+
+
+### Features
+
+* **component:** add secret-squirrel as dep ([15ed469](https://github.com/Financial-Times/dotcom-tool-kit/commit/15ed4692c8cde7ca57887f9ebebb0f1993385180))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-npm bumped from ^3.0.0 to ^3.0.1
+    * @dotcom-tool-kit/npm bumped from ^2.0.11 to ^2.0.12
+    * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.9 to ^1.0.10
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v0.1.0...component-v2.0.0) (2022-11-10)
 
 

@@ -99,6 +99,23 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.10 to ^2.0.11
     * @dotcom-tool-kit/node bumped from ^2.2.2 to ^2.2.3
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v2.0.13...backend-app-v2.1.0) (2022-12-14)
+
+
+### Features
+
+* **backend-app:** add secret-squirrel as dep ([f90c30e](https://github.com/Financial-Times/dotcom-tool-kit/commit/f90c30eb6a1c53cff064ac83d919bf2bd69b5983))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.1.0 to ^2.2.0
+    * @dotcom-tool-kit/node bumped from ^2.2.3 to ^2.2.4
+    * @dotcom-tool-kit/npm bumped from ^2.0.11 to ^2.0.12
+    * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.9 to ^1.0.10
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v1.9.0...backend-app-v2.0.0) (2022-04-19)
 
 

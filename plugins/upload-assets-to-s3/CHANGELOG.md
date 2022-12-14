@@ -50,6 +50,21 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+### [2.0.12](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v2.0.11...upload-assets-to-s3-v2.0.12) (2022-12-14)
+
+
+### Bug Fixes
+
+* **upload-assets-to-s3:** only upload files ([e4d17d9](https://github.com/Financial-Times/dotcom-tool-kit/commit/e4d17d99b4d2c0245064cd2352018f231395df00))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.1.2 to ^2.2.0
+    * @dotcom-tool-kit/types bumped from ^2.7.0 to ^2.7.1
+
 ### [2.0.11](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v2.0.10...upload-assets-to-s3-v2.0.11) (2022-12-08)
 
 
