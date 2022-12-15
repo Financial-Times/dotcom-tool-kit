@@ -70,6 +70,7 @@ import type { LintStagedNpmOptions } from './schema/lint-staged-npm'
 import type { BabelOptions } from './schema/babel'
 import type { CircleCIOptions } from './schema/circleci'
 import type { CypressOptions } from './schema/cypress'
+import type { TypeScriptOptions } from './schema/typescript'
 
 export type Options = {
   '@dotcom-tool-kit/eslint'?: ESLintOptions
@@ -87,4 +88,5 @@ export type Options = {
   '@dotcom-tool-kit/babel'?: BabelOptions
   '@dotcom-tool-kit/circleci'?: CircleCIOptions
   '@dotcom-tool-kit/cypress'?: CypressOptions
+  '@dotcom-tool-kit/typescript'?: TypeScriptOptions
 }

@@ -43,6 +43,7 @@
     "plugins/pa11y": {},
     "plugins/prettier": {},
     "plugins/secret-squirrel": {},
+    "plugins/typescript": {},
     "plugins/upload-assets-to-s3": {},
     "plugins/webpack": {}
   }
