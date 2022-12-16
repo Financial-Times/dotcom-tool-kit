@@ -8,6 +8,8 @@ Tool Kit is modern developer tooling for FT.com repositories. It's fully modular
 
 ## Installing and using Tool Kit
 
+For general questions about using Tool Kit please see the [Tool Kit FAQs](./docs/faq.md).
+
 ### Interactive installation & migration
 
 For an empty repository (containing at least a valid `package.json`), or to migrate an existing repo from [n-gage](https://github.com/financial-times/n-gage), you can run the interactive Tool Kit init script:
