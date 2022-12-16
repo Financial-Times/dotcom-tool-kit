@@ -19,9 +19,9 @@ plugins:
 
 ## Options
 
-| Key | Description | Default value |
-|-|-|-|
-| `appName` | system code for the application (same as its "name" field in next-service-registry) | `undefined` |
+| Key | Description | Default value | Required |
+|-|-|-|-|
+| `appName` | system code for the application (same as its "name" field in next-service-registry) | | ✅ |
 
 ## Tasks
 
