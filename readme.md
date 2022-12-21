@@ -46,6 +46,14 @@ Every time you change your `.toolkitrc.yml`, e.g. adding or removing a plugin, y
 npx dotcom-tool-kit --install
 ```
 
+### Updating existing Tool Kit configuration
+
+If your project already has a `.toolkitrc.yml` file you can add a new plugin to it by following the steps in the README for that plugin.
+
+At any time you can run `npx dotcom-tool-kit --help` to review the full list of hooks and tasks configured in your project.
+
+You can see the list of all available hooks and tasks provided by Tool Kit in the FAQs.
+
 ### Running Tool Kit
 
 You don't run Tool Kit directly; you run plugin tasks using things like npm scripts, automatically configured in your `package.json` by Tool Kit. With the `npm` and `jest` plugins installed, Jest tests are run with the npm `test` script:
