@@ -4,6 +4,8 @@ This plugin is for managing the `publish:tag` hook that is run from circleci to 
 
 The tool-kit/publish job is triggered in your circleci pipeline once you do a release with a tag matching the semver format. If your tag is a beta version, i.e. `v1.6.0-beta.1`, then the publish job will tag your build as a prerelease version. If your tag is a release version, i.e. `v1.6.0`, then the publish job will tag your build as the latest version.
 
+This plugin will be installed as a dependency of the [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component) plugin so you do not need to install it separately if you are using either of those plugins.
+
 ## Installation
 
 Install `@dotcom-tool-kit/circleci-npm` as a `devDependency` in your app:

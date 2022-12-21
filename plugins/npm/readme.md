@@ -1,6 +1,8 @@
-# `npm` Tool Kit plugin
+# @dotcom-tool-kit/npm
 
 This plugin is for managing Tool Kit hooks that are run from npm scripts (such as `npm run test`).
+
+This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-app), and [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component) plugins so you do not need to install it separately if you are using either of those plugins.
 
 ## Installation
 

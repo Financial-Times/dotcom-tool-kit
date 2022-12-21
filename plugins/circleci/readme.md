@@ -1,8 +1,8 @@
-# `circleci` Tool Kit plugin
+# @dotcom-tool-kit/circleci
 
 This plugin exposes state from the CircleCI environment for other plugins to consume generically. It also manages Tool Kit hooks that are run from CircleCI workflows.
 
-This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-app), [circleci-heroku](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-heroku), and [circleci-npm](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-npm) plugins so you do not need to install it separately if you are using any of those plugins.
+This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-app), [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component), [circleci-heroku](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-heroku), and [circleci-npm](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-npm) plugins so you do not need to install it separately if you are using any of those plugins.
 
 ## Installation
 
