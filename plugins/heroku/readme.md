@@ -2,6 +2,8 @@
 
 This plugin handles deploying apps to Heroku. It also manages Tool Kit hooks that are run during Heroku builds.
 
+This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app) and [backend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-app) plugins so you do not need to install it separately if you are using either of those plugins.
+
 ## Installation
 
 Install `@dotcom-tool-kit/heroku` as a `devDependency` in your app:
