@@ -1,4 +1,4 @@
-# `circleci` Tool Kit plugin
+# @dotcom-tool-kit/circleci
 
 This plugin exposes state from the CircleCI environment for other plugins to consume generically. It also manages Tool Kit hooks that are run from CircleCI workflows.
 

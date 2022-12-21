@@ -1,4 +1,4 @@
-# `heroku` Tool Kit plugin
+# @dotcom-tool-kit/heroku
 
 This plugin handles deploying apps to Heroku. It also manages Tool Kit hooks that are run during Heroku builds.
 

@@ -1,4 +1,4 @@
-# `prettier` Tool Kit plugin
+# @dotcom-tool-kit/prettier
 
 This plugin is for adding prettier onto your apps.
 

@@ -1,4 +1,4 @@
-# `npm` Tool Kit plugin
+# @dotcom-tool-kit/npm
 
 This plugin is for managing Tool Kit hooks that are run from npm scripts (such as `npm run test`).
 
