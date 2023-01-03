@@ -22,7 +22,7 @@ plugins:
 | Key | Description | Default value |
 |-|-|-|
 | `configPath` | Path to the [TypeScript config file](https://www.typescriptlang.org/tsconfig) | use TypeScript's own [tsconfig.json resolution](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#using-tsconfigjson-or-jsconfigjson) |
-| `extraArgs` | Extra arguments to pass to the tsc CLI (though prefer configuring via `tsconfig.json` if possible) | `[]`
+| `extraArgs` | Extra [arguments](https://www.typescriptlang.org/docs/handbook/compiler-options.html) to pass to the tsc CLI that can't be set in `tsconfig.json` | `[]`
 
 ## Tasks
 
