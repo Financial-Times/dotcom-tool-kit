@@ -20,7 +20,11 @@ abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
 
     const child = fork(tscPath, args, { silent: true })
     hookFork(this.logger, 'typescript', child)
-    await waitOnExit('typescript', child)
+    const exitPromise = waitOnExit('typescript', child)
+    // don't wait for tsc to exit if it's set to watch for file changes
+    if (!args.includes('--watch')) {
+      await exitPromise
+    }
 
     // tsc is quite quiet by default so let the user know it actually ran
     this.logger.info('code compiled successfully')
