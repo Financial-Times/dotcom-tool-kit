@@ -17,14 +17,15 @@ plugins:
   - '@dotcom-tool-kit/next-router'
 ```
 
-### Running an app via next-router
+## Running an app via next-router
 
-For an app to be loaded via the `next-router` (https://local.ft.com:5050), the app will need to be loaded before the `next-router` plugin. Here is an example config to do that:
+For an app to be loaded via the `next-router` (https://local.ft.com:5050), the app will need to be loaded before the `next-router` plugin. This is done by defining the `run:local` hook to run the application before `NextRouter` task. Here is an example full config to do that:
 
 ```yml
 plugins:
   - '@dotcom-tool-kit/next-router'
   - '@dotcom-tool-kit/nodemon'
+  - '@dotcom-tool-kit/vault'
 
 hooks:
   run:local:
