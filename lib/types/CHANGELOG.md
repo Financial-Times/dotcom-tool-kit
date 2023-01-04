@@ -12,6 +12,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [2.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.7.1...types-v2.8.0) (2023-01-04)
+
+
+### Features
+
+* **typescript:** add typescript plugin ([0421bdb](https://github.com/Financial-Times/dotcom-tool-kit/commit/0421bdba1f3a56fc8306b8c487433e54b740905c))
+
 ## [2.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.6.2...types-v2.7.0) (2022-12-08)
 
 

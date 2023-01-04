@@ -44,6 +44,12 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.0 to ^2.6.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
+
 ### [3.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v3.0.0...circleci-v3.0.1) (2022-12-14)
 
 
