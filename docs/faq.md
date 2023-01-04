@@ -53,10 +53,10 @@ Funny you should ask! We have just the thing:
 |                     |                         | `Eslint`             |
 |                     |                         | `SecretSquirrel`     |
 |                     |                         | `CypressLocal`       |
-|                     |                         | `TypescriptTest`     |
+|                     |                         | `TypeScriptTest`     |
 | `build:local`       | npm                     | `BabelDevelopment`   |
 |                     |                         | `WebpackDevelopment` |
-|                     |                         | `TypescriptBuild`    |
+|                     |                         | `TypeScriptBuild`    |
 | `build:ci`          | circleci                | `BabelProduction`    |
 |                     |                         | `WebpackProduction`  |
 | `test:ci`           | circleci                | `Eslint`             |
