@@ -21,7 +21,6 @@ export async function runBabel(
   const { base } = fg.generateTasks(fileGlob)[0]
 
   const outputPath = options.outputPath ?? 'lib'
-  await fs.mkdir(outputPath, { recursive: true })
 
   if (options.configFile) {
     const { configFile } = options
@@ -38,7 +37,10 @@ export async function runBabel(
         error.details = `the problematic file was ${file}`
         throw error
       }
-      await fs.writeFile(path.join(outputPath, path.relative(base, file)), transformed.code)
+      // Create parent directories if they don't exist before creating child file of transpiled code.
+      const filePath = path.join(outputPath, path.relative(base, file))
+      await fs.mkdir(path.dirname(filePath), { recursive: true })
+      await fs.writeFile(filePath, transformed.code)
     })
   )
   unhook()
