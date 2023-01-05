@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v1.0.0...typescript-v1.0.1) (2023-01-05)
+
+
+### Bug Fixes
+
+* correct TypeScript casing ([736cf8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/736cf8e430da2889d92b47752850f820a37d522d))
+
 ## 1.0.0 (2023-01-04)
 
 
