@@ -50,6 +50,12 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.6.2 to ^2.7.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v2.1.7...mocha-v2.2.0) (2022-12-14)
 
 

@@ -99,6 +99,15 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.10 to ^2.0.11
     * @dotcom-tool-kit/node bumped from ^2.2.2 to ^2.2.3
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-heroku bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/node bumped from ^2.2.4 to ^2.2.5
+    * @dotcom-tool-kit/npm bumped from ^2.0.12 to ^2.0.13
+    * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.10 to ^1.0.11
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v2.0.13...backend-app-v2.1.0) (2022-12-14)
 
 

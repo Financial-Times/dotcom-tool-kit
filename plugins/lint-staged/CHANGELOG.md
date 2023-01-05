@@ -57,6 +57,12 @@
     * @dotcom-tool-kit/logger bumped from ^2.1.2 to ^2.2.0
     * @dotcom-tool-kit/types bumped from ^2.7.0 to ^2.7.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v2.1.9...lint-staged-v3.0.0) (2022-12-08)
 
 
