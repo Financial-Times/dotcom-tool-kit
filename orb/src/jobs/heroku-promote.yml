@@ -20,6 +20,6 @@ steps:
   - run:
       name: Deploy to production
       command: npx dotcom-tool-kit deploy:production
-  - change-api/generate:
+  - change-api/change-log:
       environment: production
-      systemCode: <<parameters.systemCode>>
+      system-code: <<parameters.systemCode>>
