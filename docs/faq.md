@@ -5,7 +5,7 @@ Below are responses to some general questions about Tool Kit that have been aske
 
 ## How do I add package specific configuration (for e.g. ESLint) to the Tool Kit plugin (e.g. @dotcom-tool-kit/eslint))?
 
-As much as possible Tool Kit doesn't handle configuration for third party packages. The purpose of Tool Kit’s plugin for packages is to get them working in the FT development workflow with the minimum possible configuration. Tool Kit plugins will leave package configuration to a specific configuration file for that package (e.g. `.eslintrc` for the ESLint package).
+As much as possible Tool Kit doesn't handle configuration for third party packages. The purpose of Tool Kit’s plugins for packages is to get them working in the FT development workflow with the minimum possible configuration. Tool Kit plugins will leave package configuration to a specific configuration file for that package (e.g. `.eslintrc` for the ESLint package).
 
 ## How can I use custom commands for my tooling that are not accommodated for by Tool Kit's config?
 

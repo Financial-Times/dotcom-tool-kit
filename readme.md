@@ -6,6 +6,10 @@
 
 Tool Kit is modern developer tooling for FT.com repositories. It's fully modular, allowing repos that need different tooling to install separate plugins that work consistently together.
 
+Tool Kit has been created to enable the FT.com development workflow and only handles common tooling use cases that are required for most apps to work. Tool Kit sets up the minimal configuration for third party packages to run.
+
+Your application does not need to use Tool Kit for all of its tooling and tooling not supported by Tool Kit can be configured directly in your application.
+
 ## Installing and using Tool Kit
 
 For general questions about using Tool Kit please see the [Tool Kit FAQs](./docs/faq.md).
