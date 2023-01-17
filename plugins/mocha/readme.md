@@ -32,6 +32,8 @@ plugins:
 
 ## Tips
 
+### Resolving test hook conflicts
+
 A common use case is to configure `test:local` and `test:ci` in your `.toolkitrc.yml` to run the `Eslint` task then the relevant Mocha task: 
 
 ```yaml
@@ -42,4 +44,23 @@ hooks:
   test:ci:
     - Eslint
     - Mocha
+```
+
+### Reporting code coverage
+
+If you want to test the coverage of your code (i.e., how many lines of your code are executed by your unit tests) you can use the [Istanbul](https://istanbul.js.org) tool that integrates with Mocha. To use Istanbul, install the command line interface, [nyc](https://github.com/istanbuljs/nyc), by running
+
+```sh
+npm install --save-dev nyc
+```
+
+and then adding a new script to your `package.json` that just runs the Tool Kit `test:local` hook (which should in turn run your Mocha tests) with the `nyc` command prepended to it:
+
+```json
+{
+  "scripts": {
+    "test": "dotcom-tool-kit test:local",
+    "coverage": "nyc npm run test"
+  }
+}
 ```
