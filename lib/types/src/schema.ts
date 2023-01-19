@@ -1,59 +1,19 @@
 import type prompts from 'prompts'
 import type { Logger } from 'winston'
+import { z } from 'zod'
 
-export type ScalarSchemaType = 'string' | 'number' | 'boolean' | `|${string},${string}` | 'unknown'
-export type SchemaType = ScalarSchemaType | `array.${ScalarSchemaType}` | `record.${ScalarSchemaType}`
 export type SchemaPromptGenerator<T> = (
   logger: Logger,
   prompt: typeof prompts,
   onCancel: () => void
 ) => Promise<T>
-export type ModifiedSchemaType = SchemaType | `${SchemaType}?` | SchemaPromptGenerator<unknown>
-
-export type Schema = {
-  readonly [option: string]: ModifiedSchemaType
-}
-
-// Achieve the mapping with conditional types
-type SchemaTypeOutput<T extends SchemaType> = T extends 'string'
-  ? string
-  : T extends 'number'
-  ? number
-  : T extends 'boolean'
-  ? boolean
-  : T extends `|${infer A},${infer B}`
-  ? A | B
-  : T extends 'unknown'
-  ? unknown
-  : T extends `array.${infer S}`
-  ? S extends SchemaType
-    ? Array<SchemaTypeOutput<S>>
-    : never
-  : T extends `record.${infer S}`
-  ? S extends SchemaType
-    ? Record<string, SchemaTypeOutput<S>>
-    : never
+export type PromptGenerators<T> = T extends z.ZodObject<infer Shape>
+  ? {
+      [option in keyof Shape as Shape[option] extends z.ZodType
+        ? option
+        : never]?: Shape[option] extends z.ZodType ? SchemaPromptGenerator<z.infer<Shape[option]>> : never
+    }
   : never
-
-export type SchemaOutput<T extends Schema> = {
-  -readonly [option in keyof T as T[option] extends SchemaType
-    ? option
-    : never]-?: T[option] extends SchemaType ? SchemaTypeOutput<T[option]> : never
-} &
-  {
-    -readonly [option in keyof T as T[option] extends `${string}?`
-      ? option
-      : never]?: T[option] extends `${infer S}?`
-      ? S extends SchemaType
-        ? SchemaTypeOutput<S>
-        : never
-      : never
-  } &
-  {
-    -readonly [option in keyof T as T[option] extends SchemaPromptGenerator<unknown>
-      ? option
-      : never]: T[option] extends SchemaPromptGenerator<infer R> ? R : never
-  }
 
 import type { ESLintOptions } from './schema/eslint'
 import type { HerokuOptions } from './schema/heroku'

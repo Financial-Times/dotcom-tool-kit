@@ -1,10 +1,10 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const BabelSchema = {
-  files: 'string?',
-  outputPath: 'string?',
-  configFile: 'string?'
-} as const
-export type BabelOptions = SchemaOutput<typeof BabelSchema>
+export const BabelSchema = z.object({
+  files: z.string().optional(),
+  outputPath: z.string().optional(),
+  configFile: z.string().optional()
+})
+export type BabelOptions = z.infer<typeof BabelSchema>
 
 export const Schema = BabelSchema
