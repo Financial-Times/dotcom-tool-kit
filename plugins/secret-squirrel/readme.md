@@ -2,7 +2,7 @@
 
 Tool Kit plugin to run [Secret Squirrel](https://github.com/financial-times/secret-squirrel)
 
-This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-app), and [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component) plugins so you do not need to install it separately if you are using either of those plugins.
+This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-heroku-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-heroku-app), and [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component) plugins so you do not need to install it separately if you are using either of those plugins.
 
 ## Installation & Usage
 
