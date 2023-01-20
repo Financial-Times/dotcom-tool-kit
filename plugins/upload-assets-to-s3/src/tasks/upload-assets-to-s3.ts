@@ -82,6 +82,11 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
     const extensions = options.extensions.includes(',') ? `{${options.extensions}}` : options.extensions
     const globFile = `**/*${extensions}`
     const files = glob.sync(globFile, { cwd: options.directory, nodir: true })
+
+    if (files.length === 0) {
+      throw new ToolKitError(`no files found at the provided directory: ${options.directory}`)
+    }
+
     const s3 = new aws.S3({
       // fallback to default value for accessKeyId if neither accessKeyIdEnvVar or accessKeyId have been provided as options
       accessKeyId:
