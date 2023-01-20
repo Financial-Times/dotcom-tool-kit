@@ -53,7 +53,7 @@
       "path": "plugins/npm"
     },
     {
-      "path": "plugins/circleci-heroku"
+      "path": "plugins/circleci-deploy"
     },
     {
       "path": "core/create"

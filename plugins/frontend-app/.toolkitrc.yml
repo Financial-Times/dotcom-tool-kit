@@ -1,6 +1,6 @@
 plugins:
   - '@dotcom-tool-kit/webpack'
-  - '@dotcom-tool-kit/backend-app'
+  - '@dotcom-tool-kit/backend-heroku-app'
 
 hooks:
   'run:local':
