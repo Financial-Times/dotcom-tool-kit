@@ -39,7 +39,7 @@ describe('upload-assets-to-s3', () => {
     await task.run()
 
     const s3 = mockedAWS.S3.mock.instances[0]
-    expect(s3.upload).toHaveBeenCalledTimes(8)
+    expect(s3.upload).toHaveBeenCalledTimes(4)
   })
 
   it('should strip base path from S3 key', async () => {
@@ -53,7 +53,7 @@ describe('upload-assets-to-s3', () => {
     await task.run()
 
     const s3 = mocked(mockedAWS.S3.mock.instances[0])
-    expect(s3.upload).toHaveBeenCalledTimes(2)
+    expect(s3.upload).toHaveBeenCalledTimes(1)
     expect(s3.upload.mock.calls[0][0]).toHaveProperty('Key', 'testdir/nested/test.js.gz')
   })
 
@@ -67,7 +67,7 @@ describe('upload-assets-to-s3', () => {
     await task.run()
 
     const s3 = mocked(mockedAWS.S3.mock.instances[0])
-    expect(s3.upload).toHaveBeenCalledTimes(2)
+    expect(s3.upload).toHaveBeenCalledTimes(1)
     expect(s3.upload.mock.calls[0][0]).toHaveProperty('ContentEncoding', 'gzip')
   })
 

@@ -19,7 +19,7 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
     secretAccessKey: 'aws_secret_hashed_assets',
     directory: 'public',
     reviewBucket: ['ft-next-hashed-assets-preview'],
-    prodBucket: ['ft-next-hashed-assets-prod', 'ft-next-hashed-assets-prod-us'],
+    prodBucket: ['ft-next-hashed-assets-prod'],
     destination: 'hashed-assets/page-kit',
     extensions: 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json',
     cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
