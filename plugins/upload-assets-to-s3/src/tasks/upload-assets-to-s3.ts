@@ -53,7 +53,7 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
         const data = await s3.upload(params).promise()
         this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(data.Location)}`)
       } else {
-        for (const bucket of bucketByEnv) {
+        const uploadPromises = bucketByEnv.map((bucket) => {
           const params = {
             Bucket: bucket,
             Key: key,
@@ -64,9 +64,15 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
             CacheControl: options.cacheControl
           }
           currentBucket = params.Bucket
-          const data = await s3.upload(params).promise()
-          this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(data.Location)}`)
-        }
+          return s3.upload(params).promise()
+        })
+        await Promise.all(uploadPromises).then((resolvedUploadPromises) => {
+          for (const uploadResponse of resolvedUploadPromises) {
+            this.logger.info(
+              `Uploaded ${styles.filepath(filepath)} to ${styles.URL(uploadResponse.Location)}`
+            )
+          }
+        })
       }
     } catch (err) {
       const error = new ToolKitError(`Upload of ${filepath} to ${currentBucket} failed`)
