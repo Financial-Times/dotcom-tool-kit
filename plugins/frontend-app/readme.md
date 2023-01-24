@@ -3,7 +3,7 @@
 A bootstrap plugin that provides the minimum required Tool Kit plugins for a "frontend" (aka an [App or Page](https://github.com/Financial-Times/next/wiki/Naming-Conventions#apps)). The plugins are:
 
 - [`@dotcom-tool-kit/webpack`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/webpack)
-- [`@dotcom-tool-kit/backend-app`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-app)
+- [`@dotcom-tool-kit/backend-heroku-app`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-heroku-app)
 
 This bootstrap plugin is also preconfigured to run the `Node`, `WebpackDevelopment`, and `WebpackWatch` tasks on the hook `run:local`.
 

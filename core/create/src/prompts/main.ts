@@ -24,7 +24,7 @@ export default async ({
         message: `What kind of app is ${styles.app(packageJson.getField('name'))}?`,
         choices: [
           { title: 'A user-facing (frontend) app', value: 'frontend-app' },
-          { title: 'A service (backend) app', value: 'backend-app' },
+          { title: 'A service (backend) app', value: 'backend-heroku-app' },
           { title: 'An npm component', value: 'component' }
         ]
       },

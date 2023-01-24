@@ -1,5 +1,5 @@
 plugins:
-  - '@dotcom-tool-kit/backend-app'
+  - '@dotcom-tool-kit/backend-heroku-app'
   - '@dotcom-tool-kit/heroku'
 
 options:

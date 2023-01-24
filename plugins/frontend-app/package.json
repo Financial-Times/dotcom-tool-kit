@@ -7,7 +7,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/backend-app": "^2.1.1",
+    "@dotcom-tool-kit/backend-heroku-app": "^1.0.0",
     "@dotcom-tool-kit/webpack": "^2.1.11"
   },
   "repository": {

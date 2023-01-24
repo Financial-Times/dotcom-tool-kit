@@ -2,7 +2,7 @@
 
 Run your Node application.
 
-This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-app) plugins so you do not need to install it separately if you are using either of those plugins.
+This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-heroku-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-heroku-app) plugins so you do not need to install it separately if you are using either of those plugins.
 
 ## Installation
 

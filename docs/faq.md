@@ -63,13 +63,13 @@ Funny you should ask! We have just the thing:
 |                     |                         | `Mocha`              |
 |                     |                         | `JestCi`             |
 |                     |                         | `CypressCi`          |
-| `deploy:review`     | circleci-heroku         | `HerokuReview`       |
-| `deploy:staging`    | circleci-heroku         | `HerokuStaging`      |
-| `test:review`       | circleci-heroku         | `NTest`              |
+| `deploy:review`     | circleci-deploy         | `HerokuReview`       |
+| `deploy:staging`    | circleci-deploy         | `HerokuStaging`      |
+| `test:review`       | circleci-deploy         | `NTest`              |
 |                     |                         | `Pa11y`              |
-| `test:staging`      | circleci-heroku         | `NTest`              |
-| `teardown:staging`  | circleci-heroku         | `HerokuTeardown`     |
-| `deploy:production` | circleci-heroku         | `HerokuProduction`   |
+| `test:staging`      | circleci-deploy         | `NTest`              |
+| `teardown:staging`  | circleci-deploy         | `HerokuTeardown`     |
+| `deploy:production` | circleci-deploy         | `HerokuProduction`   |
 | `publish:tag`       | circleci-npm            | `NpmPublish`         |
 | `cleanup:remote`    | heroku                  | `NpmPrune`           |
 | `release:remote`    | heroku                  | `UploadAssetsToS3`   |

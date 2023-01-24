@@ -1,9 +1,9 @@
 import { describe, it, expect } from '@jest/globals'
-import * as circleciHeroku from '../'
+import * as circleciDeploy from '../'
 
-describe('CircleCI-Heroku plugin', () => {
+describe('CircleCI-Deploy plugin', () => {
   it('should define CI deployment hooks', () => {
-    expect(circleciHeroku.hooks).toEqual(
+    expect(circleciDeploy.hooks).toEqual(
       expect.objectContaining({
         'deploy:review': expect.any(Function),
         'deploy:staging': expect.any(Function),
