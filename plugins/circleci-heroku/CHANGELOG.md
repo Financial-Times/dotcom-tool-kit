@@ -80,6 +80,13 @@
     * @dotcom-tool-kit/circleci bumped from ^3.0.1 to ^3.0.2
     * @dotcom-tool-kit/heroku bumped from ^2.1.2 to ^2.1.3
 
+## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v2.2.1...circleci-heroku-v2.3.0) (2023-01-24)
+
+
+### Features
+
+* split heroku logic into separate plugins ([331ae1a](https://github.com/Financial-Times/dotcom-tool-kit/commit/331ae1a11a17da0baa7db4e0c15a10a8420b6fb8))
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v2.1.0...circleci-heroku-v2.2.0) (2022-12-14)
 
 

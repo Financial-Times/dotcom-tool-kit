@@ -1,6 +1,6 @@
 {
   "name": "dotcom-tool-kit",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "description": "modern, maintainable, modular developer tooling for FT.com projects",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "@dotcom-tool-kit/circleci": "^3.0.2",
     "@dotcom-tool-kit/npm": "^2.0.13",
     "@dotcom-tool-kit/circleci-deploy": "^1.0.0",
-    "@dotcom-tool-kit/frontend-app": "^2.1.13",
+    "@dotcom-tool-kit/frontend-app": "^2.2.0",
     "@dotcom-tool-kit/eslint": "^2.2.5",
     "@dotcom-tool-kit/mocha": "^2.2.1",
     "@dotcom-tool-kit/n-test": "^2.1.7",

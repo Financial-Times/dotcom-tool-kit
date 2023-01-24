@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v3.0.0...orb-v3.1.0) (2023-01-24)
+
+
+### Features
+
+* **orb:** update to change-api orb 1.0 ([257b267](https://github.com/Financial-Times/dotcom-tool-kit/commit/257b26731ff7c1a987c1c9b27ee82470c30fdf93))
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v2.0.1...orb-v3.0.0) (2022-12-08)
 
 
