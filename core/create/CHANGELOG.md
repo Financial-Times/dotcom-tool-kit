@@ -43,6 +43,20 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^2.4.1 to ^2.4.2
 
+## [2.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.4.1...create-v2.5.0) (2023-01-24)
+
+
+### Features
+
+* split heroku logic into separate plugins ([331ae1a](https://github.com/Financial-Times/dotcom-tool-kit/commit/331ae1a11a17da0baa7db4e0c15a10a8420b6fb8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * dotcom-tool-kit bumped from ^2.4.2 to ^2.5.0
+
 ## [2.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.3.2...create-v2.4.0) (2022-12-14)
 
 

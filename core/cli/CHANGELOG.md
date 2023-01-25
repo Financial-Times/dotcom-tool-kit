@@ -87,6 +87,20 @@
     * @dotcom-tool-kit/mocha bumped from ^2.1.7 to ^2.2.0
     * @dotcom-tool-kit/n-test bumped from ^2.1.5 to ^2.1.6
 
+## [2.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.4.2...dotcom-tool-kit-v2.5.0) (2023-01-24)
+
+
+### Features
+
+* split heroku logic into separate plugins ([331ae1a](https://github.com/Financial-Times/dotcom-tool-kit/commit/331ae1a11a17da0baa7db4e0c15a10a8420b6fb8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/frontend-app bumped from ^2.1.13 to ^2.2.0
+
 ## [2.4.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.4.1...dotcom-tool-kit-v2.4.2) (2023-01-04)
 
 

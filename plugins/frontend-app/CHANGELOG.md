@@ -89,6 +89,13 @@
     * @dotcom-tool-kit/backend-app bumped from ^2.1.0 to ^2.1.1
     * @dotcom-tool-kit/webpack bumped from ^2.1.10 to ^2.1.11
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v2.1.13...frontend-app-v2.2.0) (2023-01-24)
+
+
+### Features
+
+* split heroku logic into separate plugins ([331ae1a](https://github.com/Financial-Times/dotcom-tool-kit/commit/331ae1a11a17da0baa7db4e0c15a10a8420b6fb8))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v2.0.1...frontend-app-v2.1.0) (2022-05-06)
 
 

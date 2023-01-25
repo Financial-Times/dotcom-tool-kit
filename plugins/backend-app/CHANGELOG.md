@@ -108,6 +108,13 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.12 to ^2.0.13
     * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.10 to ^1.0.11
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v2.1.1...backend-app-v2.2.0) (2023-01-24)
+
+
+### Features
+
+* split heroku logic into separate plugins ([331ae1a](https://github.com/Financial-Times/dotcom-tool-kit/commit/331ae1a11a17da0baa7db4e0c15a10a8420b6fb8))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v2.0.13...backend-app-v2.1.0) (2022-12-14)
 
 
