@@ -20,6 +20,7 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
     directory: 'public',
     reviewBucket: ['ft-next-hashed-assets-preview'],
     prodBucket: ['ft-next-hashed-assets-prod'],
+    region: 'eu-west-1',
     destination: 'hashed-assets/page-kit',
     extensions: 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json',
     cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
@@ -88,7 +89,7 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
     }
 
     const s3 = new S3Client({
-      region: 'eu-west-1',
+      region: options.region,
       // fallback to default value for accessKeyId if neither accessKeyIdEnvVar or accessKeyId have been provided as options
       credentials: {
         accessKeyId:

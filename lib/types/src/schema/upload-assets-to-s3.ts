@@ -8,6 +8,7 @@ export const UploadAssetsToS3Schema = {
   directory: 'string',
   reviewBucket: 'array.string',
   prodBucket: 'array.string',
+  region: 'string',
   destination: 'string',
   extensions: 'string',
   cacheControl: 'string'

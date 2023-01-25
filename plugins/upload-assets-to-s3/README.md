@@ -28,6 +28,7 @@ plugins:
 | `directory` | the folder in the project whose contents will be uploaded to S3 | 'public' |
 | `reviewBucket` | the development or test S3 bucket | `['ft-next-hashed-assets-preview']` |
 | `prodBucket` | production S3 bucket/s; an array of strings. The same files will be uploaded to each. _Note: most Customer Products buckets that have a `prod` and `prod-us` version are already configured in AWS to replicate file changes from one to the other so you don't need to specify both here. Also, if multiple buckets are specified the same credentials will need to be valid for both for the upload to be successful_ | `['ft-next-hashed-assets-prod']` |
+| `region` | the AWS region your buckets are stored in (let the Platforms team know if you need to upload to multiple buckets in multiple regions) | eu-west-1 |
 | `destination` | the destination folder for uploaded assets. Set to `''` to upload assets to the top level of the bucket | 'hashed-assets/page-kit' |
 | `extensions` | file extensions to be uploaded to S3 | 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json' |
 | `cacheControl` | header that controls how long your files stay in a CloudFront cache before CloudFront forwards another request to your origin | 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600' |
