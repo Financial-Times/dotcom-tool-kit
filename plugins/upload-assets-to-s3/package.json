@@ -10,10 +10,10 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.256.0",
     "@dotcom-tool-kit/error": "^2.0.1",
     "@dotcom-tool-kit/logger": "^2.2.0",
     "@dotcom-tool-kit/types": "^2.8.0",
-    "aws-sdk": "^2.901.0",
     "glob": "^7.1.6",
     "mime": "^2.5.2",
     "tslib": "^2.3.1"

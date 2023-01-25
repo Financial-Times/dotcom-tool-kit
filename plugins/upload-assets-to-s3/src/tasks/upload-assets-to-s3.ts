@@ -1,6 +1,6 @@
 import { Task } from '@dotcom-tool-kit/types'
 import * as fs from 'fs'
-import aws from 'aws-sdk'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
@@ -28,7 +28,7 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
   async run(): Promise<void> {
     await this.uploadAssetsToS3(this.options)
   }
-  async uploadFile(file: string, options: UploadAssetsToS3Options, s3: aws.S3): Promise<void> {
+  async uploadFile(file: string, options: UploadAssetsToS3Options, s3: S3Client): Promise<void> {
     const type = getFileType(file)
     const encoding = getFileEncoding(file)
     const filepath = path.join(options.directory, file)
@@ -50,10 +50,10 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
           CacheControl: options.cacheControl
         }
         currentBucket = params.Bucket
-        const data = await s3.upload(params).promise()
-        this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(data.Location)}`)
+        await s3.send(new PutObjectCommand(params))
+        this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(currentBucket)}`)
       } else {
-        const uploadPromises = bucketByEnv.map((bucket) => {
+        for (const bucket of bucketByEnv) {
           const params = {
             Bucket: bucket,
             Key: key,
@@ -64,15 +64,9 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
             CacheControl: options.cacheControl
           }
           currentBucket = params.Bucket
-          return s3.upload(params).promise()
-        })
-        await Promise.all(uploadPromises).then((resolvedUploadPromises) => {
-          for (const uploadResponse of resolvedUploadPromises) {
-            this.logger.info(
-              `Uploaded ${styles.filepath(filepath)} to ${styles.URL(uploadResponse.Location)}`
-            )
-          }
-        })
+          await s3.send(new PutObjectCommand(params))
+          this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(currentBucket)}`)
+        }
       }
     } catch (err) {
       const error = new ToolKitError(`Upload of ${filepath} to ${currentBucket} failed`)
@@ -93,14 +87,17 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
       throw new ToolKitError(`no files found at the provided directory: ${options.directory}`)
     }
 
-    const s3 = new aws.S3({
+    const s3 = new S3Client({
+      region: 'eu-west-1',
       // fallback to default value for accessKeyId if neither accessKeyIdEnvVar or accessKeyId have been provided as options
-      accessKeyId:
-        /* eslint-disable-next-line */
-        process.env[options.accessKeyIdEnvVar ?? options.accessKeyId!],
-      secretAccessKey:
-        /* eslint-disable-next-line */
-        process.env[options.secretAccessKeyEnvVar ?? options.secretAccessKey!]
+      credentials: {
+        accessKeyId:
+          /* eslint-disable-next-line */
+          process.env[options.accessKeyIdEnvVar ?? options.accessKeyId!]!,
+        secretAccessKey:
+          /* eslint-disable-next-line */
+          process.env[options.secretAccessKeyEnvVar ?? options.secretAccessKey!]!
+      }
     })
 
     await Promise.all(files.map((file) => this.uploadFile(file, options, s3)))

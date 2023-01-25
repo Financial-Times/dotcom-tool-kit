@@ -21,7 +21,7 @@ plugins:
 ## Options
 | Key | Description | Default value |
 |-|-|-|
-| `accessKeyIdEnvVar` | variable name of the project's aws access key id. If uploading to multiple buckets the same credentials will need to work for both. | no default value - for backwards compatability the plugin falls back to the default value for `accessKeyId` |
+| `accessKeyIdEnvVar` | variable name of the project's aws access key id. If uploading to multiple buckets the same credentials will need to work for all. | no default value - for backwards compatability the plugin falls back to the default value for `accessKeyId` |
 | `secretAccessKeyEnvVar` | variable name of the project's aws secret access key | no default value - for backwards compatability the plugin falls back to the default value for `secretAccessKey` |
 | `accessKeyId` | **DEPRECATED** variable name of the project's aws access key id | 'aws_access_hashed_assets' |
 | `secretAccessKey` | **DEPRECATED** variable name of the project's aws secret access key | 'aws_secret_hashed_assets' |
