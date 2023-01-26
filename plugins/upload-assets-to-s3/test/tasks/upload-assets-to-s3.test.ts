@@ -1,13 +1,12 @@
 import { describe, it, expect, beforeAll } from '@jest/globals'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import * as path from 'path'
-import { mocked } from 'ts-jest/utils'
 import winston, { Logger } from 'winston'
 import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'
 jest.mock('@aws-sdk/client-s3')
 
-const mockedS3Client = mocked(S3Client, true)
-const mockedPutObjectCommand = mocked(PutObjectCommand, true)
+const mockedS3Client = jest.mocked(S3Client, true)
+const mockedPutObjectCommand = jest.mocked(PutObjectCommand, true)
 const logger = (winston as unknown) as Logger
 
 const testDirectory = path.join(__dirname, '../files')
@@ -52,10 +51,9 @@ describe('upload-assets-to-s3', () => {
     process.env.NODE_ENV = 'production'
 
     await task.run()
-    const s3 = mockedS3Client.mock.instances[0]
-    const putObjectCommand = mockedPutObjectCommand.mock.instances[0]
+    const s3 = jest.mocked(mockedS3Client.mock.instances[0])
     expect(s3.send).toHaveBeenCalledTimes(1)
-    // expect(putObjectCommand.mock.calls[0][0]).toHaveProperty('Key', 'testdir/nested/test.js.gz')
+    expect(mockedPutObjectCommand.mock.calls[0][0]).toHaveProperty('Key', 'testdir/nested/test.js.gz')
   })
 
   it('should use correct Content-Encoding for compressed files', async () => {
@@ -68,17 +66,15 @@ describe('upload-assets-to-s3', () => {
     await task.run()
 
     const s3 = mockedS3Client.mock.instances[0]
-    const putObjectCommand = mockedPutObjectCommand.mock.instances[0]
     expect(s3.send).toHaveBeenCalledTimes(1)
-    // expect(putObjectCommand.mock.calls[0][0]).toHaveProperty('ContentEncoding', 'gzip')
+    expect(mockedPutObjectCommand.mock.calls[0][0]).toHaveProperty('ContentEncoding', 'gzip')
   })
 
   it('should print an error when AWS fails', async () => {
     const mockError = 'mock 404'
 
-    mockedS3Client.prototype.send.mockReturnValueOnce({
-      promise: jest.fn().mockRejectedValue(new Error(mockError))
-    } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(mockedS3Client.prototype.send as any).mockRejectedValue(new Error(mockError))
 
     const task = new UploadAssetsToS3(logger, {
       directory: testDirectory
