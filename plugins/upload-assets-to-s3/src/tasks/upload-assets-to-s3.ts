@@ -1,6 +1,6 @@
 import { Task } from '@dotcom-tool-kit/types'
 import * as fs from 'fs'
-import aws from 'aws-sdk'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
@@ -19,7 +19,8 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
     secretAccessKey: 'aws_secret_hashed_assets',
     directory: 'public',
     reviewBucket: ['ft-next-hashed-assets-preview'],
-    prodBucket: ['ft-next-hashed-assets-prod', 'ft-next-hashed-assets-prod-us'],
+    prodBucket: ['ft-next-hashed-assets-prod'],
+    region: 'eu-west-1',
     destination: 'hashed-assets/page-kit',
     extensions: 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json',
     cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
@@ -28,7 +29,7 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
   async run(): Promise<void> {
     await this.uploadAssetsToS3(this.options)
   }
-  async uploadFile(file: string, options: UploadAssetsToS3Options, s3: aws.S3): Promise<void> {
+  async uploadFile(file: string, options: UploadAssetsToS3Options, s3: S3Client): Promise<void> {
     const type = getFileType(file)
     const encoding = getFileEncoding(file)
     const filepath = path.join(options.directory, file)
@@ -50,8 +51,8 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
           CacheControl: options.cacheControl
         }
         currentBucket = params.Bucket
-        const data = await s3.upload(params).promise()
-        this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(data.Location)}`)
+        await s3.send(new PutObjectCommand(params))
+        this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(currentBucket)}`)
       } else {
         for (const bucket of bucketByEnv) {
           const params = {
@@ -64,8 +65,8 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
             CacheControl: options.cacheControl
           }
           currentBucket = params.Bucket
-          const data = await s3.upload(params).promise()
-          this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(data.Location)}`)
+          await s3.send(new PutObjectCommand(params))
+          this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(currentBucket)}`)
         }
       }
     } catch (err) {
@@ -82,14 +83,22 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
     const extensions = options.extensions.includes(',') ? `{${options.extensions}}` : options.extensions
     const globFile = `**/*${extensions}`
     const files = glob.sync(globFile, { cwd: options.directory, nodir: true })
-    const s3 = new aws.S3({
+
+    if (files.length === 0) {
+      throw new ToolKitError(`no files found at the provided directory: ${options.directory}`)
+    }
+
+    const s3 = new S3Client({
+      region: options.region,
       // fallback to default value for accessKeyId if neither accessKeyIdEnvVar or accessKeyId have been provided as options
-      accessKeyId:
-        /* eslint-disable-next-line */
-        process.env[options.accessKeyIdEnvVar ?? options.accessKeyId!],
-      secretAccessKey:
-        /* eslint-disable-next-line */
-        process.env[options.secretAccessKeyEnvVar ?? options.secretAccessKey!]
+      credentials: {
+        accessKeyId:
+          /* eslint-disable-next-line */
+          process.env[options.accessKeyIdEnvVar ?? options.accessKeyId!]!,
+        secretAccessKey:
+          /* eslint-disable-next-line */
+          process.env[options.secretAccessKeyEnvVar ?? options.secretAccessKey!]!
+      }
     })
 
     await Promise.all(files.map((file) => this.uploadFile(file, options, s3)))
