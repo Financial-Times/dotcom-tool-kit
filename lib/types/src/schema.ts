@@ -15,38 +15,44 @@ export type PromptGenerators<T> = T extends z.ZodObject<infer Shape>
     }
   : never
 
-import type { ESLintOptions } from './schema/eslint'
-import type { HerokuOptions } from './schema/heroku'
-import type { MochaOptions } from './schema/mocha'
-import type { SmokeTestOptions } from './schema/n-test'
-import type { UploadAssetsToS3Options } from './schema/upload-assets-to-s3'
-import type { VaultOptions } from './schema/vault'
-import type { WebpackOptions } from './schema/webpack'
-import type { NodeOptions } from './schema/node'
-import type { NodemonOptions } from './schema/nodemon'
-import type { NextRouterOptions } from './schema/next-router'
-import type { PrettierOptions } from './schema/prettier'
-import type { LintStagedNpmOptions } from './schema/lint-staged-npm'
-import type { BabelOptions } from './schema/babel'
-import type { CircleCIOptions } from './schema/circleci'
-import type { CypressOptions } from './schema/cypress'
-import type { TypeScriptOptions } from './schema/typescript'
+import { ESLintSchema } from './schema/eslint'
+import { HerokuSchema } from './schema/heroku'
+import { MochaSchema } from './schema/mocha'
+import { SmokeTestSchema } from './schema/n-test'
+import { UploadAssetsToS3Schema } from './schema/upload-assets-to-s3'
+import { VaultSchema } from './schema/vault'
+import { WebpackSchema } from './schema/webpack'
+import { NodeSchema } from './schema/node'
+import { NodemonSchema } from './schema/nodemon'
+import { NextRouterSchema } from './schema/next-router'
+import { PrettierSchema } from './schema/prettier'
+import { LintStagedNpmSchema } from './schema/lint-staged-npm'
+import { BabelSchema } from './schema/babel'
+import { CircleCISchema } from './schema/circleci'
+import { CypressSchema } from './schema/cypress'
+import { TypeScriptSchema } from './schema/typescript'
+
+export const Schemas = {
+  '@dotcom-tool-kit/eslint': ESLintSchema,
+  '@dotcom-tool-kit/heroku': HerokuSchema,
+  '@dotcom-tool-kit/mocha': MochaSchema,
+  '@dotcom-tool-kit/n-test': SmokeTestSchema,
+  '@dotcom-tool-kit/upload-assets-to-s3': UploadAssetsToS3Schema,
+  '@dotcom-tool-kit/vault': VaultSchema,
+  '@dotcom-tool-kit/webpack': WebpackSchema,
+  '@dotcom-tool-kit/node': NodeSchema,
+  '@dotcom-tool-kit/nodemon': NodemonSchema,
+  '@dotcom-tool-kit/next-router': NextRouterSchema,
+  '@dotcom-tool-kit/prettier': PrettierSchema,
+  '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
+  '@dotcom-tool-kit/babel': BabelSchema,
+  '@dotcom-tool-kit/circleci': CircleCISchema,
+  '@dotcom-tool-kit/cypress': CypressSchema,
+  '@dotcom-tool-kit/typescript': TypeScriptSchema
+}
 
 export type Options = {
-  '@dotcom-tool-kit/eslint'?: ESLintOptions
-  '@dotcom-tool-kit/heroku'?: HerokuOptions
-  '@dotcom-tool-kit/mocha'?: MochaOptions
-  '@dotcom-tool-kit/n-test'?: SmokeTestOptions
-  '@dotcom-tool-kit/upload-assets-to-s3'?: UploadAssetsToS3Options
-  '@dotcom-tool-kit/vault'?: VaultOptions
-  '@dotcom-tool-kit/webpack'?: WebpackOptions
-  '@dotcom-tool-kit/node'?: NodeOptions
-  '@dotcom-tool-kit/nodemon'?: NodemonOptions
-  '@dotcom-tool-kit/next-router'?: NextRouterOptions
-  '@dotcom-tool-kit/prettier'?: PrettierOptions
-  '@dotcom-tool-kit/lint-staged-npm'?: LintStagedNpmOptions
-  '@dotcom-tool-kit/babel'?: BabelOptions
-  '@dotcom-tool-kit/circleci'?: CircleCIOptions
-  '@dotcom-tool-kit/cypress'?: CypressOptions
-  '@dotcom-tool-kit/typescript'?: TypeScriptOptions
+  [plugin in keyof typeof Schemas]?: typeof Schemas[plugin] extends z.ZodTypeAny
+    ? z.infer<typeof Schemas[plugin]>
+    : never
 }
