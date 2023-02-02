@@ -108,6 +108,9 @@
     },
     {
       "path": "plugins/typescript"
+    },
+    {
+      "path": "plugins/serverless"
     }
   ]
 }
