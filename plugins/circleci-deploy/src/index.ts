@@ -1,38 +1,42 @@
-import CircleCiConfigHook from '@dotcom-tool-kit/circleci/lib/circleci-config'
+import CircleCiConfigHook, { generateConfigWithJob } from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 import { getOptions } from '@dotcom-tool-kit/options'
-import type { JobConfig } from '@dotcom-tool-kit/types/src/circleci'
 
 export class DeployReview extends CircleCiConfigHook {
   job = 'tool-kit/heroku-provision'
-  jobOptions = {
+  config = generateConfigWithJob({
+    name: this.job,
+    addToNightly: true,
     requires: ['tool-kit/setup', 'waiting-for-approval'],
-    filters: { branches: { ignore: 'main' } }
-  }
-  addToNightly = true
+    additionalFields: { filters: { branches: { ignore: 'main' } } }
+  })
 }
 
 export class DeployStaging extends CircleCiConfigHook {
   job = 'tool-kit/heroku-staging'
-  jobOptions = { requires: ['tool-kit/setup'], filters: { branches: { only: 'main' } } }
+  config = generateConfigWithJob({
+    name: this.job,
+    addToNightly: false,
+    requires: ['tool-kit/setup'],
+    additionalFields: { filters: { branches: { only: 'main' } } }
+  })
 }
 
 abstract class CypressCiHook extends CircleCiConfigHook {
+  abstract job: string
   abstract requiredJobs: string[]
-  _jobOptions?: JobConfig
 
-  get jobOptions(): JobConfig {
-    if (!this._jobOptions) {
-      const options = getOptions('@dotcom-tool-kit/circleci')
-      this._jobOptions = {
-        requires: this.requiredJobs
+  get config() {
+    const options = getOptions('@dotcom-tool-kit/circleci')
+    const simplejobOptions = { name: this.job, addToNightly: false, requires: this.requiredJobs }
+    if (options?.cypressImage) {
+      return {
+        executors: { cypress: { docker: [{ image: options.cypressImage }] } },
+        ...generateConfigWithJob({ ...simplejobOptions, additionalFields: { executor: 'cypress' } })
       }
-      if (options?.cypressImage) {
-        this.additionalFields = { executors: { cypress: { docker: [{ image: options.cypressImage }] } } }
-        this._jobOptions.executor = 'cypress'
-      }
+    } else {
+      return generateConfigWithJob(simplejobOptions)
     }
-    return this._jobOptions
   }
 }
 
@@ -48,10 +52,12 @@ export class TestStaging extends CypressCiHook {
 
 export class DeployProduction extends CircleCiConfigHook {
   job = 'tool-kit/heroku-promote'
-  jobOptions = {
+  config = generateConfigWithJob({
+    name: this.job,
+    addToNightly: false,
     requires: [new TestStaging(this.logger).job, new TestCI(this.logger).job],
-    filters: { branches: { only: 'main' } }
-  }
+    additionalFields: { filters: { branches: { only: 'main' } } }
+  })
 }
 
 export const hooks = {
