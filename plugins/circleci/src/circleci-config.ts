@@ -9,7 +9,7 @@ import { Hook } from '@dotcom-tool-kit/types'
 import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
 import { Workflow, JobConfig, CircleConfig, automatedComment, Job } from '@dotcom-tool-kit/types/lib/circleci'
 
-const majorOrbVersion = '2'
+const majorOrbVersion = '3'
 
 interface CircleCIState {
   jobs: Record<string, JobConfig>
