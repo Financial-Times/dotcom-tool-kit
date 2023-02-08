@@ -1,10 +1,9 @@
-import { describe, it, expect } from '@jest/globals'
-import path from 'path'
-import CircleCiConfigHook from '../src/circleci-config'
-import * as YAML from 'yaml'
+import { describe, expect, it } from '@jest/globals'
 import fs from 'fs'
+import path from 'path'
 import winston, { Logger } from 'winston'
-import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
+import * as YAML from 'yaml'
+import CircleCiConfigHook, { generateConfigWithJob } from '../src/circleci-config'
 
 const logger = (winston as unknown) as Logger
 
@@ -20,18 +19,14 @@ const mockedWriteFile = jest.mocked(fs.promises.writeFile)
 
 describe('CircleCI config hook', () => {
   class TestHook extends CircleCiConfigHook {
-    job = 'test-job'
-    jobOptions = {
-      requires: ['another-job']
-    }
-    addToNightly = true
+    config = generateConfigWithJob({ name: 'test-job', addToNightly: true, requires: ['another-job'] })
   }
-  class TestTaggedHook extends CircleCiConfigHook {
-    job = 'test-tagged-job'
-    jobOptions = {
+  class TestAnotherHook extends CircleCiConfigHook {
+    config = generateConfigWithJob({
+      name: 'test-another-job',
+      addToNightly: false,
       requires: ['another-job']
-    }
-    runOnVersionTags = true
+    })
   }
 
   const originalDir = process.cwd()
@@ -105,16 +100,15 @@ describe('CircleCI config hook', () => {
       )
     })
 
-    it(`should add a tag filter to all jobs if one job requires it`, async () => {
+    it(`should merge jobs from two hooks`, async () => {
       process.chdir(path.join(__dirname, 'files', 'comment-without-hook'))
 
       const hook = new TestHook(logger)
-      const taggedHook = new TestTaggedHook(logger)
+      const anotherHook = new TestAnotherHook(logger)
       let state = await hook.install()
-      state = await taggedHook.install(state)
+      state = await anotherHook.install(state)
       await hook.commitInstall(state)
 
-      const semverFilter = `/${semVerRegex.source}/`
       const config = YAML.parse(mockedWriteFile.mock.calls[0][1])
       expect(config).toEqual(
         expect.objectContaining({
@@ -123,30 +117,51 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 expect.objectContaining({
                   'test-job': expect.objectContaining({
-                    requires: ['another-job'],
-                    filters: { tags: { only: semverFilter } }
+                    requires: ['another-job']
                   })
                 }),
                 expect.objectContaining({
-                  'test-tagged-job': expect.objectContaining({
-                    requires: ['another-job'],
-                    filters: { tags: { only: semverFilter } }
+                  'test-another-job': expect.objectContaining({
+                    requires: ['another-job']
                   })
                 })
               ])
             }),
             nightly: expect.objectContaining({
               jobs: expect.arrayContaining([
-                expect.objectContaining({
+                {
                   'test-job': expect.objectContaining({
                     requires: ['another-job']
                   })
-                })
+                }
               ])
             })
           }
         })
       )
+    })
+
+    it(`should discard job from duplicate hook`, async () => {
+      process.chdir(path.join(__dirname, 'files', 'comment-without-hook'))
+
+      const hook = new TestHook(logger)
+      const sameHook = new TestHook(logger)
+      let state = await hook.install()
+      state = await sameHook.install(state)
+      await hook.commitInstall(state)
+
+      const config = YAML.parse(mockedWriteFile.mock.calls[0][1])
+      const partialExpectedJob = {
+        'test-job': expect.objectContaining({
+          requires: ['another-job']
+        })
+      }
+      const { jobs } = config.workflows['tool-kit']
+      expect(jobs).toHaveLength(4)
+      for (let i = 0; i < 3; i++) {
+        expect(jobs[i]).toEqual(expect.not.objectContaining(partialExpectedJob))
+      }
+      expect(jobs[3]).toEqual(expect.objectContaining(partialExpectedJob))
     })
   })
 })

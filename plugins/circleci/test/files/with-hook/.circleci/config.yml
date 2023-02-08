@@ -1,7 +1,16 @@
 workflows:
   tool-kit:
     jobs:
-      - test-job
+      - test-job:
+          requires:
+            - another-job
+          executor: node
+          filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
   nightly:
     jobs:
-      - test-job
+      - test-job:
+          requires:
+            - another-job
+          executor: node
