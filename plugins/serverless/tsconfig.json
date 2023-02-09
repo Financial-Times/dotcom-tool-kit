@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "references": [
+    {
+      "path": "../../lib/types"
+    },
+    {
+      "path": "../../lib/vault"
+    },
+    {
+      "path": "../../lib/logger"
+    }
+  ],
+  "include": ["src/**/*"]
+}
