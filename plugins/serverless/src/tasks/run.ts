@@ -7,7 +7,7 @@ import getPort from 'get-port'
 import waitPort from 'wait-port'
 
 export default class ServerlessRun extends Task<typeof ServerlessSchema> {
-  static description = ''
+  static description = 'Run serverless functions locally'
 
   static defaultOptions: ServerlessOptions = {
     useVault: true,
