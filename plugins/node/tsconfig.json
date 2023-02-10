@@ -15,7 +15,10 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/options"
+      "path": "../../lib/vault"
+    },
+    {
+      "path": "../../lib/state"
     }
   ],
   "include": ["src/**/*"]

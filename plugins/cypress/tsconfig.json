@@ -7,6 +7,12 @@
   "references": [
     {
       "path": "../../lib/types"
+    },
+    {
+      "path": "../../lib/logger"
+    },
+    {
+      "path": "../../lib/state"
     }
   ],
   "include": ["src/**/*"]
