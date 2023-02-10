@@ -2,15 +2,15 @@ import { writeState } from '@dotcom-tool-kit/state'
 import CircleCiConfigHook, { generateConfigWithJob } from './circleci-config'
 
 export class BuildCI extends CircleCiConfigHook {
-  job = 'tool-kit/build'
-  config = generateConfigWithJob({ name: this.job, requires: ['tool-kit/setup'], addToNightly: true })
+  static job = 'tool-kit/build'
+  config = generateConfigWithJob({ name: BuildCI.job, requires: ['tool-kit/setup'], addToNightly: true })
 }
 
 export class TestCI extends CircleCiConfigHook {
-  job = 'tool-kit/test'
+  static job = 'tool-kit/test'
   config = generateConfigWithJob({
-    name: this.job,
-    requires: [new BuildCI(this.logger).job],
+    name: TestCI.job,
+    requires: [BuildCI.job],
     addToNightly: true
   })
 }

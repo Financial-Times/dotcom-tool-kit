@@ -3,9 +3,9 @@ import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 import { getOptions } from '@dotcom-tool-kit/options'
 
 export class DeployReview extends CircleCiConfigHook {
-  job = 'tool-kit/heroku-provision'
+  static job = 'tool-kit/heroku-provision'
   config = generateConfigWithJob({
-    name: this.job,
+    name: DeployReview.job,
     addToNightly: true,
     requires: ['tool-kit/setup', 'waiting-for-approval'],
     additionalFields: { filters: { branches: { ignore: 'main' } } }
@@ -13,9 +13,9 @@ export class DeployReview extends CircleCiConfigHook {
 }
 
 export class DeployStaging extends CircleCiConfigHook {
-  job = 'tool-kit/heroku-staging'
+  static job = 'tool-kit/heroku-staging'
   config = generateConfigWithJob({
-    name: this.job,
+    name: DeployStaging.job,
     addToNightly: false,
     requires: ['tool-kit/setup'],
     additionalFields: { filters: { branches: { only: 'main' } } }
@@ -42,12 +42,12 @@ abstract class CypressCiHook extends CircleCiConfigHook {
 
 export class TestReview extends CypressCiHook {
   job = 'tool-kit/e2e-test-review'
-  requiredJobs = [new DeployReview(this.logger).job]
+  requiredJobs = [DeployReview.job]
 }
 
 export class TestStaging extends CypressCiHook {
   job = 'tool-kit/e2e-test-staging'
-  requiredJobs = [new DeployStaging(this.logger).job]
+  requiredJobs = [DeployStaging.job]
 }
 
 export class DeployProduction extends CircleCiConfigHook {
@@ -55,7 +55,7 @@ export class DeployProduction extends CircleCiConfigHook {
   config = generateConfigWithJob({
     name: this.job,
     addToNightly: false,
-    requires: [new TestStaging(this.logger).job, new TestCI(this.logger).job],
+    requires: [new TestStaging(this.logger).job, TestCI.job],
     additionalFields: { filters: { branches: { only: 'main' } } }
   })
 }
