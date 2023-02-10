@@ -7,9 +7,6 @@
   },
   "references": [
     {
-      "path": "../../lib/error"
-    },
-    {
       "path": "../../lib/logger"
     },
     {

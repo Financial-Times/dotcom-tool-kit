@@ -7,6 +7,9 @@
   "references": [
     {
       "path": "../../lib/types"
+    },
+    {
+      "path": "../../lib/logger"
     }
   ],
   "include": ["src/**/*"]

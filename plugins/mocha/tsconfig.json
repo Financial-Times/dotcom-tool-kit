@@ -2,9 +2,6 @@
   "extends": "../../tsconfig.settings.json",
   "references": [
     {
-      "path": "../../lib/error"
-    },
-    {
       "path": "../../lib/logger"
     },
     {
