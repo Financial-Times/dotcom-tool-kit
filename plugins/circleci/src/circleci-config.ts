@@ -1,28 +1,177 @@
-import { promises as fs } from 'fs'
-import merge from 'lodash/merge'
-import path from 'path'
-import YAML from 'yaml'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { Hook } from '@dotcom-tool-kit/types'
+import { automatedComment, CircleConfig, Job, JobConfig, Workflow } from '@dotcom-tool-kit/types/lib/circleci'
 import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
-import { Workflow, JobConfig, CircleConfig, automatedComment, Job } from '@dotcom-tool-kit/types/lib/circleci'
+import type { CircleCIOptions } from '@dotcom-tool-kit/types/lib/schema/circleci'
+import { promises as fs } from 'fs'
+import isMatch from 'lodash/isMatch'
+import merge from 'lodash/merge'
+import mergeWith from 'lodash/mergeWith'
+import path from 'path'
+import type { PartialDeep } from 'type-fest'
+import YAML from 'yaml'
 
-const majorOrbVersion = '2'
+const majorOrbVersion = '3'
 
-interface CircleCIState {
-  jobs: Record<string, JobConfig>
-  nightlyJobs: Record<string, Omit<JobConfig, 'filters'>>
-  runOnVersionTags: boolean
-  additionalFields: Record<string, unknown>
+export type CircleCIState = CircleConfig
+/**
+ * CircleCIStatePartial makes every property in the config object optional,
+ * including nested properties. This is particularly useful as we merge each
+ * hook's config into the larger state, and so each hook only needs to define
+ * the parts of the config they want to add to.
+ */
+export type CircleCIStatePartial = PartialDeep<CircleCIState>
+
+// These boilerplate objects are (typically) needed for each job. They can be
+// spread into your custom config, and are automatically included when calling
+// generateSimpleJob.
+
+/**
+ * Every Tool Kit job, including jobs in the `nightly` workflow, uses the
+ * executor we define at the top of the CircleCI config, which specifies the
+ * version of Node to use.
+ */
+export const nightlyBoilerplate = {
+  executor: 'node'
+}
+/**
+ * tagFilter sets the regex for GitHub release tags: CircleCI will ignore jobs
+ * when doing a release if the filter isn't made explicit
+ */
+export const tagFilter = { filters: { tags: { only: `${semVerRegex}` } } }
+/**
+ * jobBoilerplate is the config needed for all Tool Kit jobs in the `tool-kit`
+ * workflow, and combines the `nightlyBoilerplate` and `tagFilter` objects.
+ */
+export const jobBoilerplate = {
+  ...nightlyBoilerplate,
+  ...tagFilter
 }
 
-const tagFilter = { filters: { tags: { only: `${semVerRegex}` } } }
+export interface JobGeneratorOptions {
+  name: string
+  /** whether to include in `nightly` workflow or just `tool-kit` */
+  addToNightly: boolean
+  requires: string[]
+  /** other fields to include in the job */
+  additionalFields?: JobConfig
+}
+
+/**
+ * `generateConfigWithJob` generates a single job, structured so that it will
+ * merge nicely with the rest of the config. This will include the `requires`
+ * parameter, as well as the boilerplate properties from `jobBoilerplate`, but
+ * any other options will need to be passed to `additionalFields`, such as
+ * `filters.branches`.
+ */
+export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCIStatePartial => {
+  const config: CircleCIStatePartial = {
+    workflows: {
+      'tool-kit': {
+        jobs: [
+          {
+            [options.name]: merge({ requires: options.requires }, jobBoilerplate, options.additionalFields)
+          }
+        ]
+      }
+    }
+  }
+  if (options.addToNightly) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    config.workflows!.nightly = {
+      jobs: [
+        {
+          [options.name]: merge(
+            { requires: options.requires.filter((job) => job !== 'waiting-for-approval') },
+            nightlyBoilerplate,
+            options.additionalFields
+          )
+        }
+      ]
+    }
+  }
+  return config
+}
+
+const getInitialState = (options: CircleCIOptions): CircleCIState => ({
+  version: 2.1,
+  orbs: {
+    'tool-kit': process.env.TOOL_KIT_FORCE_DEV_ORB
+      ? 'financial-times/dotcom-tool-kit@dev:alpha'
+      : `financial-times/dotcom-tool-kit@${majorOrbVersion}`
+  },
+  executors: {
+    node: {
+      docker: [{ image: `cimg/node:${options.nodeVersion ?? '16.14-browsers'}` }]
+    }
+  },
+  jobs: {
+    checkout: {
+      docker: [{ image: 'cimg/base:stable' }],
+      steps: [
+        'checkout',
+        {
+          'tool-kit/persist-workspace': {
+            path: '.'
+          }
+        }
+      ]
+    }
+  },
+  workflows: {
+    'tool-kit': {
+      when: {
+        not: {
+          equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
+        }
+      },
+      jobs: [
+        { checkout: tagFilter },
+        {
+          'waiting-for-approval': {
+            type: 'approval',
+            filters: { branches: { only: '/(^renovate-.*|^nori/.*)/' } }
+          }
+        },
+        {
+          'tool-kit/setup': {
+            requires: ['checkout', 'waiting-for-approval'],
+            ...jobBoilerplate
+          }
+        }
+      ]
+    },
+    nightly: {
+      when: {
+        and: [
+          {
+            equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
+          },
+          {
+            equal: ['nightly', '<< pipeline.schedule.name >>']
+          }
+        ]
+      },
+      jobs: [
+        'checkout',
+        {
+          'tool-kit/setup': {
+            requires: ['checkout'],
+            ...nightlyBoilerplate
+          }
+        }
+      ]
+    }
+  }
+})
 
 const isAutomatedConfig = (config: string): boolean => config.startsWith(automatedComment)
 
 const isNotToolKitConfig = (config: string): boolean => !config.includes('tool-kit')
+
+const getJobName = (job: Job): string => (typeof job === 'string' ? job : Object.keys(job)[0])
 
 const hasJob = (expectedJob: string, jobs: NonNullable<Workflow['jobs']>): boolean =>
   jobs.some(
@@ -45,11 +194,7 @@ export default abstract class CircleCiConfigHook extends Hook<CircleCIState> {
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
   _circleConfig?: string
   _versionTag?: string
-  abstract job: string
-  abstract jobOptions: JobConfig
-  additionalFields?: Record<string, unknown>
-  addToNightly?: boolean
-  runOnVersionTags?: boolean
+  abstract config: CircleCIStatePartial
 
   async getCircleConfig(): Promise<string | undefined> {
     if (!this._circleConfig) {
@@ -84,38 +229,24 @@ export default abstract class CircleCiConfigHook extends Hook<CircleCIState> {
       }
     }
 
-    const { jobs, nightlyJobs } = getWorkflowJobs(config)
-    if (!(jobs && hasJob(this.job, jobs))) {
-      return false
-    }
-    if (this.addToNightly && !(nightlyJobs && hasJob(this.job, nightlyJobs))) {
-      return false
-    }
-    return true
+    return isMatch(config, this.config)
   }
 
   async install(state?: CircleCIState): Promise<CircleCIState> {
     if (!state) {
-      state = {
-        jobs: {},
-        nightlyJobs: {},
-        runOnVersionTags: false,
-        additionalFields: {}
+      const options = getOptions('@dotcom-tool-kit/circleci') ?? {}
+      state = getInitialState(options)
+    }
+    // define a customiser function to make sure only jobs that aren't already
+    // listed are merged into the CircleCI config, and to force new jobs to be
+    // concatenated onto the array of other jobs rather than zipping them
+    // (i.e., overwriting the first few jobs in the array)
+    mergeWith(state, this.config, (prevState, newConfig, key) => {
+      if (key === 'jobs' && Array.isArray(prevState)) {
+        const uniqueJobs = newConfig.filter((job: Job) => !hasJob(getJobName(job), prevState))
+        return prevState.concat(uniqueJobs)
       }
-    }
-
-    state.jobs[this.job] = this.jobOptions
-    if (this.addToNightly) {
-      const jobOptionsWithoutFilters = {
-        ...this.jobOptions,
-        filters: undefined
-      }
-      state.nightlyJobs[this.job] = jobOptionsWithoutFilters
-    }
-    if (this.runOnVersionTags) {
-      state.runOnVersionTags = true
-    }
-    merge(state.additionalFields, this.additionalFields)
+    })
     return state
   }
 
@@ -136,11 +267,12 @@ If you would like a Tool Kit configured CircleCI config file to be generated for
     if (rawConfig && !isAutomatedConfig(rawConfig)) {
       const config = YAML.parse(rawConfig)
       const { jobs, nightlyJobs } = getWorkflowJobs(config)
-      const flattenJob = (job: Job): string => (typeof job === 'string' ? job : Object.keys(job)[0])
-      const flatJobs = jobs?.map(flattenJob) ?? []
-      const flatNightlyJobs = nightlyJobs?.map(flattenJob) ?? []
-      const missingJobs = Object.keys(state.jobs).filter((job) => !flatJobs.includes(job))
-      const missingNightlyJobs = Object.keys(state.nightlyJobs).filter(
+      const flatJobs = jobs?.map(getJobName) ?? []
+      const flatNightlyJobs = nightlyJobs?.map(getJobName) ?? []
+      const missingJobs = Object.keys(state.workflows['tool-kit'].jobs).filter(
+        (job) => !flatJobs.includes(job)
+      )
+      const missingNightlyJobs = Object.keys(state.workflows.nightly.jobs).filter(
         (job) => !flatNightlyJobs.includes(job)
       )
 
@@ -160,106 +292,7 @@ If you would like a Tool Kit configured CircleCI config file to be generated for
       )
     }
 
-    const nodeVersion = getOptions('@dotcom-tool-kit/circleci')?.nodeVersion
-    const newConfig: Record<string, unknown> = {
-      version: 2.1,
-      orbs: {
-        'tool-kit': process.env.TOOL_KIT_FORCE_DEV_ORB
-          ? 'financial-times/dotcom-tool-kit@dev:alpha'
-          : `financial-times/dotcom-tool-kit@${majorOrbVersion}`
-      },
-      jobs: {
-        checkout: {
-          docker: [{ image: 'cimg/base:stable' }],
-          steps: [
-            'checkout',
-            {
-              'tool-kit/persist-workspace': {
-                path: '.'
-              }
-            }
-          ]
-        }
-      },
-      workflows: {
-        'tool-kit': {
-          when: {
-            not: {
-              equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-            }
-          },
-          jobs: [
-            state.runOnVersionTags ? { checkout: tagFilter } : 'checkout',
-            {
-              'waiting-for-approval': {
-                type: 'approval',
-                filters: { branches: { only: '/(^renovate-.*|^nori/.*)/' } }
-              }
-            },
-            ...[
-              {
-                'tool-kit/setup': {
-                  requires: ['checkout', 'waiting-for-approval']
-                }
-              },
-              ...Object.entries(state.jobs).map(([job, options]) => ({
-                [job]: {
-                  ...options
-                }
-              }))
-            ].map((job) => {
-              const options = Object.values(job)[0] // there should only ever be one field on the job
-              if (nodeVersion) {
-                options.executor ??= 'node'
-              }
-              if (state.runOnVersionTags) {
-                merge(options, tagFilter)
-              }
-              return job
-            })
-          ]
-        },
-        nightly: {
-          when: {
-            and: [
-              {
-                equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-              },
-              {
-                equal: ['nightly', '<< pipeline.schedule.name >>']
-              }
-            ]
-          },
-          jobs: [
-            'checkout',
-            ...[
-              {
-                'tool-kit/setup': {
-                  requires: ['checkout']
-                }
-              },
-              ...Object.entries(state.nightlyJobs).map(([job, options]) => ({
-                [job]: {
-                  ...options,
-                  requires: options.requires?.filter((x: string) => x !== 'waiting-for-approval')
-                }
-              }))
-            ].map((job) => {
-              if (nodeVersion) {
-                Object.values(job)[0].executor ??= 'node'
-              }
-              return job
-            })
-          ]
-        }
-      }
-    }
-    if (nodeVersion) {
-      newConfig.executors = { node: { docker: [{ image: `cimg/node:${nodeVersion}` }] } }
-    }
-    merge(newConfig, state.additionalFields)
-
-    const serialised = automatedComment + YAML.stringify(newConfig, { aliasDuplicateObjects: false })
+    const serialised = automatedComment + YAML.stringify(state, { aliasDuplicateObjects: false })
     const circleConfigDir = path.dirname(this.circleConfigPath)
     this.logger.verbose(`making directory at ${styles.filepath(circleConfigDir)}...`)
     // Enable recursive option so that mkdir doesn't throw if the directory
