@@ -12,13 +12,17 @@ jest.mock('@dotcom-tool-kit/state', () => {
 })
 
 jest.mock('../../src/scaleDyno')
+const mockPromoteStagingToProduction = jest.spyOn(utils, 'promoteStagingToProduction')
+jest.spyOn(Production.prototype, 'fetchIfAppHasDeployed').mockImplementation(() => Promise.resolve(true))
 
-const mockpromoteStagingToProduction = jest.spyOn(utils, 'promoteStagingToProduction')
-const productionOptions = { systemCode: 'next-health', scaling: { 'test-app': { web: { size: 'standard-1x', quantity: 1 } } } }
+const productionOptions = {
+  systemCode: 'next-health',
+  scaling: { 'test-app': { web: { size: 'standard-1x', quantity: 1 } } }
+}
 
 describe('staging', () => {
   it('should call set slug with slug id and system code', async () => {
-    mockpromoteStagingToProduction.mockImplementation(() => Promise.resolve([]))
+    mockPromoteStagingToProduction.mockImplementation(() => Promise.resolve([]))
     const task = new Production(logger, productionOptions)
     await task.run()
 
@@ -31,7 +35,7 @@ describe('staging', () => {
   })
 
   it('should throw if it completes unsuccessfully', async () => {
-    mockpromoteStagingToProduction.mockImplementation(() => Promise.reject())
+    mockPromoteStagingToProduction.mockImplementation(() => Promise.reject())
     const task = new Production(logger, productionOptions)
     await expect(task.run()).rejects.toThrowError()
   })
