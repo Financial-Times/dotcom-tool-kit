@@ -3,6 +3,7 @@ import { Readable, Transform } from 'stream'
 import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger } from './logger'
+import { styles as s } from './styles'
 import { HookTransport, consoleTransport } from './transports'
 import ansiRegex from 'ansi-regex'
 
@@ -103,7 +104,11 @@ export function hookFork(
   }
 
   if (!child.stdout) {
-    throw new ToolKitError(`failed to fork ${process} process`)
+    const error = new ToolKitError(`failed to hook into forked ${process} process`)
+    error.details = `Did you make sure to pipe the stdout to the parent, such as by setting ${s.dim(
+      '{ silent: true }'
+    )} in ${s.dim('fork')}?`
+    throw error
   }
   hookStream(child.stdout, 'info')
   if (logStdErr && child.stderr) {
