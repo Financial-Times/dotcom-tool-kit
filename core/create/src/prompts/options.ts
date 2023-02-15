@@ -144,6 +144,11 @@ export interface OptionsParams {
   configPath: string
 }
 
+type ZodPartial = z.ZodOptional<z.ZodTypeAny> | z.ZodDefault<z.ZodTypeAny>
+
+const isPartialOptional = (partial: ZodPartial): partial is z.ZodOptional<z.ZodTypeAny> =>
+  typeof (partial as z.ZodOptional<z.ZodTypeAny>).unwrap === 'function'
+
 export default async ({ logger, config, toolKitConfig, configPath }: OptionsParams): Promise<boolean> => {
   for (const plugin of Object.keys(config.plugins)) {
     let options: z.AnyZodObject
@@ -163,9 +168,9 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
       continue
     }
 
-    const [optional, required] = partition<[string, z.ZodTypeAny], [string, z.ZodOptional<z.ZodTypeAny>]>(
+    const [partial, required] = partition<[string, z.ZodTypeAny], [string, ZodPartial]>(
       Object.entries(options.shape),
-      (schema): schema is [string, z.ZodOptionalType<z.ZodTypeAny>] => schema[1].isOptional()
+      (schema): schema is [string, ZodPartial] => schema[1].isOptional()
     )
     const anyRequired = required.length > 0
 
@@ -196,7 +201,7 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
       }
     }
 
-    if (optional.length > 0) {
+    if (partial.length > 0) {
       const { confirm } = await prompt({
         name: 'confirm',
         type: 'confirm',
@@ -211,7 +216,10 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
         await optionsPromptForPlugin(
           toolKitConfig,
           plugin,
-          optional.map(([name, optionType]) => [name, optionType.unwrap()])
+          partial.map(([name, partialType]) => [
+            name,
+            isPartialOptional(partialType) ? partialType.unwrap() : partialType.removeDefault()
+          ])
         )
       } else if (!anyRequired) {
         delete toolKitConfig.options[plugin]

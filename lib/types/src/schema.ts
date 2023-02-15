@@ -11,7 +11,7 @@ export type PromptGenerators<T> = T extends z.ZodObject<infer Shape>
   ? {
       [option in keyof Shape as Shape[option] extends z.ZodType
         ? option
-        : never]?: Shape[option] extends z.ZodType ? SchemaPromptGenerator<z.infer<Shape[option]>> : never
+        : never]?: Shape[option] extends z.ZodType ? SchemaPromptGenerator<z.output<Shape[option]>> : never
     }
   : never
 

@@ -148,15 +148,14 @@ export abstract class Task<O extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
     return taskSymbol
   }
 
-  static defaultOptions: Record<string, unknown> = {}
-  options: z.infer<O>
+  options: z.output<O>
   logger: Logger
 
-  constructor(logger: Logger, options: Partial<z.infer<O>> = {}) {
+  constructor(logger: Logger, options: z.output<O>) {
     super()
 
     const staticThis = this.constructor as typeof Task
-    this.options = Object.assign({}, staticThis.defaultOptions as z.infer<O>, options)
+    this.options = options
     this.logger = logger.child({ task: staticThis.id })
   }
 

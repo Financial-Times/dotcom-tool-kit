@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/types'
-import { NodeOptions, NodeSchema } from '@dotcom-tool-kit/types/lib/schema/node'
+import { NodeSchema } from '@dotcom-tool-kit/types/lib/schema/node'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
@@ -10,12 +10,6 @@ import waitPort from 'wait-port'
 
 export default class Node extends Task<typeof NodeSchema> {
   static description = ''
-
-  static defaultOptions: NodeOptions = {
-    entry: './server/app.js',
-    useVault: true,
-    ports: [3001, 3002, 3003]
-  }
 
   async run(): Promise<void> {
     const { entry, args, useVault, ports } = this.options

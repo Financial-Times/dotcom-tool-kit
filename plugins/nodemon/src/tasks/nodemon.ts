@@ -1,7 +1,7 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
-import { NodemonOptions, NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
+import { NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
 import { writeState } from '@dotcom-tool-kit/state'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import getPort from 'get-port'
@@ -10,12 +10,6 @@ import { Readable } from 'stream'
 
 export default class Nodemon extends Task<typeof NodemonSchema> {
   static description = ''
-
-  static defaultOptions: NodemonOptions = {
-    entry: './server/app.js',
-    useVault: true,
-    ports: [3001, 3002, 3003]
-  }
 
   async run(): Promise<void> {
     const { entry, configPath, useVault, ports } = this.options

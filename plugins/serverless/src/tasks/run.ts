@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/types'
-import { ServerlessOptions, ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
+import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
 import { spawn } from 'child_process'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
@@ -8,11 +8,6 @@ import waitPort from 'wait-port'
 
 export default class ServerlessRun extends Task<typeof ServerlessSchema> {
   static description = 'Run serverless functions locally'
-
-  static defaultOptions: ServerlessOptions = {
-    useVault: true,
-    ports: [3001, 3002, 3003]
-  }
 
   async run(): Promise<void> {
     const { useVault, ports, configPath } = this.options
