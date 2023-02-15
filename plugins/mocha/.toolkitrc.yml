@@ -1,7 +1,3 @@
 hooks:
   'test:local': Mocha
   'test:ci': Mocha
-
-options:
-  '@dotcom-tool-kit/mocha':
-    files: 'test/**/*.js'
