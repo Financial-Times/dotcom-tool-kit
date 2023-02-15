@@ -15,40 +15,44 @@ export type PromptGenerators<T> = T extends z.ZodObject<infer Shape>
     }
   : never
 
-import { ESLintSchema } from './schema/eslint'
-import { HerokuSchema } from './schema/heroku'
-import { MochaSchema } from './schema/mocha'
-import { SmokeTestSchema } from './schema/n-test'
-import { UploadAssetsToS3Schema } from './schema/upload-assets-to-s3'
-import { VaultSchema } from './schema/vault'
-import { WebpackSchema } from './schema/webpack'
-import { NodeSchema } from './schema/node'
-import { NodemonSchema } from './schema/nodemon'
-import { NextRouterSchema } from './schema/next-router'
-import { PrettierSchema } from './schema/prettier'
-import { LintStagedNpmSchema } from './schema/lint-staged-npm'
 import { BabelSchema } from './schema/babel'
 import { CircleCISchema } from './schema/circleci'
 import { CypressSchema } from './schema/cypress'
+import { ESLintSchema } from './schema/eslint'
+import { HerokuSchema } from './schema/heroku'
+import { LintStagedNpmSchema } from './schema/lint-staged-npm'
+import { JestSchema } from './schema/jest'
+import { MochaSchema } from './schema/mocha'
+import { SmokeTestSchema } from './schema/n-test'
+import { NextRouterSchema } from './schema/next-router'
+import { NodeSchema } from './schema/node'
+import { NodemonSchema } from './schema/nodemon'
+import { Pa11ySchema } from './schema/pa11y'
+import { PrettierSchema } from './schema/prettier'
 import { TypeScriptSchema } from './schema/typescript'
+import { UploadAssetsToS3Schema } from './schema/upload-assets-to-s3'
+import { VaultSchema } from './schema/vault'
+import { WebpackSchema } from './schema/webpack'
 
 export const Schemas = {
-  '@dotcom-tool-kit/eslint': ESLintSchema,
-  '@dotcom-tool-kit/heroku': HerokuSchema,
-  '@dotcom-tool-kit/mocha': MochaSchema,
-  '@dotcom-tool-kit/n-test': SmokeTestSchema,
-  '@dotcom-tool-kit/upload-assets-to-s3': UploadAssetsToS3Schema,
-  '@dotcom-tool-kit/vault': VaultSchema,
-  '@dotcom-tool-kit/webpack': WebpackSchema,
-  '@dotcom-tool-kit/node': NodeSchema,
-  '@dotcom-tool-kit/nodemon': NodemonSchema,
-  '@dotcom-tool-kit/next-router': NextRouterSchema,
-  '@dotcom-tool-kit/prettier': PrettierSchema,
-  '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
   '@dotcom-tool-kit/babel': BabelSchema,
   '@dotcom-tool-kit/circleci': CircleCISchema,
   '@dotcom-tool-kit/cypress': CypressSchema,
-  '@dotcom-tool-kit/typescript': TypeScriptSchema
+  '@dotcom-tool-kit/eslint': ESLintSchema,
+  '@dotcom-tool-kit/heroku': HerokuSchema,
+  '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
+  '@dotcom-tool-kit/jest': JestSchema,
+  '@dotcom-tool-kit/mocha': MochaSchema,
+  '@dotcom-tool-kit/n-test': SmokeTestSchema,
+  '@dotcom-tool-kit/next-router': NextRouterSchema,
+  '@dotcom-tool-kit/node': NodeSchema,
+  '@dotcom-tool-kit/nodemon': NodemonSchema,
+  '@dotcom-tool-kit/pa11y': Pa11ySchema,
+  '@dotcom-tool-kit/prettier': PrettierSchema,
+  '@dotcom-tool-kit/typescript': TypeScriptSchema,
+  '@dotcom-tool-kit/upload-assets-to-s3': UploadAssetsToS3Schema,
+  '@dotcom-tool-kit/vault': VaultSchema,
+  '@dotcom-tool-kit/webpack': WebpackSchema
 }
 
 export type Options = {
