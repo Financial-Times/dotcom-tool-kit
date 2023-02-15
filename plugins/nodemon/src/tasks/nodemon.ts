@@ -1,5 +1,4 @@
-import { ToolKitError } from '@dotcom-tool-kit/error'
-import { hookFork, styles } from '@dotcom-tool-kit/logger'
+import { hookFork } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
 import { writeState } from '@dotcom-tool-kit/state'
@@ -29,14 +28,6 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
       (await getPort({
         port: ports
       }))
-
-    if (!entry) {
-      const error = new ToolKitError(
-        `the ${styles.task('Nodemon')} task requires an ${styles.option('entry')} option`
-      )
-      error.details = `this is the entrypoint for your app, e.g. ${styles.filepath('server/app.js')}`
-      throw error
-    }
 
     this.logger.verbose('starting the child nodemon process...')
 
