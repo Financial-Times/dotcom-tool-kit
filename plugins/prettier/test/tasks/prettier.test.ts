@@ -8,6 +8,14 @@ const logger = (winston as unknown) as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 
+const defaultConfig = {
+  singleQuote: true,
+  useTabs: true,
+  bracketSpacing: true,
+  arrowParens: 'always',
+  trailingComma: 'none'
+}
+
 describe('prettier', () => {
   let unformattedFixture: string
   let formattedDefaultFixture: string
@@ -37,7 +45,8 @@ describe('prettier', () => {
   it('should format the correct file with default configOptions', async () => {
     const task = new Prettier(logger, {
       files: [path.join(testDirectory, 'unformatted.ts')],
-      ignoreFile: 'nonexistent prettierignore'
+      ignoreFile: 'nonexistent prettierignore',
+      configOptions: defaultConfig
     })
     await task.run()
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
@@ -49,7 +58,8 @@ describe('prettier', () => {
     const task = new Prettier(logger, {
       files: [path.join(testDirectory, 'unformatted.ts')],
       configFile: path.join(__dirname, '../.prettierrc-test.json'),
-      ignoreFile: 'nonexistent prettierignore'
+      ignoreFile: 'nonexistent prettierignore',
+      configOptions: defaultConfig
     })
     await task.run()
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
@@ -73,18 +83,5 @@ describe('prettier', () => {
     await task.run()
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
     expect(prettified).toEqual(formattedConfigOptionsFixture)
-  })
-
-  it('should use .prettierignore as ignorefile by default', async () => {
-    const task = new Prettier(logger, {
-      files: [path.join(testDirectory, 'unformatted.ts')]
-    })
-
-    await task.run()
-    const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
-
-    // .prettierignore in the dotcom-tool-kit root includes the prettier fixtures,
-    // so using that ignore file we'd expect this file not to get formatted
-    expect(prettified).toEqual(unformattedFixture)
   })
 })

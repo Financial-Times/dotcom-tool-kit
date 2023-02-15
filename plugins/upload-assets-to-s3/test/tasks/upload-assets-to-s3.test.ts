@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll } from '@jest/globals'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { UploadAssetsToS3Options } from '@dotcom-tool-kit/types/lib/schema/upload-assets-to-s3'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
 import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'
@@ -11,6 +12,18 @@ const logger = (winston as unknown) as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 
+const defaults: UploadAssetsToS3Options = {
+  accessKeyId: 'aws_access_hashed_assets',
+  secretAccessKey: 'aws_secret_hashed_assets',
+  directory: 'public',
+  reviewBucket: ['ft-next-hashed-assets-preview'],
+  prodBucket: ['ft-next-hashed-assets-prod'],
+  region: 'eu-west-1',
+  destination: 'hashed-assets/page-kit',
+  extensions: 'js,css,map,gz,br,png,jpg,jpeg,gif,webp,svg,ico,json',
+  cacheControl: 'public, max-age=31536000, stale-while-revalidate=60, stale-if-error=3600'
+}
+
 describe('upload-assets-to-s3', () => {
   beforeAll(() => {
     mockedS3Client.prototype.send.mockReturnValue({
@@ -20,6 +33,7 @@ describe('upload-assets-to-s3', () => {
 
   it('should upload all globbed files for review', async () => {
     const task = new UploadAssetsToS3(logger, {
+      ...defaults,
       directory: testDirectory
     })
     process.env.NODE_ENV = 'branch'
@@ -32,6 +46,7 @@ describe('upload-assets-to-s3', () => {
 
   it('should upload all globbed files for prod', async () => {
     const task = new UploadAssetsToS3(logger, {
+      ...defaults,
       directory: testDirectory
     })
     process.env.NODE_ENV = 'production'
@@ -44,6 +59,7 @@ describe('upload-assets-to-s3', () => {
 
   it('should strip base path from S3 key', async () => {
     const task = new UploadAssetsToS3(logger, {
+      ...defaults,
       extensions: 'gz',
       directory: testDirectory,
       destination: 'testdir'
@@ -58,6 +74,7 @@ describe('upload-assets-to-s3', () => {
 
   it('should use correct Content-Encoding for compressed files', async () => {
     const task = new UploadAssetsToS3(logger, {
+      ...defaults,
       extensions: 'gz',
       directory: testDirectory
     })
@@ -77,6 +94,7 @@ describe('upload-assets-to-s3', () => {
     ;(mockedS3Client.prototype.send as any).mockRejectedValue(new Error(mockError))
 
     const task = new UploadAssetsToS3(logger, {
+      ...defaults,
       directory: testDirectory
     })
 
