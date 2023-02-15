@@ -9,24 +9,34 @@ import prompt from 'prompts'
 import { z } from 'zod'
 import type { Logger } from '../logger'
 
+interface OptionSettings {
+  name: string
+  type: z.ZodTypeAny
+  default?: any
+}
+
 async function optionsPromptForPlugin(
   toolKitConfig: RCFile,
   plugin: string,
-  options: [string, z.ZodTypeAny][]
+  options: OptionSettings[]
 ): Promise<boolean> {
   let pluginCancelled = false
   const onCancel = () => {
     pluginCancelled = true
   }
 
-  for (const [optionName, optionType] of options) {
+  for (const { name: optionName, type: optionType, default: optionDefault } of options) {
+    const defaultSuffix = optionDefault
+      ? ` (leave blank to use default value ${styles.code(JSON.stringify(optionDefault))})`
+      : ''
+
     switch (optionType._def.typeName as z.ZodFirstPartyTypeKind) {
       case 'ZodString':
         const { stringOption } = await prompt(
           {
             name: 'stringOption',
             type: 'text',
-            message: `Set a value for '${styles.option(optionName)}'`
+            message: `Set a value for '${styles.option(optionName)}'` + defaultSuffix
           },
           { onCancel }
         )
@@ -39,7 +49,7 @@ async function optionsPromptForPlugin(
           {
             name: 'boolOption',
             type: 'confirm',
-            message: `Would you like to enable option '${styles.option(optionName)}'?`
+            message: `Would you like to enable option '${styles.option(optionName)}'?` + defaultSuffix
           },
           { onCancel }
         )
@@ -52,7 +62,7 @@ async function optionsPromptForPlugin(
           {
             name: 'numberOption',
             type: 'text',
-            message: `Set a numerical value for '${styles.option(optionName)}'`
+            message: `Set a numerical value for '${styles.option(optionName)}'` + defaultSuffix
           },
           { onCancel }
         )
@@ -68,7 +78,9 @@ async function optionsPromptForPlugin(
               {
                 name: 'stringArrayOption',
                 type: 'text',
-                message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
+                message:
+                  `Set a list of values for '${styles.option(optionName)}' (delimited by commas)` +
+                  defaultSuffix
               },
               { onCancel }
             )
@@ -81,7 +93,9 @@ async function optionsPromptForPlugin(
               {
                 name: 'numberArrayOption',
                 type: 'text',
-                message: `Set a list of values for '${styles.option(optionName)}' (delimited by commas)`
+                message:
+                  `Set a list of values for '${styles.option(optionName)}' (delimited by commas)` +
+                  defaultSuffix
               },
               { onCancel }
             )
@@ -100,7 +114,7 @@ async function optionsPromptForPlugin(
                   title: choice,
                   value: choice
                 })),
-                message: `Select options for '${styles.option(optionName)}'`
+                message: `Select options for '${styles.option(optionName)}'` + defaultSuffix
               },
               { onCancel }
             )
@@ -119,7 +133,7 @@ async function optionsPromptForPlugin(
               title: choice,
               value: choice
             })),
-            message: `Select an option for '${styles.option(optionName)}'`
+            message: `Select an option for '${styles.option(optionName)}'` + defaultSuffix
           },
           { onCancel }
         )
@@ -179,7 +193,11 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
 
     if (anyRequired) {
       winstonLogger.info(`Please now configure the options for the ${styledPlugin} plugin.`)
-      let cancelled = await optionsPromptForPlugin(toolKitConfig, plugin, required)
+      let cancelled = await optionsPromptForPlugin(
+        toolKitConfig,
+        plugin,
+        required.map(([name, type]) => ({ name, type }))
+      )
       const onCancel = () => {
         cancelled = true
       }
@@ -216,10 +234,13 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
         await optionsPromptForPlugin(
           toolKitConfig,
           plugin,
-          partial.map(([name, partialType]) => [
-            name,
-            isPartialOptional(partialType) ? partialType.unwrap() : partialType.removeDefault()
-          ])
+          partial.map(([name, partialType]) => {
+            if (isPartialOptional(partialType)) {
+              return { name, type: partialType.unwrap() }
+            } else {
+              return { name, type: partialType.removeDefault(), default: partialType._def.defaultValue() }
+            }
+          })
         )
       } else if (!anyRequired) {
         delete toolKitConfig.options[plugin]
