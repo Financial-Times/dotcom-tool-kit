@@ -16,7 +16,7 @@
   "description": "",
   "devDependencies": {
     "@dotcom-tool-kit/circleci-heroku": "^2.0.0",
-    "@dotcom-tool-kit/circleci-npm": "^3.0.0",
+    "@dotcom-tool-kit/circleci-npm": "^4.0.0",
     "@dotcom-tool-kit/eslint": "^2.0.0",
     "@dotcom-tool-kit/frontend-app": "^2.0.0",
     "@dotcom-tool-kit/jest": "^2.0.0",
