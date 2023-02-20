@@ -39,6 +39,7 @@ import { NodeSchema } from './schema/node'
 import { NodemonSchema } from './schema/nodemon'
 import { Pa11ySchema } from './schema/pa11y'
 import { PrettierSchema } from './schema/prettier'
+import { ServerlessSchema } from './schema/serverless'
 import { TypeScriptSchema } from './schema/typescript'
 import { UploadAssetsToS3Schema } from './schema/upload-assets-to-s3'
 import { VaultSchema } from './schema/vault'
@@ -59,6 +60,7 @@ export const Schemas = {
   '@dotcom-tool-kit/nodemon': NodemonSchema,
   '@dotcom-tool-kit/pa11y': Pa11ySchema,
   '@dotcom-tool-kit/prettier': PrettierSchema,
+  '@dotcom-tool-kit/serverless': ServerlessSchema,
   '@dotcom-tool-kit/typescript': TypeScriptSchema,
   '@dotcom-tool-kit/upload-assets-to-s3': UploadAssetsToS3Schema,
   '@dotcom-tool-kit/vault': VaultSchema,
