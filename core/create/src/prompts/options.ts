@@ -141,6 +141,9 @@ async function optionsPromptForPlugin(
           toolKitConfig.options[plugin][optionName] = option
         }
         break
+      default:
+        winstonLogger.verbose(`skipping prompting for unrecognised option type ${typeName} for ${optionName}`)
+        break
     }
 
     if (pluginCancelled) {
