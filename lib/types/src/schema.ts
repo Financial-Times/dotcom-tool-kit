@@ -56,7 +56,7 @@ export const Schemas = {
 }
 
 export type Options = {
-  [plugin in keyof typeof Schemas]?: typeof Schemas[plugin] extends z.ZodTypeAny
+  [plugin in keyof typeof Schemas]: typeof Schemas[plugin] extends z.ZodTypeAny
     ? z.infer<typeof Schemas[plugin]>
     : never
 }
