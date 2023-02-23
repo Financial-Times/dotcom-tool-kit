@@ -30,7 +30,14 @@ async function optionsPromptForPlugin(
       ? ` (leave blank to use default value ${styles.code(JSON.stringify(optionDefault))})`
       : ''
 
-    switch (optionType._def.typeName as z.ZodFirstPartyTypeKind) {
+    // the Def type returned by ._def is different for each different Zod
+    // schema, but all of the schemas we're checking for here will have a
+    // .typeName field on their Def that gives a string representation of
+    // their type. this is preferred to using instanceof to check for the
+    // type as this method should work when different versions of zod are
+    // installed.
+    const typeName = optionType._def.typeName as z.ZodFirstPartyTypeKind
+    switch (typeName) {
       case 'ZodString':
         const { stringOption } = await prompt(
           {
