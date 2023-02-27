@@ -6,7 +6,7 @@ import { exec as _exec } from 'child_process'
 import type { loadConfig as loadConfigType } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
-import * as yaml from 'js-yaml'
+import YAML from 'yaml'
 import Logger from 'komatsu'
 import pacote from 'pacote'
 import path from 'path'
@@ -112,7 +112,7 @@ async function main() {
 
   // Confirm that the proposed changes are what the user was expecting, giving
   // them a chance to see what we're going to do.
-  const configFile = yaml.dump(toolKitConfig)
+  const configFile = YAML.stringify(toolKitConfig)
   const { confirm } = await confirmationPrompt({
     deleteConfig,
     addEslintConfig,

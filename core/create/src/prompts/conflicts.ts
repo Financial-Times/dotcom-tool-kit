@@ -6,7 +6,7 @@ import type { ValidConfig } from 'dotcom-tool-kit/lib/config'
 import type installHooksType from 'dotcom-tool-kit/lib/install'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
-import * as yaml from 'js-yaml'
+import YAML from 'yaml'
 import type Logger from 'komatsu'
 import ordinal from 'ordinal'
 import prompt from 'prompts'
@@ -71,7 +71,7 @@ Please select the ${ordinal(i)} package to run.`,
   }
 
   toolKitConfig.hooks = orderedHooks
-  const configFile = yaml.dump(toolKitConfig)
+  const configFile = YAML.stringify(toolKitConfig)
 
   const { confirm } = await prompt({
     name: 'confirm',
