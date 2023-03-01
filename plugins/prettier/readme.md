@@ -27,26 +27,10 @@ This will modify your `package.json`. You should commit this change.
 
 ### Options
 
-#### `files`
-
-A required Array of strings of filepath(s) or filepath pattern(s) to be formatted. Defaults to `['{,!(node_modules)/**/}*.js'].
-
-#### `configOptions`
-
-An optional prettier configuration object. Defaults to:
-
-```js
-{
-    singleQuote: true,
-    useTabs: true,
-    bracketSpacing: true,
-    arrowParens: 'always',
-    trailingComma: 'none'
-}
-```
-
-#### `configFile`
-
-An optional String that specifies the prettier configuration file (.prettierrc.json). The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found. If the configFile is not found the prettier plugin will default to configOptions.
+| Key | Description | Default value |
+|-|-|-|
+| `files` | A required Array of strings of filepath(s) or filepath pattern(s) to be formatted | `['{,!(node_modules)/**/}*.js']` |
+| `configOptions` | An optional prettier configuration object | <br>`{`<br>`    singleQuote: true,`<br>`    useTabs: true,`<br>`    bracketSpacing: true,`<br>`    arrowParens: 'always',`<br>`    trailingComma: 'none'`<br>`}`<br> |
+| `configFile` | An optional String that specifies the prettier configuration file (.prettierrc.json). The configuration file will be resolved starting from the location of the file being formatted, and searching up the file tree until a config file is (or isn’t) found. If the configFile is not found the prettier plugin will default to configOptions. | `configOptions` value |
 
 For more information on prettier configuration, visit the [Prettier docs](https://prettier.io/docs/en/configuration.html).
