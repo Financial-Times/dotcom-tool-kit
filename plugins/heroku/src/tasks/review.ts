@@ -1,4 +1,3 @@
-import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { getHerokuReviewApp } from '../getHerokuReviewApp'
 import { buildHerokuReviewApp } from '../buildHerokuReviewApp'
@@ -15,21 +14,8 @@ export default class HerokuReview extends Task<typeof HerokuSchema> {
 
   async run(): Promise<void> {
     try {
-      if (!this.options.pipeline) {
-        const error = new ToolKitError('no pipeline option in your Tool Kit configuration')
-        error.details = `the ${styles.plugin(
-          'Heroku'
-        )} plugin needs to know your pipeline name to deploy Review Apps. add it to your configuration, e.g.:
-
-options:
-  '@dotcom-tool-kit/heroku':
-    pipeline: your-heroku-pipeline`
-
-        throw error
-      }
-
       const pipeline: HerokuApiResPipeline = await herokuClient.get(`/pipelines/${this.options.pipeline}`)
-      
+
       await setStageConfigVars(this.logger, 'review', 'production', pipeline.id)
 
       let reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)

@@ -1,9 +1,9 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const CircleCISchema = {
-  nodeVersion: 'string?',
-  cypressImage: 'string?'
-} as const
-export type CircleCIOptions = SchemaOutput<typeof CircleCISchema>
+export const CircleCISchema = z.object({
+  nodeVersion: z.string().optional(),
+  cypressImage: z.string().optional()
+})
+export type CircleCIOptions = z.infer<typeof CircleCISchema>
 
 export const Schema = CircleCISchema

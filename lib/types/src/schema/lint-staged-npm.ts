@@ -1,9 +1,9 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const LintStagedNpmSchema = {
-  testGlob: 'string?',
-  formatGlob: 'string?'
-} as const
-export type LintStagedNpmOptions = SchemaOutput<typeof LintStagedNpmSchema>
+export const LintStagedNpmSchema = z.object({
+  testGlob: z.string().optional(),
+  formatGlob: z.string().optional()
+})
+export type LintStagedNpmOptions = z.infer<typeof LintStagedNpmSchema>
 
 export const Schema = LintStagedNpmSchema

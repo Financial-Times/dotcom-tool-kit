@@ -9,18 +9,6 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 export default class Prettier extends Task<typeof PrettierSchema> {
   static description = ''
 
-  static defaultOptions: PrettierOptions = {
-    files: ['**/*.{js,jsx,ts,tsx}'],
-    ignoreFile: '.prettierignore',
-    configOptions: {
-      singleQuote: true,
-      useTabs: true,
-      bracketSpacing: true,
-      arrowParens: 'always',
-      trailingComma: 'none'
-    }
-  }
-
   async run(files?: string[]): Promise<void> {
     try {
       const filepaths = await fg(files ?? this.options.files)

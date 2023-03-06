@@ -1,9 +1,9 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const JestSchema = {
-  configPath: 'string?'
-} as const
-export type JestMode = "ci" | "local"
-export type JestOptions = SchemaOutput<typeof JestSchema>
+export const JestSchema = z.object({
+  configPath: z.string().optional()
+})
+export type JestMode = 'ci' | 'local'
+export type JestOptions = z.infer<typeof JestSchema>
 
 export const Schema = JestSchema

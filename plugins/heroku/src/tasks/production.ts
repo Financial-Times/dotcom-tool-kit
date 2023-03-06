@@ -22,23 +22,6 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
 
       const { scaling } = this.options
 
-      if (!scaling) {
-        const error = new ToolKitError('your heroku pipeline must have its scaling configured')
-        error.details = `configure it in your ${styles.filepath(
-          '.toolkitrc.yml'
-        )}, with a quantity and size for each production app, e.g.:
-
-options:
-  '@dotcom-tool-kit/heroku':
-    scaling:
-      ft-next-static-eu:
-        web:
-          size: standard-1x
-          quantity: 2`
-
-        throw error
-      }
-
       const scale = async () => {
         for (const [appName, typeConfig] of Object.entries(scaling)) {
           this.logger.verbose(`scaling app ${styles.app(appName)}...`)

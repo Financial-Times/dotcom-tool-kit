@@ -6,7 +6,9 @@ import { loadPlugin, resolvePlugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import { TaskClass, Hook, mapValidated, Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
+import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/schema'
 import {
+  InvalidOption,
   formatTaskConflicts,
   formatUndefinedHookTasks,
   formatUnusedOptions,
@@ -14,7 +16,8 @@ import {
   formatHookConflicts,
   formatOptionConflicts,
   formatUninstalledHooks,
-  formatMissingTasks
+  formatMissingTasks,
+  formatInvalidOptions
 } from './messages'
 
 export interface PluginOptions {
@@ -37,10 +40,18 @@ export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
   plugins: { [id: string]: Plugin }
 }
 
-export interface ValidConfig extends ValidPluginsConfig {
+export type ValidPluginOptions<Id extends keyof SchemaOptions> = Omit<PluginOptions, 'options'> & {
+  options: SchemaOptions[Id]
+}
+
+export type ValidOptions = {
+  [Id in keyof SchemaOptions]: ValidPluginOptions<Id>
+}
+
+export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'hookTasks' | 'options' | 'hooks'> & {
   tasks: { [id: string]: TaskClass }
   hookTasks: { [id: string]: HookTask }
-  options: { [id: string]: PluginOptions }
+  options: ValidOptions
   hooks: { [id: string]: Hook<unknown> }
 }
 
@@ -62,7 +73,9 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-export function validateConfig(config: ValidPluginsConfig): asserts config is ValidConfig {
+export function validateConfig(config: ValidPluginsConfig, logger: Logger): ValidConfig {
+  const validConfig = config as ValidConfig
+
   const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
   const hookConflicts = findConflicts(Object.values(config.hooks))
   const taskConflicts = findConflicts(Object.values(config.tasks))
@@ -123,6 +136,33 @@ export function validateConfig(config: ValidPluginsConfig): asserts config is Va
     error.details += formatUndefinedHookTasks(undefinedHookTasks, Array.from(definedHookIds))
   }
 
+  const invalidOptions: InvalidOption[] = []
+  for (const [id, options] of Object.entries(config.options).filter((entry): entry is [
+    string,
+    PluginOptions
+  ] => {
+    const [, options] = entry
+    return !!options && !isConflict(options)
+  })) {
+    const pluginId = id as keyof SchemaOptions
+    const pluginSchema = Schemas[pluginId]
+    if (!pluginSchema) {
+      logger.silly(`skipping validation of ${pluginId} plugin as no schema can be found`)
+      continue
+    }
+    const result = pluginSchema.safeParse(options.options)
+    if (result.success) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      validConfig.options[pluginId]!.options = result.data
+    } else {
+      invalidOptions.push([id, result.error])
+    }
+  }
+  if (invalidOptions.length > 0) {
+    shouldThrow = true
+    error.details += formatInvalidOptions(invalidOptions)
+  }
+
   const unusedOptions = Object.entries(config.options)
     .filter(
       ([, option]) =>
@@ -149,6 +189,8 @@ export function validateConfig(config: ValidPluginsConfig): asserts config is Va
   if (shouldThrow) {
     throw error
   }
+
+  return validConfig
 }
 
 export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig> {
@@ -198,9 +240,5 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
   // collate root plugin and descendent hooks, options etc into config
   resolvePlugin(validRootPlugin, validPluginConfig, logger)
 
-  if (validate) {
-    validateConfig(validPluginConfig)
-  }
-
-  return config
+  return validate ? validateConfig(validPluginConfig, logger) : config
 }

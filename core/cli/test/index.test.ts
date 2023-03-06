@@ -41,7 +41,7 @@ describe('cli', () => {
 
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
-    expect(() => validateConfig(validPluginConfig)).toThrow(ToolKitError)
+    expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
     expect(validPluginConfig).toHaveProperty('hookTasks.build:ci.conflicting')
     expect(validPluginConfig).toHaveProperty('hookTasks.build:remote.conflicting')
     expect(validPluginConfig).toHaveProperty('hookTasks.build:local.conflicting')
@@ -62,7 +62,7 @@ describe('cli', () => {
 
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
-    expect(() => validateConfig(validPluginConfig)).toThrow(ToolKitError)
+    expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
     expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
     expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
     expect(config).toHaveProperty('hookTasks.build:local.conflicting')
@@ -84,7 +84,9 @@ describe('cli', () => {
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     try {
-      validateConfig(validPluginConfig)
+      const validConfig = validateConfig(validPluginConfig, logger)
+      expect(validConfig).not.toHaveProperty('hooks.build:local.conflicting')
+      expect(validConfig.hooks['build:local'].plugin?.id).toEqual('@dotcom-tool-kit/npm')
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details
@@ -92,9 +94,6 @@ describe('cli', () => {
 
       throw e
     }
-
-    expect(validPluginConfig).not.toHaveProperty('hooks.build:local.conflicting')
-    expect(validPluginConfig.hooks['build:local'].plugin?.id).toEqual('@dotcom-tool-kit/npm')
   })
 
   it('should succeed when conflicts are resolved', async () => {
@@ -113,7 +112,10 @@ describe('cli', () => {
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     try {
-      validateConfig(validPluginConfig)
+      const validConfig = validateConfig(validPluginConfig, logger)
+
+      expect(validConfig).not.toHaveProperty('hookTasks.build:local.conflicting')
+      expect(validConfig.hookTasks['build:local'].tasks).toEqual(['WebpackDevelopment', 'BabelDevelopment'])
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details
@@ -121,11 +123,5 @@ describe('cli', () => {
 
       throw e
     }
-
-    expect(validPluginConfig).not.toHaveProperty('hookTasks.build:local.conflicting')
-    expect(validPluginConfig.hookTasks['build:local'].tasks).toEqual([
-      'WebpackDevelopment',
-      'BabelDevelopment'
-    ])
   })
 })

@@ -30,7 +30,7 @@ describe('jest plugin', () => {
     })
 
     it('should call jest cli without configPath by default', async () => {
-      const jestLocal = new JestLocal(logger)
+      const jestLocal = new JestLocal(logger, {})
       await jestLocal.run()
 
       expect(fork).toBeCalledWith(expect.any(String), ['--colors', '', ''], { silent: true })
@@ -48,7 +48,7 @@ describe('jest plugin', () => {
     })
 
     it('should call jest cli without configPath by default', async () => {
-      const jestCI = new JestCI(logger)
+      const jestCI = new JestCI(logger, {})
       await jestCI.run()
 
       expect(fork).toBeCalledWith(expect.any(String), ['--colors', '--ci', ''], { silent: true })

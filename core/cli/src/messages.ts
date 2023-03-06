@@ -3,6 +3,8 @@ import type { Conflict } from './conflict'
 import type { HookTask } from './hook'
 import { styles as s, styles } from '@dotcom-tool-kit/logger'
 import type { Plugin, Hook, TaskClass } from '@dotcom-tool-kit/types'
+import type { z } from 'zod'
+import { fromZodError } from 'zod-validation-error'
 
 const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>
   `- ${s.task(conflict.conflicting[0].id || 'unknown task')} ${s.dim(
@@ -89,6 +91,18 @@ ${
     : `There are no hooks defined by this app's plugins. You probably need to install some plugins to define hooks.`
 }.
 `
+
+export type InvalidOption = [string, z.ZodError]
+
+export const formatInvalidOptions = (
+  invalidOptions: InvalidOption[]
+): string => `Options are defined in your Tool Kit configuration that are the wrong types:
+
+${invalidOptions
+  .map(([plugin, error]) => fromZodError(error, { prefix: `- ${s.plugin(plugin)} has the issue(s)` }).message)
+  .join('\n')}
+
+Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.`
 
 export const formatUnusedOptions = (
   unusedOptions: string[],

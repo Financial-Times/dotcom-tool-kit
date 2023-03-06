@@ -1,9 +1,9 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const MochaSchema = {
-  files: 'string',
-  configPath: 'string?'
-} as const
-export type MochaOptions = SchemaOutput<typeof MochaSchema>
+export const MochaSchema = z.object({
+  files: z.string().default('test/**/*.js'),
+  configPath: z.string().optional()
+})
+export type MochaOptions = z.infer<typeof MochaSchema>
 
 export const Schema = MochaSchema

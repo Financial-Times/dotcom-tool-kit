@@ -1,9 +1,9 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const TypeScriptSchema = {
-  configPath: 'string?',
-  extraArgs: 'array.string?'
-} as const
-export type TypeScriptOptions = SchemaOutput<typeof TypeScriptSchema>
+export const TypeScriptSchema = z.object({
+  configPath: z.string().optional(),
+  extraArgs: z.string().array().optional()
+})
+export type TypeScriptOptions = z.infer<typeof TypeScriptSchema>
 
 export const Schema = TypeScriptSchema

@@ -1,6 +1,6 @@
 import type { Options } from '@dotcom-tool-kit/types/src/schema'
 
-const options: Options = {}
+const options: Partial<Options> = {}
 
 export type OptionKey = keyof Options
 

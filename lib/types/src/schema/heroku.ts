@@ -1,8 +1,15 @@
-import { SchemaOutput, SchemaPromptGenerator } from '../schema'
+import { SchemaPromptGenerator, PromptGenerators } from '../schema'
+import { z } from 'zod'
 
-export interface HerokuScaling {
-  [app: string]: { [processType: string]: { size: string; quantity: number } }
-}
+export const HerokuScalingSchema = z.record(
+  z.record(
+    z.object({
+      size: z.string(),
+      quantity: z.number()
+    })
+  )
+)
+export type HerokuScaling = z.infer<typeof HerokuScalingSchema>
 
 const scaling: SchemaPromptGenerator<HerokuScaling> = async (logger, prompt, onCancel) => {
   logger.error('You must configure the scaling for each of the Heroku apps in your pipeline.')
@@ -37,11 +44,14 @@ const scaling: SchemaPromptGenerator<HerokuScaling> = async (logger, prompt, onC
   return scaling
 }
 
-export const HerokuSchema = {
-  pipeline: 'string',
-  systemCode: 'string',
-  scaling
-} as const
-export type HerokuOptions = SchemaOutput<typeof HerokuSchema>
+export const HerokuSchema = z.object({
+  pipeline: z.string(),
+  systemCode: z.string(),
+  scaling: HerokuScalingSchema
+})
+export type HerokuOptions = z.infer<typeof HerokuSchema>
 
 export const Schema = HerokuSchema
+export const generators: PromptGenerators<typeof HerokuSchema> = {
+  scaling
+}

@@ -1,7 +1,6 @@
-import { ToolKitError } from '@dotcom-tool-kit/error'
-import { hookFork, styles } from '@dotcom-tool-kit/logger'
+import { hookFork } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
-import { NodemonOptions, NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
+import { NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
 import { writeState } from '@dotcom-tool-kit/state'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import getPort from 'get-port'
@@ -10,12 +9,6 @@ import { Readable } from 'stream'
 
 export default class Nodemon extends Task<typeof NodemonSchema> {
   static description = ''
-
-  static defaultOptions: NodemonOptions = {
-    entry: './server/app.js',
-    useVault: true,
-    ports: [3001, 3002, 3003]
-  }
 
   async run(): Promise<void> {
     const { entry, configPath, useVault, ports } = this.options
@@ -35,14 +28,6 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
       (await getPort({
         port: ports
       }))
-
-    if (!entry) {
-      const error = new ToolKitError(
-        `the ${styles.task('Nodemon')} task requires an ${styles.option('entry')} option`
-      )
-      error.details = `this is the entrypoint for your app, e.g. ${styles.filepath('server/app.js')}`
-      throw error
-    }
 
     this.logger.verbose('starting the child nodemon process...')
 

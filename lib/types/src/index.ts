@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import semver from 'semver'
 import type { Logger } from 'winston'
-import { Schema, SchemaOutput } from './schema'
+import { z } from 'zod'
 
 const packageJsonPath = path.resolve(__dirname, '../package.json')
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
@@ -135,7 +135,7 @@ abstract class Base {
   }
 }
 
-export abstract class Task<O extends Schema = Record<string, never>> extends Base {
+export abstract class Task<O extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
   static description: string
   static plugin?: Plugin
   static id?: string
@@ -148,15 +148,14 @@ export abstract class Task<O extends Schema = Record<string, never>> extends Bas
     return taskSymbol
   }
 
-  static defaultOptions: Record<string, unknown> = {}
-  options: SchemaOutput<O>
+  options: z.output<O>
   logger: Logger
 
-  constructor(logger: Logger, options: Partial<SchemaOutput<O>> = {}) {
+  constructor(logger: Logger, options: z.output<O>) {
     super()
 
     const staticThis = this.constructor as typeof Task
-    this.options = Object.assign({}, staticThis.defaultOptions as SchemaOutput<O>, options)
+    this.options = options
     this.logger = logger.child({ task: staticThis.id })
   }
 
@@ -164,7 +163,7 @@ export abstract class Task<O extends Schema = Record<string, never>> extends Bas
 }
 
 export type TaskClass = {
-  new <O extends Schema>(logger: Logger, options: Partial<SchemaOutput<O>>): Task<O>
+  new <O extends z.ZodTypeAny>(logger: Logger, options: Partial<z.infer<O>>): Task<O>
 } & typeof Task
 
 export abstract class Hook<State = void> extends Base {

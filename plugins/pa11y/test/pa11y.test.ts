@@ -24,7 +24,7 @@ describe('pa11y', () => {
   it("sets process.env.TEST_URL if readState('review') is truthy", async () => {
     jest.mocked(state.readState).mockReturnValue({ appName } as state.ReviewState)
 
-    const pa11y = new Pa11y(logger)
+    const pa11y = new Pa11y(logger, {})
     await pa11y.run()
 
     expect(process.env.TEST_URL).toBe(`https://${appName}.herokuapp.com`)

@@ -1,8 +1,8 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const CypressSchema = {
-  localUrl: 'string?'
-} as const
-export type CypressOptions = SchemaOutput<typeof CypressSchema>
+export const CypressSchema = z.object({
+  localUrl: z.string().optional()
+})
+export type CypressOptions = z.infer<typeof CypressSchema>
 
 export const Schema = CypressSchema

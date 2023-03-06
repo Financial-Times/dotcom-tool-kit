@@ -1,11 +1,17 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const PrettierSchema = {
-  files: 'array.string',
-  configFile: 'string?',
-  ignoreFile: 'string?',
-  configOptions: 'record.unknown?'
-} as const
-export type PrettierOptions = SchemaOutput<typeof PrettierSchema>
+export const PrettierSchema = z.object({
+  files: z.string().array().default(['**/*.{js,jsx,ts,tsx}']),
+  configFile: z.string().optional(),
+  ignoreFile: z.string().default('.prettierignore'),
+  configOptions: z.record(z.unknown()).default({
+    singleQuote: true,
+    useTabs: true,
+    bracketSpacing: true,
+    arrowParens: 'always',
+    trailingComma: 'none'
+  })
+})
+export type PrettierOptions = z.infer<typeof PrettierSchema>
 
 export const Schema = PrettierSchema

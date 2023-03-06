@@ -1,8 +1,8 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const NextRouterSchema = {
-  appName: 'string'
-} as const
-export type NextRouterOptions = SchemaOutput<typeof NextRouterSchema>
+export const NextRouterSchema = z.object({
+  appName: z.string()
+})
+export type NextRouterOptions = z.infer<typeof NextRouterSchema>
 
 export const Schema = NextRouterSchema

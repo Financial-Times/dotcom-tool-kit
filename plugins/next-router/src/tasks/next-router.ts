@@ -11,19 +11,6 @@ export default class NextRouter extends Task<typeof NextRouterSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    if (!this.options.appName) {
-      const error = new ToolKitError('your app name must be configured to use next-router')
-      error.details = `this should be the same as its "name" field in next-service-registry. configure it in your ${styles.filepath(
-        '.toolkitrc.yml'
-      )}, e.g.:
-
-options:
-  '@dotcom-tool-kit/next-router':
-    appName: article`
-
-      throw error
-    }
-
     const vault = new VaultEnvVars(this.logger, {
       environment: 'development',
       vaultPath: {

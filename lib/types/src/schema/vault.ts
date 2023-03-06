@@ -1,9 +1,9 @@
-import { SchemaOutput } from '../schema'
+import { z } from 'zod'
 
-export const VaultSchema = {
-  team: 'string',
-  app: 'string'
-} as const
-export type VaultOptions = SchemaOutput<typeof VaultSchema>
+export const VaultSchema = z.object({
+  team: z.string(),
+  app: z.string()
+})
+export type VaultOptions = z.infer<typeof VaultSchema>
 
 export const Schema = VaultSchema

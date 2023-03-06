@@ -1,92 +1,73 @@
 import type prompts from 'prompts'
 import type { Logger } from 'winston'
+import { z } from 'zod'
 
-export type ScalarSchemaType = 'string' | 'number' | 'boolean' | `|${string},${string}` | 'unknown'
-export type SchemaType = ScalarSchemaType | `array.${ScalarSchemaType}` | `record.${ScalarSchemaType}`
+/**
+ * A function that should use the `prompt` parameter passed to build a more
+ * complex option structure, like a nested object, from user input
+ * @param onCancel - pass this to `prompt`'s options so that a user
+ *   interrupting the prompt can be handled properly
+ */
 export type SchemaPromptGenerator<T> = (
   logger: Logger,
   prompt: typeof prompts,
   onCancel: () => void
 ) => Promise<T>
-export type ModifiedSchemaType = SchemaType | `${SchemaType}?` | SchemaPromptGenerator<unknown>
-
-export type Schema = {
-  readonly [option: string]: ModifiedSchemaType
-}
-
-// Achieve the mapping with conditional types
-type SchemaTypeOutput<T extends SchemaType> = T extends 'string'
-  ? string
-  : T extends 'number'
-  ? number
-  : T extends 'boolean'
-  ? boolean
-  : T extends `|${infer A},${infer B}`
-  ? A | B
-  : T extends 'unknown'
-  ? unknown
-  : T extends `array.${infer S}`
-  ? S extends SchemaType
-    ? Array<SchemaTypeOutput<S>>
-    : never
-  : T extends `record.${infer S}`
-  ? S extends SchemaType
-    ? Record<string, SchemaTypeOutput<S>>
-    : never
+// This type defines an interface you can use to export prompt generators. The
+// `T` type parameter should be the type of your `Schema` object, and it will
+// be mapped into a partial object of `SchemaPromptGenerator` functions with
+// all their return types set to the output type of each option schema.
+export type PromptGenerators<T> = T extends z.ZodObject<infer Shape>
+  ? {
+      [option in keyof Shape as Shape[option] extends z.ZodType
+        ? option
+        : never]?: Shape[option] extends z.ZodType ? SchemaPromptGenerator<z.output<Shape[option]>> : never
+    }
   : never
 
-export type SchemaOutput<T extends Schema> = {
-  -readonly [option in keyof T as T[option] extends SchemaType
-    ? option
-    : never]-?: T[option] extends SchemaType ? SchemaTypeOutput<T[option]> : never
-} &
-  {
-    -readonly [option in keyof T as T[option] extends `${string}?`
-      ? option
-      : never]?: T[option] extends `${infer S}?`
-      ? S extends SchemaType
-        ? SchemaTypeOutput<S>
-        : never
-      : never
-  } &
-  {
-    -readonly [option in keyof T as T[option] extends SchemaPromptGenerator<unknown>
-      ? option
-      : never]: T[option] extends SchemaPromptGenerator<infer R> ? R : never
-  }
+import { BabelSchema } from './schema/babel'
+import { CircleCISchema } from './schema/circleci'
+import { CypressSchema } from './schema/cypress'
+import { ESLintSchema } from './schema/eslint'
+import { HerokuSchema } from './schema/heroku'
+import { LintStagedNpmSchema } from './schema/lint-staged-npm'
+import { JestSchema } from './schema/jest'
+import { MochaSchema } from './schema/mocha'
+import { SmokeTestSchema } from './schema/n-test'
+import { NextRouterSchema } from './schema/next-router'
+import { NodeSchema } from './schema/node'
+import { NodemonSchema } from './schema/nodemon'
+import { Pa11ySchema } from './schema/pa11y'
+import { PrettierSchema } from './schema/prettier'
+import { TypeScriptSchema } from './schema/typescript'
+import { UploadAssetsToS3Schema } from './schema/upload-assets-to-s3'
+import { VaultSchema } from './schema/vault'
+import { WebpackSchema } from './schema/webpack'
 
-import type { ESLintOptions } from './schema/eslint'
-import type { HerokuOptions } from './schema/heroku'
-import type { MochaOptions } from './schema/mocha'
-import type { SmokeTestOptions } from './schema/n-test'
-import type { UploadAssetsToS3Options } from './schema/upload-assets-to-s3'
-import type { VaultOptions } from './schema/vault'
-import type { WebpackOptions } from './schema/webpack'
-import type { NodeOptions } from './schema/node'
-import type { NodemonOptions } from './schema/nodemon'
-import type { NextRouterOptions } from './schema/next-router'
-import type { PrettierOptions } from './schema/prettier'
-import type { LintStagedNpmOptions } from './schema/lint-staged-npm'
-import type { BabelOptions } from './schema/babel'
-import type { CircleCIOptions } from './schema/circleci'
-import type { CypressOptions } from './schema/cypress'
-import type { TypeScriptOptions } from './schema/typescript'
+export const Schemas = {
+  '@dotcom-tool-kit/babel': BabelSchema,
+  '@dotcom-tool-kit/circleci': CircleCISchema,
+  '@dotcom-tool-kit/cypress': CypressSchema,
+  '@dotcom-tool-kit/eslint': ESLintSchema,
+  '@dotcom-tool-kit/heroku': HerokuSchema,
+  '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
+  '@dotcom-tool-kit/jest': JestSchema,
+  '@dotcom-tool-kit/mocha': MochaSchema,
+  '@dotcom-tool-kit/n-test': SmokeTestSchema,
+  '@dotcom-tool-kit/next-router': NextRouterSchema,
+  '@dotcom-tool-kit/node': NodeSchema,
+  '@dotcom-tool-kit/nodemon': NodemonSchema,
+  '@dotcom-tool-kit/pa11y': Pa11ySchema,
+  '@dotcom-tool-kit/prettier': PrettierSchema,
+  '@dotcom-tool-kit/typescript': TypeScriptSchema,
+  '@dotcom-tool-kit/upload-assets-to-s3': UploadAssetsToS3Schema,
+  '@dotcom-tool-kit/vault': VaultSchema,
+  '@dotcom-tool-kit/webpack': WebpackSchema
+}
 
+// Gives the TypeScript type represented by each Schema
 export type Options = {
-  '@dotcom-tool-kit/eslint'?: ESLintOptions
-  '@dotcom-tool-kit/heroku'?: HerokuOptions
-  '@dotcom-tool-kit/mocha'?: MochaOptions
-  '@dotcom-tool-kit/n-test'?: SmokeTestOptions
-  '@dotcom-tool-kit/upload-assets-to-s3'?: UploadAssetsToS3Options
-  '@dotcom-tool-kit/vault'?: VaultOptions
-  '@dotcom-tool-kit/webpack'?: WebpackOptions
-  '@dotcom-tool-kit/node'?: NodeOptions
-  '@dotcom-tool-kit/nodemon'?: NodemonOptions
-  '@dotcom-tool-kit/next-router'?: NextRouterOptions
-  '@dotcom-tool-kit/prettier'?: PrettierOptions
-  '@dotcom-tool-kit/lint-staged-npm'?: LintStagedNpmOptions
-  '@dotcom-tool-kit/babel'?: BabelOptions
-  '@dotcom-tool-kit/circleci'?: CircleCIOptions
-  '@dotcom-tool-kit/cypress'?: CypressOptions
-  '@dotcom-tool-kit/typescript'?: TypeScriptOptions
+  [plugin in keyof typeof Schemas]: typeof Schemas[plugin] extends z.ZodTypeAny
+    ? z.infer<typeof Schemas[plugin]>
+    : never
 }
