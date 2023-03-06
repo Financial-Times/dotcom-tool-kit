@@ -1,15 +1,34 @@
-import CircleCiConfigHook, { generateConfigWithJob } from '@dotcom-tool-kit/circleci/lib/circleci-config'
+import CircleCiConfigHook, {
+  CircleCIStatePartial,
+  generateConfigWithJob,
+  JobGeneratorOptions
+} from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 import { getOptions } from '@dotcom-tool-kit/options'
+import type { SetRequired } from 'type-fest'
 
 export class DeployReview extends CircleCiConfigHook {
   static job = 'tool-kit/heroku-provision'
-  config = generateConfigWithJob({
-    name: DeployReview.job,
-    addToNightly: true,
-    requires: ['tool-kit/setup', 'waiting-for-approval'],
-    additionalFields: { filters: { branches: { ignore: 'main' } } }
-  })
+  // needs to be a getter so that we can lazily wait for the global options
+  // object to be assigned before getting values from it
+  get config(): CircleCIStatePartial {
+    // Use SetRequired to work around TypeScript thinking additionalFields
+    // could be undefined even though we've set the field here
+    const jobOptions: SetRequired<JobGeneratorOptions, 'additionalFields'> = {
+      name: DeployReview.job,
+      addToNightly: true,
+      requires: ['tool-kit/setup', 'waiting-for-approval'],
+      additionalFields: {
+        filters: { branches: { ignore: 'main' } }
+      }
+    }
+    const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
+    if (serverlessOptions?.awsAccountId && serverlessOptions?.systemCode) {
+      jobOptions.additionalFields['aws-account-id'] = serverlessOptions.awsAccountId
+      jobOptions.additionalFields['system-code'] = serverlessOptions.systemCode
+    }
+    return generateConfigWithJob(jobOptions)
+  }
 }
 
 export class DeployStaging extends CircleCiConfigHook {

@@ -29,5 +29,8 @@
   },
   "peerDependencies": {
     "dotcom-tool-kit": "2.x"
+  },
+  "devDependencies": {
+    "type-fest": "^3.6.0"
   }
 }

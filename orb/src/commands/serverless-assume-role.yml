@@ -1,0 +1,16 @@
+description: >
+  Assume AWS role configured to use a CircleCI OIDC token to allow you to
+  deploy the project via Serverless
+
+parameters:
+  aws-account-id:
+    type: string
+  system-code:
+    type: string
+
+steps:
+  - aws-cli/setup:
+      role-arn: arn:aws:iam::<< parameters.aws-account-id >>:role/CircleCI-role-<< parameters.system-code >>
+      role-session-name: CircleCI-role-<< parameters.system-code >>
+      profile-name: CircleCI-role-<< parameters.system-code >>
+  - serverless-framework/setup

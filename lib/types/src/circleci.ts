@@ -7,6 +7,7 @@ export type JobConfig = {
   requires?: string[]
   filters?: { branches?: { only?: string; ignore?: string }; tags?: { only?: string } }
   executor?: string
+  [parameter: string]: unknown
 }
 
 type TriggerConfig = {
