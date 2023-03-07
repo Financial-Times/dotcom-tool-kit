@@ -22,7 +22,7 @@
   ],
   "peerDependencies": {
     "@financial-times/secret-squirrel": "2.x",
-    "dotcom-tool-kit": "2.x"
+    "dotcom-tool-kit": "^2.6.0"
   },
   "dependencies": {
     "@dotcom-tool-kit/logger": "^2.2.1",

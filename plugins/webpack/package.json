@@ -25,7 +25,7 @@
   },
   "peerDependencies": {
     "webpack": "4.x.x || 5.x.x",
-    "dotcom-tool-kit": "2.x"
+    "dotcom-tool-kit": "^2.6.0"
   },
   "devDependencies": {
     "@jest/globals": "^27.4.6",

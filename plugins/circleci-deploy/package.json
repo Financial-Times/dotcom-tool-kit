@@ -28,7 +28,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "2.x"
+    "dotcom-tool-kit": "^2.6.0"
   },
   "devDependencies": {
     "type-fest": "^3.6.0"

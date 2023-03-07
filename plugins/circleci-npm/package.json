@@ -27,6 +27,6 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "2.x"
+    "dotcom-tool-kit": "^2.6.0"
   }
 }
