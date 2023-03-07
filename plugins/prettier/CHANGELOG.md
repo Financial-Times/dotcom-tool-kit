@@ -63,6 +63,21 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v2.1.3...prettier-v2.2.0) (2023-03-07)
+
+
+### Features
+
+* handle default option values with zod ([7c03517](https://github.com/Financial-Times/dotcom-tool-kit/commit/7c0351771cf1a3d795803295a41dfea755176b19))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+
 ### [2.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v2.1.0...prettier-v2.1.1) (2022-12-08)
 
 

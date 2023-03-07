@@ -87,6 +87,35 @@
     * @dotcom-tool-kit/mocha bumped from ^2.1.7 to ^2.2.0
     * @dotcom-tool-kit/n-test bumped from ^2.1.5 to ^2.1.6
 
+## [2.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.5.0...dotcom-tool-kit-v2.6.0) (2023-03-07)
+
+
+### Features
+
+* **cli:** format zod errors with zod-validation-error ([940876b](https://github.com/Financial-Times/dotcom-tool-kit/commit/940876bdd0c2682e9e7e992c656a606f7d015de5))
+* validate plugin options with zod ([5164050](https://github.com/Financial-Times/dotcom-tool-kit/commit/5164050869958284611e0fa489551521201e6ac4))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/options bumped from ^2.0.12 to ^2.0.13
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+  * devDependencies
+    * @dotcom-tool-kit/babel bumped from ^2.0.12 to ^2.0.13
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.0 to ^1.0.1
+    * @dotcom-tool-kit/circleci bumped from ^3.0.2 to ^4.0.0
+    * @dotcom-tool-kit/circleci-deploy bumped from ^1.0.0 to ^2.0.0
+    * @dotcom-tool-kit/eslint bumped from ^2.2.5 to ^2.3.0
+    * @dotcom-tool-kit/frontend-app bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/heroku bumped from ^2.1.3 to ^2.1.4
+    * @dotcom-tool-kit/mocha bumped from ^2.2.1 to ^2.3.0
+    * @dotcom-tool-kit/n-test bumped from ^2.1.7 to ^2.1.8
+    * @dotcom-tool-kit/npm bumped from ^2.0.13 to ^2.0.14
+    * @dotcom-tool-kit/webpack bumped from ^2.1.11 to ^2.1.12
+
 ## [2.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.4.2...dotcom-tool-kit-v2.5.0) (2023-01-24)
 
 

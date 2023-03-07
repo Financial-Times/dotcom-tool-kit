@@ -63,6 +63,21 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
 
+## [2.1.12](https://github.com/Financial-Times/dotcom-tool-kit/compare/webpack-v2.1.11...webpack-v2.1.12) (2023-03-07)
+
+
+### Bug Fixes
+
+* tidy up references in tsconfig files ([159b602](https://github.com/Financial-Times/dotcom-tool-kit/commit/159b6021e93922ebe6e4ca74297ad7a1c93290b3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+
 ### [2.1.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/webpack-v2.1.7...webpack-v2.1.8) (2022-11-09)
 
 

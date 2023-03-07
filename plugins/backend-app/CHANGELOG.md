@@ -108,6 +108,12 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.12 to ^2.0.13
     * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.10 to ^1.0.11
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.0 to ^1.0.1
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v2.1.1...backend-app-v2.2.0) (2023-01-24)
 
 

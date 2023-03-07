@@ -63,6 +63,26 @@
     * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
     * @dotcom-tool-kit/vault bumped from ^2.0.11 to ^2.0.12
 
+## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v2.2.5...node-v2.3.0) (2023-03-07)
+
+
+### Features
+
+* handle default option values with zod ([7c03517](https://github.com/Financial-Times/dotcom-tool-kit/commit/7c0351771cf1a3d795803295a41dfea755176b19))
+
+
+### Bug Fixes
+
+* tidy up references in tsconfig files ([159b602](https://github.com/Financial-Times/dotcom-tool-kit/commit/159b6021e93922ebe6e4ca74297ad7a1c93290b3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+    * @dotcom-tool-kit/vault bumped from ^2.0.12 to ^2.0.13
+
 ### [2.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v2.2.1...node-v2.2.2) (2022-11-09)
 
 

@@ -43,6 +43,30 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^2.4.1 to ^2.4.2
 
+## [2.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.5.0...create-v2.6.0) (2023-03-07)
+
+
+### Features
+
+* **create:** print default value in prompt if one exists in zod schema ([52d17ff](https://github.com/Financial-Times/dotcom-tool-kit/commit/52d17ff57863da9396b6c8ab5cda357ad9085f77))
+* handle default option values with zod ([7c03517](https://github.com/Financial-Times/dotcom-tool-kit/commit/7c0351771cf1a3d795803295a41dfea755176b19))
+* **types:** use Zod for option schemas ([adc1643](https://github.com/Financial-Times/dotcom-tool-kit/commit/adc16437cf0977595b0d0c8b02337b78ee02b2b2))
+
+
+### Bug Fixes
+
+* **create:** log if we encounter an unrecognised option schema type ([b7d0de6](https://github.com/Financial-Times/dotcom-tool-kit/commit/b7d0de6af5c0dfe46433fd594c03ef91ac1d00cf))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+  * devDependencies
+    * dotcom-tool-kit bumped from ^2.5.0 to ^2.6.0
+
 ## [2.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.4.1...create-v2.5.0) (2023-01-24)
 
 
