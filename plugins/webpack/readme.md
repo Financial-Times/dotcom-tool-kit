@@ -38,6 +38,12 @@ hooks:
   'test:local': WebpackDevelopment
 ```
 
+## Options
+
+| Key | Description | Default value |
+|-|-|-|
+| `configPath` | An optional path to your Webpack config file | none |
+
 ## Tasks
 
 | Task | Description | Default hooks |
