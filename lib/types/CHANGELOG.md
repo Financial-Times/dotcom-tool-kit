@@ -12,6 +12,33 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [2.9.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.8.0...types-v2.9.0) (2023-03-07)
+
+
+### Features
+
+* add serverless plugin ([2041b7d](https://github.com/Financial-Times/dotcom-tool-kit/commit/2041b7d65c941823f59cbba61b11d32fe67ed906))
+* handle default option values with zod ([7c03517](https://github.com/Financial-Times/dotcom-tool-kit/commit/7c0351771cf1a3d795803295a41dfea755176b19))
+* **serverless:** define ServerlessProvision task ([6f49aaa](https://github.com/Financial-Times/dotcom-tool-kit/commit/6f49aaa80bb315e5dfd11068a21cb1d3e52ef36a))
+* **types:** use Zod for option schemas ([adc1643](https://github.com/Financial-Times/dotcom-tool-kit/commit/adc16437cf0977595b0d0c8b02337b78ee02b2b2))
+* validate plugin options with zod ([5164050](https://github.com/Financial-Times/dotcom-tool-kit/commit/5164050869958284611e0fa489551521201e6ac4))
+
+
+### Bug Fixes
+
+* **types:** allow arbitrary parameters to be passed to CircleCI jobs ([85cc8eb](https://github.com/Financial-Times/dotcom-tool-kit/commit/85cc8ebd9eafbe2de848dfe1c09bb320866910fb))
+* **types:** export jest and pa11y schemas that were previously missing ([11e7a1f](https://github.com/Financial-Times/dotcom-tool-kit/commit/11e7a1f30fccf7fc31c71c9867cab4f1754db34f))
+* **types:** make sure to export serverless schema type ([69584aa](https://github.com/Financial-Times/dotcom-tool-kit/commit/69584aa4f6f17172bda9714d0155a2517cba4121))
+* **types:** use more precise CircleCI configuration interface types ([2e4bf10](https://github.com/Financial-Times/dotcom-tool-kit/commit/2e4bf10157c3c321efd63b14aa5ebb1d38da9550))
+* **upload-assets-to-s3:** allow setting region for uploads ([89a984d](https://github.com/Financial-Times/dotcom-tool-kit/commit/89a984db001d6388eada79934d16bb9ad75c98e9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
+
 ## [2.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.7.1...types-v2.8.0) (2023-01-04)
 
 

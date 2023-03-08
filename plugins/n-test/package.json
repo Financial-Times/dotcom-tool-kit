@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/n-test",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/logger": "^2.2.0",
+    "@dotcom-tool-kit/logger": "^2.2.1",
     "@dotcom-tool-kit/state": "^2.0.1",
-    "@dotcom-tool-kit/types": "^2.8.0",
+    "@dotcom-tool-kit/types": "^2.9.0",
     "@financial-times/n-test": "^4.0.1",
     "tslib": "^2.3.1"
   },
@@ -36,6 +36,6 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "2.x"
+    "dotcom-tool-kit": "^2.6.0"
   }
 }

@@ -63,6 +63,21 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
 
+## [3.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v3.0.2...lint-staged-v3.0.3) (2023-03-07)
+
+
+### Bug Fixes
+
+* tidy up references in tsconfig files ([159b602](https://github.com/Financial-Times/dotcom-tool-kit/commit/159b6021e93922ebe6e4ca74297ad7a1c93290b3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v2.1.9...lint-staged-v3.0.0) (2022-12-08)
 
 

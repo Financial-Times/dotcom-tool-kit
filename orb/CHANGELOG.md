@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v3.1.0...orb-v3.2.0) (2023-03-07)
+
+
+### Features
+
+* **orb:** add support for assuming AWS role in provisioning job ([65dbabd](https://github.com/Financial-Times/dotcom-tool-kit/commit/65dbabd58adf55fa078482b79ea6fd98434238b0))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v3.0.0...orb-v3.1.0) (2023-01-24)
 
 

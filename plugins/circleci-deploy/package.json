@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci-deploy",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci": "^3.0.2",
+    "@dotcom-tool-kit/circleci": "^4.0.0",
     "tslib": "^2.3.1"
   },
   "repository": {
@@ -28,7 +28,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "2.x"
+    "dotcom-tool-kit": "^2.6.0"
   },
   "devDependencies": {
     "type-fest": "^3.6.0"

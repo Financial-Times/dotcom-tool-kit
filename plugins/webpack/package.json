@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/webpack",
-  "version": "2.1.11",
+  "version": "2.1.12",
   "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -18,14 +18,14 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.1",
-    "@dotcom-tool-kit/logger": "^2.2.0",
-    "@dotcom-tool-kit/types": "^2.8.0",
+    "@dotcom-tool-kit/logger": "^2.2.1",
+    "@dotcom-tool-kit/types": "^2.9.0",
     "webpack-cli": "^4.6.0",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
     "webpack": "4.x.x || 5.x.x",
-    "dotcom-tool-kit": "2.x"
+    "dotcom-tool-kit": "^2.6.0"
   },
   "devDependencies": {
     "@jest/globals": "^27.4.6",

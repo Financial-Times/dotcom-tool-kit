@@ -86,6 +86,26 @@
     * @dotcom-tool-kit/circleci bumped from ^3.0.1 to ^3.0.2
     * @dotcom-tool-kit/npm bumped from ^2.0.12 to ^2.0.13
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v3.0.2...circleci-npm-v4.0.0) (2023-03-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** rewrite CircleCI plugin to allow more flexible hooks
+
+### Features
+
+* **circleci:** rewrite CircleCI plugin to allow more flexible hooks ([b60c309](https://github.com/Financial-Times/dotcom-tool-kit/commit/b60c30921e62bab563a408600c31ff777c3f272b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+    * @dotcom-tool-kit/circleci bumped from ^3.0.2 to ^4.0.0
+    * @dotcom-tool-kit/npm bumped from ^2.0.13 to ^2.0.14
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v2.0.10...circleci-npm-v3.0.0) (2022-12-08)
 
 

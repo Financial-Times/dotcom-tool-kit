@@ -56,6 +56,31 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v2.0.13...upload-assets-to-s3-v2.1.0) (2023-03-07)
+
+
+### Features
+
+* handle default option values with zod ([7c03517](https://github.com/Financial-Times/dotcom-tool-kit/commit/7c0351771cf1a3d795803295a41dfea755176b19))
+
+
+### Bug Fixes
+
+* delete default options from plugins' .toolkitrc.yml files ([8a7d0ae](https://github.com/Financial-Times/dotcom-tool-kit/commit/8a7d0ae64d9c5a00acc05aceda867bcc4adec00d))
+* **upload-assets-to-s3:** allow setting region for uploads ([89a984d](https://github.com/Financial-Times/dotcom-tool-kit/commit/89a984db001d6388eada79934d16bb9ad75c98e9))
+* **upload-assets-to-s3:** better error handling on looped promises ([f61cf1e](https://github.com/Financial-Times/dotcom-tool-kit/commit/f61cf1e13115cb56b2e8ab02384f84b2ce57a616))
+* **upload-assets-to-s3:** clarify functionality for multi bucket upload ([4e88586](https://github.com/Financial-Times/dotcom-tool-kit/commit/4e885863d26b72a4b3643624f046b2f38256670e))
+* **upload-assets-to-s3:** throw error when no files found ([9ff1463](https://github.com/Financial-Times/dotcom-tool-kit/commit/9ff1463c4eeef90ae85246557ce395449bd3dee7))
+* use awk-sdk v3 to resolve promise issues ([9b49b8c](https://github.com/Financial-Times/dotcom-tool-kit/commit/9b49b8ca071c2683757dab9a53d277e85a643e37))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+
 ### [2.0.12](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v2.0.11...upload-assets-to-s3-v2.0.12) (2022-12-14)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v2.0.0...cypress-v2.0.1) (2023-03-07)
+
+
+### Bug Fixes
+
+* tidy up references in tsconfig files ([159b602](https://github.com/Financial-Times/dotcom-tool-kit/commit/159b6021e93922ebe6e4ca74297ad7a1c93290b3))
+
 ## 2.0.0 (2022-12-08)
 
 

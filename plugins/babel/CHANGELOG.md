@@ -69,6 +69,21 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.7.1 to ^2.8.0
 
+## [2.0.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/babel-v2.0.12...babel-v2.0.13) (2023-03-07)
+
+
+### Bug Fixes
+
+* **babel:** making destination folders for transpiled code ([97fd2b1](https://github.com/Financial-Times/dotcom-tool-kit/commit/97fd2b1c0545c33cf4d59f02d0f68911435a5ee3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
+
 ### [2.0.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/babel-v2.0.8...babel-v2.0.9) (2022-11-09)
 
 

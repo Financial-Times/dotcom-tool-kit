@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v2.2.0...logger-v2.2.1) (2023-03-07)
+
+
+### Bug Fixes
+
+* **logger:** suggest actions in event of hookFork failure ([20ead67](https://github.com/Financial-Times/dotcom-tool-kit/commit/20ead677bdd3e6d9dc5cc4ea7fda47aae6d7476a))
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v2.1.2...logger-v2.2.0) (2022-12-14)
 
 
