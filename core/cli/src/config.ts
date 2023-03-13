@@ -137,23 +137,35 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
   }
 
   const invalidOptions: InvalidOption[] = []
-  for (const [id, options] of Object.entries(config.options).filter((entry): entry is [
-    string,
-    PluginOptions
-  ] => {
-    const [, options] = entry
-    return !!options && !isConflict(options)
-  })) {
+  for (const [id, plugin] of Object.entries(config.plugins)) {
     const pluginId = id as keyof SchemaOptions
+    const pluginOptions = config.options[pluginId]
+    if (pluginOptions && isConflict(pluginOptions)) {
+      continue
+    }
+
     const pluginSchema = Schemas[pluginId]
     if (!pluginSchema) {
       logger.silly(`skipping validation of ${pluginId} plugin as no schema can be found`)
       continue
     }
-    const result = pluginSchema.safeParse(options.options)
+    const result = pluginSchema.safeParse(pluginOptions?.options ?? {})
     if (result.success) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      validConfig.options[pluginId]!.options = result.data
+      // Set up options entry for plugins that don't have options specified
+      // explicitly. They could still have default options that are set by zod.
+      if (!pluginOptions) {
+        // TypeScript struggles with this type as it sees one side as
+        // `Foo<a | b | c>` and the other as `Foo<a> | Foo<b> | Foo<c>` for
+        // some reason (something to do with the record indexing) and it can't
+        // unify them. But they are equivalent so let's force it with a cast.
+        config.options[pluginId] = {
+          options: result.data,
+          plugin: config.plugins['app root'],
+          forPlugin: plugin
+        } as any // eslint-disable-line @typescript-eslint/no-explicit-any
+      } else {
+        pluginOptions.options = result.data
+      }
     } else {
       invalidOptions.push([id, result.error])
     }
