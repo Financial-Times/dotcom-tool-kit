@@ -37,7 +37,7 @@ options:
     appName: appName # system's `name` field as it appears in next-service-registry
   '@dotcom-tool-kit/vault':
     team: 'next'
-    app: 'next-[appName]' # corresponding Vault directory name
+    app: '[systemCode]' # corresponding Vault directory name
 ```
 
 ## Options
