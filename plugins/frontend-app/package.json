@@ -8,6 +8,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/backend-heroku-app": "^1.0.2",
+    "@dotcom-tool-kit/upload-assets-to-s3": "^2.1.1",
     "@dotcom-tool-kit/webpack": "^2.1.13"
   },
   "repository": {
