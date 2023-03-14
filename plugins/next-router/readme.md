@@ -34,17 +34,17 @@ hooks:
 
 options:
   '@dotcom-tool-kit/next-router':
-    appName: next-[appName]
+    appName: appName # system's `name` field as it appears in next-service-registry
   '@dotcom-tool-kit/vault':
     team: 'next'
-    app: 'next-[appName]'
+    app: '[systemCode]' # corresponding Vault directory name
 ```
 
 ## Options
 
 | Key | Description | Default value | Required |
 |-|-|-|-|
-| `appName` | system code for the application (same as its "name" field in next-service-registry) | | ✅ |
+| `appName` | the system's `name` field as it appears in [next-service-registry](https://next-registry.ft.com/v2), which is _often different to its `code` value so be sure to check_) | | ✅ |
 
 ## Tasks
 
