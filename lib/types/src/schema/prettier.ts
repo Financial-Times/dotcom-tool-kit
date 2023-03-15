@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const PrettierSchema = z.object({
-  files: z.string().array().default(['**/*.{js,jsx,ts,tsx}']),
+  files: z.string().array().or(z.string()).default(['**/*.{js,jsx,ts,tsx}']),
   configFile: z.string().optional(),
   ignoreFile: z.string().default('.prettierignore'),
   configOptions: z.record(z.unknown()).default({
