@@ -70,6 +70,12 @@
     * @dotcom-tool-kit/logger bumped from ^2.2.0 to ^2.2.1
     * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.9.0 to ^2.9.1
+
 ### [2.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v2.1.3...n-test-v2.1.4) (2022-11-09)
 
 

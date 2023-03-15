@@ -114,6 +114,12 @@
   * dependencies
     * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.0 to ^1.0.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.1 to ^1.0.2
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v2.1.1...backend-app-v2.2.0) (2023-01-24)
 
 

@@ -87,6 +87,33 @@
     * @dotcom-tool-kit/mocha bumped from ^2.1.7 to ^2.2.0
     * @dotcom-tool-kit/n-test bumped from ^2.1.5 to ^2.1.6
 
+## [2.6.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.6.0...dotcom-tool-kit-v2.6.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* **cli:** validate options even when none are given for a plugin ([f769014](https://github.com/Financial-Times/dotcom-tool-kit/commit/f769014efe3f55f3db48ec3bd7e3e8c613683d69))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^2.0.13 to ^2.0.14
+    * @dotcom-tool-kit/types bumped from ^2.9.0 to ^2.9.1
+  * devDependencies
+    * @dotcom-tool-kit/babel bumped from ^2.0.13 to ^2.0.14
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.1 to ^1.0.2
+    * @dotcom-tool-kit/circleci bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/circleci-deploy bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/eslint bumped from ^2.3.0 to ^2.3.1
+    * @dotcom-tool-kit/frontend-app bumped from ^2.2.1 to ^2.2.2
+    * @dotcom-tool-kit/heroku bumped from ^2.1.4 to ^2.1.5
+    * @dotcom-tool-kit/mocha bumped from ^2.3.0 to ^2.3.1
+    * @dotcom-tool-kit/n-test bumped from ^2.1.8 to ^2.1.9
+    * @dotcom-tool-kit/npm bumped from ^2.0.14 to ^2.0.15
+    * @dotcom-tool-kit/webpack bumped from ^2.1.12 to ^2.1.13
+
 ## [2.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.5.0...dotcom-tool-kit-v2.6.0) (2023-03-07)
 
 
