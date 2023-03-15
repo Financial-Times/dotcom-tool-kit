@@ -18,6 +18,7 @@ import conflictsPrompt, { installHooks } from './prompts/conflicts'
 import mainPrompt from './prompts/main'
 import optionsPrompt from './prompts/options'
 import scheduledPipelinePrompt from './prompts/scheduledPipeline'
+import oidcInfrastructurePrompt from './prompts/oidc'
 
 const exec = promisify(_exec)
 
@@ -134,8 +135,8 @@ async function main() {
   const config = await loadConfig(winstonLogger, { validate: false })
   // Give the user a chance to set any configurable options for the plugins
   // they've installed.
-  const cancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath })
-  if (cancelled) {
+  const optionsCancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath })
+  if (optionsCancelled) {
     return
   }
   try {
@@ -160,6 +161,12 @@ async function main() {
 
   if (originalCircleConfig?.includes('triggers')) {
     await scheduledPipelinePrompt()
+  }
+  if (Object.keys(config.plugins).some((id) => id.includes('serverless'))) {
+    const oidcCancelled = await oidcInfrastructurePrompt()
+    if (oidcCancelled) {
+      return
+    }
   }
 
   // Suggest they delete the old n-gage makefile after verifying all its
