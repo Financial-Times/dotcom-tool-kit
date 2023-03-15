@@ -88,6 +88,13 @@
     * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
     * @dotcom-tool-kit/vault bumped from ^2.0.12 to ^2.0.13
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.9.0 to ^2.9.1
+    * @dotcom-tool-kit/vault bumped from ^2.0.13 to ^2.0.14
+
 ### [2.0.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v2.0.8...next-router-v2.0.9) (2022-11-09)
 
 

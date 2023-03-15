@@ -7,6 +7,12 @@
     * @dotcom-tool-kit/logger bumped from ^2.1.2 to ^2.2.1
     * @dotcom-tool-kit/types bumped from ^2.8.0 to ^2.9.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.9.0 to ^2.9.1
+
 ## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v1.0.0...typescript-v1.0.1) (2023-01-05)
 
 

@@ -96,6 +96,13 @@
     * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.0 to ^1.0.1
     * @dotcom-tool-kit/webpack bumped from ^2.1.11 to ^2.1.12
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.1 to ^1.0.2
+    * @dotcom-tool-kit/webpack bumped from ^2.1.12 to ^2.1.13
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v2.1.13...frontend-app-v2.2.0) (2023-01-24)
 
 

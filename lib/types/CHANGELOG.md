@@ -12,6 +12,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [2.9.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.9.0...types-v2.9.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* **types:** allow files options to be simple strings as well as arrays ([3dc32c0](https://github.com/Financial-Times/dotcom-tool-kit/commit/3dc32c041849d8718861fbc0e0d3b72c026804c8))
+
 ## [2.9.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.8.0...types-v2.9.0) (2023-03-07)
 
 
