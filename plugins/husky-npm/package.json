@@ -11,10 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/package-json-hook": "^3.0.0",
-    "tslib": "^2.3.1"
+    "tslib": "^2.3.1",
+    "husky": "^4.3.8"
   },
   "peerDependencies": {
-    "husky": "4.x",
     "dotcom-tool-kit": "^2.6.0"
   },
   "repository": {
