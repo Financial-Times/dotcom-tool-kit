@@ -3,7 +3,7 @@ import importCwd from 'import-cwd'
 import type { Spinner } from 'komatsu'
 import Komatsu from 'komatsu'
 
-export type LoggerError = Error & {
+export type LoggerError = (Error | ToolkitErrorModule.ToolKitError) & {
   logged?: boolean
 }
 
@@ -98,9 +98,13 @@ export async function runTasksWithLogger<T, U>(
     if (allowConflicts && hasToolKitConflicts(error)) {
       logger.log(id, { status: 'done', message: 'finished installing hooks, but found conflicts' })
     } else {
+      let message = labels.fail
+      if ('details' in loggerError) {
+        message += ' –\n' + loggerError.details
+      }
       logger.log(id, {
         status: 'fail',
-        message: labels.fail,
+        message,
         error: loggerError.logged ? undefined : loggerError
       })
     }
