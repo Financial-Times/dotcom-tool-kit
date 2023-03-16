@@ -102,7 +102,8 @@ ${invalidOptions
   .map(([plugin, error]) => fromZodError(error, { prefix: `- ${s.plugin(plugin)} has the issue(s)` }).message)
   .join('\n')}
 
-Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.`
+Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.
+`
 
 export const formatUnusedOptions = (
   unusedOptions: string[],
