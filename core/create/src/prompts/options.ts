@@ -12,7 +12,7 @@ import { z } from 'zod'
 interface OptionSettings {
   name: string
   type: z.ZodTypeAny
-  default?: any
+  default?: unknown
 }
 
 async function optionsPromptForPlugin(
@@ -118,10 +118,12 @@ async function optionsPromptForPlugin(
                 {
                   name: 'option',
                   type: 'multiselect',
-                  choices: (elementType as z.ZodEnum<any>).options.map((choice: string) => ({
-                    title: choice,
-                    value: choice
-                  })),
+                  choices: (elementType as z.ZodEnum<[string, ...string[]]>).options.map(
+                    (choice: string) => ({
+                      title: choice,
+                      value: choice
+                    })
+                  ),
                   message: `Select options for '${styles.option(optionName)}'` + defaultSuffix
                 },
                 { onCancel }
@@ -137,7 +139,7 @@ async function optionsPromptForPlugin(
             {
               name: 'option',
               type: 'select',
-              choices: (optionType as z.ZodEnum<any>).options.map((choice: string) => ({
+              choices: (optionType as z.ZodEnum<[string, ...string[]]>).options.map((choice: string) => ({
                 title: choice,
                 value: choice
               })),
@@ -223,6 +225,9 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
       }
       if (!cancelled && generators) {
         for (const [optionName, generator] of Object.entries(generators)) {
+          // the object is partial because not all options for a plugin will
+          // have generators, but all values in the record will be defined
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toolKitConfig.options[plugin][optionName] = await generator!(
             winstonLogger.child({ plugin }),
             prompt,
