@@ -1,6 +1,7 @@
 plugins:
   - '@dotcom-tool-kit/webpack'
   - '@dotcom-tool-kit/backend-heroku-app'
+  - '@dotcom-tool-kit/upload-assets-to-s3'
 
 hooks:
   'run:local':
