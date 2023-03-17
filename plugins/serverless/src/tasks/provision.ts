@@ -33,7 +33,7 @@ export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
     const args = [
       'deploy',
       '--region',
-      this.options.region,
+      this.options.region[0],
       '--stage',
       `ci${buildNum}`,
       '--aws-profile',
