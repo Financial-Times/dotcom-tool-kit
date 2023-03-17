@@ -4,6 +4,7 @@ A bootstrap plugin that provides the minimum required Tool Kit plugins for a "fr
 
 - [`@dotcom-tool-kit/webpack`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/webpack)
 - [`@dotcom-tool-kit/backend-heroku-app`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-heroku-app)
+- [`@dotcom-tool-kit/upload-assets-to-s3`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/upload-assets-to-s3)
 
 This bootstrap plugin is also preconfigured to run the `Node`, `WebpackDevelopment`, and `WebpackWatch` tasks on the hook `run:local`.
 
