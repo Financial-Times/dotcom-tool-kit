@@ -3,13 +3,14 @@ import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/types'
 import loadPackageJson from '@financial-times/package-json'
 import { exec as _exec } from 'child_process'
-import type { ValidConfig } from 'dotcom-tool-kit/lib/config'
+import { loadConfig } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
 import * as yaml from 'js-yaml'
+import Logger from 'komatsu'
 import pacote from 'pacote'
 import path from 'path'
 import { promisify } from 'util'
-import { hasToolKitConflicts, Logger, runTasksWithLogger } from './logger'
+import { catchToolKitErrorsInLogger, hasToolKitConflicts } from './logger'
 import makefileHint from './makefile'
 import confirmationPrompt from './prompts/confirmation'
 import conflictsPrompt, { installHooks } from './prompts/conflicts'
@@ -43,7 +44,7 @@ async function executeMigration(
   deleteConfig: boolean,
   addEslintConfig: boolean,
   configFile: string
-): Promise<ValidConfig> {
+): Promise<void> {
   for (const pkg of packagesToInstall) {
     const { version } = await pacote.manifest(pkg)
     packageJson.requireDependency({
@@ -78,11 +79,7 @@ async function executeMigration(
     ? logger.logPromise(fs.unlink(circleConfigPath), 'removing old CircleCI config')
     : Promise.resolve()
 
-  const initialTasks = Promise.all([configPromise, eslintConfigPromise, unlinkPromise]).then(
-    () => winstonLogger
-  )
-
-  return runTasksWithLogger(logger, initialTasks, installHooks, 'installing Tool Kit hooks', true)
+  await Promise.all([configPromise, eslintConfigPromise, unlinkPromise])
 }
 
 async function main() {
@@ -126,36 +123,34 @@ async function main() {
   if (!confirm) {
     return
   }
-  let config: ValidConfig | undefined
-  try {
-    // Carry out the proposed changes: install + uninstall packages, run
-    // --install logic etc.
-    config = await executeMigration(deleteConfig, addEslintConfig, configFile)
-  } catch (error) {
-    if (hasToolKitConflicts(error)) {
-      // Additional questions asked if we have any task conflicts, letting the
-      // user to specify the order they want tasks to run in.
-      config = await conflictsPrompt({
-        error: error as ToolkitErrorModule.ToolKitConflictError,
-        logger,
-        toolKitConfig,
-        configPath
-      })
-    } else {
-      throw error
-    }
-  }
-
-  // Only run final prompts if execution was successful (this also means these
-  // are skipped if the user cancels out of the conflict resolution prompt.)
-  if (!config) {
-    return
-  }
+  // Carry out the proposed changes: install + uninstall packages, add config
+  // files, etc.
+  await executeMigration(deleteConfig, addEslintConfig, configFile)
+  const config = await loadConfig(winstonLogger, { validate: false })
   // Give the user a chance to set any configurable options for the plugins
   // they've installed.
   const cancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath })
   if (cancelled) {
     return
+  }
+  try {
+    await catchToolKitErrorsInLogger(logger, installHooks(winstonLogger), 'installing Tool Kit hooks', true)
+  } catch (error) {
+    if (hasToolKitConflicts(error)) {
+      // Additional questions asked if we have any task conflicts, letting the
+      // user to specify the order they want tasks to run in.
+      const conflictsCancelled = await conflictsPrompt({
+        error: error as ToolkitErrorModule.ToolKitConflictError,
+        logger,
+        toolKitConfig,
+        configPath
+      })
+      if (conflictsCancelled) {
+        return
+      }
+    } else {
+      throw error
+    }
   }
 
   if (originalCircleConfig?.includes('triggers')) {

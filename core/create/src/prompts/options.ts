@@ -1,13 +1,13 @@
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/types'
 import type { PromptGenerators } from '@dotcom-tool-kit/types/src/schema'
-import type { ValidConfig } from 'dotcom-tool-kit/lib/config'
+import type { RawConfig } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
 import * as yaml from 'js-yaml'
+import type Logger from 'komatsu'
 import partition from 'lodash/partition'
 import prompt from 'prompts'
 import { z } from 'zod'
-import type { Logger } from '../logger'
 
 interface OptionSettings {
   name: string
@@ -173,7 +173,7 @@ async function optionsPromptForPlugin(
 
 export interface OptionsParams {
   logger: Logger
-  config: ValidConfig
+  config: RawConfig
   toolKitConfig: RCFile
   configPath: string
 }
