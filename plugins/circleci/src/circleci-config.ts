@@ -269,12 +269,12 @@ If you would like a Tool Kit configured CircleCI config file to be generated for
       const { jobs, nightlyJobs } = getWorkflowJobs(config)
       const flatJobs = jobs?.map(getJobName) ?? []
       const flatNightlyJobs = nightlyJobs?.map(getJobName) ?? []
-      const missingJobs = Object.keys(state.workflows['tool-kit'].jobs).filter(
-        (job) => !flatJobs.includes(job)
-      )
-      const missingNightlyJobs = Object.keys(state.workflows.nightly.jobs).filter(
-        (job) => !flatNightlyJobs.includes(job)
-      )
+      const missingJobs = state.workflows['tool-kit'].jobs
+        .map(getJobName)
+        .filter((job) => !flatJobs.includes(job))
+      const missingNightlyJobs = state.workflows.nightly.jobs
+        .map(getJobName)
+        .filter((job) => !flatNightlyJobs.includes(job))
 
       const formatMissingHooks = (hooks: string[]): string => hooks.map(styles.hook).join(', ')
       throw new ToolKitError(
