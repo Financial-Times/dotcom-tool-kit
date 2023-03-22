@@ -1,18 +1,18 @@
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/types'
 import type { PromptGenerators } from '@dotcom-tool-kit/types/src/schema'
-import type { ValidConfig } from 'dotcom-tool-kit/lib/config'
+import type { RawConfig } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
 import * as yaml from 'js-yaml'
+import type Logger from 'komatsu'
 import partition from 'lodash/partition'
 import prompt from 'prompts'
 import { z } from 'zod'
-import type { Logger } from '../logger'
 
 interface OptionSettings {
   name: string
   type: z.ZodTypeAny
-  default?: any
+  default?: unknown
 }
 
 async function optionsPromptForPlugin(
@@ -30,128 +30,140 @@ async function optionsPromptForPlugin(
       ? ` (leave blank to use default value ${styles.code(JSON.stringify(optionDefault))})`
       : ''
 
-    // the Def type returned by ._def is different for each different Zod
-    // schema, but all of the schemas we're checking for here will have a
-    // .typeName field on their Def that gives a string representation of
-    // their type. this is preferred to using instanceof to check for the
-    // type as this method should work when different versions of zod are
-    // installed.
-    const typeName = optionType._def.typeName as z.ZodFirstPartyTypeKind
-    switch (typeName) {
-      case 'ZodString':
-        const { stringOption } = await prompt(
-          {
-            name: 'stringOption',
-            type: 'text',
-            message: `Set a value for '${styles.option(optionName)}'` + defaultSuffix
-          },
-          { onCancel }
-        )
-        if (stringOption !== '') {
-          toolKitConfig.options[plugin][optionName] = stringOption
-        }
-        break
-      case 'ZodBoolean':
-        const { boolOption } = await prompt(
-          {
-            name: 'boolOption',
-            type: 'confirm',
-            message: `Would you like to enable option '${styles.option(optionName)}'?` + defaultSuffix
-          },
-          { onCancel }
-        )
-        if (boolOption !== '') {
-          toolKitConfig.options[plugin][optionName] = boolOption
-        }
-        break
-      case 'ZodNumber':
-        const { numberOption } = await prompt(
-          {
-            name: 'numberOption',
-            type: 'text',
-            message: `Set a numerical value for '${styles.option(optionName)}'` + defaultSuffix
-          },
-          { onCancel }
-        )
-        if (numberOption !== '') {
-          toolKitConfig.options[plugin][optionName] = Number.parseFloat(numberOption)
-        }
-        break
-      case 'ZodArray':
-        const elementType = (optionType as z.ZodArray<z.ZodTypeAny>).element
-        switch (elementType._def.typeName as z.ZodFirstPartyTypeKind) {
-          case 'ZodString':
-            const { stringArrayOption }: { stringArrayOption: string | undefined } = await prompt(
-              {
-                name: 'stringArrayOption',
-                type: 'text',
-                message:
-                  `Set a list of values for '${styles.option(optionName)}' (delimited by commas)` +
-                  defaultSuffix
-              },
-              { onCancel }
-            )
-            if (stringArrayOption !== '' && stringArrayOption !== undefined) {
-              toolKitConfig.options[plugin][optionName] = stringArrayOption.split(',').map((s) => s.trim())
-            }
-            break
-          case 'ZodNumber':
-            const { numberArrayOption }: { numberArrayOption: string | undefined } = await prompt(
-              {
-                name: 'numberArrayOption',
-                type: 'text',
-                message:
-                  `Set a list of values for '${styles.option(optionName)}' (delimited by commas)` +
-                  defaultSuffix
-              },
-              { onCancel }
-            )
-            if (numberArrayOption !== '' && numberArrayOption !== undefined) {
-              toolKitConfig.options[plugin][optionName] = numberArrayOption
-                .split(',')
-                .map((s) => Number.parseFloat(s.trim()))
-            }
-            break
-          case 'ZodEnum':
-            const { option } = await prompt(
-              {
-                name: 'option',
-                type: 'multiselect',
-                choices: (elementType as z.ZodEnum<any>).options.map((choice: string) => ({
-                  title: choice,
-                  value: choice
-                })),
-                message: `Select options for '${styles.option(optionName)}'` + defaultSuffix
-              },
-              { onCancel }
-            )
-            if (option !== '') {
-              toolKitConfig.options[plugin][optionName] = option
-            }
-            break
-        }
-        break
-      case 'ZodEnum':
-        const { option } = await prompt(
-          {
-            name: 'option',
-            type: 'select',
-            choices: (optionType as z.ZodEnum<any>).options.map((choice: string) => ({
-              title: choice,
-              value: choice
-            })),
-            message: `Select an option for '${styles.option(optionName)}'` + defaultSuffix
-          },
-          { onCancel }
-        )
-        if (option !== '') {
-          toolKitConfig.options[plugin][optionName] = option
-        }
-        break
-      default:
-        winstonLogger.verbose(`skipping prompting for unrecognised option type ${typeName} for ${optionName}`)
-        break
+    const typeSwitch = async (optionType: z.ZodTypeAny) => {
+      // the Def type returned by ._def is different for each different Zod
+      // schema, but all of the schemas we're checking for here will have a
+      // .typeName field on their Def that gives a string representation of
+      // their type. this is preferred to using instanceof to check for the
+      // type as this method should work when different versions of zod are
+      // installed.
+      const typeName = optionType._def.typeName as z.ZodFirstPartyTypeKind
+      switch (typeName) {
+        case 'ZodString':
+          const { stringOption } = await prompt(
+            {
+              name: 'stringOption',
+              type: 'text',
+              message: `Set a value for '${styles.option(optionName)}'` + defaultSuffix
+            },
+            { onCancel }
+          )
+          if (stringOption !== '') {
+            toolKitConfig.options[plugin][optionName] = stringOption
+          }
+          break
+        case 'ZodBoolean':
+          const { boolOption } = await prompt(
+            {
+              name: 'boolOption',
+              type: 'confirm',
+              message: `Would you like to enable option '${styles.option(optionName)}'?` + defaultSuffix
+            },
+            { onCancel }
+          )
+          if (boolOption !== '') {
+            toolKitConfig.options[plugin][optionName] = boolOption
+          }
+          break
+        case 'ZodNumber':
+          const { numberOption } = await prompt(
+            {
+              name: 'numberOption',
+              type: 'text',
+              message: `Set a numerical value for '${styles.option(optionName)}'` + defaultSuffix
+            },
+            { onCancel }
+          )
+          if (numberOption !== '') {
+            toolKitConfig.options[plugin][optionName] = Number.parseFloat(numberOption)
+          }
+          break
+        case 'ZodArray':
+          const elementType = (optionType as z.ZodArray<z.ZodTypeAny>).element
+          switch (elementType._def.typeName as z.ZodFirstPartyTypeKind) {
+            case 'ZodString':
+              const { stringArrayOption }: { stringArrayOption: string | undefined } = await prompt(
+                {
+                  name: 'stringArrayOption',
+                  type: 'text',
+                  message:
+                    `Set a list of values for '${styles.option(optionName)}' (delimited by commas)` +
+                    defaultSuffix
+                },
+                { onCancel }
+              )
+              if (stringArrayOption !== '' && stringArrayOption !== undefined) {
+                toolKitConfig.options[plugin][optionName] = stringArrayOption.split(',').map((s) => s.trim())
+              }
+              break
+            case 'ZodNumber':
+              const { numberArrayOption }: { numberArrayOption: string | undefined } = await prompt(
+                {
+                  name: 'numberArrayOption',
+                  type: 'text',
+                  message:
+                    `Set a list of values for '${styles.option(optionName)}' (delimited by commas)` +
+                    defaultSuffix
+                },
+                { onCancel }
+              )
+              if (numberArrayOption !== '' && numberArrayOption !== undefined) {
+                toolKitConfig.options[plugin][optionName] = numberArrayOption
+                  .split(',')
+                  .map((s) => Number.parseFloat(s.trim()))
+              }
+              break
+            case 'ZodEnum':
+              const { option } = await prompt(
+                {
+                  name: 'option',
+                  type: 'multiselect',
+                  choices: (elementType as z.ZodEnum<[string, ...string[]]>).options.map(
+                    (choice: string) => ({
+                      title: choice,
+                      value: choice
+                    })
+                  ),
+                  message: `Select options for '${styles.option(optionName)}'` + defaultSuffix
+                },
+                { onCancel }
+              )
+              if (option !== '') {
+                toolKitConfig.options[plugin][optionName] = option
+              }
+              break
+          }
+          break
+        case 'ZodEnum':
+          const { option } = await prompt(
+            {
+              name: 'option',
+              type: 'select',
+              choices: (optionType as z.ZodEnum<[string, ...string[]]>).options.map((choice: string) => ({
+                title: choice,
+                value: choice
+              })),
+              message: `Select an option for '${styles.option(optionName)}'` + defaultSuffix
+            },
+            { onCancel }
+          )
+          if (option !== '') {
+            toolKitConfig.options[plugin][optionName] = option
+          }
+          break
+        case 'ZodUnion':
+          // only suggest the first choice of a union
+          await typeSwitch((optionType as z.ZodUnion<z.ZodUnionOptions>).options[0])
+          break
+        default:
+          winstonLogger.verbose(
+            `skipping prompting for unrecognised option type ${typeName} for ${optionName}`
+          )
+          break
+      }
     }
+
+    await typeSwitch(optionType)
 
     if (pluginCancelled) {
       return true
@@ -163,7 +175,7 @@ async function optionsPromptForPlugin(
 
 export interface OptionsParams {
   logger: Logger
-  config: ValidConfig
+  config: RawConfig
   toolKitConfig: RCFile
   configPath: string
 }
@@ -213,6 +225,9 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
       }
       if (!cancelled && generators) {
         for (const [optionName, generator] of Object.entries(generators)) {
+          // the object is partial because not all options for a plugin will
+          // have generators, but all values in the record will be defined
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toolKitConfig.options[plugin][optionName] = await generator!(
             winstonLogger.child({ plugin }),
             prompt,

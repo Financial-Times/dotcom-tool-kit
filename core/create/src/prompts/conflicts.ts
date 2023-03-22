@@ -7,9 +7,10 @@ import type installHooksType from 'dotcom-tool-kit/lib/install'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
 import * as yaml from 'js-yaml'
+import type Logger from 'komatsu'
 import ordinal from 'ordinal'
 import prompt from 'prompts'
-import { Logger, runTasksWithLogger } from '../logger'
+import { catchToolKitErrorsInLogger } from '../logger'
 
 interface ConflictsParams {
   error: ToolkitErrorModule.ToolKitConflictError
@@ -35,12 +36,7 @@ export function installHooks(logger: typeof winstonLogger): Promise<ValidConfig>
   }).default(logger)
 }
 
-export default async ({
-  error,
-  logger,
-  toolKitConfig,
-  configPath
-}: ConflictsParams): Promise<ValidConfig | undefined> => {
+export default async ({ error, logger, toolKitConfig, configPath }: ConflictsParams): Promise<boolean> => {
   const orderedHooks: { [hook: string]: string[] } = {}
 
   for (const conflict of error.conflicts) {
@@ -64,7 +60,7 @@ Please select the ${ordinal(i)} package to run.`,
       })
 
       if (nextIdx === undefined) {
-        return
+        return true
       } else if (nextIdx === null) {
         break
       } else {
@@ -87,13 +83,21 @@ sound alright?`
   })
 
   if (confirm) {
-    const configPromise = logger.logPromise(
-      fs.writeFile(configPath, configFile).then(() => winstonLogger),
+    await logger.logPromise(
+      fs.writeFile(configPath, configFile),
       `recreating ${styles.filepath('.toolkitrc.yml')}`
     )
     // Clear config cache now that config has been updated
     clearConfigCache()
 
-    return runTasksWithLogger(logger, configPromise, installHooks, 'installing Tool Kit hooks again', false)
+    await catchToolKitErrorsInLogger(
+      logger,
+      installHooks(winstonLogger),
+      'installing Tool Kit hooks again',
+      false
+    )
+
+    return false
   }
+  return true
 }
