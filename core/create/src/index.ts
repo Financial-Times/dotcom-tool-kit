@@ -3,8 +3,9 @@ import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/types'
 import loadPackageJson from '@financial-times/package-json'
 import { exec as _exec } from 'child_process'
-import { loadConfig } from 'dotcom-tool-kit/lib/config'
+import type { loadConfig as loadConfigType } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
+import importCwd from 'import-cwd'
 import * as yaml from 'js-yaml'
 import Logger from 'komatsu'
 import pacote from 'pacote'
@@ -126,6 +127,10 @@ async function main() {
   // Carry out the proposed changes: install + uninstall packages, add config
   // files, etc.
   await executeMigration(deleteConfig, addEslintConfig, configFile)
+  // Use user's version of Tool Kit that we've just installed for them to load
+  // the config to avoid any incompatibilities with a version that create might
+  // use
+  const { loadConfig } = importCwd('dotcom-tool-kit/lib/config') as { loadConfig: typeof loadConfigType }
   const config = await loadConfig(winstonLogger, { validate: false })
   // Give the user a chance to set any configurable options for the plugins
   // they've installed.
