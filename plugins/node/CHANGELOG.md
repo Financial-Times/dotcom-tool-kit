@@ -70,6 +70,13 @@
     * @dotcom-tool-kit/types bumped from ^2.9.0 to ^2.9.1
     * @dotcom-tool-kit/vault bumped from ^2.0.13 to ^2.0.14
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
+    * @dotcom-tool-kit/vault bumped from ^2.0.14 to ^2.0.15
+
 ## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v2.2.5...node-v2.3.0) (2023-03-07)
 
 

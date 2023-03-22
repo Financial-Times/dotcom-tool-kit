@@ -12,6 +12,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [2.9.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.9.1...types-v2.9.2) (2023-03-22)
+
+
+### Bug Fixes
+
+* **types:** make vault options optional ([f2e9cc0](https://github.com/Financial-Times/dotcom-tool-kit/commit/f2e9cc0b45d79c26c5ee5ec248fe44f073900835))
+
 ## [2.9.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.9.0...types-v2.9.1) (2023-03-15)
 
 

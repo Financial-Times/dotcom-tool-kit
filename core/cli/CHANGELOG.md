@@ -87,6 +87,33 @@
     * @dotcom-tool-kit/mocha bumped from ^2.1.7 to ^2.2.0
     * @dotcom-tool-kit/n-test bumped from ^2.1.5 to ^2.1.6
 
+## [2.6.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.6.1...dotcom-tool-kit-v2.6.2) (2023-03-22)
+
+
+### Bug Fixes
+
+* **cli:** append newline after validation error messages ([7e99bf5](https://github.com/Financial-Times/dotcom-tool-kit/commit/7e99bf5afa4f42af47cb4bb5cf98cd1725643c0b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^2.0.14 to ^2.0.15
+    * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
+  * devDependencies
+    * @dotcom-tool-kit/babel bumped from ^2.0.14 to ^2.0.15
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.2 to ^1.0.3
+    * @dotcom-tool-kit/circleci bumped from ^4.0.1 to ^4.0.2
+    * @dotcom-tool-kit/circleci-deploy bumped from ^2.0.1 to ^2.0.2
+    * @dotcom-tool-kit/eslint bumped from ^2.3.1 to ^2.3.2
+    * @dotcom-tool-kit/frontend-app bumped from ^2.2.2 to ^2.3.0
+    * @dotcom-tool-kit/heroku bumped from ^2.1.5 to ^2.1.6
+    * @dotcom-tool-kit/mocha bumped from ^2.3.1 to ^2.3.2
+    * @dotcom-tool-kit/n-test bumped from ^2.1.9 to ^2.1.10
+    * @dotcom-tool-kit/npm bumped from ^2.0.15 to ^2.0.16
+    * @dotcom-tool-kit/webpack bumped from ^2.1.13 to ^2.1.14
+
 ## [2.6.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.6.0...dotcom-tool-kit-v2.6.1) (2023-03-15)
 
 

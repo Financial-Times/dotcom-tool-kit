@@ -103,6 +103,22 @@
     * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.1 to ^1.0.2
     * @dotcom-tool-kit/webpack bumped from ^2.1.12 to ^2.1.13
 
+## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v2.2.2...frontend-app-v2.3.0) (2023-03-22)
+
+
+### Features
+
+* **frontend-app:** add upload-assets-to-s3 plugin ([d5f16bc](https://github.com/Financial-Times/dotcom-tool-kit/commit/d5f16bcc0096beccefe8286b9c92aac490518ed6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.2 to ^1.0.3
+    * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^2.1.1 to ^2.1.2
+    * @dotcom-tool-kit/webpack bumped from ^2.1.13 to ^2.1.14
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v2.1.13...frontend-app-v2.2.0) (2023-01-24)
 
 
