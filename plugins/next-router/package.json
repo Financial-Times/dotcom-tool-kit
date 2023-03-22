@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/next-router",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -13,8 +13,8 @@
     "@dotcom-tool-kit/error": "^2.0.1",
     "@dotcom-tool-kit/state": "^2.0.1",
     "@dotcom-tool-kit/logger": "^2.2.1",
-    "@dotcom-tool-kit/types": "^2.9.1",
-    "@dotcom-tool-kit/vault": "^2.0.14",
+    "@dotcom-tool-kit/types": "^2.9.2",
+    "@dotcom-tool-kit/vault": "^2.0.15",
     "ft-next-router": "^1.0.0",
     "tslib": "^2.3.1"
   },

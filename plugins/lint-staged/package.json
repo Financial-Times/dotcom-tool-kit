@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/lint-staged",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "@dotcom-tool-kit/package-json-hook": "^3.0.0",
     "@dotcom-tool-kit/logger": "^2.2.1",
-    "@dotcom-tool-kit/types": "^2.9.1",
+    "@dotcom-tool-kit/types": "^2.9.2",
     "lint-staged": "^11.2.3",
     "tslib": "^2.3.1"
   },

@@ -51,6 +51,28 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^2.6.0 to ^2.6.1
 
+## [2.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.6.1...create-v2.7.0) (2023-03-22)
+
+
+### Features
+
+* **create:** add support for union types in zod schemas ([bf44ba4](https://github.com/Financial-Times/dotcom-tool-kit/commit/bf44ba49b3e4aad353401c499497f9823bfea79d))
+* **create:** log ToolKitError details when thrown ([08c25d4](https://github.com/Financial-Times/dotcom-tool-kit/commit/08c25d41d39c2dfcbdacacdc92d3f9aa2efa7a1d))
+
+
+### Bug Fixes
+
+* **create:** set options before installing to avoid validation errors ([3bec6ab](https://github.com/Financial-Times/dotcom-tool-kit/commit/3bec6abdf6478c4e312f9ec1e3e3fd55edc85959))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
+  * devDependencies
+    * dotcom-tool-kit bumped from ^2.6.1 to ^2.6.2
+
 ## [2.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.5.0...create-v2.6.0) (2023-03-07)
 
 
