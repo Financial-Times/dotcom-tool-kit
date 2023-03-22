@@ -5,6 +5,7 @@ import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { Octokit } from '@octokit/rest'
 import suggester from 'code-suggester'
+import { highlight } from 'cli-highlight'
 import { promises as fs } from 'fs'
 import fetch from 'node-fetch'
 import path from 'path'
@@ -46,6 +47,25 @@ const getCircleCiProjectId = async (circleCIAuthToken: string) => {
     throw new ToolKitError('failed to get project ID from CircleCI API')
   }
   return (await circleciProjectResp.json()).id
+}
+
+// Make the PR contents legible for users (by clearly stating what files are
+// being created and adding syntax highlighting) so they can feel confident
+// automatically creating a PR.
+const formatChanges = (changes: suggester.Changes): string => {
+  let formatted = ''
+  for (const [path, { content }] of changes) {
+    // we aren't deleting any files so content will never be null
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const highlighted = highlight(content!, { language: 'yaml' }).replace(
+      // indent every line by 2 spaces so that it's easier to skim the
+      // different files
+      /^/gm,
+      '  '
+    )
+    formatted += `\n${styles.filepath(path)}:\n${highlighted}`
+  }
+  return formatted
 }
 
 // If we're migrating to OIDC authentication from a project that had a IAM user
@@ -253,7 +273,7 @@ export default async function oidcPrompt(): Promise<boolean> {
   winstonLogger.info(
     `Will send the following changes to the ${styles.URL(
       `https://github.com/Financial-Times/${upstreamRepo}`
-    )} repository: ${changes}`
+    )} repository:\n${formatChanges(changes)}`
   )
   const { prConfirm } = await prompt(
     { name: 'prConfirm', type: 'confirm', message: 'Is that okay?' },
