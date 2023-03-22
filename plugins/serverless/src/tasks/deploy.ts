@@ -9,7 +9,7 @@ export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
   static description = 'Deploys on AWS'
 
   async run(): Promise<void> {
-    const { useVault, configPath, buildNumVariable } = this.options
+    const { useVault, configPath, buildNumVariable, regions } = this.options
     const buildNum = process.env[buildNumVariable]
 
     if (buildNum === undefined) {
@@ -29,7 +29,7 @@ export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
       vaultEnv = await vault.get()
     }
 
-    this.options.region.forEach((region) => {
+    regions.forEach((region) => {
       this.logger.verbose('starting the child serverless process...')
       const args = ['deploy', '--region', region, '--stage', 'prod']
       if (configPath) {
