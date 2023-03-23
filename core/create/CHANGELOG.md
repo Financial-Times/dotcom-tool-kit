@@ -51,6 +51,13 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^2.6.0 to ^2.6.1
 
+## [2.7.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.7.0...create-v2.7.1) (2023-03-23)
+
+
+### Bug Fixes
+
+* **create:** load config via user's local dotcom-tool-kit package ([60b2829](https://github.com/Financial-Times/dotcom-tool-kit/commit/60b28299ed5461da07da99741916f83c43ef3e89))
+
 ## [2.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.6.1...create-v2.7.0) (2023-03-22)
 
 
