@@ -12,7 +12,7 @@ export default class Mocha extends Task<typeof MochaSchema> {
   async run(): Promise<void> {
     const files = await promisify(glob)(this.options.files)
 
-    const args = [this.options.configPath ? `--config=${this.options.configPath}` : '', ...files]
+    const args = ['--color', this.options.configPath ? `--config=${this.options.configPath}` : '', ...files]
     this.logger.info(`running mocha ${args.join(' ')}`)
     const child = fork(mochaCLIPath, args, { silent: true })
     hookFork(this.logger, 'mocha', child)
