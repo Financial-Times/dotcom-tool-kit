@@ -8,7 +8,7 @@ import { getOptions } from '@dotcom-tool-kit/options'
 import type { SetRequired } from 'type-fest'
 
 export class DeployReview extends CircleCiConfigHook {
-  static job = 'tool-kit/heroku-provision'
+  static job = 'tool-kit/deploy-review'
   // needs to be a getter so that we can lazily wait for the global options
   // object to be assigned before getting values from it
   get config(): CircleCIStatePartial {
@@ -32,7 +32,7 @@ export class DeployReview extends CircleCiConfigHook {
 }
 
 export class DeployStaging extends CircleCiConfigHook {
-  static job = 'tool-kit/heroku-staging'
+  static job = 'tool-kit/deploy-staging'
   config = generateConfigWithJob({
     name: DeployStaging.job,
     addToNightly: false,
@@ -70,7 +70,7 @@ export class TestStaging extends CypressCiHook {
 }
 
 export class DeployProduction extends CircleCiConfigHook {
-  job = 'tool-kit/heroku-promote'
+  job = 'tool-kit/deploy-production'
   config = generateConfigWithJob({
     name: this.job,
     addToNightly: false,

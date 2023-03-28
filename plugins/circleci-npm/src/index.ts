@@ -1,7 +1,7 @@
 import CircleCiConfigHook, { generateConfigWithJob } from '@dotcom-tool-kit/circleci/lib/circleci-config'
 
 class PublishHook extends CircleCiConfigHook {
-  static job = 'tool-kit/publish'
+  static job = 'tool-kit/publish-tag'
   config = generateConfigWithJob({
     name: PublishHook.job,
     requires: ['tool-kit/test'],

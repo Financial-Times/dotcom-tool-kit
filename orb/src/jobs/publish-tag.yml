@@ -1,0 +1,12 @@
+parameters:
+  executor:
+    default: default
+    type: executor
+
+executor: << parameters.executor >>
+
+steps:
+  - attach-workspace
+  - run:
+      name: Publish to npm
+      command: npx dotcom-tool-kit publish:tag

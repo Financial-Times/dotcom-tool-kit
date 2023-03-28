@@ -1,0 +1,13 @@
+parameters:
+  executor:
+    default: default
+    type: executor
+
+executor: << parameters.executor >>
+
+steps:
+  - attach-workspace
+  - run:
+      name: Deploy to staging
+      command: npx dotcom-tool-kit deploy:staging
+  - persist-workspace

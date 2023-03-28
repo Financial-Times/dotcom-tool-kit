@@ -55,4 +55,4 @@ If you don't have the automated comment in your `config.yml` and therefore choos
 
 | Event | Description | Installed to...| Default tasks |
 |-|-|-|-|
-| `publish:tag` | Publishes the built package to the npm registry | `publish` job in `.circle/config.yml`  | NpmPublish |
+| `publish:tag` | Publishes the built package to the npm registry | `publish-tag` job in `.circle/config.yml`  | NpmPublish |
