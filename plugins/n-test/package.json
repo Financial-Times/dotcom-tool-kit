@@ -13,7 +13,7 @@
     "@dotcom-tool-kit/logger": "^2.2.1",
     "@dotcom-tool-kit/state": "^2.0.1",
     "@dotcom-tool-kit/types": "^2.9.2",
-    "@financial-times/n-test": "^4.1.0",
+    "@financial-times/n-test": "^5.0.1",
     "tslib": "^2.3.1"
   },
   "repository": {
