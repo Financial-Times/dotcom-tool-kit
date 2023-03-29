@@ -2,7 +2,7 @@ import heroku from './herokuClient'
 import type { HerokuApiResGetPipeline, HerokuApiResGetPipelineApps } from 'heroku-client'
 import type { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { State, writeState } from '@dotcom-tool-kit/state'
+import { writeState } from '@dotcom-tool-kit/state'
 
 async function getPipelineCouplings(logger: Logger, pipelineName: string): Promise<void> {
   logger.verbose(`retrieving pipeline id for ${pipelineName}`)
