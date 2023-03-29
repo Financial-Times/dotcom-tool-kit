@@ -18,6 +18,13 @@ module.exports = {
         // We are still using CommonJS imports in our JS files
         '@typescript-eslint/no-var-requires': 'off'
       }
+    },
+    {
+      files: ['*.test.ts'],
+      rules: {
+        // It's alright to use rejection shorthand when mocking promises
+        'prefer-promise-reject-errors': ['error', { allowEmptyReject: true }]
+      }
     }
   ]
 }
