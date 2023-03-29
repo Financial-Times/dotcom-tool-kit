@@ -1,13 +1,13 @@
 {
   "name": "@dotcom-tool-kit/backend-heroku-app",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci-deploy": "^2.0.2",
+    "@dotcom-tool-kit/circleci-deploy": "^2.0.3",
     "@dotcom-tool-kit/heroku": "^2.1.6",
     "@dotcom-tool-kit/husky-npm": "^3.0.0",
     "@dotcom-tool-kit/node": "^2.3.2",

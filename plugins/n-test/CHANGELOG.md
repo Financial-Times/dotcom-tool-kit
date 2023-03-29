@@ -82,6 +82,18 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v2.1.10...n-test-v2.2.0) (2023-03-29)
+
+
+### Features
+
+* bump new version of n-test ([0b28a8e](https://github.com/Financial-Times/dotcom-tool-kit/commit/0b28a8ec85f3cc206141c4dc4b38938f5a3686bd))
+
+
+### Bug Fixes
+
+* **n-test:** bump to latest version of n-test to get versions back aligned ([64c584d](https://github.com/Financial-Times/dotcom-tool-kit/commit/64c584da044728faf35a41aa13e554eed02fe367))
+
 ### [2.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v2.1.3...n-test-v2.1.4) (2022-11-09)
 
 

@@ -51,6 +51,12 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^2.6.0 to ^2.6.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * dotcom-tool-kit bumped from ^2.6.2 to ^2.6.3
+
 ## [2.7.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.7.0...create-v2.7.1) (2023-03-23)
 
 
