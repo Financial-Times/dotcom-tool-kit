@@ -30,6 +30,12 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.15 to ^2.0.16
     * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.13 to ^1.0.14
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^2.0.2 to ^2.0.3
+
 ## 1.0.0 (2023-01-24)
 
 

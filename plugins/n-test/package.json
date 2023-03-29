@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/n-test",
-  "version": "2.1.10",
+  "version": "2.2.0",
   "description": "",
   "main": "lib",
   "scripts": {

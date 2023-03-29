@@ -1,13 +1,13 @@
 {
   "name": "@dotcom-tool-kit/frontend-app",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/backend-heroku-app": "^1.0.3",
+    "@dotcom-tool-kit/backend-heroku-app": "^1.0.4",
     "@dotcom-tool-kit/upload-assets-to-s3": "^2.1.2",
     "@dotcom-tool-kit/webpack": "^2.1.14"
   },

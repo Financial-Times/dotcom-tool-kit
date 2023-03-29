@@ -68,6 +68,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
 
+## [2.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v2.3.2...mocha-v2.3.3) (2023-03-29)
+
+
+### Bug Fixes
+
+* **mocha:** force color output for mocha logs ([d0729c5](https://github.com/Financial-Times/dotcom-tool-kit/commit/d0729c5e29ad43356106ebd6858745e60e66106e))
+
 ## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v2.2.1...mocha-v2.3.0) (2023-03-07)
 
 

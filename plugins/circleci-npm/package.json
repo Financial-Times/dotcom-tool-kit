@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci-npm",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/types": "^2.9.2",
-    "@dotcom-tool-kit/circleci": "^4.0.2",
+    "@dotcom-tool-kit/circleci": "^4.0.3",
     "@dotcom-tool-kit/npm": "^2.0.16",
     "tslib": "^2.3.1"
   },

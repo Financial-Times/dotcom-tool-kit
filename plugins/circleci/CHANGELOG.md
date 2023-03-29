@@ -62,6 +62,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
 
+## [4.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v4.0.2...circleci-v4.0.3) (2023-03-29)
+
+
+### Bug Fixes
+
+* **circleci:** correct installation error for unmanaged CircleCI configs ([df22de6](https://github.com/Financial-Times/dotcom-tool-kit/commit/df22de622b76fabf4d598a739b15a5eb0b585257))
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v3.0.2...circleci-v4.0.0) (2023-03-07)
 
 
