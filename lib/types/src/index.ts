@@ -198,7 +198,7 @@ export abstract class Hook<State = void> extends Base {
   }
 }
 
-export type HookClass = { new (logger: Logger): Hook<void> } & typeof Hook
+export type HookConstructor = { new (logger: Logger): Hook<void> }
 
 export type RCFile = {
   plugins: string[]
@@ -218,6 +218,6 @@ export interface Plugin {
 export interface PluginModule {
   tasks: TaskClass[]
   hooks: {
-    [id: string]: HookClass
+    [id: string]: HookConstructor
   }
 }

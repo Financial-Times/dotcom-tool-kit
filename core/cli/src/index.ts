@@ -51,9 +51,10 @@ ${availableHooks}`
       const Task = config.tasks[id]
       const options = Task.plugin ? getOptions(Task.plugin.id as OptionKey) : {}
 
-      // `Task` is an abstract class. here we know it's a concrete subclass
-      // but typescript doesn't, so cast it to any.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
+       * `Task` is an abstract class. Here we know it's a concrete subclass
+       * but typescript doesn't, so cast it to any.
+       **/
       const task = new (Task as any)(logger, options)
 
       try {

@@ -11,8 +11,8 @@ const testDirectory = path.join(__dirname, '../files')
 describe('eslint', () => {
   it('should pass on correct file', async () => {
     const task = new ESLint(logger, {
-      options: { ignore: false },
-      files: [path.join(testDirectory, 'pass.ts')]
+      options: { ignore: false, cwd: testDirectory },
+      files: [path.join(testDirectory, 'pass.js')]
     })
 
     await task.run()
@@ -20,15 +20,15 @@ describe('eslint', () => {
 
   it('should fail on linter error', async () => {
     const task = new ESLint(logger, {
-      options: { ignore: false },
-      files: [path.join(testDirectory, 'fail.ts')]
+      options: { ignore: false, cwd: testDirectory },
+      files: [path.join(testDirectory, 'fail.js')]
     })
 
     expect.assertions(1)
     try {
       await task.run()
     } catch (err) {
-      if (err instanceof ToolKitError) expect(err.details).toContain('3 problems (2 errors, 1 warning)')
+      if (err instanceof ToolKitError) expect(err.details).toContain('1 problem (1 error, 0 warnings)')
     }
   })
 })

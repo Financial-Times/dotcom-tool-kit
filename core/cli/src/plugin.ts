@@ -207,7 +207,7 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
     // TODO refactor with command conflict handler
     for (const [hookId, hookClass] of Object.entries(plugin.module.hooks || [])) {
       const existingHook = config.hooks[hookId]
-      const newHook: Hook = new (hookClass as any)(logger)
+      const newHook = new hookClass(logger)
 
       newHook.id = hookId
       newHook.plugin = plugin
