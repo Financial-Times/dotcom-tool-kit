@@ -225,9 +225,10 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
       }
       if (!cancelled && generators) {
         for (const [optionName, generator] of Object.entries(generators)) {
-          // the object is partial because not all options for a plugin will
-          // have generators, but all values in the record will be defined
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion --
+           * the object is partial because not all options for a plugin will
+           * have generators, but all values in the record will be defined
+           **/
           toolKitConfig.options[plugin][optionName] = await generator!(
             winstonLogger.child({ plugin }),
             prompt,

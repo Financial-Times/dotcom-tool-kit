@@ -29,8 +29,9 @@ const envVars = {
 
 function pluginInit() {
   if (process.env.CIRCLECI) {
-    // cannot use winston logging during module initialisation
-    // eslint-disable-next-line no-console
+    /* eslint-disable-next-line no-console --
+     * cannot use winston logging during module initialisation
+     **/
     console.log(`writing circle ci environment variables to state...`)
     writeState('ci', envVars)
   }
