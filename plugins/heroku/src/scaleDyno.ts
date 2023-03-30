@@ -10,7 +10,7 @@ async function scaleDyno(
   type = 'web',
   size?: string
 ): Promise<void> {
-  logger.info(`scaling dyno for ${appName}...`)
+  logger.info(`scaling ${type} dyno for ${appName}...`)
 
   const appFormation: HerokuApiResPatch[] = await heroku.patch(`/apps/${appName}/formation`, {
     body: {
