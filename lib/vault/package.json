@@ -10,7 +10,7 @@
     "@dotcom-tool-kit/error": "^2.0.1",
     "@dotcom-tool-kit/options": "^2.0.15",
     "@dotcom-tool-kit/types": "^2.9.2",
-    "@financial-times/n-fetch": "^1.0.0-beta.7",
+    "@financial-times/n-fetch": "^1.0.0-beta.12",
     "fs": "0.0.1-security",
     "os": "^0.1.2",
     "path": "^0.12.7",

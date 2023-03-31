@@ -6,7 +6,7 @@ import { exec as _exec } from 'child_process'
 import type { loadConfig as loadConfigType } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
-import * as yaml from 'js-yaml'
+import YAML from 'yaml'
 import Logger from 'komatsu'
 import pacote from 'pacote'
 import path from 'path'
@@ -18,6 +18,7 @@ import conflictsPrompt, { installHooks } from './prompts/conflicts'
 import mainPrompt from './prompts/main'
 import optionsPrompt from './prompts/options'
 import scheduledPipelinePrompt from './prompts/scheduledPipeline'
+import oidcInfrastructurePrompt from './prompts/oidc'
 
 const exec = promisify(_exec)
 
@@ -112,7 +113,7 @@ async function main() {
 
   // Confirm that the proposed changes are what the user was expecting, giving
   // them a chance to see what we're going to do.
-  const configFile = yaml.dump(toolKitConfig)
+  const configFile = YAML.stringify(toolKitConfig)
   const { confirm } = await confirmationPrompt({
     deleteConfig,
     addEslintConfig,
@@ -134,8 +135,8 @@ async function main() {
   const config = await loadConfig(winstonLogger, { validate: false })
   // Give the user a chance to set any configurable options for the plugins
   // they've installed.
-  const cancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath })
-  if (cancelled) {
+  const optionsCancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath })
+  if (optionsCancelled) {
     return
   }
   try {
@@ -160,6 +161,12 @@ async function main() {
 
   if (originalCircleConfig?.includes('triggers')) {
     await scheduledPipelinePrompt()
+  }
+  if (Object.keys(config.plugins).some((id) => id.includes('serverless'))) {
+    const oidcCancelled = await oidcInfrastructurePrompt()
+    if (oidcCancelled) {
+      return
+    }
   }
 
   // Suggest they delete the old n-gage makefile after verifying all its
