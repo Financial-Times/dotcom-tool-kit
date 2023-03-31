@@ -27,7 +27,7 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^2.0.1",
     "@dotcom-tool-kit/state": "^2.0.1",
-    "@dotcom-tool-kit/types": "^2.8.0",
+    "@dotcom-tool-kit/types": "^2.9.2",
     "@dotcom-tool-kit/vault": "^2.0.12",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1",
