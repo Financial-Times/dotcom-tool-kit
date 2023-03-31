@@ -3,7 +3,7 @@ import type { RCFile } from '@dotcom-tool-kit/types'
 import type { PromptGenerators } from '@dotcom-tool-kit/types/src/schema'
 import type { RawConfig } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
-import * as yaml from 'js-yaml'
+import YAML from 'yaml'
 import type Logger from 'komatsu'
 import partition from 'lodash/partition'
 import prompt from 'prompts'
@@ -275,7 +275,7 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
   }
 
   if (Object.keys(toolKitConfig.options).length > 0) {
-    const configFile = yaml.dump(toolKitConfig)
+    const configFile = YAML.stringify(toolKitConfig)
 
     const { confirm } = await prompt({
       name: 'confirm',
