@@ -5,29 +5,32 @@ import CircleCiConfigHook, {
 } from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 import { getOptions } from '@dotcom-tool-kit/options'
-import type { SetRequired } from 'type-fest'
+
+// CircleCI config generator which will additionally optionally pass Serverless
+// options as parameters to the orb job to enable OIDC authentication
+const generateConfigWithServerlessOptions = (jobOptions: JobGeneratorOptions): CircleCIStatePartial => {
+  const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
+  if (serverlessOptions?.awsAccountId && serverlessOptions?.systemCode) {
+    jobOptions.additionalFields ??= {}
+    jobOptions.additionalFields['aws-account-id'] = serverlessOptions.awsAccountId
+    jobOptions.additionalFields['system-code'] = serverlessOptions.systemCode
+  }
+  return generateConfigWithJob(jobOptions)
+}
 
 export class DeployReview extends CircleCiConfigHook {
   static job = 'tool-kit/deploy-review'
   // needs to be a getter so that we can lazily wait for the global options
   // object to be assigned before getting values from it
   get config(): CircleCIStatePartial {
-    // Use SetRequired to work around TypeScript thinking additionalFields
-    // could be undefined even though we've set the field here
-    const jobOptions: SetRequired<JobGeneratorOptions, 'additionalFields'> = {
+    return generateConfigWithServerlessOptions({
       name: DeployReview.job,
       addToNightly: true,
       requires: ['tool-kit/setup', 'waiting-for-approval'],
       additionalFields: {
         filters: { branches: { ignore: 'main' } }
       }
-    }
-    const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
-    if (serverlessOptions?.awsAccountId && serverlessOptions?.systemCode) {
-      jobOptions.additionalFields['aws-account-id'] = serverlessOptions.awsAccountId
-      jobOptions.additionalFields['system-code'] = serverlessOptions.systemCode
-    }
-    return generateConfigWithJob(jobOptions)
+    })
   }
 }
 
@@ -70,13 +73,17 @@ export class TestStaging extends CypressCiHook {
 }
 
 export class DeployProduction extends CircleCiConfigHook {
-  job = 'tool-kit/deploy-production'
-  config = generateConfigWithJob({
-    name: this.job,
-    addToNightly: false,
-    requires: [new TestStaging(this.logger).job, TestCI.job],
-    additionalFields: { filters: { branches: { only: 'main' } } }
-  })
+  static job = 'tool-kit/deploy-production'
+  get config(): CircleCIStatePartial {
+    return generateConfigWithServerlessOptions({
+      name: DeployProduction.job,
+      addToNightly: false,
+      requires: [new TestStaging(this.logger).job, TestCI.job],
+      additionalFields: {
+        filters: { branches: { only: 'main' } }
+      }
+    })
+  }
 }
 
 export const hooks = {
