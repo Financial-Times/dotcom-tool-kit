@@ -22,6 +22,7 @@
     "plugins/babel": {},
     "plugins/backend-app": {},
     "plugins/backend-heroku-app": {},
+    "plugins/backend-serverless-app": {},
     "plugins/circleci": {},
     "plugins/circleci-deploy": {},
     "plugins/circleci-heroku": {},
@@ -44,6 +45,7 @@
     "plugins/pa11y": {},
     "plugins/prettier": {},
     "plugins/secret-squirrel": {},
+    "plugins/serverless": {},
     "plugins/typescript": {},
     "plugins/upload-assets-to-s3": {},
     "plugins/webpack": {}
