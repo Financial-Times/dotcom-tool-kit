@@ -2,6 +2,8 @@
 
 Tool Kit plugin to manage Lambdas with [AWS serverless](https://www.serverless.com/framework/docs/getting-started/).
 
+This plugin will be installed as a dependency of the [backend-serverless-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-serverless-app) plugin, which we recommend using instead of installing this plugin directly. That plugin will install additional plugins that will be useful or most Customer Products projects at the FT.
+
 ## Installation & usage
 
 With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-and-using-tool-kit), install this plugin as a dev dependency:
@@ -35,3 +37,4 @@ plugins:
 |-|-|-|
 | `ServerlessRun` | Run application with `serverless` | `run:local` |
 | `ServerlessProvision` | Deploy review app with `serverless` | `deploy:review` |
+| `ServerlessDeploy` | Deploy production app with `serverless` | `deploy:production` |
