@@ -8,7 +8,5 @@ executor: << parameters.executor >>
 steps:
   - attach-workspace
   - run:
-      name: Run the project build-production task
-      command: npx dotcom-tool-kit build:ci
-  - persist-workspace:
-      path: .
+      name: Publish to npm
+      command: npx dotcom-tool-kit publish:tag

@@ -23,6 +23,6 @@ steps:
             aws-account-id: << parameters.aws-account-id >>
             system-code: << parameters.system-code >>
   - run:
-      name: Create and test Heroku review app
+      name: Create and test review app
       command: npx dotcom-tool-kit deploy:review
   - persist-workspace

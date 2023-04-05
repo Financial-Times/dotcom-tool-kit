@@ -37,9 +37,9 @@ See [manually adding jobs to your CircleCI config](https://github.com/Financial-
 
 | Event | Description | Installed to...| Default Tasks
 |-|-|-|-|
-| `deploy:review` | Create and test review app | `heroku-provision` job in `.circle/config.yml` | HerokuReview |
-| `deploy:staging` | Deploy app to staging | `heroku-staging` job in `.circle/config.yml` | HerokuStaging |
+| `deploy:review` | Create and test review app | `deploy-review` job in `.circle/config.yml` | HerokuReview |
+| `deploy:staging` | Deploy app to staging | `deploy-staging` job in `.circle/config.yml` | HerokuStaging |
 | `test:review` | Run smoke tests | `e2e-test-review` job in `.circle/config.yml` | NTest, Pa11y |
 | `test:staging` | Run smoke tests on staging | `e2e-test-staging` job in `.circle/config.yml` | NTest |
 | `teardown:staging` | Scale down staging | `e2e-test-staging` job in `.circle/config.yml` | HerokuTeardown |
-| `deploy:production` | Deploy to production | `heroku-promote` job in `.circle/config.yml` | HerokuProduction |
+| `deploy:production` | Deploy to production | `deploy-production` job in `.circle/config.yml` | HerokuProduction |
