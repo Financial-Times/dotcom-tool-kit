@@ -91,6 +91,22 @@
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
     * @dotcom-tool-kit/vault bumped from ^2.0.14 to ^2.0.15
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v2.1.6...heroku-v2.2.0) (2023-04-05)
+
+
+### Features
+
+* log dyno type when scaling ([61cece1](https://github.com/Financial-Times/dotcom-tool-kit/commit/61cece1053c4e4fa34196756cfaddc0224fc4b5c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/npm bumped from ^2.0.16 to ^2.0.17
+    * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
+    * @dotcom-tool-kit/vault bumped from ^2.0.15 to ^2.0.16
+
 ## [2.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v2.1.3...heroku-v2.1.4) (2023-03-07)
 
 

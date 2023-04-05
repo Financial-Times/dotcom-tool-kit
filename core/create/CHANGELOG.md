@@ -57,6 +57,31 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^2.6.2 to ^2.6.3
 
+## [2.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.7.2...create-v2.8.0) (2023-04-05)
+
+
+### Features
+
+* **create:** add a new prompt option to migrate your repo to OIDC ([e312054](https://github.com/Financial-Times/dotcom-tool-kit/commit/e312054a8d38cea673baef58d6cb5a5da7b9586a))
+* **create:** add serverless preset as option in migration script ([8089523](https://github.com/Financial-Times/dotcom-tool-kit/commit/8089523a8d31e7771304ea4b3e18c852ebf25ca6))
+* **create:** make changes based on Joel's PR suggestions ([1754321](https://github.com/Financial-Times/dotcom-tool-kit/commit/17543213467cc1917005113c006c00401e04857b))
+* **create:** syntax highlight the AWS OIDC YAML config ([f7529ea](https://github.com/Financial-Times/dotcom-tool-kit/commit/f7529eae624bb106cbe94bd96c6aa25227e887f5))
+
+
+### Bug Fixes
+
+* **create:** clear config cache after updating options ([6d032f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/6d032f4ecae5c532aa08b5105df08339d5636cd1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
+    * @dotcom-tool-kit/vault bumped from ^2.0.12 to ^2.0.16
+  * devDependencies
+    * dotcom-tool-kit bumped from ^2.6.3 to ^2.6.4
+
 ## [2.7.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.7.0...create-v2.7.1) (2023-03-23)
 
 

@@ -12,6 +12,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [2.10.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.9.2...types-v2.10.0) (2023-04-05)
+
+
+### Features
+
+* **serverless:** add ServerlessDeploy task ([cd23f88](https://github.com/Financial-Times/dotcom-tool-kit/commit/cd23f88ce453a48dec393dc2645c7a22948e3944))
+
 ## [2.9.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.9.1...types-v2.9.2) (2023-03-22)
 
 

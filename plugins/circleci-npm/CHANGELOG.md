@@ -108,6 +108,22 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^4.0.2 to ^4.0.3
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v4.0.3...circleci-npm-v4.1.0) (2023-04-05)
+
+
+### Features
+
+* **orb:** clarify names of jobs in orb ([7ce7016](https://github.com/Financial-Times/dotcom-tool-kit/commit/7ce7016e975ee18b10786588c5d799667373b201))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
+    * @dotcom-tool-kit/circleci bumped from ^4.0.3 to ^4.0.4
+    * @dotcom-tool-kit/npm bumped from ^2.0.16 to ^2.0.17
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v3.0.2...circleci-npm-v4.0.0) (2023-03-07)
 
 

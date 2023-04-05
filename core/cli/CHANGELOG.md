@@ -98,6 +98,25 @@
     * @dotcom-tool-kit/mocha bumped from ^2.3.2 to ^2.3.3
     * @dotcom-tool-kit/n-test bumped from ^2.1.10 to ^2.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^2.0.15 to ^2.0.16
+    * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
+  * devDependencies
+    * @dotcom-tool-kit/babel bumped from ^2.0.15 to ^2.0.16
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.4 to ^1.0.5
+    * @dotcom-tool-kit/circleci bumped from ^4.0.3 to ^4.0.4
+    * @dotcom-tool-kit/circleci-deploy bumped from ^2.0.3 to ^2.1.0
+    * @dotcom-tool-kit/eslint bumped from ^2.3.2 to ^2.3.3
+    * @dotcom-tool-kit/frontend-app bumped from ^2.3.1 to ^2.3.2
+    * @dotcom-tool-kit/heroku bumped from ^2.1.6 to ^2.2.0
+    * @dotcom-tool-kit/mocha bumped from ^2.3.3 to ^2.3.4
+    * @dotcom-tool-kit/n-test bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/npm bumped from ^2.0.16 to ^2.0.17
+    * @dotcom-tool-kit/webpack bumped from ^2.1.14 to ^2.1.15
+
 ## [2.6.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.6.1...dotcom-tool-kit-v2.6.2) (2023-03-22)
 
 

@@ -18,6 +18,22 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^4.0.2 to ^4.0.3
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v2.0.3...circleci-deploy-v2.1.0) (2023-04-05)
+
+
+### Features
+
+* allow OIDC authentication for deploy:production hook ([7afa8d3](https://github.com/Financial-Times/dotcom-tool-kit/commit/7afa8d37f8886dc6e7eccfc0e3e654789f5f4f85))
+* **circleci-deploy:** log warning if you try to use Heroku and Serverless together ([3129d6e](https://github.com/Financial-Times/dotcom-tool-kit/commit/3129d6e9b269fc6ca8f580cc0582aa3aa8a7ac70))
+* **orb:** clarify names of jobs in orb ([7ce7016](https://github.com/Financial-Times/dotcom-tool-kit/commit/7ce7016e975ee18b10786588c5d799667373b201))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^4.0.3 to ^4.0.4
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v1.0.0...circleci-deploy-v2.0.0) (2023-03-07)
 
 
