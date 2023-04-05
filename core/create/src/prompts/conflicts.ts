@@ -1,30 +1,20 @@
 import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/types'
-import type { cosmiconfig } from 'cosmiconfig'
 import type { ValidConfig } from 'dotcom-tool-kit/lib/config'
 import type installHooksType from 'dotcom-tool-kit/lib/install'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
-import YAML from 'yaml'
 import type Logger from 'komatsu'
 import ordinal from 'ordinal'
 import prompt from 'prompts'
-import { catchToolKitErrorsInLogger } from '../logger'
+import YAML from 'yaml'
 
 interface ConflictsParams {
   error: ToolkitErrorModule.ToolKitConflictError
   logger: Logger
   toolKitConfig: RCFile
   configPath: string
-}
-
-function clearConfigCache() {
-  // we need to import explorer from the app itself instead of npx as this is
-  // the object used by installHooks()
-  return (importCwd('dotcom-tool-kit/lib/rc-file') as {
-    explorer: ReturnType<typeof cosmiconfig>
-  }).explorer.clearSearchCache()
 }
 
 export function installHooks(logger: typeof winstonLogger): Promise<ValidConfig> {
@@ -87,16 +77,6 @@ sound alright?`
       fs.writeFile(configPath, configFile),
       `recreating ${styles.filepath('.toolkitrc.yml')}`
     )
-    // Clear config cache now that config has been updated
-    clearConfigCache()
-
-    await catchToolKitErrorsInLogger(
-      logger,
-      installHooks(winstonLogger),
-      'installing Tool Kit hooks again',
-      false
-    )
-
     return false
   }
   return true
