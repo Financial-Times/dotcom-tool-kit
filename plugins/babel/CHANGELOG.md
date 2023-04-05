@@ -81,6 +81,12 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
+
 ## [2.0.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/babel-v2.0.12...babel-v2.0.13) (2023-03-07)
 
 

@@ -107,6 +107,13 @@
   * dependencies
     * @dotcom-tool-kit/circleci-deploy bumped from ^2.0.2 to ^2.0.3
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^2.0.3 to ^2.1.0
+    * @dotcom-tool-kit/heroku bumped from ^2.1.6 to ^2.2.0
+
 ## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v2.2.1...circleci-heroku-v2.3.0) (2023-01-24)
 
 

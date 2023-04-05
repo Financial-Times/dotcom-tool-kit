@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v3.2.0...orb-v3.3.0) (2023-04-05)
+
+
+### Features
+
+* allow OIDC authentication for deploy:production hook ([7afa8d3](https://github.com/Financial-Times/dotcom-tool-kit/commit/7afa8d37f8886dc6e7eccfc0e3e654789f5f4f85))
+* **orb:** clarify names of jobs in orb ([7ce7016](https://github.com/Financial-Times/dotcom-tool-kit/commit/7ce7016e975ee18b10786588c5d799667373b201))
+
+
+### Bug Fixes
+
+* **orb:** remove execute permissions from orb's YAML config files ([86938fa](https://github.com/Financial-Times/dotcom-tool-kit/commit/86938fa637d6690f490e0ae1aa70b278b1e4c5cb))
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v3.1.0...orb-v3.2.0) (2023-03-07)
 
 
