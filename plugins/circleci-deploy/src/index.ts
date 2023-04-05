@@ -5,29 +5,42 @@ import CircleCiConfigHook, {
 } from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 import { getOptions } from '@dotcom-tool-kit/options'
-import type { SetRequired } from 'type-fest'
+import type { Logger } from 'winston'
+
+// CircleCI config generator which will additionally optionally pass Serverless
+// options as parameters to the orb job to enable OIDC authentication
+const generateConfigWithServerlessOptions = (
+  logger: Logger,
+  jobOptions: JobGeneratorOptions
+): CircleCIStatePartial => {
+  const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
+  const herokuOptions = getOptions('@dotcom-tool-kit/heroku')
+  if (serverlessOptions && herokuOptions) {
+    logger.warn(
+      'Tool Kit currently does not support managing Heroku and Serverless apps in the same project.'
+    )
+  }
+  if (serverlessOptions?.awsAccountId && serverlessOptions?.systemCode) {
+    jobOptions.additionalFields ??= {}
+    jobOptions.additionalFields['aws-account-id'] = serverlessOptions.awsAccountId
+    jobOptions.additionalFields['system-code'] = serverlessOptions.systemCode
+  }
+  return generateConfigWithJob(jobOptions)
+}
 
 export class DeployReview extends CircleCiConfigHook {
   static job = 'tool-kit/deploy-review'
   // needs to be a getter so that we can lazily wait for the global options
   // object to be assigned before getting values from it
   get config(): CircleCIStatePartial {
-    // Use SetRequired to work around TypeScript thinking additionalFields
-    // could be undefined even though we've set the field here
-    const jobOptions: SetRequired<JobGeneratorOptions, 'additionalFields'> = {
+    return generateConfigWithServerlessOptions(this.logger, {
       name: DeployReview.job,
       addToNightly: true,
       requires: ['tool-kit/setup', 'waiting-for-approval'],
       additionalFields: {
         filters: { branches: { ignore: 'main' } }
       }
-    }
-    const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
-    if (serverlessOptions?.awsAccountId && serverlessOptions?.systemCode) {
-      jobOptions.additionalFields['aws-account-id'] = serverlessOptions.awsAccountId
-      jobOptions.additionalFields['system-code'] = serverlessOptions.systemCode
-    }
-    return generateConfigWithJob(jobOptions)
+    })
   }
 }
 
@@ -70,13 +83,17 @@ export class TestStaging extends CypressCiHook {
 }
 
 export class DeployProduction extends CircleCiConfigHook {
-  job = 'tool-kit/deploy-production'
-  config = generateConfigWithJob({
-    name: this.job,
-    addToNightly: false,
-    requires: [new TestStaging(this.logger).job, TestCI.job],
-    additionalFields: { filters: { branches: { only: 'main' } } }
-  })
+  static job = 'tool-kit/deploy-production'
+  get config(): CircleCIStatePartial {
+    return generateConfigWithServerlessOptions(this.logger, {
+      name: DeployProduction.job,
+      addToNightly: false,
+      requires: [new TestStaging(this.logger).job, TestCI.job],
+      additionalFields: {
+        filters: { branches: { only: 'main' } }
+      }
+    })
+  }
 }
 
 export const hooks = {

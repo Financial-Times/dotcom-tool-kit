@@ -2,7 +2,10 @@ parameters:
   executor:
     default: default
     type: executor
-  systemCode:
+  aws-account-id:
+    default: ''
+    type: string
+  system-code:
     default: $CIRCLE_PROJECT_REPONAME
     description: >-
       The systemcode of the system being changed. Defaults to the repository
@@ -17,9 +20,18 @@ executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - when:
+      condition:
+        and:
+          - << parameters.aws-account-id >>
+          - << parameters.system-code >>
+      steps:
+        - serverless-assume-role:
+            aws-account-id: << parameters.aws-account-id >>
+            system-code: << parameters.system-code >>
   - run:
       name: Deploy to production
       command: npx dotcom-tool-kit deploy:production
   - change-api/change-log:
       environment: production
-      system-code: <<parameters.systemCode>>
+      system-code: <<parameters.system-code>>

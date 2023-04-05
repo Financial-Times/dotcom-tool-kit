@@ -1,0 +1,12 @@
+plugins:
+  - '@dotcom-tool-kit/npm'
+  - '@dotcom-tool-kit/circleci-deploy'
+  - '@dotcom-tool-kit/serverless'
+  - '@dotcom-tool-kit/node'
+  - '@dotcom-tool-kit/husky-npm'
+  - '@dotcom-tool-kit/secret-squirrel'
+
+hooks:
+  'run:local': ServerlessRun
+  'deploy:review': ServerlessProvision
+  'deploy:production': ServerlessDeploy
