@@ -3,22 +3,23 @@ import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/types'
 import loadPackageJson from '@financial-times/package-json'
 import { exec as _exec } from 'child_process'
+import type { cosmiconfig } from 'cosmiconfig'
 import type { loadConfig as loadConfigType } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
-import YAML from 'yaml'
 import Logger from 'komatsu'
 import pacote from 'pacote'
 import path from 'path'
 import { promisify } from 'util'
+import YAML from 'yaml'
 import { catchToolKitErrorsInLogger, hasToolKitConflicts } from './logger'
 import makefileHint from './makefile'
 import confirmationPrompt from './prompts/confirmation'
 import conflictsPrompt, { installHooks } from './prompts/conflicts'
 import mainPrompt from './prompts/main'
+import oidcInfrastructurePrompt from './prompts/oidc'
 import optionsPrompt from './prompts/options'
 import scheduledPipelinePrompt from './prompts/scheduledPipeline'
-import oidcInfrastructurePrompt from './prompts/oidc'
 
 const exec = promisify(_exec)
 
@@ -40,6 +41,14 @@ function getEslintConfigContent(): string {
   }
 };`
   return eslintContentString
+}
+
+function clearConfigCache() {
+  // we need to import explorer from the app itself instead of npx as this is
+  // the object used by installHooks()
+  return (importCwd('dotcom-tool-kit/lib/rc-file') as {
+    explorer: ReturnType<typeof cosmiconfig>
+  }).explorer.clearSearchCache()
 }
 
 async function executeMigration(
@@ -139,6 +148,7 @@ async function main() {
   if (optionsCancelled) {
     return
   }
+  clearConfigCache()
   try {
     await catchToolKitErrorsInLogger(logger, installHooks(winstonLogger), 'installing Tool Kit hooks', true)
   } catch (error) {
@@ -154,6 +164,13 @@ async function main() {
       if (conflictsCancelled) {
         return
       }
+      await catchToolKitErrorsInLogger(
+        logger,
+        installHooks(winstonLogger),
+        'installing Tool Kit hooks again',
+        false
+      )
+      clearConfigCache()
     } else {
       throw error
     }
