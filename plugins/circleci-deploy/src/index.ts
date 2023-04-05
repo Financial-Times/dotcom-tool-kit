@@ -5,11 +5,21 @@ import CircleCiConfigHook, {
 } from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 import { getOptions } from '@dotcom-tool-kit/options'
+import type { Logger } from 'winston'
 
 // CircleCI config generator which will additionally optionally pass Serverless
 // options as parameters to the orb job to enable OIDC authentication
-const generateConfigWithServerlessOptions = (jobOptions: JobGeneratorOptions): CircleCIStatePartial => {
+const generateConfigWithServerlessOptions = (
+  logger: Logger,
+  jobOptions: JobGeneratorOptions
+): CircleCIStatePartial => {
   const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
+  const herokuOptions = getOptions('@dotcom-tool-kit/heroku')
+  if (serverlessOptions && herokuOptions) {
+    logger.warn(
+      'Tool Kit currently does not support managing Heroku and Serverless apps in the same project.'
+    )
+  }
   if (serverlessOptions?.awsAccountId && serverlessOptions?.systemCode) {
     jobOptions.additionalFields ??= {}
     jobOptions.additionalFields['aws-account-id'] = serverlessOptions.awsAccountId
@@ -23,7 +33,7 @@ export class DeployReview extends CircleCiConfigHook {
   // needs to be a getter so that we can lazily wait for the global options
   // object to be assigned before getting values from it
   get config(): CircleCIStatePartial {
-    return generateConfigWithServerlessOptions({
+    return generateConfigWithServerlessOptions(this.logger, {
       name: DeployReview.job,
       addToNightly: true,
       requires: ['tool-kit/setup', 'waiting-for-approval'],
@@ -75,7 +85,7 @@ export class TestStaging extends CypressCiHook {
 export class DeployProduction extends CircleCiConfigHook {
   static job = 'tool-kit/deploy-production'
   get config(): CircleCIStatePartial {
-    return generateConfigWithServerlessOptions({
+    return generateConfigWithServerlessOptions(this.logger, {
       name: DeployProduction.job,
       addToNightly: false,
       requires: [new TestStaging(this.logger).job, TestCI.job],
