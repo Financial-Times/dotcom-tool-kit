@@ -21,7 +21,6 @@
     "@octokit/request": "^5.6.0",
     "@octokit/request-error": "^2.1.0",
     "heroku-client": "^3.1.0",
-    "node-fetch": "^2.6.1",
     "p-retry": "^4.5.0",
     "superagent": "^6.1.0",
     "tslib": "^2.3.1"
