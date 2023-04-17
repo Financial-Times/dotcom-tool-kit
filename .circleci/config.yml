@@ -369,6 +369,7 @@ workflows:
           source-dir: orb/src
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
+          context: circleci-orb-publishing
           orb-name: financial-times/dotcom-tool-kit
           requires:
             - orb-tools/lint
@@ -392,6 +393,7 @@ workflows:
           filters:
             <<: *filters_orbs_release_build
       - orb-tools/publish:
+          context: circleci-orb-publishing
           attach-workspace: true
           # Strip leading 'orb-v' from git tag
           orb-ref: financial-times/dotcom-tool-kit@${CIRCLE_TAG:5}
