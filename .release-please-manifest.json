@@ -9,7 +9,7 @@
   "lib/types": "2.10.0",
   "lib/vault": "2.0.16",
   "lib/wait-for-ok": "2.0.1",
-  "orb": "3.3.0",
+  "orb": "3.3.1",
   "plugins/babel": "2.0.16",
   "plugins/backend-app": "2.2.5",
   "plugins/circleci": "4.0.4",
