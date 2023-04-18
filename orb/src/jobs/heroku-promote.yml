@@ -2,10 +2,10 @@ parameters:
   executor:
     default: default
     type: executor
-  systemCode:
+  system-code:
     default: $CIRCLE_PROJECT_REPONAME
     description: >-
-      The systemcode of the system being changed. Defaults to the repository
+      The system-code of the system being changed. Defaults to the repository
       name.
     type: string
   environment:
@@ -22,4 +22,4 @@ steps:
       command: npx dotcom-tool-kit deploy:production
   - change-api/change-log:
       environment: production
-      system-code: <<parameters.systemCode>>
+      system-code: << parameters.system-code >>
