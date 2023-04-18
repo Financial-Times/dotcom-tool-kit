@@ -2,7 +2,7 @@
   "name": "@dotcom-tool-kit/backend-serverless-app",
   "version": "1.0.0",
   "description": "",
-  "main": "lib",
+  "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
