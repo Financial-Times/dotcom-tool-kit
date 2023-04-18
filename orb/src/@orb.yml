@@ -12,6 +12,6 @@ display:
 # If your orb requires other orbs, you can import them like this. Otherwise remove the "orbs" stanza.
 orbs:
   node: circleci/node@5.0.2
-  change-api: financial-times/change-api@1.0.1
+  change-api: financial-times/change-api@1.0.7
   aws-cli: circleci/aws-cli@3.1.4
   serverless-framework: circleci/serverless-framework@2.0.1
