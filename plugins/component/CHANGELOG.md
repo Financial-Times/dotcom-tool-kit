@@ -53,6 +53,27 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.16 to ^2.0.17
     * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.14 to ^1.0.15
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v2.1.6...component-v3.0.0) (2023-04-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 14 across all packages
+
+### Miscellaneous Chores
+
+* drop support for Node 14 across all packages ([aaee178](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaee178b535a51f9c75a882d78ffd8e8aa3eac60))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-npm bumped from ^4.1.0 to ^5.0.0
+    * @dotcom-tool-kit/husky-npm bumped from ^3.0.0 to ^4.0.0
+    * @dotcom-tool-kit/npm bumped from ^2.0.17 to ^3.0.0
+    * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.15 to ^2.0.0
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v2.0.1...component-v2.1.0) (2022-12-14)
 
 

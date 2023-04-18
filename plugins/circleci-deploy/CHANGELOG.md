@@ -18,6 +18,24 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^4.0.2 to ^4.0.3
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v2.1.0...circleci-deploy-v3.0.0) (2023-04-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 14 across all packages
+
+### Miscellaneous Chores
+
+* drop support for Node 14 across all packages ([aaee178](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaee178b535a51f9c75a882d78ffd8e8aa3eac60))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^4.0.4 to ^5.0.0
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v2.0.3...circleci-deploy-v2.1.0) (2023-04-05)
 
 

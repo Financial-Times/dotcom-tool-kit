@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v2.0.1...wait-for-ok-v3.0.0) (2023-04-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 14 across all packages
+* drop support for Node 14
+
+### Miscellaneous Chores
+
+* drop support for Node 14 ([c7c7bfb](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7c7bfb9086a2ea0ecc9314ee4b282f792a0837d))
+* drop support for Node 14 across all packages ([aaee178](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaee178b535a51f9c75a882d78ffd8e8aa3eac60))
+
 ### [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v2.0.0...wait-for-ok-v2.0.1) (2022-11-09)
 
 

@@ -57,6 +57,31 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^2.6.2 to ^2.6.3
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.8.0...create-v3.0.0) (2023-04-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 14 across all packages
+* drop support for Node 14
+
+### Miscellaneous Chores
+
+* drop support for Node 14 ([c7c7bfb](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7c7bfb9086a2ea0ecc9314ee4b282f792a0837d))
+* drop support for Node 14 across all packages ([aaee178](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaee178b535a51f9c75a882d78ffd8e8aa3eac60))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^2.0.1 to ^3.0.0
+    * @dotcom-tool-kit/logger bumped from ^2.2.1 to ^3.0.0
+    * @dotcom-tool-kit/types bumped from ^2.10.0 to ^3.0.0
+    * @dotcom-tool-kit/vault bumped from ^2.0.16 to ^3.0.0
+  * devDependencies
+    * dotcom-tool-kit bumped from ^2.6.4 to ^3.0.0
+
 ## [2.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v2.7.2...create-v2.8.0) (2023-04-05)
 
 
