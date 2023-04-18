@@ -33,7 +33,7 @@
     "@dotcom-tool-kit/webpack": "^2.1.15",
     "@jest/globals": "^27.4.6",
     "@types/lodash": "^4.14.185",
-    "@types/node": "^12.20.24",
+    "@types/node": "^16.18.23",
     "chai": "^4.3.4",
     "globby": "^10.0.2",
     "ts-node": "^8.10.2",
@@ -54,7 +54,7 @@
     "zod-validation-error": "^0.3.0"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": "16.x"
   },
   "files": [
     "/bin",
