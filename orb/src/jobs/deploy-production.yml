@@ -11,10 +11,6 @@ parameters:
       The system-code of the system being changed. Defaults to the repository
       name.
     type: string
-  environment:
-    default: production
-    description: The environment in which the system is being changed.
-    type: string
 
 executor: << parameters.executor >>
 
