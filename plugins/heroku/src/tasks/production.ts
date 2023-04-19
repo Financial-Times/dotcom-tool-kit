@@ -3,7 +3,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
 import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
-import type { HerokuApiResGetApp } from 'heroku-client'
+import type { HerokuApiResGetApp, HerokuError } from 'heroku-client'
 import heroku from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
@@ -66,6 +66,10 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
       const error = new ToolKitError("there's an error with your production app")
       if (err instanceof Error) {
         error.details = err.message
+        // Heroku errors include a body property that provide additional context for why a request failed
+        if ((err as HerokuError).body) {
+          error.details += '\n' + (err as HerokuError).body
+        }
       }
       throw error
     }

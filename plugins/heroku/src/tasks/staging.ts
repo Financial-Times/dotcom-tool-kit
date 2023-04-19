@@ -1,3 +1,4 @@
+import type { HerokuError } from 'heroku-client'
 import { Task } from '@dotcom-tool-kit/types'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
@@ -48,6 +49,9 @@ export default class HerokuStaging extends Task<typeof HerokuSchema> {
       const error = new ToolKitError(`there's an error with your staging app`)
       if (err instanceof Error) {
         error.details = err.message
+        if ((err as HerokuError).body) {
+          error.details += '\n' + (err as HerokuError).body
+        }
       }
       throw error
     }
