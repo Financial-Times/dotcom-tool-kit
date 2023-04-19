@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/component",
-  "version": "2.1.6",
+  "version": "3.0.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -17,12 +17,12 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "^2.6.0"
+    "dotcom-tool-kit": "3.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/circleci-npm": "^4.1.0",
-    "@dotcom-tool-kit/husky-npm": "^3.0.0",
-    "@dotcom-tool-kit/npm": "^2.0.17",
-    "@dotcom-tool-kit/secret-squirrel": "^1.0.15"
+    "@dotcom-tool-kit/circleci-npm": "^5.0.0",
+    "@dotcom-tool-kit/husky-npm": "^4.0.0",
+    "@dotcom-tool-kit/npm": "^3.0.0",
+    "@dotcom-tool-kit/secret-squirrel": "^2.0.0"
   }
 }

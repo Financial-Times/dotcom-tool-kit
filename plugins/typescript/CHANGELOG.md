@@ -25,6 +25,25 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v1.0.5...typescript-v2.0.0) (2023-04-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 14 across all packages
+
+### Miscellaneous Chores
+
+* drop support for Node 14 across all packages ([aaee178](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaee178b535a51f9c75a882d78ffd8e8aa3eac60))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^2.2.1 to ^3.0.0
+    * @dotcom-tool-kit/types bumped from ^2.10.0 to ^3.0.0
+
 ## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v1.0.0...typescript-v1.0.1) (2023-01-05)
 
 

@@ -117,6 +117,42 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.16 to ^2.0.17
     * @dotcom-tool-kit/webpack bumped from ^2.1.14 to ^2.1.15
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.6.4...dotcom-tool-kit-v3.0.0) (2023-04-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 14 across all packages
+* drop support for Node 14
+
+### Miscellaneous Chores
+
+* drop support for Node 14 ([c7c7bfb](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7c7bfb9086a2ea0ecc9314ee4b282f792a0837d))
+* drop support for Node 14 across all packages ([aaee178](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaee178b535a51f9c75a882d78ffd8e8aa3eac60))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^2.0.1 to ^3.0.0
+    * @dotcom-tool-kit/logger bumped from ^2.2.1 to ^3.0.0
+    * @dotcom-tool-kit/options bumped from ^2.0.16 to ^3.0.0
+    * @dotcom-tool-kit/types bumped from ^2.10.0 to ^3.0.0
+    * @dotcom-tool-kit/wait-for-ok bumped from ^2.0.1 to ^3.0.0
+  * devDependencies
+    * @dotcom-tool-kit/babel bumped from ^2.0.16 to ^3.0.0
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^1.0.5 to ^2.0.0
+    * @dotcom-tool-kit/circleci bumped from ^4.0.4 to ^5.0.0
+    * @dotcom-tool-kit/circleci-deploy bumped from ^2.1.0 to ^3.0.0
+    * @dotcom-tool-kit/eslint bumped from ^2.3.3 to ^3.0.0
+    * @dotcom-tool-kit/frontend-app bumped from ^2.3.2 to ^3.0.0
+    * @dotcom-tool-kit/heroku bumped from ^2.2.0 to ^3.0.0
+    * @dotcom-tool-kit/mocha bumped from ^2.3.4 to ^3.0.0
+    * @dotcom-tool-kit/n-test bumped from ^2.2.1 to ^3.0.0
+    * @dotcom-tool-kit/npm bumped from ^2.0.17 to ^3.0.0
+    * @dotcom-tool-kit/webpack bumped from ^2.1.15 to ^3.0.0
+
 ## [2.6.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v2.6.1...dotcom-tool-kit-v2.6.2) (2023-03-22)
 
 

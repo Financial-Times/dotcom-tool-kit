@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/secret-squirrel",
-  "version": "1.0.15",
+  "version": "2.0.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -22,11 +22,11 @@
   ],
   "peerDependencies": {
     "@financial-times/secret-squirrel": "2.x",
-    "dotcom-tool-kit": "^2.6.0"
+    "dotcom-tool-kit": "3.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/logger": "^2.2.1",
-    "@dotcom-tool-kit/types": "^2.10.0",
+    "@dotcom-tool-kit/logger": "^3.0.0",
+    "@dotcom-tool-kit/types": "^3.0.0",
     "tslib": "^2.3.1"
   }
 }

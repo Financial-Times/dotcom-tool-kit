@@ -1,18 +1,18 @@
 {
   "name": "@dotcom-tool-kit/backend-heroku-app",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci-deploy": "^2.1.0",
-    "@dotcom-tool-kit/heroku": "^2.2.0",
-    "@dotcom-tool-kit/husky-npm": "^3.0.0",
-    "@dotcom-tool-kit/node": "^2.3.3",
-    "@dotcom-tool-kit/npm": "^2.0.17",
-    "@dotcom-tool-kit/secret-squirrel": "^1.0.15"
+    "@dotcom-tool-kit/circleci-deploy": "^3.0.0",
+    "@dotcom-tool-kit/heroku": "^3.0.0",
+    "@dotcom-tool-kit/husky-npm": "^4.0.0",
+    "@dotcom-tool-kit/node": "^3.0.0",
+    "@dotcom-tool-kit/npm": "^3.0.0",
+    "@dotcom-tool-kit/secret-squirrel": "^2.0.0"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,6 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/backend-heroku-app",
   "peerDependencies": {
-    "dotcom-tool-kit": "^2.6.0"
+    "dotcom-tool-kit": "3.x"
   }
 }
