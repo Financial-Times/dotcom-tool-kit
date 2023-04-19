@@ -23,6 +23,7 @@
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
     "@financial-times/eslint-config-next": "^6.0.0",
+    "@tsconfig/node16": "^1.0.3",
     "@types/jest": "^27.4.0",
     "@types/node": "^16.18.23",
     "@typescript-eslint/eslint-plugin": "^5.57.0",

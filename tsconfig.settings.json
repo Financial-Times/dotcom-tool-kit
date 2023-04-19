@@ -1,14 +1,9 @@
 {
+  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "importHelpers": true,
-    "module": "commonjs",
-    "strict": true,
-    "target": "ES2019",
-    "types": ["node"],
-    "lib": ["ES2019"],
-    "esModuleInterop": true
+    "importHelpers": true
   }
 }
