@@ -17,7 +17,7 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "^2.6.0"
+    "dotcom-tool-kit": "3.x"
   },
   "dependencies": {
     "@dotcom-tool-kit/circleci-npm": "^5.0.0",

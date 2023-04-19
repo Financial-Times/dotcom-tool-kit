@@ -21,7 +21,7 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "^2.6.0",
+    "dotcom-tool-kit": "3.x",
     "typescript": "3.x || 4.x"
   },
   "dependencies": {
