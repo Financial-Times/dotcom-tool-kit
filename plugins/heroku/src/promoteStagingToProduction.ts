@@ -1,4 +1,4 @@
-import heroku from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { gtg } from './gtg'
@@ -28,13 +28,7 @@ async function promoteStagingToProduction(
           slug
         }
       })
-      .catch((err) => {
-        const error = new ToolKitError(
-          `there was an error with setting the slug on your production app id: ${appId}`
-        )
-        error.details = err
-        throw error
-      })
+      .catch(extractHerokuError(`promoting app ID ${appId} to production`))
       .then((response) => gtg(logger, response.app.name, 'production', false))
   )
 

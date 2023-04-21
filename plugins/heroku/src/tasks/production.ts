@@ -3,8 +3,8 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
 import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
-import type { HerokuApiResGetApp, HerokuError } from 'heroku-client'
-import heroku from '../herokuClient'
+import type { HerokuApiResGetApp } from 'heroku-client'
+import heroku, { extractHerokuError } from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
 
@@ -66,10 +66,6 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
       const error = new ToolKitError("there's an error with your production app")
       if (err instanceof Error) {
         error.details = err.message
-        // Heroku errors include a body property that provide additional context for why a request failed
-        if ((err as HerokuError).body) {
-          error.details += '\n' + (err as HerokuError).body
-        }
       }
       throw error
     }
@@ -77,7 +73,9 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
 
   async fetchIfAppHasDeployed(appId: string): Promise<boolean> {
     this.logger.verbose(`retrieving app info for ${appId}`)
-    const appInfo: HerokuApiResGetApp = await heroku.get(`/apps/${appId}`)
+    const appInfo = await heroku
+      .get<HerokuApiResGetApp>(`/apps/${appId}`)
+      .catch(extractHerokuError(`getting slug size for app ${appId}`))
     return appInfo.slugSize !== null
   }
 }

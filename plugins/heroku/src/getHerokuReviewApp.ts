@@ -1,4 +1,4 @@
-import heroku from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetReview } from 'heroku-client'
 import type { Logger } from 'winston'
 import { readState } from '@dotcom-tool-kit/state'
@@ -13,11 +13,18 @@ async function getHerokuReviewApp(logger: Logger, pipelineId: string): Promise<s
   }
 
   const branch = state.branch
-
-  const reviewApps: HerokuApiResGetReview[] = await heroku.get(`/pipelines/${pipelineId}/review-apps`)
-
+  const reviewApps = await heroku
+    .get<HerokuApiResGetReview[]>(`/pipelines/${pipelineId}/review-apps`)
+    .catch(extractHerokuError(`getting review apps for pipeline ${pipelineId}`))
   const reviewApp = reviewApps.find(
-    (instance: { id: string; app: { id: string }; branch: string; status: string }): boolean => {
+    (instance: {
+      id: string
+      app: {
+        id: string
+      }
+      branch: string
+      status: string
+    }): boolean => {
       return instance.branch === branch && (instance.status === 'created' || instance.status === 'creating')
     }
   )
@@ -25,7 +32,7 @@ async function getHerokuReviewApp(logger: Logger, pipelineId: string): Promise<s
   if (reviewApp?.status === 'creating') {
     await repeatedCheckForSuccessStatus(logger, reviewApp.id)
   }
-  
+
   return reviewApp?.app.id
 }
 

@@ -89,9 +89,15 @@ declare module 'heroku-client' {
     }
   }
 
+  export type HerokuErrorBody = {
+    id: string
+    message: string
+    url?: string
+  }
+
   export interface HerokuError extends Error {
     statusCode: number
-    body: unknown
+    body: HerokuErrorBody
   }
 
   export default class Heroku {
