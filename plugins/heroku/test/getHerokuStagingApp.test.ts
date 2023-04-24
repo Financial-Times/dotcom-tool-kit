@@ -23,7 +23,7 @@ const mockHerokuGet = jest.spyOn(heroku, 'get')
 
 describe('getHerokuStagingApp', () => {
   it('retreives data from state', async () => {
-    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({name}))
+    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({ name }))
 
     await getHerokuStagingApp()
 
@@ -31,27 +31,27 @@ describe('getHerokuStagingApp', () => {
   })
 
   it('writes app name to state', async () => {
-    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({name}))
+    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({ name }))
     await getHerokuStagingApp()
 
     expect(writeState).toBeCalledWith('staging', { appName: 'staging-app-name' })
   })
 
   it('returns the app name', async () => {
-    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({name}))
+    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({ name }))
     const appName = await getHerokuStagingApp()
 
     expect(appName).toEqual(name)
   })
 
   it('does not throw when successful', async () => {
-    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({name}))
+    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({ name }))
     await expect(getHerokuStagingApp()).resolves.not.toThrow()
   })
 
   it('throws when unsuccessful', async () => {
     mockHerokuGet.mockImplementationOnce(async () => Promise.reject())
- 
+
     await expect(getHerokuStagingApp()).rejects.toThrow()
   })
 })

@@ -36,8 +36,11 @@ const couplings = [
 const pipelineName = 'test-pipeline-name'
 
 jest.mock('../src/herokuClient', () => {
+  const originalModule = jest.requireActual('../src/herokuClient') as object
   return {
-    get: jest.fn((str: string) => {
+    __esmodule: true,
+    ...originalModule,
+    get: jest.fn(async (str: string) => {
       return str.includes('couplings') ? couplings : pipeline[str.replace('/pipelines/', '')]
     })
   }

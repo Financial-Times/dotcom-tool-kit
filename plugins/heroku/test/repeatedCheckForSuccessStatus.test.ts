@@ -17,8 +17,11 @@ const reviewApp = {
 }
 
 jest.mock('../src/herokuClient', () => {
+  const originalModule = jest.requireActual('../src/herokuClient') as object
   return {
-    get: jest.fn(() => reviewApp)
+    __esmodule: true,
+    ...originalModule,
+    get: jest.fn(async () => reviewApp)
   }
 })
 

@@ -1,4 +1,3 @@
-
 import { describe, it, expect, jest } from '@jest/globals'
 import { repeatedCheckForBuildSuccess } from '../src/repeatedCheckForBuildSuccess'
 import heroku from '../src/herokuClient'
@@ -10,19 +9,19 @@ const appName = 'test-app-name'
 const buildId = 'test-build-id'
 
 const buildInfo = {
-	id: 'test-build-id',
-    status: 'succeeded',
-    slug: {
-		id: 'test-slug-id'
-	}
+  id: 'test-build-id',
+  status: 'succeeded',
+  slug: {
+    id: 'test-slug-id'
+  }
 }
 
 const mockHerokuGet = jest.spyOn(heroku, 'get')
 
 describe('repeatedCheckForBuildSuccess', () => {
   it('calls heroku api with the app name', async () => {
-	mockHerokuGet.mockImplementationOnce(async () => Promise.resolve(buildInfo))
-	
+    mockHerokuGet.mockImplementationOnce(async () => Promise.resolve(buildInfo))
+
     await repeatedCheckForBuildSuccess(logger, appName, buildId)
 
     expect(heroku.get).toHaveBeenCalledWith(`/apps/${appName}/builds/${buildId}`)

@@ -10,8 +10,11 @@ const logger = (winston as unknown) as Logger
 const appName = 'test-app-name'
 
 jest.mock('../src/herokuClient', () => {
+  const originalModule = jest.requireActual('../src/herokuClient') as object
   return {
-    get: jest.fn(() => ({ name: appName }))
+    __esmodule: true,
+    ...originalModule,
+    get: jest.fn(async () => ({ name: appName }))
   }
 })
 
