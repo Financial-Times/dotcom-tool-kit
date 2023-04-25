@@ -57,12 +57,11 @@
     "@types/superagent": "^4.1.10"
   },
   "volta": {
-    "node": "16.14.0",
-    "npm": "8.5.4"
+    "node": "18.16.0"
   },
   "engines": {
-    "node": "16.x",
-    "npm": "7.x || 8.x"
+    "node": "16.x || 18.x",
+    "npm": "7.x || 8.x || 9.x"
   },
   "overrides": {
     "type-fest": "3.6.0"
