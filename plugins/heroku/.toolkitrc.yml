@@ -2,5 +2,16 @@ plugins:
   - '@dotcom-tool-kit/npm'
   - '@dotcom-tool-kit/doppler' # required so the create script knows we need its options
 
+installs:
+  - 'cleanup:remote'
+  - 'release:remote'
+  - 'build:remote'
+
+tasks:
+  - HerokuProduction
+  - HerokuStaging
+  - HerokuReview
+  - HerokuTeardown
+
 hooks:
   'cleanup:remote': NpmPrune
