@@ -12,7 +12,7 @@ export default class Node extends Task<typeof NodeSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, args, useVault, ports } = this.options
+    const { entry, args, useVault, ports, allowNativeFetch } = this.options
 
     let vaultEnv = {}
 
@@ -38,6 +38,12 @@ export default class Node extends Task<typeof NodeSchema> {
       throw error
     }
 
+    let { execArgv } = process
+    // disable native fetch if supported by runtime
+    if (!allowNativeFetch && process.allowedNodeEnvironmentFlags.has('--no-experimental-fetch')) {
+      execArgv = [...execArgv, '--no-experimental-fetch']
+    }
+
     this.logger.verbose('starting the child node process...')
     const child = fork(entry, args, {
       env: {
@@ -45,6 +51,7 @@ export default class Node extends Task<typeof NodeSchema> {
         PORT: port.toString(),
         ...process.env
       },
+      execArgv,
       silent: true
     })
     hookFork(this.logger, entry, child)
