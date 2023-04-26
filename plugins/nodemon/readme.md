@@ -24,6 +24,7 @@ plugins:
 | `entry` | path to the node application | `'./server/app.js'` |
 | `useVault` | option to run the application with environment variables from Vault | `true` |
 | `ports` | ports to try to bind to for this application | `[3001, 3002, 3003]` |
+| `allowNativeFetch` | use Node's native fetch if supported | `false` |
 
 ## Tasks
 
