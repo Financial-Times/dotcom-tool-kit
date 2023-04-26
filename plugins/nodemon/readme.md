@@ -22,6 +22,7 @@ plugins:
 | Key | Description | Default value |
 |-|-|-|
 | `entry` | path to the node application | `'./server/app.js'` |
+| `configPath` | path to custom nodemon config | [automatic config resolution](https://github.com/remy/nodemon#config-files) |
 | `useVault` | option to run the application with environment variables from Vault | `true` |
 | `ports` | ports to try to bind to for this application | `[3001, 3002, 3003]` |
 | `allowNativeFetch` | use Node's native fetch if supported | `false` |
