@@ -30,10 +30,10 @@ export interface RawConfig {
   root: string
   plugins: { [id: string]: Validated<Plugin> }
   resolvedPlugins: Set<Plugin>
-  tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
+  tasks: { [id: string]: string | Conflict<string> }
   hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
-  hooks: { [id: string]: Hook<unknown> | Conflict<Hook<unknown>> }
+  hooks: { [id: string]: string | Conflict<string> }
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
@@ -49,10 +49,10 @@ export type ValidOptions = {
 }
 
 export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'hookTasks' | 'options' | 'hooks'> & {
-  tasks: { [id: string]: TaskClass }
+  tasks: { [id: string]: string }
   hookTasks: { [id: string]: HookTask }
   options: ValidOptions
-  hooks: { [id: string]: Hook<unknown> }
+  hooks: { [id: string]: string }
 }
 
 const coreRoot = path.resolve(__dirname, '../')
@@ -210,19 +210,6 @@ export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig
     Object.entries(config.plugins).map(([id, plugin]) => mapValidated(plugin, (p) => [id, p] as const))
   )
   return mapValidated(validatedPlugins, (plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
-}
-
-export async function checkInstall(config: ValidConfig): Promise<void> {
-  const definedHooks = withoutConflicts(Object.values(config.hooks))
-  const uninstalledHooks = await asyncFilter(definedHooks, async (hook) => {
-    return !(await hook.check())
-  })
-
-  if (uninstalledHooks.length > 0) {
-    const error = new ToolKitError('There are problems with your Tool Kit installation.')
-    error.details = formatUninstalledHooks(uninstalledHooks)
-    throw error
-  }
 }
 
 export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>

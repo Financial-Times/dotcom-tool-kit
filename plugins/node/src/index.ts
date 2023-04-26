@@ -1,3 +1,3 @@
 import Node from './tasks/node'
 
-export const tasks = [Node]
+export const tasks = { Node }

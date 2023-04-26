@@ -1,2 +1,10 @@
 plugins:
   - '@dotcom-tool-kit/circleci'
+
+installs:
+  - 'deploy:review'
+  - 'deploy:staging'
+  - 'test:review'
+  - 'test:staging'
+  - 'teardown:staging'
+  - 'deploy:production'

@@ -113,6 +113,8 @@ async function executeMigration(
 async function main() {
   const toolKitConfig: RCFile = {
     plugins: [],
+    installs: [],
+    tasks: [],
     hooks: {},
     options: {}
   }

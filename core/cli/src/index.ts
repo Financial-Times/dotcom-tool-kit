@@ -1,9 +1,10 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { checkInstall, loadConfig } from './config'
+import { loadConfig } from './config'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
 import { formatPluginTree } from './messages'
+import { TaskClass } from '@dotcom-tool-kit/types'
 
 type ErrorSummary = {
   hook: string
@@ -52,8 +53,6 @@ ${availableHooks}`
     }
   }
 
-  await checkInstall(config)
-
   if (shouldDisableNativeFetch()) {
     process.execArgv.push('--no-experimental-fetch')
   }
@@ -68,14 +67,16 @@ ${availableHooks}`
     const assignment = config.hookTasks[hook]
 
     for (const id of assignment.tasks) {
-      const Task = config.tasks[id]
-      const options = Task.plugin ? getOptions(Task.plugin.id as OptionKey) : {}
+      const pluginId = config.tasks[id]
+      const Task = (await import(pluginId)).tasks[id] as TaskClass
+
+      const options = getOptions(pluginId as OptionKey)
 
       /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
        * `Task` is an abstract class. Here we know it's a concrete subclass
        * but typescript doesn't, so cast it to any.
        **/
-      const task = new (Task as any)(logger, options)
+      const task = new (Task as any)(logger, id, options)
 
       logger.info(styles.taskHeader(`running ${styles.task(id)} task`))
       try {

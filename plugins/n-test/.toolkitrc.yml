@@ -1,3 +1,6 @@
+tasks:
+  - NTest
+
 hooks:
   'test:review': NTest
   'test:staging': NTest
