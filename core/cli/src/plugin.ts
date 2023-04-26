@@ -1,25 +1,18 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
 import {
-  Hook,
-  joinValidated,
   mapValidated,
   mapValidationError,
   Plugin,
-  PluginModule,
   reduceValidated,
-  Task,
   Valid,
   Validated
 } from '@dotcom-tool-kit/types'
-import isPlainObject from 'lodash/isPlainObject'
 import resolveFrom from 'resolve-from'
 import type { Logger } from 'winston'
 import { PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from './conflict'
 import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
-
-type RawPluginModule = Partial<PluginModule>
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {
@@ -32,74 +25,6 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
 }
 
 const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
-
-export function validatePlugin(plugin: unknown): Validated<PluginModule> {
-  const errors: string[] = []
-  const rawPlugin = plugin as RawPluginModule
-
-  if (rawPlugin.tasks) {
-    if (!Array.isArray(rawPlugin.tasks)) {
-      errors.push(`the exported ${s.code('tasks')} value from this plugin is not an array`)
-    } else {
-      const validatedTasks = reduceValidated(
-        rawPlugin.tasks.map((task) =>
-          mapValidationError(Task.isCompatible(task), (reasons) => [
-            `the task ${s.task(task.name)} is not a compatible instance of ${s.code(
-              'Task'
-            )}:\n  - ${reasons.join('\n  - ')}`
-          ])
-        )
-      )
-      if (!validatedTasks.valid) {
-        errors.push(...validatedTasks.reasons)
-      }
-    }
-  }
-
-  if (rawPlugin.hooks) {
-    if (!isPlainObject(rawPlugin.hooks)) {
-      errors.push(`the exported ${s.code('hooks')} value from this plugin is not an object`)
-    } else {
-      const validatedHooks = reduceValidated(
-        Object.entries(rawPlugin.hooks).map(([id, hook]) =>
-          mapValidationError(Hook.isCompatible(hook), (reasons) => [
-            `the hook ${s.hook(id)} is not a compatible instance of ${s.code('Hook')}:\n  - ${reasons.join(
-              '\n  - '
-            )}`
-          ])
-        )
-      )
-      if (!validatedHooks.valid) {
-        errors.push(...validatedHooks.reasons)
-      }
-    }
-  }
-
-  if (errors.length > 0) {
-    return { valid: false, reasons: errors }
-  } else {
-    const pluginModule = { tasks: rawPlugin.tasks ?? [], hooks: rawPlugin.hooks ?? {} }
-    return { valid: true, value: pluginModule }
-  }
-}
-
-async function importPlugin(pluginPath: string): Promise<Validated<PluginModule>> {
-  try {
-    // pluginPath is an absolute resolved path to a plugin module as found from its parent
-    const pluginModule = (await import(pluginPath)) as unknown
-    return validatePlugin(pluginModule)
-  } catch (e) {
-    const err = e as Error
-    return {
-      valid: false,
-      reasons: [
-        `an error was thrown when loading this plugin's entrypoint:\n  ${s.code(
-          indentReasons(err.toString())
-        )}`
-      ]
-    }
-  }
-}
 
 export async function loadPlugin(
   id: string,
@@ -134,37 +59,19 @@ export async function loadPlugin(
 
   config.plugins[id] = plugin
 
-  // start loading rc file in the background
-  const rcFilePromise = loadToolKitRC(logger, pluginRoot, isAppRoot)
+  plugin.value.rcFile = await loadToolKitRC(logger, pluginRoot, isAppRoot)
 
-  // start loading module in the background
-  const pluginModulePromise: Promise<Validated<PluginModule | undefined>> = isAppRoot
-    ? Promise.resolve({ valid: true, value: undefined })
-    : importPlugin(pluginRoot)
-
-  // ESlint disable explanation: erroring due to a possible race condition but is a false positive since the plugin variable isn't from another scope and can't be written to concurrently.
-  // eslint-disable-next-line require-atomic-updates
-  plugin.value.rcFile = await rcFilePromise
-
-  // start loading child plugins in the background
-  const childrenPromise = Promise.all(
+  const children = await Promise.all(
     plugin.value.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin.value))
   )
 
-  // wait for pending promises concurrently
-  const [module, children] = await Promise.all([pluginModulePromise, childrenPromise])
-
-  const validatedModule = mapValidationError(module, (reasons) => [
-    indentReasons(`plugin ${s.plugin(id)} failed to load because:\n- ${reasons.join('\n- ')}`)
-  ])
   const validatedChildren = mapValidationError(reduceValidated(children), (reasons) => [
     indentReasons(`some child plugins of ${s.plugin(id)} failed to load:\n- ${reasons.join('\n- ')}`)
   ])
 
-  return mapValidated(joinValidated(validatedModule, validatedChildren), ([module, children]) => {
+  return mapValidated(validatedChildren, (children) => {
     // avoid cloning the plugin value with an object spread as we do object
     // reference comparisons in multiple places
-    plugin.value.module = module
     plugin.value.children = children
     return plugin.value
   })
@@ -184,50 +91,40 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
     }
   }
 
-  if (plugin.module) {
+  if (plugin.rcFile) {
     // add plugin tasks to our task registry, handling any conflicts
-    for (const newTask of plugin.module.tasks || []) {
-      const taskId = newTask.name
-      const existingTask = config.tasks[taskId]
+    for (const taskName of plugin.rcFile.tasks || []) {
+      const existingTaskId = config.tasks[taskName]
 
-      newTask.plugin = plugin
-      newTask.id = taskId
+      if (existingTaskId) {
+        const conflicting = isConflict(existingTaskId) ? existingTaskId.conflicting : [existingTaskId]
 
-      if (existingTask) {
-        const conflicting = isConflict(existingTask) ? existingTask.conflicting : [existingTask]
-
-        config.tasks[taskId] = {
+        config.tasks[taskName] = {
           plugin,
-          conflicting: conflicting.concat(newTask)
+          conflicting: conflicting.concat(plugin.id)
         }
       } else {
-        config.tasks[taskId] = newTask
+        config.tasks[taskName] = plugin.id
       }
     }
 
     // add hooks to the registry, handling any conflicts
     // TODO refactor with command conflict handler
-    for (const [hookId, hookClass] of Object.entries(plugin.module.hooks || [])) {
-      const existingHook = config.hooks[hookId]
-      const newHook = new hookClass(logger)
+    for (const hookName of plugin.rcFile.installs || []) {
+      const existingHookId = config.hooks[hookName]
 
-      newHook.id = hookId
-      newHook.plugin = plugin
+      if (existingHookId) {
+        const conflicting = isConflict(existingHookId) ? existingHookId.conflicting : [existingHookId]
 
-      if (existingHook) {
-        const conflicting = isConflict(existingHook) ? existingHook.conflicting : [existingHook]
-
-        config.hooks[hookId] = {
+        config.hooks[hookName] = {
           plugin,
-          conflicting: conflicting.concat(newHook)
+          conflicting: conflicting.concat(plugin.id)
         }
       } else {
-        config.hooks[hookId] = newHook
+        config.hooks[hookName] = plugin.id
       }
     }
-  }
 
-  if (plugin.rcFile) {
     // load plugin hook tasks. do this after loading child plugins, so
     // parent hooks get assigned after child hooks and can override them
     for (const [id, configHookTask] of Object.entries(plugin.rcFile.hooks)) {

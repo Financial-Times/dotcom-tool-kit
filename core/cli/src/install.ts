@@ -1,5 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
+import { Hook, HookConstructor } from '@dotcom-tool-kit/types'
 import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
 import { loadConfig, ValidConfig } from './config'
@@ -27,7 +28,14 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
   const errors: Error[] = []
   // group hooks without an installGroup separately so that their check()
   // method runs independently
-  const groups = groupBy(config.hooks, (hook) => hook.installGroup ?? '__' + hook.id)
+  const hooks: Hook<unknown>[] = await Promise.all(
+    Object.entries(config.hooks).map(async ([hookName, pluginId]) => {
+      const plugin = await import(pluginId)
+      const Hook = plugin.hooks[hookName] as HookConstructor
+      return new Hook(logger, hookName)
+    })
+  )
+  const groups = groupBy(hooks, (hook) => hook.installGroup ?? '__' + hook.id)
   for (const group of Object.values(groups)) {
     try {
       const allChecksPassed = await asyncEvery(group, (hook) => hook.check())

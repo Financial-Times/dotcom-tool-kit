@@ -137,8 +137,7 @@ abstract class Base {
 
 export abstract class Task<O extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
   static description: string
-  static plugin?: Plugin
-  static id?: string
+  id: string
 
   static get [typeSymbol](): symbol {
     return taskSymbol
@@ -151,26 +150,25 @@ export abstract class Task<O extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
   options: z.output<O>
   logger: Logger
 
-  constructor(logger: Logger, options: z.output<O>) {
+  constructor(logger: Logger, id: string, options: z.output<O>) {
     super()
 
-    const staticThis = this.constructor as typeof Task
+    this.id = id
     this.options = options
-    this.logger = logger.child({ task: staticThis.id })
+    this.logger = logger.child({ task: id })
   }
 
   abstract run(files?: string[]): Promise<void>
 }
 
 export type TaskClass = {
-  new <O extends z.ZodTypeAny>(logger: Logger, options: Partial<z.infer<O>>): Task<O>
+  new <O extends z.ZodTypeAny>(logger: Logger, id: string, options: Partial<z.infer<O>>): Task<O>
 } & typeof Task
 
 export abstract class Hook<State = void> extends Base {
-  id?: string
-  plugin?: Plugin
   logger: Logger
   static description?: string
+  id: string
   // This field is used to collect hooks that share state when running their
   // install methods. All hooks in the same group will run their install method
   // one after the other, and then their commitInstall method will be run with
@@ -185,9 +183,10 @@ export abstract class Hook<State = void> extends Base {
     return hookSymbol
   }
 
-  constructor(logger: Logger) {
+  constructor(logger: Logger, id: string) {
     super()
 
+    this.id = id
     this.logger = logger.child({ hook: this.constructor.name })
   }
 
@@ -200,10 +199,12 @@ export abstract class Hook<State = void> extends Base {
   }
 }
 
-export type HookConstructor = { new (logger: Logger): Hook<void> }
+export type HookConstructor = { new (logger: Logger, id: string): Hook<void> }
 
 export type RCFile = {
   plugins: string[]
+  installs: string[]
+  tasks: string[]
   hooks: { [id: string]: string | string[] }
   options: { [id: string]: Record<string, unknown> }
 }
@@ -212,14 +213,6 @@ export interface Plugin {
   id: string
   root: string
   rcFile?: RCFile
-  module?: PluginModule
   parent?: Plugin
   children?: Plugin[]
-}
-
-export interface PluginModule {
-  tasks: TaskClass[]
-  hooks: {
-    [id: string]: HookConstructor
-  }
 }

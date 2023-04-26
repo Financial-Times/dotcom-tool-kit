@@ -1,33 +1,29 @@
+import { styles as s, styles } from '@dotcom-tool-kit/logger'
+import type { Hook, Plugin } from '@dotcom-tool-kit/types'
+import type { z } from 'zod'
+import { fromZodError } from 'zod-validation-error'
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { HookTask } from './hook'
-import { styles as s, styles } from '@dotcom-tool-kit/logger'
-import type { Plugin, Hook, TaskClass } from '@dotcom-tool-kit/types'
-import type { z } from 'zod'
-import { fromZodError } from 'zod-validation-error'
 
-const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>
-  `- ${s.task(conflict.conflicting[0].id || 'unknown task')} ${s.dim(
+const formatTaskConflict = (conflict: Conflict<string>): string =>
+  `- ${s.task(conflict.conflicting[0] ?? 'unknown task')} ${s.dim(
     'from plugins'
-  )} ${conflict.conflicting
-    .map((task) => s.plugin(task.plugin ? task.plugin.id : 'unknown plugin'))
-    .join(s.dim(', '))}`
+  )} ${conflict.conflicting.map((task) => s.plugin(task ?? 'unknown plugin')).join(s.dim(', '))}`
 
-export const formatTaskConflicts = (conflicts: Conflict<TaskClass>[]): string => `${s.heading(
+export const formatTaskConflicts = (conflicts: Conflict<string>[]): string => `${s.heading(
   'There are multiple plugins that include the same tasks'
 )}:
 ${conflicts.map(formatTaskConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatHookConflict = (conflict: Conflict<Hook<unknown>>): string =>
-  `- ${s.hook(conflict.conflicting[0].id || 'unknown event')} ${s.dim(
+const formatHookConflict = (conflict: Conflict<string>): string =>
+  `- ${s.hook(conflict.conflicting[0] ?? 'unknown event')} ${s.dim(
     'from plugins'
-  )} ${conflict.conflicting
-    .map((task) => s.plugin(task.plugin ? task.plugin.id : 'unknown plugin'))
-    .join(s.dim(', '))}`
+  )} ${conflict.conflicting.map((task) => s.plugin(task ?? 'unknown plugin')).join(s.dim(', '))}`
 
-export const formatHookConflicts = (conflicts: Conflict<Hook<unknown>>[]): string => `${s.heading(
+export const formatHookConflicts = (conflicts: Conflict<string>[]): string => `${s.heading(
   'There are multiple plugins that include the same hooks'
 )}:
 ${conflicts.map(formatHookConflict).join('\n')}
