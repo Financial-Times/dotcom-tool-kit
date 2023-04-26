@@ -11,7 +11,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, configPath, useVault, ports } = this.options
+    const { entry, configPath, useVault, ports, allowNativeFetch } = this.options
 
     let vaultEnv = {}
 
@@ -36,7 +36,12 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
       PORT: port.toString(),
       ...process.env
     }
-    nodemon({ script: entry, env, stdout: false, configFile: configPath })
+    const config: nodemon.Settings = { script: entry, env, stdout: false, configFile: configPath }
+    // disable native fetch if supported by runtime
+    if (!allowNativeFetch && process.allowedNodeEnvironmentFlags.has('--no-experimental-fetch')) {
+      config.execMap = { js: 'node --no-experimental-fetch' }
+    }
+    nodemon(config)
     nodemon.on('readable', () => {
       // These fields aren't specified in the type declaration for some reason
       const { stdout, stderr } = (nodemon as unknown) as { stdout: Readable; stderr: Readable }
