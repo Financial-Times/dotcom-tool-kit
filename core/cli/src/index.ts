@@ -127,6 +127,3 @@ export async function listPlugins(logger: Logger): Promise<void> {
     logger.info(formatPluginTree(rootPlugin.value).join('\n'))
   }
 }
-
-export { default as showHelp } from './help'
-export { default as installHooks } from './install'
