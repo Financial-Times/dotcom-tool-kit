@@ -104,7 +104,7 @@ const getInitialState = (options: CircleCIOptions): CircleCIState => ({
   },
   executors: {
     node: {
-      docker: [{ image: `cimg/node:${options.nodeVersion ?? '16.14-browsers'}` }]
+      docker: [{ image: `cimg/node:${options.nodeVersion ?? '18.16-browsers'}` }]
     }
   },
   jobs: {
