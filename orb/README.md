@@ -8,22 +8,22 @@ Each job is a very simple wrapper that calls its respective hook, where most of 
 
 ```yaml
 parameters:
-  node-version:
-    default: '16.14'
-    type: string
+  executor:
+    default: default
+    type: executor
 
-executor:
-  name: node/default
-  tag: <<parameters.node-version>>
+executor: << parameters.executor >>
 
 steps:
   - attach-workspace
   - run:
       name: Run the project build-production task
       command: npx dotcom-tool-kit build:ci
+  - persist-workspace:
+      path: .
 ```
 
-You can expect any other given job to look very similar. We first define a parameter that allows consumers to set the version of node to use with the `node-version` parameter as a property added to the `build` job. We then use this parameter to pull in an appropriately versioned copy of the node docker image using the `executor` property. We run `attach-workspace`, which is the glue we use in many jobs to pick up the state from a previous job in the workflow, now rolled into a simple command (along with its counterpart `persist-workspace`.) Finally, we run the `build:ci` hook event, which will run any hooks for building the project in the CI, such as babel, webpack, etc.
+You can expect any other given job to look very similar. We first define a parameter that allows consumers to set the docker image and tag they want to use for the job. We then pass this parameter to the `executor` property to set the docker image that all the steps will use (based on the parameter passed). We run `attach-workspace`, which is the glue we use in many jobs to pick up the state from a previous job in the workflow, now rolled into a simple command (along with its counterpart `persist-workspace`.) Finally, we run the `build:ci` hook event, which will run any hooks for building the project in the CI, such as babel, webpack, etc.
 
 ## Adding Jobs To Your CircleCI Config
 
