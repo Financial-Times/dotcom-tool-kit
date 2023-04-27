@@ -1,7 +1,7 @@
 parameters:
   tag:
     type: string
-    default: '16.18-browsers'
+    default: '18.16-browsers'
 
 docker:
   - image: cimg/node:<< parameters.tag >>
