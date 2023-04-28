@@ -12,6 +12,28 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.0.0...types-v3.1.0) (2023-04-28)
+
+
+### Features
+
+* **node:** disable native fetch in forked node processes ([73234e4](https://github.com/Financial-Times/dotcom-tool-kit/commit/73234e43d52a7dd02286c5a5b12e17766b7410bd))
+* **nodemon:** disable native fetch in forked node processes ([d946271](https://github.com/Financial-Times/dotcom-tool-kit/commit/d946271d80662812f017a6b2d897535dee9d2ddc))
+* specify Node 18 support in all packages' engines fields ([3b55c79](https://github.com/Financial-Times/dotcom-tool-kit/commit/3b55c79f3f55b448f1a92fcf842dab6a8906ea70))
+
+
+### Bug Fixes
+
+* **types:** make regex for determining release tags stricter ([3c85027](https://github.com/Financial-Times/dotcom-tool-kit/commit/3c8502786cfcac837ba3b301ee90a348753c5b41))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/logger bumped from ^3.0.0 to ^3.1.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v2.10.0...types-v3.0.0) (2023-04-18)
 
 

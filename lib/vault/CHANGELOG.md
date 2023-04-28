@@ -98,6 +98,22 @@
     * @dotcom-tool-kit/options bumped from ^2.0.14 to ^2.0.15
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/vault-v3.0.0...vault-v3.1.0) (2023-04-28)
+
+
+### Features
+
+* specify Node 18 support in all packages' engines fields ([3b55c79](https://github.com/Financial-Times/dotcom-tool-kit/commit/3b55c79f3f55b448f1a92fcf842dab6a8906ea70))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/options bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/types bumped from ^3.0.0 to ^3.1.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/vault-v2.0.16...vault-v3.0.0) (2023-04-18)
 
 

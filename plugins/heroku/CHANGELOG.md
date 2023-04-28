@@ -91,6 +91,27 @@
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
     * @dotcom-tool-kit/vault bumped from ^2.0.14 to ^2.0.15
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.0.0...heroku-v3.1.0) (2023-04-28)
+
+
+### Features
+
+* specify Node 18 support in all packages' engines fields ([3b55c79](https://github.com/Financial-Times/dotcom-tool-kit/commit/3b55c79f3f55b448f1a92fcf842dab6a8906ea70))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/logger bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/npm bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^4.0.0 to ^4.1.0
+    * @dotcom-tool-kit/state bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/types bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/vault bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/wait-for-ok bumped from ^3.0.0 to ^3.1.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v2.2.0...heroku-v3.0.0) (2023-04-18)
 
 

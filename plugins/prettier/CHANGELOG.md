@@ -81,6 +81,23 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v3.0.0...prettier-v3.1.0) (2023-04-28)
+
+
+### Features
+
+* specify Node 18 support in all packages' engines fields ([3b55c79](https://github.com/Financial-Times/dotcom-tool-kit/commit/3b55c79f3f55b448f1a92fcf842dab6a8906ea70))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/logger bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^4.0.0 to ^4.1.0
+    * @dotcom-tool-kit/types bumped from ^3.0.0 to ^3.1.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v2.2.3...prettier-v3.0.0) (2023-04-18)
 
 

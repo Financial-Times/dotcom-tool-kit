@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/pa11y",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "pa11y",
   "main": "lib",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/types": "^3.0.0",
+    "@dotcom-tool-kit/types": "^3.1.0",
     "pa11y-ci": "^3.0.1",
     "tslib": "^2.3.1"
   },
