@@ -47,5 +47,9 @@
     "index.js": "dotcom-tool-kit format:staged --",
     "**/*.js": "dotcom-tool-kit test:staged --"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "engines": {
+    "node": "16.x || 18.x",
+    "npm": "7.x || 8.x || 9.x"
+  }
 }

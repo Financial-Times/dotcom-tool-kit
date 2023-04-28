@@ -56,5 +56,9 @@
   },
   "volta": {
     "extends": "../../package.json"
+  },
+  "engines": {
+    "node": "16.x || 18.x",
+    "npm": "7.x || 8.x || 9.x"
   }
 }
