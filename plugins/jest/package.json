@@ -32,5 +32,9 @@
   "devDependencies": {
     "@jest/globals": "^27.4.6",
     "winston": "^3.5.1"
+  },
+  "engines": {
+    "node": "16.x || 18.x",
+    "npm": "7.x || 8.x || 9.x"
   }
 }
