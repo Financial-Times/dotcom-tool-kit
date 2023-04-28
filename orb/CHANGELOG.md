@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.0.0...orb-v4.1.0) (2023-04-28)
+
+
+### Features
+
+* **orb:** bump default docker executor version to Node 18 ([6dad141](https://github.com/Financial-Times/dotcom-tool-kit/commit/6dad141392cad7951a769ac3837831ceb4e514a3))
+
+
+### Bug Fixes
+
+* **orb:** use latest change-api-orb to fix change-api curl request ([ab21f48](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab21f48ba4cfd4cce5a99831fe3eabc81939e26f))
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v3.3.1...orb-v4.0.0) (2023-04-18)
 
 

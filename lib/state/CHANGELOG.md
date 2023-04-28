@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.0.0...state-v3.1.0) (2023-04-28)
+
+
+### Features
+
+* specify Node 18 support in all packages' engines fields ([3b55c79](https://github.com/Financial-Times/dotcom-tool-kit/commit/3b55c79f3f55b448f1a92fcf842dab6a8906ea70))
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v2.0.1...state-v3.0.0) (2023-04-18)
 
 

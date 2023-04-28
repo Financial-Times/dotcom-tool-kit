@@ -68,6 +68,29 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.0.0...circleci-v5.1.0) (2023-04-28)
+
+
+### Features
+
+* **circleci:** bump default version of node used in CircleCI config ([5820ca5](https://github.com/Financial-Times/dotcom-tool-kit/commit/5820ca5b3945a98f4a17ca5150b253135ed1989d))
+* specify Node 18 support in all packages' engines fields ([3b55c79](https://github.com/Financial-Times/dotcom-tool-kit/commit/3b55c79f3f55b448f1a92fcf842dab6a8906ea70))
+
+
+### Bug Fixes
+
+* **circleci:** update majorOrbVersion to new published major version ([b6f9b11](https://github.com/Financial-Times/dotcom-tool-kit/commit/b6f9b111b934ef05269a1458ec9a2cc2fbc2a030))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/logger bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/state bumped from ^3.0.0 to ^3.1.0
+    * @dotcom-tool-kit/types bumped from ^3.0.0 to ^3.1.0
+
 ## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v4.0.4...circleci-v5.0.0) (2023-04-18)
 
 

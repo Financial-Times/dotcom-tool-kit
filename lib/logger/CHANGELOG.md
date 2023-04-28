@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.0.0...logger-v3.1.0) (2023-04-28)
+
+
+### Features
+
+* specify Node 18 support in all packages' engines fields ([3b55c79](https://github.com/Financial-Times/dotcom-tool-kit/commit/3b55c79f3f55b448f1a92fcf842dab6a8906ea70))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.0.0 to ^3.1.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v2.2.1...logger-v3.0.0) (2023-04-18)
 
 
