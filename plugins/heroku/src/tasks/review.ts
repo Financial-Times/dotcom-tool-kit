@@ -6,7 +6,7 @@ import { setStageConfigVars } from '../setConfigVars'
 import { writeState } from '@dotcom-tool-kit/state'
 import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import herokuClient from '../herokuClient'
+import herokuClient, { extractHerokuError } from '../herokuClient'
 import type { HerokuApiResPipeline } from 'heroku-client'
 
 export default class HerokuReview extends Task<typeof HerokuSchema> {
@@ -14,8 +14,9 @@ export default class HerokuReview extends Task<typeof HerokuSchema> {
 
   async run(): Promise<void> {
     try {
-      const pipeline: HerokuApiResPipeline = await herokuClient.get(`/pipelines/${this.options.pipeline}`)
-
+      const pipeline = await herokuClient
+        .get<HerokuApiResPipeline>(`/pipelines/${this.options.pipeline}`)
+        .catch(extractHerokuError(`getting pipeline ${this.options.pipeline}`))
       await setStageConfigVars(this.logger, 'review', 'production', pipeline.id)
 
       let reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)
@@ -23,9 +24,9 @@ export default class HerokuReview extends Task<typeof HerokuSchema> {
       if (!reviewAppId) {
         reviewAppId = await buildHerokuReviewApp(this.logger, pipeline.id)
       }
-
-      writeState('review', { appId: reviewAppId })
-
+      writeState('review', {
+        appId: reviewAppId
+      })
       await gtg(this.logger, reviewAppId, 'review')
     } catch (err) {
       if (err instanceof ToolKitError) {

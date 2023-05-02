@@ -50,13 +50,16 @@ class VaultEnvVarsMock {
   }
 }
 jest.mock('../src/herokuClient', () => {
+  const originalModule = jest.requireActual('../src/herokuClient') as object
   return {
-    patch: jest.fn((str: string) => {
+    __esmodule: true,
+    ...originalModule,
+    patch: jest.fn(async (str: string) => {
       if (str.includes('wrong')) {
         throw new Error()
       }
     }),
-    get: jest.fn((str: string) => {
+    get: jest.fn(async (str: string) => {
       if (str.includes('wrong')) {
         throw new Error()
       }

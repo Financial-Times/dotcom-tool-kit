@@ -18,7 +18,10 @@ let pipeline = 'test-pipeline'
 const appId = 'test-review-app-id'
 
 jest.mock('../../src/herokuClient', () => {
+  const originalModule = jest.requireActual('../../src/herokuClient') as object
   return {
+    __esmodule: true,
+    ...originalModule,
     get: jest.fn((path: string) => {
       if (path.includes('test-pipeline')) {
         return Promise.resolve({ id: 'test-pipeline-id' })

@@ -89,6 +89,17 @@ declare module 'heroku-client' {
     }
   }
 
+  export type HerokuErrorBody = {
+    id: string
+    message: string
+    url?: string
+  }
+
+  export interface HerokuError extends Error {
+    statusCode: number
+    body: HerokuErrorBody
+  }
+
   export default class Heroku {
     constructor(options: HerokuClassOptions)
     get<T>(path: string, options?: HerokuApiReqOptions): Promise<T>

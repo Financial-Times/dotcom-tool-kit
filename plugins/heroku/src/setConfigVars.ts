@@ -1,7 +1,6 @@
 import type { Logger } from 'winston'
 import { VaultEnvVars, Environment } from '@dotcom-tool-kit/vault'
-import { ToolKitError } from '@dotcom-tool-kit/error'
-import heroku from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetRegion, HerokuApiResPipeline } from 'heroku-client'
 
 type Stage = 'test' | 'development' | 'review' | 'staging' | 'production'
@@ -12,34 +11,30 @@ async function setAppConfigVars(
   environment: Environment,
   systemCode?: string
 ): Promise<void> {
-  try {
-    logger.info(`setting config vars for ${appIdName}`)
+  logger.info(`setting config vars for ${appIdName}`)
 
-    const vaultEnvVars = new VaultEnvVars(logger, {
-      environment
-    })
+  const vaultEnvVars = new VaultEnvVars(logger, {
+    environment
+  })
 
-    const configVars = await vaultEnvVars.get()
+  const configVars = await vaultEnvVars.get()
+  const { region } = await heroku
+    .get<HerokuApiResGetRegion>(`/apps/${appIdName}`)
+    .catch(extractHerokuError(`getting region for app ${appIdName}`))
+  configVars.REGION = region.name.toUpperCase()
 
-    const { region }: HerokuApiResGetRegion = await heroku.get(`/apps/${appIdName}`)
-    configVars.REGION = region.name.toUpperCase()
-
-    if (systemCode) {
-      configVars.SYSTEM_CODE = systemCode
-    }
-
-    await heroku.patch(`/apps/${appIdName}/config-vars`, { body: configVars })
-
-    logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
-
-    logger.info(`${appIdName} config vars have been updated successfully.`)
-  } catch (err) {
-    const error = new ToolKitError(`Error updating config vars for ${appIdName} app`)
-    if (err instanceof Error) {
-      error.details = err.message
-    }
-    throw error
+  if (systemCode) {
+    configVars.SYSTEM_CODE = systemCode
   }
+  await heroku
+    .patch(`/apps/${appIdName}/config-vars`, {
+      body: configVars
+    })
+    .catch(extractHerokuError(`getting configuration variables for app ${appIdName}`))
+
+  logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
+
+  logger.info(`${appIdName} config vars have been updated successfully.`)
 }
 
 async function setStageConfigVars(
@@ -49,39 +44,37 @@ async function setStageConfigVars(
   pipelineName: string,
   systemCode?: string
 ): Promise<void> {
-  try {
-    logger.info(`setting config vars for ${stage} stage`)
+  logger.info(`setting config vars for ${stage} stage`)
 
-    const vaultEnvVars = new VaultEnvVars(logger, {
-      environment
-    })
+  const vaultEnvVars = new VaultEnvVars(logger, {
+    environment
+  })
 
-    const configVars = await vaultEnvVars.get()
+  const configVars = await vaultEnvVars.get()
 
-    if (systemCode) {
-      configVars.SYSTEM_CODE = systemCode
-    }
-    // Some of our code expects review apps to have their NODE_ENV set to
-    // 'branch' so that they can change behaviour for them (e.g., mocking out
-    // writes to production DB's.)
-    if (stage === 'review') {
-      configVars.NODE_ENV = 'branch'
-    }
-
-    const pipeline: HerokuApiResPipeline = await heroku.get(`/pipelines/${pipelineName}`)
-
-    await heroku.patch(`/pipelines/${pipeline.id}/stage/${stage}/config-vars`, { body: configVars })
-
-    logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
-
-    logger.info(`config vars for ${stage} stage have been updated successfully.`)
-  } catch (err) {
-    const error = new ToolKitError(`Error updating config vars for ${stage} stage`)
-    if (err instanceof Error) {
-      error.details = err.message
-    }
-    throw error
+  if (systemCode) {
+    configVars.SYSTEM_CODE = systemCode
   }
+  // Some of our code expects review apps to have their NODE_ENV set to
+  // 'branch' so that they can change behaviour for them (e.g., mocking out
+  // writes to production DB's.)
+  if (stage === 'review') {
+    configVars.NODE_ENV = 'branch'
+  }
+  const pipeline = await heroku
+    .get<HerokuApiResPipeline>(`/pipelines/${pipelineName}`)
+    .catch(extractHerokuError(`getting pipeline ${pipelineName}`))
+  await heroku
+    .patch(`/pipelines/${pipeline.id}/stage/${stage}/config-vars`, {
+      body: configVars
+    })
+    .catch(
+      extractHerokuError(`setting configuration variables for ${stage} stage in pipeline ${pipelineName}`)
+    )
+
+  logger.verbose('the following values have been set:', Object.keys(configVars).join(', '))
+
+  logger.info(`config vars for ${stage} stage have been updated successfully.`)
 }
 
 export { setAppConfigVars, setStageConfigVars }

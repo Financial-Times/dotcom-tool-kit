@@ -1,5 +1,5 @@
 import pRetry from 'p-retry'
-import heroku from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetReview } from 'heroku-client'
 import type { Logger } from 'winston'
 
@@ -10,7 +10,9 @@ const NUM_RETRIES = process.env.HEROKU_REVIEW_APP_NUM_RETRIES
 async function repeatedCheckForSuccessStatus(logger: Logger, reviewAppId: string): Promise<void> {
   async function checkForSuccessStatus() {
     logger.debug(`review app id: ${reviewAppId}`)
-    const reviewApp: HerokuApiResGetReview = await heroku.get(`/review-apps/${reviewAppId}`)
+    const reviewApp = await heroku
+      .get<HerokuApiResGetReview>(`/review-apps/${reviewAppId}`)
+      .catch(extractHerokuError(`getting review app ${reviewAppId}`))
     logger.debug(`review app status: ${reviewApp.status}`)
     if (reviewApp.status === 'deleted') throw new pRetry.AbortError(`Review app was deleted`)
     if (reviewApp.status !== 'created') {

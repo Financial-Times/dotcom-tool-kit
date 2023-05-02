@@ -1,25 +1,23 @@
-import heroku from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetReview, HerokuApiResPost } from 'heroku-client'
 import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus'
 import { getRepoDetails } from './githubApi'
 
-async function buildHerokuReviewApp(
-	logger: Logger,
-	pipelineId: string
-	): Promise<string> {
-
+async function buildHerokuReviewApp(logger: Logger, pipelineId: string): Promise<string> {
   const { branch, repo, source_blob } = await getRepoDetails(logger)
 
   logger.info(`creating review app for ${branch} branch on ${repo}...`)
-  const reviewAppBuild: HerokuApiResPost = await heroku.post(`/review-apps`, {
-    body: {
-      branch: branch,
-      pipeline: pipelineId,
-      source_blob
-    }
-  })
+  const reviewAppBuild = await heroku
+    .post<HerokuApiResPost>(`/review-apps`, {
+      body: {
+        branch: branch,
+        pipeline: pipelineId,
+        source_blob
+      }
+    })
+    .catch(extractHerokuError(`creating review app on pipeline ${pipelineId}`))
 
   logger.info('reviewApp in buildHerokuReviewApp', reviewAppBuild)
 
@@ -33,8 +31,10 @@ async function buildHerokuReviewApp(
                     The review-app build request was attempted on repo: ${repo}, branch: ${branch}, version: ${source_blob.version}.`
     throw error
   }
-  
-  const reviewApp: HerokuApiResGetReview = await heroku.get(`/review-apps/${reviewAppBuild.id}`)
+
+  const reviewApp: HerokuApiResGetReview = await heroku
+    .get<HerokuApiResGetReview>(`/review-apps/${reviewAppBuild.id}`)
+    .catch(extractHerokuError(`getting app ID for review app ${reviewAppBuild.id}`))
 
   return reviewApp.app.id
 }

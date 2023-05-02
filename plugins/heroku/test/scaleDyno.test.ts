@@ -15,8 +15,11 @@ const response = [
 ]
 
 jest.mock('../src/herokuClient', () => {
+  const originalModule = jest.requireActual('../src/herokuClient') as object
   return {
-    patch: jest.fn((path: string) => {
+    __esmodule: true,
+    ...originalModule,
+    patch: jest.fn(async (path: string) => {
       if (!path.includes('test-staging-app-name')) {
         throw new Error()
       }

@@ -1,6 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import pRetry from 'p-retry'
-import heroku from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetRelease } from 'heroku-client'
 import type { Logger } from 'winston'
 
@@ -15,12 +15,13 @@ export default async function checkIfStagingUpdated(
 ): Promise<boolean> {
   async function checkForSuccessStatus() {
     logger.verbose(`existing staging app release id: ${releaseId}`)
-    const existingStagingRelease: HerokuApiResGetRelease = await heroku.get(
-      `/apps/${appName}/releases/${releaseId}`
-    )
+    const existingStagingRelease = await heroku
+      .get<HerokuApiResGetRelease>(`/apps/${appName}/releases/${releaseId}`)
+      .catch(extractHerokuError(`checking status of release ${releaseId} of app ${appName}`))
     logger.verbose(`existing staging app status: ${existingStagingRelease.current}`)
-    if (existingStagingRelease.current)
+    if (existingStagingRelease.current) {
       throw new ToolKitError(`Staging app not yet updated - current is still release id: ${releaseId}`)
+    }
 
     return true
   }

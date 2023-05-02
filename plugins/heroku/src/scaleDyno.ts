@@ -1,4 +1,4 @@
-import heroku from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import type { HerokuApiResPatch } from 'heroku-client'
 import type { Logger } from 'winston'
@@ -11,13 +11,19 @@ async function scaleDyno(
   size?: string
 ): Promise<void> {
   logger.info(`scaling ${type} dyno for ${appName}...`)
-
-  const appFormation: HerokuApiResPatch[] = await heroku.patch(`/apps/${appName}/formation`, {
-    body: {
-      updates: [{ quantity, size, type }]
-    }
-  })
-
+  const appFormation = await heroku
+    .patch<HerokuApiResPatch[]>(`/apps/${appName}/formation`, {
+      body: {
+        updates: [
+          {
+            quantity,
+            size,
+            type
+          }
+        ]
+      }
+    })
+    .catch(extractHerokuError(`updating scaling for app ${appName}`))
   if (appFormation.some((formation) => formation.type === type && formation.quantity === quantity)) {
     return
   } else {
