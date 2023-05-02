@@ -53,6 +53,12 @@
     * @dotcom-tool-kit/npm bumped from ^2.0.16 to ^2.0.17
     * @dotcom-tool-kit/secret-squirrel bumped from ^1.0.14 to ^1.0.15
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-npm bumped from ^5.1.0 to ^5.1.1
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v3.0.0...component-v3.1.0) (2023-04-28)
 
 

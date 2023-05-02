@@ -68,6 +68,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [5.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.1.0...circleci-v5.1.1) (2023-05-02)
+
+
+### Bug Fixes
+
+* **circleci:** revert default version of node used in CircleCI config ([ae418fc](https://github.com/Financial-Times/dotcom-tool-kit/commit/ae418fcc3869d44db3963758fe79151275fd4568))
+
 ## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.0.0...circleci-v5.1.0) (2023-04-28)
 
 
