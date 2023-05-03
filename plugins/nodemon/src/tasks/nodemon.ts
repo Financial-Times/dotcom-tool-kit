@@ -11,7 +11,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, configPath, useVault, ports, allowNativeFetch } = this.options
+    const { entry, command, configPath, useVault, ports, allowNativeFetch } = this.options
 
     let vaultEnv = {}
 
@@ -36,7 +36,14 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
       PORT: port.toString(),
       ...process.env
     }
-    const config: nodemon.Settings = { script: entry, env, stdout: false, configFile: configPath }
+    const config: nodemon.Settings = { env, stdout: false, configFile: configPath }
+
+    if (command) {
+      config.exec = command
+    } else {
+      config.script = entry
+    }
+
     // disable native fetch if supported by runtime
     if (!allowNativeFetch && process.allowedNodeEnvironmentFlags.has('--no-experimental-fetch')) {
       config.execMap = { js: 'node --no-experimental-fetch' }
@@ -45,7 +52,8 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
     nodemon.on('readable', () => {
       // These fields aren't specified in the type declaration for some reason
       const { stdout, stderr } = (nodemon as unknown) as { stdout: Readable; stderr: Readable }
-      hookFork(this.logger, entry, { stdout, stderr })
+      const process = config.exec || config.command
+      hookFork(this.logger, process, { stdout, stderr })
     })
     const nodemonLogger = this.logger.child({ process: 'nodemon' })
     nodemon.on('log', (msg) => {
