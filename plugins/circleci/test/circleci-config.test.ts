@@ -77,7 +77,9 @@ describe('CircleCI config hook', () => {
       process.chdir(path.join(__dirname, 'files', 'without-hook'))
       const hook = new TestHook(logger)
       const state = await hook.install()
-      await expect(hook.commitInstall(state)).rejects.toThrow('Please update your CircleCI config to include')
+      await expect(hook.commitInstall(state)).rejects.toThrow(
+        'Your CircleCI configuration is missing the expected fields from Tool Kit:'
+      )
     })
 
     it(`should add a job with its jobConfig to a file with a comment if it's not there`, async () => {
