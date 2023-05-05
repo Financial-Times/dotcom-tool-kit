@@ -4,7 +4,6 @@ import { getOptions } from '@dotcom-tool-kit/options'
 import { Hook } from '@dotcom-tool-kit/types'
 import { automatedComment, CircleConfig, Job, JobConfig, Workflow } from '@dotcom-tool-kit/types/lib/circleci'
 import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
-import type { CircleCIOptions } from '@dotcom-tool-kit/types/lib/schema/circleci'
 import { promises as fs } from 'fs'
 import isMatch from 'lodash/isMatch'
 import merge from 'lodash/merge'
@@ -95,77 +94,80 @@ export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCISta
   return config
 }
 
-const getInitialState = (options: CircleCIOptions): CircleCIState => ({
-  version: 2.1,
-  orbs: {
-    'tool-kit': process.env.TOOL_KIT_FORCE_DEV_ORB
-      ? 'financial-times/dotcom-tool-kit@dev:alpha'
-      : `financial-times/dotcom-tool-kit@${majorOrbVersion}`
-  },
-  executors: {
-    node: {
-      docker: [{ image: `cimg/node:${options.nodeVersion ?? '16.14-browsers'}` }]
-    }
-  },
-  jobs: {
-    checkout: {
-      docker: [{ image: 'cimg/base:stable' }],
-      steps: [
-        'checkout',
-        {
-          'tool-kit/persist-workspace': {
-            path: '.'
+const getInitialState = (): CircleCIState => {
+  const options = getOptions('@dotcom-tool-kit/circleci') ?? {}
+  return {
+    version: 2.1,
+    orbs: {
+      'tool-kit': process.env.TOOL_KIT_FORCE_DEV_ORB
+        ? 'financial-times/dotcom-tool-kit@dev:alpha'
+        : `financial-times/dotcom-tool-kit@${majorOrbVersion}`
+    },
+    executors: {
+      node: {
+        docker: [{ image: `cimg/node:${options.nodeVersion ?? '16.14-browsers'}` }]
+      }
+    },
+    jobs: {
+      checkout: {
+        docker: [{ image: 'cimg/base:stable' }],
+        steps: [
+          'checkout',
+          {
+            'tool-kit/persist-workspace': {
+              path: '.'
+            }
           }
-        }
-      ]
-    }
-  },
-  workflows: {
-    'tool-kit': {
-      when: {
-        not: {
-          equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-        }
-      },
-      jobs: [
-        { checkout: tagFilter },
-        {
-          'waiting-for-approval': {
-            type: 'approval',
-            filters: { branches: { only: '/(^renovate-.*|^nori/.*)/' } }
+        ]
+      }
+    },
+    workflows: {
+      'tool-kit': {
+        when: {
+          not: {
+            equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
           }
         },
-        {
-          'tool-kit/setup': {
-            requires: ['checkout', 'waiting-for-approval'],
-            ...jobBoilerplate
-          }
-        }
-      ]
-    },
-    nightly: {
-      when: {
-        and: [
+        jobs: [
+          { checkout: tagFilter },
           {
-            equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
+            'waiting-for-approval': {
+              type: 'approval',
+              filters: { branches: { only: '/(^renovate-.*|^nori/.*)/' } }
+            }
           },
           {
-            equal: ['nightly', '<< pipeline.schedule.name >>']
+            'tool-kit/setup': {
+              requires: ['checkout', 'waiting-for-approval'],
+              ...jobBoilerplate
+            }
           }
         ]
       },
-      jobs: [
-        'checkout',
-        {
-          'tool-kit/setup': {
-            requires: ['checkout'],
-            ...nightlyBoilerplate
+      nightly: {
+        when: {
+          and: [
+            {
+              equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
+            },
+            {
+              equal: ['nightly', '<< pipeline.schedule.name >>']
+            }
+          ]
+        },
+        jobs: [
+          'checkout',
+          {
+            'tool-kit/setup': {
+              requires: ['checkout'],
+              ...nightlyBoilerplate
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   }
-})
+}
 
 const isAutomatedConfig = (config: string): boolean => config.startsWith(automatedComment)
 
@@ -193,6 +195,7 @@ export default abstract class CircleCiConfigHook extends Hook<CircleCIState> {
 
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
   _circleConfig?: string
+  haveCheckedBaseConfig = false
   _versionTag?: string
   abstract config: CircleCIStatePartial
 
@@ -229,13 +232,17 @@ export default abstract class CircleCiConfigHook extends Hook<CircleCIState> {
       }
     }
 
+    // only need to check that the base config matches once
+    if (!this.haveCheckedBaseConfig && !isMatch(config, getInitialState())) {
+      return false
+    }
+    this.haveCheckedBaseConfig = true
     return isMatch(config, this.config)
   }
 
   async install(state?: CircleCIState): Promise<CircleCIState> {
     if (!state) {
-      const options = getOptions('@dotcom-tool-kit/circleci') ?? {}
-      state = getInitialState(options)
+      state = getInitialState()
     }
     // define a customiser function to make sure only jobs that aren't already
     // listed are merged into the CircleCI config, and to force new jobs to be
