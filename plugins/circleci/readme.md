@@ -29,7 +29,7 @@ npx dotcom-tool-kit --install
 
 | Key           | Description                             | Default value |
 | ------------- | --------------------------------------- | ------------- |
-| `nodeVersion` | Define Node Version for CircleCI to use | `undefined`   |
+| `nodeVersion` | the node versioned docker image tag for circleci to use. For example `18.16-browsers` or `16.14` | `undefined`   |
 
 ## Hooks
 
