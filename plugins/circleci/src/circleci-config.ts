@@ -15,7 +15,6 @@ import type { PartialDeep } from 'type-fest'
 import YAML from 'yaml'
 
 const MAJOR_ORB_VERSION = '4'
-const DEFAULT_NODE_VERSION = '16.14-browsers'
 
 export type CircleCIState = CircleConfig
 /**
@@ -27,8 +26,15 @@ export type CircleCIState = CircleConfig
 export type CircleCIStatePartial = PartialDeep<CircleCIState>
 
 const getNodeVersions = (): Array<string> => {
-  const nodeVersion = getOptions('@dotcom-tool-kit/circleci')?.nodeVersion
-  return Array.isArray(nodeVersion) ? nodeVersion : [nodeVersion ?? DEFAULT_NODE_VERSION]
+  // HACK: This function should only ever be called after the Tool Kit options
+  // are loaded so that we can see which node versions are specified. However,
+  // older versions of the other CircleCI plugins may not do this properly, so
+  // to avoid a breaking change we fall back to creating an array with a single
+  // empty string. The first executor is named 'node' without any reference to
+  // the version so the plugins which don't support matrices don't need to know
+  // the version option.
+  const nodeVersion = getOptions('@dotcom-tool-kit/circleci')?.nodeVersion ?? ''
+  return Array.isArray(nodeVersion) ? nodeVersion : [nodeVersion]
 }
 
 /* Applies a verion identifier for all but the first (and therefore default)
