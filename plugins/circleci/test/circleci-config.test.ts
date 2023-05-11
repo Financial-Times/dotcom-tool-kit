@@ -1,3 +1,4 @@
+import { setOptions } from '@dotcom-tool-kit/options/lib'
 import { describe, expect, it } from '@jest/globals'
 import fs from 'fs'
 import path from 'path'
@@ -24,17 +25,28 @@ describe('CircleCI config hook', () => {
     haveCheckedBaseConfig = true
   }
   class TestHook extends FakeCircleCiConfigHook {
-    config = generateConfigWithJob({ name: 'test-job', addToNightly: true, requires: ['another-job'] })
+    config = generateConfigWithJob({
+      name: 'test-job',
+      addToNightly: true,
+      requires: ['another-job'],
+      splitIntoMatrix: false
+    })
   }
   class TestAnotherHook extends FakeCircleCiConfigHook {
     config = generateConfigWithJob({
       name: 'test-another-job',
       addToNightly: false,
-      requires: ['another-job']
+      requires: ['another-job'],
+      splitIntoMatrix: true
     })
   }
 
   const originalDir = process.cwd()
+
+  beforeAll(() => {
+    // mirror the default options created by zod
+    setOptions('@dotcom-tool-kit/circleci', { nodeVersion: '16.14-browsers' })
+  })
 
   afterEach(() => {
     process.chdir(originalDir)
@@ -89,7 +101,7 @@ describe('CircleCI config hook', () => {
       const state = await hook.install()
       await hook.commitInstall(state)
 
-      const config = YAML.parse(mockedWriteFile.mock.calls[0][1])
+      const config = YAML.parse(mockedWriteFile.mock.calls[0][1] as string)
       expect(config).toEqual(
         expect.objectContaining({
           workflows: {
@@ -125,7 +137,7 @@ describe('CircleCI config hook', () => {
       state = await anotherHook.install(state)
       await hook.commitInstall(state)
 
-      const config = YAML.parse(mockedWriteFile.mock.calls[0][1])
+      const config = YAML.parse(mockedWriteFile.mock.calls[0][1] as string)
       expect(config).toEqual(
         expect.objectContaining({
           workflows: {
@@ -138,7 +150,7 @@ describe('CircleCI config hook', () => {
                 }),
                 expect.objectContaining({
                   'test-another-job': expect.objectContaining({
-                    requires: ['another-job']
+                    requires: ['another-job-<< matrix.executor >>']
                   })
                 })
               ])
@@ -166,7 +178,7 @@ describe('CircleCI config hook', () => {
       state = await sameHook.install(state)
       await hook.commitInstall(state)
 
-      const config = YAML.parse(mockedWriteFile.mock.calls[0][1])
+      const config = YAML.parse(mockedWriteFile.mock.calls[0][1] as string)
       const partialExpectedJob = {
         'test-job': expect.objectContaining({
           requires: ['another-job']

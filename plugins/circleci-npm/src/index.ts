@@ -5,6 +5,7 @@ class PublishHook extends CircleCiConfigHook {
   config = generateConfigWithJob({
     name: PublishHook.job,
     requires: ['tool-kit/test'],
+    splitIntoMatrix: false,
     addToNightly: false,
     additionalFields: {
       context: 'npm-publish-token',

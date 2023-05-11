@@ -14,7 +14,8 @@ import path from 'path'
 import type { PartialDeep } from 'type-fest'
 import YAML from 'yaml'
 
-const majorOrbVersion = '4'
+const MAJOR_ORB_VERSION = '4'
+const DEFAULT_NODE_VERSION = '16.14-browsers'
 
 export type CircleCIState = CircleConfig
 /**
@@ -25,24 +26,48 @@ export type CircleCIState = CircleConfig
  */
 export type CircleCIStatePartial = PartialDeep<CircleCIState>
 
+const getNodeVersions = (): Array<string> => {
+  const nodeVersion = getOptions('@dotcom-tool-kit/circleci')?.nodeVersion
+  return Array.isArray(nodeVersion) ? nodeVersion : [nodeVersion ?? DEFAULT_NODE_VERSION]
+}
+
+/* Applies a verion identifier for all but the first (and therefore default)
+ * Node executor, sanitising the Node version to be suitable for a CircleCI
+ * configuration name. */
+const nodeVersionToExecutor = (version: string, index: number): string =>
+  index === 0 ? 'node' : `node${version.replaceAll('.', '_')}`
+
 // These boilerplate objects are (typically) needed for each job. They can be
 // spread into your custom config, and are automatically included when calling
 // generateSimpleJob.
 
 /**
- * Every Tool Kit job, including jobs in the `nightly` workflow, uses the
- * executor we define at the top of the CircleCI config, which specifies the
+ * Every Tool Kit job uses a Node executor. We define a list of possible Node
+ * executors at the top of the CircleCI config, and jobs can either opt for the
+ * default executor (shortened to just 'node') with `nightlyBoilerplate` or to
+ * run with all the different executors in a matrix via `matrixBoilerplate`.
  * version of Node to use.
  */
 export const nightlyBoilerplate = {
   executor: 'node'
 }
+// Needs to be lazy as the node versions haven't been loaded yet when this
+// module is initialised.
+export const matrixBoilerplate = () => ({
+  matrix: {
+    parameters: {
+      executor: getNodeVersions().map(nodeVersionToExecutor)
+    }
+  }
+})
+
 /**
  * tagFilter sets the regex for GitHub release tags: CircleCI will ignore jobs
  * when doing a release if the filter isn't made explicit
  */
 export const tagFilter = { filters: { tags: { only: `${semVerRegex}` } } }
 /**
+ * @deprecated explicitly using each of the objects this spreads is preferred.
  * jobBoilerplate is the config needed for all Tool Kit jobs in the `tool-kit`
  * workflow, and combines the `nightlyBoilerplate` and `tagFilter` objects.
  */
@@ -56,6 +81,8 @@ export interface JobGeneratorOptions {
   /** whether to include in `nightly` workflow or just `tool-kit` */
   addToNightly: boolean
   requires: string[]
+  /** whether this job can be run multiple times with different Node versions */
+  splitIntoMatrix: boolean
   /** other fields to include in the job */
   additionalFields?: JobConfig
 }
@@ -63,17 +90,27 @@ export interface JobGeneratorOptions {
 /**
  * `generateConfigWithJob` generates a single job, structured so that it will
  * merge nicely with the rest of the config. This will include the `requires`
- * parameter, as well as the boilerplate properties from `jobBoilerplate`, but
- * any other options will need to be passed to `additionalFields`, such as
+ * parameter, as well as the boilerplate properties from `matrixBoilerplate`,
+ * but any other options will need to be passed to `additionalFields`, such as
  * `filters.branches`.
  */
 export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCIStatePartial => {
+  const jobBase = options.splitIntoMatrix
+    ? {
+        name: `${options.name}-<< matrix.executor >>`,
+        requires: options.requires.map((dep) =>
+          dep === 'waiting-for-approval' ? dep : `${dep}-<< matrix.executor >>`
+        ),
+        ...matrixBoilerplate()
+      }
+    : { requires: options.requires, ...nightlyBoilerplate }
   const config: CircleCIStatePartial = {
     workflows: {
       'tool-kit': {
         jobs: [
           {
-            [options.name]: merge({ requires: options.requires }, jobBoilerplate, options.additionalFields)
+            // avoid overwriting the jobBase variable
+            [options.name]: merge({}, jobBase, tagFilter, options.additionalFields)
           }
         ]
       }
@@ -85,7 +122,7 @@ export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCISta
       jobs: [
         {
           [options.name]: merge(
-            { requires: options.requires.filter((job) => job !== 'waiting-for-approval') },
+            { ...jobBase, requires: jobBase.requires.filter((dep) => dep !== 'waiting-for-approval') },
             nightlyBoilerplate,
             options.additionalFields
           )
@@ -97,19 +134,21 @@ export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCISta
 }
 
 const getInitialState = (): CircleCIState => {
-  const options = getOptions('@dotcom-tool-kit/circleci') ?? {}
   return {
     version: 2.1,
     orbs: {
       'tool-kit': process.env.TOOL_KIT_FORCE_DEV_ORB
         ? 'financial-times/dotcom-tool-kit@dev:alpha'
-        : `financial-times/dotcom-tool-kit@${majorOrbVersion}`
+        : `financial-times/dotcom-tool-kit@${MAJOR_ORB_VERSION}`
     },
-    executors: {
-      node: {
-        docker: [{ image: `cimg/node:${options.nodeVersion ?? '16.14-browsers'}` }]
-      }
-    },
+    executors: Object.fromEntries(
+      getNodeVersions().map((version, i) => [
+        nodeVersionToExecutor(version, i),
+        {
+          docker: [{ image: `cimg/node:${version}` }]
+        }
+      ])
+    ),
     jobs: {
       checkout: {
         docker: [{ image: 'cimg/base:stable' }],
@@ -140,8 +179,10 @@ const getInitialState = (): CircleCIState => {
           },
           {
             'tool-kit/setup': {
+              name: 'tool-kit/setup-<< matrix.executor >>',
               requires: ['checkout', 'waiting-for-approval'],
-              ...jobBoilerplate
+              ...matrixBoilerplate(),
+              ...tagFilter
             }
           }
         ]
@@ -161,8 +202,9 @@ const getInitialState = (): CircleCIState => {
           'checkout',
           {
             'tool-kit/setup': {
+              name: 'tool-kit/setup-<< matrix.executor >>',
               requires: ['checkout'],
-              ...nightlyBoilerplate
+              ...matrixBoilerplate()
             }
           }
         ]
