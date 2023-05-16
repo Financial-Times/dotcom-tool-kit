@@ -88,6 +88,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v3.1.0...n-test-v3.2.0) (2023-05-16)
+
+
+### Features
+
+* use latest version of n-test ([9f4b512](https://github.com/Financial-Times/dotcom-tool-kit/commit/9f4b512e8f9bc7ed305be77b2ccd75e13d34efb4))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v3.0.0...n-test-v3.1.0) (2023-04-28)
 
 
