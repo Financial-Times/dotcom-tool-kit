@@ -91,6 +91,14 @@
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
     * @dotcom-tool-kit/vault bumped from ^2.0.14 to ^2.0.15
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.1.0...heroku-v3.2.0) (2023-05-16)
+
+
+### Features
+
+* **heroku:** include context in any errors thrown by the Heroku API client ([c90c69a](https://github.com/Financial-Times/dotcom-tool-kit/commit/c90c69a986a7d4a4c782fd93ca00c6ff70823d7f))
+* **heroku:** include Heroku's HTTP response in error messages ([302090f](https://github.com/Financial-Times/dotcom-tool-kit/commit/302090f229610ce30049bd33f00320edce95957c))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.0.0...heroku-v3.1.0) (2023-04-28)
 
 

@@ -68,6 +68,18 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.1.1...circleci-v5.2.0) (2023-05-16)
+
+
+### Features
+
+* **circleci:** provide diff for what's missing in CircleCI config ([7eddd1b](https://github.com/Financial-Times/dotcom-tool-kit/commit/7eddd1b1d6bf86b203c3b6936f140c90ce8e5906))
+
+
+### Bug Fixes
+
+* **circleci:** check that the base configuration matches the user's too ([5b07706](https://github.com/Financial-Times/dotcom-tool-kit/commit/5b07706dcb9d4d7a7fc37e3127b2d155fa710250))
+
 ## [5.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.1.0...circleci-v5.1.1) (2023-05-02)
 
 
