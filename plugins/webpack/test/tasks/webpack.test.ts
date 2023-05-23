@@ -17,6 +17,7 @@ jest.mock('child_process', () => ({
     return emitter
   })
 }))
+const mockedFork = jest.mocked(fork)
 jest.mock('@dotcom-tool-kit/logger')
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
@@ -31,7 +32,7 @@ describe('webpack', () => {
       expect(fork).toBeCalledWith(
         webpackCLIPath,
         ['build', '--color', '--mode=development', '--config=webpack.config.js'],
-        { silent: true }
+        { silent: true, execArgv: expect.arrayContaining([]) }
       )
     })
   })
@@ -45,7 +46,35 @@ describe('webpack', () => {
       expect(fork).toBeCalledWith(
         webpackCLIPath,
         ['build', '--color', '--mode=production', '--config=webpack.config.js'],
-        { silent: true }
+        { silent: true, execArgv: expect.arrayContaining([]) }
+      )
+    })
+  })
+
+  describe('OpenSSL legacy handling', () => {
+    it('should be enabled when the flag is available', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      process.allowedNodeEnvironmentFlags = { has: jest.fn(() => true) } as any
+
+      const configPath = 'webpack.config.js'
+      const task = new ProductionWebpack(logger, { configPath })
+      await task.run()
+
+      expect(mockedFork.mock.calls[0][2]?.execArgv).toEqual(
+        expect.arrayContaining(['--openssl-legacy-provider'])
+      )
+    })
+
+    it("shouldn't be present when the flag is not available", async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      process.allowedNodeEnvironmentFlags = { has: jest.fn(() => false) } as any
+
+      const configPath = 'webpack.config.js'
+      const task = new ProductionWebpack(logger, { configPath })
+      await task.run()
+
+      expect(mockedFork.mock.calls[0][2]?.execArgv).toEqual(
+        expect.not.arrayContaining(['--openssl-legacy-provider'])
       )
     })
   })
