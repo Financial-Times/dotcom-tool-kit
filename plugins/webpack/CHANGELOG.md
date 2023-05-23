@@ -81,6 +81,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [3.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/webpack-v3.1.0...webpack-v3.1.1) (2023-05-23)
+
+
+### Bug Fixes
+
+* **webpack:** work around incompatibility between Webpack 4 and Node 18 ([00108e6](https://github.com/Financial-Times/dotcom-tool-kit/commit/00108e66cac5f04d3a90eee6da58395de982ea53))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/webpack-v3.0.0...webpack-v3.1.0) (2023-04-28)
 
 
