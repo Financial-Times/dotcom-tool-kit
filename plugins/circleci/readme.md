@@ -29,7 +29,7 @@ npx dotcom-tool-kit --install
 
 | Key           | Description                             | Default value |
 | ------------- | --------------------------------------- | ------------- |
-| `nodeVersion` | the node versioned docker image tag for circleci to use. For example `18.16-browsers` or `16.14`. Can be an array of versions to create a matrix pipeline. The first version in the list is what will be used for publishing etc. | `16.14-browsers` |
+| `nodeVersion` | The Node versioned docker image tag for CircleCI to use. Any [CircleCI image tag](https://circleci.com/developer/images/image/cimg/node#image-tags) is valid, for example `18.16-browsers` or `16.14`. Can be an array of versions to create a matrix pipeline. The first version in the list is what will be used for publishing etc. | `16.14-browsers` |
 
 ## Hooks
 
