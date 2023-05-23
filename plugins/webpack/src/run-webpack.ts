@@ -6,11 +6,14 @@ import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
 export interface RunWebpackOptions {
-  mode: 'production' | 'development',
+  mode: 'production' | 'development'
   watch?: boolean
 }
 
-export default function runWebpack(logger: Logger, options: WebpackOptions & RunWebpackOptions): Promise<void> {
+export default function runWebpack(
+  logger: Logger,
+  options: WebpackOptions & RunWebpackOptions
+): Promise<void> {
   logger.info('starting Webpack...')
   const args = ['build', '--color', `--mode=${options.mode}`]
 
@@ -22,7 +25,14 @@ export default function runWebpack(logger: Logger, options: WebpackOptions & Run
     args.push('--watch')
   }
 
-  const child = fork(webpackCLIPath, args, { silent: true })
+  let { execArgv } = process
+  if (process.allowedNodeEnvironmentFlags.has('--openssl-legacy-provider')) {
+    // webpack 4 uses a legacy hashing function that is no longer provided by
+    // default in OpenSSL 3: https://github.com/webpack/webpack/issues/14532
+    execArgv = [...execArgv, '--openssl-legacy-provider']
+  }
+
+  const child = fork(webpackCLIPath, args, { silent: true, execArgv })
   hookFork(logger, 'webpack', child)
   return waitOnExit('webpack', child)
 }

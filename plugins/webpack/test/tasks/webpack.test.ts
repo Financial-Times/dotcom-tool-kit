@@ -31,7 +31,7 @@ describe('webpack', () => {
       expect(fork).toBeCalledWith(
         webpackCLIPath,
         ['build', '--color', '--mode=development', '--config=webpack.config.js'],
-        { silent: true }
+        { silent: true, execArgv: expect.arrayContaining([]) }
       )
     })
   })
@@ -45,7 +45,7 @@ describe('webpack', () => {
       expect(fork).toBeCalledWith(
         webpackCLIPath,
         ['build', '--color', '--mode=production', '--config=webpack.config.js'],
-        { silent: true }
+        { silent: true, execArgv: expect.arrayContaining([]) }
       )
     })
   })
