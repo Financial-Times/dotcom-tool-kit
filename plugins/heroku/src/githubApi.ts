@@ -26,7 +26,7 @@ async function getRepoDetails(logger: Logger): Promise<repoDetails> {
 
   logger.info(`Retrieving tarball url from Github...`)
   try {
-    const res = await request(`GET /repos/Financial-Times/${repo}/tarball/${branch}`, {
+    const res = await request(`GET /repos/Financial-Times/${repo}/tarball/${version}`, {
       headers: {
         authorization: `token ${githubAuthToken}`
       },
