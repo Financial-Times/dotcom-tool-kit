@@ -6,7 +6,7 @@ import { getRepoDetails } from './githubApi'
 async function createBuild(logger: Logger, appName: string): Promise<HerokuApiResBuild> {
   logger.info(`getting latest tarball path for ${appName}...`)
   const { branch, source_blob } = await getRepoDetails(logger)
-  logger.info(`creating new build for ${appName} from ${branch}...`)
+  logger.info(`creating new build for ${appName} from ${source_blob.url}...`)
   const buildInfo = await heroku
     .post<HerokuApiResBuild>(`/apps/${appName}/builds`, {
       body: {
