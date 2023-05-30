@@ -3,16 +3,26 @@ import CircleCiConfigHook, { generateConfigWithJob } from './circleci-config'
 
 export class BuildCI extends CircleCiConfigHook {
   static job = 'tool-kit/build'
-  config = generateConfigWithJob({ name: BuildCI.job, requires: ['tool-kit/setup'], addToNightly: true })
+  get config() {
+    return generateConfigWithJob({
+      name: BuildCI.job,
+      requires: ['tool-kit/setup'],
+      splitIntoMatrix: true,
+      addToNightly: true
+    })
+  }
 }
 
 export class TestCI extends CircleCiConfigHook {
   static job = 'tool-kit/test'
-  config = generateConfigWithJob({
-    name: TestCI.job,
-    requires: [BuildCI.job],
-    addToNightly: true
-  })
+  get config() {
+    return generateConfigWithJob({
+      name: TestCI.job,
+      requires: [BuildCI.job],
+      splitIntoMatrix: true,
+      addToNightly: true
+    })
+  }
 }
 
 export const hooks = {

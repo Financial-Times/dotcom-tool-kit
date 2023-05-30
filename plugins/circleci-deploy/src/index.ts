@@ -37,6 +37,7 @@ export class DeployReview extends CircleCiConfigHook {
       name: DeployReview.job,
       addToNightly: true,
       requires: ['tool-kit/setup', 'waiting-for-approval'],
+      splitIntoMatrix: false,
       additionalFields: {
         filters: { branches: { ignore: 'main' } }
       }
@@ -46,12 +47,15 @@ export class DeployReview extends CircleCiConfigHook {
 
 export class DeployStaging extends CircleCiConfigHook {
   static job = 'tool-kit/deploy-staging'
-  config = generateConfigWithJob({
-    name: DeployStaging.job,
-    addToNightly: false,
-    requires: ['tool-kit/setup'],
-    additionalFields: { filters: { branches: { only: 'main' } } }
-  })
+  get config(): CircleCIStatePartial {
+    return generateConfigWithJob({
+      name: DeployStaging.job,
+      addToNightly: false,
+      requires: ['tool-kit/setup'],
+      splitIntoMatrix: false,
+      additionalFields: { filters: { branches: { only: 'main' } } }
+    })
+  }
 }
 
 abstract class CypressCiHook extends CircleCiConfigHook {
@@ -60,7 +64,12 @@ abstract class CypressCiHook extends CircleCiConfigHook {
 
   get config() {
     const options = getOptions('@dotcom-tool-kit/circleci')
-    const simplejobOptions = { name: this.job, addToNightly: false, requires: this.requiredJobs }
+    const simplejobOptions = {
+      name: this.job,
+      addToNightly: false,
+      requires: this.requiredJobs,
+      splitIntoMatrix: false
+    }
     if (options?.cypressImage) {
       return {
         executors: { cypress: { docker: [{ image: options.cypressImage }] } },
@@ -89,6 +98,7 @@ export class DeployProduction extends CircleCiConfigHook {
       name: DeployProduction.job,
       addToNightly: false,
       requires: [new TestStaging(this.logger).job, TestCI.job],
+      splitIntoMatrix: false,
       additionalFields: {
         filters: { branches: { only: 'main' } }
       }
