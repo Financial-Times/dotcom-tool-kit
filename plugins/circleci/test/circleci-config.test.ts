@@ -109,7 +109,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 expect.objectContaining({
                   'test-job': expect.objectContaining({
-                    requires: ['another-job']
+                    requires: ['another-job-node']
                   })
                 })
               ])
@@ -118,7 +118,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 {
                   'test-job': expect.objectContaining({
-                    requires: ['another-job']
+                    requires: ['another-job-node']
                   })
                 }
               ])
@@ -145,7 +145,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 expect.objectContaining({
                   'test-job': expect.objectContaining({
-                    requires: ['another-job']
+                    requires: ['another-job-node']
                   })
                 }),
                 expect.objectContaining({
@@ -159,7 +159,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 {
                   'test-job': expect.objectContaining({
-                    requires: ['another-job']
+                    requires: ['another-job-node']
                   })
                 }
               ])
@@ -181,7 +181,7 @@ describe('CircleCI config hook', () => {
       const config = YAML.parse(mockedWriteFile.mock.calls[0][1] as string)
       const partialExpectedJob = {
         'test-job': expect.objectContaining({
-          requires: ['another-job']
+          requires: ['another-job-node']
         })
       }
       const { jobs } = config.workflows['tool-kit']

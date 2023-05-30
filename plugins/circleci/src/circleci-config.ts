@@ -109,7 +109,16 @@ export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCISta
         ),
         ...matrixBoilerplate()
       }
-    : { requires: options.requires, ...nightlyBoilerplate }
+    : {
+        // only require the latest Node version of a matrix job in order to
+        // avoid workspace conflicts
+        requires: options.requires.map((dep) => `${dep}-node`),
+        // append the default executor name to the job name so that multiple
+        // non-matrix jobs can be chained one after another without having to
+        // know whether a matrix job precedes them or not
+        name: `${options.name}-node`,
+        ...nightlyBoilerplate
+      }
   const config: CircleCIStatePartial = {
     workflows: {
       'tool-kit': {
