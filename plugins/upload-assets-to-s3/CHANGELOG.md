@@ -74,6 +74,12 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.1.0 to ^3.2.0
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v3.0.0...upload-assets-to-s3-v3.1.0) (2023-04-28)
 
 
