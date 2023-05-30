@@ -30,6 +30,20 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^5.1.1 to ^5.2.0
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.1.2...circleci-deploy-v3.2.0) (2023-05-30)
+
+
+### Features
+
+* **circleci:** add support for multiple Node versions ([10b15f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/10b15f42f603c232293e15d05d4a062d7f855dbb))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^5.2.0 to ^5.3.0
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.0.0...circleci-deploy-v3.1.0) (2023-04-28)
 
 

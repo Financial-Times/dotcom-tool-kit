@@ -91,6 +91,24 @@
     * @dotcom-tool-kit/types bumped from ^2.9.1 to ^2.9.2
     * @dotcom-tool-kit/vault bumped from ^2.0.14 to ^2.0.15
 
+## [3.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.2.0...heroku-v3.2.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* log branch if defined, sha if not ([ab062a0](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab062a0a1a11a9074d08b7e71b25e163c132c062))
+* log the resulting tarball url, not the branch ([6da890c](https://github.com/Financial-Times/dotcom-tool-kit/commit/6da890ce6899d8f6bfeb8a521059f3d97d630fce))
+* use version in github tarball url ([7dc539e](https://github.com/Financial-Times/dotcom-tool-kit/commit/7dc539e6f7b40a4f7f1c56e3b2e59aa277f24120))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/npm bumped from ^3.1.0 to ^3.1.1
+    * @dotcom-tool-kit/types bumped from ^3.1.0 to ^3.2.0
+    * @dotcom-tool-kit/vault bumped from ^3.1.0 to ^3.1.1
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.1.0...heroku-v3.2.0) (2023-05-16)
 
 

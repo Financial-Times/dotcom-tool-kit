@@ -12,6 +12,14 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.1.0...types-v3.2.0) (2023-05-30)
+
+
+### Features
+
+* **circleci:** add default value for CircleCI's node version option ([ab5ce94](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab5ce94441983693d3849ee42cf0f1c30fcff67e))
+* **circleci:** add support for multiple Node versions ([10b15f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/10b15f42f603c232293e15d05d4a062d7f855dbb))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.0.0...types-v3.1.0) (2023-04-28)
 
 
