@@ -68,6 +68,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [5.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.3.0...circleci-v5.3.1) (2023-05-31)
+
+
+### Bug Fixes
+
+* **circleci:** don't depend on all Node versions for joining jobs ([304418b](https://github.com/Financial-Times/dotcom-tool-kit/commit/304418b3196581ac33f2b849a02f72c6a0fe7987))
+
 ## [5.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.2.0...circleci-v5.3.0) (2023-05-30)
 
 
