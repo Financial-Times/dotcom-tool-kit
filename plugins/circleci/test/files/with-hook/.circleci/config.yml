@@ -2,8 +2,9 @@ workflows:
   tool-kit:
     jobs:
       - test-job:
+          name: test-job-node
           requires:
-            - another-job
+            - another-job-node
           executor: node
           filters:
             tags:
@@ -11,6 +12,7 @@ workflows:
   nightly:
     jobs:
       - test-job:
+          name: test-job-node
           requires:
-            - another-job
+            - another-job-node
           executor: node
