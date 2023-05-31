@@ -138,7 +138,6 @@ export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCISta
         {
           [options.name]: merge(
             { ...jobBase, requires: jobBase.requires.filter((dep) => dep !== 'waiting-for-approval') },
-            nightlyBoilerplate,
             options.additionalFields
           )
         }
