@@ -68,6 +68,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [5.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.3.1...circleci-v5.3.2) (2023-05-31)
+
+
+### Bug Fixes
+
+* **circleci:** don't include executor setting twice for nightly jobs ([567ba24](https://github.com/Financial-Times/dotcom-tool-kit/commit/567ba24cc56247d6dee0db871171dd910c4db2fe))
+
 ## [5.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.3.0...circleci-v5.3.1) (2023-05-31)
 
 
