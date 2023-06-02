@@ -2,7 +2,7 @@
    <img alt="FT.com Tool Kit" src="etc/logo.svg" width="300">
 </h1>
 
-[![CircleCI](https://circleci.com/gh/Financial-Times/dotcom-tool-kit.svg?style=svg&circle-token=f1f296a3a084deef4caabb72cfaf9617a654d244)](https://circleci.com/gh/Financial-Times/dotcom-tool-kit)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Financial-Times/dotcom-tool-kit/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Financial-Times/dotcom-tool-kit/tree/main)
 
 Tool Kit is modern developer tooling for FT.com repositories. It's fully modular, allowing repos that need different tooling to install separate plugins that work consistently together.
 
