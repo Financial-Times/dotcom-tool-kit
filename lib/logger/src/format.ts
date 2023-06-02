@@ -20,6 +20,10 @@ export const format = winston.format.printf((info) => {
     }
     if (info.process) {
       labels += `[${styles.dim(info.process)}]`
+    } else {
+      // simulate the newline present in a normal console.log (which we've
+      // removed from the Console transport)
+      message += '\n'
     }
 
     if (info.level === 'error') {
