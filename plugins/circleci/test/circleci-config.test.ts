@@ -28,7 +28,7 @@ describe('CircleCI config hook', () => {
     config = generateConfigWithJob({
       name: 'test-job',
       addToNightly: true,
-      requires: ['another-job'],
+      requires: ['waiting-for-approval', 'that-job'],
       splitIntoMatrix: false
     })
   }
@@ -36,7 +36,7 @@ describe('CircleCI config hook', () => {
     config = generateConfigWithJob({
       name: 'test-another-job',
       addToNightly: false,
-      requires: ['another-job'],
+      requires: ['waiting-for-approval', 'this-job'],
       splitIntoMatrix: true
     })
   }
@@ -94,7 +94,7 @@ describe('CircleCI config hook', () => {
       )
     })
 
-    it(`should add a job with its jobConfig to a file with a comment if it's not there`, async () => {
+    it("should add a job with its jobConfig to a file with a comment if it's not there", async () => {
       process.chdir(path.join(__dirname, 'files', 'comment-without-hook'))
 
       const hook = new TestHook(logger)
@@ -109,7 +109,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 expect.objectContaining({
                   'test-job': expect.objectContaining({
-                    requires: ['another-job-node']
+                    requires: ['waiting-for-approval', 'that-job-node']
                   })
                 })
               ])
@@ -118,7 +118,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 {
                   'test-job': expect.objectContaining({
-                    requires: ['another-job-node']
+                    requires: ['that-job-node']
                   })
                 }
               ])
@@ -128,7 +128,7 @@ describe('CircleCI config hook', () => {
       )
     })
 
-    it(`should merge jobs from two hooks`, async () => {
+    it('should merge jobs from two hooks', async () => {
       process.chdir(path.join(__dirname, 'files', 'comment-without-hook'))
 
       const hook = new TestHook(logger)
@@ -145,12 +145,12 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 expect.objectContaining({
                   'test-job': expect.objectContaining({
-                    requires: ['another-job-node']
+                    requires: ['waiting-for-approval', 'that-job-node']
                   })
                 }),
                 expect.objectContaining({
                   'test-another-job': expect.objectContaining({
-                    requires: ['another-job-<< matrix.executor >>']
+                    requires: ['waiting-for-approval', 'this-job-<< matrix.executor >>']
                   })
                 })
               ])
@@ -159,7 +159,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 {
                   'test-job': expect.objectContaining({
-                    requires: ['another-job-node']
+                    requires: ['that-job-node']
                   })
                 }
               ])
@@ -169,7 +169,7 @@ describe('CircleCI config hook', () => {
       )
     })
 
-    it(`should discard job from duplicate hook`, async () => {
+    it('should discard job from duplicate hook', async () => {
       process.chdir(path.join(__dirname, 'files', 'comment-without-hook'))
 
       const hook = new TestHook(logger)
@@ -181,7 +181,7 @@ describe('CircleCI config hook', () => {
       const config = YAML.parse(mockedWriteFile.mock.calls[0][1] as string)
       const partialExpectedJob = {
         'test-job': expect.objectContaining({
-          requires: ['another-job-node']
+          requires: ['waiting-for-approval', 'that-job-node']
         })
       }
       const { jobs } = config.workflows['tool-kit']
@@ -190,6 +190,19 @@ describe('CircleCI config hook', () => {
         expect(jobs[i]).toEqual(expect.not.objectContaining(partialExpectedJob))
       }
       expect(jobs[3]).toEqual(expect.objectContaining(partialExpectedJob))
+    })
+
+    it('correctly generates a new configuration file', async () => {
+      process.chdir(path.join(__dirname, 'files', 'comment-without-hook'))
+
+      const hook = new TestHook(logger)
+      const anotherHook = new TestAnotherHook(logger)
+      let state = await hook.install()
+      state = await anotherHook.install(state)
+      await hook.commitInstall(state)
+
+      const config = YAML.parse(mockedWriteFile.mock.calls[0][1] as string)
+      expect(config).toMatchSnapshot()
     })
   })
 })

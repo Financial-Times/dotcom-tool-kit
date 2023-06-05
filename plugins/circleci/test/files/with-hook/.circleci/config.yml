@@ -4,7 +4,8 @@ workflows:
       - test-job:
           name: test-job-node
           requires:
-            - another-job-node
+            - waiting-for-approval
+            - that-job-node
           executor: node
           filters:
             tags:
@@ -14,5 +15,6 @@ workflows:
       - test-job:
           name: test-job-node
           requires:
-            - another-job-node
+            - waiting-for-approval
+            - that-job-node
           executor: node
