@@ -68,6 +68,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^2.9.2 to ^2.10.0
 
+## [5.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.3.2...circleci-v5.3.3) (2023-06-05)
+
+
+### Bug Fixes
+
+* **circleci:** never append executor name to approval job ([604e530](https://github.com/Financial-Times/dotcom-tool-kit/commit/604e530a1789f285b09dc66a7d9dd08fc0112dc2))
+
 ## [5.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.3.1...circleci-v5.3.2) (2023-05-31)
 
 
