@@ -42,7 +42,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/core/create",
   "files": [
     "/lib",
-    ".toolkitrc.yml"
+    "/files"
   ],
   "devDependencies": {
     "@types/financial-times__package-json": "^1.9.0",
