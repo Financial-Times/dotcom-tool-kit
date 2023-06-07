@@ -102,6 +102,14 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.1.6 to ^3.1.7
 
+## [3.1.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.1.7...create-v3.1.8) (2023-06-07)
+
+
+### Bug Fixes
+
+* **create:** don't use default import for code-suggester package ([6314c2b](https://github.com/Financial-Times/dotcom-tool-kit/commit/6314c2bdf18190958029056460b4389f1b47fcf1))
+* **create:** include OIDC CloudFormation template in published tarball ([3c03a66](https://github.com/Financial-Times/dotcom-tool-kit/commit/3c03a667b7a705906a32999084a820aeb4cebffa))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.0.0...create-v3.1.0) (2023-04-28)
 
 
