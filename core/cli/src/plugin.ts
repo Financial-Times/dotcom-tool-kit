@@ -266,12 +266,15 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
     // merge options from this plugin's config with any options we've collected already
     // TODO this is almost the exact same code as for hooks, refactor
     for (const [id, configOptions] of Object.entries(plugin.rcFile.options)) {
-      const existingOptions = config.options[id]
+      // users can specify root options with the dotcom-tool-kit key to mirror
+      // the name of the root npm package
+      const pluginId = id === 'dotcom-tool-kit' ? 'app root' : id
+      const existingOptions = config.options[pluginId]
 
       const pluginOptions: PluginOptions = {
         options: configOptions,
         plugin,
-        forPlugin: config.plugins[id]
+        forPlugin: config.plugins[pluginId]
       }
 
       if (existingOptions) {
@@ -288,15 +291,15 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
             conflicting: conflicting.concat(pluginOptions)
           }
 
-          config.options[id] = conflict
+          config.options[pluginId] = conflict
         } else {
           // if we're here, any existing options are from a child plugin,
           // so merge in overrides from the parent
-          config.options[id] = { ...existingOptions, ...pluginOptions }
+          config.options[pluginId] = { ...existingOptions, ...pluginOptions }
         }
       } else {
         // this options key might not have been set yet, in which case use the new one
-        config.options[id] = pluginOptions
+        config.options[pluginId] = pluginOptions
       }
     }
   }
