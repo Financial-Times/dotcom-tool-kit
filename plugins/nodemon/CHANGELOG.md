@@ -98,6 +98,26 @@
     * @dotcom-tool-kit/types bumped from ^3.1.0 to ^3.2.0
     * @dotcom-tool-kit/vault bumped from ^3.1.0 to ^3.1.1
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v3.1.1...nodemon-v3.2.0) (2023-06-14)
+
+
+### Features
+
+* disable Node 18's native fetch across all plugins ([ba10618](https://github.com/Financial-Times/dotcom-tool-kit/commit/ba10618f9eb861b8499255fcdb297502e7c42bdf))
+
+
+### Bug Fixes
+
+* **logger:** don't separate every flush to hooked fork by newline ([368e528](https://github.com/Financial-Times/dotcom-tool-kit/commit/368e52804043f2caa67f1cf9193d09194c5d3c15))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.2.0 to ^3.3.0
+    * @dotcom-tool-kit/vault bumped from ^3.1.1 to ^3.1.2
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v3.0.0...nodemon-v3.1.0) (2023-04-28)
 
 

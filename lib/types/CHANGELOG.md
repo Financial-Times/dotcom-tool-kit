@@ -12,6 +12,20 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.2.0...types-v3.3.0) (2023-06-14)
+
+
+### Features
+
+* disable Node 18's native fetch across all plugins ([ba10618](https://github.com/Financial-Times/dotcom-tool-kit/commit/ba10618f9eb861b8499255fcdb297502e7c42bdf))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.1.0 to ^3.1.1
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.1.0...types-v3.2.0) (2023-05-30)
 
 
