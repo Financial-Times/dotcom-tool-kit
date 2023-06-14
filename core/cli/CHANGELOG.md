@@ -190,6 +190,34 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.2.2 to ^3.2.3
     * @dotcom-tool-kit/frontend-app bumped from ^3.1.6 to ^3.1.7
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.1.7...dotcom-tool-kit-v3.2.0) (2023-06-14)
+
+
+### Features
+
+* disable Node 18's native fetch across all plugins ([ba10618](https://github.com/Financial-Times/dotcom-tool-kit/commit/ba10618f9eb861b8499255fcdb297502e7c42bdf))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.1.0 to ^3.1.1
+    * @dotcom-tool-kit/options bumped from ^3.1.1 to ^3.1.2
+    * @dotcom-tool-kit/types bumped from ^3.2.0 to ^3.3.0
+  * devDependencies
+    * @dotcom-tool-kit/babel bumped from ^3.1.1 to ^3.1.2
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^2.1.6 to ^2.1.7
+    * @dotcom-tool-kit/circleci bumped from ^5.3.3 to ^5.3.4
+    * @dotcom-tool-kit/circleci-deploy bumped from ^3.2.3 to ^3.2.4
+    * @dotcom-tool-kit/eslint bumped from ^3.1.1 to ^3.1.2
+    * @dotcom-tool-kit/frontend-app bumped from ^3.1.7 to ^3.1.8
+    * @dotcom-tool-kit/heroku bumped from ^3.2.1 to ^3.2.2
+    * @dotcom-tool-kit/mocha bumped from ^3.1.1 to ^3.1.2
+    * @dotcom-tool-kit/n-test bumped from ^3.2.1 to ^3.2.2
+    * @dotcom-tool-kit/npm bumped from ^3.1.1 to ^3.1.2
+    * @dotcom-tool-kit/webpack bumped from ^3.1.2 to ^3.1.3
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.0.0...dotcom-tool-kit-v3.1.0) (2023-04-28)
 
 

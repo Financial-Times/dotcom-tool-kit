@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/jest",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/logger": "^3.1.0",
-    "@dotcom-tool-kit/types": "^3.2.0",
+    "@dotcom-tool-kit/logger": "^3.1.1",
+    "@dotcom-tool-kit/types": "^3.3.0",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {

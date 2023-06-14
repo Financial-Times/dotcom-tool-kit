@@ -7,6 +7,13 @@
     * @dotcom-tool-kit/types bumped from ^3.1.0 to ^3.2.0
     * @dotcom-tool-kit/vault bumped from ^3.1.0 to ^3.1.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.2.0 to ^3.3.0
+    * @dotcom-tool-kit/vault bumped from ^3.1.1 to ^3.1.2
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.0.0...serverless-v2.1.0) (2023-04-28)
 
 

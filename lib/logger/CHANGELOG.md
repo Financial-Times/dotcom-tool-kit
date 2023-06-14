@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.1.0...logger-v3.1.1) (2023-06-14)
+
+
+### Bug Fixes
+
+* **logger:** don't separate every flush to hooked fork by newline ([368e528](https://github.com/Financial-Times/dotcom-tool-kit/commit/368e52804043f2caa67f1cf9193d09194c5d3c15))
+* **logger:** don't store labels of filtered logs ([8ecc04c](https://github.com/Financial-Times/dotcom-tool-kit/commit/8ecc04cd5cdb01fbb67e2b0cf6a29d213cd83212))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.0.0...logger-v3.1.0) (2023-04-28)
 
 
