@@ -95,8 +95,10 @@ export function hookFork(
         new Transform({
           decodeStrings: false,
           readableObjectMode: true,
-          transform: (data, _enc, callback) => {
-            callback(null, { level, message: data.endsWith('\n') ? data.slice(0, -1) : data })
+          transform: (message, _enc, callback) => {
+            // add the log level and wrap the message for the winston stream to
+            // consume
+            callback(null, { level, message })
           }
         })
       )

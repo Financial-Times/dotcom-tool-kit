@@ -66,7 +66,8 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
             return 'info'
         }
       }
-      nodemonLogger.log(nodemonToWinstonLogLevel(msg.type), msg.message)
+      // need to manually add a newline seeing as we're acting as a subprocess
+      nodemonLogger.log(nodemonToWinstonLogLevel(msg.type), msg.message + '\n')
     })
     await new Promise((resolve) => nodemon.on('start', resolve))
     writeState('local', { port })

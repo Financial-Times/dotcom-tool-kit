@@ -41,5 +41,8 @@ export class HookTransport extends Transport {
 
 export const consoleTransport = new transports.Console({
   stderrLevels: ['error'],
-  consoleWarnLevels: ['warn']
+  consoleWarnLevels: ['warn'],
+  // disable automatically adding a newline so that hooked process logs aren't
+  // separated by newlines after every flush
+  eol: ''
 })
