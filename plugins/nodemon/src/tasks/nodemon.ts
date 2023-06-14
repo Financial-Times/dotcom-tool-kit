@@ -6,12 +6,13 @@ import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import getPort from 'get-port'
 import nodemon from 'nodemon'
 import { Readable } from 'stream'
+import { shouldDisableNativeFetch } from 'dotcom-tool-kit'
 
 export default class Nodemon extends Task<typeof NodemonSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, configPath, useVault, ports, allowNativeFetch } = this.options
+    const { entry, configPath, useVault, ports } = this.options
 
     let vaultEnv = {}
 
@@ -37,8 +38,9 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
       ...process.env
     }
     const config: nodemon.Settings = { script: entry, env, stdout: false, configFile: configPath }
-    // disable native fetch if supported by runtime
-    if (!allowNativeFetch && process.allowedNodeEnvironmentFlags.has('--no-experimental-fetch')) {
+    // nodemon isn't forwarded process.execArgv so we need to pass the
+    // --no-experimental-fetch flag explicitly the node process nodemon invokes
+    if (shouldDisableNativeFetch()) {
       config.execMap = { js: 'node --no-experimental-fetch' }
     }
     nodemon(config)

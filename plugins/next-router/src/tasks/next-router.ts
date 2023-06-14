@@ -21,17 +21,11 @@ export default class NextRouter extends Task<typeof NextRouterSchema> {
 
     const routerBin = require.resolve('ft-next-router/bin/next-router')
     const vaultEnv = await vault.get()
-    let { execArgv } = process
-    // disable native fetch if supported by runtime as next-router uses isomorphic-fetch
-    if (process.allowedNodeEnvironmentFlags.has('--no-experimental-fetch')) {
-      execArgv = [...execArgv, '--no-experimental-fetch']
-    }
     const child = fork(routerBin, ['--daemon'], {
       env: {
         ...process.env,
         ...vaultEnv
       },
-      execArgv,
       silent: true
     })
     hookFork(this.logger, 'next-router', child)
