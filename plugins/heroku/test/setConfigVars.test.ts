@@ -41,7 +41,9 @@ const reviewPatchBody = {
 class VaultEnvVarsMock {
   vaultPath: VaultPath
   environment: string
-  constructor(settings: VaultPath) {
+  // Intentional unused parameter as pre-fixed with an underscore
+  // eslint-disable-next-line no-unused-vars
+  constructor(_settings: VaultPath) {
     this.vaultPath = vaultPath
     this.environment = environment
   }

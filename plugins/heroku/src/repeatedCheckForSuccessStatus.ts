@@ -4,7 +4,7 @@ import type { HerokuApiResGetReview } from 'heroku-client'
 import type { Logger } from 'winston'
 
 const NUM_RETRIES = process.env.HEROKU_REVIEW_APP_NUM_RETRIES
-  ? parseInt(process.env.HEROKU_REVIEW_APP_NUM_RETRIES)
+  ? parseInt(process.env.HEROKU_REVIEW_APP_NUM_RETRIES, 10)
   : 60
 
 async function repeatedCheckForSuccessStatus(logger: Logger, reviewAppId: string): Promise<void> {

@@ -193,6 +193,8 @@ export abstract class Hook<State = void> extends Base {
 
   abstract check(): Promise<boolean>
   abstract install(state?: State): Promise<State>
+  // Intentional unused parameter as pre-fixed with an underscore
+  // eslint-disable-next-line no-unused-vars
   async commitInstall(_state: State): Promise<void> {
     return
   }

@@ -178,7 +178,7 @@ export class VaultEnvVars {
 
       const required: Secrets = {}
 
-      appShared.env.map((envVar) => {
+      appShared.env.forEach((envVar) => {
         if (allShared.hasOwnProperty(envVar)) {
           required[envVar] = allShared[envVar]
         }
