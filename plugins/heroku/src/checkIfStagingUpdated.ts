@@ -5,7 +5,7 @@ import type { HerokuApiResGetRelease } from 'heroku-client'
 import type { Logger } from 'winston'
 
 const NUM_RETRIES = process.env.HEROKU_STAGING_NUM_RETRIES
-  ? parseInt(process.env.HEROKU_STAGING_NUM_RETRIES)
+  ? parseInt(process.env.HEROKU_STAGING_NUM_RETRIES, 10)
   : 60
 
 export default async function checkIfStagingUpdated(

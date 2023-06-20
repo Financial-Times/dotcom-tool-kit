@@ -142,6 +142,8 @@ export async function loadPlugin(
     ? Promise.resolve({ valid: true, value: undefined })
     : importPlugin(pluginRoot)
 
+  // ESlint disable explanation: erroring due to a possible race condition but is a false positive since the plugin variable isn't from another scope and can't be written to concurrently.
+  // eslint-disable-next-line require-atomic-updates
   plugin.value.rcFile = await rcFilePromise
 
   // start loading child plugins in the background

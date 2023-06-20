@@ -5,7 +5,8 @@ module.exports = {
     'prettier',
     'plugin:import/recommended',
     'plugin:import/typescript',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    '@dotcom-reliability-kit/eslint-config'
   ],
   rules: {
     // We use winston's logging instead
@@ -27,6 +28,14 @@ module.exports = {
       rules: {
         // It's alright to use rejection shorthand when mocking promises
         'prefer-promise-reject-errors': ['error', { allowEmptyReject: true }]
+      }
+    },
+    {
+      files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
+      // typescript handles undefined variables natively so this rule is not required
+      // https://typescript-eslint.io/linting/troubleshooting/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
+      rules: {
+        'no-undef': 'off'
       }
     }
   ]
