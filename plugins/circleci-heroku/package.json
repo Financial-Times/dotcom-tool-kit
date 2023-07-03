@@ -2,7 +2,7 @@
   "name": "@dotcom-tool-kit/circleci-heroku",
   "version": "3.1.7",
   "description": "",
-  "main": "lib",
+  "main": "index.js",
   "scripts": {
     "test": "cd ../../ ; npx jest --silent --projects plugins/circleci-heroku"
   },
@@ -21,10 +21,6 @@
   },
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/circleci-heroku",
-  "files": [
-    "/lib",
-    ".toolkitrc.yml"
-  ],
   "volta": {
     "extends": "../../package.json"
   },
