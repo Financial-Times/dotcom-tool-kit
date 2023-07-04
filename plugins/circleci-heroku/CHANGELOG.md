@@ -159,6 +159,21 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.2.3 to ^3.2.4
     * @dotcom-tool-kit/heroku bumped from ^3.2.1 to ^3.2.2
 
+## [3.1.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v3.1.7...circleci-heroku-v3.1.8) (2023-07-04)
+
+
+### Bug Fixes
+
+* **circleci-heroku:** point to index.js file in package.json ([e548ec5](https://github.com/Financial-Times/dotcom-tool-kit/commit/e548ec5e7ca26c901fcde806729e0597773b0fdc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^3.2.4 to ^3.2.5
+    * @dotcom-tool-kit/heroku bumped from ^3.2.2 to ^3.2.3
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v3.0.0...circleci-heroku-v3.1.0) (2023-04-28)
 
 

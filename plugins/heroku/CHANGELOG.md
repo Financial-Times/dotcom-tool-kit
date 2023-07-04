@@ -100,6 +100,22 @@
     * @dotcom-tool-kit/types bumped from ^3.2.0 to ^3.3.0
     * @dotcom-tool-kit/vault bumped from ^3.1.1 to ^3.1.2
 
+## [3.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.2.2...heroku-v3.2.3) (2023-07-04)
+
+
+### Bug Fixes
+
+* install Reliability Kit ESLint config and fix errors found ([35a6f77](https://github.com/Financial-Times/dotcom-tool-kit/commit/35a6f7754c33f58789b201594ed5d1000e029f1c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/npm bumped from ^3.1.2 to ^3.1.3
+    * @dotcom-tool-kit/types bumped from ^3.3.0 to ^3.3.1
+    * @dotcom-tool-kit/vault bumped from ^3.1.2 to ^3.1.3
+
 ## [3.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.2.0...heroku-v3.2.1) (2023-05-30)
 
 

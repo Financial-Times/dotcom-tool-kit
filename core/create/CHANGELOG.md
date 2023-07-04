@@ -112,6 +112,23 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.1.7 to ^3.2.0
 
+## [3.1.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.1.9...create-v3.1.10) (2023-07-04)
+
+
+### Bug Fixes
+
+* install Reliability Kit ESLint config and fix errors found ([35a6f77](https://github.com/Financial-Times/dotcom-tool-kit/commit/35a6f7754c33f58789b201594ed5d1000e029f1c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.3.0 to ^3.3.1
+    * @dotcom-tool-kit/vault bumped from ^3.1.2 to ^3.1.3
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.2.0 to ^3.2.1
+
 ## [3.1.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.1.7...create-v3.1.8) (2023-06-07)
 
 
