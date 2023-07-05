@@ -12,6 +12,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [3.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.3.0...types-v3.3.1) (2023-07-04)
+
+
+### Bug Fixes
+
+* install Reliability Kit ESLint config and fix errors found ([35a6f77](https://github.com/Financial-Times/dotcom-tool-kit/commit/35a6f7754c33f58789b201594ed5d1000e029f1c))
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.2.0...types-v3.3.0) (2023-06-14)
 
 
