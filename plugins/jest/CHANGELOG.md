@@ -113,6 +113,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.3.0 to ^3.3.1
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v3.1.3...jest-v3.2.0) (2023-07-17)
+
+
+### Features
+
+* **jest:** support jest v28 and v29 ([a3d647b](https://github.com/Financial-Times/dotcom-tool-kit/commit/a3d647bd47e8864731507e86e3a91ce995ab593b))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v3.0.0...jest-v3.1.0) (2023-04-28)
 
 
