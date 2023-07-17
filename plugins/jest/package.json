@@ -15,7 +15,7 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "jest-cli": "27.x",
+    "jest-cli": "27.x || 28.x || 29.x",
     "dotcom-tool-kit": "3.x"
   },
   "repository": {
