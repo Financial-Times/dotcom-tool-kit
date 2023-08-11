@@ -2,15 +2,11 @@ parameters:
   executor:
     default: default
     type: executor
-  npm-version:
-    default: '8'
-    type: string
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
-  - run: sudo npm install -g npm@<<parameters.npm-version>>
   - node/install-packages
   - persist-workspace:
       path: .
