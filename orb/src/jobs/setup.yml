@@ -2,6 +2,10 @@ parameters:
   executor:
     default: default
     type: executor
+  npm-version:
+    description: This value is deprecated and no longer used. We now use Node's bundled version of npm.
+    default: ''
+    type: string
 
 executor: << parameters.executor >>
 
