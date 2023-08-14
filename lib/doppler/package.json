@@ -1,0 +1,40 @@
+{
+  "name": "@dotcom-tool-kit/doppler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/error": "^3.1.0",
+    "@dotcom-tool-kit/logger": "^3.1.1",
+    "@dotcom-tool-kit/options": "^3.1.3",
+    "@dotcom-tool-kit/types": "^3.3.1",
+    "tslib": "^2.3.1"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "lib/circleci"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/doppler",
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ],
+  "volta": {
+    "extends": "../../package.json"
+  },
+  "devDependencies": {
+    "winston": "^3.5.1"
+  },
+  "engines": {
+    "node": "16.x || 18.x",
+    "npm": "7.x || 8.x || 9.x"
+  }
+}

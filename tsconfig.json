@@ -11,6 +11,9 @@
       "path": "lib/vault"
     },
     {
+      "path": "lib/doppler"
+    },
+    {
       "path": "lib/wait-for-ok"
     },
     {
