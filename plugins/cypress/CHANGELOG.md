@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v3.1.0...cypress-v3.2.0) (2023-08-29)
+
+
+### Features
+
+* **cypress:** pull vault env variables in local hook ([bf76edf](https://github.com/Financial-Times/dotcom-tool-kit/commit/bf76edf7fe6323e2c7bbc25ffc5184cee2f6ea22))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v3.0.0...cypress-v3.1.0) (2023-04-28)
 
 

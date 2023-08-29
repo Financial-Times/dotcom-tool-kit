@@ -34,7 +34,7 @@
   "plugins/secret-squirrel": "2.1.3",
   "plugins/upload-assets-to-s3": "3.1.3",
   "plugins/webpack": "3.1.4",
-  "plugins/cypress": "3.1.0",
+  "plugins/cypress": "3.2.0",
   "plugins/typescript": "2.1.3",
   "plugins/backend-heroku-app": "2.1.8",
   "plugins/circleci-deploy": "3.2.5",
