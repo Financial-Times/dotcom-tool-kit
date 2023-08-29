@@ -3,6 +3,7 @@ import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/types'
 import { CypressSchema } from '@dotcom-tool-kit/types/src/schema/cypress'
+import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 
 export class CypressLocal extends Task<typeof CypressSchema> {
   async run(): Promise<void> {
@@ -11,7 +12,12 @@ export class CypressLocal extends Task<typeof CypressSchema> {
       cypressEnv.CYPRESS_BASE_URL = this.options.localUrl
     }
 
-    const env = { ...process.env, ...cypressEnv }
+    const vault = new VaultEnvVars(this.logger, {
+      environment: 'development'
+    })
+    const vaultEnv = await vault.get()
+
+    const env = { ...process.env, ...cypressEnv, ...vaultEnv }
     this.logger.info('running cypress' + (env.CYPRESS_BASE_URL ? ` against ${env.CYPRESS_BASE_URL}` : ''))
     const testProcess = spawn('cypress', ['run'], { env })
     hookFork(this.logger, 'cypress', testProcess)
