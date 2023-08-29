@@ -34,6 +34,7 @@ references:
       key: cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
       paths:
         - ./node_modules/
+        - "~/.cache/Cypress"
 
   #
   # Cache restoration
