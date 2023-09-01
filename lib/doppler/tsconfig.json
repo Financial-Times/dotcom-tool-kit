@@ -12,6 +12,9 @@
     },
     {
       "path": "../types"
+    },
+    {
+      "path": "../vault"
     }
   ],
   "compilerOptions": {
