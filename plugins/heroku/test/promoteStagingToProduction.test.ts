@@ -40,8 +40,8 @@ describe('promoteStagingToProduction', () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
     const systemCode = 'test-app'
     await promoteStagingToProduction(logger, slugId, systemCode)
-    expect(setAppConfigVars).toHaveBeenNthCalledWith(1, logger, 'app-id-1', 'production', systemCode)
-    expect(setAppConfigVars).toHaveBeenNthCalledWith(2, logger, 'app-id-2', 'production', systemCode)
+    expect(setAppConfigVars).toHaveBeenNthCalledWith(1, logger, 'app-id-1', 'prd', systemCode)
+    expect(setAppConfigVars).toHaveBeenNthCalledWith(2, logger, 'app-id-2', 'prd', systemCode)
   })
 
   it('calls heroku api for each app', async () => {

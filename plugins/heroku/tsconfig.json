@@ -11,7 +11,7 @@
       "path": "../../lib/error"
     },
     {
-      "path": "../../lib/vault"
+      "path": "../../lib/doppler"
     },
     {
       "path": "../../lib/package-json-hook"

@@ -1,6 +1,6 @@
 plugins:
   - '@dotcom-tool-kit/npm'
-  - '@dotcom-tool-kit/vault' # required so the create script knows we need its options
+  - '@dotcom-tool-kit/doppler' # required so the create script knows we need its options
 
 hooks:
   'cleanup:remote': NpmPrune

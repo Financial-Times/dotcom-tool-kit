@@ -15,7 +15,7 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/vault"
+      "path": "../../lib/doppler"
     },
     {
       "path": "../../lib/state"

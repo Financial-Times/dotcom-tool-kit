@@ -3,7 +3,7 @@ import { hookConsole, hookFork, styles } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/types'
 import { NodeSchema } from '@dotcom-tool-kit/types/lib/schema/node'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { fork } from 'child_process'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
@@ -17,9 +17,7 @@ export default class Node extends Task<typeof NodeSchema> {
     let vaultEnv = {}
 
     if (useVault) {
-      const vault = new VaultEnvVars(this.logger, {
-        environment: 'development'
-      })
+      const vault = new DopplerEnvVars(this.logger, 'dev')
 
       vaultEnv = await vault.get()
     }

@@ -2,7 +2,7 @@ import { GetPolicyCommand, GetPolicyVersionCommand, IAMClient } from '@aws-sdk/c
 import { GetCallerIdentityCommand, STSClient } from '@aws-sdk/client-sts'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { Octokit } from '@octokit/rest'
 import * as suggester from 'code-suggester'
 import { highlight } from 'cli-highlight'
@@ -151,18 +151,17 @@ export default async function oidcPrompt(): Promise<boolean> {
     return true
   }
 
-  // access keys are pulled from Tool Kit's development vault
-  const vaultEnvVars = new VaultEnvVars(winstonLogger, {
-    environment: 'production',
-    vaultPath: { team: 'next', app: 'dotcom-tool-kit' }
+  // access keys are pulled from Tool Kit's doppler project
+  const dopplerEnvVars = new DopplerEnvVars(winstonLogger, 'prd', {
+    project: 'dotcom-tool-kit'
   })
-  const vaultSecretsSchema = z.object({
+  const dopplerSecretsSchema = z.object({
     CIRCLECI_AUTH_TOKEN: z.string(),
     GITHUB_ACCESS_TOKEN: z.string(),
     [`AWS_ACCESS_KEY_ID_${awsAccount}`]: z.string(),
     [`AWS_SECRET_KEY_${awsAccount}`]: z.string()
   })
-  const vaultEnv = vaultSecretsSchema.parse(await vaultEnvVars.get())
+  const dopplerEnv = dopplerSecretsSchema.parse(await dopplerEnvVars.get())
 
   const serverlessConfigRaw = await fs.readFile('serverless.yml', 'utf8')
   const serverlessConfig = YAML.parse(serverlessConfigRaw)
@@ -204,8 +203,8 @@ export default async function oidcPrompt(): Promise<boolean> {
     }
     if (fetchOldPermissions) {
       const previousDocument = await getPreviousIAMPermissions(
-        vaultEnv[`AWS_ACCESS_KEY_ID_${awsAccount}`],
-        vaultEnv[`AWS_SECRET_KEY_${awsAccount}`],
+        dopplerEnv[`AWS_ACCESS_KEY_ID_${awsAccount}`],
+        dopplerEnv[`AWS_SECRET_KEY_${awsAccount}`],
         serviceName
       )
       if (previousDocument) {
@@ -226,7 +225,7 @@ export default async function oidcPrompt(): Promise<boolean> {
 
   let circleciProjectId
   try {
-    circleciProjectId = await getCircleCiProjectId(vaultEnv.CIRCLECI_AUTH_TOKEN)
+    circleciProjectId = await getCircleCiProjectId(dopplerEnv.CIRCLECI_AUTH_TOKEN)
   } catch (err) {
     winstonLogger.error(`Failed to automatically determine the ID for your CircleCI project: ${err}`)
     circleciProjectId = (
@@ -247,8 +246,8 @@ export default async function oidcPrompt(): Promise<boolean> {
 
   let githubUsername
   try {
-    // We've already grabbed access tokens via the Vault library, so we know
-    // that the Vault credentials are stored in an environment variable, which
+    // We've already grabbed access tokens via the Doppler library, so we know
+    // that the Doppler credentials are stored in an environment variable, which
     // we can use to get the current user's login ID.
     const octokit = new Octokit({ auth: `token ${process.env.VAULT_AUTH_GITHUB_TOKEN}` })
     const resp = await octokit.rest.users.getAuthenticated()
@@ -306,7 +305,7 @@ export default async function oidcPrompt(): Promise<boolean> {
     { onCancel }
   )
   if (prConfirm) {
-    const octokit = new Octokit({ auth: vaultEnv.GITHUB_ACCESS_TOKEN })
+    const octokit = new Octokit({ auth: dopplerEnv.GITHUB_ACCESS_TOKEN })
     await suggester.createPullRequest(octokit, changes, {
       upstreamRepo,
       upstreamOwner: 'Financial-Times',

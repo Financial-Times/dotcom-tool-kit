@@ -25,7 +25,7 @@ For an app to be loaded via the `next-router` (https://local.ft.com:5050), the a
 plugins:
   - '@dotcom-tool-kit/next-router'
   - '@dotcom-tool-kit/nodemon'
-  - '@dotcom-tool-kit/vault'
+  - '@dotcom-tool-kit/doppler'
 
 hooks:
   run:local:
@@ -35,9 +35,8 @@ hooks:
 options:
   '@dotcom-tool-kit/next-router':
     appName: appName # system's `name` field as it appears in next-service-registry
-  '@dotcom-tool-kit/vault':
-    team: 'next'
-    app: '[systemCode]' # corresponding Vault directory name
+  '@dotcom-tool-kit/doppler':
+    project: '[systemCode]' # corresponding doppler project name
 ```
 
 ## Options

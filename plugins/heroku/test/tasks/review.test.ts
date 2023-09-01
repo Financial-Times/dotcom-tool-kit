@@ -87,7 +87,7 @@ describe('review', () => {
     expect(getHerokuReviewApp).toBeCalledWith(expect.anything(), 'test-pipeline-id')
   })
 
-  it('should fail if either vault option is missing', async () => {
+  it('should fail if either doppler option is missing', async () => {
     let task = new Review(logger, { pipeline })
 
     try {
@@ -105,12 +105,12 @@ describe('review', () => {
     }
   })
 
-  it('should call setStageConfigVars with vault team and vault app', async () => {
+  it('should call setStageConfigVars with doppler project', async () => {
     const task = new Review(logger, { pipeline })
 
     await task.run()
 
-    expect(setStageConfigVars).toBeCalledWith(expect.anything(), 'review', 'production', 'test-pipeline-id')
+    expect(setStageConfigVars).toBeCalledWith(expect.anything(), 'review', 'prd', 'test-pipeline-id')
   })
 
   it('should write app id to state', async () => {

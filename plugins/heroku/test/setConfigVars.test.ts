@@ -1,19 +1,17 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
 const logger = (winston as unknown) as Logger
 /* eslint-disable @typescript-eslint/no-unused-vars */
-type VaultPath = {
-  team: string
-  app: string
+type DopplerPath = {
+  project: string
 }
-const environment = 'production'
+const environment = 'prd'
 const appName = 'test-staging-app-name'
-const vaultPath = {
-  team: 'vault-team',
-  app: 'vault-app'
+const dopplerPath: DopplerPath = {
+  project: 'doppler-app'
 }
 const systemCode = 'test-system-code'
 const pipeline = {
@@ -38,13 +36,13 @@ const prodPatchBody = {
 const reviewPatchBody = {
   body: secrets
 }
-class VaultEnvVarsMock {
-  vaultPath: VaultPath
+class DopplerEnvVarsMock {
+  dopplerPath: DopplerPath
   environment: string
   // Intentional unused parameter as pre-fixed with an underscore
   // eslint-disable-next-line no-unused-vars
-  constructor(_settings: VaultPath) {
-    this.vaultPath = vaultPath
+  constructor(_settings: DopplerPath) {
+    this.dopplerPath = dopplerPath
     this.environment = environment
   }
   get() {
@@ -74,20 +72,17 @@ jest.mock('../src/herokuClient', () => {
     })
   }
 })
-jest.mock('@dotcom-tool-kit/vault', () => {
+jest.mock('@dotcom-tool-kit/doppler', () => {
   return {
-    VaultEnvVars: jest.fn((settings: VaultPath) => new VaultEnvVarsMock(settings))
+    DopplerEnvVars: jest.fn((settings: DopplerPath) => new DopplerEnvVarsMock(settings))
   }
 })
 
 describe('setConfigVars', () => {
-  it('passes its settings to vault env vars and receives secrets ', async () => {
+  it('passes its settings to doppler env vars and receives secrets ', async () => {
     await setAppConfigVars(logger, appName, environment, systemCode)
 
-    const settings = {
-      environment
-    }
-    expect(VaultEnvVars).toHaveBeenLastCalledWith(logger, settings)
+    expect(DopplerEnvVars).toHaveBeenLastCalledWith(logger, environment)
   })
 
   it('sends an update to the app with the correct path and body for prod and staging', async () => {
@@ -97,7 +92,7 @@ describe('setConfigVars', () => {
   })
 
   it('sends an update to the app with the correct path and body for review-app', async () => {
-    await setStageConfigVars(logger, 'review', 'production', pipelineName)
+    await setStageConfigVars(logger, 'review', 'prd', pipelineName)
 
     expect(heroku.patch).toBeCalledWith(`/pipelines/${pipeline.id}/stage/review/config-vars`, reviewPatchBody)
   })

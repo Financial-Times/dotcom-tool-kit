@@ -1,5 +1,5 @@
 import type { Logger } from 'winston'
-import { VaultEnvVars, Environment } from '@dotcom-tool-kit/vault'
+import { DopplerEnvVars, Environment } from '@dotcom-tool-kit/doppler'
 import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetRegion, HerokuApiResPipeline } from 'heroku-client'
 
@@ -13,11 +13,9 @@ async function setAppConfigVars(
 ): Promise<void> {
   logger.info(`setting config vars for ${appIdName}`)
 
-  const vaultEnvVars = new VaultEnvVars(logger, {
-    environment
-  })
+  const dopplerEnvVars = new DopplerEnvVars(logger, environment)
 
-  const configVars = await vaultEnvVars.get()
+  const configVars = await dopplerEnvVars.get()
   const { region } = await heroku
     .get<HerokuApiResGetRegion>(`/apps/${appIdName}`)
     .catch(extractHerokuError(`getting region for app ${appIdName}`))
@@ -46,11 +44,9 @@ async function setStageConfigVars(
 ): Promise<void> {
   logger.info(`setting config vars for ${stage} stage`)
 
-  const vaultEnvVars = new VaultEnvVars(logger, {
-    environment
-  })
+  const dopplerEnvVars = new DopplerEnvVars(logger, environment)
 
-  const configVars = await vaultEnvVars.get()
+  const configVars = await dopplerEnvVars.get()
 
   if (systemCode) {
     configVars.SYSTEM_CODE = systemCode
