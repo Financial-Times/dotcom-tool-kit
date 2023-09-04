@@ -10,3 +10,5 @@ steps:
   - run:
       name: Smoke tests
       command: npx dotcom-tool-kit test:review
+  - store_artifacts:
+      path: /root/project/e2e-test-results

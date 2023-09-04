@@ -14,3 +14,5 @@ steps:
       when: always
       name: Scale down staging
       command: npx dotcom-tool-kit teardown:staging
+  - store_artifacts:
+      path: /root/project/e2e-test-results
