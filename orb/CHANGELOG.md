@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.1.1...orb-v4.2.0) (2023-09-04)
+
+
+### Features
+
+* store e2e test results ([c22f83b](https://github.com/Financial-Times/dotcom-tool-kit/commit/c22f83b6e12ecb96e892bd2d77e1ac3031e8d0f4))
+
 ## [4.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.1.0...orb-v4.1.1) (2023-05-02)
 
 
