@@ -11,6 +11,7 @@ import type { DopplerOptions as ConfiguredDopplerOptions } from '@dotcom-tool-ki
 export type Environment = 'prd' | 'ci' | 'dev'
 
 type DopplerOptions = Required<ConfiguredDopplerOptions>
+type DopplerSecrets = Record<string, string>
 
 const dopplerEnvToVaultMap: Record<Environment, Vault.Environment> = {
   prd: 'production',
@@ -45,7 +46,7 @@ export class DopplerEnvVars {
     this.options = { project: dopplerOptions.project }
   }
 
-  async get(): Promise<Record<string, string>> {
+  async invokeCLI(): Promise<DopplerSecrets | undefined> {
     let errorMsg = ''
     try {
       let secrets = ''
@@ -78,6 +79,14 @@ export class DopplerEnvVars {
           errorMsg
         )}`
       )
+    }
+    return undefined
+  }
+
+  async get(): Promise<DopplerSecrets> {
+    const secrets = await this.invokeCLI()
+    if (secrets) {
+      return secrets
     }
 
     // fall back to Vault
