@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/types'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { register } from 'ft-next-router'
 import { readState } from '@dotcom-tool-kit/state'
 import { hookConsole, hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
@@ -11,20 +11,16 @@ export default class NextRouter extends Task<typeof NextRouterSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    const vault = new VaultEnvVars(this.logger, {
-      environment: 'development',
-      vaultPath: {
-        app: 'next-router',
-        team: 'next'
-      }
+    const doppler = new DopplerEnvVars(this.logger, 'dev', {
+      project: 'next-router'
     })
 
     const routerBin = require.resolve('ft-next-router/bin/next-router')
-    const vaultEnv = await vault.get()
+    const dopplerEnv = await doppler.get()
     const child = fork(routerBin, ['--daemon'], {
       env: {
         ...process.env,
-        ...vaultEnv
+        ...dopplerEnv
       },
       silent: true
     })

@@ -2,7 +2,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { spawn } from 'child_process'
 
 export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
@@ -20,13 +20,11 @@ export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
       )
     }
 
-    let vaultEnv = {}
+    let dopplerEnv = {}
     if (useVault) {
-      const vault = new VaultEnvVars(this.logger, {
-        environment: 'development'
-      })
+      const doppler = new DopplerEnvVars(this.logger, 'dev')
 
-      vaultEnv = await vault.get()
+      dopplerEnv = await doppler.get()
     }
 
     this.logger.verbose('starting the child serverless process...')
@@ -45,7 +43,7 @@ export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
 
     const child = spawn('serverless', args, {
       env: {
-        ...vaultEnv,
+        ...dopplerEnv,
         ...process.env
       }
     })

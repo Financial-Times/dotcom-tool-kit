@@ -18,7 +18,7 @@
       "path": "../../lib/types"
     },
     {
-      "path": "../../lib/vault"
+      "path": "../../lib/doppler"
     }
   ],
   "include": ["src/**/*"]

@@ -1,5 +1,5 @@
 plugins:
-  - '@dotcom-tool-kit/vault'
+  - '@dotcom-tool-kit/doppler'
 
 hooks:
   'run:local': Nodemon

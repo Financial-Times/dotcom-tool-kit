@@ -28,6 +28,7 @@ export type PromptGenerators<T> = T extends z.ZodObject<infer Shape>
 import { BabelSchema } from './schema/babel'
 import { CircleCISchema } from './schema/circleci'
 import { CypressSchema } from './schema/cypress'
+import { DopplerSchema } from './schema/doppler'
 import { RootSchema } from './schema/dotcom-tool-kit'
 import { ESLintSchema } from './schema/eslint'
 import { HerokuSchema } from './schema/heroku'
@@ -51,6 +52,7 @@ export const Schemas = {
   '@dotcom-tool-kit/babel': BabelSchema,
   '@dotcom-tool-kit/circleci': CircleCISchema,
   '@dotcom-tool-kit/cypress': CypressSchema,
+  '@dotcom-tool-kit/doppler': DopplerSchema,
   '@dotcom-tool-kit/eslint': ESLintSchema,
   '@dotcom-tool-kit/heroku': HerokuSchema,
   '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,

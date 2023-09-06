@@ -2,7 +2,7 @@ import { hookFork } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
 import { writeState } from '@dotcom-tool-kit/state'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import getPort from 'get-port'
 import nodemon from 'nodemon'
 import { Readable } from 'stream'
@@ -14,14 +14,12 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
   async run(): Promise<void> {
     const { entry, configPath, useVault, ports } = this.options
 
-    let vaultEnv = {}
+    let dopplerEnv = {}
 
     if (useVault) {
-      const vault = new VaultEnvVars(this.logger, {
-        environment: 'development'
-      })
+      const doppler = new DopplerEnvVars(this.logger, 'dev')
 
-      vaultEnv = await vault.get()
+      dopplerEnv = await doppler.get()
     }
 
     const port =
@@ -33,7 +31,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
     this.logger.verbose('starting the child nodemon process...')
 
     const env = {
-      ...vaultEnv,
+      ...dopplerEnv,
       PORT: port.toString(),
       ...process.env
     }

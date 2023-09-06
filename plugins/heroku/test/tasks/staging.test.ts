@@ -22,13 +22,13 @@ const buildInfo = {
 }
 const slugId = 'test-slug-id'
 
-jest.mock('../../src/getPipelineCouplings', () => { 
+jest.mock('../../src/getPipelineCouplings', () => {
   return {
     getPipelineCouplings: jest.fn()
   }
 })
 
-jest.mock('../../src/getHerokuStagingApp', () => { 
+jest.mock('../../src/getHerokuStagingApp', () => {
   return {
     getHerokuStagingApp: jest.fn(() => 'test-appName')
   }
@@ -42,15 +42,15 @@ jest.mock('../../src/setConfigVars', () => {
 
 jest.mock('../../src/createBuild', () => {
   return {
-    createBuild: jest.fn(() => (buildInfo))
+    createBuild: jest.fn(() => buildInfo)
   }
 })
 
 jest.mock('../../src/repeatedCheckForBuildSuccess', () => {
-    return {
-      repeatedCheckForBuildSuccess: jest.fn(() => (slugId))
-    }
-  })
+  return {
+    repeatedCheckForBuildSuccess: jest.fn(() => slugId)
+  }
+})
 
 jest.mock('../../src/setStagingSlug', () => {
   return {
@@ -71,7 +71,6 @@ jest.mock('../../src/gtg', () => {
 })
 
 describe('staging', () => {
-
   beforeEach(() => {
     buildInfo.slug = null
   })
@@ -122,14 +121,13 @@ describe('staging', () => {
     expect(getHerokuStagingApp).toReturnWith(appName)
   })
 
-  it('should call setAppConfigVars with vault team, vault app and system code', async () => {
+  it('should call setAppConfigVars with doppler project and system code', async () => {
     const task = new Staging(logger, { pipeline, systemCode })
 
     await task.run()
 
-    expect(setAppConfigVars).toBeCalledWith(expect.anything(), 'test-appName', 'production', systemCode)
+    expect(setAppConfigVars).toBeCalledWith(expect.anything(), 'test-appName', 'prd', systemCode)
   })
-
 
   it('should call createBuild with app name', async () => {
     const task = new Staging(logger, { pipeline, systemCode })
@@ -149,7 +147,7 @@ describe('staging', () => {
   it('should call setStagingSlug with app name and slug id', async () => {
     const task = new Staging(logger, { pipeline, systemCode })
     await task.run()
-    
+
     expect(setStagingSlug).toBeCalledWith(expect.anything(), appName, slugId)
   })
 
@@ -184,5 +182,4 @@ describe('staging', () => {
 
     await expect(task.run()).resolves.not.toThrow()
   })
-
 })

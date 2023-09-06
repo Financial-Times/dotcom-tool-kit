@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "references": [
+    {
+      "path": "../error"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../options"
+    },
+    {
+      "path": "../types"
+    },
+    {
+      "path": "../vault"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*"]
+}

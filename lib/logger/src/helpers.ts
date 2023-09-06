@@ -123,12 +123,16 @@ export function hookFork(
 // stderr as the error details.
 export function waitOnExit(process: string, child: ChildProcess): Promise<void> {
   return new Promise((resolve, reject) => {
+    child.on('error', (error) => {
+      reject(error)
+    })
     child.on('exit', (code) => {
       if (code === 0) {
         resolve()
       } else {
         const error = new ToolKitError(`${process} process returned a non-zero exit code (${code})`)
         error.details = 'error output has been logged above ☝️'
+        error.exitCode = code ?? undefined
         reject(error)
       }
     })
