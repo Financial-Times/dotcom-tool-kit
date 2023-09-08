@@ -2,11 +2,19 @@ parameters:
   executor:
     default: default
     type: executor
+  doppler-project:
+    default: ''
+    type: string
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - when:
+      condition: << parameters.doppler-project >>
+      steps:
+        - doppler-circleci/install
+        - doppler-circleci/load_secrets
   - run:
       name: Run smoke tests on staging
       command: npx dotcom-tool-kit test:staging

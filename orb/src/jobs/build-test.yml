@@ -3,11 +3,19 @@ parameters:
   executor:
     default: default
     type: executor
+  doppler-project:
+    default: ''
+    type: string
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - when:
+      condition: << parameters.doppler-project >>
+      steps:
+        - doppler-circleci/install
+        - doppler-circleci/load_secrets
   - run:
       name: Run the project build-production task
       command: npx dotcom-tool-kit build:ci
