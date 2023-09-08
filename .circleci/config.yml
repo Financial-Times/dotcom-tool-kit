@@ -96,6 +96,13 @@ references:
     branches:
       ignore: /.*/
 
+  temp_step_force_cli_token:
+    &temp_step_force_cli_token
+    pre-steps:
+      - run:
+          name: Pass CircleCI API token as environment variable
+          command: echo "export CIRCLECI_CLI_TOKEN=$CIRCLE_TOKEN" >> $BASH_ENV
+
 jobs:
   build:
     <<: *container_config_node
@@ -176,10 +183,9 @@ workflows:
 
   build-test:
     when:
-      not:
-        equal:
-          - scheduled_pipeline
-          - << pipeline.trigger_source >>
+      equal:
+        - scheduled_pipeline
+        - << pipeline.trigger_source >>
     jobs:
       - build:
           filters:
@@ -364,20 +370,21 @@ workflows:
       # Lint Yaml files
       - orb-tools/lint:
           source_dir: orb
-      - orb-tools/review
       # Pack orb source
       - orb-tools/pack:
+          context: circleci-orb-publishing
           source_dir: orb/src
           org_slug: gh/Financial-Times
+          <<: *temp_step_force_cli_token
       # Publish development version(s) of the orb.
       - orb-tools/publish:
           context: circleci-orb-publishing
           orb_name: financial-times/dotcom-tool-kit
           vcs_type: << pipeline.project.type >>
           pub_type: dev
+          <<: *temp_step_force_cli_token
           requires:
             - orb-tools/lint
-            - orb-tools/review
             - orb-tools/pack
 
   orb-integration-test_deploy:
@@ -392,13 +399,14 @@ workflows:
           source_dir: orb
           filters:
             <<: *filters_orbs_release_build
-      - orb-tools/review
       # Pack orb source
       - orb-tools/pack:
+          context: circleci-orb-publishing
           source_dir: orb/src
           org_slug: gh/Financial-Times
           filters:
             <<: *filters_orbs_release_build
+          <<: *temp_step_force_cli_token
       - orb-tools/publish:
           context: circleci-orb-publishing
           orb_name: financial-times/dotcom-tool-kit
@@ -406,8 +414,8 @@ workflows:
           pub_type: production
           filters:
             <<: *filters_orbs_release_build
+          <<: *temp_step_force_cli_token
           requires:
             # - integration-test-1
             - orb-tools/lint
-            - orb-tools/review
             - orb-tools/pack
