@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.6.0
-  orb-tools: circleci/orb-tools@10.0.5
+  orb-tools: circleci/orb-tools@11.6.1
 
 references:
   #
@@ -364,16 +364,19 @@ workflows:
       # Lint Yaml files
       - orb-tools/lint:
           lint-dir: orb
+      - orb-tools/review
       # Pack orb source
       - orb-tools/pack:
           source-dir: orb/src
-          orb_slug: gh/Financial-Times
       # Publish development version(s) of the orb.
-      - orb-tools/publish-dev:
+      - orb-tools/publish:
           context: circleci-orb-publishing
           orb-name: financial-times/dotcom-tool-kit
+          vcs-type: << pipeline.project.type >>
+          pub-type: dev
           requires:
             - orb-tools/lint
+            - orb-tools/review
             - orb-tools/pack
 
   orb-integration-test_deploy:
@@ -388,6 +391,7 @@ workflows:
           lint-dir: orb
           filters:
             <<: *filters_orbs_release_build
+      - orb-tools/review
       # Pack orb source
       - orb-tools/pack:
           source-dir: orb/src
@@ -395,12 +399,12 @@ workflows:
             <<: *filters_orbs_release_build
       - orb-tools/publish:
           context: circleci-orb-publishing
-          attach-workspace: true
-          # Strip leading 'orb-v' from git tag
-          orb-ref: financial-times/dotcom-tool-kit@${CIRCLE_TAG:5}
+          vcs-type: << pipeline.project.type >>
+          pub-type: prod
           filters:
             <<: *filters_orbs_release_build
           requires:
             # - integration-test-1
             - orb-tools/lint
+            - orb-tools/review
             - orb-tools/pack
