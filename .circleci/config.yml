@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.6.0
-  orb-tools: circleci/orb-tools@11.6.1
+  orb-tools: circleci/orb-tools@12.0.4
 
 references:
   #
@@ -363,17 +363,18 @@ workflows:
     jobs:
       # Lint Yaml files
       - orb-tools/lint:
-          lint-dir: orb
+          source_dir: orb
       - orb-tools/review
       # Pack orb source
       - orb-tools/pack:
-          source-dir: orb/src
+          source_dir: orb/src
+          org_slug: gh/Financial-Times
       # Publish development version(s) of the orb.
       - orb-tools/publish:
           context: circleci-orb-publishing
-          orb-name: financial-times/dotcom-tool-kit
-          vcs-type: << pipeline.project.type >>
-          pub-type: dev
+          orb_name: financial-times/dotcom-tool-kit
+          vcs_type: << pipeline.project.type >>
+          pub_type: dev
           requires:
             - orb-tools/lint
             - orb-tools/review
@@ -388,19 +389,21 @@ workflows:
     jobs:
       # Lint Yaml files
       - orb-tools/lint:
-          lint-dir: orb
+          source_dir: orb
           filters:
             <<: *filters_orbs_release_build
       - orb-tools/review
       # Pack orb source
       - orb-tools/pack:
-          source-dir: orb/src
+          source_dir: orb/src
+          org_slug: gh/Financial-Times
           filters:
             <<: *filters_orbs_release_build
       - orb-tools/publish:
           context: circleci-orb-publishing
-          vcs-type: << pipeline.project.type >>
-          pub-type: prod
+          orb_name: financial-times/dotcom-tool-kit
+          vcs_type: << pipeline.project.type >>
+          pub_type: production
           filters:
             <<: *filters_orbs_release_build
           requires:
