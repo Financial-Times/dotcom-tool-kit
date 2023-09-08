@@ -367,6 +367,7 @@ workflows:
       # Pack orb source
       - orb-tools/pack:
           source-dir: orb/src
+          orb_slug: gh/Financial-Times
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
           context: circleci-orb-publishing

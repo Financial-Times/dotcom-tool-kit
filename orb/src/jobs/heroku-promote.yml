@@ -2,6 +2,9 @@ parameters:
   executor:
     default: default
     type: executor
+  doppler-project:
+    default: ''
+    type: string
   system-code:
     default: $CIRCLE_PROJECT_REPONAME
     description: >-
@@ -13,6 +16,12 @@ executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - when:
+      condition: << parameters.doppler-project >>
+      steps:
+        - doppler-circleci/install
+        - doppler-circleci/load_secrets:
+            project: << parameters.doppler-project >>
   - run:
       name: Deploy to production
       command: npx dotcom-tool-kit deploy:production

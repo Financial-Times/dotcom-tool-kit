@@ -2,11 +2,20 @@ parameters:
   executor:
     default: default
     type: executor
+  doppler-project:
+    default: ''
+    type: string
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - when:
+      condition: << parameters.doppler-project >>
+      steps:
+        - doppler-circleci/install
+        - doppler-circleci/load_secrets:
+            project: << parameters.doppler-project >>
   - run:
       name: Deploy to staging
       command: npx dotcom-tool-kit deploy:staging
