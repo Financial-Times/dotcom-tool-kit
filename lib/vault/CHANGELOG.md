@@ -112,6 +112,13 @@
     * @dotcom-tool-kit/options bumped from ^3.1.1 to ^3.1.2
     * @dotcom-tool-kit/types bumped from ^3.2.0 to ^3.3.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^3.1.3 to ^3.1.4
+    * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
+
 ## [3.1.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/vault-v3.1.2...vault-v3.1.3) (2023-07-04)
 
 

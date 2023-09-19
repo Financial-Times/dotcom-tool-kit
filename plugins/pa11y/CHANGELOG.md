@@ -78,6 +78,20 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.3.0 to ^3.3.1
 
+## [0.4.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.4.4...pa11y-v0.4.5) (2023-09-19)
+
+
+### Features
+
+* migrate plugins to use Doppler instead of Vault ([e9611ef](https://github.com/Financial-Times/dotcom-tool-kit/commit/e9611efa3457fbf3ba8d0c00ed6fbb9e0ce203b1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
+
 ## [0.4.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.4.0...pa11y-v0.4.1) (2023-04-28)
 
 

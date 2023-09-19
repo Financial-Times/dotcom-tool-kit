@@ -112,6 +112,23 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.1.7 to ^3.2.0
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.1.10...create-v3.2.0) (2023-09-19)
+
+
+### Features
+
+* migrate plugins to use Doppler instead of Vault ([e9611ef](https://github.com/Financial-Times/dotcom-tool-kit/commit/e9611efa3457fbf3ba8d0c00ed6fbb9e0ce203b1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.1.1 to ^3.2.0
+    * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.2.1 to ^3.2.2
+
 ## [3.1.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.1.9...create-v3.1.10) (2023-07-04)
 
 

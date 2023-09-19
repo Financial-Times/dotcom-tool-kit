@@ -123,6 +123,21 @@
     * @dotcom-tool-kit/types bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/vault bumped from ^3.1.2 to ^3.1.3
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v3.2.1...next-router-v3.3.0) (2023-09-19)
+
+
+### Features
+
+* migrate plugins to use Doppler instead of Vault ([e9611ef](https://github.com/Financial-Times/dotcom-tool-kit/commit/e9611efa3457fbf3ba8d0c00ed6fbb9e0ce203b1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.1.1 to ^3.2.0
+    * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v3.1.1...next-router-v3.2.0) (2023-06-14)
 
 

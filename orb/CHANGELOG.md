@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.2.0...orb-v4.2.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* bump the Change API orb version ([ac5c64c](https://github.com/Financial-Times/dotcom-tool-kit/commit/ac5c64ce6387269be5131af9c16d5b88af68fc5a))
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.1.1...orb-v4.2.0) (2023-09-04)
 
 
