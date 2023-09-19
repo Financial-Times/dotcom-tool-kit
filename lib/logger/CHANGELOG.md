@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.1.1...logger-v3.2.0) (2023-09-19)
+
+
+### Features
+
+* **logger:** add exit code to Tool Kit error ([85fcbd0](https://github.com/Financial-Times/dotcom-tool-kit/commit/85fcbd03499f7ee876326e35d718ae79c06809c0))
+
+
+### Bug Fixes
+
+* **logger:** handle spawned processes that failed ([03d8d0d](https://github.com/Financial-Times/dotcom-tool-kit/commit/03d8d0d8366c0da7627ee524be0acb24a09c7d86))
+
 ## [3.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.1.0...logger-v3.1.1) (2023-06-14)
 
 

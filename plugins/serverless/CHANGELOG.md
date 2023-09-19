@@ -21,6 +21,25 @@
     * @dotcom-tool-kit/types bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/vault bumped from ^3.1.2 to ^3.1.3
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.1.3...serverless-v2.2.0) (2023-09-19)
+
+
+### Features
+
+* migrate plugins to use Doppler instead of Vault ([e9611ef](https://github.com/Financial-Times/dotcom-tool-kit/commit/e9611efa3457fbf3ba8d0c00ed6fbb9e0ce203b1))
+
+
+### Bug Fixes
+
+* **serverless:** deploy with only  env vars from secrets mgmt service ([4e7d350](https://github.com/Financial-Times/dotcom-tool-kit/commit/4e7d3506129d03990dc54ccb4846a7e870f42cae))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.0.0...serverless-v2.1.0) (2023-04-28)
 
 

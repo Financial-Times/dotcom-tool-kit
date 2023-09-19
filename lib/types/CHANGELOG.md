@@ -12,6 +12,20 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^2.1.1 to ^2.2.0
 
+## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.3.1...types-v3.4.0) (2023-09-19)
+
+
+### Features
+
+* **doppler:** add library to get secrets from doppler ([ce51a90](https://github.com/Financial-Times/dotcom-tool-kit/commit/ce51a904cdaffdf8e490e9cc09ad4a2ac14f255b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.1.1 to ^3.2.0
+
 ## [3.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.3.0...types-v3.3.1) (2023-07-04)
 
 
