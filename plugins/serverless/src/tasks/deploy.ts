@@ -35,7 +35,10 @@ export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
       }
 
       const child = spawn('serverless', args, {
-        env: dopplerEnv
+        env: {
+          ...process.env,
+          ...dopplerEnv
+        }
       })
 
       hookFork(this.logger, 'serverless', child)
