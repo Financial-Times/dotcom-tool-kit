@@ -91,11 +91,12 @@ export class DopplerEnvVars {
 
     // fall back to Vault
     if (!hasLoggedMigrationWarning) {
-      this.logger.warn(
-        `getting Doppler secrets failed so falling back to the ${styles.warningHighlight(
-          'DEPRECATED'
-        )} Vault secrets manager. please consider migrating to/fixing issues with Doppler.`
-      )
+      // TODO:20230919:IM enable this logging message once we're ready to shuffle people over to Doppler
+      // this.logger.warn(
+      //   `getting Doppler secrets failed so falling back to the ${styles.warningHighlight(
+      //     'DEPRECATED'
+      //   )} Vault secrets manager. please consider migrating to/fixing issues with Doppler.`
+      // )
       hasLoggedMigrationWarning = true
     }
     const vault = new Vault.VaultEnvVars(this.logger, {
