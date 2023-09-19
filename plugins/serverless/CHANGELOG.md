@@ -21,6 +21,13 @@
     * @dotcom-tool-kit/types bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/vault bumped from ^3.1.2 to ^3.1.3
 
+## [2.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.0...serverless-v2.2.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* **serverless:** recover $PATH env ([a368f04](https://github.com/Financial-Times/dotcom-tool-kit/commit/a368f04a73a3ad1761371d45bde08b5f375c6e29))
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.1.3...serverless-v2.2.0) (2023-09-19)
 
 
