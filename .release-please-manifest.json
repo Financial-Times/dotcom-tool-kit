@@ -38,7 +38,7 @@
   "plugins/typescript": "2.1.4",
   "plugins/backend-heroku-app": "2.1.9",
   "plugins/circleci-deploy": "3.2.6",
-  "plugins/backend-serverless-app": "2.1.9",
-  "plugins/serverless": "2.2.0",
+  "plugins/backend-serverless-app": "2.1.10",
+  "plugins/serverless": "2.2.1",
   "lib/doppler": "1.0.0"
 }

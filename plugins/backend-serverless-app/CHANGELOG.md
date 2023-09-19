@@ -70,6 +70,12 @@
     * @dotcom-tool-kit/secret-squirrel bumped from ^2.1.3 to ^2.1.4
     * @dotcom-tool-kit/serverless bumped from ^2.1.3 to ^2.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/serverless bumped from ^2.2.0 to ^2.2.1
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v2.0.0...backend-serverless-app-v2.1.0) (2023-04-28)
 
 
