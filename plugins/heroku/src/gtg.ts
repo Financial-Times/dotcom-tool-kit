@@ -15,7 +15,7 @@ async function gtg(logger: Logger, appIdName: string, environment: keyof State, 
   if (appDetails.web_url) {
     const webUrl = new URL(appDetails.web_url)
     webUrl.path = "/__gtg"
-    url = webUrl
+    url = webUrl.href
   }
   
   // save name to state file
