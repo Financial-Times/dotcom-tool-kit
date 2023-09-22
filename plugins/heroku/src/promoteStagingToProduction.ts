@@ -29,7 +29,7 @@ async function promoteStagingToProduction(
         }
       })
       .catch(extractHerokuError(`promoting app ID ${appId} to production`))
-      .then((response) => gtg(logger, response.app.name, 'production', false))
+      .then((response) => gtg(logger, response.app.name, 'production'))
   )
 
   for (const id of appIds) {

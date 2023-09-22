@@ -70,8 +70,8 @@ describe('promoteStagingToProduction', () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(goodHerokuResponse[1]))
     await promoteStagingToProduction(logger, slugId)
 
-    expect(gtg).toHaveBeenNthCalledWith(1, logger, 'app-name-1', 'production', false)
-    expect(gtg).toHaveBeenNthCalledWith(2, logger, 'app-name-2', 'production', false)
+    expect(gtg).toHaveBeenNthCalledWith(1, logger, 'app-name-1', 'production')
+    expect(gtg).toHaveBeenNthCalledWith(2, logger, 'app-name-2', 'production')
   })
 
   it('completes successfully when function completes', async () => {

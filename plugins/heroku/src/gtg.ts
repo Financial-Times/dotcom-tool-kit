@@ -1,25 +1,29 @@
 import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetGtg } from 'heroku-client'
 import type { Logger } from 'winston'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import { waitForOk } from '@dotcom-tool-kit/wait-for-ok'
 import { State, writeState } from '@dotcom-tool-kit/state'
 
-async function gtg(logger: Logger, appIdName: string, environment: keyof State, id = true): Promise<void> {
-  let appName = appIdName
-  // gtg called with id rather than name; get name from Heroku
-  if (id) {
-    const appDetails = await heroku
-      .get<HerokuApiResGetGtg>(`/apps/${appIdName}`)
-      .catch(extractHerokuError(`getting app name for app ${appIdName}`))
-    appName = appDetails.name
-  }
-  // save name to state file
+async function gtg(logger: Logger, appIdOrName: string, environment: keyof State): Promise<void> {
+  const appDetails = await heroku
+    .get<HerokuApiResGetGtg>(`/apps/${appIdOrName}`)
+    .catch(extractHerokuError(`getting details for app ${appIdOrName}`))
+  // save name to state file so we don't need to translate app ID again
   writeState(environment, {
-    appName
+    appName: appDetails.name
   })
-  const url = `https://${appName}.herokuapp.com/__gtg`
 
-  return waitForOk(logger, url)
+  if (!appDetails.web_url) {
+    const error = new ToolKitError(`app ${appIdOrName} has no web URL associated with it`)
+    error.details =
+      'please send #cp-platforms-team the name/ID of the app so we can understand why this would happen'
+    throw error
+  }
+
+  const gtgUrl = new URL(appDetails.web_url)
+  gtgUrl.pathname = '/__gtg'
+  return waitForOk(logger, gtgUrl.href)
 }
 
 export { gtg }

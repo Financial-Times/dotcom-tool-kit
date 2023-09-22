@@ -57,6 +57,7 @@ declare module 'heroku-client' {
 
   export type HerokuApiResGetGtg = {
     name: string
+    web_url: string | null
   }
 
   export type HerokuApiResPost = {

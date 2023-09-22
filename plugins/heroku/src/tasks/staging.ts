@@ -39,7 +39,7 @@ export default class HerokuStaging extends Task<typeof HerokuSchema> {
       //scale up staging
       await scaleDyno(this.logger, appName, 1)
 
-      await gtg(this.logger, appName, 'staging', false)
+      await gtg(this.logger, appName, 'staging')
     } catch (err) {
       if (err instanceof ToolKitError) {
         throw err
