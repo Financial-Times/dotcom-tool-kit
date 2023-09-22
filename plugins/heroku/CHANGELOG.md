@@ -100,6 +100,13 @@
     * @dotcom-tool-kit/types bumped from ^3.2.0 to ^3.3.0
     * @dotcom-tool-kit/vault bumped from ^3.1.1 to ^3.1.2
 
+## [3.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.0...heroku-v3.3.1) (2023-09-22)
+
+
+### Bug Fixes
+
+* **heroku:** support new Heroku apps which now include random identifier ([28d5bea](https://github.com/Financial-Times/dotcom-tool-kit/commit/28d5bead26d1bc25fa28577cee1b84ce6e7c5f0c))
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.2.3...heroku-v3.3.0) (2023-09-19)
 
 
