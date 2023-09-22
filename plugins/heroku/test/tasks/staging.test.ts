@@ -164,7 +164,7 @@ describe('staging', () => {
 
     await task.run()
 
-    expect(gtg).toBeCalledWith(expect.anything(), appName, 'staging', false)
+    expect(gtg).toBeCalledWith(expect.anything(), appName, 'staging')
   })
 
   it('should throw an error if it fails', async () => {
