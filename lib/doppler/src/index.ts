@@ -11,7 +11,12 @@ import type { DopplerOptions as ConfiguredDopplerOptions } from '@dotcom-tool-ki
 export type Environment = 'prd' | 'ci' | 'dev'
 
 type DopplerOptions = Required<ConfiguredDopplerOptions>
-type DopplerSecrets = Record<string, string>
+export type DopplerSecrets = Record<string, string>
+export type Source = 'doppler' | 'vault'
+export interface SecretsWithSource {
+  secrets: DopplerSecrets
+  source: Source
+}
 
 const dopplerEnvToVaultMap: Record<Environment, Vault.Environment> = {
   prd: 'production',
@@ -83,10 +88,17 @@ export class DopplerEnvVars {
     return undefined
   }
 
+  // HACK:20230928:IM keep this function around for backwards compatibility
+  // (and a similar interface to the old Vault library)
   async get(): Promise<DopplerSecrets> {
+    const { secrets } = await this.getWithSource()
+    return secrets
+  }
+
+  async getWithSource(): Promise<SecretsWithSource> {
     const secrets = await this.invokeCLI()
     if (secrets) {
-      return secrets
+      return { secrets, source: 'doppler' }
     }
 
     // fall back to Vault
@@ -102,6 +114,6 @@ export class DopplerEnvVars {
     const vault = new Vault.VaultEnvVars(this.logger, {
       environment: dopplerEnvToVaultMap[this.environment]
     })
-    return vault.get()
+    return { secrets: await vault.get(), source: 'vault' }
   }
 }

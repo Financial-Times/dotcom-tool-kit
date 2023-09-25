@@ -1,6 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars'
-import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
+import { DopplerEnvVars, Source as SecretsSource } from '@dotcom-tool-kit/doppler'
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
 const logger = (winston as unknown) as Logger
@@ -39,6 +39,8 @@ const reviewPatchBody = {
 class DopplerEnvVarsMock {
   dopplerPath: DopplerPath
   environment: string
+
+  static secretsSource: SecretsSource
   // Intentional unused parameter as pre-fixed with an underscore
   // eslint-disable-next-line no-unused-vars
   constructor(_settings: DopplerPath) {
@@ -47,6 +49,9 @@ class DopplerEnvVarsMock {
   }
   get() {
     return secrets
+  }
+  getWithSource() {
+    return { secrets, source: DopplerEnvVarsMock.secretsSource }
   }
 }
 jest.mock('../src/herokuClient', () => {
@@ -107,5 +112,15 @@ describe('setConfigVars', () => {
 
   it('resolves if successful', async () => {
     await expect(setAppConfigVars(logger, appName, environment, systemCode)).resolves.not.toThrow()
+  })
+
+  it('does not set config vars when Doppler is in use', async () => {
+    // HACK:20230928:IM there's probably a better way to do this but I don't
+    // enjoy playing with Jest mocks
+    DopplerEnvVarsMock.secretsSource = 'doppler'
+    await setAppConfigVars(logger, appName, environment, systemCode)
+
+    expect(heroku.patch).not.toBeCalled()
+    DopplerEnvVarsMock.secretsSource = 'vault'
   })
 })
