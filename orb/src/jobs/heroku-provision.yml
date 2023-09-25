@@ -2,9 +2,6 @@ parameters:
   executor:
     default: default
     type: executor
-  doppler-project:
-    default: ''
-    type: string
   aws-account-id:
     default: ''
     type: string
@@ -16,11 +13,8 @@ executor: << parameters.executor >>
 
 steps:
   - attach-workspace
-  - when:
-      condition: << parameters.doppler-project >>
-      steps:
-        - doppler-circleci/install
-        - doppler-circleci/load_secrets
+  - doppler-circleci/install
+  - doppler-circleci/load_secrets
   - when:
       condition:
         and:
