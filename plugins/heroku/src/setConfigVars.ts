@@ -14,8 +14,13 @@ async function setAppConfigVars(
   logger.info(`setting config vars for ${appIdName}`)
 
   const dopplerEnvVars = new DopplerEnvVars(logger, environment)
+  const { secrets: configVars, source } = await dopplerEnvVars.getWithSource()
+  // HACK:20230925:IM we only want to set secrets from Vault, if we're using
+  // Doppler we should let its own Heroku integration handle secrets syncing
+  if (source === 'doppler') {
+    return
+  }
 
-  const configVars = await dopplerEnvVars.get()
   const { region } = await heroku
     .get<HerokuApiResGetRegion>(`/apps/${appIdName}`)
     .catch(extractHerokuError(`getting region for app ${appIdName}`))
@@ -46,7 +51,12 @@ async function setStageConfigVars(
 
   const dopplerEnvVars = new DopplerEnvVars(logger, environment)
 
-  const configVars = await dopplerEnvVars.get()
+  const { secrets: configVars, source } = await dopplerEnvVars.getWithSource()
+  // HACK:20230925:IM we only want to set secrets from Vault, if we're using
+  // Doppler we should let its own Heroku integration handle secrets syncing
+  if (source === 'doppler') {
+    return
+  }
 
   if (systemCode) {
     configVars.SYSTEM_CODE = systemCode
