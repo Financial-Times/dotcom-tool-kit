@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.1.0...state-v3.1.1) (2023-10-03)
+
+
+### Bug Fixes
+
+* **n-test:** support randomised Heroku subdomains ([8a0ffe1](https://github.com/Financial-Times/dotcom-tool-kit/commit/8a0ffe112664461dbbcab18a5c73d7562bddd478))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.0.0...state-v3.1.0) (2023-04-28)
 
 

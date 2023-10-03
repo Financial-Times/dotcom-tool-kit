@@ -100,6 +100,23 @@
     * @dotcom-tool-kit/types bumped from ^3.2.0 to ^3.3.0
     * @dotcom-tool-kit/vault bumped from ^3.1.1 to ^3.1.2
 
+## [3.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.1...heroku-v3.3.2) (2023-10-03)
+
+
+### Bug Fixes
+
+* **heroku:** delegate secrets syncing to Doppler's integration ([767ef82](https://github.com/Financial-Times/dotcom-tool-kit/commit/767ef823ee867a0573ddf3f9f7bfec772319d75b))
+* **n-test:** support randomised Heroku subdomains ([8a0ffe1](https://github.com/Financial-Times/dotcom-tool-kit/commit/8a0ffe112664461dbbcab18a5c73d7562bddd478))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/npm bumped from ^3.1.4 to ^3.1.5
+    * @dotcom-tool-kit/state bumped from ^3.1.0 to ^3.1.1
+    * @dotcom-tool-kit/doppler bumped from ^1.0.0 to ^1.0.1
+
 ## [3.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.0...heroku-v3.3.1) (2023-09-22)
 
 

@@ -114,6 +114,20 @@
     * @dotcom-tool-kit/logger bumped from ^3.1.1 to ^3.2.0
     * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
 
+## [3.2.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v3.2.4...n-test-v3.2.5) (2023-10-03)
+
+
+### Bug Fixes
+
+* **n-test:** support randomised Heroku subdomains ([8a0ffe1](https://github.com/Financial-Times/dotcom-tool-kit/commit/8a0ffe112664461dbbcab18a5c73d7562bddd478))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^3.1.0 to ^3.1.1
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v3.1.0...n-test-v3.2.0) (2023-05-16)
 
 
