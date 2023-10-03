@@ -1,5 +1,3 @@
 plugins:
   - '@dotcom-tool-kit/npm'
   - '@dotcom-tool-kit/circleci-npm'
-  - '@dotcom-tool-kit/husky-npm'
-  - '@dotcom-tool-kit/secret-squirrel'

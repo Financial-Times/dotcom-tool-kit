@@ -4,8 +4,6 @@ A bootstrap plugin that provides the minimum required Tool Kit plugins for a "co
 
 - [`@dotcom-tool-kit/npm`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/npm)
 - [`@dotcom-tool-kit/circleci-npm`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-npm)
-- [`@dotcom-tool-kit/husky-npm`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/husky-npm)
-- [`@dotcom-tool-kit/secret-squirrel`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/secret-squirrel)
 
 ## Installation
 
