@@ -6,8 +6,6 @@ A bootstrap plugin that provides the minimum required Tool Kit plugins for a "ba
 - [`@dotcom-tool-kit/circleci-deploy`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-deploy)
 - [`@dotcom-tool-kit/heroku`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/heroku)
 - [`@dotcom-tool-kit/node`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/node)
-- [`@dotcom-tool-kit/husky-npm`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/husky-npm)
-- [`@dotcom-tool-kit/secret-squirrel`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/secret-squirrel)
 
 This bootstrap plugin is also preconfigured to run the `Node` task on the hook `run:local`, and binds the tasks defined by the `heroku` plugin to the hooks defined by `circleci-deploy`.
 
