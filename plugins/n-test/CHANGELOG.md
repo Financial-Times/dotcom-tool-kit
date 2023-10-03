@@ -114,6 +114,13 @@
     * @dotcom-tool-kit/logger bumped from ^3.1.1 to ^3.2.0
     * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
 
+## [3.2.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v3.2.5...n-test-v3.2.6) (2023-10-03)
+
+
+### Bug Fixes
+
+* **n-test:** strip trailing slashes in host URL passed to n-test ([12e6435](https://github.com/Financial-Times/dotcom-tool-kit/commit/12e6435df90e05a27bf7570de4a53ee81b14b04e))
+
 ## [3.2.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v3.2.4...n-test-v3.2.5) (2023-10-03)
 
 

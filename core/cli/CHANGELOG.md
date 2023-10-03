@@ -230,6 +230,12 @@
     * @dotcom-tool-kit/n-test bumped from ^3.2.4 to ^3.2.5
     * @dotcom-tool-kit/npm bumped from ^3.1.4 to ^3.1.5
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/n-test bumped from ^3.2.5 to ^3.2.6
+
 ## [3.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.2.0...dotcom-tool-kit-v3.2.1) (2023-07-04)
 
 
