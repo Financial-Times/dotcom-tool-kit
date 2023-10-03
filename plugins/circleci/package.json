@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci",
-  "version": "5.3.6",
+  "version": "5.3.7",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -9,7 +9,7 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^3.1.0",
     "@dotcom-tool-kit/logger": "^3.2.0",
-    "@dotcom-tool-kit/state": "^3.1.0",
+    "@dotcom-tool-kit/state": "^3.1.1",
     "@dotcom-tool-kit/types": "^3.4.0",
     "jest-diff": "^29.5.0",
     "lodash": "^4.17.21",

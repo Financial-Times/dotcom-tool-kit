@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.0...doppler-v1.0.1) (2023-10-03)
+
+
+### Bug Fixes
+
+* **heroku:** delegate secrets syncing to Doppler's integration ([767ef82](https://github.com/Financial-Times/dotcom-tool-kit/commit/767ef823ee867a0573ddf3f9f7bfec772319d75b))
+
 ## 1.0.0 (2023-09-19)
 
 
