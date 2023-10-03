@@ -12,7 +12,10 @@ export default class NTest extends Task<typeof SmokeTestSchema> {
 
     // if we've built a review or staging app, test against that, not the app in the config
     if (appState) {
-      this.options.host = `https://${appState.appName}.herokuapp.com`
+      // HACK:20231003:IM keep the old logic of using the app name as the
+      // subdomain to maintain backwards compatibility
+      this.options.host =
+        'url' in appState && appState.url ? appState.url : `https://${appState.appName}.herokuapp.com`
     }
 
     const smokeTest = new SmokeTest(this.options)

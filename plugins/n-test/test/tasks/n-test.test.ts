@@ -35,8 +35,9 @@ describe('n-test', () => {
     }
   })
 
-  it('should get app name from state', async () => {
-    writeState('review', { appName: 'some-test-app' })
+  it('should get app url from state', async () => {
+    const appUrl = 'https://some-test-app.herokuapp.com'
+    writeState('review', { url: appUrl })
     const task = new NTest(logger, {
       config: configPath
     })
@@ -45,6 +46,6 @@ describe('n-test', () => {
       await task.run()
     } catch {}
 
-    expect(task.options.host).toEqual('https://some-test-app.herokuapp.com')
+    expect(task.options.host).toEqual(appUrl)
   })
 })
