@@ -7,7 +7,6 @@ A bootstrap plugin that provides the minimum required Tool Kit plugins for a "ba
 - [`@dotcom-tool-kit/serverless`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/serverless)
 - [`@dotcom-tool-kit/node`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/node)
 - [`@dotcom-tool-kit/husky-npm`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/husky-npm)
-- [`@dotcom-tool-kit/secret-squirrel`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/secret-squirrel)
 
 This bootstrap plugin is also preconfigured to run the `ServerlessRun` task on the hook `run:local`, and binds the tasks defined by the `serverless` plugin to the hooks defined by `circleci-deploy`.
 
