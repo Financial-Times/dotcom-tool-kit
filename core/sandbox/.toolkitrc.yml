@@ -6,7 +6,6 @@ plugins:
   - '@dotcom-tool-kit/lint-staged-npm'
   - '@dotcom-tool-kit/jest'
   - '@dotcom-tool-kit/circleci-npm'
-  - '@dotcom-tool-kit/secret-squirrel'
   - '@dotcom-tool-kit/pa11y'
 
 hooks:
@@ -14,7 +13,6 @@ hooks:
     - Nodemon
     - NextRouter
   git:precommit:
-    - SecretSquirrel
     - LintStaged
 
 options:
