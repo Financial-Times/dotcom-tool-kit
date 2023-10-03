@@ -1,2 +1,0 @@
-hooks:
-  'git:precommit': SecretSquirrel
