@@ -44,10 +44,10 @@ describe('gtg', () => {
     expect(heroku.get).toHaveBeenCalledTimes(1)
   })
 
-  it('writes app name to state file', async () => {
+  it('writes app url to state file', async () => {
     await gtg(logger, appName, 'staging')
 
-    expect(writeState).toBeCalledWith('staging', { appName: 'test-app-name' })
+    expect(writeState).toBeCalledWith('staging', expect.objectContaining({ url: makeUrl(appName) }))
   })
 
   it('calls wait for ok with the correct url', async () => {

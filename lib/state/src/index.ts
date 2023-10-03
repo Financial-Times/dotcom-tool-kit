@@ -7,17 +7,19 @@ const stateDir = target ? path.join(target, '.toolkitstate') : '.toolkitstate'
 interface CIState {
   repo: string
   branch: string
-  version: string,
+  version: string
   tag: string
 }
 
 export interface ReviewState {
   appId: string
   appName: string
+  url: string
 }
 
 interface StagingState {
   appName: string
+  url: string
   slugId: string
   appIds: string[]
 }
@@ -55,10 +57,7 @@ export function writeState<T extends keyof State>(stage: T, value: Partial<State
   let readStateContent
   if (fs.existsSync(stateDir)) {
     if (fs.existsSync(filePath)) {
-      readStateContent = Object.assign(
-        JSON.parse(fs.readFileSync(filePath, { encoding: 'utf-8' })),
-        value
-      )
+      readStateContent = Object.assign(JSON.parse(fs.readFileSync(filePath, { encoding: 'utf-8' })), value)
     }
   } else {
     fs.mkdirSync(stateDir)

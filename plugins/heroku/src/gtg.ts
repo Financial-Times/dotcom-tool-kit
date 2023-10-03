@@ -11,7 +11,8 @@ async function gtg(logger: Logger, appIdOrName: string, environment: keyof State
     .catch(extractHerokuError(`getting details for app ${appIdOrName}`))
   // save name to state file so we don't need to translate app ID again
   writeState(environment, {
-    appName: appDetails.name
+    appName: appDetails.name,
+    url: appDetails.web_url ?? undefined
   })
 
   if (!appDetails.web_url) {
