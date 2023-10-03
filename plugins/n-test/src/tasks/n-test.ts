@@ -16,6 +16,11 @@ export default class NTest extends Task<typeof SmokeTestSchema> {
       // subdomain to maintain backwards compatibility
       this.options.host =
         'url' in appState && appState.url ? appState.url : `https://${appState.appName}.herokuapp.com`
+      // HACK:20231003:IM n-test naively appends paths to the host URL so
+      // expects there to be no trailing slash
+      if (this.options.host.endsWith('/')) {
+        this.options.host = this.options.host.slice(0, -1)
+      }
     }
 
     const smokeTest = new SmokeTest(this.options)
