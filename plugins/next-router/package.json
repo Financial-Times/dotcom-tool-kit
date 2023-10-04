@@ -15,7 +15,7 @@
     "@dotcom-tool-kit/logger": "^3.2.0",
     "@dotcom-tool-kit/types": "^3.4.0",
     "@dotcom-tool-kit/doppler": "^1.0.1",
-    "ft-next-router": "^1.0.0",
+    "ft-next-router": "^3.0.0",
     "tslib": "^2.3.1"
   },
   "repository": {
