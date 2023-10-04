@@ -27,7 +27,7 @@ plugins:
 
 | Task | Description | Preconfigured hook |
 |-|-|-|
-| `Pa11y` | runs `pa11y-ci` to execute Pa11y tests | `test:review` |
+| `Pa11y` | runs `pa11y-ci` to execute Pa11y tests | `test:local` |
 
 ## To note
 

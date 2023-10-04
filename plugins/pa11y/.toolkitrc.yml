@@ -2,4 +2,4 @@ plugins:
   - '@dotcom-tool-kit/doppler'
 
 hooks:
-  'test:review': Pa11y
+  'test:local': Pa11y

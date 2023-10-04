@@ -10,7 +10,13 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
   static description = ''
 
   async run(): Promise<void> {
+    const localState = readState('local')
     const reviewState = readState('review')
+
+    if (localState) {
+      process.env.TEST_URL = `https://local.ft.com:${localState.port}`
+    }
+
     if (reviewState) {
       process.env.TEST_URL = `https://${reviewState.appName}.herokuapp.com`
     }
