@@ -31,7 +31,6 @@
   "plugins/npm": "3.1.5",
   "plugins/pa11y": "0.4.5",
   "plugins/prettier": "3.1.4",
-  "plugins/secret-squirrel": "2.1.4",
   "plugins/upload-assets-to-s3": "3.1.4",
   "plugins/webpack": "3.1.5",
   "plugins/cypress": "3.2.1",

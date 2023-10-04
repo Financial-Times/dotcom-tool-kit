@@ -45,7 +45,6 @@
     "plugins/npm": {},
     "plugins/pa11y": {},
     "plugins/prettier": {},
-    "plugins/secret-squirrel": {},
     "plugins/serverless": {},
     "plugins/typescript": {},
     "plugins/upload-assets-to-s3": {},
