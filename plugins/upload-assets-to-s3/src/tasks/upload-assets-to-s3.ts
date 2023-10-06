@@ -76,16 +76,24 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
       throw new ToolKitError(`no files found at the provided directory: ${options.directory}`)
     }
 
+    // HACK:20231006:IM Doppler doesn't support secrets with lowercase
+    // characters so let's check if the provided AWS environment variable name
+    // is available in all caps as will be the case when running our migration
+    // script.
+    const checkUppercaseName = (envName: string): string | undefined => {
+      return process.env[envName] ?? process.env[envName.toUpperCase()]
+    }
     const s3 = new S3Client({
       region: options.region,
-      // fallback to default value for accessKeyId if neither accessKeyIdEnvVar or accessKeyId have been provided as options
+      // will fallback to default value for accessKeyId if neither
+      // accessKeyIdEnvVar nor accessKeyId have been provided as options
       credentials: {
         accessKeyId:
-          /* eslint-disable-next-line */
-          process.env[options.accessKeyIdEnvVar ?? options.accessKeyId]!,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          checkUppercaseName(options.accessKeyIdEnvVar ?? options.accessKeyId)!,
         secretAccessKey:
-          /* eslint-disable-next-line */
-          process.env[options.secretAccessKeyEnvVar ?? options.secretAccessKey]!
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          checkUppercaseName(options.secretAccessKeyEnvVar ?? options.secretAccessKey)!
       }
     })
 

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from '@jest/globals'
+import { describe, it, expect, beforeEach } from '@jest/globals'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import { UploadAssetsToS3Options } from '@dotcom-tool-kit/types/lib/schema/upload-assets-to-s3'
 import * as path from 'path'
@@ -25,7 +25,7 @@ const defaults: UploadAssetsToS3Options = {
 }
 
 describe('upload-assets-to-s3', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     mockedS3Client.prototype.send.mockReturnValue({
       promise: jest.fn().mockResolvedValue('mock upload complete')
     } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -104,5 +104,23 @@ describe('upload-assets-to-s3', () => {
     } catch (e) {
       expect(e.details).toEqual(mockError)
     }
+  })
+
+  // HACK:20231006:IM make sure hack to support Doppler migration works
+  it('should fallback to uppercase environment variable', async () => {
+    const task = new UploadAssetsToS3(logger, {
+      ...defaults,
+      directory: testDirectory
+    })
+    // must use delete to ensure an environment variable is undefined, setting
+    // 'undefined' will just stringify the word
+    delete process.env.aws_access_hashed_assets
+    process.env.AWS_ACCESS_HASHED_ASSETS = '1234'
+
+    await task.run()
+
+    expect(mockedS3Client).toHaveBeenCalledWith(
+      expect.objectContaining({ credentials: expect.objectContaining({ accessKeyId: '1234' }) })
+    )
   })
 })
