@@ -152,7 +152,7 @@ export default async function oidcPrompt(): Promise<boolean> {
   }
 
   // access keys are pulled from Tool Kit's doppler project
-  const dopplerEnvVars = new DopplerEnvVars(winstonLogger, 'prd', {
+  const dopplerEnvVars = new DopplerEnvVars(winstonLogger, 'prod', {
     project: 'dotcom-tool-kit'
   })
   const dopplerSecretsSchema = z.object({

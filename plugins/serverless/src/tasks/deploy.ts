@@ -22,7 +22,7 @@ export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
 
     let dopplerEnv = {}
     if (useVault) {
-      const doppler = new DopplerEnvVars(this.logger, 'prd')
+      const doppler = new DopplerEnvVars(this.logger, 'prod')
 
       dopplerEnv = await doppler.get()
     }

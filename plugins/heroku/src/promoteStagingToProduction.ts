@@ -33,7 +33,7 @@ async function promoteStagingToProduction(
   )
 
   for (const id of appIds) {
-    await setAppConfigVars(logger, id, 'prd', systemCode)
+    await setAppConfigVars(logger, id, 'prod', systemCode)
   }
 
   return Promise.all(latestRelease)

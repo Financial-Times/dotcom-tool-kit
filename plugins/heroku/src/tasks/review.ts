@@ -17,7 +17,7 @@ export default class HerokuReview extends Task<typeof HerokuSchema> {
       const pipeline = await herokuClient
         .get<HerokuApiResPipeline>(`/pipelines/${this.options.pipeline}`)
         .catch(extractHerokuError(`getting pipeline ${this.options.pipeline}`))
-      await setStageConfigVars(this.logger, 'review', 'prd', pipeline.id)
+      await setStageConfigVars(this.logger, 'review', 'prod', pipeline.id)
 
       let reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)
 

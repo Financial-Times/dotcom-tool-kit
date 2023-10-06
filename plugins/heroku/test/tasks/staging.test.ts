@@ -126,7 +126,7 @@ describe('staging', () => {
 
     await task.run()
 
-    expect(setAppConfigVars).toBeCalledWith(expect.anything(), 'test-appName', 'prd', systemCode)
+    expect(setAppConfigVars).toBeCalledWith(expect.anything(), 'test-appName', 'prod', systemCode)
   })
 
   it('should call createBuild with app name', async () => {
