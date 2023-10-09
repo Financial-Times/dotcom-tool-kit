@@ -132,6 +132,22 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.2.4 to ^3.2.5
 
+## [3.2.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.2.3...create-v3.2.4) (2023-10-09)
+
+
+### Bug Fixes
+
+* **doppler:** match new name for production configs in Doppler ([bc5485f](https://github.com/Financial-Times/dotcom-tool-kit/commit/bc5485f56f3d8fcd608885f8fe9ba56a22265783))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.1 to ^1.0.2
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.2.5 to ^3.2.6
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.1.10...create-v3.2.0) (2023-09-19)
 
 

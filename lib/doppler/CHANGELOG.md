@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.1...doppler-v1.0.2) (2023-10-09)
+
+
+### Bug Fixes
+
+* **doppler:** match new name for production configs in Doppler ([bc5485f](https://github.com/Financial-Times/dotcom-tool-kit/commit/bc5485f56f3d8fcd608885f8fe9ba56a22265783))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/vault bumped from ^3.1.4 to ^3.1.5
+
 ## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.0...doppler-v1.0.1) (2023-10-03)
 
 

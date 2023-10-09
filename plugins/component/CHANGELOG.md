@@ -122,6 +122,17 @@
     * @dotcom-tool-kit/circleci-npm bumped from ^5.2.6 to ^5.2.7
     * @dotcom-tool-kit/npm bumped from ^3.1.4 to ^3.1.5
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v3.1.10...component-v4.0.0) (2023-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **component:** drops @dotcom-tool-kit/husky-npm plugin dependency. To continue using it you will need to run `npm install @dotcom-tool-kit/husky-npm -D`.
+
+### Features
+
+* **component:** drop secret-squirrel plugin ([5a7a070](https://github.com/Financial-Times/dotcom-tool-kit/commit/5a7a070a1afa51230c2d52a0d8f19a3325e40884))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v3.0.0...component-v3.1.0) (2023-04-28)
 
 

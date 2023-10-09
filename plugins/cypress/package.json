@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/cypress",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -21,7 +21,7 @@
     ".toolkitrc.yml"
   ],
   "dependencies": {
-    "@dotcom-tool-kit/vault": "^3.1.4"
+    "@dotcom-tool-kit/vault": "^3.1.5"
   },
   "peerDependencies": {
     "dotcom-tool-kit": "3.x"
