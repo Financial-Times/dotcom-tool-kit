@@ -12,6 +12,11 @@ const whitespaceRegex = /\s|\n/g
 const startRegex = new RegExp(`^(?:(?:${ansiRegexText})|\s|\n)+`)
 const endRegex = new RegExp(`(?:(?:${ansiRegexText})|\s|\n)+$`)
 
+// RIS escape code to effectively do a clear (^L) on the terminal. TypeScript's
+// watch mode does this and it's annoying to have the logs shunted around when
+// tracking multiple tasks.
+const ansiReset = /\x1Bc/g
+
 // Trim whitespace whilst preserving ANSI escape codes
 function ansiTrim(message: string): string {
   let start = 0
@@ -33,6 +38,19 @@ function ansiTrim(message: string): string {
   )
 }
 
+// Remove ANSI escape codes that mess with the terminal state. This selectively
+// only deletes escape codes we've seen causing issues so that other
+// functionality (particularly colouring) passes through fine.
+function stripAnsiReset(message: string): string {
+  return message.replace(ansiReset, '')
+}
+
+// Collection of functions to make the hooked logs more readable, especially
+// when multiple tasks are running in a Tool Kit hook
+function cleanupLogs(message: string): string {
+  return stripAnsiReset(ansiTrim(message))
+}
+
 // This function hooks winston into console.log statements. Most useful for when
 // calling functions from external libraries that you expect will do their own
 // logging.
@@ -52,7 +70,7 @@ export function hookConsole(logger: Logger, processName: string): () => void {
         if (typeof encoding === 'function') {
           writeCallback = encoding
         }
-        logger.log(level, ansiTrim(message), { process: processName, writeCallback })
+        logger.log(level, cleanupLogs(message), { process: processName, writeCallback })
         return true
       }
     }
