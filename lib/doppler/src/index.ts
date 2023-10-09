@@ -8,7 +8,7 @@ import { getOptions } from '@dotcom-tool-kit/options'
 import * as Vault from '@dotcom-tool-kit/vault'
 import type { DopplerOptions as ConfiguredDopplerOptions } from '@dotcom-tool-kit/types/lib/schema/doppler'
 
-export type Environment = 'prd' | 'ci' | 'dev'
+export type Environment = 'prod' | 'ci' | 'dev'
 
 type DopplerOptions = Required<ConfiguredDopplerOptions>
 export type DopplerSecrets = Record<string, string>
@@ -19,7 +19,7 @@ export interface SecretsWithSource {
 }
 
 const dopplerEnvToVaultMap: Record<Environment, Vault.Environment> = {
-  prd: 'production',
+  prod: 'production',
   ci: 'continuous-integration',
   dev: 'development'
 }

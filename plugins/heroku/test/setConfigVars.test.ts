@@ -8,7 +8,7 @@ const logger = (winston as unknown) as Logger
 type DopplerPath = {
   project: string
 }
-const environment = 'prd'
+const environment = 'prod'
 const appName = 'test-staging-app-name'
 const dopplerPath: DopplerPath = {
   project: 'doppler-app'
@@ -97,7 +97,7 @@ describe('setConfigVars', () => {
   })
 
   it('sends an update to the app with the correct path and body for review-app', async () => {
-    await setStageConfigVars(logger, 'review', 'prd', pipelineName)
+    await setStageConfigVars(logger, 'review', 'prod', pipelineName)
 
     expect(heroku.patch).toBeCalledWith(`/pipelines/${pipeline.id}/stage/review/config-vars`, reviewPatchBody)
   })

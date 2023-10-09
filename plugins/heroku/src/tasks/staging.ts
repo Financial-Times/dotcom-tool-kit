@@ -22,7 +22,7 @@ export default class HerokuStaging extends Task<typeof HerokuSchema> {
       const appName = await getHerokuStagingApp()
 
       // setting config vars on staging from the doppler production directory
-      await setAppConfigVars(this.logger, appName, 'prd', this.options.systemCode)
+      await setAppConfigVars(this.logger, appName, 'prod', this.options.systemCode)
 
       // create build from latest commit, even on no change
       const buildDetails = await createBuild(this.logger, appName)
