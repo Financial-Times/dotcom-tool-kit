@@ -119,6 +119,13 @@
     * @dotcom-tool-kit/options bumped from ^3.1.3 to ^3.1.4
     * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
 
+## [3.1.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/vault-v3.1.4...vault-v3.1.5) (2023-10-09)
+
+
+### Bug Fixes
+
+* remove n-logger from the vault library ([07a62b3](https://github.com/Financial-Times/dotcom-tool-kit/commit/07a62b35df61f8956d2d1fcb865c443ffdab40d6))
+
 ## [3.1.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/vault-v3.1.2...vault-v3.1.3) (2023-07-04)
 
 

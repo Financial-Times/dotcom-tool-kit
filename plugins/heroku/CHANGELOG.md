@@ -100,6 +100,20 @@
     * @dotcom-tool-kit/types bumped from ^3.2.0 to ^3.3.0
     * @dotcom-tool-kit/vault bumped from ^3.1.1 to ^3.1.2
 
+## [3.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.2...heroku-v3.3.3) (2023-10-09)
+
+
+### Bug Fixes
+
+* **doppler:** match new name for production configs in Doppler ([bc5485f](https://github.com/Financial-Times/dotcom-tool-kit/commit/bc5485f56f3d8fcd608885f8fe9ba56a22265783))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.1 to ^1.0.2
+
 ## [3.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.1...heroku-v3.3.2) (2023-10-03)
 
 

@@ -130,6 +130,20 @@
     * @dotcom-tool-kit/state bumped from ^3.1.0 to ^3.1.1
     * @dotcom-tool-kit/doppler bumped from ^1.0.0 to ^1.0.1
 
+## [3.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v3.3.1...next-router-v3.3.2) (2023-10-09)
+
+
+### Bug Fixes
+
+* remove n-logger from the next-router plugin ([c9b14f6](https://github.com/Financial-Times/dotcom-tool-kit/commit/c9b14f6e779a1cb0942d2e72497224137ef5caa4))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.1 to ^1.0.2
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v3.2.1...next-router-v3.3.0) (2023-09-19)
 
 

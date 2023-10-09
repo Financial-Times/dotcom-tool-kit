@@ -85,6 +85,25 @@
     * @dotcom-tool-kit/npm bumped from ^3.1.4 to ^3.1.5
     * @dotcom-tool-kit/serverless bumped from ^2.2.1 to ^2.2.2
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v2.1.11...backend-serverless-app-v3.0.0) (2023-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **backend-serverless-app:** drops @dotcom-tool-kit/husky-npm plugin dependency. To continue using it you will need to run `npm install @dotcom-tool-kit/husky-npm -D`.
+
+### Features
+
+* **backend-serverless-app:** drop secret-squirrel plugin ([2fc860a](https://github.com/Financial-Times/dotcom-tool-kit/commit/2fc860a7862028cfe7451373fd4c74b30e0d5ca6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/node bumped from ^3.3.1 to ^3.3.2
+    * @dotcom-tool-kit/serverless bumped from ^2.2.2 to ^2.2.3
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v2.0.0...backend-serverless-app-v2.1.0) (2023-04-28)
 
 

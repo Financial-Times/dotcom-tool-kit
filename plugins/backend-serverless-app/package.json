@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/backend-serverless-app",
-  "version": "2.1.11",
+  "version": "3.0.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -8,9 +8,9 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/circleci-deploy": "^3.2.7",
-    "@dotcom-tool-kit/node": "^3.3.1",
+    "@dotcom-tool-kit/node": "^3.3.2",
     "@dotcom-tool-kit/npm": "^3.1.5",
-    "@dotcom-tool-kit/serverless": "^2.2.2"
+    "@dotcom-tool-kit/serverless": "^2.2.3"
   },
   "repository": {
     "type": "git",

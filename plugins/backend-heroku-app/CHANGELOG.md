@@ -132,6 +132,25 @@
     * @dotcom-tool-kit/node bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/npm bumped from ^3.1.4 to ^3.1.5
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-heroku-app-v2.1.11...backend-heroku-app-v3.0.0) (2023-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **backend-heroku-app:** drops @dotcom-tool-kit/husky-npm plugin dependency. To continue using it you will need to run `npm install @dotcom-tool-kit/husky-npm -D`.
+
+### Features
+
+* **backend-heroku-app:** drop secret-squirrel plugin ([87256f6](https://github.com/Financial-Times/dotcom-tool-kit/commit/87256f6878d5f97a509d4260a6bb29280203f1da))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/heroku bumped from ^3.3.2 to ^3.3.3
+    * @dotcom-tool-kit/node bumped from ^3.3.1 to ^3.3.2
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-heroku-app-v2.0.0...backend-heroku-app-v2.1.0) (2023-04-28)
 
 

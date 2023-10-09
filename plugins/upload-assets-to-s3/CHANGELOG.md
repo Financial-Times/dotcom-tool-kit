@@ -100,6 +100,13 @@
     * @dotcom-tool-kit/logger bumped from ^3.1.1 to ^3.2.0
     * @dotcom-tool-kit/types bumped from ^3.3.1 to ^3.4.0
 
+## [3.1.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v3.1.4...upload-assets-to-s3-v3.1.5) (2023-10-09)
+
+
+### Bug Fixes
+
+* **upload-assets-to-s3:** try upper-cased secret names for AWS credentials ([9b92ee8](https://github.com/Financial-Times/dotcom-tool-kit/commit/9b92ee80ac6f7506e989e7bb0e836840701544f7))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v3.0.0...upload-assets-to-s3-v3.1.0) (2023-04-28)
 
 
