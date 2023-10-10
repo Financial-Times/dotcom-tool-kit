@@ -2,7 +2,7 @@ import { styles as s, styles } from '@dotcom-tool-kit/logger'
 import type { Hook, Plugin } from '@dotcom-tool-kit/types'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
-import type { EntryPoint, PluginOptions } from './config'
+import type { HookOptions, EntryPoint, PluginOptions } from './config'
 import type { Conflict } from '@dotcom-tool-kit/types/lib/conflict'
 import type { CommandTask } from './command'
 
@@ -64,6 +64,23 @@ ${conflicts.map(formatOptionConflict).join('\n')}
 
 You must resolve this conflict by providing options in your app's Tool Kit configuration for these plugins, or installing a use-case plugin that provides these options. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/readme.md#options'
+)} for more details.
+
+`
+
+const formatHookOptionConflict = (conflict: Conflict<HookOptions>): string => `${s.plugin(
+  conflict.conflicting[0].forHook
+)}, configured by:
+${conflict.conflicting.map((option) => `- ${s.plugin(option.plugin.id)}`)}`
+
+export const formatHookOptionConflicts = (conflicts: Conflict<HookOptions>[]): string => `${s.heading(
+  'These plugins have conflicting options for hooks'
+)}:
+
+${conflicts.map(formatHookOptionConflict).join('\n')}
+
+You must resolve this conflict by providing options in your app's Tool Kit configuration for these hooks, or installing a use-case plugin that provides these options. See ${s.URL(
+  'https://github.com/financial-times/dotcom-tool-kit/tree/main/readme.md#hook-options'
 )} for more details.
 
 `
