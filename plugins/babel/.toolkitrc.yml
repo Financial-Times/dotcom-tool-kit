@@ -2,7 +2,7 @@ tasks:
   - BabelDevelopment
   - BabelProduction
 
-hooks:
+commands:
   'build:local': BabelDevelopment
   'build:ci': BabelProduction
   'build:remote': BabelProduction
