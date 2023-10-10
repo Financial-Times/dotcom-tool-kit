@@ -28,9 +28,9 @@ describe('cli', () => {
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:ci.conflicting')
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:remote.conflicting')
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:local.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:ci.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:remote.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:local.conflicting')
   })
 
   it('should indicate when there are conflicts between plugins that are cousins in the tree', async () => {
@@ -49,9 +49,9 @@ describe('cli', () => {
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
-    expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
-    expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
-    expect(config).toHaveProperty('hookTasks.build:local.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:ci.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:remote.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:local.conflicting')
   })
 
   it('should not have conflicts between multiple of the same plugin', async () => {
@@ -99,8 +99,11 @@ describe('cli', () => {
     try {
       const validConfig = validateConfig(validPluginConfig, logger)
 
-      expect(validConfig).not.toHaveProperty('hookTasks.build:local.conflicting')
-      expect(validConfig.hookTasks['build:local'].tasks).toEqual(['WebpackDevelopment', 'BabelDevelopment'])
+      expect(validConfig).not.toHaveProperty('commandTasks.build:local.conflicting')
+      expect(validConfig.commandTasks['build:local'].tasks).toEqual([
+        'WebpackDevelopment',
+        'BabelDevelopment'
+      ])
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details

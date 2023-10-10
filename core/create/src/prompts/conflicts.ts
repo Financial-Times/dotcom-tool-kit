@@ -31,7 +31,7 @@ export default async ({ error, logger, toolKitConfig, configPath }: ConflictsPar
 
   for (const conflict of error.conflicts) {
     const remainingTasks = conflict.conflictingTasks
-    orderedHooks[conflict.hook] = []
+    orderedHooks[conflict.command] = []
 
     const totalTasks = remainingTasks.length
     for (let i = 1; i <= totalTasks; i++) {
@@ -39,7 +39,7 @@ export default async ({ error, logger, toolKitConfig, configPath }: ConflictsPar
         name: 'order',
         type: 'select',
         message: `Hook ${styles.hook(
-          conflict.hook
+          conflict.command
         )} has multiple tasks configured for it, so an order must be specified. \
 Please select the ${ordinal(i)} package to run.`,
         choices: [
@@ -57,7 +57,7 @@ Please select the ${ordinal(i)} package to run.`,
         break
       } else {
         const { task } = remainingTasks.splice(nextIdx, 1)[0]
-        orderedHooks[conflict.hook].push(task)
+        orderedHooks[conflict.command].push(task)
       }
     }
   }
