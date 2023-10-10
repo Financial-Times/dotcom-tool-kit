@@ -6,4 +6,4 @@ plugins:
 
 options:
 
-hooks:
+commands:

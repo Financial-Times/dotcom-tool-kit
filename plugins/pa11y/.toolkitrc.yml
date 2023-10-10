@@ -4,5 +4,5 @@ plugins:
 tasks:
   - Pa11y
 
-hooks:
+commands:
   'test:local': Pa11y
