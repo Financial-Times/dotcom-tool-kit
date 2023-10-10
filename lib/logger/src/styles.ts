@@ -15,6 +15,7 @@ export const styles = {
   code: colours.grey.italic,
   dim: colours.grey,
   title: colours.bold.underline,
+  taskHeader: colours.bgWhite.black,
   errorHighlight: colours.red,
   error: (string: string): string => `${styles.errorHighlight.bold('‼︎')} ${styles.title(string)}`,
   warningHighlight: colours.yellow,

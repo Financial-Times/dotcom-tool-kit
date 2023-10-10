@@ -77,6 +77,7 @@ ${availableHooks}`
        **/
       const task = new (Task as any)(logger, options)
 
+      logger.info(styles.taskHeader(`running ${styles.task(id)} task`))
       try {
         await task.run(files)
       } catch (error) {
