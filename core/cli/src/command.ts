@@ -1,6 +1,6 @@
 import type { Plugin } from '@dotcom-tool-kit/types'
 
-export interface HookTask {
+export interface CommandTask {
   id: string
   plugin: Plugin
   tasks: string[]

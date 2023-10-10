@@ -4,7 +4,7 @@ import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
-import type { HookTask } from './hook'
+import type { CommandTask } from './command'
 
 const formatTaskConflict = ([key, conflict]: [string, Conflict<string>]): string =>
   `- ${s.task(key ?? 'unknown task')} ${s.dim('from plugins')} ${conflict.conflicting
@@ -30,22 +30,22 @@ ${conflicts.map(formatHookConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatHookTaskConflict = (conflict: Conflict<HookTask>): string => `${s.hook(
+const formatCommandTaskConflict = (conflict: Conflict<CommandTask>): string => `${s.hook(
   conflict.conflicting[0].id
 )}:
 ${conflict.conflicting
   .map(
-    (hook) =>
-      `- ${hook.tasks.map(s.task).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(hook.plugin.id)}`
+    (command) =>
+      `- ${command.tasks.map(s.task).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(command.plugin.id)}`
   )
   .join('\n')}
 `
 
-export const formatHookTaskConflicts = (conflicts: Conflict<HookTask>[]): string => `${s.heading(
-  'These hooks are configured to run different tasks by multiple plugins'
+export const formatCommandTaskConflicts = (conflicts: Conflict<CommandTask>[]): string => `${s.heading(
+  'These commands are configured to run different tasks by multiple plugins'
 )}:
-${conflicts.map(formatHookTaskConflict).join('\n')}
-You must resolve this conflict by explicitly configuring which task to run for these hooks. See ${s.URL(
+${conflicts.map(formatCommandTaskConflict).join('\n')}
+You must resolve this conflict by explicitly configuring which task to run for these commands. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-hook-conflicts.md'
 )} for more details.
 
@@ -72,10 +72,10 @@ const formatPlugin = (plugin: Plugin): string =>
   plugin.id === 'app root' ? s.app('your app') : `plugin ${s.plugin(plugin.id)}`
 
 // TODO text similarity "did you mean...?"
-export const formatUndefinedHookTasks = (
-  undefinedHooks: HookTask[],
+export const formatUndefinedCommandTasks = (
+  undefinedHooks: CommandTask[],
   definedHooks: string[]
-): string => `Hooks must be defined by a plugin before you can configure a task to run for them. In your Tool Kit configuration you've configured hooks that aren't defined:
+): string => `TODO Hooks must be defined by a plugin before you can configure a task to run for them. In your Tool Kit configuration you've configured hooks that aren't defined:
 
 ${undefinedHooks.map((hook) => `- ${s.hook(hook.id)}`).join('\n')}
 
@@ -126,7 +126,7 @@ ${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join
 Run ${s.task('dotcom-tool-kit --install')} to install these hooks.
 `
 
-type Missing = { hook: HookTask; tasks: string[] }
+type Missing = { hook: CommandTask; tasks: string[] }
 
 const formatMissingTask = (missing: Missing): string =>
   `- ${missing.tasks.map(s.task).join(', ')} ${s.dim(
