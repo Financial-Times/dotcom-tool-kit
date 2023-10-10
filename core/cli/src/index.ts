@@ -91,18 +91,18 @@ ${availableHooks}`
     process.execArgv.push('--no-experimental-fetch')
   }
 
-  const taskNames = hooks.flatMap((hook) => config.hookTasks[hook]?.tasks ?? [])
+  const taskNames = hooks.flatMap((hook) => config.commandTasks[hook]?.tasks ?? [])
   const tasks = unwrapValidated(await loadTasks(logger, taskNames, config), 'tasks are invalid')
 
   for (const hook of hooks) {
     const errors: ErrorSummary[] = []
 
-    if (!config.hookTasks[hook]) {
+    if (!config.commandTasks[hook]) {
       logger.warn(`no task configured for ${hook}: skipping assignment...`)
       continue
     }
 
-    for (const id of config.hookTasks[hook].tasks) {
+    for (const id of config.commandTasks[hook].tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(id)} task`))
         await tasks[id].run(files)
