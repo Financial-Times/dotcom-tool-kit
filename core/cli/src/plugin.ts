@@ -9,7 +9,7 @@ import {
 } from '@dotcom-tool-kit/types'
 import resolvePkg from 'resolve-pkg'
 import type { Logger } from 'winston'
-import { EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig } from './config'
+import { HookOptions, EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from '@dotcom-tool-kit/types/lib/conflict'
 import type { CommandTask } from './command'
 import { loadToolKitRC } from './rc-file'
@@ -271,6 +271,45 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
       } else {
         // this options key might not have been set yet, in which case use the new one
         config.options[pluginId] = pluginOptions
+      }
+    }
+
+    // load plugin hook options. do this after loading child plugins, so
+    // parent options get assigned after child options and can override them
+    for (const [id, configHookOptions] of Object.entries(plugin.rcFile.hooks)) {
+      // users can specify root options with the dotcom-tool-kit key to mirror
+      // the name of the root npm package
+      const existingOptions = config.hookOptions[id]
+
+      const hookOptions: HookOptions = {
+        options: configHookOptions,
+        plugin,
+        forHook: id
+      }
+
+      if (existingOptions) {
+        const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
+
+        // plugins can only override options from their descendents, otherwise it's a conflict
+        // return a conflict either listing these options and the sibling's,
+        // or merging in previously-generated options
+        if (!existingFromDescendent) {
+          const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
+
+          const conflict: Conflict<HookOptions> = {
+            plugin,
+            conflicting: conflicting.concat(hookOptions)
+          }
+
+          config.hookOptions[id] = conflict
+        } else {
+          // if we're here, any existing options are from a child plugin,
+          // so merge in overrides from the parent
+          config.hookOptions[id] = { ...existingOptions, ...hookOptions }
+        }
+      } else {
+        // this options key might not have been set yet, in which case use the new one
+        config.hookOptions[id] = hookOptions
       }
     }
   }
