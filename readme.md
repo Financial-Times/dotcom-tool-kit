@@ -10,6 +10,8 @@ Tool Kit has been created to enable the FT.com development workflow and only han
 
 Your application does not need to use Tool Kit for all of its tooling and tooling not supported by Tool Kit can be configured directly in your application.
 
+Tool Kit follows a set of [principles](./docs/tool-kit-principles.md) that guide its development.
+
 ## Installing and using Tool Kit
 
 For general questions about using Tool Kit please see the [Tool Kit FAQs](./docs/faq.md).
