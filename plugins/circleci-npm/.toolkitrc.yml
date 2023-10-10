@@ -5,5 +5,5 @@ plugins:
 installs:
   - 'publish:tag'
 
-hooks:
+commands:
   'publish:tag': NpmPublish

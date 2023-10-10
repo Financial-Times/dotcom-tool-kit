@@ -4,6 +4,6 @@ plugins:
 tasks:
   - NextRouter
 
-hooks:
+commands:
   run:local:
     - NextRouter

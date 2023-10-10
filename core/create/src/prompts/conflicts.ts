@@ -62,7 +62,7 @@ Please select the ${ordinal(i)} package to run.`,
     }
   }
 
-  toolKitConfig.hooks = orderedHooks
+  toolKitConfig.commands = orderedHooks
   const configFile = YAML.stringify(toolKitConfig)
 
   const { confirm } = await prompt({

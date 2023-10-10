@@ -15,4 +15,4 @@ options:
     team: platforms
     app: tool-kit-test
 
-hooks:
+commands:

@@ -3,7 +3,7 @@ tasks:
   - WebpackProduction
   - WebpackWatch
 
-hooks:
+commands:
   'build:local': WebpackDevelopment
   'build:ci': WebpackProduction
   'build:remote': WebpackProduction

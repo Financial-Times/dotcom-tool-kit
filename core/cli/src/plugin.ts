@@ -215,7 +215,7 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
 
     // load plugin hook tasks. do this after loading child plugins, so
     // parent hooks get assigned after child hooks and can override them
-    for (const [id, configHookTask] of Object.entries(plugin.rcFile.hooks)) {
+    for (const [id, configHookTask] of Object.entries(plugin.rcFile.commands)) {
       // handle conflicts between hooks from different plugins
       const existingHookTask = config.hookTasks[id]
       const newHookTask: HookTask = {
