@@ -5,7 +5,7 @@ import * as path from 'path'
 import type { Logger } from 'winston'
 
 export const explorer = cosmiconfig('toolkit', { ignoreEmptySearchPlaces: false })
-const emptyConfig = { plugins: [], installs: {}, tasks: {}, commands: {}, options: {} }
+const emptyConfig = { plugins: [], installs: {}, tasks: {}, commands: {}, options: {}, hooks: {} }
 let rootConfig: string | undefined
 
 type RawRCFile = {
@@ -38,6 +38,7 @@ export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boo
     installs: config.installs ?? {},
     tasks: config.tasks ?? {},
     commands: config.commands ?? {},
-    options: config.options ?? {}
+    options: config.options ?? {},
+    hooks: config.hooks ?? {}
   }
 }
