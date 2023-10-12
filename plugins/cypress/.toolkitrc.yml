@@ -1,3 +1,10 @@
+installs:
+  - 'e2e:local'
+
+tasks:
+  - CypressCi
+  - CypressLocal
+
 hooks:
   'test:review': CypressCi
   'test:staging': CypressCi

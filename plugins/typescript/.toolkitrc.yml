@@ -1,3 +1,8 @@
+tasks:
+  - TypeScriptBuild
+  - TypeScriptWatch
+  - TypeScriptTest
+
 hooks:
   'build:local': TypeScriptBuild
   'build:ci': TypeScriptBuild
