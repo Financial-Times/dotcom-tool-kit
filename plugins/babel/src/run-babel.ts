@@ -1,6 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookConsole } from '@dotcom-tool-kit/logger'
-import type { BabelOptions } from '@dotcom-tool-kit/types/src/schema/babel'
+import type { BabelOptions } from '@dotcom-tool-kit/types/lib/schema/plugins/babel'
 import * as babel from '@babel/core'
 import fg from 'fast-glob'
 import { promises as fs } from 'fs'

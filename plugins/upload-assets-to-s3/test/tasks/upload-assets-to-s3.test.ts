@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from '@jest/globals'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
-import { UploadAssetsToS3Options } from '@dotcom-tool-kit/types/lib/schema/upload-assets-to-s3'
+import { UploadAssetsToS3Options } from '@dotcom-tool-kit/types/lib/schema/plugins/upload-assets-to-s3'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
 import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'

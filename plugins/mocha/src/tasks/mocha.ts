@@ -1,7 +1,7 @@
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { glob } from 'glob'
-import { MochaSchema } from '@dotcom-tool-kit/types/lib/schema/mocha'
+import { MochaSchema } from '@dotcom-tool-kit/types/lib/schema/plugins/mocha'
 import { fork } from 'child_process'
 import { promisify } from 'util'
 const mochaCLIPath = require.resolve('mocha/bin/mocha')

@@ -1,4 +1,4 @@
-import type { Options } from '@dotcom-tool-kit/types/src/schema'
+import type { Options } from '@dotcom-tool-kit/types/src/plugins'
 
 const options: Partial<Options> = {}
 
