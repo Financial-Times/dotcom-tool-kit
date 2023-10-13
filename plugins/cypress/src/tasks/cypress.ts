@@ -3,7 +3,7 @@ import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/types'
-import { CypressSchema } from '@dotcom-tool-kit/types/src/schema/cypress'
+import { CypressSchema } from '@dotcom-tool-kit/types/lib/schema/plugins/cypress'
 
 export class CypressLocal extends Task<typeof CypressSchema> {
   async run(): Promise<void> {

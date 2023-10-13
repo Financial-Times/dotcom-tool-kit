@@ -18,7 +18,7 @@ import {
   unwrapValidated,
   Validated
 } from '@dotcom-tool-kit/types'
-import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/schema'
+import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
 import {
   InvalidOption,
   formatTaskConflicts,
