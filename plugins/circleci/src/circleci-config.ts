@@ -241,7 +241,7 @@ const hasJob = (expectedJob: string, jobs: NonNullable<Workflow['jobs']>): boole
       (typeof job === 'object' && job.hasOwnProperty(expectedJob))
   )
 
-export default abstract class CircleCiConfigHook extends Hook<z.ZodTypeAny, CircleCIState> {
+export default abstract class CircleCiConfig extends Hook<z.ZodTypeAny, CircleCIState> {
   installGroup = 'circleci'
 
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
