@@ -2,32 +2,33 @@ import { z } from 'zod'
 import { Hook } from '@dotcom-tool-kit/types'
 import fs from 'fs'
 import get from 'lodash/get'
-import mapValues from 'lodash/mapValues'
-import merge from 'lodash/merge'
+import set from 'lodash/set'
 import update from 'lodash/update'
 import path from 'path'
+
+import { PackageJsonSchema } from '@dotcom-tool-kit/types/lib/schema/hooks/package-json'
 
 interface PackageJsonContents {
   [field: string]: PackageJsonContents | string
 }
 
 interface PackageJsonStateValue {
-  hooks: string[]
-  trailingString: string
+  commands: string[]
+  trailingString?: string
+  installedBy: PackageJson
 }
 
 interface PackageJsonState {
-  [field: string]: PackageJsonState | PackageJsonStateValue
+  [path: string]: PackageJsonStateValue
 }
 
-export default abstract class PackageJson extends Hook<z.ZodTypeAny, PackageJsonState> {
+export default abstract class PackageJson extends Hook<typeof PackageJsonSchema, PackageJsonState> {
   private _packageJson?: PackageJsonContents
-  abstract field: string | string[]
-  abstract key: string
-  abstract hook: string
+
   // Allow some extra characters to be appended to the end of a hooked field.
   // This is useful if you, for example, need to append the '--' argument
   // delimiter to commands to allow files to be passed as additional arguments.
+  // TODO how to handle this with hook options
   trailingString?: string
 
   installGroup = 'package-json'
@@ -45,36 +46,45 @@ export default abstract class PackageJson extends Hook<z.ZodTypeAny, PackageJson
     return this._packageJson
   }
 
-  private get hookPath(): string[] {
-    return Array.isArray(this.field) ? [...this.field, this.key] : [this.field, this.key]
-  }
-
   async check(): Promise<boolean> {
     const packageJson = await this.getPackageJson()
-    return get(packageJson, this.hookPath)?.includes(this.hook)
+    return Object.entries(this.options).every(([field, object]) =>
+      Object.entries(object).every(([key, command]) => get(packageJson, [field, key])?.includes(command))
+    )
   }
 
-  async install(state?: PackageJsonState): Promise<PackageJsonState> {
-    state ??= {}
-    // prepend each hook to maintain the same order as previous implementations
-    update(state, this.hookPath, (hookState?: PackageJsonStateValue) => ({
-      hooks: [this.hook, ...(hookState?.hooks ?? [])],
-      trailingString: this.trailingString
-    }))
+  async install(state: PackageJsonState = {}): Promise<PackageJsonState> {
+    for (const [field, object] of Object.entries(this.options)) {
+      for (const [key, command] of Object.entries(object)) {
+        // prepend each hook to maintain the same order as previous implementations
+        update(
+          state,
+          [field + '.' + key],
+          (hookState?: PackageJsonStateValue): PackageJsonStateValue => ({
+            commands: [...(Array.isArray(command) ? command : [command]), ...(hookState?.commands ?? [])],
+            installedBy: this,
+            trailingString: this.trailingString
+          })
+        )
+      }
+    }
+
     return state
   }
 
   async commitInstall(state: PackageJsonState): Promise<void> {
-    const reduceHooks = (state: PackageJsonState): PackageJsonContents =>
-      mapValues(state, (field) =>
-        Array.isArray(field?.hooks)
-          ? `dotcom-tool-kit ${field.hooks.join(' ')}${
-              field.trailingString ? ' ' + field.trailingString : ''
-            }`
-          : reduceHooks(field as PackageJsonState)
-      )
+    const packageJson = await this.getPackageJson()
 
-    const newPackageJson = merge(await this.getPackageJson(), reduceHooks(state))
-    await fs.promises.writeFile(this.filepath, JSON.stringify(newPackageJson, null, 2) + '\n')
+    for (const [path, installation] of Object.entries(state)) {
+      set(
+        packageJson,
+        path,
+        `dotcom-tool-kit ${installation.commands.join(' ')}${
+          installation.trailingString ? ' ' + installation.trailingString : ''
+        }`
+      )
+    }
+
+    await fs.promises.writeFile(this.filepath, JSON.stringify(packageJson, null, 2) + '\n')
   }
 }
