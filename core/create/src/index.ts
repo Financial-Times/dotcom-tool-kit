@@ -117,7 +117,7 @@ async function main() {
     tasks: {},
     commands: {},
     options: {},
-    hooks: {}
+    hooks: []
   }
 
   const originalCircleConfig = await fsp.readFile(circleConfigPath, 'utf8').catch(() => undefined)
