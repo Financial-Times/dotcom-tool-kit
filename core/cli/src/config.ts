@@ -37,8 +37,7 @@ import {
   formatOptionConflicts,
   formatUninstalledHooks,
   formatMissingTasks,
-  formatInvalidOptions,
-  formatHookOptionConflicts
+  formatInvalidOptions
 } from './messages'
 
 export interface PluginOptions {
@@ -47,7 +46,7 @@ export interface PluginOptions {
   forPlugin: Plugin
 }
 
-export interface HookOptions {
+export interface HookInstallation {
   options: Record<string, unknown>
   plugin: Plugin
   forHook: string
@@ -66,7 +65,7 @@ export interface RawConfig {
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
   hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
-  hookOptions: { [id: string]: HookOptions | Conflict<HookOptions> }
+  hookInstallations: HookInstallation[]
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
@@ -95,13 +94,14 @@ export const loadHooks = async (
   config: ValidConfig
 ): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
   const hookResults = await Promise.all(
-    Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
+    config.hookInstallations.map(async ({ forHook, options }) => {
+      const entryPoint = config.hooks[forHook]
       const hookResult = (await importEntryPoint(Hook, entryPoint)) as Validated<HookConstructor>
 
       return mapValidated(hookResult, (Hook) => {
-        const schema = HookSchemas[hookName as keyof HookSchemaOptions]
-        const options = schema ? schema.parse(config.hookOptions[hookName]) : {}
-        return new Hook(logger, hookName, options)
+        const schema = HookSchemas[forHook as keyof HookSchemaOptions]
+        const parsedOptions = schema ? schema.parse(options) : {}
+        return new Hook(logger, forHook, parsedOptions)
       })
     })
   )
@@ -173,7 +173,7 @@ export const createConfig = (): RawConfig => ({
   commandTasks: {},
   options: {},
   hooks: {},
-  hookOptions: {}
+  hookInstallations: []
 })
 
 async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
@@ -189,7 +189,6 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
   const hookConflicts = findConflictingEntries(config.hooks)
   const taskConflicts = findConflictingEntries(config.tasks)
   const optionConflicts = findConflicts(Object.values(config.options))
-  const hookOptionConflicts = findConflicts(Object.values(config.hookOptions))
 
   const definedCommandTaskConflicts = commandTaskConflicts.filter((conflict) => {
     return conflict.conflicting[0].id in config.hooks
@@ -211,8 +210,7 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     hookConflicts.length > 0 ||
     definedCommandTaskConflicts.length > 0 ||
     taskConflicts.length > 0 ||
-    optionConflicts.length > 0 ||
-    hookOptionConflicts.length > 0
+    optionConflicts.length > 0
   ) {
     shouldThrow = true
 
@@ -230,10 +228,6 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
 
     if (optionConflicts.length) {
       error.details += formatOptionConflicts(optionConflicts)
-    }
-
-    if (hookOptionConflicts.length) {
-      error.details += formatHookOptionConflicts(hookOptionConflicts)
     }
   }
 
