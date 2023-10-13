@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/types'
-import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
+import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/plugins/serverless'
 import { spawn } from 'child_process'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'

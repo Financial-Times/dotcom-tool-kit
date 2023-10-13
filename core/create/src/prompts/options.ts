@@ -1,6 +1,6 @@
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/types'
-import type { PromptGenerators } from '@dotcom-tool-kit/types/src/schema'
+import type { PromptGenerators } from '@dotcom-tool-kit/types/src/plugins'
 import type { RawConfig } from 'dotcom-tool-kit/lib/config'
 import { promises as fs } from 'fs'
 import YAML from 'yaml'
@@ -201,7 +201,7 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
       // TODO allow different schemas for tasks within a plugin
       const { Schema, generators: SchemaGenerators } =
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require(`@dotcom-tool-kit/types/lib/schema/${pluginName}`)
+        require(`@dotcom-tool-kit/types/lib/schema/plugins/${pluginName}`)
       options = Schema
       generators = SchemaGenerators
     } catch (err) {
