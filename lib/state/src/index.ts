@@ -4,6 +4,9 @@ import * as fs from 'fs'
 const target = process.env.INIT_CWD || process.cwd()
 const stateDir = target ? path.join(target, '.toolkitstate') : '.toolkitstate'
 
+export const configPaths = ['.toolkitrc.yml', 'package.json', '.circleci/config.yml'] as const
+type InstallState = Record<typeof configPaths[number], string>
+
 interface CIState {
   repo: string
   branch: string
@@ -39,6 +42,7 @@ export interface State {
   staging: StagingState
   production: ProductionState
   local: LocalState
+  install: InstallState
 }
 
 export function readState<T extends keyof State>(stage: T): State[T] | null {

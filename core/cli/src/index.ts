@@ -1,5 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { loadConfig } from './config'
+import { checkInstall, loadConfig } from './config'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
@@ -52,6 +52,8 @@ ${availableHooks}`
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }
   }
+
+  await checkInstall(logger, config)
 
   if (shouldDisableNativeFetch()) {
     process.execArgv.push('--no-experimental-fetch')
