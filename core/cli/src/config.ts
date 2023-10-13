@@ -1,3 +1,6 @@
+import { createHash } from 'node:crypto'
+import { readFile } from 'node:fs/promises'
+
 import path from 'path'
 import type { Logger } from 'winston'
 
@@ -5,7 +8,15 @@ import type { HookTask } from './hook'
 import { loadPlugin, resolvePlugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import { TaskClass, Hook, mapValidated, Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
+import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
+import {
+  Hook,
+  HookConstructor,
+  mapValidated,
+  Plugin,
+  reduceValidated,
+  Validated
+} from '@dotcom-tool-kit/types'
 import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/schema'
 import {
   InvalidOption,
@@ -56,6 +67,71 @@ export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'hookTasks' | 'opti
 }
 
 const coreRoot = path.resolve(__dirname, '../')
+
+export function loadHooks(logger: Logger, config: ValidConfig): Promise<Hook<unknown>[]> {
+  return Promise.all(
+    Object.entries(config.hooks).map(async ([hookName, pluginId]) => {
+      const plugin = await import(pluginId)
+      const Hook = plugin.hooks[hookName] as HookConstructor
+      return new Hook(logger, hookName)
+    })
+  )
+}
+
+export async function fileHash(path: string): Promise<string> {
+  const hashFunc = createHash('sha512')
+  try {
+    hashFunc.update(await readFile(path))
+    return hashFunc.digest('base64')
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') {
+      return 'n/a'
+    } else {
+      throw error
+    }
+  }
+}
+
+export async function updateHashes(): Promise<void> {
+  const hashes = Object.fromEntries(
+    await Promise.all(configPaths.map(async (path) => [path, await fileHash(path)]))
+  )
+  writeState('install', hashes)
+}
+
+async function hasConfigChanged(logger: Logger): Promise<boolean> {
+  const hashes = readState('install')
+  if (!hashes) {
+    return true
+  }
+  for (const [path, prevHash] of Object.entries(hashes)) {
+    const newHash = await fileHash(path)
+    if (newHash !== prevHash) {
+      logger.debug(`hash for path ${path} has changed, running hook checks`)
+      return true
+    }
+  }
+  return false
+}
+
+export async function checkInstall(logger: Logger, config: ValidConfig): Promise<void> {
+  if (!(await hasConfigChanged(logger))) {
+    return
+  }
+
+  const hooks = await loadHooks(logger, config)
+  const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
+    return !(await hook.check())
+  })
+
+  if (uninstalledHooks.length > 0) {
+    const error = new ToolKitError('There are problems with your Tool Kit installation.')
+    error.details = formatUninstalledHooks(uninstalledHooks)
+    throw error
+  }
+
+  await updateHashes()
+}
 
 export const createConfig = (): RawConfig => ({
   root: coreRoot,
