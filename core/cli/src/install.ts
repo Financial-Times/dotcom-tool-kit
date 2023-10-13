@@ -3,7 +3,6 @@ import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
 import { loadConfig, loadHooks, updateHashes, ValidConfig } from './config'
-import { postInstall } from './postInstall'
 import { unwrapValidated } from '@dotcom-tool-kit/types'
 
 // implementation of the Array.every method that supports asynchronous predicates
@@ -58,14 +57,6 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
         throw err
       }
     }
-  }
-
-  // HACK: achieve backwards compatibility with older versions of the circleci
-  // plugin that required a postinstall function to run instead of the new
-  // commitInstall method. remove in major update of cli.
-  const usesNewCircleCIGroup = Object.keys(groups).includes('circleci')
-  if (!usesNewCircleCIGroup) {
-    await postInstall(logger)
   }
 
   if (errors.length) {
