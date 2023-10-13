@@ -1,34 +1,4 @@
 import { writeState } from '@dotcom-tool-kit/state'
-import CircleCiConfigHook, { generateConfigWithJob } from './circleci-config'
-
-export class BuildCI extends CircleCiConfigHook {
-  static job = 'tool-kit/build'
-  get config() {
-    return generateConfigWithJob({
-      name: BuildCI.job,
-      requires: ['tool-kit/setup'],
-      splitIntoMatrix: true,
-      addToNightly: true
-    })
-  }
-}
-
-export class TestCI extends CircleCiConfigHook {
-  static job = 'tool-kit/test'
-  get config() {
-    return generateConfigWithJob({
-      name: TestCI.job,
-      requires: [BuildCI.job],
-      splitIntoMatrix: true,
-      addToNightly: true
-    })
-  }
-}
-
-export const hooks = {
-  'build:ci': BuildCI,
-  'test:ci': TestCI
-}
 
 const envVars = {
   branch: process.env.CIRCLE_BRANCH,
