@@ -26,6 +26,7 @@ async function optionsPromptForPlugin(
   }
 
   for (const { name: optionName, type: optionType, default: optionDefault } of options) {
+    const typeDescription = optionType.description ?? ''
     const defaultSuffix = optionDefault
       ? ` (leave blank to use default value ${styles.code(JSON.stringify(optionDefault))})`
       : ''
@@ -44,7 +45,8 @@ async function optionsPromptForPlugin(
             {
               name: 'stringOption',
               type: 'text',
-              message: `Set a value for '${styles.option(optionName)}'` + defaultSuffix
+              message:
+                `Set a value for '${styles.option(optionName)}'` + ` (${typeDescription})` + defaultSuffix
             },
             { onCancel }
           )
@@ -249,11 +251,7 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
       const { confirm } = await prompt({
         name: 'confirm',
         type: 'confirm',
-        message: `${
-          anyRequired ? 'Some' : 'All'
-        } of the fields for the ${styledPlugin} plugin are optional. Would you like to configure ${
-          anyRequired ? 'those too' : 'them'
-        }?`
+        message: `Would you like to alter the options for ${styledPlugin}?`
       })
 
       if (confirm) {

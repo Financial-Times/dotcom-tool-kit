@@ -12,7 +12,7 @@ export const HerokuScalingSchema = z.record(
 export type HerokuScaling = z.infer<typeof HerokuScalingSchema>
 
 const scaling: SchemaPromptGenerator<HerokuScaling> = async (logger, prompt, onCancel) => {
-  logger.error('You must configure the scaling for each of the Heroku apps in your pipeline.')
+  logger.error('You must configure the scaling for each of the production Heroku apps in your pipeline.')
   const scaling: HerokuScaling = {}
   let allAppsConfigured = false
   while (!allAppsConfigured) {
@@ -20,7 +20,8 @@ const scaling: SchemaPromptGenerator<HerokuScaling> = async (logger, prompt, onC
       {
         name: 'app',
         type: 'text',
-        message: 'Enter the name of the Heroku app to configure'
+        message:
+          'Enter the name of the production Heroku app to configure. You can find the app name and resource details at https://dashboard.heroku.com/apps/[APP_NAME].'
       },
       { onCancel }
     )
@@ -32,9 +33,22 @@ const scaling: SchemaPromptGenerator<HerokuScaling> = async (logger, prompt, onC
           initial: 'web',
           message: `What is the process type of ${app}?`
         },
-        { name: 'size', type: 'text', initial: 'standard-1X', message: `What should the size of ${app} be?` },
-        { name: 'quantity', type: 'number', message: `What should the dyno size of ${app} be?` },
-        { name: 'moreApps', type: 'confirm', message: 'Are there more Heroku apps in this pipeline?' }
+        {
+          name: 'size',
+          type: 'text',
+          initial: 'standard-1X',
+          message: `What should the resource size of ${app} be?`
+        },
+        {
+          name: 'quantity',
+          type: 'number',
+          message: `What should the number of dynos for ${app} be?`
+        },
+        {
+          name: 'moreApps',
+          type: 'confirm',
+          message: 'Are there more production Heroku apps in this pipeline?'
+        }
       ],
       { onCancel }
     )
@@ -45,8 +59,8 @@ const scaling: SchemaPromptGenerator<HerokuScaling> = async (logger, prompt, onC
 }
 
 export const HerokuSchema = z.object({
-  pipeline: z.string(),
-  systemCode: z.string(),
+  pipeline: z.string().describe('this can be found at https://dashboard.heroku.com/pipelines/[APP_ID]'),
+  systemCode: z.string().describe('this can be found at https://biz-ops.in.ft.com/System/[APP_NAME]'),
   scaling: HerokuScalingSchema
 })
 export type HerokuOptions = z.infer<typeof HerokuSchema>

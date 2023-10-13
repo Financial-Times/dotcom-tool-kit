@@ -38,7 +38,9 @@ export default async ({ error, logger, toolKitConfig, configPath }: ConflictsPar
       const { order: nextIdx }: { order: number | undefined | null } = await prompt({
         name: 'order',
         type: 'select',
-        message: `Hook ${styles.hook(conflict.hook)} has multiple tasks configured for it. \
+        message: `Hook ${styles.hook(
+          conflict.hook
+        )} has multiple tasks configured for it, so an order must be specified. \
 Please select the ${ordinal(i)} package to run.`,
         choices: [
           ...remainingTasks.map(({ task, plugin }) => ({
