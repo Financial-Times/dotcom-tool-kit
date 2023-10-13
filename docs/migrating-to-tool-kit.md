@@ -15,6 +15,7 @@ text is recommended only for projects already using n-gage, though it _may_ help
 push you in the right direction if you're creating a fresh, new project.
 
 ## Prerequisites
+
 Prior to using the migration tool, please make sure you are using npm 7 or above.
 
 ## The Migration Tool
@@ -75,9 +76,8 @@ Would you like to install any additional plugins?
 
 You are then given the opportunity to add various plugins for other tools you
 use in your project. It makes sense to choose all the ones you are already
-using, e.g., the `@dotcom-tool-kit/mocha` plugin if you're using Mocha for unit
-tests, but now is also a good chance to try out new tools you've been meaning to
-integrate into your stack, such as `dotcom-tool-kit/prettier`!
+using, but now is also a good chance to try out new tools you've been meaning to
+integrate into your stack, such as `dotcom-tool-kit/prettier`! Note: if you don't already have Prettier installed it may be initially a little disruptive with many formatting changes.
 
 ### ESLint Config
 
@@ -85,7 +85,7 @@ integrate into your stack, such as `dotcom-tool-kit/prettier`!
 Would you like to add a default eslint config file at ./eslintrc.js?
 ```
 
-Selecting yes will generate a eslintrc.js file at your project's root directory, which extends the ESLint shared configuration [`@financial-times/eslint-config-next`](https://github.com/Financial-Times/eslint-config-next), and install `@financial-times/eslint-config-next` for you automatically. If you've previously selected `@dotcom-tool-kit/frontend-app` for your app, the generated .eslintrc.js file will look like [this](https://github.com/Financial-Times/next-user-facing-app-template/blob/main/.eslintrc.js), whereas if you've selected `@dotcom-tool-kit/backend-heroku-app`, the generated .eslintrc.js file will look like [this](https://github.com/Financial-Times/next-service-app-template/blob/main/.eslintrc.js). 
+Selecting "yes" will generate an `eslintrc.js` file at your project's root directory, which extends the ESLint shared configuration [`@financial-times/eslint-config-next`](https://github.com/Financial-Times/eslint-config-next), and install `@financial-times/eslint-config-next` for you automatically. If you've previously selected `@dotcom-tool-kit/frontend-app` for your app, the generated `.eslintrc.js` file will look like [this](https://github.com/Financial-Times/next-user-facing-app-template/blob/main/.eslintrc.js), whereas if you've selected `@dotcom-tool-kit/backend-heroku-app`, the generated `.eslintrc.js` file will look like [this](https://github.com/Financial-Times/next-service-app-template/blob/main/.eslintrc.js).
 
 ### CircleCI Config
 
@@ -96,10 +96,9 @@ Would you like a CircleCI config to be generated? This will overwrite the curren
 Tool Kit provides a CircleCI orb to call the CI hooks for PRs and deployments.
 It's recommended that you delete your old CircleCI config and let Tool Kit
 generate a new one for you that will use the Tool Kit orb for all of the
-different workflows you'd typically expect in a project. If you have a workflow
-that is a little atypical then you will be free to add those in after the file
-has been generated (you'll want to make sure you remove the automated header
-comment at the top of the file so that your changes aren't overwritten in the
+different workflows you'd typically expect in a project.
+
+If you have a workflow that is a little atypical then you will be free to add those in after the file has been generated (you'll want to make sure you remove the automated header comment at the top of the file so that your changes aren't overwritten in the
 future.) Feel free to peruse the [source
 code](https://github.com/Financial-Times/dotcom-tool-kit/tree/HEAD/orb/src) and
 the
@@ -113,12 +112,14 @@ Should we uninstall obsolete n-gage and n-heroku-tools packages?
 ```
 
 n-gage and n-heroku-tools have now been replaced by Tool Kit and shouldn't be
-required any more so we suggest you delete them from your `package.json`. You
-may, however, opt to keep them for now if there are some esoteric tasks that
-they're handling that Tool Kit doesn't support yet (please let the platforms
-team know if you're having to do this on the
+required any more, so we suggest you delete them from your `package.json`.
+
+You may opt to keep them for now if there are some esoteric tasks that
+they're handling that Tool Kit doesn't support yet.
+
+If you're having to do this, please post in the
 [#cp-platforms-team](https://financialtimes.slack.com/archives/C3TJ6KXEU) Slack
-channel so we can fill in that gap!)
+channel so we can fill in that gap!
 
 ### Confirmation and Installation
 
@@ -165,8 +166,8 @@ some ambiguities in your configuration that can be clarified in the subsequent s
 ### Task Conflicts
 
 ```
-Hook ${hook} has multiple tasks configured for it.
-Please select the 1st package to run.
+Hook ${hook} has multiple tasks configured for it, so an order
+must be specified. Please select the 1st package to run.
 - ${task 1}
 - ${task 2}
 - finish
@@ -175,12 +176,15 @@ Please select the 1st package to run.
 In some projects you will find multiple tasks are configured to use the same
 hook. A common example would be the `@dotcom-tool-kit/eslint` and
 `@dotcom-tool-kit/mocha` plugins, which both define tasks that use the
-`test:local` hook. Tool Kit does not assume the order you want those to run, as
+`test:local` hook.
+
+Tool Kit does not assume the order you want those to run, as
 in some cases one of the tasks might depend on the other, so you need to declare
 the order explicitly. This is expanded on in its own [documentation
 page](./resolving-hook-conflicts.md), but the migration tool takes you through
-the process. You choose each task in the order you want them to run in. If you
-don't want some of the tasks to be included in the hook at all, just select the
+the process.
+
+If you don't want some of the tasks to be included in the hook at all, just select the
 `finish` option after the rest of the tasks have been selected and the remainder
 won't be run.
 
@@ -191,13 +195,11 @@ Please now configure the options for the ${plugin} plugin.
 Set a value for '${option}'
 ```
 
-Some plugins require configuration to work, whereas others might have optional
-settings that you may want to tweak. You must set all the required options to
-continue, though naturally the optional ones may be skipped. These options will
-be added to your `.toolkitrc`. In the future, we will add support for default
-values in the migration tool (they are already available within Tool Kit
+You must set any required options for plugins to continue. The optional ones may be skipped. These options will be added to your `.toolkitrc`. In the future, we will add support for default values in the migration tool (they are already available within Tool Kit
 itself,) so that for most cases you could accept default values, even for fields
-that are required. Some plugins will have specially-made prompts to allow
+that are required.
+
+Some plugins will have specially-made prompts to allow
 setting options for more complex scenarios, such as the Heroku plugin which
 prompts you to fill in scaling information for each app you have in your
 project's Heroku pipeline.
@@ -227,18 +229,39 @@ hook for a `test` target, for example,) but sometimes you'll want to leave some
 of the targets in at the beginning of the migration and gradually transition
 everything over to Tool Kit. Regardless, this step just provides some
 suggestions and the migration tool doesn't perform any actions so you'll need to
-delete the Makefile yourself if you don't think it's needed anymore. Remember
-that – assuming you didn't delete it in the earlier step – some of the `make`
+delete the Makefile yourself if you don't think it's needed anymore.
+
+Remember that – assuming you didn't delete it in the earlier step – some of the `make`
 commands come from `n-gage` itself and won't necessarily be in the Makefile,
 such as `make install`.
 
+You'll also want to ensure that:
+
+- You use the same node entry point of the app on `npm start`
+- You pull through any env set in the Makefile to an .rc file eg. for tests
+
 ## Migrating Your Heroku Pipeline
 
-One thing that the migration tool cannot automate is reconfiguring your Heroku
-pipeline to integrate properly with Tool Kit. You will need to ensure that your
-pipeline is connected to the project's GitHub repository, that PRs create review
-apps, and commits to main deploy from a staging app. This might be how your
-pipeline was already configured, but you should check to make sure that
-automatic deployments are still working, and try reconnecting to GitHub if they
-are not. A step-by-step guide with screenshots can be found
+The migration tool cannot automate reconfiguring your Heroku
+pipeline to integrate with Tool Kit. You will need to ensure that:
+
+- Your pipeline is connected to the project's GitHub repository
+- PRs create review apps
+- Commits to main can be deployed from a staging app
+
+This might be how your pipeline was already configured, but you should check to make sure that
+automatic deployments are still working. Try reconnecting to GitHub if they
+are not.
+
+A step-by-step guide with screenshots can be found
 [here](https://docs.google.com/document/d/1b7WlRfhiWlbDsSSGP3TllYaGMJbx9nCdAtcr8_OWEWM).
+
+## To conclude
+
+To ensure the migration has succeeded, you can run the following commands locally:
+
+`npm build` \
+`npm start` \
+`npm test`
+
+On pull request, you can check that CI jobs are running as expected.
