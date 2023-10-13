@@ -1,7 +1,9 @@
 import { z } from 'zod'
 
+import { PackageJsonSchema } from './schema/hooks/package-json'
+
 export const HookSchemas = {
-  'dummy schema to get types working for now': z.never()
+  PackageJson: PackageJsonSchema
 }
 
 // Gives the TypeScript type represented by each Schema
