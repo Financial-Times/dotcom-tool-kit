@@ -1,7 +1,3 @@
 plugins:
   - '@dotcom-tool-kit/lint-staged'
   - '@dotcom-tool-kit/husky-npm'
-
-installs:
-  - 'test:staged'
-  - 'format:staged'
