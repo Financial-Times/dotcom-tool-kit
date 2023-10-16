@@ -26,7 +26,7 @@ async function optionsPromptForPlugin(
   }
 
   for (const { name: optionName, type: optionType, default: optionDefault } of options) {
-    const typeDescription = optionType.description ?? ''
+    const typeDescription = optionType.description ? ` (${optionType.description})` : ''
     const defaultSuffix = optionDefault
       ? ` (leave blank to use default value ${styles.code(JSON.stringify(optionDefault))})`
       : ''
@@ -45,8 +45,7 @@ async function optionsPromptForPlugin(
             {
               name: 'stringOption',
               type: 'text',
-              message:
-                `Set a value for '${styles.option(optionName)}'` + ` (${typeDescription})` + defaultSuffix
+              message: `Set a value for '${styles.option(optionName)}'` + typeDescription + defaultSuffix
             },
             { onCancel }
           )
@@ -59,7 +58,10 @@ async function optionsPromptForPlugin(
             {
               name: 'boolOption',
               type: 'confirm',
-              message: `Would you like to enable option '${styles.option(optionName)}'?` + defaultSuffix
+              message:
+                `Would you like to enable option '${styles.option(optionName)}'?` +
+                typeDescription +
+                defaultSuffix
             },
             { onCancel }
           )
@@ -72,7 +74,8 @@ async function optionsPromptForPlugin(
             {
               name: 'numberOption',
               type: 'text',
-              message: `Set a numerical value for '${styles.option(optionName)}'` + defaultSuffix
+              message:
+                `Set a numerical value for '${styles.option(optionName)}'` + typeDescription + defaultSuffix
             },
             { onCancel }
           )
@@ -126,7 +129,8 @@ async function optionsPromptForPlugin(
                       value: choice
                     })
                   ),
-                  message: `Select options for '${styles.option(optionName)}'` + defaultSuffix
+                  message:
+                    `Select options for '${styles.option(optionName)}'` + typeDescription + defaultSuffix
                 },
                 { onCancel }
               )
@@ -145,7 +149,7 @@ async function optionsPromptForPlugin(
                 title: choice,
                 value: choice
               })),
-              message: `Select an option for '${styles.option(optionName)}'` + defaultSuffix
+              message: `Select an option for '${styles.option(optionName)}'` + typeDescription + defaultSuffix
             },
             { onCancel }
           )

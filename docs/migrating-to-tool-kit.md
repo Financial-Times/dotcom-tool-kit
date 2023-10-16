@@ -222,23 +222,40 @@ Please check what they're doing:
 - ${makefile target}
 ```
 
-Finally, the tool will give guidance on what the do with the Makefile in your
+Finally, the tool will give guidance on what the do with the `Makefile` in your
 project that was integrated with n-gage. It will try and recommend equivalent
-hooks based on the name of the targets within the Makefile (the `test:local`
+hooks based on the name of the targets within the `Makefile` (the `test:local`
 hook for a `test` target, for example,) but sometimes you'll want to leave some
 of the targets in at the beginning of the migration and gradually transition
 everything over to Tool Kit. Regardless, this step just provides some
 suggestions and the migration tool doesn't perform any actions so you'll need to
-delete the Makefile yourself if you don't think it's needed anymore.
+delete the `Makefile` yourself if you don't think it's needed anymore.
 
 Remember that – assuming you didn't delete it in the earlier step – some of the `make`
-commands come from `n-gage` itself and won't necessarily be in the Makefile,
+commands come from `n-gage` itself and won't necessarily be in the `Makefile`,
 such as `make install`.
 
 You'll also want to ensure that:
 
-- You use the same node entry point of the app on `npm start`
-- You pull through any env set in the Makefile to an .rc file eg. for tests
+1. You have configured the same entry point in `.toolkitrc.yml` as in your `Makefile`. This must be set as an option (if it is not the default `server/app.js`).
+
+   eg.
+
+   ```
+   nht run --script server/cluster.js
+   ```
+
+   in your `Makefile` would become
+
+   ```
+   options:
+      "@dotcom-tool-kit/node":
+         entry: server/cluster.js
+   ```
+
+   in `.toolkitrc.yml`
+
+2. You have moved any environment variables explicitly set in your `Makefile` to the appropriate rc file, eg. `.mocharc.js` for mocha unit tests
 
 ## Migrating Your Heroku Pipeline
 
@@ -260,7 +277,7 @@ A step-by-step guide with screenshots can be found
 
 To ensure the migration has succeeded, you can run the following commands locally:
 
-`npm build` \
+`npm run build` \
 `npm start` \
 `npm test`
 
