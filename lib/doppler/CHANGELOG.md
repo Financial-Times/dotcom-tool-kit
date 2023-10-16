@@ -1,5 +1,14 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.2.0 to ^3.3.0
+    * @dotcom-tool-kit/options bumped from ^3.1.4 to ^3.1.5
+    * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
+    * @dotcom-tool-kit/vault bumped from ^3.1.5 to ^3.1.6
+
 ## [1.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.1...doppler-v1.0.2) (2023-10-09)
 
 

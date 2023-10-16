@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/webpack",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "^3.1.0",
-    "@dotcom-tool-kit/logger": "^3.2.0",
-    "@dotcom-tool-kit/types": "^3.4.0",
+    "@dotcom-tool-kit/logger": "^3.3.0",
+    "@dotcom-tool-kit/types": "^3.4.1",
     "webpack-cli": "^4.6.0",
     "tslib": "^2.3.1"
   },

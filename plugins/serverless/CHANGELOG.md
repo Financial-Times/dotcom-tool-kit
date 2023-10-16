@@ -28,6 +28,13 @@
     * @dotcom-tool-kit/state bumped from ^3.1.0 to ^3.1.1
     * @dotcom-tool-kit/doppler bumped from ^1.0.0 to ^1.0.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
+    * @dotcom-tool-kit/doppler bumped from ^1.0.2 to ^1.0.3
+
 ## [2.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.2...serverless-v2.2.3) (2023-10-09)
 
 

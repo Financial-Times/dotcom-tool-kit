@@ -122,6 +122,13 @@
     * @dotcom-tool-kit/circleci-npm bumped from ^5.2.6 to ^5.2.7
     * @dotcom-tool-kit/npm bumped from ^3.1.4 to ^3.1.5
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-npm bumped from ^5.2.7 to ^5.2.8
+    * @dotcom-tool-kit/npm bumped from ^3.1.5 to ^3.1.6
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v3.1.10...component-v4.0.0) (2023-10-09)
 
 

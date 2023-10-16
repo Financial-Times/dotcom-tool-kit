@@ -78,6 +78,12 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.3.0 to ^3.3.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
+
 ## [0.4.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.4.4...pa11y-v0.4.5) (2023-09-19)
 
 

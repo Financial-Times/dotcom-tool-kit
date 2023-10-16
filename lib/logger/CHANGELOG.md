@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.2.0...logger-v3.3.0) (2023-10-16)
+
+
+### Features
+
+* **cli:** print when a task is run for visibility ([63c3829](https://github.com/Financial-Times/dotcom-tool-kit/commit/63c38294eab5ca900bfa8ec5932654b7f3efa68b))
+
+
+### Bug Fixes
+
+* **logger:** don't print ANSI escape code to reset terminal ([dc9989b](https://github.com/Financial-Times/dotcom-tool-kit/commit/dc9989bc3af898e479e0ada1ff129a3ecbf38524))
+* **logger:** trim logs for forked subprocesses too ([d1374d1](https://github.com/Financial-Times/dotcom-tool-kit/commit/d1374d143d75d9abc018fb7c3a62a97be10c432d))
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.1.1...logger-v3.2.0) (2023-09-19)
 
 
