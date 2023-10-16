@@ -132,6 +132,24 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.2.4 to ^3.2.5
 
+## [3.2.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.2.4...create-v3.2.5) (2023-10-16)
+
+
+### Bug Fixes
+
+* minor tweaks to documentation ([9061bd4](https://github.com/Financial-Times/dotcom-tool-kit/commit/9061bd4da102fe3beeaf14ed5ce16180dd65eb1e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.2.0 to ^3.3.0
+    * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
+    * @dotcom-tool-kit/doppler bumped from ^1.0.2 to ^1.0.3
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.2.6 to ^3.3.0
+
 ## [3.2.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.2.3...create-v3.2.4) (2023-10-09)
 
 

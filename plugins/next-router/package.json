@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/next-router",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -12,9 +12,9 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^3.1.0",
     "@dotcom-tool-kit/state": "^3.1.1",
-    "@dotcom-tool-kit/logger": "^3.2.0",
-    "@dotcom-tool-kit/types": "^3.4.0",
-    "@dotcom-tool-kit/doppler": "^1.0.2",
+    "@dotcom-tool-kit/logger": "^3.3.0",
+    "@dotcom-tool-kit/types": "^3.4.1",
+    "@dotcom-tool-kit/doppler": "^1.0.3",
     "ft-next-router": "^3.0.0",
     "tslib": "^2.3.1"
   },
