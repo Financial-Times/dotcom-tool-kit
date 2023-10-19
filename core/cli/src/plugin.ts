@@ -10,7 +10,7 @@ import {
 import resolvePkg from 'resolve-pkg'
 import type { Logger } from 'winston'
 import { EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig } from './config'
-import { Conflict, isConflict } from './conflict'
+import { Conflict, isConflict } from '@dotcom-tool-kit/types/lib/conflict'
 import type { CommandTask } from './command'
 import { loadToolKitRC } from './rc-file'
 import { isPlainObject } from 'lodash'
