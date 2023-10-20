@@ -16,6 +16,7 @@ executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - doppler-circleci/install
   - when:
       condition:
         and:
