@@ -70,7 +70,10 @@ export class DopplerEnvVars {
     let errorMsg = ''
     try {
       let secrets = ''
-      const dopplerChild = spawn('doppler', [
+      // the command we use to install Doppler in CircleCI only installs it in
+      // the local directory, not in $PATH
+      const dopplerExec = process.env.CIRCLECI ? './doppler' : 'doppler'
+      const dopplerChild = spawn(dopplerExec, [
         'secrets',
         'download',
         '--no-file',
