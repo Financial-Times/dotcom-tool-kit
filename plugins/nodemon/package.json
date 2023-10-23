@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/nodemon",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -13,7 +13,7 @@
     "@dotcom-tool-kit/error": "^3.1.0",
     "@dotcom-tool-kit/state": "^3.1.1",
     "@dotcom-tool-kit/types": "^3.4.1",
-    "@dotcom-tool-kit/doppler": "^1.0.4",
+    "@dotcom-tool-kit/doppler": "^1.0.5",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1"
   },

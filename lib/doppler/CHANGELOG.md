@@ -9,6 +9,13 @@
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/vault bumped from ^3.1.5 to ^3.1.6
 
+## [1.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.4...doppler-v1.0.5) (2023-10-23)
+
+
+### Bug Fixes
+
+* **doppler:** use local doppler executable in CI ([d6f4541](https://github.com/Financial-Times/dotcom-tool-kit/commit/d6f4541f93a92add5947019734a27f0f7b6ed330))
+
 ## [1.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.3...doppler-v1.0.4) (2023-10-23)
 
 
