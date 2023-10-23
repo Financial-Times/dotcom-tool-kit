@@ -1,4 +1,5 @@
-import { spawn } from 'child_process'
+import { spawn } from 'node:child_process'
+import fs from 'node:fs'
 
 import type { Logger } from 'winston'
 
@@ -34,8 +35,22 @@ export class DopplerEnvVars {
     if (!(dopplerOptions && dopplerOptions.project)) {
       // HACK:20230829:IM check the project passed to the Vault options too so
       // that projects don't have to make any changes to their Tool Kit config
-      logger.warn('Doppler options not found so falling back to Vault options')
-      dopplerOptions = { project: getOptions('@dotcom-tool-kit/vault')?.app }
+      const projectName = getOptions('@dotcom-tool-kit/vault')?.app
+      // HACK:20231020:IM Projects without an associated biz ops system require
+      // a repo_ prefix in their name. We don't have a biz ops key (yet) so
+      // let's just try and infer whether it deploys anything based on the
+      // existence of config files. This won't always be correct and in those
+      // cases users should set a @dotcom-tool-kit/doppler option.
+      const isRepo = !(
+        fs.existsSync('Procfile') ||
+        fs.existsSync('serverless.yml') ||
+        fs.existsSync('serverless.yaml')
+      )
+      const project = isRepo ? `repo_${projectName}` : projectName
+      logger.warn(
+        `Doppler options not found so falling back to Vault options (guessing Doppler project is named ${project})`
+      )
+      dopplerOptions = { project }
     }
     if (!(dopplerOptions && dopplerOptions.project)) {
       const error = new ToolKitError('Doppler options not found in your Tool Kit configuration')
