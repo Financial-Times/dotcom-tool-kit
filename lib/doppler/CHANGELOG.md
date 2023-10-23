@@ -9,6 +9,13 @@
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/vault bumped from ^3.1.5 to ^3.1.6
 
+## [1.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.3...doppler-v1.0.4) (2023-10-23)
+
+
+### Bug Fixes
+
+* **doppler:** guess Doppler projects with a repo_ name prefix ([0976460](https://github.com/Financial-Times/dotcom-tool-kit/commit/097646068e25daeefd1dfc5ed52e77a1735fd054))
+
 ## [1.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.1...doppler-v1.0.2) (2023-10-09)
 
 

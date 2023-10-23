@@ -244,6 +244,22 @@
     * @dotcom-tool-kit/frontend-app bumped from ^3.1.12 to ^3.1.13
     * @dotcom-tool-kit/heroku bumped from ^3.3.2 to ^3.3.3
 
+## [3.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.3.0...dotcom-tool-kit-v3.3.1) (2023-10-23)
+
+
+### Bug Fixes
+
+* add newline after ruler in error output ([bb776d5](https://github.com/Financial-Times/dotcom-tool-kit/commit/bb776d5e757beefeb3eda0eda43cb6e253634eb9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^3.0.1 to ^3.0.2
+    * @dotcom-tool-kit/frontend-app bumped from ^3.1.14 to ^3.1.15
+    * @dotcom-tool-kit/heroku bumped from ^3.3.4 to ^3.3.5
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.2.6...dotcom-tool-kit-v3.3.0) (2023-10-16)
 
 
