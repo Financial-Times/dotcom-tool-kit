@@ -129,9 +129,17 @@ export class DopplerEnvVars {
       // )
       hasLoggedMigrationWarning = true
     }
+    return { secrets: await this.fallbackToVault(), source: 'vault' }
+  }
+
+  // HACK:20221024:IM This function is here just to enable projects that have
+  // migrated to Doppler to use the logic in this class that converts between
+  // Doppler and Vault project names. We should remove this function once we
+  // drop Vault support.
+  fallbackToVault(): Promise<DopplerSecrets> {
     const vault = new Vault.VaultEnvVars(this.logger, {
       environment: dopplerEnvToVaultMap[this.environment]
     })
-    return { secrets: await vault.get(), source: 'vault' }
+    return vault.get()
   }
 }
