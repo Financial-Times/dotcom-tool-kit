@@ -118,6 +118,12 @@
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/doppler bumped from ^1.0.2 to ^1.0.3
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.3 to ^1.0.4
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v3.2.1...node-v3.3.0) (2023-09-19)
 
 

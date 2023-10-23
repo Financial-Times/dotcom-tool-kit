@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.2.1...orb-v4.2.2) (2023-10-23)
+
+
+### Bug Fixes
+
+* **orb:** install doppler CLI for jobs that call it ([d053e1d](https://github.com/Financial-Times/dotcom-tool-kit/commit/d053e1d1096a199147f3f8d51bbc2365f6e5b922))
+
 ## [4.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.2.0...orb-v4.2.1) (2023-09-19)
 
 
