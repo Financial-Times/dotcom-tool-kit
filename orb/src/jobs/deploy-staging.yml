@@ -7,6 +7,7 @@ executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - doppler-circleci/install
   - run:
       name: Deploy to staging
       command: npx dotcom-tool-kit deploy:staging
