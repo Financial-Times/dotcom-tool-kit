@@ -106,13 +106,13 @@ export class DopplerEnvVars {
     return undefined
   }
 
-  // HACK:20230928:IM keep this function around for backwards compatibility
-  // (and a similar interface to the old Vault library)
   async get(): Promise<DopplerSecrets> {
     const { secrets } = await this.getWithSource()
     return secrets
   }
 
+  // TODO:20221023:IM remove this function once we drop Vault support and keep
+  // logic in get() instead
   async getWithSource(): Promise<SecretsWithSource> {
     const secrets = await this.invokeCLI()
     if (secrets) {
