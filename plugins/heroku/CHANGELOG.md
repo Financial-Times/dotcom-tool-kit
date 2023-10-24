@@ -121,6 +121,21 @@
   * dependencies
     * @dotcom-tool-kit/doppler bumped from ^1.0.4 to ^1.0.5
 
+## [3.3.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.6...heroku-v3.3.7) (2023-10-24)
+
+
+### Bug Fixes
+
+* **doppler:** avoid calls to Vault if doppler has been configured ([c79428e](https://github.com/Financial-Times/dotcom-tool-kit/commit/c79428eca94368c26a7a2c9228c208c1e41863e2))
+* **heroku:** skip config syncing if Vault project flagged as migrated ([0df9f9c](https://github.com/Financial-Times/dotcom-tool-kit/commit/0df9f9c5805555771d0955a0661827f59555621d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.5 to ^1.0.6
+
 ## [3.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.2...heroku-v3.3.3) (2023-10-09)
 
 

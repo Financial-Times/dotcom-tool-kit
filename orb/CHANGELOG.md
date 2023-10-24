@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.2.2...orb-v4.2.3) (2023-10-24)
+
+
+### Bug Fixes
+
+* **orb:** install npm version if param set ([723043a](https://github.com/Financial-Times/dotcom-tool-kit/commit/723043aad3b2fc121e6f32d4580038a80bb597c0))
+* **orb:** revert deletion of npm-version parameter ([f6ec1cf](https://github.com/Financial-Times/dotcom-tool-kit/commit/f6ec1cf0dfc4b7fb15946e79511bc1975256f9c7))
+* **orb:** stop force using npm 8 on circleci ([5b8ad86](https://github.com/Financial-Times/dotcom-tool-kit/commit/5b8ad86720ee488d42290eb6e8e21388e7964f4e))
+
 ## [4.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.2.1...orb-v4.2.2) (2023-10-23)
 
 

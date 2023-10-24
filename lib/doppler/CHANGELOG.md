@@ -9,6 +9,14 @@
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/vault bumped from ^3.1.5 to ^3.1.6
 
+## [1.0.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.5...doppler-v1.0.6) (2023-10-24)
+
+
+### Bug Fixes
+
+* **doppler:** avoid calls to Vault if doppler has been configured ([c79428e](https://github.com/Financial-Times/dotcom-tool-kit/commit/c79428eca94368c26a7a2c9228c208c1e41863e2))
+* **heroku:** skip config syncing if Vault project flagged as migrated ([0df9f9c](https://github.com/Financial-Times/dotcom-tool-kit/commit/0df9f9c5805555771d0955a0661827f59555621d))
+
 ## [1.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.4...doppler-v1.0.5) (2023-10-23)
 
 
