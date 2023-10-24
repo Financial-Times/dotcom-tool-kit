@@ -47,6 +47,12 @@
   * dependencies
     * @dotcom-tool-kit/doppler bumped from ^1.0.4 to ^1.0.5
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.5 to ^1.0.6
+
 ## [2.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.2...serverless-v2.2.3) (2023-10-09)
 
 

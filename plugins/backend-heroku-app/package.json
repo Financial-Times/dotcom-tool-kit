@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/backend-heroku-app",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -8,8 +8,8 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/circleci-deploy": "^3.2.8",
-    "@dotcom-tool-kit/heroku": "^3.3.6",
-    "@dotcom-tool-kit/node": "^3.3.5",
+    "@dotcom-tool-kit/heroku": "^3.3.7",
+    "@dotcom-tool-kit/node": "^3.3.6",
     "@dotcom-tool-kit/npm": "^3.1.6"
   },
   "repository": {
