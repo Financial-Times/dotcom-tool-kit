@@ -3,14 +3,18 @@ parameters:
     default: default
     type: executor
   npm-version:
-    default: '8'
+    description: This value is deprecated and no longer used. We now use Node's bundled version of npm.
+    default: ""
     type: string
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
-  - run: sudo npm install -g npm@<<parameters.npm-version>>
+  - when:
+      condition: << parameters.npm-version >>
+      steps:
+          - run: sudo npm install -g npm@$PARAM_NPM_VERSION
   - node/install-packages
   - persist-workspace:
       path: .
