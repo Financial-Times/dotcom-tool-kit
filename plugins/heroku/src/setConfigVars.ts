@@ -1,5 +1,6 @@
 import type { Logger } from 'winston'
 import { DopplerEnvVars, Environment } from '@dotcom-tool-kit/doppler'
+import { getOptions } from '@dotcom-tool-kit/options'
 import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetRegion, HerokuApiResPipeline } from 'heroku-client'
 
@@ -13,14 +14,17 @@ async function setAppConfigVars(
 ): Promise<void> {
   logger.info(`setting config vars for ${appIdName}`)
 
-  // HACK:20221024:IM Seeing as this task *should* only be running in CI, calls
-  // to Doppler will always fail as we don't have the CLI installed, nor the
-  // auth set up, for it. We still need to call Vault to check whether a
-  // project has migrated to Doppler yet, and sync Vault secrets if it hasn't,
-  // but this function should be removed entirely once we drop support for
-  // Vault. The secret is only stored in Vault's continuous-integration folder
-  // so check that and then get the passed argument later if the secret isn't
-  // present.
+  // HACK:20221024:IM We need to call Vault to check whether a project has
+  // migrated to Doppler yet, and sync Vault secrets if it hasn't, but this
+  // function should be removed entirely once we drop support for Vault. The
+  // secret is only stored in Vault's continuous-integration folder so check
+  // that and then get the passed argument later if the secret isn't present.
+  // We can skip this call if we find the project has already added options for
+  // doppler in the Tool Kit configuration.
+  const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+  if (migratedToolKitToDoppler) {
+    return
+  }
   const dopplerEnvVars = new DopplerEnvVars(logger, 'ci')
   let configVars = await dopplerEnvVars.fallbackToVault()
   // HACK:20221023:IM don't overwrite secrets when the project has already
@@ -62,14 +66,17 @@ async function setStageConfigVars(
 ): Promise<void> {
   logger.info(`setting config vars for ${stage} stage`)
 
-  // HACK:20221024:IM Seeing as this task *should* only be running in CI, calls
-  // to Doppler will always fail as we don't have the CLI installed, nor the
-  // auth set up, for it. We still need to call Vault to check whether a
-  // project has migrated to Doppler yet, and sync Vault secrets if it hasn't,
-  // but this function should be removed entirely once we drop support for
-  // Vault. The secret is only stored in Vault's continuous-integration folder
-  // so check that and then get the passed argument later if the secret isn't
-  // present.
+  // HACK:20221024:IM We need to call Vault to check whether a project has
+  // migrated to Doppler yet, and sync Vault secrets if it hasn't, but this
+  // function should be removed entirely once we drop support for Vault. The
+  // secret is only stored in Vault's continuous-integration folder so check
+  // that and then get the passed argument later if the secret isn't present.
+  // We can skip this call if we find the project has already added options for
+  // doppler in the Tool Kit configuration.
+  const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+  if (migratedToolKitToDoppler) {
+    return
+  }
   const dopplerEnvVars = new DopplerEnvVars(logger, 'ci')
   let configVars = await dopplerEnvVars.fallbackToVault()
   // HACK:20221023:IM don't overwrite secrets when the project has already
