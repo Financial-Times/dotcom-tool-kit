@@ -70,10 +70,7 @@ export class DopplerEnvVars {
     let errorMsg = ''
     try {
       let secrets = ''
-      // the command we use to install Doppler in CircleCI only installs it in
-      // the local directory, not in $PATH
-      const dopplerExec = process.env.CIRCLECI ? './doppler' : 'doppler'
-      const dopplerChild = spawn(dopplerExec, [
+      const dopplerChild = spawn('doppler', [
         'secrets',
         'download',
         '--no-file',
@@ -106,17 +103,23 @@ export class DopplerEnvVars {
     return undefined
   }
 
-  // HACK:20230928:IM keep this function around for backwards compatibility
-  // (and a similar interface to the old Vault library)
   async get(): Promise<DopplerSecrets> {
     const { secrets } = await this.getWithSource()
     return secrets
   }
 
+  // TODO:20221023:IM remove this function once we drop Vault support and keep
+  // logic in get() instead
   async getWithSource(): Promise<SecretsWithSource> {
     const secrets = await this.invokeCLI()
     if (secrets) {
       return { secrets, source: 'doppler' }
+    }
+    // don't fallback to Vault if the project has doppler options set up
+    // explicitly already
+    const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+    if (migratedToolKitToDoppler) {
+      throw new ToolKitError('failed to get secrets from Doppler')
     }
 
     // fall back to Vault
@@ -129,9 +132,18 @@ export class DopplerEnvVars {
       // )
       hasLoggedMigrationWarning = true
     }
+
+    return { secrets: await this.fallbackToVault(), source: 'vault' }
+  }
+
+  // HACK:20221024:IM This function is here just to enable projects that have
+  // migrated to Doppler to use the logic in this class that converts between
+  // Doppler and Vault project names. We should remove this function once we
+  // drop Vault support.
+  fallbackToVault(): Promise<DopplerSecrets> {
     const vault = new Vault.VaultEnvVars(this.logger, {
       environment: dopplerEnvToVaultMap[this.environment]
     })
-    return { secrets: await vault.get(), source: 'vault' }
+    return vault.get()
   }
 }

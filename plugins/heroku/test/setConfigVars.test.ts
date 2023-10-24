@@ -1,6 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals'
 import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars'
-import { DopplerEnvVars, Source as SecretsSource } from '@dotcom-tool-kit/doppler'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
 const logger = (winston as unknown) as Logger
@@ -19,7 +19,7 @@ const pipeline = {
 }
 const pipelineName = 'test-pipeline-name'
 
-const secrets = {
+const secrets: Record<string, string> = {
   secret1: 'secret-1',
   secret2: 'secret-2',
   secret3: 'secret-3'
@@ -38,20 +38,13 @@ const reviewPatchBody = {
 }
 class DopplerEnvVarsMock {
   dopplerPath: DopplerPath
-  environment: string
-
-  static secretsSource: SecretsSource
   // Intentional unused parameter as pre-fixed with an underscore
   // eslint-disable-next-line no-unused-vars
-  constructor(_settings: DopplerPath) {
+  constructor(_dopplerPath: DopplerPath, public environment: string, private migrated: boolean) {
     this.dopplerPath = dopplerPath
-    this.environment = environment
   }
-  get() {
-    return secrets
-  }
-  getWithSource() {
-    return { secrets, source: DopplerEnvVarsMock.secretsSource }
+  fallbackToVault() {
+    return this.environment === 'ci' ? { MIGRATED_TO_DOPPLER: this.migrated ? 'true' : undefined } : secrets
   }
 }
 jest.mock('../src/herokuClient', () => {
@@ -77,13 +70,20 @@ jest.mock('../src/herokuClient', () => {
     })
   }
 })
-jest.mock('@dotcom-tool-kit/doppler', () => {
-  return {
-    DopplerEnvVars: jest.fn((settings: DopplerPath) => new DopplerEnvVarsMock(settings))
-  }
-})
+const DopplerEnvVarsMocked = jest.mocked<any>(DopplerEnvVars, true)
+jest.mock('@dotcom-tool-kit/doppler')
+function mockDopplerEnvVars(migrated: boolean) {
+  DopplerEnvVarsMocked.mockImplementation(
+    (dopplerPath, environment) => new DopplerEnvVarsMock(dopplerPath, environment, migrated)
+  )
+}
 
 describe('setConfigVars', () => {
+  beforeEach(() => {
+    DopplerEnvVarsMocked.mockReset()
+    mockDopplerEnvVars(false)
+  })
+
   it('passes its settings to doppler env vars and receives secrets ', async () => {
     await setAppConfigVars(logger, appName, environment, systemCode)
 
@@ -114,13 +114,10 @@ describe('setConfigVars', () => {
     await expect(setAppConfigVars(logger, appName, environment, systemCode)).resolves.not.toThrow()
   })
 
-  it('does not set config vars when Doppler is in use', async () => {
-    // HACK:20230928:IM there's probably a better way to do this but I don't
-    // enjoy playing with Jest mocks
-    DopplerEnvVarsMock.secretsSource = 'doppler'
+  it("does not set config vars when we've migrated to Doppler", async () => {
+    mockDopplerEnvVars(true)
     await setAppConfigVars(logger, appName, environment, systemCode)
 
     expect(heroku.patch).not.toBeCalled()
-    DopplerEnvVarsMock.secretsSource = 'vault'
   })
 })

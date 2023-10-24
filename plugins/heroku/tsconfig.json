@@ -24,6 +24,9 @@
     },
     {
       "path": "../../lib/logger"
+    },
+    {
+      "path": "../../lib/options"
     }
   ],
   "compilerOptions": {

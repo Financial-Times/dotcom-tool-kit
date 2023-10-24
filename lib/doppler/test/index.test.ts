@@ -11,7 +11,6 @@ spawk.preventUnmatched()
 
 const environment = 'dev'
 const project = 'test-project'
-const dopplerExec = process.env.CIRCLECI ? './doppler' : 'doppler'
 const doppler = new DopplerEnvVars(logger, environment, {
   project
 })
@@ -23,7 +22,7 @@ const expectedArgs = ['secrets', 'download', '--no-file', '--project', project, 
 
 describe(`Doppler CLI invocations`, () => {
   it('should set environment variables downloaded from the CLI', async () => {
-    const interceptor = spawk.spawn(dopplerExec, expectedArgs)
+    const interceptor = spawk.spawn('doppler', expectedArgs)
     interceptor.stdout(JSON.stringify(testEnvironment))
     const env = await doppler.get()
     expect(env).toEqual(testEnvironment)
@@ -31,7 +30,7 @@ describe(`Doppler CLI invocations`, () => {
   })
 
   it("should fall back to Vault when Doppler isn't installed", async () => {
-    const interceptor = spawk.spawn(dopplerExec, expectedArgs)
+    const interceptor = spawk.spawn('doppler', expectedArgs)
     /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
      * spawk type definitions are out of date
      **/
@@ -43,7 +42,7 @@ describe(`Doppler CLI invocations`, () => {
   })
 
   it('should fall back to Vault when Doppler prints an error', async () => {
-    const interceptor = spawk.spawn(dopplerExec, expectedArgs)
+    const interceptor = spawk.spawn('doppler', expectedArgs)
     interceptor.stderr('doppler had an issue')
     const env = await doppler.get()
     expect(env).toBeUndefined()
@@ -52,7 +51,7 @@ describe(`Doppler CLI invocations`, () => {
   })
 
   it('should fall back to Vault when the JSON is unparseable', async () => {
-    const interceptor = spawk.spawn(dopplerExec, expectedArgs)
+    const interceptor = spawk.spawn('doppler', expectedArgs)
     interceptor.stdout(JSON.stringify(testEnvironment).slice(0, 20))
     const env = await doppler.get()
     expect(env).toBeUndefined()

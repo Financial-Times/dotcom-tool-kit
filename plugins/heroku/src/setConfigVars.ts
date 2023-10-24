@@ -1,5 +1,6 @@
 import type { Logger } from 'winston'
 import { DopplerEnvVars, Environment } from '@dotcom-tool-kit/doppler'
+import { getOptions } from '@dotcom-tool-kit/options'
 import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetRegion, HerokuApiResPipeline } from 'heroku-client'
 
@@ -13,12 +14,28 @@ async function setAppConfigVars(
 ): Promise<void> {
   logger.info(`setting config vars for ${appIdName}`)
 
-  const dopplerEnvVars = new DopplerEnvVars(logger, environment)
-  const { secrets: configVars, source } = await dopplerEnvVars.getWithSource()
-  // HACK:20230925:IM we only want to set secrets from Vault, if we're using
-  // Doppler we should let its own Heroku integration handle secrets syncing
-  if (source === 'doppler') {
+  // HACK:20221024:IM We need to call Vault to check whether a project has
+  // migrated to Doppler yet, and sync Vault secrets if it hasn't, but this
+  // function should be removed entirely once we drop support for Vault. The
+  // secret is only stored in Vault's continuous-integration folder so check
+  // that and then get the passed argument later if the secret isn't present.
+  // We can skip this call if we find the project has already added options for
+  // doppler in the Tool Kit configuration.
+  const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+  if (migratedToolKitToDoppler) {
     return
+  }
+  const dopplerEnvVars = new DopplerEnvVars(logger, 'ci')
+  let configVars = await dopplerEnvVars.fallbackToVault()
+  // HACK:20221023:IM don't overwrite secrets when the project has already
+  // migrated from Vault to Doppler – Doppler will handle the secret syncing
+  // for us
+  if (configVars.MIGRATED_TO_DOPPLER) {
+    return
+  }
+  if (environment !== 'ci') {
+    const dopplerEnvVars = new DopplerEnvVars(logger, environment)
+    configVars = await dopplerEnvVars.fallbackToVault()
   }
 
   const { region } = await heroku
@@ -49,13 +66,28 @@ async function setStageConfigVars(
 ): Promise<void> {
   logger.info(`setting config vars for ${stage} stage`)
 
-  const dopplerEnvVars = new DopplerEnvVars(logger, environment)
-
-  const { secrets: configVars, source } = await dopplerEnvVars.getWithSource()
-  // HACK:20230925:IM we only want to set secrets from Vault, if we're using
-  // Doppler we should let its own Heroku integration handle secrets syncing
-  if (source === 'doppler') {
+  // HACK:20221024:IM We need to call Vault to check whether a project has
+  // migrated to Doppler yet, and sync Vault secrets if it hasn't, but this
+  // function should be removed entirely once we drop support for Vault. The
+  // secret is only stored in Vault's continuous-integration folder so check
+  // that and then get the passed argument later if the secret isn't present.
+  // We can skip this call if we find the project has already added options for
+  // doppler in the Tool Kit configuration.
+  const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+  if (migratedToolKitToDoppler) {
     return
+  }
+  const dopplerEnvVars = new DopplerEnvVars(logger, 'ci')
+  let configVars = await dopplerEnvVars.fallbackToVault()
+  // HACK:20221023:IM don't overwrite secrets when the project has already
+  // migrated from Vault to Doppler – Doppler will handle the secret syncing
+  // for us
+  if (configVars.MIGRATED_TO_DOPPLER) {
+    return
+  }
+  if (environment !== 'ci') {
+    const dopplerEnvVars = new DopplerEnvVars(logger, environment)
+    configVars = await dopplerEnvVars.fallbackToVault()
   }
 
   if (systemCode) {
