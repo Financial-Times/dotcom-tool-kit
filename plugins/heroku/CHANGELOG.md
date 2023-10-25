@@ -121,6 +121,13 @@
   * dependencies
     * @dotcom-tool-kit/doppler bumped from ^1.0.4 to ^1.0.5
 
+## [3.3.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.7...heroku-v3.3.8) (2023-10-25)
+
+
+### Bug Fixes
+
+* **heroku:** only log config var sync if not migrated to Doppler ([6f3cddf](https://github.com/Financial-Times/dotcom-tool-kit/commit/6f3cddfb15f1c2216352f4dedb950ea72ba37944))
+
 ## [3.3.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.6...heroku-v3.3.7) (2023-10-24)
 
 
