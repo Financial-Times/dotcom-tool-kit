@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/heroku",
-  "version": "3.3.7",
+  "version": "3.3.8",
   "description": "",
   "main": "lib",
   "scripts": {
