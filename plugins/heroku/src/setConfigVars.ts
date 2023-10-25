@@ -12,8 +12,6 @@ async function setAppConfigVars(
   environment: Environment,
   systemCode?: string
 ): Promise<void> {
-  logger.info(`setting config vars for ${appIdName}`)
-
   // HACK:20221024:IM We need to call Vault to check whether a project has
   // migrated to Doppler yet, and sync Vault secrets if it hasn't, but this
   // function should be removed entirely once we drop support for Vault. The
@@ -37,6 +35,8 @@ async function setAppConfigVars(
     const dopplerEnvVars = new DopplerEnvVars(logger, environment)
     configVars = await dopplerEnvVars.fallbackToVault()
   }
+
+  logger.info(`setting config vars for ${appIdName}`)
 
   const { region } = await heroku
     .get<HerokuApiResGetRegion>(`/apps/${appIdName}`)
@@ -64,8 +64,6 @@ async function setStageConfigVars(
   pipelineName: string,
   systemCode?: string
 ): Promise<void> {
-  logger.info(`setting config vars for ${stage} stage`)
-
   // HACK:20221024:IM We need to call Vault to check whether a project has
   // migrated to Doppler yet, and sync Vault secrets if it hasn't, but this
   // function should be removed entirely once we drop support for Vault. The
@@ -89,6 +87,8 @@ async function setStageConfigVars(
     const dopplerEnvVars = new DopplerEnvVars(logger, environment)
     configVars = await dopplerEnvVars.fallbackToVault()
   }
+
+  logger.info(`setting config vars for ${stage} stage`)
 
   if (systemCode) {
     configVars.SYSTEM_CODE = systemCode
