@@ -3,7 +3,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Task } from '@dotcom-tool-kit/types'
 import { semVerRegex, prereleaseRegex, releaseRegex } from '@dotcom-tool-kit/types/lib/npm'
 import { readState } from '@dotcom-tool-kit/state'
-import { waitOnExit } from '@dotcom-tool-kit/logger'
+import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 
 type TagType = 'prerelease' | 'latest'
 
@@ -31,6 +31,7 @@ export default class NpmPublish extends Task {
     try {
       this.logger.verbose(`running \`npm ${npmTask} ${options.join(' ')}\``)
       const task = spawn('npm', [npmTask, ...options])
+      hookFork(this.logger, `npm ${task}`, task)
       await waitOnExit(`npm ${task}`, task)
     } catch (err) {
       const error = new ToolKitError(`unable to ${npmTask} package`)
