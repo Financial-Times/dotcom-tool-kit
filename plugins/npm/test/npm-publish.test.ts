@@ -9,12 +9,8 @@ import { spawn } from 'node:child_process'
 const logger = (winston as unknown) as Logger
 
 const readStateMock = jest.spyOn(state, 'readState')
-jest.mock('node:child_process', () => ({
-  spawn: jest.fn(() => Promise.resolve())
-}))
-jest.mock('@dotcom-tool-kit/logger', () => ({
-  waitOnExit: jest.fn(() => Promise.resolve())
-}))
+jest.mock('node:child_process')
+jest.mock('@dotcom-tool-kit/logger')
 
 describe('NpmPublish', () => {
   it('should throw an error if ci is not found in state', async () => {
