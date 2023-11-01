@@ -127,6 +127,19 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.1.6...npm-v3.2.0) (2023-11-01)
+
+
+### Features
+
+* **npm:** expose npm task logs for publishing ([c7ac56e](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7ac56e2f3880053ccabb11c46a51e879f8b426d))
+
+
+### Bug Fixes
+
+* **npm:** add npmTask string to logger not task object ([5c4ea93](https://github.com/Financial-Times/dotcom-tool-kit/commit/5c4ea939957c1cfc482260ae25f9099177538f7e))
+* **npm:** run npm version before publishing ([7a0d37f](https://github.com/Financial-Times/dotcom-tool-kit/commit/7a0d37fb092ed45445a7781d4c12182779325d39))
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.0.0...npm-v3.1.0) (2023-04-28)
 
 
