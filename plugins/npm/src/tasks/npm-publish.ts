@@ -31,8 +31,8 @@ export default class NpmPublish extends Task {
     try {
       this.logger.verbose(`running \`npm ${npmTask} ${options.join(' ')}\``)
       const task = spawn('npm', [npmTask, ...options])
-      hookFork(this.logger, `npm ${task}`, task)
-      await waitOnExit(`npm ${task}`, task)
+      hookFork(this.logger, `npm ${npmTask}`, task)
+      await waitOnExit(`npm ${npmTask}`, task)
     } catch (err) {
       const error = new ToolKitError(`unable to ${npmTask} package`)
       if (err instanceof Error) {
