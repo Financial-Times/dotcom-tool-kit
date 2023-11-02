@@ -4,7 +4,6 @@ import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
 const logger = (winston as unknown) as Logger
-/* eslint-disable @typescript-eslint/no-unused-vars */
 type DopplerPath = {
   project: string
 }
@@ -38,8 +37,6 @@ const reviewPatchBody = {
 }
 class DopplerEnvVarsMock {
   dopplerPath: DopplerPath
-  // Intentional unused parameter as pre-fixed with an underscore
-  // eslint-disable-next-line no-unused-vars
   constructor(_dopplerPath: DopplerPath, public environment: string, private migrated: boolean) {
     this.dopplerPath = dopplerPath
   }
