@@ -1,2 +1,3 @@
-dist
-.toolkitstate/
+*
+!readme.md
+!.gitignore

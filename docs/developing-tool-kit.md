@@ -8,8 +8,6 @@ Tool Kit requires Node v16. To install dependencies for every package in the wor
 npm install
 ```
 
-There's a testing sandbox at [`core/sandbox`](/core/sandbox) with Tool Kit installed as a dependency. In that directory, you can run `npx dotcom-tool-kit --help` to see what hooks and tasks are available.
-
 ## Creating a plugin
 
 There's a script to create a skeleton plugin. Run:
@@ -23,45 +21,6 @@ The script will create the plugin folder and add all the necessary configuration
 ## Development workflow
 
 At the root of the repository, `npm run watch` will run the Typescript compiler and build files when you change them. It's recommended to leave that running while you develop things.
-
-### Manually testing a plugin
-
-To test how your plugin can interact with a host repo and other plugins, the `sandbox` package is set up in the same way as a repo using Tool Kit. Install your plugin:
-
-```sh
-cd core/sandbox
-npm install ../../plugins/name-of-plugin
-```
-
-And add it to the sandbox's `.toolkitrc.yml`:
-
-```yml
-plugins:
-  - '@dotcom-tool-kit/name-of-plugin'
-```
-
-You can check if it's installed by running the help command:
-
-```sh
-npx dotcom-tool-kit --help
-```
-
-Test the plugins hooks with the install command:
-
-```sh
-npx dotcom-tool-kit --install
-```
-
-And test tasks by manually assigning them to a hook and running that hook:
-
-```yml
-hooks:
-  'test:local': NewPluginTask
-```
-
-```sh
-npm run test
-```
 
 ## Plugin structure
 
@@ -135,7 +94,7 @@ This lets different plugins define the same abstractly labelled hooks with diffe
 
 #### Defining options
 
-Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. We use the [`zod` library](https://zod.dev) to specify the schema, which allows us to define what we expect the options to look like and use this specification to validate the options we receive as well as generate TypeScript types for them. Options are defined in the `@dotcom-tool-kit/types` package, in the `schema` files. Create a file in [`src/schema`](../lib/types/src/schema) for your plugin, which should export a `NameOfPluginSchema` object (that should also be exported as `Schema`), and a `NameOfPluginOptions` type that uses the `SchemaOutput` generic type. 
+Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. We use the [`zod` library](https://zod.dev) to specify the schema, which allows us to define what we expect the options to look like and use this specification to validate the options we receive as well as generate TypeScript types for them. Options are defined in the `@dotcom-tool-kit/types` package, in the `schema` files. Create a file in [`src/schema`](../lib/types/src/schema) for your plugin, which should export a `NameOfPluginSchema` object (that should also be exported as `Schema`), and a `NameOfPluginOptions` type that uses the `SchemaOutput` generic type.
 
 ```typescript
 import { z } from 'zod'
