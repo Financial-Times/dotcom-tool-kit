@@ -127,6 +127,13 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+## [3.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.2.0...npm-v3.2.1) (2023-11-03)
+
+
+### Bug Fixes
+
+* **npm:** run npm version with --no-git-tag option ([62a9065](https://github.com/Financial-Times/dotcom-tool-kit/commit/62a90650fde25f5bbe8660c335e313c12f20be1b))
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.1.6...npm-v3.2.0) (2023-11-01)
 
 
