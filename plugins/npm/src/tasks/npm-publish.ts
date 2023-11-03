@@ -63,7 +63,7 @@ export default class NpmPublish extends Task {
       )
     }
 
-    await this.executeNpmTask('version', [tag])
+    await this.executeNpmTask('version', [tag, '--no-git-tag-version'])
     await this.executeNpmTask('publish', ['--tag', npmTag])
 
     this.logger.info(`✅ npm package published`)
