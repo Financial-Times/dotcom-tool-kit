@@ -51,7 +51,6 @@ Funny you should ask! We have just the thing:
 | `test:local`        | npm                     | `Mocha`              |
 |                     |                         | `JestLocal`          |
 |                     |                         | `Eslint`             |
-|                     |                         | `SecretSquirrel`     |
 |                     |                         | `CypressLocal`       |
 |                     |                         | `TypeScriptTest`     |
 | `build:local`       | npm                     | `BabelDevelopment`   |
@@ -76,7 +75,6 @@ Funny you should ask! We have just the thing:
 | `build:remote`      | heroku                  | `BabelProduction`    |
 |                     |                         | `WebpackProduction`  |
 | `git:precommit`     | husky-npm               | `LintStaged`         |
-|                     |                         | `SecretSquirrel`     |
 | `git:commitmsg`     | husky-npm               |                      |
 | `test:staged`       | lint-staged-npm         | `Eslint`             |
 | `format:staged`     | lint-staged-npm         | `Prettier`           |
