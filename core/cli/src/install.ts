@@ -4,6 +4,7 @@ import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
 import { loadConfig, loadHooks, updateHashes, ValidConfig } from './config'
 import { postInstall } from './postInstall'
+import { unwrapValidated } from '@dotcom-tool-kit/types'
 
 // implementation of the Array.some method that supports asynchronous predicates
 async function asyncSome<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
@@ -31,7 +32,8 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
   let usesNewCircleCIGroup = false
   // group hooks without an installGroup separately so that their check()
   // method runs independently
-  const hooks = await loadHooks(logger, config)
+  const hooks = unwrapValidated(await loadHooks(logger, config), 'hooks are invalid')
+
   const groups = groupBy(hooks, (hook) => hook.installGroup ?? '__' + hook.id)
   for (const [groupId, group] of Object.entries(groups)) {
     try {

@@ -82,6 +82,14 @@ export function reduceValidated<T>(validated: Validated<T>[]): Validated<T[]> {
   return sequenced
 }
 
+export function flatMapValidated<T, U>(validated: Validated<T>, f: (val: T) => Validated<U>): Validated<U> {
+  if (validated.valid) {
+    return f(validated.value)
+  } else {
+    return validated
+  }
+}
+
 export function unwrapValidated<T>(validated: Validated<T>, message = ''): T {
   if (validated.valid) {
     return validated.value
@@ -172,9 +180,11 @@ export abstract class Task<O extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
   abstract run(files?: string[]): Promise<void>
 }
 
-export type TaskClass = {
+export type TaskConstructor = {
   new <O extends z.ZodTypeAny>(logger: Logger, id: string, options: Partial<z.infer<O>>): Task<O>
-} & typeof Task
+}
+
+export type TaskClass = TaskConstructor & typeof Task
 
 export abstract class Hook<State = void> extends Base {
   logger: Logger
@@ -226,4 +236,13 @@ export interface Plugin {
   rcFile?: RCFile
   parent?: Plugin
   children?: Plugin[]
+}
+
+export interface PluginModule {
+  tasks: {
+    [id: string]: TaskConstructor
+  }
+  hooks: {
+    [id: string]: HookConstructor
+  }
 }
