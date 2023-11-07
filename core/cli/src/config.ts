@@ -5,13 +5,13 @@ import path from 'path'
 import type { Logger } from 'winston'
 
 import type { HookTask } from './hook'
-import { loadPlugin, resolvePlugin } from './plugin'
+import { RawPluginModule, importPlugin, loadPlugin, resolvePlugin, validatePluginHooks } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
 import {
+  flatMapValidated,
   Hook,
-  HookConstructor,
   mapValidated,
   Plugin,
   reduceValidated,
@@ -69,15 +69,19 @@ export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'hookTasks' | 'opti
 
 const coreRoot = path.resolve(__dirname, '../')
 
-export function loadHooks(logger: Logger, config: ValidConfig): Promise<Hook<unknown>[]> {
-  return Promise.all(
-    Object.entries(config.hooks).map(async ([hookName, pluginId]) => {
-      const plugin = await import(pluginId)
-      const Hook = plugin.hooks[hookName] as HookConstructor
-      return new Hook(logger, hookName)
-    })
+export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> =>
+  reduceValidated(
+    await Promise.all(
+      Object.entries(config.hooks).map(async ([hookName, pluginId]) =>
+        flatMapValidated(await importPlugin(pluginId), (plugin) =>
+          mapValidated(
+            validatePluginHooks(plugin as RawPluginModule),
+            (hooks) => new hooks[hookName](logger, hookName)
+          )
+        )
+      )
+    )
   )
-}
 
 export async function fileHash(path: string): Promise<string> {
   const hashFunc = createHash('sha512')
@@ -120,7 +124,8 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
     return
   }
 
-  const hooks = await loadHooks(logger, config)
+  const hooks = unwrapValidated(await loadHooks(logger, config), 'hooks are invalid')
+
   const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
     return !(await hook.check())
   })

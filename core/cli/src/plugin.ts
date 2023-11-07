@@ -1,9 +1,12 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
 import {
+  Hook,
   mapValidated,
   mapValidationError,
   Plugin,
+  PluginModule,
   reduceValidated,
+  Task,
   Valid,
   Validated
 } from '@dotcom-tool-kit/types'
@@ -13,6 +16,7 @@ import { PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from './conflict'
 import type { HookTask } from './hook'
 import { loadToolKitRC } from './rc-file'
+import { isPlainObject } from 'lodash'
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {
@@ -21,6 +25,88 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
     return true
   } else {
     return isDescendent(possibleAncestor, possibleDescendent.parent)
+  }
+}
+
+const isPlainObjectGuard = (value: unknown): value is Record<string, unknown> => isPlainObject(value)
+
+export type RawPluginModule = Partial<PluginModule>
+
+export function validatePluginTasks(plugin: RawPluginModule): Validated<PluginModule['tasks']> {
+  if (plugin.tasks) {
+    if (!isPlainObjectGuard(plugin.tasks)) {
+      return {
+        valid: false,
+        reasons: [`the exported ${s.code('tasks')} value from this plugin is not an object`]
+      }
+    } else {
+      return mapValidated(
+        reduceValidated(
+          Object.entries(plugin.tasks).map(([id, task]) =>
+            mapValidationError(
+              mapValidated(Task.isCompatible<Task>(task), (task) => [id, task]),
+              (reasons) => [
+                `the task ${s.task(task.name)} is not a compatible instance of ${s.code(
+                  'Task'
+                )}:\n  - ${reasons.join('\n  - ')}`
+              ]
+            )
+          )
+        ),
+        Object.fromEntries
+      )
+    }
+  }
+
+  return { valid: true, value: {} }
+}
+
+export function validatePluginHooks(plugin: RawPluginModule): Validated<PluginModule['hooks']> {
+  if (plugin.hooks) {
+    if (!isPlainObjectGuard(plugin.hooks)) {
+      return {
+        valid: false,
+        reasons: [`the exported ${s.code('hooks')} value from this plugin is not an object`]
+      }
+    } else {
+      return mapValidated(
+        reduceValidated(
+          Object.entries(plugin.hooks).map(([id, hook]) =>
+            mapValidationError(
+              mapValidated(Hook.isCompatible<Hook>(hook), (hook) => [id, hook]),
+              (reasons) => [
+                `the hook ${s.hook(id)} is not a compatible instance of ${s.code(
+                  'Hook'
+                )}:\n  - ${reasons.join('\n  - ')}`
+              ]
+            )
+          )
+        ),
+        Object.fromEntries
+      )
+    }
+  }
+  return { valid: true, value: {} }
+}
+
+export async function importPlugin(pluginPath: string): Promise<Validated<unknown>> {
+  try {
+    // pluginPath is an absolute resolved path to a plugin module as found from its parent
+    const pluginModule: unknown = await import(pluginPath)
+    return {
+      valid: true,
+      value: pluginModule
+    }
+  } catch (e) {
+    const err = e as Error
+    return {
+      valid: false,
+      reasons: [
+        `an error was thrown when loading this plugin's entrypoint:\n  ${s.code(
+          indentReasons(err.toString())
+        )}`
+      ]
+    }
   }
 }
 
@@ -59,6 +145,8 @@ export async function loadPlugin(
 
   config.plugins[id] = plugin
 
+  // ESlint disable explanation: erroring due to a possible race condition but is a false positive since the plugin variable isn't from another scope and can't be written to concurrently.
+  // eslint-disable-next-line require-atomic-updates
   plugin.value.rcFile = await loadToolKitRC(logger, pluginRoot, isAppRoot)
 
   const children = await Promise.all(
