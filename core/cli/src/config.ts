@@ -15,6 +15,7 @@ import {
   mapValidated,
   Plugin,
   reduceValidated,
+  unwrapValidated,
   Validated
 } from '@dotcom-tool-kit/types'
 import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/schema'
@@ -296,21 +297,10 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
 
   // start loading config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
-  if (!rootPlugin.valid) {
-    const error = new ToolKitError('root plugin was not valid!')
-    error.details = rootPlugin.reasons.join('\n\n')
-    throw error
-  }
-  const validRootPlugin = rootPlugin.value
+  const validRootPlugin = unwrapValidated(rootPlugin, 'root plugin was not valid!')
 
   const validatedPluginConfig = validatePlugins(config)
-
-  if (!validatedPluginConfig.valid) {
-    const error = new ToolKitError('config was not valid!')
-    error.details = validatedPluginConfig.reasons.join('\n\n')
-    throw error
-  }
-  const validPluginConfig = validatedPluginConfig.value
+  const validPluginConfig = unwrapValidated(validatedPluginConfig, 'config was not valid!')
 
   // collate root plugin and descendent hooks, options etc into config
   resolvePlugin(validRootPlugin, validPluginConfig, logger)

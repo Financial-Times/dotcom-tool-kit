@@ -1,3 +1,4 @@
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles as s } from '@dotcom-tool-kit/logger'
 import fs from 'fs'
 import path from 'path'
@@ -79,6 +80,16 @@ export function reduceValidated<T>(validated: Validated<T>[]): Validated<T[]> {
     }
   }
   return sequenced
+}
+
+export function unwrapValidated<T>(validated: Validated<T>, message = ''): T {
+  if (validated.valid) {
+    return validated.value
+  } else {
+    const error = new ToolKitError(message)
+    error.details = validated.reasons.join('\n\n')
+    throw error
+  }
 }
 
 abstract class Base {
