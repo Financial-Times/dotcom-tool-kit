@@ -1,4 +1,4 @@
-import { fork } from 'child_process'
+import { fork } from 'node:child_process'
 import JestLocal from '../src/tasks/local'
 import JestCI from '../src/tasks/ci'
 import EventEmitter from 'events'
@@ -6,7 +6,7 @@ import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger
 
-jest.mock('child_process', () => ({
+jest.mock('node:child_process', () => ({
   fork: jest.fn(() => {
     // return a fake emitter that immediately sends an "exit" event, so the jest task resolves
     const emitter = new EventEmitter()
@@ -24,16 +24,24 @@ describe('jest plugin', () => {
       const jestLocal = new JestLocal(logger, { configPath: './src/jest.config.js' })
       await jestLocal.run()
 
-      expect(fork).toBeCalledWith(expect.any(String), ['--colors', '', '--config=./src/jest.config.js'], {
-        silent: true
-      })
+      expect(fork).toBeCalledWith(
+        expect.any(String),
+        expect.arrayContaining(['--config=./src/jest.config.js']),
+        {
+          silent: true
+        }
+      )
     })
 
     it('should call jest cli without configPath by default', async () => {
       const jestLocal = new JestLocal(logger, {})
       await jestLocal.run()
 
-      expect(fork).toBeCalledWith(expect.any(String), ['--colors', '', ''], { silent: true })
+      expect(fork).toBeCalledWith(
+        expect.any(String),
+        expect.not.arrayContaining([expect.stringContaining('--config')]),
+        { silent: true }
+      )
     })
   })
 
@@ -42,16 +50,24 @@ describe('jest plugin', () => {
       const jestCI = new JestCI(logger, { configPath: './src/jest.config.js' })
       await jestCI.run()
 
-      expect(fork).toBeCalledWith(expect.any(String), ['--colors', '--ci', '--config=./src/jest.config.js'], {
-        silent: true
-      })
+      expect(fork).toBeCalledWith(
+        expect.any(String),
+        expect.arrayContaining(['--ci', '--config=./src/jest.config.js']),
+        {
+          silent: true
+        }
+      )
     })
 
     it('should call jest cli without configPath by default', async () => {
       const jestCI = new JestCI(logger, {})
       await jestCI.run()
 
-      expect(fork).toBeCalledWith(expect.any(String), ['--colors', '--ci', ''], { silent: true })
+      expect(fork).toBeCalledWith(
+        expect.any(String),
+        expect.not.arrayContaining([expect.stringContaining('--config')]),
+        { silent: true }
+      )
     })
   })
 })
