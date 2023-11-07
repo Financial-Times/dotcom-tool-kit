@@ -144,11 +144,15 @@ export function waitOnExit(process: string, child: ChildProcess): Promise<void> 
     child.on('error', (error) => {
       reject(error)
     })
-    child.on('exit', (code) => {
+    child.on('exit', (code, signal) => {
       if (code === 0) {
         resolve()
       } else {
-        const error = new ToolKitError(`${process} process returned a non-zero exit code (${code})`)
+        const error = new ToolKitError(
+          `${process} process ${
+            code ? `returned a non-zero exit code (${code})` : `was terminated by a ${signal} signal`
+          }`
+        )
         error.details = 'error output has been logged above ☝️'
         error.exitCode = code ?? undefined
         reject(error)
