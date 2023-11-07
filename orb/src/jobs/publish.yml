@@ -8,5 +8,9 @@ executor: << parameters.executor >>
 steps:
   - attach-workspace
   - run:
+      name: Set npm auth token
+      command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >
+        ${HOME}/.npmrc
+  - run:
       name: Publish to npm
       command: npx dotcom-tool-kit publish:tag
