@@ -32,7 +32,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should upload all globbed files for review', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       directory: testDirectory
     })
@@ -45,7 +45,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should upload all globbed files for prod', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       directory: testDirectory
     })
@@ -58,7 +58,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should strip base path from S3 key', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       extensions: 'gz',
       directory: testDirectory,
@@ -73,7 +73,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should use correct Content-Encoding for compressed files', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       extensions: 'gz',
       directory: testDirectory
@@ -93,7 +93,7 @@ describe('upload-assets-to-s3', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(mockedS3Client.prototype.send as any).mockRejectedValue(new Error(mockError))
 
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       directory: testDirectory
     })
@@ -108,7 +108,7 @@ describe('upload-assets-to-s3', () => {
 
   // HACK:20231006:IM make sure hack to support Doppler migration works
   it('should fallback to uppercase environment variable', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       directory: testDirectory
     })

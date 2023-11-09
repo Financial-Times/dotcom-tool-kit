@@ -75,36 +75,8 @@ describe('staging', () => {
     buildInfo.slug = null
   })
 
-  it('should fail when both options are missing', async () => {
-    const task = new Staging(logger, {})
-
-    try {
-      await task.run()
-    } catch (err) {
-      expect(err).toBeTruthy()
-    }
-  })
-
-  it('should fail if either option is missing', async () => {
-    let task = new Staging(logger, { pipeline })
-
-    try {
-      await task.run()
-    } catch (err) {
-      expect(err).toBeTruthy()
-    }
-
-    task = new Staging(logger, { pipeline, systemCode })
-
-    try {
-      await task.run()
-    } catch (err) {
-      expect(err).toBeTruthy()
-    }
-  })
-
   it('should call pipeline couplings with pipeline option', async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
 
     await task.run()
 
@@ -113,7 +85,7 @@ describe('staging', () => {
   })
 
   it('should return appName from get heroku staging', async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
 
     await task.run()
 
@@ -122,7 +94,7 @@ describe('staging', () => {
   })
 
   it('should call setAppConfigVars with doppler project and system code', async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
 
     await task.run()
 
@@ -130,7 +102,7 @@ describe('staging', () => {
   })
 
   it('should call createBuild with app name', async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
 
     await task.run()
 
@@ -138,21 +110,21 @@ describe('staging', () => {
   })
 
   it(`should call repeatedCheckForBuildSuccess if the slug id isn't present`, async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
     await task.run()
 
     expect(repeatedCheckForBuildSuccess).toBeCalledWith(expect.anything(), appName, buildInfo.id)
   })
 
   it('should call setStagingSlug with app name and slug id', async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
     await task.run()
 
     expect(setStagingSlug).toBeCalledWith(expect.anything(), appName, slugId)
   })
 
   it('should call scaleDyno', async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
 
     await task.run()
 
@@ -160,25 +132,15 @@ describe('staging', () => {
   })
 
   it('should call gtg with appName', async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
 
     await task.run()
 
     expect(gtg).toBeCalledWith(expect.anything(), appName, 'staging')
   })
 
-  it('should throw an error if it fails', async () => {
-    const task = new Staging(logger, { pipeline })
-
-    try {
-      await task.run()
-    } catch (err) {
-      expect(err).toBeTruthy()
-    }
-  })
-
   it('should resolve successfully when complete', async () => {
-    const task = new Staging(logger, { pipeline, systemCode })
+    const task = new Staging(logger, 'HerokuStaging', { pipeline, systemCode, scaling: {} })
 
     await expect(task.run()).resolves.not.toThrow()
   })
