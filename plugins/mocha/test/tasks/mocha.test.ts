@@ -9,7 +9,7 @@ const logger = (winston as unknown) as Logger
 
 describe('mocha', () => {
   it('should succeed with passing tests', async () => {
-    const task = new Mocha(logger, {
+    const task = new Mocha(logger, 'Mocha', {
       files: path.resolve(__dirname, '../files/pass') + '/**/*.js'
     })
 
@@ -17,7 +17,7 @@ describe('mocha', () => {
   })
 
   it('should throw with failing tests', async () => {
-    const task = new Mocha(logger, {
+    const task = new Mocha(logger, 'Mocha', {
       files: path.resolve(__dirname, '../files/fail') + '/**/*.js'
     })
 
