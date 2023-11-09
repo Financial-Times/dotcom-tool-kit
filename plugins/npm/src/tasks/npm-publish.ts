@@ -1,3 +1,4 @@
+import { readFile, writeFile } from 'fs/promises'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Task } from '@dotcom-tool-kit/types'
 import { semVerRegex, prereleaseRegex, releaseRegex } from '@dotcom-tool-kit/types/lib/npm'
@@ -42,9 +43,6 @@ export default class NpmPublish extends Task {
   async run(): Promise<void> {
     this.logger.info('preparing to publish your npm package....')
 
-    const packagePath = process.cwd()
-    const manifest = await pacote.manifest(packagePath)
-
     const ci = readState('ci')
 
     if (!ci) {
@@ -63,10 +61,15 @@ export default class NpmPublish extends Task {
       )
     }
 
+    const packagePath = 'package.json'
+    const packageJson = JSON.parse(await readFile(packagePath, 'utf8'))
     // overwrite version from the package.json with the version from e.g. the git tag
-    manifest.version = tag.replace(/^v/, '')
+    packageJson.version = tag.replace(/^v/, '')
+    await writeFile(packagePath, JSON.stringify(packageJson, null, 2) + '\n')
 
-    const tarball = await pack(packagePath)
+    const packageRoot = process.cwd()
+    const manifest = await pacote.manifest(packageRoot)
+    const tarball = await pack(packageRoot)
 
     await this.listPackedFiles(tarball)
 
