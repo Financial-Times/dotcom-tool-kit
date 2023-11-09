@@ -13,7 +13,7 @@ const configPath = path.relative('', configAbsolutePath)
 
 describe('n-test', () => {
   it('should pass when no errors', async () => {
-    const task = new NTest(logger, {
+    const task = new NTest(logger, 'NTest', {
       config: configPath
     })
 
@@ -21,7 +21,7 @@ describe('n-test', () => {
   })
 
   it('should fail when there are errors', async () => {
-    const task = new NTest(logger, {
+    const task = new NTest(logger, 'NTest', {
       config: configPath
     })
 
@@ -38,7 +38,7 @@ describe('n-test', () => {
   it('should get app url from state', async () => {
     const appUrl = 'https://some-test-app.herokuapp.com'
     writeState('review', { url: appUrl })
-    const task = new NTest(logger, {
+    const task = new NTest(logger, 'NTest', {
       config: configPath
     })
 
