@@ -3,20 +3,29 @@ import NpmPublish from '../src/tasks/npm-publish'
 import winston, { Logger } from 'winston'
 import { ToolKitError } from '../../../lib/error/lib'
 import * as state from '@dotcom-tool-kit/state'
-import { waitOnExit } from '@dotcom-tool-kit/logger'
-import { spawn } from 'node:child_process'
+import pacote, { ManifestResult } from 'pacote'
+import { publish } from 'libnpmpublish'
+import pack from 'libnpmpack'
 
 const logger = (winston as unknown) as Logger
 
 const readStateMock = jest.spyOn(state, 'readState')
-jest.mock('node:child_process')
-jest.mock('@dotcom-tool-kit/logger')
+jest.spyOn(pacote, 'manifest').mockImplementation(() => Promise.resolve({} as ManifestResult))
+jest.spyOn(process, 'cwd').mockImplementation(() => '')
+jest.mock('libnpmpack', () => {
+  return jest.fn(() => Promise.resolve())
+})
+jest.mock('libnpmpublish', () => {
+  return {
+    publish: jest.fn(() => Promise.resolve())
+  }
+})
 
 describe('NpmPublish', () => {
   it('should throw an error if ci is not found in state', async () => {
     readStateMock.mockReturnValue(null)
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger)
     await expect(async () => {
       await task.run()
     }).rejects.toThrow(
@@ -27,7 +36,7 @@ describe('NpmPublish', () => {
   it('should throw error if tag is not found', async () => {
     readStateMock.mockReturnValue({ tag: '', repo: '', branch: '', version: '' })
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger)
     await expect(async () => {
       await task.run()
     }).rejects.toThrow(
@@ -38,19 +47,19 @@ describe('NpmPublish', () => {
   })
 
   it('should return prerelease if match prerelease regex in getNpmTag', () => {
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger)
     expect(task.getNpmTag('v1.6.0-beta.1')).toEqual('prerelease')
   })
 
   it('should return latest if match latest regex in getNpmTag', () => {
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger)
     expect(task.getNpmTag('v1.6.0')).toEqual('latest')
   })
 
   it('should throw error if tag does not match semver regex', async () => {
     readStateMock.mockReturnValue({ tag: 'random-branch', repo: '', branch: '', version: '' })
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger)
     await expect(async () => {
       await task.run()
     }).rejects.toThrow(
@@ -60,16 +69,17 @@ describe('NpmPublish', () => {
     )
   })
 
-  it('should call exec to run npm version and npm publish if tag matches semver regex', async () => {
-    process.env.NPM_AUTH_TOKEN = process.env.NPM_AUTH_TOKEN || 'MOCK_NPM_AUTH_TOKEN'
-    const tag = 'v1.2.3-beta.2'
-    readStateMock.mockReturnValue({ tag: tag, repo: '', branch: '', version: '' })
+  it('should call listPackedFiles, pack and publish if tag matches semver regex', async () => {
+    process.env.NPM_AUTH_TOKEN = process.env.NPM_AUTH_TOKEN || 'dummy_value'
+    readStateMock.mockReturnValue({ tag: 'v1.2.3-beta.2', repo: '', branch: '', version: '' })
+    const listPackedFilesSpy = jest.spyOn(NpmPublish.prototype, 'listPackedFiles')
+    listPackedFilesSpy.mockImplementation(() => Promise.resolve())
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger)
     await task.run()
 
-    expect(spawn).toHaveBeenNthCalledWith(1, 'npm', ['version', tag])
-    expect(spawn).toHaveBeenNthCalledWith(2, 'npm', ['publish', '--tag', 'prerelease'])
-    expect(waitOnExit).toHaveBeenCalledTimes(2)
+    expect(listPackedFilesSpy).toBeCalled()
+    expect(pack).toBeCalled()
+    expect(publish).toBeCalled()
   })
 })
