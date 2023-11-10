@@ -68,7 +68,7 @@ describe('NpmPublish', () => {
     const task = new NpmPublish(logger, {})
     await task.run()
 
-    expect(spawn).toHaveBeenNthCalledWith(1, 'npm', ['version', tag, '--no-git-tag-version'])
+    expect(spawn).toHaveBeenNthCalledWith(1, 'npm', ['version', tag])
     expect(spawn).toHaveBeenNthCalledWith(2, 'npm', ['publish', '--tag', 'prerelease'])
     expect(waitOnExit).toHaveBeenCalledTimes(2)
   })
