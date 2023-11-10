@@ -6,7 +6,7 @@ readonly isBranchMove="$3"
 if [ "$isBranchMove" = "1" ]; then
 	echo "changed branches, cleaning up zombie packages..."
 	for package in core/* plugins/* lib/*; do
-		if ! [ -f "$package/package.json" ]; then
+		if ! [ -f "$package/package.json" ] && [ "$package" != "core/sandbox" ]; then
 			echo "deleting $package"
 			rm -rf "$package"
 		fi
