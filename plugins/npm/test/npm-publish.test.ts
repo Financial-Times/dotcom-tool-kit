@@ -3,14 +3,33 @@ import NpmPublish from '../src/tasks/npm-publish'
 import winston, { Logger } from 'winston'
 import { ToolKitError } from '../../../lib/error/lib'
 import * as state from '@dotcom-tool-kit/state'
-import { waitOnExit } from '@dotcom-tool-kit/logger'
-import { spawn } from 'node:child_process'
+import pacote, { ManifestResult } from 'pacote'
+import { publish } from 'libnpmpublish'
+import pack from 'libnpmpack'
+import { writeFile } from 'fs/promises'
 
 const logger = (winston as unknown) as Logger
 
 const readStateMock = jest.spyOn(state, 'readState')
-jest.mock('node:child_process')
-jest.mock('@dotcom-tool-kit/logger')
+jest.spyOn(pacote, 'manifest').mockImplementation(() => Promise.resolve({} as ManifestResult))
+jest.spyOn(process, 'cwd').mockImplementation(() => '')
+jest.mock('fs/promises', () => {
+  const originalModule = jest.requireActual('fs/promises')
+
+  return {
+    ...originalModule,
+    writeFile: jest.fn(),
+    readFile: jest.fn().mockReturnValue(JSON.stringify({ name: 'my-package', version: '0.0.1' }))
+  }
+})
+jest.mock('libnpmpack', () => {
+  return jest.fn(() => Promise.resolve())
+})
+jest.mock('libnpmpublish', () => {
+  return {
+    publish: jest.fn(() => Promise.resolve())
+  }
+})
 
 describe('NpmPublish', () => {
   it('should throw an error if ci is not found in state', async () => {
@@ -60,16 +79,32 @@ describe('NpmPublish', () => {
     )
   })
 
-  it('should call exec to run npm version and npm publish if tag matches semver regex', async () => {
-    process.env.NPM_AUTH_TOKEN = process.env.NPM_AUTH_TOKEN || 'MOCK_NPM_AUTH_TOKEN'
-    const tag = 'v1.2.3-beta.2'
-    readStateMock.mockReturnValue({ tag: tag, repo: '', branch: '', version: '' })
+  it('should call listPackedFiles, pack and publish if tag matches semver regex', async () => {
+    process.env.NPM_AUTH_TOKEN = process.env.NPM_AUTH_TOKEN || 'dummy_value'
+    readStateMock.mockReturnValue({ tag: 'v1.2.3-beta.2', repo: '', branch: '', version: '' })
+    const listPackedFilesSpy = jest.spyOn(NpmPublish.prototype, 'listPackedFiles')
+    listPackedFilesSpy.mockImplementation(() => Promise.resolve())
 
     const task = new NpmPublish(logger, {})
     await task.run()
 
-    expect(spawn).toHaveBeenNthCalledWith(1, 'npm', ['version', tag, '--no-git-tag-version'])
-    expect(spawn).toHaveBeenNthCalledWith(2, 'npm', ['publish', '--tag', 'prerelease'])
-    expect(waitOnExit).toHaveBeenCalledTimes(2)
+    expect(listPackedFilesSpy).toBeCalled()
+    expect(pack).toBeCalled()
+    expect(publish).toBeCalled()
+  })
+
+  it('should write the version tag to the package.json file', async () => {
+    const MOCK_CIRCLE_TAG = 'v1.2.3-beta.2'
+    process.env.NPM_AUTH_TOKEN = process.env.NPM_AUTH_TOKEN || 'dummy_value'
+    readStateMock.mockReturnValue({ tag: MOCK_CIRCLE_TAG, repo: '', branch: '', version: '' })
+
+    const task = new NpmPublish(logger, {})
+    await task.run()
+
+    expect(writeFile).toHaveBeenCalledWith(
+      'package.json',
+      expect.stringContaining(`${MOCK_CIRCLE_TAG.replace(/^v/, '')}`)
+    )
+    expect(publish).toBeCalled()
   })
 })
