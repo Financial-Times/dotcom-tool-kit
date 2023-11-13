@@ -127,6 +127,16 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+## [3.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.2.1...npm-v3.2.2) (2023-11-13)
+
+
+### Bug Fixes
+
+* **npm:** revert "Merge pull request [#501](https://github.com/Financial-Times/dotcom-tool-kit/issues/501) from Financial-Times/CPP-1722-fix-npm-publish-task" ([d4d6e1b](https://github.com/Financial-Times/dotcom-tool-kit/commit/d4d6e1bdc28cd19cd39e9cda035ee96ef025de9b))
+* **npm:** revert "Merge pull request [#503](https://github.com/Financial-Times/dotcom-tool-kit/issues/503) from Financial-Times/fix-npm-publish-log-task" ([0a78f1e](https://github.com/Financial-Times/dotcom-tool-kit/commit/0a78f1e2d6bd793d56f56f2feb9a8b619b55913f))
+* **npm:** revert "Merge pull request [#505](https://github.com/Financial-Times/dotcom-tool-kit/issues/505) from Financial-Times/fix-npm-no-git-version" ([7bafd97](https://github.com/Financial-Times/dotcom-tool-kit/commit/7bafd97829f9695b5c0b636e90a359c1555ef888))
+* **npm:** write package version to packagejson before bundling ([864d699](https://github.com/Financial-Times/dotcom-tool-kit/commit/864d6990d1e9431b223a5c6108a06d5d1933f5f2))
+
 ## [3.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.2.0...npm-v3.2.1) (2023-11-03)
 
 

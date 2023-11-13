@@ -127,6 +127,12 @@
   * dependencies
     * @dotcom-tool-kit/npm bumped from ^3.2.0 to ^3.2.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/npm bumped from ^3.2.1 to ^3.2.2
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v2.1.11...backend-serverless-app-v3.0.0) (2023-10-09)
 
 
