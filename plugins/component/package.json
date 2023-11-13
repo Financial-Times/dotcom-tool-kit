@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/component",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -20,8 +20,8 @@
     "dotcom-tool-kit": "3.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/circleci-npm": "^5.2.10",
-    "@dotcom-tool-kit/npm": "^3.2.1"
+    "@dotcom-tool-kit/circleci-npm": "^5.2.11",
+    "@dotcom-tool-kit/npm": "^3.2.2"
   },
   "engines": {
     "node": "16.x || 18.x",
