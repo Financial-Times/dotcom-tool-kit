@@ -36,18 +36,23 @@ export const shouldDisableNativeFetch = (): boolean => {
   )
 }
 
-const loadTasks = async (logger: Logger, config: ValidConfig): Promise<Validated<Record<string, Task>>> =>
+const loadTasks = async (
+  logger: Logger,
+  taskNames: string[],
+  config: ValidConfig
+): Promise<Validated<Record<string, Task>>> =>
   mapValidated(
     reduceValidated(
       await Promise.all(
-        Object.entries(config.tasks).map(async ([taskName, pluginId]) =>
-          flatMapValidated(await importPlugin(pluginId), (plugin) =>
+        taskNames.map(async (taskName) => {
+          const pluginId = config.tasks[taskName]
+          return flatMapValidated(await importPlugin(pluginId), (plugin) =>
             mapValidated(validatePluginTasks(plugin as RawPluginModule), (tasks) => [
               taskName,
               new tasks[taskName](logger, taskName, getOptions(pluginId as OptionKey) ?? {})
             ])
           )
-        )
+        })
       )
     ),
     Object.fromEntries
