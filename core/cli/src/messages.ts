@@ -6,24 +6,24 @@ import type { PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { HookTask } from './hook'
 
-const formatTaskConflict = (conflict: Conflict<string>): string =>
-  `- ${s.task(conflict.conflicting[0] ?? 'unknown task')} ${s.dim(
-    'from plugins'
-  )} ${conflict.conflicting.map((task) => s.plugin(task ?? 'unknown plugin')).join(s.dim(', '))}`
+const formatTaskConflict = ([key, conflict]: [string, Conflict<string>]): string =>
+  `- ${s.task(key ?? 'unknown task')} ${s.dim('from plugins')} ${conflict.conflicting
+    .map((task) => s.plugin(task ?? 'unknown plugin'))
+    .join(s.dim(', '))}`
 
-export const formatTaskConflicts = (conflicts: Conflict<string>[]): string => `${s.heading(
+export const formatTaskConflicts = (conflicts: [string, Conflict<string>][]): string => `${s.heading(
   'There are multiple plugins that include the same tasks'
 )}:
 ${conflicts.map(formatTaskConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatHookConflict = (conflict: Conflict<string>): string =>
-  `- ${s.hook(conflict.conflicting[0] ?? 'unknown event')} ${s.dim(
-    'from plugins'
-  )} ${conflict.conflicting.map((task) => s.plugin(task ?? 'unknown plugin')).join(s.dim(', '))}`
+const formatHookConflict = ([key, conflict]: [string, Conflict<string>]): string =>
+  `- ${s.hook(key ?? 'unknown hook')} ${s.dim('from plugins')} ${conflict.conflicting
+    .map((task) => s.plugin(task ?? 'unknown plugin'))
+    .join(s.dim(', '))}`
 
-export const formatHookConflicts = (conflicts: Conflict<string>[]): string => `${s.heading(
+export const formatHookConflicts = (conflicts: [string, Conflict<string>][]): string => `${s.heading(
   'There are multiple plugins that include the same hooks'
 )}:
 ${conflicts.map(formatHookConflict).join('\n')}
