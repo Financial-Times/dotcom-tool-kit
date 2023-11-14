@@ -40,23 +40,25 @@ const loadTasks = async (
   logger: Logger,
   taskNames: string[],
   config: ValidConfig
-): Promise<Validated<Record<string, Task>>> =>
-  mapValidated(
-    reduceValidated(
-      await Promise.all(
-        taskNames.map(async (taskName) => {
-          const pluginId = config.tasks[taskName]
-          return flatMapValidated(await importPlugin(pluginId), (plugin) =>
-            mapValidated(validatePluginTasks(plugin as RawPluginModule), (tasks) => [
-              taskName,
-              new tasks[taskName](logger, taskName, getOptions(pluginId as OptionKey) ?? {})
-            ])
-          )
-        })
-      )
-    ),
-    Object.fromEntries
+): Promise<Validated<Record<string, Task>>> => {
+  const taskResults = await Promise.all(
+    taskNames.map(async (taskName) => {
+      const pluginId = config.tasks[taskName]
+      const taskPlugin = await importPlugin(pluginId)
+
+      return flatMapValidated(taskPlugin, (plugin) => {
+        const pluginTasks = validatePluginTasks(plugin as RawPluginModule)
+
+        return mapValidated(pluginTasks, (tasks) => [
+          taskName,
+          new tasks[taskName](logger, taskName, getOptions(pluginId as OptionKey) ?? {})
+        ])
+      })
+    })
   )
+
+  return mapValidated(reduceValidated(taskResults), Object.fromEntries)
+}
 
 export async function runTasks(logger: Logger, hooks: string[], files?: string[]): Promise<void> {
   const config = await loadConfig(logger)
@@ -89,7 +91,8 @@ ${availableHooks}`
     process.execArgv.push('--no-experimental-fetch')
   }
 
-  const tasks = unwrapValidated(await loadTasks(logger, config), 'tasks are invalid')
+  const taskNames = hooks.flatMap((hook) => config.hookTasks[hook]?.tasks ?? [])
+  const tasks = unwrapValidated(await loadTasks(logger, taskNames, config), 'tasks are invalid')
 
   for (const hook of hooks) {
     const errors: ErrorSummary[] = []
