@@ -1,2 +1,5 @@
+tasks:
+  - LintStaged
+
 hooks:
   'git:precommit': LintStaged

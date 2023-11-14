@@ -1,9 +1,18 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { checkInstall, loadConfig } from './config'
+import { ValidConfig, checkInstall, loadConfig } from './config'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
 import { formatPluginTree } from './messages'
+import {
+  Task,
+  Validated,
+  flatMapValidated,
+  mapValidated,
+  reduceValidated,
+  unwrapValidated
+} from '@dotcom-tool-kit/types'
+import { RawPluginModule, importPlugin, validatePluginTasks } from './plugin'
 
 type ErrorSummary = {
   hook: string
@@ -25,6 +34,30 @@ export const shouldDisableNativeFetch = (): boolean => {
     !getOptions('app root')!.allowNativeFetch &&
     process.allowedNodeEnvironmentFlags.has('--no-experimental-fetch')
   )
+}
+
+const loadTasks = async (
+  logger: Logger,
+  taskNames: string[],
+  config: ValidConfig
+): Promise<Validated<Record<string, Task>>> => {
+  const taskResults = await Promise.all(
+    taskNames.map(async (taskName) => {
+      const pluginId = config.tasks[taskName]
+      const taskPlugin = await importPlugin(pluginId)
+
+      return flatMapValidated(taskPlugin, (plugin) => {
+        const pluginTasks = validatePluginTasks(plugin as RawPluginModule)
+
+        return mapValidated(pluginTasks, (tasks) => [
+          taskName,
+          new tasks[taskName](logger, taskName, getOptions(pluginId as OptionKey) ?? {})
+        ])
+      })
+    })
+  )
+
+  return mapValidated(reduceValidated(taskResults), Object.fromEntries)
 }
 
 export async function runTasks(logger: Logger, hooks: string[], files?: string[]): Promise<void> {
@@ -52,11 +85,14 @@ ${availableHooks}`
     }
   }
 
-  await checkInstall(config)
+  await checkInstall(logger, config)
 
   if (shouldDisableNativeFetch()) {
     process.execArgv.push('--no-experimental-fetch')
   }
+
+  const taskNames = hooks.flatMap((hook) => config.hookTasks[hook]?.tasks ?? [])
+  const tasks = unwrapValidated(await loadTasks(logger, taskNames, config), 'tasks are invalid')
 
   for (const hook of hooks) {
     const errors: ErrorSummary[] = []
@@ -65,21 +101,11 @@ ${availableHooks}`
       logger.warn(`no task configured for ${hook}: skipping assignment...`)
       continue
     }
-    const assignment = config.hookTasks[hook]
 
-    for (const id of assignment.tasks) {
-      const Task = config.tasks[id]
-      const options = Task.plugin ? getOptions(Task.plugin.id as OptionKey) : {}
-
-      /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
-       * `Task` is an abstract class. Here we know it's a concrete subclass
-       * but typescript doesn't, so cast it to any.
-       **/
-      const task = new (Task as any)(logger, options)
-
-      logger.info(styles.taskHeader(`running ${styles.task(id)} task`))
+    for (const id of config.hookTasks[hook].tasks) {
       try {
-        await task.run(files)
+        logger.info(styles.taskHeader(`running ${styles.task(id)} task`))
+        await tasks[id].run(files)
       } catch (error) {
         // allow subsequent hook tasks to run on error
         errors.push({
@@ -121,6 +147,3 @@ export async function listPlugins(logger: Logger): Promise<void> {
     logger.info(formatPluginTree(rootPlugin.value).join('\n'))
   }
 }
-
-export { default as showHelp } from './help'
-export { default as installHooks } from './install'

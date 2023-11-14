@@ -1,11 +1,23 @@
+import { createHash } from 'node:crypto'
+import { readFile } from 'node:fs/promises'
+
 import path from 'path'
 import type { Logger } from 'winston'
 
 import type { HookTask } from './hook'
-import { loadPlugin, resolvePlugin } from './plugin'
+import { RawPluginModule, importPlugin, loadPlugin, resolvePlugin, validatePluginHooks } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import { TaskClass, Hook, mapValidated, Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
+import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
+import {
+  flatMapValidated,
+  Hook,
+  mapValidated,
+  Plugin,
+  reduceValidated,
+  unwrapValidated,
+  Validated
+} from '@dotcom-tool-kit/types'
 import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/schema'
 import {
   InvalidOption,
@@ -30,10 +42,10 @@ export interface RawConfig {
   root: string
   plugins: { [id: string]: Validated<Plugin> }
   resolvedPlugins: Set<Plugin>
-  tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
+  tasks: { [id: string]: string | Conflict<string> }
   hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
-  hooks: { [id: string]: Hook<unknown> | Conflict<Hook<unknown>> }
+  hooks: { [id: string]: string | Conflict<string> }
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
@@ -49,13 +61,85 @@ export type ValidOptions = {
 }
 
 export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'hookTasks' | 'options' | 'hooks'> & {
-  tasks: { [id: string]: TaskClass }
+  tasks: { [id: string]: string }
   hookTasks: { [id: string]: HookTask }
   options: ValidOptions
-  hooks: { [id: string]: Hook<unknown> }
+  hooks: { [id: string]: string }
 }
 
 const coreRoot = path.resolve(__dirname, '../')
+
+export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> => {
+  const hookResults = await Promise.all(
+    Object.entries(config.hooks).map(async ([hookName, pluginId]) => {
+      const hookPlugin = await importPlugin(pluginId)
+
+      return flatMapValidated(hookPlugin, (plugin) => {
+        const pluginHooks = validatePluginHooks(plugin as RawPluginModule)
+
+        return mapValidated(pluginHooks, (hooks) => new hooks[hookName](logger, hookName))
+      })
+    })
+  )
+
+  return reduceValidated(hookResults)
+}
+
+export async function fileHash(path: string): Promise<string> {
+  const hashFunc = createHash('sha512')
+  try {
+    hashFunc.update(await readFile(path))
+    return hashFunc.digest('base64')
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') {
+      return 'n/a'
+    } else {
+      throw error
+    }
+  }
+}
+
+export async function updateHashes(): Promise<void> {
+  const hashes = Object.fromEntries(
+    await Promise.all(configPaths.map(async (path) => [path, await fileHash(path)]))
+  )
+  writeState('install', hashes)
+}
+
+async function hasConfigChanged(logger: Logger): Promise<boolean> {
+  const hashes = readState('install')
+  if (!hashes) {
+    return true
+  }
+  for (const [path, prevHash] of Object.entries(hashes)) {
+    const newHash = await fileHash(path)
+    if (newHash !== prevHash) {
+      logger.debug(`hash for path ${path} has changed, running hook checks`)
+      return true
+    }
+  }
+  return false
+}
+
+export async function checkInstall(logger: Logger, config: ValidConfig): Promise<void> {
+  if (!(await hasConfigChanged(logger))) {
+    return
+  }
+
+  const hooks = unwrapValidated(await loadHooks(logger, config), 'hooks are invalid')
+
+  const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
+    return !(await hook.check())
+  })
+
+  if (uninstalledHooks.length > 0) {
+    const error = new ToolKitError('There are problems with your Tool Kit installation.')
+    error.details = formatUninstalledHooks(uninstalledHooks)
+    throw error
+  }
+
+  await updateHashes()
+}
 
 export const createConfig = (): RawConfig => ({
   root: coreRoot,
@@ -212,19 +296,6 @@ export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig
   return mapValidated(validatedPlugins, (plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
 }
 
-export async function checkInstall(config: ValidConfig): Promise<void> {
-  const definedHooks = withoutConflicts(Object.values(config.hooks))
-  const uninstalledHooks = await asyncFilter(definedHooks, async (hook) => {
-    return !(await hook.check())
-  })
-
-  if (uninstalledHooks.length > 0) {
-    const error = new ToolKitError('There are problems with your Tool Kit installation.')
-    error.details = formatUninstalledHooks(uninstalledHooks)
-    throw error
-  }
-}
-
 export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
 export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<RawConfig>
 
@@ -233,21 +304,10 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
 
   // start loading config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
-  if (!rootPlugin.valid) {
-    const error = new ToolKitError('root plugin was not valid!')
-    error.details = rootPlugin.reasons.join('\n\n')
-    throw error
-  }
-  const validRootPlugin = rootPlugin.value
+  const validRootPlugin = unwrapValidated(rootPlugin, 'root plugin was not valid!')
 
   const validatedPluginConfig = validatePlugins(config)
-
-  if (!validatedPluginConfig.valid) {
-    const error = new ToolKitError('config was not valid!')
-    error.details = validatedPluginConfig.reasons.join('\n\n')
-    throw error
-  }
-  const validPluginConfig = validatedPluginConfig.value
+  const validPluginConfig = unwrapValidated(validatedPluginConfig, 'config was not valid!')
 
   // collate root plugin and descendent hooks, options etc into config
   resolvePlugin(validRootPlugin, validPluginConfig, logger)

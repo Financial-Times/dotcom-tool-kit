@@ -1,3 +1,6 @@
+tasks:
+  - Eslint
+
 hooks:
   'test:local': Eslint
   'test:ci': Eslint

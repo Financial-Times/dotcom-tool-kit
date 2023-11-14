@@ -1,0 +1,4 @@
+tasks:
+  - ServerlessRun
+  - ServerlessDeploy
+  - ServerlessProvision

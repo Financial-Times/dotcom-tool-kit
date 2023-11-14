@@ -1,3 +1,7 @@
+tasks:
+  - BabelDevelopment
+  - BabelProduction
+
 hooks:
   'build:local': BabelDevelopment
   'build:ci': BabelProduction

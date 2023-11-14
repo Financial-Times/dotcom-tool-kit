@@ -1,5 +1,8 @@
 plugins:
   - '@dotcom-tool-kit/doppler'
 
+tasks:
+  - Nodemon
+
 hooks:
   'run:local': Nodemon

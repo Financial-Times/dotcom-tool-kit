@@ -21,7 +21,7 @@ jest.mock('@dotcom-tool-kit/logger')
 describe('jest plugin', () => {
   describe('local', () => {
     it('should call jest cli with configPath if configPath is passed in', async () => {
-      const jestLocal = new JestLocal(logger, { configPath: './src/jest.config.js' })
+      const jestLocal = new JestLocal(logger, 'JestLocal', { configPath: './src/jest.config.js' })
       await jestLocal.run()
 
       expect(fork).toBeCalledWith(expect.any(String), ['--colors', '', '--config=./src/jest.config.js'], {
@@ -30,7 +30,7 @@ describe('jest plugin', () => {
     })
 
     it('should call jest cli without configPath by default', async () => {
-      const jestLocal = new JestLocal(logger, {})
+      const jestLocal = new JestLocal(logger, 'JestLocal', {})
       await jestLocal.run()
 
       expect(fork).toBeCalledWith(expect.any(String), ['--colors', '', ''], { silent: true })
@@ -39,7 +39,7 @@ describe('jest plugin', () => {
 
   describe('ci', () => {
     it('should call jest cli with configPath if configPath is passed in', async () => {
-      const jestCI = new JestCI(logger, { configPath: './src/jest.config.js' })
+      const jestCI = new JestCI(logger, 'JestCI', { configPath: './src/jest.config.js' })
       await jestCI.run()
 
       expect(fork).toBeCalledWith(expect.any(String), ['--colors', '--ci', '--config=./src/jest.config.js'], {
@@ -48,7 +48,7 @@ describe('jest plugin', () => {
     })
 
     it('should call jest cli without configPath by default', async () => {
-      const jestCI = new JestCI(logger, {})
+      const jestCI = new JestCI(logger, 'JestCI', {})
       await jestCI.run()
 
       expect(fork).toBeCalledWith(expect.any(String), ['--colors', '--ci', ''], { silent: true })
