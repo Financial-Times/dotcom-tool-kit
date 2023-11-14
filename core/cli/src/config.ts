@@ -6,7 +6,7 @@ import type { Logger } from 'winston'
 
 import type { HookTask } from './hook'
 import { RawPluginModule, importPlugin, loadPlugin, resolvePlugin, validatePluginHooks } from './plugin'
-import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
+import { Conflict, findConflicts, withoutConflicts, isConflict, findConflictingEntries } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
 import {
@@ -161,8 +161,8 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
   const validConfig = config as ValidConfig
 
   const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
-  const hookConflicts = findConflicts(Object.values(config.hooks))
-  const taskConflicts = findConflicts(Object.values(config.tasks))
+  const hookConflicts = findConflictingEntries(config.hooks)
+  const taskConflicts = findConflictingEntries(config.tasks)
   const optionConflicts = findConflicts(Object.values(config.options))
 
   const definedHookTaskConflicts = hookTaskConflicts.filter((conflict) => {
