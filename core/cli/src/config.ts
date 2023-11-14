@@ -69,19 +69,21 @@ export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'hookTasks' | 'opti
 
 const coreRoot = path.resolve(__dirname, '../')
 
-export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> =>
-  reduceValidated(
-    await Promise.all(
-      Object.entries(config.hooks).map(async ([hookName, pluginId]) =>
-        flatMapValidated(await importPlugin(pluginId), (plugin) =>
-          mapValidated(
-            validatePluginHooks(plugin as RawPluginModule),
-            (hooks) => new hooks[hookName](logger, hookName)
-          )
-        )
-      )
-    )
+export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> => {
+  const hookResults = await Promise.all(
+    Object.entries(config.hooks).map(async ([hookName, pluginId]) => {
+      const hookPlugin = await importPlugin(pluginId)
+
+      return flatMapValidated(hookPlugin, (plugin) => {
+        const pluginHooks = validatePluginHooks(plugin as RawPluginModule)
+
+        return mapValidated(pluginHooks, (hooks) => new hooks[hookName](logger, hookName))
+      })
+    })
   )
+
+  return reduceValidated(hookResults)
+}
 
 export async function fileHash(path: string): Promise<string> {
   const hashFunc = createHash('sha512')
