@@ -4,5 +4,5 @@ plugins:
 tasks:
   - Node
 
-hooks:
+commands:
   'run:local': Node

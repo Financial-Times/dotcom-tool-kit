@@ -3,7 +3,7 @@ tasks:
   - TypeScriptWatch
   - TypeScriptTest
 
-hooks:
+commands:
   'build:local': TypeScriptBuild
   'run:local': TypeScriptWatch
   'test:local': TypeScriptTest

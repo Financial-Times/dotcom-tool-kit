@@ -43,7 +43,7 @@ ${
     const Hook = config.hooks[hook]
 
     if (Hook) {
-      const tasks = config.hookTasks[hook]
+      const tasks = config.commandTasks[hook]
       /* eslint-disable @typescript-eslint/no-explicit-any -- Object.constructor does not consider static properties */
       logger.info(`${styles.heading(hook)}
 ${(Hook.constructor as any).description ? (Hook.constructor as any).description + '\n' : ''}

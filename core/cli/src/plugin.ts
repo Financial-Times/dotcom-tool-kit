@@ -14,7 +14,7 @@ import resolveFrom from 'resolve-from'
 import type { Logger } from 'winston'
 import { PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from './conflict'
-import type { HookTask } from './hook'
+import type { CommandTask } from './command'
 import { loadToolKitRC } from './rc-file'
 import { isPlainObject } from 'lodash'
 
@@ -213,45 +213,47 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
       }
     }
 
-    // load plugin hook tasks. do this after loading child plugins, so
-    // parent hooks get assigned after child hooks and can override them
-    for (const [id, configHookTask] of Object.entries(plugin.rcFile.hooks)) {
-      // handle conflicts between hooks from different plugins
-      const existingHookTask = config.hookTasks[id]
-      const newHookTask: HookTask = {
+    // load plugin command tasks. do this after loading child plugins, so
+    // parent commands get assigned after child commands and can override them
+    for (const [id, configCommandTask] of Object.entries(plugin.rcFile.commands)) {
+      // handle conflicts between commands from different plugins
+      const existingCommandTask = config.commandTasks[id]
+      const newCommandTask: CommandTask = {
         id,
         plugin,
-        tasks: Array.isArray(configHookTask) ? configHookTask : [configHookTask]
+        tasks: Array.isArray(configCommandTask) ? configCommandTask : [configCommandTask]
       }
 
-      if (existingHookTask) {
-        const existingFromDescendent = isDescendent(plugin, existingHookTask.plugin)
+      if (existingCommandTask) {
+        const existingFromDescendent = isDescendent(plugin, existingCommandTask.plugin)
 
-        // plugins can only override hook tasks from their descendents, otherwise that's a conflict
-        // return a conflict either listing this hook and the siblings,
-        // or merging in a previously-generated hook
+        // plugins can only override command tasks from their descendents, otherwise that's a conflict
+        // return a conflict either listing this command and the siblings,
+        // or merging in a previously-generated command
         if (!existingFromDescendent) {
-          const conflicting = isConflict(existingHookTask) ? existingHookTask.conflicting : [existingHookTask]
+          const conflicting = isConflict(existingCommandTask)
+            ? existingCommandTask.conflicting
+            : [existingCommandTask]
 
-          const conflict: Conflict<HookTask> = {
+          const conflict: Conflict<CommandTask> = {
             plugin,
-            conflicting: conflicting.concat(newHookTask)
+            conflicting: conflicting.concat(newCommandTask)
           }
 
-          config.hookTasks[id] = conflict
+          config.commandTasks[id] = conflict
         } else {
-          // if we're here, any existing hook is from a child plugin,
+          // if we're here, any existing command is from a child plugin,
           // so the parent always overrides it
-          config.hookTasks[id] = newHookTask
+          config.commandTasks[id] = newCommandTask
         }
       } else {
-        // this hook task might not have been set yet, in which case use the new one
-        config.hookTasks[id] = newHookTask
+        // this command task might not have been set yet, in which case use the new one
+        config.commandTasks[id] = newCommandTask
       }
     }
 
     // merge options from this plugin's config with any options we've collected already
-    // TODO this is almost the exact same code as for hooks, refactor
+    // TODO this is almost the exact same code as for command tasks, refactor
     for (const [id, configOptions] of Object.entries(plugin.rcFile.options)) {
       // users can specify root options with the dotcom-tool-kit key to mirror
       // the name of the root npm package
