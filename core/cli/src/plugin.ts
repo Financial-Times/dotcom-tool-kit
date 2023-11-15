@@ -89,10 +89,9 @@ export function validatePluginHooks(plugin: RawPluginModule): Validated<PluginMo
   return { valid: true, value: {} }
 }
 
-export async function importPlugin(pluginPath: string): Promise<Validated<unknown>> {
+export async function importEntryPoint(entryPoint: EntryPoint): Promise<Validated<unknown>> {
   try {
-    // pluginPath is an absolute resolved path to a plugin module as found from its parent
-    const pluginModule: unknown = await import(pluginPath)
+    const pluginModule: unknown = await import(entryPoint.modulePath)
     return {
       valid: true,
       value: pluginModule

@@ -12,7 +12,7 @@ import {
   reduceValidated,
   unwrapValidated
 } from '@dotcom-tool-kit/types'
-import { RawPluginModule, importPlugin, validatePluginTasks } from './plugin'
+import { RawPluginModule, importEntryPoint, validatePluginTasks } from './plugin'
 
 type ErrorSummary = {
   hook: string
@@ -44,7 +44,7 @@ const loadTasks = async (
   const taskResults = await Promise.all(
     taskNames.map(async (taskName) => {
       const entryPoint = config.tasks[taskName]
-      const taskPlugin = await importPlugin(entryPoint.modulePath)
+      const taskPlugin = await importEntryPoint(entryPoint)
 
       return flatMapValidated(taskPlugin, (plugin) => {
         const pluginTasks = validatePluginTasks(plugin as RawPluginModule)
