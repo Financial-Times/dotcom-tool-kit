@@ -2,28 +2,28 @@ import { styles as s, styles } from '@dotcom-tool-kit/logger'
 import type { Hook, Plugin } from '@dotcom-tool-kit/types'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
-import type { PluginOptions } from './config'
+import type { EntryPoint, PluginOptions } from './config'
 import type { Conflict } from './conflict'
 import type { CommandTask } from './command'
 
-const formatTaskConflict = ([key, conflict]: [string, Conflict<string>]): string =>
+const formatTaskConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>
   `- ${s.task(key ?? 'unknown task')} ${s.dim('from plugins')} ${conflict.conflicting
-    .map((task) => s.plugin(task ?? 'unknown plugin'))
+    .map((entryPoint) => s.plugin(entryPoint.plugin.id ?? 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatTaskConflicts = (conflicts: [string, Conflict<string>][]): string => `${s.heading(
+export const formatTaskConflicts = (conflicts: [string, Conflict<EntryPoint>][]): string => `${s.heading(
   'There are multiple plugins that include the same tasks'
 )}:
 ${conflicts.map(formatTaskConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatHookConflict = ([key, conflict]: [string, Conflict<string>]): string =>
+const formatHookConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>
   `- ${s.hook(key ?? 'unknown hook')} ${s.dim('from plugins')} ${conflict.conflicting
-    .map((task) => s.plugin(task ?? 'unknown plugin'))
+    .map((entryPoint) => s.plugin(entryPoint.plugin.id ?? 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatHookConflicts = (conflicts: [string, Conflict<string>][]): string => `${s.heading(
+export const formatHookConflicts = (conflicts: [string, Conflict<EntryPoint>][]): string => `${s.heading(
   'There are multiple plugins that include the same hooks'
 )}:
 ${conflicts.map(formatHookConflict).join('\n')}
