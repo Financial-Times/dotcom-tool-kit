@@ -15,9 +15,7 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
 
     if (localState) {
       process.env.TEST_URL = `https://local.ft.com:${localState.port}`
-    }
-
-    if (reviewState) {
+    } else if (reviewState) {
       process.env.TEST_URL = `https://${reviewState.appName}.herokuapp.com`
     }
 
