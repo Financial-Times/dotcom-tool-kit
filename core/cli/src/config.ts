@@ -38,14 +38,19 @@ export interface PluginOptions {
   forPlugin: Plugin
 }
 
+export interface EntryPoint {
+  plugin: Plugin
+  modulePath: string
+}
+
 export interface RawConfig {
   root: string
   plugins: { [id: string]: Validated<Plugin> }
   resolvedPlugins: Set<Plugin>
-  tasks: { [id: string]: string | Conflict<string> }
+  tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
-  hooks: { [id: string]: string | Conflict<string> }
+  hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
@@ -61,18 +66,18 @@ export type ValidOptions = {
 }
 
 export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'options' | 'hooks'> & {
-  tasks: { [id: string]: string }
+  tasks: { [id: string]: EntryPoint }
   commandTasks: { [id: string]: CommandTask }
   options: ValidOptions
-  hooks: { [id: string]: string }
+  hooks: { [id: string]: EntryPoint }
 }
 
 const coreRoot = path.resolve(__dirname, '../')
 
 export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> => {
   const hookResults = await Promise.all(
-    Object.entries(config.hooks).map(async ([hookName, pluginId]) => {
-      const hookPlugin = await importPlugin(pluginId)
+    Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
+      const hookPlugin = await importPlugin(entryPoint.modulePath)
 
       return flatMapValidated(hookPlugin, (plugin) => {
         const pluginHooks = validatePluginHooks(plugin as RawPluginModule)

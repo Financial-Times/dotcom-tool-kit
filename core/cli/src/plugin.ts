@@ -12,7 +12,7 @@ import {
 } from '@dotcom-tool-kit/types'
 import resolveFrom from 'resolve-from'
 import type { Logger } from 'winston'
-import { PluginOptions, RawConfig, ValidPluginsConfig } from './config'
+import { EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from './conflict'
 import type { CommandTask } from './command'
 import { loadToolKitRC } from './rc-file'
@@ -183,16 +183,20 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
     // add plugin tasks to our task registry, handling any conflicts
     for (const taskName of plugin.rcFile.tasks || []) {
       const existingTaskId = config.tasks[taskName]
+      const entryPoint: EntryPoint = {
+        plugin,
+        modulePath: plugin.id
+      }
 
       if (existingTaskId) {
         const conflicting = isConflict(existingTaskId) ? existingTaskId.conflicting : [existingTaskId]
 
         config.tasks[taskName] = {
           plugin,
-          conflicting: conflicting.concat(plugin.id)
+          conflicting: conflicting.concat(entryPoint)
         }
       } else {
-        config.tasks[taskName] = plugin.id
+        config.tasks[taskName] = entryPoint
       }
     }
 
@@ -200,16 +204,20 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
     // TODO refactor with command conflict handler
     for (const hookName of plugin.rcFile.installs || []) {
       const existingHookId = config.hooks[hookName]
+      const entryPoint: EntryPoint = {
+        plugin,
+        modulePath: plugin.id
+      }
 
       if (existingHookId) {
         const conflicting = isConflict(existingHookId) ? existingHookId.conflicting : [existingHookId]
 
         config.hooks[hookName] = {
           plugin,
-          conflicting: conflicting.concat(plugin.id)
+          conflicting: conflicting.concat(entryPoint)
         }
       } else {
-        config.hooks[hookName] = plugin.id
+        config.hooks[hookName] = entryPoint
       }
     }
 

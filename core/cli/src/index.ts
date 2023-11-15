@@ -43,15 +43,15 @@ const loadTasks = async (
 ): Promise<Validated<Record<string, Task>>> => {
   const taskResults = await Promise.all(
     taskNames.map(async (taskName) => {
-      const pluginId = config.tasks[taskName]
-      const taskPlugin = await importPlugin(pluginId)
+      const entryPoint = config.tasks[taskName]
+      const taskPlugin = await importPlugin(entryPoint.modulePath)
 
       return flatMapValidated(taskPlugin, (plugin) => {
         const pluginTasks = validatePluginTasks(plugin as RawPluginModule)
 
         return mapValidated(pluginTasks, (tasks) => [
           taskName,
-          new tasks[taskName](logger, taskName, getOptions(pluginId as OptionKey) ?? {})
+          new tasks[taskName](logger, taskName, getOptions(entryPoint.plugin.id as OptionKey) ?? {})
         ])
       })
     })
