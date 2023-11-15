@@ -27,8 +27,7 @@ describe('pa11y', () => {
       let returnState
       if (stateType === 'local' && MOCK_ENV === 'local') {
         returnState = { port: 5050 } as state.LocalState
-      }
-      if (stateType === 'review' && MOCK_ENV === 'ci') {
+      } else if (stateType === 'review' && MOCK_ENV === 'ci') {
         returnState = { appName } as state.ReviewState
       }
       return returnState
