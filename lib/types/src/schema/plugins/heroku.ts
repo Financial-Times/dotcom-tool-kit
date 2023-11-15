@@ -1,4 +1,4 @@
-import { SchemaPromptGenerator, PromptGenerators } from '../schema'
+import { SchemaPromptGenerator, PromptGenerators } from '../../plugins'
 import { z } from 'zod'
 
 export const HerokuScalingSchema = z.record(
