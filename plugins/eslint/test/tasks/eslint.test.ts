@@ -10,7 +10,7 @@ const testDirectory = path.join(__dirname, '../files')
 
 describe('eslint', () => {
   it('should pass on correct file', async () => {
-    const task = new ESLint(logger, {
+    const task = new ESLint(logger, 'ESLint', {
       options: { ignore: false, cwd: testDirectory },
       files: [path.join(testDirectory, 'pass.js')]
     })
@@ -19,7 +19,7 @@ describe('eslint', () => {
   })
 
   it('should fail on linter error', async () => {
-    const task = new ESLint(logger, {
+    const task = new ESLint(logger, 'ESLint', {
       options: { ignore: false, cwd: testDirectory },
       files: [path.join(testDirectory, 'fail.js')]
     })

@@ -1,3 +1,3 @@
 import Mocha from './tasks/mocha'
 
-export const tasks = [Mocha]
+export const tasks = { Mocha }

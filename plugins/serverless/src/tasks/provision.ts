@@ -1,7 +1,7 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
-import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
+import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/plugins/serverless'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { spawn } from 'child_process'
 

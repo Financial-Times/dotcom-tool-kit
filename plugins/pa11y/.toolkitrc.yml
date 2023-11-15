@@ -1,5 +1,8 @@
 plugins:
   - '@dotcom-tool-kit/doppler'
 
-hooks:
+tasks:
+  - Pa11y
+
+commands:
   'test:review': Pa11y

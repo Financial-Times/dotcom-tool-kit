@@ -43,7 +43,7 @@ describe('prettier', () => {
   })
 
   it('should format the correct file with default configOptions', async () => {
-    const task = new Prettier(logger, {
+    const task = new Prettier(logger, 'Prettier', {
       files: [path.join(testDirectory, 'unformatted.ts')],
       ignoreFile: 'nonexistent prettierignore',
       configOptions: defaultConfig
@@ -55,7 +55,7 @@ describe('prettier', () => {
 
   it('should use configFile if present', async () => {
     // having the configuration file be named .prettierrc-test.json hides it from being found by prettier on other non-test occasions.
-    const task = new Prettier(logger, {
+    const task = new Prettier(logger, 'Prettier', {
       files: [path.join(testDirectory, 'unformatted.ts')],
       configFile: path.join(__dirname, '../.prettierrc-test.json'),
       ignoreFile: 'nonexistent prettierignore',
@@ -67,7 +67,7 @@ describe('prettier', () => {
   })
 
   it('should use configOptions if configFile not found', async () => {
-    const task = new Prettier(logger, {
+    const task = new Prettier(logger, 'Prettier', {
       files: [path.join(testDirectory, 'unformatted.ts')],
       configFile: '/incorrect/.prettierrc.js',
       ignoreFile: 'nonexistent prettierignore',

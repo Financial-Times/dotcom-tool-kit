@@ -1,2 +1,5 @@
-hooks:
+tasks:
+  - UploadAssetsToS3
+
+commands:
   'release:remote': UploadAssetsToS3

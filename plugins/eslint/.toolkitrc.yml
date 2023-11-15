@@ -1,4 +1,7 @@
-hooks:
+tasks:
+  - Eslint
+
+commands:
   'test:local': Eslint
   'test:ci': Eslint
   'test:staged': Eslint

@@ -1,7 +1,7 @@
 import { PackageJsonScriptHook } from '@dotcom-tool-kit/package-json-hook'
 import Prettier from './tasks/prettier'
 
-export const tasks = [Prettier]
+export const tasks = { Prettier }
 
 class FormatLocal extends PackageJsonScriptHook {
   static description = 'format prettier'

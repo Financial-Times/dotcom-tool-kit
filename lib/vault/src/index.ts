@@ -5,7 +5,7 @@ import os from 'os'
 import type { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { getOptions } from '@dotcom-tool-kit/options'
-import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/vault'
+import { VaultOptions } from '@dotcom-tool-kit/types/lib/schema/plugins/vault'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID

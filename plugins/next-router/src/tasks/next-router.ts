@@ -5,7 +5,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import { hookConsole, hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
-import { NextRouterSchema } from '@dotcom-tool-kit/types/lib/schema/next-router'
+import { NextRouterSchema } from '@dotcom-tool-kit/types/lib/schema/plugins/next-router'
 
 export default class NextRouter extends Task<typeof NextRouterSchema> {
   static description = ''

@@ -1,4 +1,9 @@
-hooks:
+tasks:
+  - TypeScriptBuild
+  - TypeScriptWatch
+  - TypeScriptTest
+
+commands:
   'build:local': TypeScriptBuild
   'run:local': TypeScriptWatch
   'test:local': TypeScriptTest

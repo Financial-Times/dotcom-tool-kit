@@ -1,3 +1,6 @@
-hooks:
+tasks:
+  - Mocha
+
+commands:
   'test:local': Mocha
   'test:ci': Mocha

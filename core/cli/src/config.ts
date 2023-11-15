@@ -1,18 +1,30 @@
+import { createHash } from 'node:crypto'
+import { readFile } from 'node:fs/promises'
+
 import path from 'path'
 import type { Logger } from 'winston'
 
-import type { HookTask } from './hook'
-import { loadPlugin, resolvePlugin } from './plugin'
-import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
+import type { CommandTask } from './command'
+import { RawPluginModule, importPlugin, loadPlugin, resolvePlugin, validatePluginHooks } from './plugin'
+import { Conflict, findConflicts, withoutConflicts, isConflict, findConflictingEntries } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import { TaskClass, Hook, mapValidated, Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
-import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/schema'
+import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
+import {
+  flatMapValidated,
+  Hook,
+  mapValidated,
+  Plugin,
+  reduceValidated,
+  unwrapValidated,
+  Validated
+} from '@dotcom-tool-kit/types'
+import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
 import {
   InvalidOption,
   formatTaskConflicts,
-  formatUndefinedHookTasks,
+  formatUndefinedCommandTasks,
   formatUnusedOptions,
-  formatHookTaskConflicts,
+  formatCommandTaskConflicts,
   formatHookConflicts,
   formatOptionConflicts,
   formatUninstalledHooks,
@@ -30,10 +42,10 @@ export interface RawConfig {
   root: string
   plugins: { [id: string]: Validated<Plugin> }
   resolvedPlugins: Set<Plugin>
-  tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
-  hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
+  tasks: { [id: string]: string | Conflict<string> }
+  commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
-  hooks: { [id: string]: Hook<unknown> | Conflict<Hook<unknown>> }
+  hooks: { [id: string]: string | Conflict<string> }
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
@@ -48,21 +60,93 @@ export type ValidOptions = {
   [Id in keyof SchemaOptions]: ValidPluginOptions<Id>
 }
 
-export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'hookTasks' | 'options' | 'hooks'> & {
-  tasks: { [id: string]: TaskClass }
-  hookTasks: { [id: string]: HookTask }
+export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'options' | 'hooks'> & {
+  tasks: { [id: string]: string }
+  commandTasks: { [id: string]: CommandTask }
   options: ValidOptions
-  hooks: { [id: string]: Hook<unknown> }
+  hooks: { [id: string]: string }
 }
 
 const coreRoot = path.resolve(__dirname, '../')
+
+export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> => {
+  const hookResults = await Promise.all(
+    Object.entries(config.hooks).map(async ([hookName, pluginId]) => {
+      const hookPlugin = await importPlugin(pluginId)
+
+      return flatMapValidated(hookPlugin, (plugin) => {
+        const pluginHooks = validatePluginHooks(plugin as RawPluginModule)
+
+        return mapValidated(pluginHooks, (hooks) => new hooks[hookName](logger, hookName))
+      })
+    })
+  )
+
+  return reduceValidated(hookResults)
+}
+
+export async function fileHash(path: string): Promise<string> {
+  const hashFunc = createHash('sha512')
+  try {
+    hashFunc.update(await readFile(path))
+    return hashFunc.digest('base64')
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') {
+      return 'n/a'
+    } else {
+      throw error
+    }
+  }
+}
+
+export async function updateHashes(): Promise<void> {
+  const hashes = Object.fromEntries(
+    await Promise.all(configPaths.map(async (path) => [path, await fileHash(path)]))
+  )
+  writeState('install', hashes)
+}
+
+async function hasConfigChanged(logger: Logger): Promise<boolean> {
+  const hashes = readState('install')
+  if (!hashes) {
+    return true
+  }
+  for (const [path, prevHash] of Object.entries(hashes)) {
+    const newHash = await fileHash(path)
+    if (newHash !== prevHash) {
+      logger.debug(`hash for path ${path} has changed, running hook checks`)
+      return true
+    }
+  }
+  return false
+}
+
+export async function checkInstall(logger: Logger, config: ValidConfig): Promise<void> {
+  if (!(await hasConfigChanged(logger))) {
+    return
+  }
+
+  const hooks = unwrapValidated(await loadHooks(logger, config), 'hooks are invalid')
+
+  const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
+    return !(await hook.check())
+  })
+
+  if (uninstalledHooks.length > 0) {
+    const error = new ToolKitError('There are problems with your Tool Kit installation.')
+    error.details = formatUninstalledHooks(uninstalledHooks)
+    throw error
+  }
+
+  await updateHashes()
+}
 
 export const createConfig = (): RawConfig => ({
   root: coreRoot,
   plugins: {},
   resolvedPlugins: new Set(),
   tasks: {},
-  hookTasks: {},
+  commandTasks: {},
   options: {},
   hooks: {}
 })
@@ -76,22 +160,22 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
 export function validateConfig(config: ValidPluginsConfig, logger: Logger): ValidConfig {
   const validConfig = config as ValidConfig
 
-  const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
-  const hookConflicts = findConflicts(Object.values(config.hooks))
-  const taskConflicts = findConflicts(Object.values(config.tasks))
+  const commandTaskConflicts = findConflicts(Object.values(config.commandTasks))
+  const hookConflicts = findConflictingEntries(config.hooks)
+  const taskConflicts = findConflictingEntries(config.tasks)
   const optionConflicts = findConflicts(Object.values(config.options))
 
-  const definedHookTaskConflicts = hookTaskConflicts.filter((conflict) => {
+  const definedCommandTaskConflicts = commandTaskConflicts.filter((conflict) => {
     return conflict.conflicting[0].id in config.hooks
   })
 
   let shouldThrow = false
   const error = new ToolKitConflictError(
     'There are problems with your Tool Kit configuration.',
-    hookTaskConflicts.map((conflict) => ({
-      hook: conflict.conflicting[0].id,
-      conflictingTasks: conflict.conflicting.flatMap((hook) =>
-        hook.tasks.map((task) => ({ task, plugin: hook.plugin.id }))
+    commandTaskConflicts.map((conflict) => ({
+      command: conflict.conflicting[0].id,
+      conflictingTasks: conflict.conflicting.flatMap((command) =>
+        command.tasks.map((task) => ({ task, plugin: command.plugin.id }))
       )
     }))
   )
@@ -99,7 +183,7 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
 
   if (
     hookConflicts.length > 0 ||
-    definedHookTaskConflicts.length > 0 ||
+    definedCommandTaskConflicts.length > 0 ||
     taskConflicts.length > 0 ||
     optionConflicts.length > 0
   ) {
@@ -109,8 +193,8 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
       error.details += formatHookConflicts(hookConflicts)
     }
 
-    if (definedHookTaskConflicts.length) {
-      error.details += formatHookTaskConflicts(definedHookTaskConflicts)
+    if (definedCommandTaskConflicts.length) {
+      error.details += formatCommandTaskConflicts(definedCommandTaskConflicts)
     }
 
     if (taskConflicts.length) {
@@ -122,18 +206,19 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     }
   }
 
-  const configuredHookTasks = withoutConflicts(Object.values(config.hookTasks))
+  const configuredCommandTasks = withoutConflicts(Object.values(config.commandTasks))
   const definedHookIds = new Set(Object.keys(config.hooks))
-  const undefinedHookTasks = configuredHookTasks.filter((hookTask) => {
+  const undefinedCommandTasks = configuredCommandTasks.filter(() => {
+    return false //TODO
     // we only care about undefined hooks that were configured by the app, not default config from plugins
-    const fromApp = hookTask.plugin.root === process.cwd()
-    const hookDefined = definedHookIds.has(hookTask.id)
-    return fromApp && !hookDefined
+    // const fromApp = commandTask.plugin.root === process.cwd()
+    // const hookDefined = definedHookIds.has(commandTask.id)
+    // return fromApp && !hookDefined
   })
 
-  if (undefinedHookTasks.length > 0) {
+  if (undefinedCommandTasks.length > 0) {
     shouldThrow = true
-    error.details += formatUndefinedHookTasks(undefinedHookTasks, Array.from(definedHookIds))
+    error.details += formatUndefinedCommandTasks(undefinedCommandTasks, Array.from(definedHookIds))
   }
 
   const invalidOptions: InvalidOption[] = []
@@ -186,7 +271,7 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     error.details += formatUnusedOptions(unusedOptions, Object.keys(config.plugins))
   }
 
-  const missingTasks = configuredHookTasks
+  const missingTasks = configuredCommandTasks
     .map((hook) => ({
       hook,
       tasks: hook.tasks.filter((id) => !config.tasks[id])
@@ -212,19 +297,6 @@ export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig
   return mapValidated(validatedPlugins, (plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
 }
 
-export async function checkInstall(config: ValidConfig): Promise<void> {
-  const definedHooks = withoutConflicts(Object.values(config.hooks))
-  const uninstalledHooks = await asyncFilter(definedHooks, async (hook) => {
-    return !(await hook.check())
-  })
-
-  if (uninstalledHooks.length > 0) {
-    const error = new ToolKitError('There are problems with your Tool Kit installation.')
-    error.details = formatUninstalledHooks(uninstalledHooks)
-    throw error
-  }
-}
-
 export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
 export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<RawConfig>
 
@@ -233,21 +305,10 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
 
   // start loading config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
-  if (!rootPlugin.valid) {
-    const error = new ToolKitError('root plugin was not valid!')
-    error.details = rootPlugin.reasons.join('\n\n')
-    throw error
-  }
-  const validRootPlugin = rootPlugin.value
+  const validRootPlugin = unwrapValidated(rootPlugin, 'root plugin was not valid!')
 
   const validatedPluginConfig = validatePlugins(config)
-
-  if (!validatedPluginConfig.valid) {
-    const error = new ToolKitError('config was not valid!')
-    error.details = validatedPluginConfig.reasons.join('\n\n')
-    throw error
-  }
-  const validPluginConfig = validatedPluginConfig.value
+  const validPluginConfig = unwrapValidated(validatedPluginConfig, 'config was not valid!')
 
   // collate root plugin and descendent hooks, options etc into config
   resolvePlugin(validRootPlugin, validPluginConfig, logger)

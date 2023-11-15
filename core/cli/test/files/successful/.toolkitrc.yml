@@ -13,7 +13,7 @@ options:
   '@dotcom-tool-kit/n-test':
     host: 'https://example.com'
 
-hooks:
+commands:
   'test:local':
     - Mocha
     - Eslint

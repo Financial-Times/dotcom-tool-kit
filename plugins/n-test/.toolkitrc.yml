@@ -1,3 +1,6 @@
-hooks:
+tasks:
+  - NTest
+
+commands:
   'test:review': NTest
   'test:staging': NTest

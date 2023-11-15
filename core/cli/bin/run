@@ -5,18 +5,21 @@ const argv = require('minimist')(process.argv.slice(2), {
   '--': true
 })
 
-const { runTasks, showHelp, installHooks, listPlugins } = require('../lib')
 const { rootLogger, styles } = require('@dotcom-tool-kit/logger')
 
 async function main() {
   try {
     if (argv.install) {
+      const installHooks = require('../lib/install').default
       await installHooks(rootLogger)
     } else if (argv.listPlugins) {
+      const { listPlugins } = require('../lib')
       await listPlugins(rootLogger)
     } else if (argv.help || argv._.length === 0) {
+      const showHelp = require('../lib/help').default
       await showHelp(rootLogger, argv._)
     } else {
+      const { runTasks } = require('../lib')
       if (argv['--'].length > 0) {
         // The `--` in a command such as `dotcom-tool-kit test:staged --`
         // delineates between hooks and file patterns. For example, when the

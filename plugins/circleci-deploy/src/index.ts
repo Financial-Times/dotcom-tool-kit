@@ -86,8 +86,10 @@ export class TestReview extends CypressCiHook {
   requiredJobs = [DeployReview.job]
 }
 
+const stagingJob = 'tool-kit/e2e-test-staging'
+
 export class TestStaging extends CypressCiHook {
-  job = 'tool-kit/e2e-test-staging'
+  job = stagingJob
   requiredJobs = [DeployStaging.job]
 }
 
@@ -97,7 +99,7 @@ export class DeployProduction extends CircleCiConfigHook {
     return generateConfigWithServerlessOptions(this.logger, {
       name: DeployProduction.job,
       addToNightly: false,
-      requires: [new TestStaging(this.logger).job, TestCI.job],
+      requires: [stagingJob, TestCI.job],
       splitIntoMatrix: false,
       additionalFields: {
         filters: { branches: { only: 'main' } }

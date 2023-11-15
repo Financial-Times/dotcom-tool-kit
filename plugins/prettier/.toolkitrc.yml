@@ -1,3 +1,9 @@
-hooks:
+installs:
+  - 'format:local'
+
+tasks:
+  - Prettier
+
+commands:
   'format:local': Prettier
   'format:staged': Prettier

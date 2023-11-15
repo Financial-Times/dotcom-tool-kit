@@ -31,7 +31,7 @@ export const hooks = {
   'run:local': RunLocal
 }
 
-export const tasks = [
+export const tasks = {
   NpmPrune,
   NpmPublish
-]
+}

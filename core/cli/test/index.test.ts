@@ -1,5 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Invalid, Plugin, Valid } from '@dotcom-tool-kit/types'
+import { Plugin, Valid } from '@dotcom-tool-kit/types'
 import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
@@ -12,20 +12,6 @@ const logger = (winston as unknown) as Logger
 jest.setTimeout(20000)
 
 describe('cli', () => {
-  it('should report when plugins are invalid', async () => {
-    const config = createConfig()
-
-    const plugin = await loadPlugin('app root', config, logger, {
-      id: 'invalid plugin test root',
-      root: path.join(__dirname, 'files/invalid')
-    })
-
-    expect(plugin.valid).toBe(false)
-    const reason = (plugin as Invalid).reasons[0]
-    expect(reason).toContain('type symbol is missing')
-    expect(reason).toContain('plugin is not an object')
-  })
-
   it('should indicate when there are conflicts', async () => {
     const config = createConfig()
 
@@ -42,9 +28,9 @@ describe('cli', () => {
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:ci.conflicting')
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:remote.conflicting')
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:local.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:ci.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:remote.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:local.conflicting')
   })
 
   it('should indicate when there are conflicts between plugins that are cousins in the tree', async () => {
@@ -63,9 +49,9 @@ describe('cli', () => {
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
-    expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
-    expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
-    expect(config).toHaveProperty('hookTasks.build:local.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:ci.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:remote.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:local.conflicting')
   })
 
   it('should not have conflicts between multiple of the same plugin', async () => {
@@ -86,7 +72,6 @@ describe('cli', () => {
     try {
       const validConfig = validateConfig(validPluginConfig, logger)
       expect(validConfig).not.toHaveProperty('hooks.build:local.conflicting')
-      expect(validConfig.hooks['build:local'].plugin?.id).toEqual('@dotcom-tool-kit/npm')
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details
@@ -114,8 +99,11 @@ describe('cli', () => {
     try {
       const validConfig = validateConfig(validPluginConfig, logger)
 
-      expect(validConfig).not.toHaveProperty('hookTasks.build:local.conflicting')
-      expect(validConfig.hookTasks['build:local'].tasks).toEqual(['WebpackDevelopment', 'BabelDevelopment'])
+      expect(validConfig).not.toHaveProperty('commandTasks.build:local.conflicting')
+      expect(validConfig.commandTasks['build:local'].tasks).toEqual([
+        'WebpackDevelopment',
+        'BabelDevelopment'
+      ])
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details

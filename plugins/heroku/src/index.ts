@@ -25,4 +25,4 @@ export const hooks = {
   'build:remote': BuildRemote
 }
 
-export const tasks = [HerokuProduction, HerokuStaging, HerokuReview, HerokuTeardown]
+export const tasks = { HerokuProduction, HerokuStaging, HerokuReview, HerokuTeardown }

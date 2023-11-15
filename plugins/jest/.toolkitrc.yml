@@ -1,3 +1,7 @@
-hooks:
+tasks:
+  - JestLocal
+  - JestCI
+
+commands:
   'test:local': JestLocal
   'test:ci': JestCI

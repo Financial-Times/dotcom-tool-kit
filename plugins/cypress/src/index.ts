@@ -10,4 +10,4 @@ export const hooks = {
   'e2e:local': E2ETestHook
 }
 
-export const tasks = [CypressLocal, CypressCi]
+export const tasks = { CypressLocal, CypressCi }

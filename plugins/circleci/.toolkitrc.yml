@@ -1,0 +1,3 @@
+installs:
+  - 'build:ci'
+  - 'test:ci'

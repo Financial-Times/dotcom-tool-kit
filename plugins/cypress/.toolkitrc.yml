@@ -1,5 +1,11 @@
-hooks:
+installs:
+  - 'e2e:local'
+
+tasks:
+  - CypressCi
+  - CypressLocal
+
+commands:
   'test:review': CypressCi
   'test:staging': CypressCi
   'e2e:local': CypressLocal
-
