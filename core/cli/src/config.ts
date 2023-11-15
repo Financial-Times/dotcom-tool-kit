@@ -5,7 +5,7 @@ import path from 'path'
 import type { Logger } from 'winston'
 
 import type { CommandTask } from './command'
-import { RawPluginModule, importPlugin, loadPlugin, resolvePlugin, validatePluginHooks } from './plugin'
+import { RawPluginModule, importEntryPoint, loadPlugin, resolvePlugin, validatePluginHooks } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict, findConflictingEntries } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
@@ -77,7 +77,7 @@ const coreRoot = path.resolve(__dirname, '../')
 export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> => {
   const hookResults = await Promise.all(
     Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
-      const hookPlugin = await importPlugin(entryPoint.modulePath)
+      const hookPlugin = await importEntryPoint(entryPoint)
 
       return flatMapValidated(hookPlugin, (plugin) => {
         const pluginHooks = validatePluginHooks(plugin as RawPluginModule)
