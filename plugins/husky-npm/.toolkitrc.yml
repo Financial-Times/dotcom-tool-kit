@@ -1,3 +1,0 @@
-installs:
-  - 'git:precommit'
-  - 'git:commitmsg'

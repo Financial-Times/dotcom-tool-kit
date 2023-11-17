@@ -1,6 +1,3 @@
-installs:
-  - 'e2e:local'
-
 tasks:
   - CypressCi
   - CypressLocal
