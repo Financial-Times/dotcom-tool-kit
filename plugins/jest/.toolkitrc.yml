@@ -1,6 +1,6 @@
 tasks:
-  - JestLocal
-  - JestCI
+  JestLocal: './lib/tasks/local'
+  JestCI: './lib/tasks/ci'
 
 commands:
   'test:local': JestLocal

@@ -1,7 +1,6 @@
 {
   "name": "@dotcom-tool-kit/babel",
   "version": "3.1.5",
-  "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",

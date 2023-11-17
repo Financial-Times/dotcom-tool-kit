@@ -1,6 +1,6 @@
 tasks:
-  - BabelDevelopment
-  - BabelProduction
+  BabelDevelopment: './lib/tasks/development'
+  BabelProduction: './lib/tasks/production'
 
 commands:
   'build:local': BabelDevelopment

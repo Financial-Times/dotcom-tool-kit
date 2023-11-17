@@ -2,7 +2,7 @@ plugins:
   - '@dotcom-tool-kit/doppler'
 
 tasks:
-  - Node
+  Node: './lib/tasks/node'
 
 commands:
   'run:local': Node

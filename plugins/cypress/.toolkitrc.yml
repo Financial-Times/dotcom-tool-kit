@@ -1,6 +1,6 @@
 tasks:
-  - CypressCi
-  - CypressLocal
+  CypressCi: './lib/tasks/ci'
+  CypressLocal: './lib/tasks/local'
 
 commands:
   'test:review': CypressCi

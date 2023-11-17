@@ -1,5 +1,5 @@
 tasks:
-  - Prettier
+  Prettier: './lib/tasks/prettier'
 
 commands:
   'format:local': Prettier
