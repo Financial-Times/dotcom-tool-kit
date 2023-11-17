@@ -1,14 +1,12 @@
-import type { HookConstructor } from './hook'
-import type { TaskConstructor } from './task'
-
 export * from './validated'
+export * from './base'
 export * from './task'
 export * from './hook'
 
 export type RCFile = {
   plugins: string[]
-  installs: string[]
-  tasks: string[]
+  installs: { [id: string]: string }
+  tasks: { [id: string]: string }
   commands: { [id: string]: string | string[] }
   options: { [id: string]: Record<string, unknown> }
 }
@@ -19,13 +17,4 @@ export interface Plugin {
   rcFile?: RCFile
   parent?: Plugin
   children?: Plugin[]
-}
-
-export interface PluginModule {
-  tasks: {
-    [id: string]: TaskConstructor
-  }
-  hooks: {
-    [id: string]: HookConstructor
-  }
 }

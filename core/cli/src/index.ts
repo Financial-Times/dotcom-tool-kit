@@ -6,13 +6,13 @@ import type { Logger } from 'winston'
 import { formatPluginTree } from './messages'
 import {
   Task,
+  TaskConstructor,
   Validated,
-  flatMapValidated,
   mapValidated,
   reduceValidated,
   unwrapValidated
 } from '@dotcom-tool-kit/types'
-import { RawPluginModule, importEntryPoint, validatePluginTasks } from './plugin'
+import { importEntryPoint } from './plugin'
 
 type ErrorSummary = {
   hook: string
@@ -44,16 +44,16 @@ const loadTasks = async (
   const taskResults = await Promise.all(
     taskNames.map(async (taskName) => {
       const entryPoint = config.tasks[taskName]
-      const taskPlugin = await importEntryPoint(entryPoint)
+      const taskResult = await importEntryPoint(Task, entryPoint)
 
-      return flatMapValidated(taskPlugin, (plugin) => {
-        const pluginTasks = validatePluginTasks(plugin as RawPluginModule)
-
-        return mapValidated(pluginTasks, (tasks) => [
+      return mapValidated(taskResult, (Task) => [
+        taskName,
+        new ((Task as unknown) as TaskConstructor)(
+          logger,
           taskName,
-          new tasks[taskName](logger, taskName, getOptions(entryPoint.plugin.id as OptionKey) ?? {})
-        ])
-      })
+          getOptions(entryPoint.plugin.id as OptionKey) ?? {}
+        )
+      ])
     })
   )
 
