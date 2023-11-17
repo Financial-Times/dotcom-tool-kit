@@ -1,5 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { hookFork, styles } from '@dotcom-tool-kit/logger'
+import { hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/types'
 import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
@@ -27,7 +27,7 @@ export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
       dopplerEnv = await doppler.get()
     }
 
-    regions.forEach((region) => {
+    for (const region of regions) {
       this.logger.verbose('starting the child serverless process...')
       const args = ['deploy', '--region', region, '--stage', 'prod']
       if (configPath) {
@@ -42,6 +42,7 @@ export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
       })
 
       hookFork(this.logger, 'serverless', child)
-    })
+      await waitOnExit('serverless', child)
+    }
   }
 }
