@@ -1,5 +1,5 @@
 tasks:
-  - Mocha
+  Mocha: './lib/tasks/mocha'
 
 commands:
   'test:local': Mocha

@@ -1,5 +1,5 @@
 tasks:
-  - Eslint
+  Eslint: './lib/tasks/eslint'
 
 commands:
   'test:local': Eslint
