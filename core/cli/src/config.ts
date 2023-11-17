@@ -5,13 +5,13 @@ import path from 'path'
 import type { Logger } from 'winston'
 
 import type { CommandTask } from './command'
-import { RawPluginModule, importEntryPoint, loadPlugin, resolvePlugin, validatePluginHooks } from './plugin'
+import { importEntryPoint, loadPlugin, resolvePlugin } from './plugin'
 import { Conflict, findConflicts, withoutConflicts, isConflict, findConflictingEntries } from './conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
 import {
-  flatMapValidated,
   Hook,
+  HookConstructor,
   mapValidated,
   Plugin,
   reduceValidated,
@@ -77,13 +77,9 @@ const coreRoot = path.resolve(__dirname, '../')
 export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> => {
   const hookResults = await Promise.all(
     Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
-      const hookPlugin = await importEntryPoint(entryPoint)
+      const hookResult = await importEntryPoint(Hook, entryPoint)
 
-      return flatMapValidated(hookPlugin, (plugin) => {
-        const pluginHooks = validatePluginHooks(plugin as RawPluginModule)
-
-        return mapValidated(pluginHooks, (hooks) => new hooks[hookName](logger, hookName))
-      })
+      return mapValidated(hookResult, (Hook) => new ((Hook as unknown) as HookConstructor)(logger, hookName))
     })
   )
 
