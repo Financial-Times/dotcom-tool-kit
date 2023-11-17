@@ -7,7 +7,7 @@ import {
   Valid,
   Validated
 } from '@dotcom-tool-kit/types'
-import resolveFrom from 'resolve-from'
+import resolvePkg from 'resolve-pkg'
 import type { Logger } from 'winston'
 import { EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from './conflict'
@@ -34,10 +34,9 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
   type: T,
   entryPoint: EntryPoint
 ): Promise<Validated<T>> {
-  let resolvedPath: string
-  try {
-    resolvedPath = resolveFrom(entryPoint.plugin.root, entryPoint.modulePath)
-  } catch (e) {
+  const resolvedPath = resolvePkg(entryPoint.modulePath, { cwd: entryPoint.plugin.root })
+
+  if (!resolvedPath) {
     return {
       valid: false,
       reasons: [
@@ -104,10 +103,8 @@ export async function loadPlugin(
 
   // load plugin relative to the parent plugin
   const root = parent ? parent.root : process.cwd()
-  let pluginRoot: string
-  try {
-    pluginRoot = isAppRoot ? root : resolveFrom(root, id)
-  } catch (e) {
+  const pluginRoot = isAppRoot ? root : resolvePkg(id, { cwd: root })
+  if (!pluginRoot) {
     return { valid: false, reasons: [`could not find path for name ${s.filepath(id)}`] }
   }
 
