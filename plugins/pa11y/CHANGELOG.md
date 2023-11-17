@@ -84,6 +84,18 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+## [0.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.4.6...pa11y-v0.5.0) (2023-11-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pa11y:** run pa11y locally and not on CI
+
+### Features
+
+* **pa11y:** add deprecation warning ([3dfac8b](https://github.com/Financial-Times/dotcom-tool-kit/commit/3dfac8b2ad149891a2cae3b70f1f8262ea14fe53))
+* **pa11y:** run pa11y locally and not on CI ([9f7bf63](https://github.com/Financial-Times/dotcom-tool-kit/commit/9f7bf631c44e4cb68315b77062d41c6de42c6159))
+
 ## [0.4.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.4.4...pa11y-v0.4.5) (2023-09-19)
 
 

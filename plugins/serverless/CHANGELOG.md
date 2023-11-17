@@ -53,6 +53,13 @@
   * dependencies
     * @dotcom-tool-kit/doppler bumped from ^1.0.5 to ^1.0.6
 
+## [2.2.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.7...serverless-v2.2.8) (2023-11-17)
+
+
+### Bug Fixes
+
+* **serverless:** confirm Serverless deployments have been successful ([8b9b00d](https://github.com/Financial-Times/dotcom-tool-kit/commit/8b9b00de7fb85ce92f13d58ec242174ef7c4607f))
+
 ## [2.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.2...serverless-v2.2.3) (2023-10-09)
 
 
