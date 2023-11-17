@@ -1,5 +1,5 @@
 import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
-import NpmPublish from '../src/tasks/npm-publish'
+import NpmPublish from '../src/tasks/publish'
 import winston, { Logger } from 'winston'
 import { ToolKitError } from '../../../lib/error/lib'
 import * as state from '@dotcom-tool-kit/state'
