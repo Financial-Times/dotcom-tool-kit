@@ -3,6 +3,7 @@ import { ValidConfig, checkInstall, loadConfig } from './config'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
+import util from 'util'
 import { formatPluginTree } from './messages'
 import {
   Task,
@@ -151,4 +152,10 @@ export async function listPlugins(logger: Logger): Promise<void> {
   if (rootPlugin?.valid) {
     logger.info(formatPluginTree(rootPlugin.value).join('\n'))
   }
+}
+
+export async function printConfig(logger: Logger): Promise<void> {
+  const config = await loadConfig(logger, { validate: false })
+
+  logger.info(util.inspect(config, { depth: null, colors: true }))
 }
