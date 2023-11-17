@@ -1,7 +1,7 @@
 tasks:
-  - WebpackDevelopment
-  - WebpackProduction
-  - WebpackWatch
+  WebpackDevelopment: './lib/tasks/development'
+  WebpackProduction: './lib/tasks/production'
+  WebpackWatch: './lib/tasks/watch'
 
 commands:
   'build:local': WebpackDevelopment

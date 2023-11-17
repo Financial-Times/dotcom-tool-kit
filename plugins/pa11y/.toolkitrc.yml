@@ -2,7 +2,7 @@ plugins:
   - '@dotcom-tool-kit/doppler'
 
 tasks:
-  - Pa11y
+  Pa11y: './lib/tasks/pa11y'
 
 commands:
   'test:local': Pa11y

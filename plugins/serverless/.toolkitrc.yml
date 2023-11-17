@@ -1,4 +1,4 @@
 tasks:
-  - ServerlessRun
-  - ServerlessDeploy
-  - ServerlessProvision
+  ServerlessRun: './lib/tasks/run'
+  ServerlessDeploy: './lib/tasks/deploy'
+  ServerlessProvision: './lib/tasks/provision'

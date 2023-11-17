@@ -5,7 +5,7 @@ import { fork } from 'child_process'
 
 const tscPath = require.resolve('typescript/bin/tsc')
 
-abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
+export default abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
   abstract taskArgs: string[]
 
   async run(): Promise<void> {
@@ -29,22 +29,4 @@ abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
     // tsc is quite quiet by default so let the user know it actually ran
     this.logger.info('code compiled successfully')
   }
-}
-
-export class TypeScriptBuild extends TypeScriptTask {
-  static description = 'compile TypeScript to JavaScript'
-
-  taskArgs = []
-}
-
-export class TypeScriptWatch extends TypeScriptTask {
-  static description = 'rebuild TypeScript project every file change'
-
-  taskArgs = ['--watch']
-}
-
-export class TypeScriptTest extends TypeScriptTask {
-  static description = 'type check TypeScript code'
-
-  taskArgs = ['--noEmit']
 }
