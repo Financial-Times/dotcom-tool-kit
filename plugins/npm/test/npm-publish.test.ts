@@ -35,7 +35,7 @@ describe('NpmPublish', () => {
   it('should throw an error if ci is not found in state', async () => {
     readStateMock.mockReturnValue(null)
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger, 'NpmPublish', {})
     await expect(async () => {
       await task.run()
     }).rejects.toThrow(
@@ -46,7 +46,7 @@ describe('NpmPublish', () => {
   it('should throw error if tag is not found', async () => {
     readStateMock.mockReturnValue({ tag: '', repo: '', branch: '', version: '' })
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger, 'NpmPublish', {})
     await expect(async () => {
       await task.run()
     }).rejects.toThrow(
@@ -57,19 +57,19 @@ describe('NpmPublish', () => {
   })
 
   it('should return prerelease if match prerelease regex in getNpmTag', () => {
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger, 'NpmPublish', {})
     expect(task.getNpmTag('v1.6.0-beta.1')).toEqual('prerelease')
   })
 
   it('should return latest if match latest regex in getNpmTag', () => {
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger, 'NpmPublish', {})
     expect(task.getNpmTag('v1.6.0')).toEqual('latest')
   })
 
   it('should throw error if tag does not match semver regex', async () => {
     readStateMock.mockReturnValue({ tag: 'random-branch', repo: '', branch: '', version: '' })
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger, 'NpmPublish', {})
     await expect(async () => {
       await task.run()
     }).rejects.toThrow(
@@ -85,7 +85,7 @@ describe('NpmPublish', () => {
     const listPackedFilesSpy = jest.spyOn(NpmPublish.prototype, 'listPackedFiles')
     listPackedFilesSpy.mockImplementation(() => Promise.resolve())
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger, 'NpmPublish', {})
     await task.run()
 
     expect(listPackedFilesSpy).toBeCalled()
@@ -98,7 +98,7 @@ describe('NpmPublish', () => {
     process.env.NPM_AUTH_TOKEN = process.env.NPM_AUTH_TOKEN || 'dummy_value'
     readStateMock.mockReturnValue({ tag: MOCK_CIRCLE_TAG, repo: '', branch: '', version: '' })
 
-    const task = new NpmPublish(logger, {})
+    const task = new NpmPublish(logger, 'NpmPublish', {})
     await task.run()
 
     expect(writeFile).toHaveBeenCalledWith(

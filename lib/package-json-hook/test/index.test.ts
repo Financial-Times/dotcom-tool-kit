@@ -22,21 +22,21 @@ describe('package.json hook', () => {
   describe('check', () => {
     it('should return true when package.json has hook call in script', async () => {
       process.chdir(path.join(__dirname, 'files', 'with-hook'))
-      const hook = new TestHook(logger)
+      const hook = new TestHook(logger, 'TestHook')
 
       expect(await hook.check()).toBeTruthy()
     })
 
     it('should return true when script includes other hooks', async () => {
       process.chdir(path.join(__dirname, 'files', 'multiple-hooks'))
-      const hook = new TestHook(logger)
+      const hook = new TestHook(logger, 'TestHook')
 
       expect(await hook.check()).toBeTruthy()
     })
 
     it(`should return false when package.json doesn't have hook call in script`, async () => {
       process.chdir(path.join(__dirname, 'files', 'without-hook'))
-      const hook = new TestHook(logger)
+      const hook = new TestHook(logger, 'TestHook')
 
       expect(await hook.check()).toBeFalsy()
     })
@@ -52,7 +52,7 @@ describe('package.json hook', () => {
       process.chdir(base)
 
       try {
-        const hook = new TestHook(logger)
+        const hook = new TestHook(logger, 'TestHook')
         const state = await hook.install()
         await hook.commitInstall(state)
 
@@ -77,7 +77,7 @@ describe('package.json hook', () => {
           trailingString = '--'
         }
 
-        const hook = new TestAppendHook(logger)
+        const hook = new TestAppendHook(logger, 'TestAppendHook')
         const state = await hook.install()
         await hook.commitInstall(state)
 
@@ -102,7 +102,7 @@ describe('package.json hook', () => {
           field = ['scripts', 'nested']
         }
 
-        const hook = new TestNestedHook(logger)
+        const hook = new TestNestedHook(logger, 'TestNestedHook')
         const state = await hook.install()
         await hook.commitInstall(state)
 
