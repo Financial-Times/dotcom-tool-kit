@@ -98,12 +98,7 @@ describe('upload-assets-to-s3', () => {
       directory: testDirectory
     })
 
-    expect.assertions(1)
-    try {
-      await task.run()
-    } catch (e) {
-      expect(e.details).toEqual(mockError)
-    }
+    await expect(task.run()).rejects.toThrow(mockError)
   })
 
   // HACK:20231006:IM make sure hack to support Doppler migration works
