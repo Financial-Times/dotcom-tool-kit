@@ -3,10 +3,10 @@ plugins:
   - '@dotcom-tool-kit/doppler' # required so the create script knows we need its options
 
 tasks:
-  - HerokuProduction
-  - HerokuStaging
-  - HerokuReview
-  - HerokuTeardown
+  HerokuProduction: './lib/tasks/production'
+  HerokuStaging: './lib/tasks/staging'
+  HerokuReview: './lib/tasks/review'
+  HerokuTeardown: './lib/tasks/teardown'
 
 commands:
   'cleanup:remote': NpmPrune

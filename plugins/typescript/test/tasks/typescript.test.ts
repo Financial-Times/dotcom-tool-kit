@@ -1,5 +1,7 @@
 import { describe, jest, it, expect } from '@jest/globals'
-import { TypeScriptBuild, TypeScriptWatch, TypeScriptTest } from '../../src/tasks/typescript'
+import TypeScriptBuild from '../../src/tasks/build'
+import TypeScriptWatch from '../../src/tasks/watch'
+import TypeScriptTest from '../../src/tasks/test'
 import { fork } from 'child_process'
 import EventEmitter from 'events'
 import winston, { Logger } from 'winston'

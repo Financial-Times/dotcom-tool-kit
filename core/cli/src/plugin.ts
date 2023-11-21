@@ -1,22 +1,20 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
 import {
-  Hook,
   mapValidated,
   mapValidationError,
   Plugin,
-  PluginModule,
   reduceValidated,
-  Task,
   Valid,
   Validated
 } from '@dotcom-tool-kit/types'
-import resolveFrom from 'resolve-from'
+import resolvePkg from 'resolve-pkg'
 import type { Logger } from 'winston'
 import { EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from './conflict'
 import type { CommandTask } from './command'
 import { loadToolKitRC } from './rc-file'
 import { isPlainObject } from 'lodash'
+import { Base } from '@dotcom-tool-kit/types/src/base'
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {
@@ -30,81 +28,59 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
 
 const isPlainObjectGuard = (value: unknown): value is Record<string, unknown> => isPlainObject(value)
 
-export type RawPluginModule = Partial<PluginModule>
+// the subclasses of Base have different constructor signatures so we need to omit
+// the constructor from the type bound here so you can actually pass in a subclass
+export async function importEntryPoint<T extends { name: string } & Omit<typeof Base, 'new'>>(
+  type: T,
+  entryPoint: EntryPoint
+): Promise<Validated<T>> {
+  const resolvedPath = resolvePkg(entryPoint.modulePath, { cwd: entryPoint.plugin.root })
 
-export function validatePluginTasks(plugin: RawPluginModule): Validated<PluginModule['tasks']> {
-  if (plugin.tasks) {
-    if (!isPlainObjectGuard(plugin.tasks)) {
-      return {
-        valid: false,
-        reasons: [`the exported ${s.code('tasks')} value from this plugin is not an object`]
-      }
-    } else {
-      return mapValidated(
-        reduceValidated(
-          Object.entries(plugin.tasks).map(([id, task]) =>
-            mapValidationError(
-              mapValidated(Task.isCompatible<Task>(task), (task) => [id, task]),
-              (reasons) => [
-                `the task ${s.task(task.name)} is not a compatible instance of ${s.code(
-                  'Task'
-                )}:\n  - ${reasons.join('\n  - ')}`
-              ]
-            )
-          )
-        ),
-        Object.fromEntries
-      )
-    }
-  }
-
-  return { valid: true, value: {} }
-}
-
-export function validatePluginHooks(plugin: RawPluginModule): Validated<PluginModule['hooks']> {
-  if (plugin.hooks) {
-    if (!isPlainObjectGuard(plugin.hooks)) {
-      return {
-        valid: false,
-        reasons: [`the exported ${s.code('hooks')} value from this plugin is not an object`]
-      }
-    } else {
-      return mapValidated(
-        reduceValidated(
-          Object.entries(plugin.hooks).map(([id, hook]) =>
-            mapValidationError(
-              mapValidated(Hook.isCompatible<Hook>(hook), (hook) => [id, hook]),
-              (reasons) => [
-                `the hook ${s.hook(id)} is not a compatible instance of ${s.code(
-                  'Hook'
-                )}:\n  - ${reasons.join('\n  - ')}`
-              ]
-            )
-          )
-        ),
-        Object.fromEntries
-      )
-    }
-  }
-  return { valid: true, value: {} }
-}
-
-export async function importPlugin(pluginPath: string): Promise<Validated<unknown>> {
-  try {
-    // pluginPath is an absolute resolved path to a plugin module as found from its parent
-    const pluginModule: unknown = await import(pluginPath)
+  if (!resolvedPath) {
     return {
-      valid: true,
-      value: pluginModule
+      valid: false,
+      reasons: [
+        `could not find entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
+          entryPoint.plugin.id
+        )}`
+      ]
     }
+  }
+
+  let pluginModule: unknown
+  try {
+    pluginModule = await import(resolvedPath)
   } catch (e) {
     const err = e as Error
     return {
       valid: false,
       reasons: [
-        `an error was thrown when loading this plugin's entrypoint:\n  ${s.code(
-          indentReasons(err.toString())
-        )}`
+        `an error was thrown when loading entrypoint ${s.filepath(
+          entryPoint.modulePath
+        )} in plugin ${s.plugin(entryPoint.plugin.id)}:\n  ${s.code(indentReasons(err.toString()))}`
+      ]
+    }
+  }
+
+  if (
+    isPlainObjectGuard(pluginModule) &&
+    'default' in pluginModule &&
+    typeof pluginModule.default === 'function'
+  ) {
+    const name = pluginModule.default.name
+
+    return mapValidationError(type.isCompatible(pluginModule.default), (reasons) => [
+      `the ${type.name.toLowerCase()} ${s.hook(name)} is not a compatible instance of ${s.code(
+        type.name
+      )}:\n  - ${reasons.join('\n  - ')}`
+    ])
+  } else {
+    return {
+      valid: false,
+      reasons: [
+        `entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
+          entryPoint.plugin.id
+        )} does not have a ${s.code('default')} export`
       ]
     }
   }
@@ -127,10 +103,8 @@ export async function loadPlugin(
 
   // load plugin relative to the parent plugin
   const root = parent ? parent.root : process.cwd()
-  let pluginRoot: string
-  try {
-    pluginRoot = isAppRoot ? root : resolveFrom(root, id)
-  } catch (e) {
+  const pluginRoot = isAppRoot ? root : resolvePkg(id, { cwd: root })
+  if (!pluginRoot) {
     return { valid: false, reasons: [`could not find path for name ${s.filepath(id)}`] }
   }
 
@@ -181,11 +155,11 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
 
   if (plugin.rcFile) {
     // add plugin tasks to our task registry, handling any conflicts
-    for (const taskName of plugin.rcFile.tasks || []) {
+    for (const [taskName, modulePath] of Object.entries(plugin.rcFile.tasks || {})) {
       const existingTaskId = config.tasks[taskName]
       const entryPoint: EntryPoint = {
         plugin,
-        modulePath: plugin.id
+        modulePath
       }
 
       if (existingTaskId) {
@@ -202,11 +176,11 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
 
     // add hooks to the registry, handling any conflicts
     // TODO refactor with command conflict handler
-    for (const hookName of plugin.rcFile.installs || []) {
+    for (const [hookName, modulePath] of Object.entries(plugin.rcFile.installs || {})) {
       const existingHookId = config.hooks[hookName]
       const entryPoint: EntryPoint = {
         plugin,
-        modulePath: plugin.id
+        modulePath
       }
 
       if (existingHookId) {

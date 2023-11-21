@@ -3,16 +3,17 @@ import { ValidConfig, checkInstall, loadConfig } from './config'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
+import util from 'util'
 import { formatPluginTree } from './messages'
 import {
   Task,
+  TaskConstructor,
   Validated,
-  flatMapValidated,
   mapValidated,
   reduceValidated,
   unwrapValidated
 } from '@dotcom-tool-kit/types'
-import { RawPluginModule, importPlugin, validatePluginTasks } from './plugin'
+import { importEntryPoint } from './plugin'
 
 type ErrorSummary = {
   hook: string
@@ -44,16 +45,16 @@ const loadTasks = async (
   const taskResults = await Promise.all(
     taskNames.map(async (taskName) => {
       const entryPoint = config.tasks[taskName]
-      const taskPlugin = await importPlugin(entryPoint.modulePath)
+      const taskResult = await importEntryPoint(Task, entryPoint)
 
-      return flatMapValidated(taskPlugin, (plugin) => {
-        const pluginTasks = validatePluginTasks(plugin as RawPluginModule)
-
-        return mapValidated(pluginTasks, (tasks) => [
+      return mapValidated(taskResult, (Task) => [
+        taskName,
+        new ((Task as unknown) as TaskConstructor)(
+          logger,
           taskName,
-          new tasks[taskName](logger, taskName, getOptions(entryPoint.plugin.id as OptionKey) ?? {})
-        ])
-      })
+          getOptions(entryPoint.plugin.id as OptionKey) ?? {}
+        )
+      ])
     })
   )
 
@@ -146,4 +147,10 @@ export async function listPlugins(logger: Logger): Promise<void> {
   if (rootPlugin?.valid) {
     logger.info(formatPluginTree(rootPlugin.value).join('\n'))
   }
+}
+
+export async function printConfig(logger: Logger): Promise<void> {
+  const config = await loadConfig(logger, { validate: false })
+
+  logger.info(util.inspect(config, { depth: null, colors: true }))
 }

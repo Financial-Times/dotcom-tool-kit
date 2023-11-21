@@ -15,6 +15,9 @@ async function main() {
     } else if (argv.listPlugins) {
       const { listPlugins } = require('../lib')
       await listPlugins(rootLogger)
+    } else if (argv.printConfig) {
+      const { printConfig } = require('../lib')
+      await printConfig(rootLogger)
     } else if (argv.help || argv._.length === 0) {
       const showHelp = require('../lib/help').default
       await showHelp(rootLogger, argv._)
