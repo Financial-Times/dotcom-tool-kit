@@ -9,6 +9,14 @@
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/vault bumped from ^3.1.5 to ^3.1.6
 
+## [1.0.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.6...doppler-v1.0.7) (2023-11-21)
+
+
+### Bug Fixes
+
+* **doppler:** don't log that we're falling back to Vault if we aren't ([0e84486](https://github.com/Financial-Times/dotcom-tool-kit/commit/0e844868a1d678b4ce621fcf521853b32a7837c1))
+* **doppler:** fix Doppler never falling back to Vault ([12a0018](https://github.com/Financial-Times/dotcom-tool-kit/commit/12a001836c77080ba0db1a6c70098d489059c49d))
+
 ## [1.0.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.5...doppler-v1.0.6) (2023-10-24)
 
 
