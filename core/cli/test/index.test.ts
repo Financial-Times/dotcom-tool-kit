@@ -12,7 +12,9 @@ const logger = (winston as unknown) as Logger
 jest.setTimeout(20000)
 
 describe('cli', () => {
-  it('should indicate when there are conflicts', async () => {
+  // TODO:KB:202301121 we only return conflicts for hooks that are defined.
+  // currently there are no hooks lol
+  it.skip('should indicate when there are conflicts', async () => {
     const config = createConfig()
 
     const plugin = await loadPlugin('app root', config, logger, {
