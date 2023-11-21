@@ -98,7 +98,7 @@ describe('upload-assets-to-s3', () => {
       directory: testDirectory
     })
 
-    await expect(task.run()).rejects.toThrow(mockError)
+    await expect(task.run()).rejects.toThrow('ft-next-hashed-assets-prod failed')
   })
 
   // HACK:20231006:IM make sure hack to support Doppler migration works
