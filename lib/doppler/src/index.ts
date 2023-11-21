@@ -117,7 +117,7 @@ export class DopplerEnvVars {
     }
     // don't fallback to Vault if the project has doppler options set up
     // explicitly already
-    const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+    const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler')?.project)
     if (migratedToolKitToDoppler) {
       throw new ToolKitError('failed to get secrets from Doppler')
     }
