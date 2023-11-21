@@ -90,14 +90,12 @@ export class DopplerEnvVars {
       }
     } catch (err) {
       if (!errorMsg) {
-        this.logger.warn(`caught error '${err}' when calling Doppler, falling back to Vault`)
+        this.logger.warn(`caught error '${err}' when calling Doppler`)
       }
     }
     if (errorMsg) {
       this.logger.warn(
-        `doppler CLI failed with the following error logs, falling back to Vault:\n${styles.warningHighlight(
-          errorMsg
-        )}`
+        `doppler CLI failed with the following error logs:\n${styles.warningHighlight(errorMsg)}`
       )
     }
     return undefined
@@ -117,7 +115,7 @@ export class DopplerEnvVars {
     }
     // don't fallback to Vault if the project has doppler options set up
     // explicitly already
-    const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+    const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler')?.project)
     if (migratedToolKitToDoppler) {
       throw new ToolKitError('failed to get secrets from Doppler')
     }
@@ -130,6 +128,7 @@ export class DopplerEnvVars {
       //     'DEPRECATED'
       //   )} Vault secrets manager. please consider migrating to/fixing issues with Doppler.`
       // )
+      this.logger.warn('falling back to Vault')
       hasLoggedMigrationWarning = true
     }
 
