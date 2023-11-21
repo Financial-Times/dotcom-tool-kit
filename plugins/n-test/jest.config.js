@@ -5,6 +5,7 @@ module.exports = {
   globals: {
     'ts-jest': {
       tsconfig: {
+        ...base.globals['ts-jest'].tsconfig,
         paths: {
           puppeteer: ['__mocks__/puppeteer']
         }
