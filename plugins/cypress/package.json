@@ -20,14 +20,17 @@
     "/lib",
     ".toolkitrc.yml"
   ],
-  "dependencies": {
-    "@dotcom-tool-kit/vault": "^3.1.6"
-  },
   "peerDependencies": {
     "dotcom-tool-kit": "3.x"
   },
   "engines": {
     "node": "16.x || 18.x",
     "npm": "7.x || 8.x || 9.x"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/doppler": "^1.0.7",
+    "@dotcom-tool-kit/logger": "^3.3.0",
+    "@dotcom-tool-kit/state": "^3.1.1",
+    "@dotcom-tool-kit/types": "^3.4.1"
   }
 }
