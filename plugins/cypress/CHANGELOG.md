@@ -18,6 +18,18 @@
   * dependencies
     * @dotcom-tool-kit/vault bumped from ^3.1.5 to ^3.1.6
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v3.2.3...cypress-v3.3.0) (2023-11-22)
+
+
+### Features
+
+* **cypress:** add Doppler support ([5c14dc1](https://github.com/Financial-Times/dotcom-tool-kit/commit/5c14dc131a3ffbf78ba828b8c6c0622a4040e85d))
+
+
+### Bug Fixes
+
+* **cypress:** add missing dependencies to package.json ([3facfee](https://github.com/Financial-Times/dotcom-tool-kit/commit/3facfee01050c1dd88a5aeedfe0b2afbc4e37b47))
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v3.1.0...cypress-v3.2.0) (2023-08-29)
 
 
