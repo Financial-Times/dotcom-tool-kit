@@ -1,9 +1,9 @@
 import { spawn } from 'child_process'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/types'
 import { CypressSchema } from '@dotcom-tool-kit/types/src/schema/cypress'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 
 export class CypressLocal extends Task<typeof CypressSchema> {
   async run(): Promise<void> {
@@ -12,9 +12,7 @@ export class CypressLocal extends Task<typeof CypressSchema> {
       cypressEnv.CYPRESS_BASE_URL = this.options.localUrl
     }
 
-    const vault = new VaultEnvVars(this.logger, {
-      environment: 'development'
-    })
+    const vault = new DopplerEnvVars(this.logger, 'dev')
     const vaultEnv = await vault.get()
 
     const env = { ...process.env, ...cypressEnv, ...vaultEnv }
