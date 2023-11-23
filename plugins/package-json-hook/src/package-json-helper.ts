@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import { Hook } from '@dotcom-tool-kit/types'
 import fs from 'fs'
 import get from 'lodash/get'
@@ -19,7 +20,7 @@ interface PackageJsonState {
   [field: string]: PackageJsonState | PackageJsonStateValue
 }
 
-export default abstract class PackageJson extends Hook<PackageJsonState> {
+export default abstract class PackageJson extends Hook<z.ZodTypeAny, PackageJsonState> {
   private _packageJson?: PackageJsonContents
   abstract field: string | string[]
   abstract key: string
