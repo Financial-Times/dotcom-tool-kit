@@ -20,11 +20,17 @@ export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
       )
     }
 
-    let dopplerEnv = {}
+    let vaultEnv = {}
     if (useVault) {
-      const doppler = new DopplerEnvVars(this.logger, 'dev')
-
-      dopplerEnv = await doppler.get()
+      const dopplerCi = new DopplerEnvVars(this.logger, 'ci')
+      const vaultCi = await dopplerCi.fallbackToVault()
+      // HACK:20231023:IM don't read secrets when the project has already
+      // migrated from Vault to Doppler – Doppler will instead sync secrets to
+      // Parameter Store for the Serverless config to reference
+      if (!vaultCi.MIGRATED_TO_DOPPLER) {
+        const dopplerEnvVars = new DopplerEnvVars(this.logger, 'dev')
+        vaultEnv = await dopplerEnvVars.fallbackToVault()
+      }
     }
 
     this.logger.verbose('starting the child serverless process...')
@@ -44,7 +50,7 @@ export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
     const child = spawn('serverless', args, {
       env: {
         ...process.env,
-        ...dopplerEnv
+        ...vaultEnv
       }
     })
 
