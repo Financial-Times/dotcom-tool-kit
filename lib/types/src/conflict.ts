@@ -1,4 +1,4 @@
-import type { Plugin } from '@dotcom-tool-kit/types'
+import type { Plugin } from './index'
 
 export interface Conflict<T> {
   plugin: Plugin

@@ -3,7 +3,7 @@ import type { Hook, Plugin } from '@dotcom-tool-kit/types'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import type { EntryPoint, PluginOptions } from './config'
-import type { Conflict } from './conflict'
+import type { Conflict } from '@dotcom-tool-kit/types/lib/conflict'
 import type { CommandTask } from './command'
 
 const formatTaskConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>

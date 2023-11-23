@@ -6,7 +6,13 @@ import type { Logger } from 'winston'
 
 import type { CommandTask } from './command'
 import { importEntryPoint, loadPlugin, resolvePlugin } from './plugin'
-import { Conflict, findConflicts, withoutConflicts, isConflict, findConflictingEntries } from './conflict'
+import {
+  Conflict,
+  findConflicts,
+  withoutConflicts,
+  isConflict,
+  findConflictingEntries
+} from '@dotcom-tool-kit/types/lib/conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
 import {
