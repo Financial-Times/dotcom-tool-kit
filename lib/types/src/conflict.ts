@@ -1,4 +1,4 @@
-import type { Plugin } from './'
+import type { Plugin } from './index'
 
 export interface Conflict<T> {
   plugin: Plugin
