@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/serverless",
-  "version": "2.2.9",
+  "version": "2.2.10",
   "description": "a plugin to manage and deploy apps using AWS Serverless",
   "main": "lib",
   "scripts": {

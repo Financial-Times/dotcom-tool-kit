@@ -59,6 +59,13 @@
   * dependencies
     * @dotcom-tool-kit/doppler bumped from ^1.0.6 to ^1.0.7
 
+## [2.2.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.9...serverless-v2.2.10) (2023-11-23)
+
+
+### Bug Fixes
+
+* **serverless:** don't call Doppler CLI in CI deployments ([9a69d50](https://github.com/Financial-Times/dotcom-tool-kit/commit/9a69d50ea6768bf39f90320cdc0287bd58c64f28))
+
 ## [2.2.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.7...serverless-v2.2.8) (2023-11-17)
 
 
