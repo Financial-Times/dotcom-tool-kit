@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 
 import path from 'path'
 import type { Logger } from 'winston'
+import { z } from 'zod'
 
 import type { CommandTask } from './command'
 import { importEntryPoint, loadPlugin, resolvePlugin } from './plugin'
@@ -25,6 +26,7 @@ import {
   Validated
 } from '@dotcom-tool-kit/types'
 import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
+import { Options as HookSchemaOptions, HookSchemas } from '@dotcom-tool-kit/types/lib/hooks'
 import {
   InvalidOption,
   formatTaskConflicts,
@@ -88,12 +90,19 @@ export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'o
 
 const coreRoot = path.resolve(__dirname, '../')
 
-export const loadHooks = async (logger: Logger, config: ValidConfig): Promise<Validated<Hook<unknown>[]>> => {
+export const loadHooks = async (
+  logger: Logger,
+  config: ValidConfig
+): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
   const hookResults = await Promise.all(
     Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
-      const hookResult = await importEntryPoint(Hook, entryPoint)
+      const hookResult = (await importEntryPoint(Hook, entryPoint)) as Validated<HookConstructor>
 
-      return mapValidated(hookResult, (Hook) => new ((Hook as unknown) as HookConstructor)(logger, hookName))
+      return mapValidated(hookResult, (Hook) => {
+        const schema = HookSchemas[hookName as keyof HookSchemaOptions]
+        const options = schema ? schema.parse(config.hookOptions[hookName]) : {}
+        return new Hook(logger, hookName, options)
+      })
     })
   )
 

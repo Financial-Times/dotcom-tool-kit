@@ -135,7 +135,7 @@ ${
 `
 
 export const formatUninstalledHooks = (
-  uninstalledHooks: Hook<unknown>[]
+  uninstalledHooks: Hook<z.ZodTypeAny, unknown>[]
 ): string => `These hooks aren't installed into your app:
 
 ${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join('\n')}

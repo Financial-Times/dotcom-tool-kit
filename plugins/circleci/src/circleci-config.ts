@@ -14,6 +14,7 @@ import omit from 'lodash/omit'
 import path from 'path'
 import type { PartialDeep } from 'type-fest'
 import YAML from 'yaml'
+import { z } from 'zod'
 
 const MAJOR_ORB_VERSION = '5'
 
@@ -247,7 +248,7 @@ const hasJob = (expectedJob: string, jobs: NonNullable<Workflow['jobs']>): boole
       (typeof job === 'object' && job.hasOwnProperty(expectedJob))
   )
 
-export default abstract class CircleCiConfigHook extends Hook<CircleCIState> {
+export default abstract class CircleCiConfigHook extends Hook<z.ZodTypeAny, CircleCIState> {
   installGroup = 'circleci'
 
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
