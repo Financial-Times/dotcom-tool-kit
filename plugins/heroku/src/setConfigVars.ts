@@ -19,7 +19,7 @@ async function setAppConfigVars(
   // that and then get the passed argument later if the secret isn't present.
   // We can skip this call if we find the project has already added options for
   // doppler in the Tool Kit configuration.
-  const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+  const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler')?.project)
   if (migratedToolKitToDoppler) {
     return
   }
@@ -71,7 +71,7 @@ async function setStageConfigVars(
   // that and then get the passed argument later if the secret isn't present.
   // We can skip this call if we find the project has already added options for
   // doppler in the Tool Kit configuration.
-  const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler'))
+  const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler')?.project)
   if (migratedToolKitToDoppler) {
     return
   }
