@@ -145,6 +145,13 @@
   * dependencies
     * @dotcom-tool-kit/doppler bumped from ^1.0.6 to ^1.0.7
 
+## [3.3.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.12...heroku-v3.3.13) (2023-11-24)
+
+
+### Bug Fixes
+
+* **heroku:** correct check to allow secrets to be fetched from Vault ([37b3fa9](https://github.com/Financial-Times/dotcom-tool-kit/commit/37b3fa9021569030633e45bd3abe202a724fb42c))
+
 ## [3.3.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.7...heroku-v3.3.8) (2023-10-25)
 
 

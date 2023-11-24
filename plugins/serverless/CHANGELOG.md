@@ -59,6 +59,13 @@
   * dependencies
     * @dotcom-tool-kit/doppler bumped from ^1.0.6 to ^1.0.7
 
+## [2.2.11](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.10...serverless-v2.2.11) (2023-11-24)
+
+
+### Bug Fixes
+
+* **serverless:** skip fetching secrets from Vault if Tool Kit migrated ([d667e67](https://github.com/Financial-Times/dotcom-tool-kit/commit/d667e6762fb7a4c255892eec31d4ca268603c64c))
+
 ## [2.2.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.9...serverless-v2.2.10) (2023-11-23)
 
 

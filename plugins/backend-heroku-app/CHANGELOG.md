@@ -196,6 +196,12 @@
     * @dotcom-tool-kit/heroku bumped from ^3.3.11 to ^3.3.12
     * @dotcom-tool-kit/node bumped from ^3.3.6 to ^3.3.7
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/heroku bumped from ^3.3.12 to ^3.3.13
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-heroku-app-v2.1.11...backend-heroku-app-v3.0.0) (2023-10-09)
 
 

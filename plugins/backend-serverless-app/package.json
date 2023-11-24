@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/backend-serverless-app",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -10,7 +10,7 @@
     "@dotcom-tool-kit/circleci-deploy": "^3.2.8",
     "@dotcom-tool-kit/node": "^3.3.7",
     "@dotcom-tool-kit/npm": "^3.2.2",
-    "@dotcom-tool-kit/serverless": "^2.2.10"
+    "@dotcom-tool-kit/serverless": "^2.2.11"
   },
   "repository": {
     "type": "git",
