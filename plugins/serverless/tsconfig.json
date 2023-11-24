@@ -13,6 +13,9 @@
     },
     {
       "path": "../../lib/logger"
+    },
+    {
+      "path": "../../lib/options"
     }
   ],
   "include": ["src/**/*"]
