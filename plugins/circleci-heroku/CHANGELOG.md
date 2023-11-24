@@ -240,6 +240,12 @@
   * dependencies
     * @dotcom-tool-kit/heroku bumped from ^3.3.11 to ^3.3.12
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/heroku bumped from ^3.3.12 to ^3.3.13
+
 ## [3.1.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v3.1.7...circleci-heroku-v3.1.8) (2023-07-04)
 
 
