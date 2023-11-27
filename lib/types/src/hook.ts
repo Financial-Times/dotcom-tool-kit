@@ -2,12 +2,19 @@ import type { Logger } from 'winston'
 import { Base } from './base'
 import { hookSymbol, typeSymbol } from './symbols'
 import { z } from 'zod'
+import { Plugin } from './index'
+import { Conflict, isConflict } from './conflict'
+
+export interface HookInstallation {
+  options: Record<string, unknown>
+  plugin: Plugin
+  forHook: string
+  hookConstructor: HookConstructor
+}
 
 export abstract class Hook<Options extends z.ZodTypeAny = z.ZodTypeAny, State = void> extends Base {
   logger: Logger
   static description?: string
-  id: string
-  options: z.output<Options>
   // This field is used to collect hooks that share state when running their
   // install methods. All hooks in the same group will run their install method
   // one after the other, and then their commitInstall method will be run with
@@ -22,12 +29,31 @@ export abstract class Hook<Options extends z.ZodTypeAny = z.ZodTypeAny, State = 
     return hookSymbol
   }
 
-  constructor(logger: Logger, id: string, options: z.output<Options>) {
-    super()
+  static mergeChildInstallations(
+    plugin: Plugin,
+    childInstallations: (HookInstallation | Conflict<HookInstallation>)[]
+  ): (HookInstallation | Conflict<HookInstallation>)[] {
+    return [
+      {
+        plugin,
+        conflicting: childInstallations.flatMap((installation) =>
+          isConflict(installation) ? installation.conflicting : installation
+        )
+      }
+    ]
+  }
 
-    this.id = id
+  static overrideChildInstallations(
+    plugin: Plugin,
+    parentInstallation: HookInstallation,
+    _childInstallations: (HookInstallation | Conflict<HookInstallation>)[]
+  ): (HookInstallation | Conflict<HookInstallation>)[] {
+    return [parentInstallation]
+  }
+
+  constructor(logger: Logger, public id: string, public options: z.output<Options>) {
+    super()
     this.logger = logger.child({ hook: this.constructor.name })
-    this.options = options
   }
 
   abstract check(): Promise<boolean>
