@@ -9,6 +9,7 @@ import { publish } from 'libnpmpublish'
 import { styles } from '@dotcom-tool-kit/logger'
 import tar from 'tar'
 import { PassThrough as PassThroughStream } from 'stream'
+import type { PackageJson } from '@npm/types'
 
 type TagType = 'prerelease' | 'latest'
 
@@ -37,7 +38,7 @@ export default class NpmPublish extends Task {
 
     new PassThroughStream()
       .end(tarball)
-      .pipe(tar.t({ onentry: (entry) => this.logger.info(`- ${styles.filepath(entry.header.path)}`) }))
+      .pipe(tar.t({ onentry: (entry) => this.logger.info(`- ${styles.filepath(entry.path)}`) }))
   }
 
   async run(): Promise<void> {
@@ -73,7 +74,11 @@ export default class NpmPublish extends Task {
 
     await this.listPackedFiles(tarball)
 
-    await publish(manifest, tarball, {
+    // HACK:KB:20231127 cast the manifest to a PackageJson. libnpmpublish expects a
+    // PackageJson, but pacote.ManifestResult isn't assignable to that, because the
+    // definition of PackageJson in @npm/types is incorrect lol
+    // https://github.com/npm/types/pull/18
+    await publish(manifest as PackageJson, tarball, {
       access: 'public',
       defaultTag: npmTag,
       forceAuth: {
