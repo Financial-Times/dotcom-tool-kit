@@ -78,3 +78,11 @@ export function unwrapValidated<T>(validated: Validated<T>, message = ''): T {
     throw error
   }
 }
+
+export async function sequenceValidated<T>(validated: Validated<Promise<T>>): Promise<Validated<T>> {
+  if (validated.valid) {
+    return { value: await validated.value, valid: true }
+  } else {
+    return validated
+  }
+}

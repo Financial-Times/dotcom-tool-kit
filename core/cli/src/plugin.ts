@@ -1,5 +1,7 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
 import {
+  HookClass,
+  HookInstallation,
   mapValidated,
   mapValidationError,
   Plugin,
@@ -9,12 +11,13 @@ import {
 } from '@dotcom-tool-kit/types'
 import resolvePkg from 'resolve-pkg'
 import type { Logger } from 'winston'
-import { HookInstallation, EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig } from './config'
+import { EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig, ValidConfig } from './config'
 import { Conflict, isConflict } from '@dotcom-tool-kit/types/lib/conflict'
 import type { CommandTask } from './command'
 import { loadToolKitRC } from './rc-file'
-import { isPlainObject } from 'lodash'
+import { groupBy, isPlainObject } from 'lodash'
 import { Base } from '@dotcom-tool-kit/types/src/base'
+import { HookSchemas, Options as HookOptions } from '@dotcom-tool-kit/types/src/hooks'
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {
@@ -273,19 +276,52 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
         config.options[pluginId] = pluginOptions
       }
     }
-
-    for (const hookEntry of plugin.rcFile.hooks) {
-      for (const [id, configHookOptions] of Object.entries(hookEntry)) {
-        const installation: HookInstallation = {
-          options: configHookOptions,
-          plugin,
-          forHook: id
-        }
-
-        config.hookInstallations.push(installation)
-      }
-    }
   }
 
   config.resolvedPlugins.add(plugin)
+}
+
+export async function reducePluginHookInstallations(
+  logger: Logger,
+  config: ValidConfig,
+  hookClasses: Record<string, HookClass>,
+  plugin: Plugin
+): Promise<(HookInstallation | Conflict<HookInstallation>)[]> {
+  if (!plugin.rcFile) {
+    return []
+  }
+
+  const rawChildInstallations = await Promise.all(
+    (plugin.children ?? []).map((child) => reducePluginHookInstallations(logger, config, hookClasses, child))
+  ).then((installations) => installations.flat())
+
+  const childInstallations = Object.entries(
+    groupBy(rawChildInstallations, (installation) =>
+      isConflict(installation) ? installation.conflicting[0].forHook : installation.forHook
+    )
+  ).flatMap(([forHook, installations]) => {
+    const hookClass = hookClasses[forHook]
+
+    return hookClass.mergeChildInstallations(plugin, installations)
+  })
+
+  if (plugin.rcFile.hooks.length === 0) {
+    return childInstallations
+  }
+
+  return plugin.rcFile.hooks.flatMap((hookEntry) =>
+    Object.entries(hookEntry).flatMap(([id, configHookOptions]) => {
+      const hookClass = hookClasses[id]
+      const parsedOptions = HookSchemas[id as keyof HookOptions].parse(configHookOptions)
+
+      const installation: HookInstallation = {
+        options: parsedOptions,
+        plugin,
+        forHook: id,
+        hookConstructor: hookClass
+      }
+
+      return hookClass.overrideChildInstallations(plugin, installation, childInstallations)
+    })
+  )
 }

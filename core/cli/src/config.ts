@@ -6,7 +6,7 @@ import type { Logger } from 'winston'
 import { z } from 'zod'
 
 import type { CommandTask } from './command'
-import { importEntryPoint, loadPlugin, resolvePlugin } from './plugin'
+import { importEntryPoint, loadPlugin, reducePluginHookInstallations, resolvePlugin } from './plugin'
 import {
   Conflict,
   findConflicts,
@@ -17,11 +17,14 @@ import {
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
 import {
+  flatMapValidated,
   Hook,
+  HookClass,
   HookConstructor,
   mapValidated,
   Plugin,
   reduceValidated,
+  sequenceValidated,
   unwrapValidated,
   Validated
 } from '@dotcom-tool-kit/types'
@@ -46,12 +49,6 @@ export interface PluginOptions {
   forPlugin: Plugin
 }
 
-export interface HookInstallation {
-  options: Record<string, unknown>
-  plugin: Plugin
-  forHook: string
-}
-
 export interface EntryPoint {
   plugin: Plugin
   modulePath: string
@@ -65,7 +62,6 @@ export interface RawConfig {
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
   hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
-  hookInstallations: HookInstallation[]
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
@@ -89,24 +85,56 @@ export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'o
 
 const coreRoot = path.resolve(__dirname, '../')
 
-export const loadHooks = async (
+const loadHookEntrypoints = async (
+  logger: Logger,
+  config: ValidConfig
+): Promise<Validated<Record<string, HookClass>>> => {
+  const hookResultEntries = reduceValidated(
+    await Promise.all(
+      Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
+        const hookResult = await importEntryPoint(Hook, entryPoint)
+        return mapValidated(hookResult, (hookClass) => [hookName, hookClass as HookClass] as const)
+      })
+    )
+  )
+
+  return mapValidated(hookResultEntries, (hookEntries) => Object.fromEntries(hookEntries))
+}
+
+export const loadHookInstallations = async (
   logger: Logger,
   config: ValidConfig
 ): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
-  const hookResults = await Promise.all(
-    config.hookInstallations.map(async ({ forHook, options }) => {
-      const entryPoint = config.hooks[forHook]
-      const hookResult = (await importEntryPoint(Hook, entryPoint)) as Validated<HookConstructor>
-
-      return mapValidated(hookResult, (Hook) => {
-        const schema = HookSchemas[forHook as keyof HookSchemaOptions]
-        const parsedOptions = schema ? schema.parse(options) : {}
-        return new Hook(logger, forHook, parsedOptions)
-      })
-    })
+  const hookClassResults = await loadHookEntrypoints(logger, config)
+  const installationResults = await sequenceValidated(
+    mapValidated(hookClassResults, (hookClasses) =>
+      reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
+    )
   )
 
-  return reduceValidated(hookResults)
+  const installationsWithoutConflicts = flatMapValidated(installationResults, (installations) => {
+    const conflicts = findConflicts(installations)
+
+    if (conflicts.length) {
+      return {
+        valid: false,
+        reasons: []
+      }
+    }
+
+    return {
+      valid: true,
+      value: withoutConflicts(installations)
+    }
+  })
+
+  return mapValidated(installationsWithoutConflicts, (installations) => {
+    return installations.map(({ hookConstructor, forHook, options }) => {
+      const schema = HookSchemas[forHook as keyof HookSchemaOptions]
+      const parsedOptions = schema ? schema.parse(options) : {}
+      return new hookConstructor(logger, forHook, parsedOptions)
+    })
+  })
 }
 
 export async function fileHash(path: string): Promise<string> {
@@ -150,7 +178,7 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
     return
   }
 
-  const hooks = unwrapValidated(await loadHooks(logger, config), 'hooks are invalid')
+  const hooks = unwrapValidated(await loadHookInstallations(logger, config), 'hooks are invalid')
 
   const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
     return !(await hook.check())
@@ -172,8 +200,7 @@ export const createConfig = (): RawConfig => ({
   tasks: {},
   commandTasks: {},
   options: {},
-  hooks: {},
-  hookInstallations: []
+  hooks: {}
 })
 
 async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
