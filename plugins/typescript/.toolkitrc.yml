@@ -1,4 +1,5 @@
 hooks:
   'build:local': TypeScriptBuild
+  'build:ci': TypeScriptBuild
   'run:local': TypeScriptWatch
   'test:local': TypeScriptTest
