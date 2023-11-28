@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import { promises as fs } from 'fs'
-import { PackageJsonHelper } from '../src'
+import PackageJsonHelper from '../src/package-json-helper'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger
