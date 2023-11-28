@@ -22,14 +22,8 @@ interface PackageJsonState {
   [path: string]: PackageJsonStateValue
 }
 
-export default abstract class PackageJson extends Hook<typeof PackageJsonSchema, PackageJsonState> {
+export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJsonState> {
   private _packageJson?: PackageJsonContents
-
-  // Allow some extra characters to be appended to the end of a hooked field.
-  // This is useful if you, for example, need to append the '--' argument
-  // delimiter to commands to allow files to be passed as additional arguments.
-  // TODO how to handle this with hook options
-  trailingString?: string
 
   installGroup = 'package-json'
 
@@ -55,15 +49,27 @@ export default abstract class PackageJson extends Hook<typeof PackageJsonSchema,
 
   async install(state: PackageJsonState = {}): Promise<PackageJsonState> {
     for (const [field, object] of Object.entries(this.options)) {
-      for (const [key, command] of Object.entries(object)) {
-        // prepend each hook to maintain the same order as previous implementations
+      for (const [key, entry] of Object.entries(object)) {
+        let trailingString: string | undefined
+        let commands: string[]
+
+        if (Array.isArray(entry)) {
+          commands = entry
+        } else if (typeof entry === 'string') {
+          commands = [entry]
+        } else {
+          commands = Array.isArray(entry.commands) ? entry.commands : [entry.commands]
+          trailingString = entry.trailingString
+        }
+
         update(
           state,
           [field + '.' + key],
           (hookState?: PackageJsonStateValue): PackageJsonStateValue => ({
-            commands: [...(Array.isArray(command) ? command : [command]), ...(hookState?.commands ?? [])],
+            // prepend each command to maintain the same order as previous implementations
+            commands: [...commands, ...(hookState?.commands ?? [])],
             installedBy: this,
-            trailingString: this.trailingString
+            trailingString: trailingString
           })
         )
       }
