@@ -28,6 +28,6 @@ plugins:
 
 | Task | Description | Preconfigured hook |
 |-|-|-|
-| `TypeScriptBuild` | runs `tsc` to compile TypeScript to JavaScript | `build:local`, `build:ci` |
+| `TypeScriptBuild` | runs `tsc` to compile TypeScript to JavaScript | `build:local`, `build:ci`, `build:remote` |
 | `TypeScriptWatch` | rebuild project on every project file change | `run:local` |
 | `TypeScriptTest` | type check TypeScript code without emitting code | `test:local` |
