@@ -137,7 +137,7 @@ export default async function oidcPrompt(): Promise<boolean> {
   )
   const cloudformationTemplate = YAML.parseDocument(cloudformationTemplateRaw)
 
-  const { awsAccount } = await prompt(
+  const { awsAccount }: { awsAccount: string } = await prompt(
     {
       name: 'awsAccount',
       type: 'select',
@@ -147,6 +147,7 @@ export default async function oidcPrompt(): Promise<boolean> {
     },
     { onCancel }
   )
+  const awsAccountDopplerName = awsAccount.replaceAll('-', '_').toUpperCase()
   if (cancelled) {
     return true
   }
@@ -158,8 +159,8 @@ export default async function oidcPrompt(): Promise<boolean> {
   const dopplerSecretsSchema = z.object({
     CIRCLECI_AUTH_TOKEN: z.string(),
     GITHUB_ACCESS_TOKEN: z.string(),
-    [`AWS_ACCESS_KEY_ID_${awsAccount}`]: z.string(),
-    [`AWS_SECRET_KEY_${awsAccount}`]: z.string()
+    [`AWS_ACCESS_KEY_ID_${awsAccountDopplerName}`]: z.string(),
+    [`AWS_SECRET_KEY_${awsAccountDopplerName}`]: z.string()
   })
   const dopplerEnv = dopplerSecretsSchema.parse(await dopplerEnvVars.get())
 
@@ -203,8 +204,8 @@ export default async function oidcPrompt(): Promise<boolean> {
     }
     if (fetchOldPermissions) {
       const previousDocument = await getPreviousIAMPermissions(
-        dopplerEnv[`AWS_ACCESS_KEY_ID_${awsAccount}`],
-        dopplerEnv[`AWS_SECRET_KEY_${awsAccount}`],
+        dopplerEnv[`AWS_ACCESS_KEY_ID_${awsAccountDopplerName}`],
+        dopplerEnv[`AWS_SECRET_KEY_${awsAccountDopplerName}`],
         serviceName
       )
       if (previousDocument) {
