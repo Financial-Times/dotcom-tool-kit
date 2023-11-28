@@ -109,13 +109,23 @@ export class DopplerEnvVars {
   // TODO:20221023:IM remove this function once we drop Vault support and keep
   // logic in get() instead
   async getWithSource(): Promise<SecretsWithSource> {
+    // don't fallback to Vault if the project has doppler options set up
+    // explicitly already
+    const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler')?.project)
+
+    if (migratedToolKitToDoppler && process.env.CIRCLECI) {
+      const error = new ToolKitError('Doppler options cannot be dynamically accessed within CircleCI')
+      error.details =
+        this.environment === 'ci'
+          ? "Doppler automatically syncs secrets to CircleCI's project settings so you can access secrets via process.env rather than pulling them with DopplerEnvVars"
+          : "dev/prod secrets are not synced to CircleCI and CircleCI shouldn't be able to access them so it's recommended that they are synced directly to the service (e.g., Heroku, AWS) that needs them rather than being pulled into CircleCI"
+      throw error
+    }
+
     const secrets = await this.invokeCLI()
     if (secrets) {
       return { secrets, source: 'doppler' }
     }
-    // don't fallback to Vault if the project has doppler options set up
-    // explicitly already
-    const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler')?.project)
     if (migratedToolKitToDoppler) {
       throw new ToolKitError('failed to get secrets from Doppler')
     }
