@@ -14,7 +14,7 @@
       "path": "../../lib/doppler"
     },
     {
-      "path": "../../lib/package-json-hook"
+      "path": "../../plugins/package-json-hook"
     },
     {
       "path": "../npm"
