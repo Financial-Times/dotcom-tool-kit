@@ -11,7 +11,7 @@
     "lib/error": {},
     "lib/logger": {},
     "lib/options": {},
-    "lib/package-json-hook": {},
+    "plugins/package-json-hook": {},
     "lib/state": {},
     "lib/types": {},
     "lib/vault": {},
