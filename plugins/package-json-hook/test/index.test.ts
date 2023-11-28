@@ -1,18 +1,12 @@
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import { promises as fs } from 'fs'
-import PackageJsonHelper from '../src/package-json-helper'
+import PackageJson from '../src/package-json-helper'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger
 
 describe('package.json hook', () => {
-  class TestHook extends PackageJsonHelper {
-    field: string | string[] = 'scripts'
-    key = 'test-hook'
-    hook = 'test:hook'
-  }
-
   const originalDir = process.cwd()
 
   afterEach(() => {
@@ -22,21 +16,33 @@ describe('package.json hook', () => {
   describe('check', () => {
     it('should return true when package.json has hook call in script', async () => {
       process.chdir(path.join(__dirname, 'files', 'with-hook'))
-      const hook = new TestHook(logger, 'TestHook')
+      const hook = new PackageJson(logger, 'PackageJson', {
+        scripts: {
+          'test-hook': 'test:hook'
+        }
+      })
 
       expect(await hook.check()).toBeTruthy()
     })
 
     it('should return true when script includes other hooks', async () => {
       process.chdir(path.join(__dirname, 'files', 'multiple-hooks'))
-      const hook = new TestHook(logger, 'TestHook')
+      const hook = new PackageJson(logger, 'PackageJson', {
+        scripts: {
+          'test-hook': 'test:hook'
+        }
+      })
 
       expect(await hook.check()).toBeTruthy()
     })
 
     it(`should return false when package.json doesn't have hook call in script`, async () => {
       process.chdir(path.join(__dirname, 'files', 'without-hook'))
-      const hook = new TestHook(logger, 'TestHook')
+      const hook = new PackageJson(logger, 'PackageJson', {
+        scripts: {
+          'test-hook': 'test:hook'
+        }
+      })
 
       expect(await hook.check()).toBeFalsy()
     })
@@ -52,13 +58,23 @@ describe('package.json hook', () => {
       process.chdir(base)
 
       try {
-        const hook = new TestHook(logger, 'TestHook')
+        const hook = new PackageJson(logger, 'PackageJson', {
+          scripts: {
+            'test-hook': 'test:hook'
+          }
+        })
         const state = await hook.install()
         await hook.commitInstall(state)
 
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
-        expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook')
+        expect(packageJson).toMatchInlineSnapshot(`
+          Object {
+            "scripts": Object {
+              "test-hook": "dotcom-tool-kit test:hook",
+            },
+          }
+        `)
       } finally {
         await fs.writeFile(pkgPath, originalJson)
       }
@@ -73,17 +89,26 @@ describe('package.json hook', () => {
       process.chdir(base)
 
       try {
-        class TestAppendHook extends TestHook {
-          trailingString = '--'
-        }
-
-        const hook = new TestAppendHook(logger, 'TestAppendHook')
+        const hook = new PackageJson(logger, 'PackageJson', {
+          scripts: {
+            'test-hook': {
+              trailingString: '--',
+              commands: 'test:hook'
+            }
+          }
+        })
         const state = await hook.install()
         await hook.commitInstall(state)
 
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
-        expect(packageJson).toHaveProperty(['scripts', 'test-hook'], 'dotcom-tool-kit test:hook --')
+        expect(packageJson).toMatchInlineSnapshot(`
+          Object {
+            "scripts": Object {
+              "test-hook": "dotcom-tool-kit test:hook --",
+            },
+          }
+        `)
       } finally {
         await fs.writeFile(pkgPath, originalJson)
       }
@@ -98,17 +123,25 @@ describe('package.json hook', () => {
       process.chdir(base)
 
       try {
-        class TestNestedHook extends TestHook {
-          field = ['scripts', 'nested']
-        }
-
-        const hook = new TestNestedHook(logger, 'TestNestedHook')
+        const hook = new PackageJson(logger, 'PackageJson', {
+          'scripts.nested': {
+            'test-hook': 'test:hook'
+          }
+        })
         const state = await hook.install()
         await hook.commitInstall(state)
 
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
-        expect(packageJson).toHaveProperty(['scripts', 'nested', 'test-hook'], 'dotcom-tool-kit test:hook')
+        expect(packageJson).toMatchInlineSnapshot(`
+          Object {
+            "scripts": Object {
+              "nested": Object {
+                "test-hook": "dotcom-tool-kit test:hook",
+              },
+            },
+          }
+        `)
       } finally {
         await fs.writeFile(pkgPath, originalJson)
       }
