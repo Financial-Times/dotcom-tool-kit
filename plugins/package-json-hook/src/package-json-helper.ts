@@ -6,8 +6,8 @@ import merge from 'lodash/merge'
 import update from 'lodash/update'
 import path from 'path'
 
-interface PackageJson {
-  [field: string]: PackageJson | string
+interface PackageJsonContents {
+  [field: string]: PackageJsonContents | string
 }
 
 interface PackageJsonStateValue {
@@ -19,8 +19,8 @@ interface PackageJsonState {
   [field: string]: PackageJsonState | PackageJsonStateValue
 }
 
-export abstract class PackageJsonHelper extends Hook<PackageJsonState> {
-  private _packageJson?: PackageJson
+export default abstract class PackageJson extends Hook<PackageJsonState> {
+  private _packageJson?: PackageJsonContents
   abstract field: string | string[]
   abstract key: string
   abstract hook: string
@@ -33,7 +33,7 @@ export abstract class PackageJsonHelper extends Hook<PackageJsonState> {
 
   filepath = path.resolve(process.cwd(), 'package.json')
 
-  async getPackageJson(): Promise<PackageJson> {
+  async getPackageJson(): Promise<PackageJsonContents> {
     if (!this._packageJson) {
       const rawPackageJson = await fs.promises.readFile(this.filepath, 'utf8')
       const packageJson = JSON.parse(rawPackageJson)
@@ -64,7 +64,7 @@ export abstract class PackageJsonHelper extends Hook<PackageJsonState> {
   }
 
   async commitInstall(state: PackageJsonState): Promise<void> {
-    const reduceHooks = (state: PackageJsonState): PackageJson =>
+    const reduceHooks = (state: PackageJsonState): PackageJsonContents =>
       mapValues(state, (field) =>
         Array.isArray(field?.hooks)
           ? `dotcom-tool-kit ${field.hooks.join(' ')}${

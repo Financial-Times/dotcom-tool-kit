@@ -6,7 +6,7 @@
   },
   "references": [
     {
-      "path": "../../lib/package-json-hook"
+      "path": "../../plugins/package-json-hook"
     },
     {
       "path": "../../lib/logger"
