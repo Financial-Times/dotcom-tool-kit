@@ -58,6 +58,14 @@
     * @dotcom-tool-kit/logger bumped from ^3.2.0 to ^3.3.0
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+## [2.1.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.1.5...typescript-v2.1.6) (2023-11-29)
+
+
+### Bug Fixes
+
+* add default assignment for build:ci for TypescriptBuild ([ca34115](https://github.com/Financial-Times/dotcom-tool-kit/commit/ca34115e626cb1e22fa8d82ddf253713c2ed6fac))
+* add default typescriptbuild assignment for build:remote ([a185056](https://github.com/Financial-Times/dotcom-tool-kit/commit/a18505650c02c2056c446d548b8cc11c76186bb1))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.0.0...typescript-v2.1.0) (2023-04-28)
 
 
