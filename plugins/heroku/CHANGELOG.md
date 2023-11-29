@@ -145,6 +145,12 @@
   * dependencies
     * @dotcom-tool-kit/doppler bumped from ^1.0.6 to ^1.0.7
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.7 to ^1.0.8
+
 ## [3.3.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.12...heroku-v3.3.13) (2023-11-24)
 
 

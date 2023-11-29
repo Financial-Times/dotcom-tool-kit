@@ -194,6 +194,22 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.3.8 to ^3.3.9
 
+## [3.2.15](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.2.14...create-v3.2.15) (2023-11-29)
+
+
+### Bug Fixes
+
+* **create:** accommodate for Doppler transforms when getting AWS secrets ([d8cb151](https://github.com/Financial-Times/dotcom-tool-kit/commit/d8cb151566cf7139145c5afbdcf29affde333ef8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.7 to ^1.0.8
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.3.9 to ^3.3.10
+
 ## [3.2.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.2.4...create-v3.2.5) (2023-10-16)
 
 

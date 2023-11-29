@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/typescript",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "",
   "main": "lib",
   "scripts": {

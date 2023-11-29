@@ -9,6 +9,13 @@
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/vault bumped from ^3.1.5 to ^3.1.6
 
+## [1.0.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.7...doppler-v1.0.8) (2023-11-29)
+
+
+### Bug Fixes
+
+* **doppler:** improve error message if you try to get secrets in CI ([5b789f8](https://github.com/Financial-Times/dotcom-tool-kit/commit/5b789f8f117c9171504b1f088b6736325729acd1))
+
 ## [1.0.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.6...doppler-v1.0.7) (2023-11-21)
 
 
