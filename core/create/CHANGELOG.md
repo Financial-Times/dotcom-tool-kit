@@ -194,6 +194,18 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.3.8 to ^3.3.9
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.2.15...create-v3.3.0) (2023-12-04)
+
+
+### Features
+
+* **create:** add permission to read ssm to default OIDC role ([af5955a](https://github.com/Financial-Times/dotcom-tool-kit/commit/af5955aea01db188dea40d7f86e563abdec8eb68))
+
+
+### Bug Fixes
+
+* **create:** clear cache to avoid conflict errors during installation ([f7d201d](https://github.com/Financial-Times/dotcom-tool-kit/commit/f7d201d9060f4c3a0303df71a165c785555f1809))
+
 ## [3.2.15](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.2.14...create-v3.2.15) (2023-11-29)
 
 
