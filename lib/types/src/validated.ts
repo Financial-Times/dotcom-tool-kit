@@ -5,7 +5,7 @@ interface Mixin<T> {
   mapError(f: (reasons: string[]) => string[]): Validated<T>
   flatMap<U>(f: (val: T) => Validated<U>): Validated<U>
   join<U>(other: Validated<U>): Validated<[T, U]>
-  sequence(): Promise<Validated<Awaited<T>>>
+  awaitValue(): Promise<Validated<Awaited<T>>>
   unwrap(message?: string): T
 }
 
@@ -77,7 +77,7 @@ const mixin = <T>(validated: Invalid | Valid<T>): Validated<T> => ({
     }
   },
 
-  async sequence() {
+  async awaitValue() {
     if (validated.valid) {
       return valid(await validated.value)
     } else {
