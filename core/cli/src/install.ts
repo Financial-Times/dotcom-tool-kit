@@ -3,7 +3,6 @@ import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
 import { loadConfig, loadHookInstallations, updateHashes, ValidConfig } from './config'
-import { unwrapValidated } from '@dotcom-tool-kit/types'
 
 // implementation of the Array.some method that supports asynchronous predicates
 async function asyncSome<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
@@ -27,7 +26,7 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
   const errors: Error[] = []
   // group hooks without an installGroup separately so that their check()
   // method runs independently
-  const hooks = unwrapValidated(await loadHookInstallations(logger, config), 'hooks are invalid')
+  const hooks = (await loadHookInstallations(logger, config)).unwrap('hooks are invalid')
 
   const groups = groupBy(hooks, (hook) => hook.installGroup ?? '__' + hook.id)
 

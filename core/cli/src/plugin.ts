@@ -2,11 +2,10 @@ import { styles as s } from '@dotcom-tool-kit/logger'
 import {
   HookClass,
   HookInstallation,
-  mapValidated,
-  mapValidationError,
+  invalid,
   Plugin,
   reduceValidated,
-  Valid,
+  valid,
   Validated
 } from '@dotcom-tool-kit/types'
 import resolvePkg from 'resolve-pkg'
@@ -40,14 +39,11 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
   const resolvedPath = resolvePkg(entryPoint.modulePath, { cwd: entryPoint.plugin.root })
 
   if (!resolvedPath) {
-    return {
-      valid: false,
-      reasons: [
-        `could not find entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
-          entryPoint.plugin.id
-        )}`
-      ]
-    }
+    return invalid([
+      `could not find entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
+        entryPoint.plugin.id
+      )}`
+    ])
   }
 
   let pluginModule: unknown
@@ -55,14 +51,11 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
     pluginModule = await import(resolvedPath)
   } catch (e) {
     const err = e as Error
-    return {
-      valid: false,
-      reasons: [
-        `an error was thrown when loading entrypoint ${s.filepath(
-          entryPoint.modulePath
-        )} in plugin ${s.plugin(entryPoint.plugin.id)}:\n  ${s.code(indentReasons(err.toString()))}`
-      ]
-    }
+    return invalid([
+      `an error was thrown when loading entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
+        entryPoint.plugin.id
+      )}:\n  ${s.code(indentReasons(err.toString()))}`
+    ])
   }
 
   if (
@@ -72,20 +65,19 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
   ) {
     const name = pluginModule.default.name
 
-    return mapValidationError(type.isCompatible(pluginModule.default), (reasons) => [
-      `the ${type.name.toLowerCase()} ${s.hook(name)} is not a compatible instance of ${s.code(
-        type.name
-      )}:\n  - ${reasons.join('\n  - ')}`
-    ])
+    return type
+      .isCompatible<T>(pluginModule.default)
+      .mapError((reasons) => [
+        `the ${type.name.toLowerCase()} ${s.hook(name)} is not a compatible instance of ${s.code(
+          type.name
+        )}:\n  - ${reasons.join('\n  - ')}`
+      ])
   } else {
-    return {
-      valid: false,
-      reasons: [
-        `entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
-          entryPoint.plugin.id
-        )} does not have a ${s.code('default')} export`
-      ]
-    }
+    return invalid([
+      `entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
+        entryPoint.plugin.id
+      )} does not have a ${s.code('default')} export`
+    ])
   }
 }
 
@@ -108,37 +100,34 @@ export async function loadPlugin(
   const root = parent ? parent.root : process.cwd()
   const pluginRoot = isAppRoot ? root : resolvePkg(id, { cwd: root })
   if (!pluginRoot) {
-    return { valid: false, reasons: [`could not find path for name ${s.filepath(id)}`] }
+    return invalid([`could not find path for name ${s.filepath(id)}`])
   }
 
-  const plugin: Valid<Plugin> = {
-    valid: true,
-    value: {
-      id,
-      root: pluginRoot,
-      parent
-    }
+  const plugin = {
+    id,
+    root: pluginRoot,
+    parent,
+    rcFile: await loadToolKitRC(logger, pluginRoot, isAppRoot),
+    children: [] as Plugin[]
   }
 
-  config.plugins[id] = plugin
-
-  // ESlint disable explanation: erroring due to a possible race condition but is a false positive since the plugin variable isn't from another scope and can't be written to concurrently.
+  // ESlint disable explanation: erroring due to a possible race condition but is a false positive since the config variable isn't from another scope and can't be written to concurrently.
   // eslint-disable-next-line require-atomic-updates
-  plugin.value.rcFile = await loadToolKitRC(logger, pluginRoot, isAppRoot)
+  config.plugins[id] = valid(plugin)
 
   const children = await Promise.all(
-    plugin.value.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin.value))
+    plugin.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin))
   )
 
-  const validatedChildren = mapValidationError(reduceValidated(children), (reasons) => [
+  const validatedChildren = reduceValidated(children).mapError((reasons) => [
     indentReasons(`some child plugins of ${s.plugin(id)} failed to load:\n- ${reasons.join('\n- ')}`)
   ])
 
-  return mapValidated(validatedChildren, (children) => {
+  return validatedChildren.map((children) => {
     // avoid cloning the plugin value with an object spread as we do object
     // reference comparisons in multiple places
-    plugin.value.children = children
-    return plugin.value
+    plugin.children = children
+    return plugin
   })
 }
 
