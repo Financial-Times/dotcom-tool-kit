@@ -12,5 +12,5 @@
       "path": "../../lib/types"
     }
   ],
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "../../node_modules/lighthouse/types/**/*.d.ts"]
 }

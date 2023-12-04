@@ -28,11 +28,11 @@
     "@dotcom-tool-kit/logger": "^3.3.0",
     "@dotcom-tool-kit/types": "^3.4.1",
     "chrome-launcher": "1.1.0",
-    "lighthouse": "9.6.8"
+    "lighthouse": "9.6.8",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "typescript": "^5.3.2",
     "winston": "^3.8.2"
   },
   "engines": {
