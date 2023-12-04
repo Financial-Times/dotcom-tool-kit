@@ -6,7 +6,7 @@ const argv = require('minimist')(process.argv.slice(2), {
 })
 
 const { runTasks, showHelp, installHooks, listPlugins } = require('../lib')
-const { rootLogger, styles } = require('@dotcom-tool-kit/logger')
+const { rootLogger, styles } = require('dotcom-tool-kit/logger')
 
 async function main() {
   try {

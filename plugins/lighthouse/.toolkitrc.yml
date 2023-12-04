@@ -1,0 +1,2 @@
+hooks:
+  'test:lighthouse': LighthouseRun
