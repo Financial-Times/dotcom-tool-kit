@@ -5,14 +5,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
 import util from 'util'
 import { formatPluginTree } from './messages'
-import {
-  Task,
-  TaskConstructor,
-  Validated,
-  mapValidated,
-  reduceValidated,
-  unwrapValidated
-} from '@dotcom-tool-kit/types'
+import { Task, TaskConstructor, Validated, reduceValidated } from '@dotcom-tool-kit/types'
 import { importEntryPoint } from './plugin'
 
 type ErrorSummary = {
@@ -47,7 +40,7 @@ const loadTasks = async (
       const entryPoint = config.tasks[taskName]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
-      return mapValidated(taskResult, (Task) => [
+      return taskResult.map((Task) => [
         taskName,
         new ((Task as unknown) as TaskConstructor)(
           logger,
@@ -58,7 +51,7 @@ const loadTasks = async (
     })
   )
 
-  return mapValidated(reduceValidated(taskResults), Object.fromEntries)
+  return reduceValidated(taskResults).map(Object.fromEntries)
 }
 
 export async function runTasks(logger: Logger, hooks: string[], files?: string[]): Promise<void> {
@@ -93,7 +86,7 @@ ${availableHooks}`
   }
 
   const taskNames = hooks.flatMap((hook) => config.commandTasks[hook]?.tasks ?? [])
-  const tasks = unwrapValidated(await loadTasks(logger, taskNames, config), 'tasks are invalid')
+  const tasks = (await loadTasks(logger, taskNames, config)).unwrap('tasks are invalid')
 
   for (const hook of hooks) {
     const errors: ErrorSummary[] = []
