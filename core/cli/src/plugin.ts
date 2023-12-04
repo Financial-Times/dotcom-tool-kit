@@ -119,16 +119,16 @@ export async function loadPlugin(
     plugin.rcFile.plugins.map((child) => loadPlugin(child, config, logger, plugin))
   )
 
-  const validatedChildren = reduceValidated(children).mapError((reasons) => [
-    indentReasons(`some child plugins of ${s.plugin(id)} failed to load:\n- ${reasons.join('\n- ')}`)
-  ])
-
-  return validatedChildren.map((children) => {
-    // avoid cloning the plugin value with an object spread as we do object
-    // reference comparisons in multiple places
-    plugin.children = children
-    return plugin
-  })
+  return reduceValidated(children)
+    .mapError((reasons) => [
+      indentReasons(`some child plugins of ${s.plugin(id)} failed to load:\n- ${reasons.join('\n- ')}`)
+    ])
+    .map((children) => {
+      // avoid cloning the plugin value with an object spread as we do object
+      // reference comparisons in multiple places
+      plugin.children = children
+      return plugin
+    })
 }
 
 export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger: Logger): void {
