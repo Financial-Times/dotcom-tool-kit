@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
-export const Lighthouse = z.object({
+export const LighthouseSchema = z.object({
   url: z.string()
 })
-export type LighthouseOptions = z.infer<typeof Lighthouse>
+export type LighthouseOptions = z.infer<typeof LighthouseSchema>
 
-export const Schema = Lighthouse
+export const Schema = LighthouseSchema
