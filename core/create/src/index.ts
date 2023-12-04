@@ -164,6 +164,7 @@ async function main() {
       if (conflictsCancelled) {
         return
       }
+      clearConfigCache()
       await catchToolKitErrorsInLogger(
         logger,
         installHooks(winstonLogger),
