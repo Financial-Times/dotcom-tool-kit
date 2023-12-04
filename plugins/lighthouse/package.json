@@ -28,7 +28,7 @@
     "@dotcom-tool-kit/logger": "^3.3.0",
     "@dotcom-tool-kit/types": "^3.4.1",
     "chrome-launcher": "1.1.0",
-    "lighthouse": "11.3.0"
+    "lighthouse": "9.6.8"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
