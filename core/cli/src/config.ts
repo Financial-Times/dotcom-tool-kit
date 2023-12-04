@@ -16,18 +16,7 @@ import {
 } from '@dotcom-tool-kit/types/lib/conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
-import {
-  flatMapValidated,
-  Hook,
-  HookClass,
-  HookConstructor,
-  mapValidated,
-  Plugin,
-  reduceValidated,
-  sequenceValidated,
-  unwrapValidated,
-  Validated
-} from '@dotcom-tool-kit/types'
+import { Hook, HookClass, invalid, Plugin, reduceValidated, valid, Validated } from '@dotcom-tool-kit/types'
 import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
 import { Options as HookSchemaOptions, HookSchemas } from '@dotcom-tool-kit/types/lib/hooks'
 import {
@@ -93,12 +82,12 @@ const loadHookEntrypoints = async (
     await Promise.all(
       Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
         const hookResult = await importEntryPoint(Hook, entryPoint)
-        return mapValidated(hookResult, (hookClass) => [hookName, hookClass as HookClass] as const)
+        return hookResult.map((hookClass) => [hookName, hookClass as HookClass] as const)
       })
     )
   )
 
-  return mapValidated(hookResultEntries, (hookEntries) => Object.fromEntries(hookEntries))
+  return hookResultEntries.map((hookEntries) => Object.fromEntries(hookEntries))
 }
 
 export const loadHookInstallations = async (
@@ -106,29 +95,23 @@ export const loadHookInstallations = async (
   config: ValidConfig
 ): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
   const hookClassResults = await loadHookEntrypoints(logger, config)
-  const installationResults = await sequenceValidated(
-    mapValidated(hookClassResults, (hookClasses) =>
+  const installationResults = await hookClassResults
+    .map((hookClasses) =>
       reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
     )
-  )
+    .sequence()
 
-  const installationsWithoutConflicts = flatMapValidated(installationResults, (installations) => {
+  const installationsWithoutConflicts = installationResults.flatMap((installations) => {
     const conflicts = findConflicts(installations)
 
     if (conflicts.length) {
-      return {
-        valid: false,
-        reasons: []
-      }
+      return invalid<[]>([])
     }
 
-    return {
-      valid: true,
-      value: withoutConflicts(installations)
-    }
+    return valid(withoutConflicts(installations))
   })
 
-  return mapValidated(installationsWithoutConflicts, (installations) => {
+  return installationsWithoutConflicts.map((installations) => {
     return installations.map(({ hookConstructor, forHook, options }) => {
       const schema = HookSchemas[forHook as keyof HookSchemaOptions]
       const parsedOptions = schema ? schema.parse(options) : {}
@@ -178,7 +161,7 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
     return
   }
 
-  const hooks = unwrapValidated(await loadHookInstallations(logger, config), 'hooks are invalid')
+  const hooks = (await loadHookInstallations(logger, config)).unwrap('hooks are invalid')
 
   const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
     return !(await hook.check())
@@ -344,9 +327,9 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
 
 export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig> {
   const validatedPlugins = reduceValidated(
-    Object.entries(config.plugins).map(([id, plugin]) => mapValidated(plugin, (p) => [id, p] as const))
+    Object.entries(config.plugins).map(([id, plugin]) => plugin.map((p) => [id, p] as const))
   )
-  return mapValidated(validatedPlugins, (plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
+  return validatedPlugins.map((plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
 }
 
 export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
@@ -357,10 +340,10 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
 
   // start loading config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
-  const validRootPlugin = unwrapValidated(rootPlugin, 'root plugin was not valid!')
+  const validRootPlugin = rootPlugin.unwrap('root plugin was not valid!')
 
   const validatedPluginConfig = validatePlugins(config)
-  const validPluginConfig = unwrapValidated(validatedPluginConfig, 'config was not valid!')
+  const validPluginConfig = validatedPluginConfig.unwrap('config was not valid!')
 
   // collate root plugin and descendent hooks, options etc into config
   resolvePlugin(validRootPlugin, validPluginConfig, logger)
