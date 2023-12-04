@@ -99,7 +99,7 @@ export const loadHookInstallations = async (
     .map((hookClasses) =>
       reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
     )
-    .sequence()
+    .awaitValue()
 
   const installationsWithoutConflicts = installationResults.flatMap((installations) => {
     const conflicts = findConflicts(installations)
