@@ -329,5 +329,183 @@ describe('package.json hook', () => {
         }
       ])
     })
+
+    it('should merge parent and child installations, preferring parent', () => {
+      const plugin = { id: 'p', root: 'plugins/p' }
+
+      const parentInstallation = {
+        plugin,
+        forHook: 'PackageJson',
+        hookConstructor: PackageJson,
+        options: {
+          scripts: {
+            test: 'test:local'
+          }
+        }
+      }
+
+      const childInstallations = [
+        {
+          plugin: { id: 'a', root: 'plugins/a' },
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              test: 'test:ci'
+            }
+          }
+        },
+        {
+          plugin: { id: 'b', root: 'plugins/b' },
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            another: {
+              field: 'something:else'
+            }
+          }
+        }
+      ]
+
+      expect(
+        PackageJson.overrideChildInstallations(
+          plugin,
+          (parentInstallation as unknown) as HookInstallation,
+          (childInstallations as unknown) as HookInstallation[]
+        )
+      ).toEqual([
+        {
+          plugin,
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              test: 'test:local'
+            },
+            another: {
+              field: 'something:else'
+            }
+          }
+        }
+      ])
+    })
+
+    it(`should override conflicts that are solved by the parent`, () => {
+      const plugin = { id: 'p', root: 'plugins/p' }
+
+      const parentInstallation = {
+        plugin,
+        forHook: 'PackageJson',
+        hookConstructor: PackageJson,
+        options: {
+          scripts: {
+            test: 'test:local'
+          }
+        }
+      }
+
+      const childInstallations = [
+        {
+          plugin: { id: 'a', root: 'plugins/a' },
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              test: 'test:local'
+            }
+          }
+        },
+        {
+          plugin: { id: 'b', root: 'plugins/b' },
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              test: 'test:ci'
+            }
+          }
+        }
+      ]
+
+      expect(
+        PackageJson.overrideChildInstallations(
+          plugin,
+          (parentInstallation as unknown) as HookInstallation,
+          (childInstallations as unknown) as HookInstallation[]
+        )
+      ).toEqual([
+        {
+          plugin,
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              test: 'test:local'
+            }
+          }
+        }
+      ])
+    })
+
+    it(`should keep conflicts that aren't solved by the parent`, () => {
+      const plugin = { id: 'p', root: 'plugins/p' }
+
+      const parentInstallation = {
+        plugin,
+        forHook: 'PackageJson',
+        hookConstructor: PackageJson,
+        options: {
+          scripts: {
+            test: 'test:local'
+          }
+        }
+      }
+
+      const childInstallations = [
+        {
+          plugin: { id: 'a', root: 'plugins/a' },
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              build: 'build:ci'
+            }
+          }
+        },
+        {
+          plugin: { id: 'b', root: 'plugins/b' },
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              build: 'build:local'
+            }
+          }
+        }
+      ]
+
+      expect(
+        PackageJson.overrideChildInstallations(
+          plugin,
+          (parentInstallation as unknown) as HookInstallation,
+          (childInstallations as unknown) as HookInstallation[]
+        )
+      ).toEqual([
+        {
+          plugin,
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              test: 'test:local'
+            }
+          }
+        },
+        {
+          plugin,
+          conflicting: childInstallations
+        }
+      ])
+    })
   })
 })
