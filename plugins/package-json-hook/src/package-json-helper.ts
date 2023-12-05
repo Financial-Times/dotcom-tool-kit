@@ -42,9 +42,24 @@ export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJ
 
   async check(): Promise<boolean> {
     const packageJson = await this.getPackageJson()
-    return Object.entries(this.options).every(([field, object]) =>
-      Object.entries(object).every(([key, command]) => get(packageJson, [field, key])?.includes(command))
-    )
+
+    // this instance's `options` is a nested object of expected package.json field/command mappings, e.g.
+    // { "scripts": { "build": "build:local" } }. in the package.json, they'll have the same structure
+    // with a `dotcom-tool-kit` CLI prefix, e.g. { "scripts": { "build": "dotcom-tool-kit build:local" } }.
+    // loop through the nested options object, get the same nested key from package.json, and check that
+    // field exists, and its string includes the name of the command. if any command from our options is
+    // missing, the check should fail.
+    for (const [field, object] of Object.entries(this.options)) {
+      for (const [key, command] of Object.entries(object)) {
+        const currentPackageJsonField = get(packageJson, [field, key])
+
+        if (!currentPackageJsonField || !currentPackageJsonField.includes(command)) {
+          return false
+        }
+      }
+    }
+
+    return true
   }
 
   async install(state: PackageJsonState = {}): Promise<PackageJsonState> {
