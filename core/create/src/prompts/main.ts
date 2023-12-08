@@ -1,5 +1,5 @@
 import { styles } from '@dotcom-tool-kit/logger'
-import type { PackageJson } from '@financial-times/package-json'
+import type { PackageJson } from 'type-fest'
 import { existsSync } from 'fs'
 import prompt from 'prompts'
 
@@ -21,7 +21,7 @@ export default async ({
       {
         name: 'preset',
         type: 'select',
-        message: `What kind of app is ${styles.app(packageJson.getField('name'))}?`,
+        message: `What kind of app is ${packageJson.name ? styles.app(packageJson.name) : 'this'}?`,
         choices: [
           { title: 'A user-facing (frontend) app', value: 'frontend-app' },
           { title: 'A Heroku backend app', value: 'backend-heroku-app' },
