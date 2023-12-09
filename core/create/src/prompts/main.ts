@@ -16,6 +16,9 @@ export default async ({
   originalCircleConfig,
   eslintConfigPath
 }: MainParams): Promise<prompt.Answers<PromptNames>> => {
+  const isPackageInstalled = (packageName: string) =>
+    Object.keys(packageJson.devDependencies ?? {}).includes(packageName)
+
   return prompt(
     [
       {
@@ -33,27 +36,35 @@ export default async ({
         name: 'additional',
         type: 'multiselect',
         message: 'Would you like to install any additional plugins?',
-        choices: [
-          {
-            title: 'Jest',
-            value: 'jest',
-            description: 'a delightful JavaScript Testing Framework with a focus on simplicity'
-          },
-          {
-            title: 'Mocha',
-            value: 'mocha',
-            description:
-              'a feature-rich JavaScript test framework, making asynchronous testing simple and fun'
-          },
-          { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' },
-          { title: 'Prettier', value: 'prettier', description: 'an opinionated code formatter' },
-          { title: 'lint-staged', value: 'lint-staged', description: 'run linters on git staged files' },
-          {
-            title: 'Upload assets to S3',
-            value: 'upload-assets-to-s3',
-            description: "required this to make your app's CSS and JS available in production"
-          }
-        ].map((choice) => ({ ...choice, title: styles.plugin(choice.title) }))
+        choices: (prev) =>
+          [
+            {
+              title: 'Jest',
+              value: 'jest',
+              description: 'a delightful JavaScript Testing Framework with a focus on simplicity'
+            },
+            {
+              title: 'Mocha',
+              value: 'mocha',
+              description:
+                'a feature-rich JavaScript test framework, making asynchronous testing simple and fun'
+            },
+            { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' },
+            { title: 'Prettier', value: 'prettier', description: 'an opinionated code formatter' },
+            { title: 'lint-staged', value: 'lint-staged', description: 'run linters on git staged files' },
+            {
+              title: 'Upload assets to S3',
+              value: 'upload-assets-to-s3',
+              description: "required this to make your app's CSS and JS available in production"
+            }
+          ].map((choice) => ({
+            ...choice,
+            title: styles.plugin(choice.title),
+            selected:
+              choice.value === 'upload-assets-to-s3'
+                ? prev === 'frontend-app'
+                : isPackageInstalled(choice.value)
+          }))
       },
       {
         name: 'addEslintConfig',
