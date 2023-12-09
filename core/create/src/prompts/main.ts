@@ -2,16 +2,19 @@ import { styles } from '@dotcom-tool-kit/logger'
 import type { PackageJson } from 'type-fest'
 import { existsSync } from 'fs'
 import prompt from 'prompts'
+import { BizOpsSystem } from '../bizOps'
 
 type PromptNames = 'preset' | 'additional' | 'addEslintConfig' | 'deleteConfig' | 'uninstall'
 
 export interface MainParams {
+  bizOpsSystem?: BizOpsSystem
   packageJson: PackageJson
   originalCircleConfig?: string
   eslintConfigPath: string
 }
 
 export default async ({
+  bizOpsSystem,
   packageJson,
   originalCircleConfig,
   eslintConfigPath
@@ -19,18 +22,32 @@ export default async ({
   const isPackageInstalled = (packageName: string) =>
     Object.keys(packageJson.devDependencies ?? {}).includes(packageName)
 
+  const presetChoices = [
+    { title: 'A user-facing (frontend) app', value: 'frontend-app' },
+    { title: 'A Heroku backend app', value: 'backend-heroku-app' },
+    { title: 'A Serverless backend app', value: 'backend-serverless-app' },
+    { title: 'An npm component', value: 'component' }
+  ]
+  let guessedPreset: string
+  if (!bizOpsSystem) {
+    guessedPreset = 'component'
+  } else if (bizOpsSystem.hostPlatform.includes('Heroku')) {
+    const probablyFrontend = isPackageInstalled('webpack')
+    guessedPreset = probablyFrontend ? 'frontend-app' : 'backend-heroku-app'
+  } else if (bizOpsSystem.awsResourcesAggregate.count > 0) {
+    guessedPreset = 'backend-serverless-app'
+  } else {
+    guessedPreset = 'component'
+  }
+
   return prompt(
     [
       {
         name: 'preset',
         type: 'select',
         message: `What kind of app is ${packageJson.name ? styles.app(packageJson.name) : 'this'}?`,
-        choices: [
-          { title: 'A user-facing (frontend) app', value: 'frontend-app' },
-          { title: 'A Heroku backend app', value: 'backend-heroku-app' },
-          { title: 'A Serverless backend app', value: 'backend-serverless-app' },
-          { title: 'An npm component', value: 'component' }
-        ]
+        initial: presetChoices.findIndex(({ value }) => value === guessedPreset),
+        choices: presetChoices
       },
       {
         name: 'additional',

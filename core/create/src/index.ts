@@ -20,6 +20,7 @@ import mainPrompt from './prompts/main'
 import oidcInfrastructurePrompt from './prompts/oidc'
 import optionsPrompt from './prompts/options'
 import scheduledPipelinePrompt from './prompts/scheduledPipeline'
+import systemCodePrompt from './prompts/systemCode'
 
 const exec = promisify(_exec)
 
@@ -95,9 +96,11 @@ async function main() {
   }
 
   const originalCircleConfig = await fsp.readFile(circleConfigPath, 'utf8').catch(() => undefined)
+  const bizOpsSystem = await systemCodePrompt({ packageJson })
   // Start with the initial prompt which will get most of the information we
   // need for the remainder of the execution
   const { preset, additional, addEslintConfig, deleteConfig, uninstall } = await mainPrompt({
+    bizOpsSystem,
     packageJson,
     originalCircleConfig,
     eslintConfigPath
