@@ -86,6 +86,7 @@ export function validatePlugin(plugin: unknown): Validated<PluginModule> {
 async function importPlugin(pluginPath: string): Promise<Validated<PluginModule>> {
   try {
     // pluginPath is an absolute resolved path to a plugin module as found from its parent
+    // using a dynamic import allows us to support ESM custom plugins
     const pluginModule = (await import(pluginPath)) as unknown
     return validatePlugin(pluginModule)
   } catch (e) {
