@@ -8,6 +8,7 @@ import type Logger from 'komatsu'
 import partition from 'lodash/partition'
 import prompt from 'prompts'
 import { z } from 'zod'
+import type { BizOpsSystem } from '../bizOps'
 
 interface OptionSettings {
   name: string
@@ -184,6 +185,7 @@ export interface OptionsParams {
   config: RawConfig
   toolKitConfig: RCFile
   configPath: string
+  bizOpsSystem?: BizOpsSystem
 }
 
 type ZodPartial = z.ZodOptional<z.ZodTypeAny> | z.ZodDefault<z.ZodTypeAny>
@@ -191,7 +193,13 @@ type ZodPartial = z.ZodOptional<z.ZodTypeAny> | z.ZodDefault<z.ZodTypeAny>
 const isPartialOptional = (partial: ZodPartial): partial is z.ZodOptional<z.ZodTypeAny> =>
   typeof (partial as z.ZodOptional<z.ZodTypeAny>).unwrap === 'function'
 
-export default async ({ logger, config, toolKitConfig, configPath }: OptionsParams): Promise<boolean> => {
+export default async ({
+  logger,
+  config,
+  toolKitConfig,
+  configPath,
+  bizOpsSystem
+}: OptionsParams): Promise<boolean> => {
   for (const plugin of Object.keys(config.plugins)) {
     let options: z.AnyZodObject
     let generators: PromptGenerators<z.AnyZodObject> | undefined
@@ -238,7 +246,8 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
           toolKitConfig.options[plugin][optionName] = await generator!(
             winstonLogger.child({ plugin }),
             prompt,
-            onCancel
+            onCancel,
+            bizOpsSystem
           )
           if (cancelled) {
             break

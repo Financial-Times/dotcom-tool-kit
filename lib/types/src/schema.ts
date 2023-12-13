@@ -2,6 +2,8 @@ import type prompts from 'prompts'
 import type { Logger } from 'winston'
 import { z } from 'zod'
 
+import { BizOpsSystem } from './bizOps'
+
 /**
  * A function that should use the `prompt` parameter passed to build a more
  * complex option structure, like a nested object, from user input
@@ -11,7 +13,10 @@ import { z } from 'zod'
 export type SchemaPromptGenerator<T> = (
   logger: Logger,
   prompt: typeof prompts,
-  onCancel: () => void
+  onCancel: () => void,
+  // HACK:20231209:IM add bizOpsSystem as optional parameter to maintain
+  // backwards compatibility
+  bizOpsSystem?: BizOpsSystem
 ) => Promise<T>
 // This type defines an interface you can use to export prompt generators. The
 // `T` type parameter should be the type of your `Schema` object, and it will

@@ -141,7 +141,7 @@ async function main() {
   const config = await loadConfig(winstonLogger, { validate: false })
   // Give the user a chance to set any configurable options for the plugins
   // they've installed.
-  const optionsCancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath })
+  const optionsCancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath, bizOpsSystem })
   if (optionsCancelled) {
     return
   }

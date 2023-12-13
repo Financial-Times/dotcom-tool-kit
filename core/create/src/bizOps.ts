@@ -1,19 +1,7 @@
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { rootLogger as winstonLogger } from '@dotcom-tool-kit/logger'
+import { BizOpsData, BizOpsSystem } from '@dotcom-tool-kit/types/lib/bizOps'
 import fetch from 'node-fetch'
-import z from 'zod'
-
-export const BizOpsSystem = z.object({
-  hostPlatform: z.string(),
-  awsResourcesAggregate: z.object({ count: z.number() })
-})
-export type BizOpsSystem = z.infer<typeof BizOpsSystem>
-export const BizOpsData = z.object({
-  data: z.object({
-    systems: z.array(BizOpsSystem).length(1)
-  })
-})
-export type BizOpsData = z.infer<typeof BizOpsData>
 
 let bizOpsApiKey: string
 const getBizOpsApiKey = async () => {
@@ -37,6 +25,9 @@ export const getBizOpsSystem = async (systemCode: string): Promise<BizOpsSystem>
     query ToolKitMigrationMetadata($systemCode: String!) {
       systems(where: { code: $systemCode }) {
         hostPlatform
+        herokuApps(where: { pipelineStage: "production", dynoUnits_GT: 0 }) {
+          code
+        }
         awsResourcesAggregate(where: { resourceType: "AWS::Lambda::Function" }) {
           count
         }
@@ -58,3 +49,5 @@ export const getBizOpsSystem = async (systemCode: string): Promise<BizOpsSystem>
   const { data } = BizOpsData.parse(await resp.json())
   return data.systems[0]
 }
+
+export { BizOpsData, BizOpsSystem }
