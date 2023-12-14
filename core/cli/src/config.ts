@@ -46,7 +46,7 @@ export interface EntryPoint {
 export interface RawConfig {
   root: string
   plugins: { [id: string]: Validated<Plugin> }
-  resolvedPlugins: Set<Plugin>
+  resolvedPlugins: Set<string>
   tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
