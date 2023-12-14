@@ -298,6 +298,7 @@ export default async ({
     const { confirm } = await prompt({
       name: 'confirm',
       type: 'confirm',
+      initial: true,
       message: `right, let's set the options you've given in the ${styles.filepath('.toolkitrc.yml')} like so:
 
 ${configFile}

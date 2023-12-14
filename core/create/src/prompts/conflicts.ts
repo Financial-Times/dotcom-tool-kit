@@ -68,6 +68,7 @@ Please select the ${ordinal(i)} package to run.`,
   const { confirm } = await prompt({
     name: 'confirm',
     type: 'confirm',
+    initial: true,
     message: `ok, we're gonna recreate the ${styles.filepath('.toolkitrc.yml')} containing:
 
 ${configFile}

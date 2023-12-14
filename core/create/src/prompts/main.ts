@@ -87,12 +87,14 @@ export default async ({
         name: 'addEslintConfig',
         // Only show prompt if eslint was selected and there isn't a eslint config file already
         type: (prev) => (prev.includes('eslint') && !existsSync(eslintConfigPath) ? 'confirm' : null),
+        initial: true,
         message: `Would you like to add a default eslint config file at ${styles.filepath('./eslintrc.js')}?`
       },
       {
         name: 'deleteConfig',
         // Skip prompt if CircleCI config doesn't exist
         type: originalCircleConfig ? ('confirm' as const) : null,
+        initial: true,
         message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${styles.filepath(
           '.circleci/config.yml'
         )}.`
@@ -100,6 +102,7 @@ export default async ({
       {
         name: 'uninstall',
         type: 'confirm',
+        initial: true,
         message: `Should we uninstall obsolete ${styles.app('n-gage')} and ${styles.app(
           'n-heroku-tools'
         )} packages?`

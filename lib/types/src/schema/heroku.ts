@@ -70,6 +70,7 @@ const scaling: SchemaPromptGenerator<HerokuScaling> = async (logger, prompt, onC
       {
         name: 'confirmGuess',
         type: 'confirm',
+        initial: true,
         message: `based on Biz Ops and the Heroku API, we think your heroku plugin settings should be:\n${JSON.stringify(
           scaling,
           undefined,

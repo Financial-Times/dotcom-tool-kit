@@ -11,6 +11,7 @@ export default async (): Promise<void> => {
   const { confirm } = await prompt({
     name: 'confirm',
     type: 'confirm',
+    initial: true,
     message: 'Would you like the scheduled pipeline to be set up automatically?'
   })
   if (confirm) {
@@ -65,6 +66,7 @@ export default async (): Promise<void> => {
         await prompt({
           name: 'retry',
           type: 'confirm',
+          initial: true,
           message: `CircleCI API call returned an unsuccessful status code of ${styles.heading(
             resp.status.toString()
           )}. Would you like to re-enter the details and try again?`
