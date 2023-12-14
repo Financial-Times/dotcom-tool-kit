@@ -33,6 +33,10 @@ export const getBizOpsSystem = async (systemCode: string): Promise<BizOpsSystem>
         awsResourcesAggregate(where: { resourceType: "AWS::Lambda::Function" }) {
           count
         }
+        awsAccounts {
+          code
+          name
+        }
       }
     }
   `

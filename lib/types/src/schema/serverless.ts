@@ -1,3 +1,4 @@
+import { PromptGenerators } from '../schema'
 import { z } from 'zod'
 
 export const ServerlessSchema = z.object({
@@ -12,3 +13,21 @@ export const ServerlessSchema = z.object({
 export type ServerlessOptions = z.infer<typeof ServerlessSchema>
 
 export const Schema = ServerlessSchema
+export const generators: PromptGenerators<typeof ServerlessSchema> = {
+  awsAccountId: async (logger, prompt, onCancel, bizOpsSystem) => {
+    const awsAccounts = bizOpsSystem?.awsAccounts
+    if (awsAccounts) {
+      const { accountId } = await prompt(
+        {
+          type: 'select',
+          name: 'accountId',
+          message: 'please select the AWS account you deploy to',
+          choices: awsAccounts.map(({ code, name }) => ({ title: code, description: name, value: code }))
+        },
+        { onCancel }
+      )
+      return accountId
+    }
+  },
+  systemCode: async (logger, prompt, onCancel, bizOpsSystem) => bizOpsSystem?.code
+}
