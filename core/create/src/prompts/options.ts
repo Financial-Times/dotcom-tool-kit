@@ -229,11 +229,7 @@ export default async ({
 
     if (anyRequired) {
       winstonLogger.info(`Please now configure the options for the ${styledPlugin} plugin.`)
-      let cancelled = await optionsPromptForPlugin(
-        toolKitConfig,
-        plugin,
-        required.map(([name, type]) => ({ name, type }))
-      )
+      let cancelled = false
       const onCancel = () => {
         cancelled = true
       }
@@ -254,6 +250,17 @@ export default async ({
           }
         }
       }
+      if (!cancelled) {
+        // eslint-disable-next-line require-atomic-updates
+        cancelled = await optionsPromptForPlugin(
+          toolKitConfig,
+          plugin,
+          required
+            .map(([name, type]) => ({ name, type }))
+            .filter(({ name }) => !toolKitConfig.options[plugin][name])
+        )
+      }
+
       if (cancelled) {
         delete toolKitConfig.options[plugin]
         return true

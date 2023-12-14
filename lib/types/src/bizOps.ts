@@ -1,8 +1,9 @@
 import z from 'zod'
 
 export const BizOpsSystem = z.object({
+  code: z.string(),
   hostPlatform: z.string(),
-  herokuApps: z.array(z.object({ code: z.string() })),
+  herokuApps: z.array(z.object({ code: z.string(), pipelineName: z.string() })),
   awsResourcesAggregate: z.object({ count: z.number() })
 })
 export type BizOpsSystem = z.infer<typeof BizOpsSystem>

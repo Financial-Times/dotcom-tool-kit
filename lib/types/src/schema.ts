@@ -6,7 +6,9 @@ import { BizOpsSystem } from './bizOps'
 
 /**
  * A function that should use the `prompt` parameter passed to build a more
- * complex option structure, like a nested object, from user input
+ * complex option structure, like a nested object, from user input. Returning
+ * an undefined value will cause the program to fall back to the default prompt
+ * interface.
  * @param onCancel - pass this to `prompt`'s options so that a user
  *   interrupting the prompt can be handled properly
  */
@@ -17,7 +19,7 @@ export type SchemaPromptGenerator<T> = (
   // HACK:20231209:IM add bizOpsSystem as optional parameter to maintain
   // backwards compatibility
   bizOpsSystem?: BizOpsSystem
-) => Promise<T>
+) => Promise<T | undefined>
 // This type defines an interface you can use to export prompt generators. The
 // `T` type parameter should be the type of your `Schema` object, and it will
 // be mapped into a partial object of `SchemaPromptGenerator` functions with

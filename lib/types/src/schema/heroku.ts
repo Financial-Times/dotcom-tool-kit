@@ -135,5 +135,7 @@ export type HerokuOptions = z.infer<typeof HerokuSchema>
 
 export const Schema = HerokuSchema
 export const generators: PromptGenerators<typeof HerokuSchema> = {
+  pipeline: async (logger, prompt, onCancel, bizOpsSystem) => bizOpsSystem?.herokuApps[0]?.pipelineName,
+  systemCode: async (logger, prompt, onCancel, bizOpsSystem) => bizOpsSystem?.code,
   scaling
 }

@@ -24,9 +24,11 @@ export const getBizOpsSystem = async (systemCode: string): Promise<BizOpsSystem>
   const query = `#graphql
     query ToolKitMigrationMetadata($systemCode: String!) {
       systems(where: { code: $systemCode }) {
+        code
         hostPlatform
         herokuApps(where: { pipelineStage: "production", dynoUnits_GT: 0 }) {
           code
+          pipelineName
         }
         awsResourcesAggregate(where: { resourceType: "AWS::Lambda::Function" }) {
           count
