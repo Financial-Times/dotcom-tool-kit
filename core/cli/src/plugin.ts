@@ -134,7 +134,7 @@ export async function loadPlugin(
 export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger: Logger): void {
   // don't resolve plugins that have already been resolved to prevent self-conflicts
   // between plugins included at multiple points in the tree
-  if (config.resolvedPlugins.has(plugin)) {
+  if (config.resolvedPlugins.has(plugin.id)) {
     return
   }
 
@@ -267,7 +267,7 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
     }
   }
 
-  config.resolvedPlugins.add(plugin)
+  config.resolvedPlugins.add(plugin.id)
 }
 
 // this function recursively collects all the hook installation requests from all plugins,
