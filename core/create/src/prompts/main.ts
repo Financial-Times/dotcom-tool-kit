@@ -99,10 +99,11 @@ export default async ({
       },
       {
         name: 'addEslintConfig',
-        // Only show prompt if eslint was selected and there isn't a eslint config file already
-        type: (prev) => (prev.includes('eslint') && !existsSync(eslintConfigPath) ? 'confirm' : null),
-        initial: true,
-        message: `Would you like to add a default eslint config file at ${styles.filepath('./eslintrc.js')}?`
+        // Only show prompt if eslint plugin was selected
+        type: (prev) => (prev.includes('eslint') ? 'confirm' : null),
+        // Default to creating a config if config doesn't currently exist
+        initial: !existsSync(eslintConfigPath),
+        message: `Would you like to set a default eslint config file at ${styles.filepath('./eslintrc.js')}?`
       },
       {
         name: 'deleteConfig',
