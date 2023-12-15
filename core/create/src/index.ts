@@ -55,7 +55,7 @@ function clearConfigCache() {
 async function executeMigration(
   deleteConfig: boolean,
   addEslintConfig: boolean,
-  ignoreToolKitState: boolean,
+  fixGitignore: boolean,
   configFile: string
 ): Promise<void> {
   for (const pkg of packagesToInstall) {
@@ -82,12 +82,27 @@ async function executeMigration(
       )
     : Promise.resolve()
 
+  const gitignorePath = '.gitignore'
+  const fixGitignoreAsync = async () => {
+    const stateIgnore = '/.toolkitstate\n'
+    let fixed
+    try {
+      const gitignore = await fsp.readFile(gitignorePath, 'utf8')
+      fixed = gitignore.replace(/^\/?\.eslintrc\.js\n?/m, '')
+      if (!fixed.includes('.toolkitstate')) {
+        fixed = fixed.trimEnd() + `\n${stateIgnore}`
+      }
+    } catch {
+      fixed = stateIgnore
+    }
+    await fsp.writeFile(gitignorePath, fixed)
+  }
+
+  const ignorePromise = fixGitignore
+    ? logger.logPromise(fixGitignoreAsync(), 'fixing gitignore')
+    : Promise.resolve()
   const unlinkPromise = deleteConfig
     ? logger.logPromise(fsp.unlink(circleConfigPath), 'removing old CircleCI config')
-    : Promise.resolve()
-
-  const ignorePromise = ignoreToolKitState
-    ? logger.logPromise(fsp.appendFile('.gitignore', '/.toolkitstate\n'), 'ignoring Tool Kit state')
     : Promise.resolve()
 
   await Promise.all([configPromise, eslintConfigPromise, unlinkPromise, ignorePromise])
@@ -104,14 +119,7 @@ async function main() {
   const bizOpsSystem = await systemCodePrompt({ packageJson })
   // Start with the initial prompt which will get most of the information we
   // need for the remainder of the execution
-  const {
-    preset,
-    additional,
-    addEslintConfig,
-    deleteConfig,
-    uninstall,
-    ignoreToolKitState
-  } = await mainPrompt({
+  const { preset, additional, addEslintConfig, deleteConfig, fixGitignore, uninstall } = await mainPrompt({
     bizOpsSystem,
     packageJson,
     originalCircleConfig,
@@ -135,7 +143,7 @@ async function main() {
   const { confirm } = await confirmationPrompt({
     deleteConfig,
     addEslintConfig,
-    ignoreToolKitState,
+    fixGitignore,
     packagesToInstall,
     packagesToRemove,
     configFile
@@ -146,7 +154,7 @@ async function main() {
   }
   // Carry out the proposed changes: install + uninstall packages, add config
   // files, etc.
-  await executeMigration(deleteConfig, addEslintConfig, ignoreToolKitState, configFile)
+  await executeMigration(deleteConfig, addEslintConfig, fixGitignore, configFile)
   // Use user's version of Tool Kit that we've just installed for them to load
   // the config to avoid any incompatibilities with a version that create might
   // use
