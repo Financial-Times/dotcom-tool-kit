@@ -1,10 +1,16 @@
 import { styles } from '@dotcom-tool-kit/logger'
 import type { PackageJson } from 'type-fest'
-import { existsSync } from 'fs'
+import { existsSync, promises as fs } from 'fs'
 import prompt from 'prompts'
 import { BizOpsSystem } from '../bizOps'
 
-type PromptNames = 'preset' | 'additional' | 'addEslintConfig' | 'deleteConfig' | 'uninstall'
+type PromptNames =
+  | 'preset'
+  | 'additional'
+  | 'addEslintConfig'
+  | 'deleteConfig'
+  | 'ignoreToolKitState'
+  | 'uninstall'
 
 export interface MainParams {
   bizOpsSystem?: BizOpsSystem
@@ -38,6 +44,14 @@ export default async ({
     guessedPreset = 'backend-serverless-app'
   } else {
     guessedPreset = 'component'
+  }
+
+  let missingStateInGitignore
+  try {
+    const gitIgnore = await fs.readFile('.gitignore', 'utf8')
+    missingStateInGitignore = !gitIgnore.includes('toolkitstate')
+  } catch {
+    missingStateInGitignore = true
   }
 
   return prompt(
@@ -98,6 +112,16 @@ export default async ({
         message: `Would you like a CircleCI config to be generated? This will overwrite the current config at ${styles.filepath(
           '.circleci/config.yml'
         )}.`
+      },
+      {
+        name: 'ignoreToolKitState',
+        type: missingStateInGitignore ? 'confirm' : null,
+        initial: true,
+        message: `Would you like the ${styles.filepath(
+          '.toolkitstate/'
+        )} directory to be added to your ${styles.filepath(
+          '.gitignore'
+        )}? Tool Kit stores some state files that shouldn't be committed to your repository.`
       },
       {
         name: 'uninstall',
