@@ -2,7 +2,7 @@ import { styles as s } from '@dotcom-tool-kit/logger'
 import path from 'path'
 import fs from 'fs'
 import { baseSymbol, typeSymbol } from './symbols'
-import { Validated } from './validated'
+import { Validated, invalid, valid } from './validated'
 import semver from 'semver'
 
 const packageJsonPath = path.resolve(__dirname, '../package.json')
@@ -28,16 +28,13 @@ export abstract class Base {
 
   static isCompatible<T extends Base>(objectToCheck: unknown): Validated<T> {
     if (!this.is(objectToCheck)) {
-      return {
-        valid: false,
-        reasons: [
-          `${s.plugin(
-            '@dotcom-tool-kit/types'
-          )} type symbol is missing, make sure that this object derives from the ${s.code(
-            'Task'
-          )} or ${s.code('Hook')} class defined by the plugin`
-        ]
-      }
+      return invalid([
+        `${s.plugin(
+          '@dotcom-tool-kit/types'
+        )} type symbol is missing, make sure that this object derives from the ${s.code('Task')} or ${s.code(
+          'Hook'
+        )} class defined by the plugin`
+      ])
     }
 
     // an 'objectToCheck' from a plugin is compatible with this CLI if its
@@ -49,16 +46,13 @@ export abstract class Base {
     // that depends on any higher minor version of types.
     const range = `^${this.version}`
     if (semver.satisfies(objectToCheck.version, range)) {
-      return { valid: true, value: objectToCheck as T }
+      return valid(objectToCheck as T)
     } else {
-      return {
-        valid: false,
-        reasons: [
-          `object is from an outdated version of ${s.plugin(
-            '@dotcom-tool-kit/types'
-          )}, make sure you're using at least version ${s.heading(this.version)} of the plugin`
-        ]
-      }
+      return invalid([
+        `object is from an outdated version of ${s.plugin(
+          '@dotcom-tool-kit/types'
+        )}, make sure you're using at least version ${s.heading(this.version)} of the plugin`
+      ])
     }
   }
 }
