@@ -83,6 +83,8 @@ async function executeMigration(
     : Promise.resolve()
 
   const gitignorePath = '.gitignore'
+  // wrap this step in an async closure so that we can execute multiple
+  // statements and pass it to komatsu to log as one pending task
   const fixGitignoreAsync = async () => {
     const stateIgnore = '/.toolkitstate\n'
     let fixed
