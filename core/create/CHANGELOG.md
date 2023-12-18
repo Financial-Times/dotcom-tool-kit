@@ -194,6 +194,38 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.3.8 to ^3.3.9
 
+## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.3.0...create-v3.4.0) (2023-12-18)
+
+
+### Features
+
+* **create:** add option to add .toolkitstate to gitignore ([bfb1b82](https://github.com/Financial-Times/dotcom-tool-kit/commit/bfb1b824bbf6cd489bba610d0e99845988ea6023))
+* **create:** add option to remove ESLint config from gitignore ([f034daa](https://github.com/Financial-Times/dotcom-tool-kit/commit/f034daa9319a017cced965f857fae9bb1c8d7f63))
+* **create:** add suggestions to all required options ([2569e3f](https://github.com/Financial-Times/dotcom-tool-kit/commit/2569e3fdefc193298306844622f6238e74826084))
+* **create:** infer Heroku options based on Biz Ops and Heroku API ([8aa02b6](https://github.com/Financial-Times/dotcom-tool-kit/commit/8aa02b6916592abcdfbf3afa8c6c52e43dff83c5))
+* **create:** infer some prompts by Biz Ops data ([cf08228](https://github.com/Financial-Times/dotcom-tool-kit/commit/cf0822832d013a3cad81ec6e4fba4481f7f6d7bf))
+* **create:** infer the rest of the Heroku options from Biz Ops data ([e3c626e](https://github.com/Financial-Times/dotcom-tool-kit/commit/e3c626ebfda662845d72c7130d197414fa922a91))
+* **create:** infer which plugins to install based on package.json ([0b3ffe3](https://github.com/Financial-Times/dotcom-tool-kit/commit/0b3ffe3b8e10b440e5ddab35b5916b90fe1df163))
+
+
+### Bug Fixes
+
+* **create:** default all confirmation prompts to the happy path ([8dca215](https://github.com/Financial-Times/dotcom-tool-kit/commit/8dca2157ed42a39e36fb862641a7c6758c64db71))
+* **create:** ignore default Makefile target when printing suggestions ([8d92b03](https://github.com/Financial-Times/dotcom-tool-kit/commit/8d92b03c2e0435e6ad3a9c0acdca9cd00be509a5))
+* **create:** present option to overwrite ESLint config ([d9bfe5d](https://github.com/Financial-Times/dotcom-tool-kit/commit/d9bfe5d7a1b13f4130ae8b8a8de4a12267e6f8b0))
+* **create:** tweak ESLint prompt to be more assertive ([da2fc2e](https://github.com/Financial-Times/dotcom-tool-kit/commit/da2fc2eed07f3a583aacfc1b2d3878ce87162d0f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.8 to ^1.0.9
+    * @dotcom-tool-kit/logger bumped from ^3.3.0 to ^3.3.1
+    * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.3.10 to ^3.3.11
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.2.15...create-v3.3.0) (2023-12-04)
 
 

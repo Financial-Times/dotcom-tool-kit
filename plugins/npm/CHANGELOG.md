@@ -127,6 +127,12 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
+
 ## [3.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.2.1...npm-v3.2.2) (2023-11-13)
 
 

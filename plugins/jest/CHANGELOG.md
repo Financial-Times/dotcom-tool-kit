@@ -127,6 +127,21 @@
     * @dotcom-tool-kit/logger bumped from ^3.2.0 to ^3.3.0
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v3.2.2...jest-v3.3.0) (2023-12-18)
+
+
+### Features
+
+* **jest:** set appropriate max workers in CircleCI environment ([abce8f6](https://github.com/Financial-Times/dotcom-tool-kit/commit/abce8f6d05e67bc8c0892878127de6b27e6c9dd4))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.3.0 to ^3.3.1
+    * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v3.1.3...jest-v3.2.0) (2023-07-17)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/doppler",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "^3.1.0",
-    "@dotcom-tool-kit/logger": "^3.3.0",
-    "@dotcom-tool-kit/options": "^3.1.5",
-    "@dotcom-tool-kit/types": "^3.4.1",
-    "@dotcom-tool-kit/vault": "^3.1.6",
+    "@dotcom-tool-kit/logger": "^3.3.1",
+    "@dotcom-tool-kit/options": "^3.1.6",
+    "@dotcom-tool-kit/types": "^3.5.0",
+    "@dotcom-tool-kit/vault": "^3.1.7",
     "tslib": "^2.3.1"
   },
   "keywords": [],
