@@ -164,7 +164,7 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
   const hooks = (await loadHookInstallations(logger, config)).unwrap('hooks are invalid')
 
   const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
-    return !(await hook.check())
+    return !(await hook.isInstalled())
   })
 
   if (uninstalledHooks.length > 0) {

@@ -22,7 +22,7 @@ describe('package.json hook', () => {
         }
       })
 
-      expect(await hook.check()).toBeTruthy()
+      expect(await hook.isInstalled()).toBeTruthy()
     })
 
     it('should return true when script includes other hooks', async () => {
@@ -33,7 +33,7 @@ describe('package.json hook', () => {
         }
       })
 
-      expect(await hook.check()).toBeTruthy()
+      expect(await hook.isInstalled()).toBeTruthy()
     })
 
     it(`should return false when package.json doesn't have hook call in script`, async () => {
@@ -44,7 +44,7 @@ describe('package.json hook', () => {
         }
       })
 
-      expect(await hook.check()).toBeFalsy()
+      expect(await hook.isInstalled()).toBeFalsy()
     })
   })
 

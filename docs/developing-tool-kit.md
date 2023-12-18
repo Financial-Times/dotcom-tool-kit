@@ -58,7 +58,7 @@ Tasks won't be usable by your plugin's users unless you export them from the ent
 
 A hook ensures a repo using Tool Kit has the relevant configuration to run things from Tool Kit.
 
-A hook extends the `Hook` class from `@dotcom-tool-kit/types`, implementing its abstract asynchronous `check` and `install` functions. You also need to write a helpful `description` field, which will be displayed in the `--help` text.
+A hook extends the `Hook` class from `@dotcom-tool-kit/types`, implementing its abstract asynchronous `isInstalled` and `install` functions. You also need to write a helpful `description` field, which will be displayed in the `--help` text.
 
 ```typescript
 import { Hook } from '@dotcom-tool-kit/types'
@@ -66,7 +66,7 @@ import { Hook } from '@dotcom-tool-kit/types'
 export default NpmRunTest extends Hook {
   static description = 'hook to run tasks with `npm run test`'
 
-  async check(): Promise<boolean> {
+  async isInstalled(): Promise<boolean> {
     // return true if the `test` script is correctly defined in `package.json`
   }
 

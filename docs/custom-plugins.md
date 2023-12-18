@@ -79,13 +79,13 @@ A Hook defines an abstract label to run tasks with, as well as managing where in
 
 This abstraction lets us write different plugins for defining tasks to be run, separate from the plugins defining where they should be run from, whilst maintaining the link between them. We've already seen that `build:ci` could be running Rollup, or Webpack, or any other task; in addition, `build:ci` itself could be defined by a different plugin, such as a Github Actions plugin, that would automatically manage configuration in `.github/workflows`.
 
-The automatic configuration management is implemented by `Hook` subclasses. These define a `check` method that should return `true` if the hook is correctly installed in the repository or `false` if it needs installing, and an `install` method to actually perform the installation. Every time Tool Kit runs, it checks that every hook is installed in your repo, and if any aren't, it exits with an error (to ensure the repo is always consistent with what it expects). You can then run `dotcom-tool-kit --install` to run the installation of every hook that isn't installed.
+The automatic configuration management is implemented by `Hook` subclasses. These define an `isInstalled` method that should return `true` if the hook is correctly installed in the repository or `false` if it needs installing, and an `install` method to actually perform the installation. Every time Tool Kit runs, it checks that every hook is installed in your repo, and if any aren't, it exits with an error (to ensure the repo is always consistent with what it expects). You can then run `dotcom-tool-kit --install` to run the installation of every hook that isn't installed.
 
 If you find yourself asking a question like "how do I run a Tool Kit task from a different npm script", **you should implement a hook** to allow Tool Kit to automatically manage that configuration for any new repos using your plugin, rather than expecting new users to add that configuration themselves when installing the plugin.
 
 Hooks have a loose naming convention of `category:environment`. This is only meant for humans to be able to intuitively understand which hooks are related; it's not required by the Tool Kit core itself.
 
-Let's say you want to run some task on the npm `prepare` script (which automatically runs after `npm install` and before `npm publish`). We'll call that hook `prepare:local`, and the plugin will live in `toolkit/npm-prepare` ([structured as above](#common-plugin-structure)). Create a subclass of the `Hook` class from `@dotcom-tool-kit/types`, implement the `check` and `install` methods, and export a `hooks` object to map it to the name we're giving it. Your `toolkit/npm-prepare/index.js` might include:
+Let's say you want to run some task on the npm `prepare` script (which automatically runs after `npm install` and before `npm publish`). We'll call that hook `prepare:local`, and the plugin will live in `toolkit/npm-prepare` ([structured as above](#common-plugin-structure)). Create a subclass of the `Hook` class from `@dotcom-tool-kit/types`, implement the `isInstalled` and `install` methods, and export a `hooks` object to map it to the name we're giving it. Your `toolkit/npm-prepare/index.js` might include:
 
 ```js
 const { Hook } = require('@dotcom-tool-kit/types')
@@ -101,7 +101,7 @@ class PrepareHook extends Hook {
     return this._packageJson
   }
 
-  async check() {
+  async isInstalled() {
     return this.packageJson.getField('scripts')?.prepare === 'dotcom-tool-kit prepare:local'
   }
 
