@@ -1,16 +1,10 @@
 import { styles } from '@dotcom-tool-kit/logger'
 import type { PackageJson } from 'type-fest'
-import { existsSync, promises as fs } from 'fs'
+import { existsSync } from 'fs'
 import prompt from 'prompts'
 import { BizOpsSystem } from '../bizOps'
 
-type PromptNames =
-  | 'preset'
-  | 'additional'
-  | 'addEslintConfig'
-  | 'deleteConfig'
-  | 'ignoreToolKitState'
-  | 'uninstall'
+type PromptNames = 'preset' | 'additional' | 'addEslintConfig' | 'deleteConfig' | 'fixGitignore' | 'uninstall'
 
 export interface MainParams {
   bizOpsSystem?: BizOpsSystem
@@ -44,14 +38,6 @@ export default async ({
     guessedPreset = 'backend-serverless-app'
   } else {
     guessedPreset = 'component'
-  }
-
-  let missingStateInGitignore
-  try {
-    const gitIgnore = await fs.readFile('.gitignore', 'utf8')
-    missingStateInGitignore = !gitIgnore.includes('toolkitstate')
-  } catch {
-    missingStateInGitignore = true
   }
 
   return prompt(
@@ -99,10 +85,11 @@ export default async ({
       },
       {
         name: 'addEslintConfig',
-        // Only show prompt if eslint was selected and there isn't a eslint config file already
-        type: (prev) => (prev.includes('eslint') && !existsSync(eslintConfigPath) ? 'confirm' : null),
-        initial: true,
-        message: `Would you like to add a default eslint config file at ${styles.filepath('./eslintrc.js')}?`
+        // Only show prompt if eslint plugin was selected
+        type: (prev) => (prev.includes('eslint') ? 'confirm' : null),
+        // Default to creating a config if config doesn't currently exist
+        initial: !existsSync(eslintConfigPath),
+        message: `Would you like to set a default eslint config file at ${styles.filepath('./eslintrc.js')}?`
       },
       {
         name: 'deleteConfig',
@@ -114,14 +101,12 @@ export default async ({
         )}.`
       },
       {
-        name: 'ignoreToolKitState',
-        type: missingStateInGitignore ? 'confirm' : null,
+        name: 'fixGitignore',
+        type: 'confirm',
         initial: true,
-        message: `Would you like the ${styles.filepath(
-          '.toolkitstate/'
-        )} directory to be added to your ${styles.filepath(
+        message: `Would you like your ${styles.filepath(
           '.gitignore'
-        )}? Tool Kit stores some state files that shouldn't be committed to your repository.`
+        )} to be updated? Tool Kit stores some state files that shouldn't be committed to your repository, whereas ESLint configuration should now be committed.`
       },
       {
         name: 'uninstall',
