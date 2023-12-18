@@ -266,7 +266,7 @@ export default abstract class CircleCiConfig extends Hook<z.ZodTypeAny, CircleCI
     return this._circleConfig
   }
 
-  async check(): Promise<boolean> {
+  async isInstalled(): Promise<boolean> {
     const rawConfig = await this.getCircleConfig()
     if (!rawConfig) {
       return false
