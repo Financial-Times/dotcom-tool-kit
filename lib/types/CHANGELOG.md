@@ -18,6 +18,27 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^3.2.0 to ^3.3.0
 
+## [3.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.4.1...types-v3.5.0) (2023-12-18)
+
+
+### Features
+
+* **create:** add suggestions to all required options ([2569e3f](https://github.com/Financial-Times/dotcom-tool-kit/commit/2569e3fdefc193298306844622f6238e74826084))
+* **create:** infer Heroku options based on Biz Ops and Heroku API ([8aa02b6](https://github.com/Financial-Times/dotcom-tool-kit/commit/8aa02b6916592abcdfbf3afa8c6c52e43dff83c5))
+* **create:** infer the rest of the Heroku options from Biz Ops data ([e3c626e](https://github.com/Financial-Times/dotcom-tool-kit/commit/e3c626ebfda662845d72c7130d197414fa922a91))
+
+
+### Bug Fixes
+
+* **create:** default all confirmation prompts to the happy path ([8dca215](https://github.com/Financial-Times/dotcom-tool-kit/commit/8dca2157ed42a39e36fb862641a7c6758c64db71))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.3.0 to ^3.3.1
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.3.1...types-v3.4.0) (2023-09-19)
 
 

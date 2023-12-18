@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.3.0...logger-v3.3.1) (2023-12-18)
+
+
+### Bug Fixes
+
+* **logger:** log if a child process was terminated by a signal ([5a4a9af](https://github.com/Financial-Times/dotcom-tool-kit/commit/5a4a9af7cd57b7f9728c8b59b75c57e0967a8aeb))
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.2.0...logger-v3.3.0) (2023-10-16)
 
 
