@@ -106,7 +106,7 @@ export default async ({
         initial: true,
         message: `Would you like your ${styles.filepath(
           '.gitignore'
-        )} to be updated? Tool Kit stores some state files that shouldn't be committed to your repository, whereas ESLint configuration can now be committed.`
+        )} to be updated? Tool Kit stores some state files that shouldn't be committed to your repository, whereas ESLint configuration should now be committed.`
       },
       {
         name: 'uninstall',
