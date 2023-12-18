@@ -32,7 +32,7 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
 
   for (const group of Object.values(groups)) {
     try {
-      if (await asyncSome(group, async (hook) => !(await hook.check()))) {
+      if (await asyncSome(group, async (hook) => !(await hook.isInstalled()))) {
         let state = undefined
         for (const hook of group) {
           state = await hook.install(state)

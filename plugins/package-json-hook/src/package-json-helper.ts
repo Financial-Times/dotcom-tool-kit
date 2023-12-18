@@ -40,7 +40,7 @@ export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJ
     return this._packageJson
   }
 
-  async check(): Promise<boolean> {
+  async isInstalled(): Promise<boolean> {
     const packageJson = await this.getPackageJson()
 
     // this instance's `options` is a nested object of expected package.json field/command mappings, e.g.

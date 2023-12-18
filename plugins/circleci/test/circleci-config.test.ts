@@ -56,13 +56,13 @@ describe('CircleCI config hook', () => {
     it('should return true if the hook job is in the circleci workflow', async () => {
       process.chdir(path.join(__dirname, 'files', 'with-hook'))
       const hook = new TestHook(logger, 'TestHook')
-      expect(await hook.check()).toBeTruthy()
+      expect(await hook.isInstalled()).toBeTruthy()
     })
 
     it('should return false if the hook job is not in the circleci workflow', async () => {
       process.chdir(path.join(__dirname, 'files', 'without-hook'))
       const hook = new TestHook(logger, 'TestHook')
-      expect(await hook.check()).toBeFalsy()
+      expect(await hook.isInstalled()).toBeFalsy()
     })
 
     it('should return false if the base configuration is missing', async () => {
@@ -71,7 +71,7 @@ describe('CircleCI config hook', () => {
       // reset field overridden by FakeCircleCiConfigHook so that we do check
       // for the base config
       hook.haveCheckedBaseConfig = false
-      expect(await hook.check()).toBeFalsy()
+      expect(await hook.isInstalled()).toBeFalsy()
     })
   })
 
