@@ -9,6 +9,7 @@ export type RCFile = {
   tasks: { [id: string]: string }
   commands: { [id: string]: string | string[] }
   options: { [id: string]: Record<string, unknown> }
+  hooks: { [id: string]: Record<string, unknown> }[]
 }
 
 export interface Plugin {

@@ -2,7 +2,7 @@ import { styles as s, styles } from '@dotcom-tool-kit/logger'
 import type { Hook, Plugin } from '@dotcom-tool-kit/types'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
-import type { EntryPoint, PluginOptions } from './config'
+import type {  EntryPoint, PluginOptions } from './config'
 import type { Conflict } from '@dotcom-tool-kit/types/lib/conflict'
 import type { CommandTask } from './command'
 
@@ -118,7 +118,7 @@ ${
 `
 
 export const formatUninstalledHooks = (
-  uninstalledHooks: Hook<unknown>[]
+  uninstalledHooks: Hook<z.ZodTypeAny, unknown>[]
 ): string => `These hooks aren't installed into your app:
 
 ${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join('\n')}

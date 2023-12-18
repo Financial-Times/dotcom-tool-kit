@@ -10,6 +10,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/types": "^3.4.0",
     "@financial-times/package-json": "^3.0.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"
