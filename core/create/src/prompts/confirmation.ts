@@ -19,6 +19,7 @@ export default ({
   return prompt({
     name: 'confirm',
     type: 'confirm',
+    initial: true,
     message: () => {
       return `so, we're gonna:
 

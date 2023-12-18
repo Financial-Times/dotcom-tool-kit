@@ -125,6 +125,7 @@ export default async function oidcPrompt(): Promise<boolean> {
   const { confirm } = await prompt({
     name: 'confirm',
     type: 'confirm',
+    initial: true,
     message: 'Would you like OIDC authentication to be set up automatically for your Serverless app?'
   })
   if (!confirm || cancelled) {
