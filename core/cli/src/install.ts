@@ -31,8 +31,8 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
   const groups = groupBy(hooks, (hook) => hook.installGroup ?? '__' + hook.id)
   for (const group of Object.values(groups)) {
     try {
-      const allChecksPassed = await asyncEvery(group, (hook) => hook.check())
-      if (!allChecksPassed) {
+      const allHooksInstalled = await asyncEvery(group, (hook) => hook.isInstalled())
+      if (!allHooksInstalled) {
         let state = undefined
         for (const hook of group) {
           state = await hook.install(state)

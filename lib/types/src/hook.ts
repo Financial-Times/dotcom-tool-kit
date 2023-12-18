@@ -56,7 +56,7 @@ export abstract class Hook<Options extends z.ZodTypeAny = z.ZodTypeAny, State = 
     this.logger = logger.child({ hook: this.constructor.name })
   }
 
-  abstract check(): Promise<boolean>
+  abstract isInstalled(): Promise<boolean>
   abstract install(state?: State): Promise<State>
   async commitInstall(_state: State): Promise<void> {
     return
