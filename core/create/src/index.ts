@@ -55,6 +55,7 @@ function clearConfigCache() {
 async function executeMigration(
   deleteConfig: boolean,
   addEslintConfig: boolean,
+  ignoreToolKitState: boolean,
   configFile: string
 ): Promise<void> {
   for (const pkg of packagesToInstall) {
@@ -85,7 +86,11 @@ async function executeMigration(
     ? logger.logPromise(fsp.unlink(circleConfigPath), 'removing old CircleCI config')
     : Promise.resolve()
 
-  await Promise.all([configPromise, eslintConfigPromise, unlinkPromise])
+  const ignorePromise = ignoreToolKitState
+    ? logger.logPromise(fsp.appendFile('.gitignore', '/.toolkitstate\n'), 'ignoring Tool Kit state')
+    : Promise.resolve()
+
+  await Promise.all([configPromise, eslintConfigPromise, unlinkPromise, ignorePromise])
 }
 
 async function main() {
@@ -99,7 +104,14 @@ async function main() {
   const bizOpsSystem = await systemCodePrompt({ packageJson })
   // Start with the initial prompt which will get most of the information we
   // need for the remainder of the execution
-  const { preset, additional, addEslintConfig, deleteConfig, uninstall } = await mainPrompt({
+  const {
+    preset,
+    additional,
+    addEslintConfig,
+    deleteConfig,
+    uninstall,
+    ignoreToolKitState
+  } = await mainPrompt({
     bizOpsSystem,
     packageJson,
     originalCircleConfig,
@@ -123,6 +135,7 @@ async function main() {
   const { confirm } = await confirmationPrompt({
     deleteConfig,
     addEslintConfig,
+    ignoreToolKitState,
     packagesToInstall,
     packagesToRemove,
     configFile
@@ -133,7 +146,7 @@ async function main() {
   }
   // Carry out the proposed changes: install + uninstall packages, add config
   // files, etc.
-  await executeMigration(deleteConfig, addEslintConfig, configFile)
+  await executeMigration(deleteConfig, addEslintConfig, ignoreToolKitState, configFile)
   // Use user's version of Tool Kit that we've just installed for them to load
   // the config to avoid any incompatibilities with a version that create might
   // use
