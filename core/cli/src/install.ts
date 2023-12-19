@@ -3,9 +3,17 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
-import { loadConfig, ValidConfig } from './config'
+import { loadConfig } from './config'
 import { hasConfigChanged, updateHashes } from './config/hash'
-import { Hook, HookClass, Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/types'
+import {
+  Hook,
+  HookClass,
+  ValidConfig,
+  Validated,
+  invalid,
+  reduceValidated,
+  valid
+} from '@dotcom-tool-kit/types'
 import { importEntryPoint } from './plugin'
 import { reducePluginHookInstallations } from './plugin/reduce-installations'
 import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/types/src/conflict'

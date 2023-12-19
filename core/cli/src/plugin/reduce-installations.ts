@@ -1,6 +1,5 @@
 import { Logger } from 'winston'
-import { ValidConfig } from '../config'
-import { HookClass, HookInstallation, Plugin } from '@dotcom-tool-kit/types'
+import { HookClass, HookInstallation, Plugin, ValidConfig } from '@dotcom-tool-kit/types'
 import { Conflict, isConflict } from '@dotcom-tool-kit/types/src/conflict'
 import { groupBy } from 'lodash'
 import { HookSchemas, Options as HookOptions } from '@dotcom-tool-kit/types/src/hooks'
