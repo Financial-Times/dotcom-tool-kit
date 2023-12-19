@@ -1,10 +1,19 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
-import { invalid, Plugin, reduceValidated, valid, Validated } from '@dotcom-tool-kit/types'
+import {
+  CommandTask,
+  EntryPoint,
+  invalid,
+  Plugin,
+  PluginOptions,
+  RawConfig,
+  reduceValidated,
+  valid,
+  Validated,
+  ValidPluginsConfig
+} from '@dotcom-tool-kit/types'
 import resolvePkg from 'resolve-pkg'
 import type { Logger } from 'winston'
-import { EntryPoint, PluginOptions, RawConfig, ValidPluginsConfig } from './config'
 import { Conflict, isConflict } from '@dotcom-tool-kit/types/lib/conflict'
-import type { CommandTask } from './command'
 import { loadToolKitRC } from './rc-file'
 import { isPlainObject } from 'lodash'
 import { Base } from '@dotcom-tool-kit/types/src/base'
