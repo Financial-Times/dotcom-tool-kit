@@ -63,6 +63,8 @@ export abstract class Hook<Options extends z.ZodTypeAny = z.ZodTypeAny, State = 
   }
 }
 
-export type HookConstructor = { new (logger: Logger, id: string, options: z.output<z.ZodTypeAny>): Hook }
+export type HookConstructor = {
+  new (logger: Logger, id: string, options: z.output<z.ZodTypeAny>): Hook<z.ZodTypeAny, unknown>
+}
 
 export type HookClass = HookConstructor & typeof Hook
