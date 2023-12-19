@@ -1,9 +1,8 @@
 import path from 'path'
 import type { Logger } from 'winston'
-import { z } from 'zod'
 
 import type { CommandTask } from './command'
-import { importEntryPoint, loadPlugin, resolvePlugin } from './plugin'
+import { loadPlugin, resolvePlugin } from './plugin'
 import {
   Conflict,
   findConflicts,
@@ -11,10 +10,9 @@ import {
   isConflict,
   findConflictingEntries
 } from '@dotcom-tool-kit/types/lib/conflict'
-import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import { Hook, HookClass, invalid, Plugin, reduceValidated, valid, Validated } from '@dotcom-tool-kit/types'
+import { ToolKitConflictError } from '@dotcom-tool-kit/error'
+import { Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
 import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
-import { Options as HookSchemaOptions, HookSchemas } from '@dotcom-tool-kit/types/lib/hooks'
 import {
   InvalidOption,
   formatTaskConflicts,
@@ -23,12 +21,9 @@ import {
   formatCommandTaskConflicts,
   formatHookConflicts,
   formatOptionConflicts,
-  formatUninstalledHooks,
   formatMissingTasks,
   formatInvalidOptions
 } from './messages'
-import { reducePluginHookInstallations } from './plugin/reduce-installations'
-import { hasConfigChanged, updateHashes } from './config/hash'
 
 export interface PluginOptions {
   options: Record<string, unknown>
@@ -72,72 +67,6 @@ export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'o
 
 const coreRoot = path.resolve(__dirname, '../')
 
-const loadHookEntrypoints = async (
-  logger: Logger,
-  config: ValidConfig
-): Promise<Validated<Record<string, HookClass>>> => {
-  const hookResultEntries = reduceValidated(
-    await Promise.all(
-      Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
-        const hookResult = await importEntryPoint(Hook, entryPoint)
-        return hookResult.map((hookClass) => [hookName, hookClass as HookClass] as const)
-      })
-    )
-  )
-
-  return hookResultEntries.map((hookEntries) => Object.fromEntries(hookEntries))
-}
-
-export const loadHookInstallations = async (
-  logger: Logger,
-  config: ValidConfig
-): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
-  const hookClassResults = await loadHookEntrypoints(logger, config)
-  const installationResults = await hookClassResults
-    .map((hookClasses) =>
-      reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
-    )
-    .awaitValue()
-
-  const installationsWithoutConflicts = installationResults.flatMap((installations) => {
-    const conflicts = findConflicts(installations)
-
-    if (conflicts.length) {
-      return invalid<[]>([])
-    }
-
-    return valid(withoutConflicts(installations))
-  })
-
-  return installationsWithoutConflicts.map((installations) => {
-    return installations.map(({ hookConstructor, forHook, options }) => {
-      const schema = HookSchemas[forHook as keyof HookSchemaOptions]
-      const parsedOptions = schema ? schema.parse(options) : {}
-      return new hookConstructor(logger, forHook, parsedOptions)
-    })
-  })
-}
-
-export async function checkInstall(logger: Logger, config: ValidConfig): Promise<void> {
-  if (!(await hasConfigChanged(logger))) {
-    return
-  }
-
-  const hooks = (await loadHookInstallations(logger, config)).unwrap('hooks are invalid')
-
-  const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
-    return !(await hook.isInstalled())
-  })
-
-  if (uninstalledHooks.length > 0) {
-    const error = new ToolKitError('There are problems with your Tool Kit installation.')
-    error.details = formatUninstalledHooks(uninstalledHooks)
-    throw error
-  }
-
-  await updateHashes()
-}
-
 export const createConfig = (): RawConfig => ({
   root: coreRoot,
   plugins: {},
@@ -147,12 +76,6 @@ export const createConfig = (): RawConfig => ({
   options: {},
   hooks: {}
 })
-
-async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
-  const results = await Promise.all(items.map(async (item) => ({ item, keep: await predicate(item) })))
-
-  return results.filter(({ keep }) => keep).map(({ item }) => item)
-}
 
 export function validateConfig(config: ValidPluginsConfig, logger: Logger): ValidConfig {
   const validConfig = config as ValidConfig

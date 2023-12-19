@@ -1,5 +1,5 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { ValidConfig, checkInstall, loadConfig } from './config'
+import { ValidConfig, loadConfig } from './config'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
@@ -7,6 +7,7 @@ import util from 'util'
 import { formatPluginTree } from './messages'
 import { Task, TaskConstructor, Validated, reduceValidated } from '@dotcom-tool-kit/types'
 import { importEntryPoint } from './plugin'
+import { checkInstall } from './install'
 
 type ErrorSummary = {
   hook: string
