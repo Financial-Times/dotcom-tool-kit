@@ -16,16 +16,10 @@ import type { Logger } from 'winston'
 import { Conflict, isConflict } from '@dotcom-tool-kit/types/lib/conflict'
 import { loadToolKitRC } from './rc-file'
 import { indentReasons } from './messages'
-
-function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
-  if (!possibleDescendent.parent) {
-    return false
-  } else if (possibleDescendent.parent === possibleAncestor) {
-    return true
-  } else {
-    return isDescendent(possibleAncestor, possibleDescendent.parent)
-  }
-}
+import { mergePluginTasks } from './plugin/merge-tasks'
+import { mergePluginHooks } from './plugin/merge-hooks'
+import { mergePluginCommands } from './plugin/merge-commands'
+import { mergePluginOptions } from './plugin/merge-options'
 
 export async function loadPlugin(
   id: string,
@@ -89,127 +83,10 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
     }
   }
 
-  if (plugin.rcFile) {
-    // add plugin tasks to our task registry, handling any conflicts
-    for (const [taskName, modulePath] of Object.entries(plugin.rcFile.tasks || {})) {
-      const existingTaskId = config.tasks[taskName]
-      const entryPoint: EntryPoint = {
-        plugin,
-        modulePath
-      }
-
-      if (existingTaskId) {
-        const conflicting = isConflict(existingTaskId) ? existingTaskId.conflicting : [existingTaskId]
-
-        config.tasks[taskName] = {
-          plugin,
-          conflicting: conflicting.concat(entryPoint)
-        }
-      } else {
-        config.tasks[taskName] = entryPoint
-      }
-    }
-
-    // add hooks to the registry, handling any conflicts
-    // TODO refactor with command conflict handler
-    for (const [hookName, modulePath] of Object.entries(plugin.rcFile.installs || {})) {
-      const existingHookId = config.hooks[hookName]
-      const entryPoint: EntryPoint = {
-        plugin,
-        modulePath
-      }
-
-      if (existingHookId) {
-        const conflicting = isConflict(existingHookId) ? existingHookId.conflicting : [existingHookId]
-
-        config.hooks[hookName] = {
-          plugin,
-          conflicting: conflicting.concat(entryPoint)
-        }
-      } else {
-        config.hooks[hookName] = entryPoint
-      }
-    }
-
-    // load plugin command tasks. do this after loading child plugins, so
-    // parent commands get assigned after child commands and can override them
-    for (const [id, configCommandTask] of Object.entries(plugin.rcFile.commands)) {
-      // handle conflicts between commands from different plugins
-      const existingCommandTask = config.commandTasks[id]
-      const newCommandTask: CommandTask = {
-        id,
-        plugin,
-        tasks: Array.isArray(configCommandTask) ? configCommandTask : [configCommandTask]
-      }
-
-      if (existingCommandTask) {
-        const existingFromDescendent = isDescendent(plugin, existingCommandTask.plugin)
-
-        // plugins can only override command tasks from their descendents, otherwise that's a conflict
-        // return a conflict either listing this command and the siblings,
-        // or merging in a previously-generated command
-        if (!existingFromDescendent) {
-          const conflicting = isConflict(existingCommandTask)
-            ? existingCommandTask.conflicting
-            : [existingCommandTask]
-
-          const conflict: Conflict<CommandTask> = {
-            plugin,
-            conflicting: conflicting.concat(newCommandTask)
-          }
-
-          config.commandTasks[id] = conflict
-        } else {
-          // if we're here, any existing command is from a child plugin,
-          // so the parent always overrides it
-          config.commandTasks[id] = newCommandTask
-        }
-      } else {
-        // this command task might not have been set yet, in which case use the new one
-        config.commandTasks[id] = newCommandTask
-      }
-    }
-
-    // merge options from this plugin's config with any options we've collected already
-    // TODO this is almost the exact same code as for command tasks, refactor
-    for (const [id, configOptions] of Object.entries(plugin.rcFile.options)) {
-      // users can specify root options with the dotcom-tool-kit key to mirror
-      // the name of the root npm package
-      const pluginId = id === 'dotcom-tool-kit' ? 'app root' : id
-      const existingOptions = config.options[pluginId]
-
-      const pluginOptions: PluginOptions = {
-        options: configOptions,
-        plugin,
-        forPlugin: config.plugins[pluginId]
-      }
-
-      if (existingOptions) {
-        const existingFromDescendent = isDescendent(plugin, existingOptions.plugin)
-
-        // plugins can only override options from their descendents, otherwise it's a conflict
-        // return a conflict either listing these options and the sibling's,
-        // or merging in previously-generated options
-        if (!existingFromDescendent) {
-          const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
-
-          const conflict: Conflict<PluginOptions> = {
-            plugin,
-            conflicting: conflicting.concat(pluginOptions)
-          }
-
-          config.options[pluginId] = conflict
-        } else {
-          // if we're here, any existing options are from a child plugin,
-          // so merge in overrides from the parent
-          config.options[pluginId] = { ...existingOptions, ...pluginOptions }
-        }
-      } else {
-        // this options key might not have been set yet, in which case use the new one
-        config.options[pluginId] = pluginOptions
-      }
-    }
-  }
+  mergePluginTasks(config, plugin)
+  mergePluginHooks(config, plugin)
+  mergePluginCommands(config, plugin)
+  mergePluginOptions(config, plugin)
 
   config.resolvedPlugins.add(plugin.id)
 }
