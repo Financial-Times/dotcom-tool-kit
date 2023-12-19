@@ -361,14 +361,7 @@ describe('package.json hook', () => {
           options: {
             scripts: {
               test: 'test:ci'
-            }
-          }
-        },
-        {
-          plugin: { id: 'b', root: 'plugins/b' },
-          forHook: 'PackageJson',
-          hookConstructor: PackageJson,
-          options: {
+            },
             another: {
               field: 'something:else'
             }
@@ -415,24 +408,29 @@ describe('package.json hook', () => {
 
       const childInstallations = [
         {
-          plugin: { id: 'a', root: 'plugins/a' },
-          forHook: 'PackageJson',
-          hookConstructor: PackageJson,
-          options: {
-            scripts: {
-              test: 'test:local'
+          plugin: { id: 'c', root: 'plugins/c' },
+          conflicting: [
+            {
+              plugin: { id: 'a', root: 'plugins/a' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  test: 'test:local'
+                }
+              }
+            },
+            {
+              plugin: { id: 'b', root: 'plugins/b' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  test: 'test:ci'
+                }
+              }
             }
-          }
-        },
-        {
-          plugin: { id: 'b', root: 'plugins/b' },
-          forHook: 'PackageJson',
-          hookConstructor: PackageJson,
-          options: {
-            scripts: {
-              test: 'test:ci'
-            }
-          }
+          ]
         }
       ]
 
@@ -472,24 +470,29 @@ describe('package.json hook', () => {
 
       const childInstallations = [
         {
-          plugin: { id: 'a', root: 'plugins/a' },
-          forHook: 'PackageJson',
-          hookConstructor: PackageJson,
-          options: {
-            scripts: {
-              build: 'build:ci'
+          plugin: { id: 'c', root: 'plugins/c' },
+          conflicting: [
+            {
+              plugin: { id: 'a', root: 'plugins/a' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  build: 'build:local'
+                }
+              }
+            },
+            {
+              plugin: { id: 'b', root: 'plugins/b' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  build: 'build:ci'
+                }
+              }
             }
-          }
-        },
-        {
-          plugin: { id: 'b', root: 'plugins/b' },
-          forHook: 'PackageJson',
-          hookConstructor: PackageJson,
-          options: {
-            scripts: {
-              build: 'build:local'
-            }
-          }
+          ]
         }
       ]
 
@@ -511,8 +514,128 @@ describe('package.json hook', () => {
           }
         },
         {
+          plugin: { id: 'p', root: 'plugins/p' },
+          conflicting: childInstallations[0].conflicting
+        }
+      ])
+    })
+
+    it(`should basically be god`, () => {
+      const plugin = { id: 'p', root: 'plugins/p' }
+
+      const parentInstallation = {
+        plugin,
+        forHook: 'PackageJson',
+        hookConstructor: PackageJson,
+        options: {
+          scripts: {
+            test: 'test:local'
+          }
+        }
+      }
+
+      const childInstallations = [
+        {
+          plugin: { id: 'd', root: 'plugins/d' },
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            another: {
+              field: 'something:else'
+            }
+          }
+        },
+        {
+          plugin: { id: 'c', root: 'plugins/c' },
+          conflicting: [
+            {
+              plugin: { id: 'a', root: 'plugins/a' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  build: 'build:local'
+                }
+              }
+            },
+            {
+              plugin: { id: 'b', root: 'plugins/b' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  build: 'build:ci'
+                }
+              }
+            },
+            {
+              plugin: { id: 'e', root: 'plugins/e' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  test: 'test:local'
+                }
+              }
+            },
+            {
+              plugin: { id: 'f', root: 'plugins/f' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  test: 'test:ci'
+                }
+              }
+            }
+          ]
+        }
+      ]
+
+      expect(
+        PackageJson.overrideChildInstallations(
           plugin,
-          conflicting: childInstallations
+          (parentInstallation as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
+          (childInstallations as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
+        )
+      ).toEqual([
+        {
+          plugin,
+          forHook: 'PackageJson',
+          hookConstructor: PackageJson,
+          options: {
+            scripts: {
+              test: 'test:local'
+            },
+            another: {
+              field: 'something:else'
+            }
+          }
+        },
+        {
+          plugin: { id: 'p', root: 'plugins/p' },
+          conflicting: [
+            {
+              plugin: { id: 'a', root: 'plugins/a' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  build: 'build:local'
+                }
+              }
+            },
+            {
+              plugin: { id: 'b', root: 'plugins/b' },
+              forHook: 'PackageJson',
+              hookConstructor: PackageJson,
+              options: {
+                scripts: {
+                  build: 'build:ci'
+                }
+              }
+            }
+          ]
         }
       ])
     })
