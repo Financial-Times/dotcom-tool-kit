@@ -2,7 +2,8 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
-import { loadConfig, loadHookInstallations, updateHashes, ValidConfig } from './config'
+import { loadConfig, loadHookInstallations, ValidConfig } from './config'
+import { updateHashes } from './config/hash'
 
 // implementation of the Array.every method that supports asynchronous predicates
 async function asyncEvery<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
