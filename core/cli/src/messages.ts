@@ -159,3 +159,5 @@ export function formatPluginTree(plugin: Plugin): string[] {
     )
   ]
 }
+
+export const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
