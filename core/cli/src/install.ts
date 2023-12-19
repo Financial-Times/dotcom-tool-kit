@@ -14,11 +14,11 @@ import {
   reduceValidated,
   valid
 } from '@dotcom-tool-kit/types'
-import { importEntryPoint } from './plugin'
 import { reducePluginHookInstallations } from './plugin/reduce-installations'
 import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/types/src/conflict'
 import { Options as HookSchemaOptions, HookSchemas } from '@dotcom-tool-kit/types/lib/hooks'
 import { formatUninstalledHooks } from './messages'
+import { importEntryPoint } from './plugin/entry-point'
 
 // implementation of the Array#every method that supports asynchronous predicates
 async function asyncEvery<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
