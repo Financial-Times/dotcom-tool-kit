@@ -9,16 +9,8 @@ import {
   findConflictingEntries
 } from '@dotcom-tool-kit/types/lib/conflict'
 import { ToolKitConflictError } from '@dotcom-tool-kit/error'
+import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/types'
 import {
-  RawConfig,
-  reduceValidated,
-  Validated,
-  ValidConfig,
-  ValidPluginsConfig
-} from '@dotcom-tool-kit/types'
-import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
-import {
-  InvalidOption,
   formatTaskConflicts,
   formatUndefinedCommandTasks,
   formatUnusedOptions,
@@ -28,6 +20,8 @@ import {
   formatMissingTasks,
   formatInvalidOptions
 } from './messages'
+import { validatePlugins } from './config/validate-plugins'
+import { validatePluginOptions } from './plugin/options'
 
 const coreRoot = path.resolve(__dirname, '../')
 
@@ -105,40 +99,8 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     error.details += formatUndefinedCommandTasks(undefinedCommandTasks, Array.from(definedHookIds))
   }
 
-  const invalidOptions: InvalidOption[] = []
-  for (const [id, plugin] of Object.entries(config.plugins)) {
-    const pluginId = id as keyof SchemaOptions
-    const pluginOptions = config.options[pluginId]
-    if (pluginOptions && isConflict(pluginOptions)) {
-      continue
-    }
+  const invalidOptions = validatePluginOptions(logger, config)
 
-    const pluginSchema = Schemas[pluginId]
-    if (!pluginSchema) {
-      logger.silly(`skipping validation of ${pluginId} plugin as no schema can be found`)
-      continue
-    }
-    const result = pluginSchema.safeParse(pluginOptions?.options ?? {})
-    if (result.success) {
-      // Set up options entry for plugins that don't have options specified
-      // explicitly. They could still have default options that are set by zod.
-      if (!pluginOptions) {
-        // TypeScript struggles with this type as it sees one side as
-        // `Foo<a | b | c>` and the other as `Foo<a> | Foo<b> | Foo<c>` for
-        // some reason (something to do with the record indexing) and it can't
-        // unify them. But they are equivalent so let's force it with a cast.
-        config.options[pluginId] = {
-          options: result.data,
-          plugin: config.plugins['app root'],
-          forPlugin: plugin
-        } as any // eslint-disable-line @typescript-eslint/no-explicit-any
-      } else {
-        pluginOptions.options = result.data
-      }
-    } else {
-      invalidOptions.push([id, result.error])
-    }
-  }
   if (invalidOptions.length > 0) {
     shouldThrow = true
     error.details += formatInvalidOptions(invalidOptions)
@@ -172,13 +134,6 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
   }
 
   return validConfig
-}
-
-export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig> {
-  const validatedPlugins = reduceValidated(
-    Object.entries(config.plugins).map(([id, plugin]) => plugin.map((p) => [id, p] as const))
-  )
-  return validatedPlugins.map((plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
 }
 
 export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
