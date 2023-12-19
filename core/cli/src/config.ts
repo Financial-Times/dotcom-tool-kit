@@ -1,17 +1,21 @@
 import path from 'path'
 import type { Logger } from 'winston'
 
-import type { CommandTask } from './command'
 import { loadPlugin, resolvePlugin } from './plugin'
 import {
-  Conflict,
   findConflicts,
   withoutConflicts,
   isConflict,
   findConflictingEntries
 } from '@dotcom-tool-kit/types/lib/conflict'
 import { ToolKitConflictError } from '@dotcom-tool-kit/error'
-import { Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
+import {
+  RawConfig,
+  reduceValidated,
+  Validated,
+  ValidConfig,
+  ValidPluginsConfig
+} from '@dotcom-tool-kit/types'
 import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
 import {
   InvalidOption,
@@ -24,46 +28,6 @@ import {
   formatMissingTasks,
   formatInvalidOptions
 } from './messages'
-
-export interface PluginOptions {
-  options: Record<string, unknown>
-  plugin: Plugin
-  forPlugin: Plugin
-}
-
-export interface EntryPoint {
-  plugin: Plugin
-  modulePath: string
-}
-
-export interface RawConfig {
-  root: string
-  plugins: { [id: string]: Validated<Plugin> }
-  resolvedPlugins: Set<string>
-  tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
-  commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
-  options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
-  hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
-}
-
-export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
-  plugins: { [id: string]: Plugin }
-}
-
-export type ValidPluginOptions<Id extends keyof SchemaOptions> = Omit<PluginOptions, 'options'> & {
-  options: SchemaOptions[Id]
-}
-
-export type ValidOptions = {
-  [Id in keyof SchemaOptions]: ValidPluginOptions<Id>
-}
-
-export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'options' | 'hooks'> & {
-  tasks: { [id: string]: EntryPoint }
-  commandTasks: { [id: string]: CommandTask }
-  options: ValidOptions
-  hooks: { [id: string]: EntryPoint }
-}
 
 const coreRoot = path.resolve(__dirname, '../')
 
