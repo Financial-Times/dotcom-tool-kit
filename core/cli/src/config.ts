@@ -6,7 +6,7 @@ import type { Logger } from 'winston'
 import { z } from 'zod'
 
 import type { CommandTask } from './command'
-import { importEntryPoint, loadPlugin, reducePluginHookInstallations, resolvePlugin } from './plugin'
+import { importEntryPoint, loadPlugin, resolvePlugin } from './plugin'
 import {
   Conflict,
   findConflicts,
@@ -31,6 +31,7 @@ import {
   formatMissingTasks,
   formatInvalidOptions
 } from './messages'
+import { reducePluginHookInstallations } from './plugin/reduce-installations'
 
 export interface PluginOptions {
   options: Record<string, unknown>
