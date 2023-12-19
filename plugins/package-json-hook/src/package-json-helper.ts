@@ -61,6 +61,32 @@ function partitionInstallations(
   return [[...stillMergeable, installation], unmergeable]
 }
 
+function mergeInstallationResults(
+  plugin: Plugin,
+  mergeable: HookInstallation<z.output<typeof PackageJsonSchema>>[],
+  unmergeable: HookInstallation<z.output<typeof PackageJsonSchema>>[]
+) {
+  const results: (HookInstallation<z.output<typeof PackageJsonSchema>> | Conflict<HookInstallation>)[] = []
+
+  if (mergeable.length > 0) {
+    results.push({
+      plugin,
+      forHook: 'PackageJson',
+      hookConstructor: PackageJson,
+      options: merge({}, ...mergeable.map((installation) => installation.options))
+    })
+  }
+
+  if (unmergeable.length > 0) {
+    results.push({
+      plugin,
+      conflicting: unmergeable
+    })
+  }
+
+  return results
+}
+
 export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJsonState> {
   private _packageJson?: PackageJsonContents
 
@@ -82,37 +108,40 @@ export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJ
       if (isConflict(installation)) {
         unmergeable.push(...installation.conflicting)
       } else {
-        [mergeable, unmergeable] = partitionInstallations(installation, mergeable, unmergeable)
+        ;[mergeable, unmergeable] = partitionInstallations(installation, mergeable, unmergeable)
       }
     }
 
-    const results: (HookInstallation<z.output<typeof PackageJsonSchema>> | Conflict<HookInstallation>)[] = []
-
-    if (mergeable.length > 0) {
-      results.push({
-        plugin,
-        forHook: 'PackageJson',
-        hookConstructor: PackageJson,
-        options: merge({}, ...mergeable.map((installation) => installation.options))
-      })
-    }
-
-    if (unmergeable.length > 0) {
-      results.push({
-        plugin,
-        conflicting: unmergeable
-      })
-    }
-
-    return results
+    return mergeInstallationResults(plugin, mergeable, unmergeable)
   }
 
   static overrideChildInstallations(
     plugin: Plugin,
-    parentInstallation: HookInstallation,
-    _childInstallations: (HookInstallation | Conflict<HookInstallation>)[]
-  ): (HookInstallation | Conflict<HookInstallation>)[] {
-    return [parentInstallation]
+    parentInstallation: HookInstallation<z.output<typeof PackageJsonSchema>>,
+    childInstallations: (
+      | HookInstallation<z.output<typeof PackageJsonSchema>>
+      | Conflict<HookInstallation<z.output<typeof PackageJsonSchema>>>
+    )[]
+  ): (HookInstallation<z.output<typeof PackageJsonSchema>> | Conflict<HookInstallation>)[] {
+    const mergeable: HookInstallation<z.output<typeof PackageJsonSchema>>[] = []
+    const unmergeable: HookInstallation<z.output<typeof PackageJsonSchema>>[] = []
+
+    for (const installation of childInstallations) {
+      if (isConflict(installation)) {
+        const [canHandle, cannotHandle] = partition(installation.conflicting, (other) =>
+          installationsOverlap(parentInstallation, other)
+        )
+
+        mergeable.push(...canHandle)
+        unmergeable.push(...cannotHandle)
+      } else {
+        mergeable.push(installation)
+      }
+    }
+
+    mergeable.push(parentInstallation)
+
+    return mergeInstallationResults(plugin, mergeable, unmergeable)
   }
 
   async getPackageJson(): Promise<PackageJsonContents> {

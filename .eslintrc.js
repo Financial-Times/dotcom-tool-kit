@@ -15,7 +15,9 @@ module.exports = {
     'no-unused-vars': 'off',
     // Necessary to allow us to define arguments in a method that only subclasses use
     // https://github.com/typescript-eslint/typescript-eslint/issues/586#issuecomment-510099609
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    // Prettier sometimes like inserting semis
+    '@typescript-eslint/no-extra-semi': 'off'
   },
   overrides: [
     {
