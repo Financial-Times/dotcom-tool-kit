@@ -1,10 +1,8 @@
 import { styles as s, styles } from '@dotcom-tool-kit/logger'
-import type { Hook, Plugin } from '@dotcom-tool-kit/types'
+import type { CommandTask, EntryPoint, Hook, Plugin, PluginOptions } from '@dotcom-tool-kit/types'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
-import type {  EntryPoint, PluginOptions } from './config'
 import type { Conflict } from '@dotcom-tool-kit/types/lib/conflict'
-import type { CommandTask } from './command'
 
 const formatTaskConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>
   `- ${s.task(key ?? 'unknown task')} ${s.dim('from plugins')} ${conflict.conflicting
