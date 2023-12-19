@@ -5,8 +5,8 @@ import { z } from 'zod'
 import { Plugin } from './index'
 import { Conflict, isConflict } from './conflict'
 
-export interface HookInstallation {
-  options: Record<string, unknown>
+export interface HookInstallation<Options = Record<string, unknown>> {
+  options: Options
   plugin: Plugin
   forHook: string
   hookConstructor: HookConstructor
