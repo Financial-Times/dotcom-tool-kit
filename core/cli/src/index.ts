@@ -6,8 +6,8 @@ import type { Logger } from 'winston'
 import util from 'util'
 import { formatPluginTree } from './messages'
 import { Task, TaskConstructor, ValidConfig, Validated, reduceValidated } from '@dotcom-tool-kit/types'
-import { importEntryPoint } from './plugin'
 import { checkInstall } from './install'
+import { importEntryPoint } from './plugin/entry-point'
 
 type ErrorSummary = {
   hook: string

@@ -15,8 +15,7 @@ import resolvePkg from 'resolve-pkg'
 import type { Logger } from 'winston'
 import { Conflict, isConflict } from '@dotcom-tool-kit/types/lib/conflict'
 import { loadToolKitRC } from './rc-file'
-import { isPlainObject } from 'lodash'
-import { Base } from '@dotcom-tool-kit/types/src/base'
+import { indentReasons } from './messages'
 
 function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {
@@ -27,61 +26,6 @@ function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boo
     return isDescendent(possibleAncestor, possibleDescendent.parent)
   }
 }
-
-const isPlainObjectGuard = (value: unknown): value is Record<string, unknown> => isPlainObject(value)
-
-// the subclasses of Base have different constructor signatures so we need to omit
-// the constructor from the type bound here so you can actually pass in a subclass
-export async function importEntryPoint<T extends { name: string } & Omit<typeof Base, 'new'>>(
-  type: T,
-  entryPoint: EntryPoint
-): Promise<Validated<T>> {
-  const resolvedPath = resolvePkg(entryPoint.modulePath, { cwd: entryPoint.plugin.root })
-
-  if (!resolvedPath) {
-    return invalid([
-      `could not find entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
-        entryPoint.plugin.id
-      )}`
-    ])
-  }
-
-  let pluginModule: unknown
-  try {
-    pluginModule = await import(resolvedPath)
-  } catch (e) {
-    const err = e as Error
-    return invalid([
-      `an error was thrown when loading entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
-        entryPoint.plugin.id
-      )}:\n  ${s.code(indentReasons(err.toString()))}`
-    ])
-  }
-
-  if (
-    isPlainObjectGuard(pluginModule) &&
-    'default' in pluginModule &&
-    typeof pluginModule.default === 'function'
-  ) {
-    const name = pluginModule.default.name
-
-    return type
-      .isCompatible<T>(pluginModule.default)
-      .mapError((reasons) => [
-        `the ${type.name.toLowerCase()} ${s.hook(name)} is not a compatible instance of ${s.code(
-          type.name
-        )}:\n  - ${reasons.join('\n  - ')}`
-      ])
-  } else {
-    return invalid([
-      `entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
-        entryPoint.plugin.id
-      )} does not have a ${s.code('default')} export`
-    ])
-  }
-}
-
-const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
 
 export async function loadPlugin(
   id: string,
