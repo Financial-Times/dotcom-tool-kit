@@ -1,6 +1,3 @@
-import { createHash } from 'node:crypto'
-import { readFile } from 'node:fs/promises'
-
 import path from 'path'
 import type { Logger } from 'winston'
 import { z } from 'zod'
@@ -15,7 +12,6 @@ import {
   findConflictingEntries
 } from '@dotcom-tool-kit/types/lib/conflict'
 import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import { readState, configPaths, writeState } from '@dotcom-tool-kit/state'
 import { Hook, HookClass, invalid, Plugin, reduceValidated, valid, Validated } from '@dotcom-tool-kit/types'
 import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
 import { Options as HookSchemaOptions, HookSchemas } from '@dotcom-tool-kit/types/lib/hooks'
@@ -32,6 +28,7 @@ import {
   formatInvalidOptions
 } from './messages'
 import { reducePluginHookInstallations } from './plugin/reduce-installations'
+import { hasConfigChanged, updateHashes } from './config/hash'
 
 export interface PluginOptions {
   options: Record<string, unknown>
@@ -119,42 +116,6 @@ export const loadHookInstallations = async (
       return new hookConstructor(logger, forHook, parsedOptions)
     })
   })
-}
-
-export async function fileHash(path: string): Promise<string> {
-  const hashFunc = createHash('sha512')
-  try {
-    hashFunc.update(await readFile(path))
-    return hashFunc.digest('base64')
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException)?.code === 'ENOENT') {
-      return 'n/a'
-    } else {
-      throw error
-    }
-  }
-}
-
-export async function updateHashes(): Promise<void> {
-  const hashes = Object.fromEntries(
-    await Promise.all(configPaths.map(async (path) => [path, await fileHash(path)]))
-  )
-  writeState('install', hashes)
-}
-
-async function hasConfigChanged(logger: Logger): Promise<boolean> {
-  const hashes = readState('install')
-  if (!hashes) {
-    return true
-  }
-  for (const [path, prevHash] of Object.entries(hashes)) {
-    const newHash = await fileHash(path)
-    if (newHash !== prevHash) {
-      logger.debug(`hash for path ${path} has changed, running hook checks`)
-      return true
-    }
-  }
-  return false
 }
 
 export async function checkInstall(logger: Logger, config: ValidConfig): Promise<void> {
