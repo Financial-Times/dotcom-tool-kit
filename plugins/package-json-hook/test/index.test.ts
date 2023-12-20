@@ -520,7 +520,7 @@ describe('package.json hook', () => {
       ])
     })
 
-    it(`should basically be god`, () => {
+    it(`should partially override only the conflicts solvable by the parent`, () => {
       const plugin = { id: 'p', root: 'plugins/p' }
 
       const parentInstallation = {
