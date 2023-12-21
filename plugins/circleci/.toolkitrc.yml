@@ -1,2 +1,5 @@
 installs:
   CircleCiConfig: './lib/circleci-config'
+
+init:
+  - './lib/init-env-vars'
