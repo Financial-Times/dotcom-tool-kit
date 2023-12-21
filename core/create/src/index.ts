@@ -100,7 +100,8 @@ async function main() {
     tasks: {},
     commands: {},
     options: {},
-    hooks: []
+    hooks: [],
+    init: []
   }
 
   const originalCircleConfig = await fs.readFile(circleConfigPath, 'utf8').catch(() => undefined)
