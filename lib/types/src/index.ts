@@ -6,6 +6,7 @@ export * from './validated'
 export * from './base'
 export * from './task'
 export * from './hook'
+export * from './init'
 
 export type RCFile = {
   plugins: string[]
