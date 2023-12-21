@@ -32,7 +32,8 @@ export const createConfig = (): RawConfig => ({
   tasks: {},
   commandTasks: {},
   options: {},
-  hooks: {}
+  hooks: {},
+  inits: []
 })
 
 export function validateConfig(config: ValidPluginsConfig, logger: Logger): ValidConfig {
