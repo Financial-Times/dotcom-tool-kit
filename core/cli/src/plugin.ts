@@ -20,6 +20,7 @@ import { mergePluginTasks } from './plugin/merge-tasks'
 import { mergePluginHooks } from './plugin/merge-hooks'
 import { mergePluginCommands } from './plugin/merge-commands'
 import { mergePluginOptions } from './plugin/merge-options'
+import { mergePluginInits } from './plugin/merge-inits'
 
 export async function loadPlugin(
   id: string,
@@ -87,6 +88,7 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
   mergePluginHooks(config, plugin)
   mergePluginCommands(config, plugin)
   mergePluginOptions(config, plugin)
+  mergePluginInits(config, plugin)
 
   config.resolvedPlugins.add(plugin.id)
 }
