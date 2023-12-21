@@ -19,6 +19,7 @@ import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/types/src/conf
 import { Options as HookSchemaOptions, HookSchemas } from '@dotcom-tool-kit/types/lib/hooks'
 import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
+import { runInit } from './init'
 
 // implementation of the Array#every method that supports asynchronous predicates
 async function asyncEvery<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
@@ -112,11 +113,13 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
     }
   }
 
+  await runInit(logger, config)
+
   const errors: Error[] = []
-  // group hooks without an installGroup separately so that their check()
-  // method runs independently
   const hooks = (await loadHookInstallations(logger, config)).unwrap('hooks are invalid')
 
+  // group hooks without an installGroup separately so that their check()
+  // method runs independently
   const groups = groupBy(hooks, (hook) => hook.installGroup ?? '__' + hook.id)
   for (const group of Object.values(groups)) {
     try {

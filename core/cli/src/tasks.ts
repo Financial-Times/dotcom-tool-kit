@@ -7,6 +7,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { checkInstall } from './install'
 import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
+import { runInit } from './init'
 
 type ErrorSummary = {
   hook: string
@@ -63,6 +64,7 @@ ${availableHooks}`
     }
   }
 
+  await runInit(logger, config)
   await checkInstall(logger, config)
 
   if (shouldDisableNativeFetch()) {
