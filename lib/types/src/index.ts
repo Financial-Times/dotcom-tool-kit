@@ -15,6 +15,7 @@ export type RCFile = {
   commands: { [id: string]: string | string[] }
   options: { [id: string]: Record<string, unknown> }
   hooks: { [id: string]: Record<string, unknown> }[]
+  init: string[]
 }
 
 export interface Plugin {
@@ -50,6 +51,7 @@ export interface RawConfig {
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
   options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
   hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
+  inits: EntryPoint[]
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
