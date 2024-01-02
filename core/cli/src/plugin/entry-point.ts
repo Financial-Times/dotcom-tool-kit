@@ -1,6 +1,7 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
 
-import { Base, EntryPoint, Validated, invalid } from '@dotcom-tool-kit/types'
+import { Base, EntryPoint } from '@dotcom-tool-kit/types'
+import { Validated, invalid } from '@dotcom-tool-kit/validated'
 import resolvePkg from 'resolve-pkg'
 import { isPlainObject } from 'lodash'
 import { indentReasons } from '../messages'
