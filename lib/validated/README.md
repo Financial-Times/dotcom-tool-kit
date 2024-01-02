@@ -34,13 +34,13 @@ invalid([
 
 ```typescript
 validated.map(value => {
-	// do something with value
-	return // something else. replaces the value with this return value if valid, does nothing if invalid
+    /* do something with value */
+	// `return` something else. replaces the value with this return value if valid, does nothing if invalid
 })
 
 validated.mapError(reasons => {
-	// do something with reasons
-	return // something else. replaces the reasons with this return value if invalid, does nothing if valid
+	/* do something with reasons */
+	// `return` something else. replaces the reasons with this return value if invalid, does nothing if valid
 })
 ```
 
