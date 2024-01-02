@@ -13,10 +13,11 @@
   "dependencies": {
     "@aws-sdk/client-iam": "^3.282.0",
     "@aws-sdk/client-sts": "^3.282.0",
+    "@dotcom-tool-kit/doppler": "^1.0.6",
     "@dotcom-tool-kit/error": "^3.1.0",
     "@dotcom-tool-kit/logger": "^3.3.0",
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@dotcom-tool-kit/types": "^3.4.1",
-    "@dotcom-tool-kit/doppler": "^1.0.6",
     "@financial-times/package-json": "^3.0.0",
     "@octokit/rest": "^19.0.5",
     "@quarterto/parse-makefile-rules": "^1.1.0",

@@ -10,6 +10,9 @@
     },
     {
       "path": "../../lib/types"
+    },
+    {
+      "path": "../../lib/schemas"
     }
   ],
   "include": ["src/**/*"]
