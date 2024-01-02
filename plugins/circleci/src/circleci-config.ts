@@ -14,7 +14,7 @@ import omit from 'lodash/omit'
 import path from 'path'
 import type { PartialDeep } from 'type-fest'
 import YAML from 'yaml'
-import { z } from 'zod'
+import type { z } from 'zod'
 
 const MAJOR_ORB_VERSION = '5'
 
