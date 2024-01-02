@@ -35,6 +35,7 @@
     "extends": "../../package.json"
   },
   "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@types/jest": "^27.0.2",
     "winston": "^3.5.1"
   },

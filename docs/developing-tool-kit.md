@@ -94,7 +94,7 @@ This lets different plugins define the same abstractly labelled hooks with diffe
 
 #### Defining options
 
-Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. We use the [`zod` library](https://zod.dev) to specify the schema, which allows us to define what we expect the options to look like and use this specification to validate the options we receive as well as generate TypeScript types for them. Options are defined in the `@dotcom-tool-kit/types` package, in the `schema` files. Create a file in [`src/schema`](../lib/types/src/schema/plugins) for your plugin, which should export a `NameOfPluginSchema` object (that should also be exported as `Schema`), and a `NameOfPluginOptions` type that uses the `SchemaOutput` generic type.
+Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. We use the [`zod` library](https://zod.dev) to specify the schema, which allows us to define what we expect the options to look like and use this specification to validate the options we receive as well as generate TypeScript types for them. Options are defined in the `@dotcom-tool-kit/types` package, in the `schema` files. Create a file in [`src/schema`](../lib/schema/lib/plugins) for your plugin, which should export a `NameOfPluginSchema` object (that should also be exported as `Schema`), and a `NameOfPluginOptions` type that uses the `SchemaOutput` generic type.
 
 ```typescript
 import { z } from 'zod'
@@ -136,7 +136,7 @@ To avoid boilerplate for tasks (the most common use case for options), when defi
 
 ```typescript
 import { Task } from '@dotcom-tool-kit/types'
-import { ESLintOptions, ESLintSchema } from '@dotcom-tool-kit/types/lib/schema/plugins/eslint'
+import { ESLintOptions, ESLintSchema } from '@dotcom-tool-kit/schemas/lib/plugins/eslint'
 
 export default class Eslint extends Task<typeof ESLintSchema> {
   static description = ''

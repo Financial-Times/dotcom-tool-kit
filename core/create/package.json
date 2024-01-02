@@ -16,6 +16,7 @@
     "@dotcom-tool-kit/doppler": "^1.1.0",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.0",
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@dotcom-tool-kit/types": "^3.6.0",
     "@octokit/rest": "^19.0.5",
     "@quarterto/parse-makefile-rules": "^1.1.0",

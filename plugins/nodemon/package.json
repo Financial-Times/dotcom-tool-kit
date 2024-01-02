@@ -18,8 +18,8 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "nodemon": "2.x",
-    "dotcom-tool-kit": "3.x"
+    "dotcom-tool-kit": "3.x",
+    "nodemon": "2.x"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@types/nodemon": "^1.19.1"
   },
   "engines": {

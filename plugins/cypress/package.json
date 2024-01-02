@@ -31,6 +31,7 @@
     "@dotcom-tool-kit/doppler": "^1.1.0",
     "@dotcom-tool-kit/logger": "^3.4.0",
     "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/types": "^3.6.0"
+    "@dotcom-tool-kit/types": "^3.6.0",
+    "@dotcom-tool-kit/schemas": "^1.0.0"
   }
 }

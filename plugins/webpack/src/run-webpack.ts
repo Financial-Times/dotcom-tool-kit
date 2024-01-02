@@ -1,6 +1,6 @@
 import { fork } from 'child_process'
 import { Logger } from 'winston'
-import type { WebpackOptions } from '@dotcom-tool-kit/types/lib/schema/plugins/webpack'
+import type { WebpackOptions } from '@dotcom-tool-kit/schemas/lib/plugins/webpack'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')

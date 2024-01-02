@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/types'
-import { WebpackSchema } from '@dotcom-tool-kit/types/lib/schema/plugins/webpack'
+import { WebpackSchema } from '@dotcom-tool-kit/schemas/lib/plugins/webpack'
 import runWebpack from '../run-webpack'
 
 export default class WebpackProduction extends Task<typeof WebpackSchema> {
