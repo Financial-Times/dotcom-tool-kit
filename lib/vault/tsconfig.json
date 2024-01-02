@@ -6,6 +6,9 @@
     },
     {
       "path": "../options"
+    },
+    {
+      "path": "../schemas"
     }
   ],
   "compilerOptions": {

@@ -25,10 +25,10 @@
     "serverless-offline": "^12.0.4"
   },
   "dependencies": {
+    "@dotcom-tool-kit/doppler": "^1.0.6",
     "@dotcom-tool-kit/error": "^3.1.0",
     "@dotcom-tool-kit/state": "^3.1.1",
     "@dotcom-tool-kit/types": "^3.4.1",
-    "@dotcom-tool-kit/doppler": "^1.0.6",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1",
     "wait-port": "^0.2.9"
@@ -36,5 +36,8 @@
   "engines": {
     "node": "16.x || 18.x",
     "npm": "7.x || 8.x || 9.x"
+  },
+  "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0"
   }
 }

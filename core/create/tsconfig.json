@@ -15,6 +15,9 @@
       "path": "../../lib/types"
     },
     {
+      "path": "../../lib/schemas"
+    },
+    {
       "path": "../cli"
     }
   ]

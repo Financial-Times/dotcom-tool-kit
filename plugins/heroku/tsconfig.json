@@ -27,6 +27,9 @@
     },
     {
       "path": "../../lib/options"
+    },
+    {
+      "path": "../../lib/schemas"
     }
   ],
   "compilerOptions": {

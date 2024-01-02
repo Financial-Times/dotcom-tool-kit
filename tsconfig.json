@@ -111,6 +111,9 @@
     },
     {
       "path": "plugins/serverless"
+    },
+    {
+      "path": "lib/schemas"
     }
   ]
 }

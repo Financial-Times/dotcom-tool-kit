@@ -20,14 +20,15 @@
     "@dotcom-tool-kit/error": "^3.1.0",
     "@dotcom-tool-kit/logger": "^3.3.0",
     "@dotcom-tool-kit/types": "^3.4.1",
-    "webpack-cli": "^4.6.0",
-    "tslib": "^2.3.1"
+    "tslib": "^2.3.1",
+    "webpack-cli": "^4.6.0"
   },
   "peerDependencies": {
-    "webpack": "4.x.x || 5.x.x",
-    "dotcom-tool-kit": "3.x"
+    "dotcom-tool-kit": "3.x",
+    "webpack": "4.x.x || 5.x.x"
   },
   "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@jest/globals": "^27.4.6",
     "ts-node": "^10.0.0",
     "webpack": "^4.42.1",
