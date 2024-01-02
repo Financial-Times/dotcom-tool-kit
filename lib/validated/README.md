@@ -38,8 +38,8 @@ validated.map(value => {
 	return // something else. replaces the value with this return value if valid, does nothing if invalid
 })
 
-validated.mapReasons(reasons => {
-	// do something with value
+validated.mapError(reasons => {
+	// do something with reasons
 	return // something else. replaces the reasons with this return value if invalid, does nothing if valid
 })
 ```
