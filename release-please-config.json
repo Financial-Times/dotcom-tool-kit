@@ -14,6 +14,7 @@
     "plugins/package-json-hook": {},
     "lib/state": {},
     "lib/types": {},
+    "lib/validated": {},
     "lib/vault": {},
     "lib/wait-for-ok": {},
     "orb": {
