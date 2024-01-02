@@ -1,4 +1,5 @@
-import { RawConfig, ValidPluginsConfig, Validated, reduceValidated } from '@dotcom-tool-kit/types'
+import { RawConfig, ValidPluginsConfig } from '@dotcom-tool-kit/types'
+import { Validated, reduceValidated } from '@dotcom-tool-kit/validated'
 
 export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig> {
   const validatedPlugins = reduceValidated(

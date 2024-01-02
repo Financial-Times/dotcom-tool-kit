@@ -1,8 +1,8 @@
 import type { Conflict } from './conflict'
-import type { Validated } from './validated'
+import type { Validated } from '@dotcom-tool-kit/validated'
 import type { Options as SchemaOptions } from './plugins'
 
-export * from './validated'
+export * from '@dotcom-tool-kit/validated'
 export * from './base'
 export * from './task'
 export * from './hook'

@@ -12,13 +12,14 @@
     },
     {
       "path": "../../lib/types"
+    },
+    {
+      "path": "../../lib/validated"
     }
   ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
