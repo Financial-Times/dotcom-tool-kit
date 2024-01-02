@@ -22,7 +22,7 @@ export default class NpmPublish extends Task {
   getNpmTag(tag: string): TagType {
     if (!tag) {
       throw new ToolKitError(
-        'CIRCLE_TAG environment variable not found. Make sure you are running this on a release version!'
+        'No `tag` variable found in the Tool Kit `ci` state. Make sure this task is running on a CI tag branch.'
       )
     }
     if (prereleaseRegex.test(tag)) {
@@ -32,7 +32,7 @@ export default class NpmPublish extends Task {
       return 'latest'
     }
     throw new ToolKitError(
-      `CIRCLE_TAG does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`
+      `The Tool Kit \`ci\` state \`tag\` variable ${tag} does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`
     )
   }
 
