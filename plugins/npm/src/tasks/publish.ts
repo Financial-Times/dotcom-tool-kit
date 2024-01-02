@@ -1,7 +1,6 @@
 import { readFile, writeFile } from 'fs/promises'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { Task } from '@dotcom-tool-kit/types'
-import { semVerRegex, prereleaseRegex, releaseRegex } from '@dotcom-tool-kit/types/lib/npm'
 import pacote from 'pacote'
 import { readState } from '@dotcom-tool-kit/state'
 import pack from 'libnpmpack'
@@ -12,6 +11,10 @@ import { PassThrough as PassThroughStream } from 'stream'
 import type { PackageJson } from '@npm/types'
 
 type TagType = 'prerelease' | 'latest'
+
+const semVerRegex = /^v\d+\.\d+\.\d+(-.+)?/
+const prereleaseRegex = /^v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
+const releaseRegex = /^v\d+\.\d+\.\d+$/
 
 export default class NpmPublish extends Task {
   static description = ''
