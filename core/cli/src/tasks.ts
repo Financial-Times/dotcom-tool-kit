@@ -1,4 +1,5 @@
-import { Task, TaskConstructor, ValidConfig, Validated, reduceValidated } from '@dotcom-tool-kit/types'
+import { Task, TaskConstructor, ValidConfig } from '@dotcom-tool-kit/types'
+import { Validated, reduceValidated } from '@dotcom-tool-kit/validated'
 import type { Logger } from 'winston'
 import { importEntryPoint } from './plugin/entry-point'
 import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
