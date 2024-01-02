@@ -1,4 +1,4 @@
-import { PromptGenerators } from '../schema'
+import { PromptGenerators } from '../prompts'
 import { z } from 'zod'
 
 export const ServerlessSchema = z.object({

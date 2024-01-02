@@ -15,8 +15,8 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "jest-cli": "27.x || 28.x || 29.x",
-    "dotcom-tool-kit": "3.x"
+    "dotcom-tool-kit": "3.x",
+    "jest-cli": "27.x || 28.x || 29.x"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@jest/globals": "^27.4.6",
     "winston": "^3.5.1"
   },

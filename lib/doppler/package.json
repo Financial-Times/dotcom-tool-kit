@@ -32,6 +32,7 @@
     "extends": "../../package.json"
   },
   "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "spawk": "^1.8.1",
     "winston": "^3.5.1"
   },

@@ -9,7 +9,7 @@ import { Hook, HookClass, ValidConfig } from '@dotcom-tool-kit/types'
 import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
 import { reducePluginHookInstallations } from './plugin/reduce-installations'
 import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/types/src/conflict'
-import { Options as HookSchemaOptions, HookSchemas } from '@dotcom-tool-kit/types/lib/hooks'
+import { HookOptions, HookSchemas } from '@dotcom-tool-kit/schemas'
 import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
 import { runInit } from './init'
@@ -70,7 +70,7 @@ export const loadHookInstallations = async (
 
   return installationsWithoutConflicts.map((installations) => {
     return installations.map(({ hookConstructor, forHook, options }) => {
-      const schema = HookSchemas[forHook as keyof HookSchemaOptions]
+      const schema = HookSchemas[forHook as keyof HookOptions]
       const parsedOptions = schema ? schema.parse(options) : {}
       return new hookConstructor(logger, forHook, parsedOptions)
     })

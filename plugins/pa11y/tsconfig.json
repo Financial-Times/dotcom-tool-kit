@@ -14,6 +14,9 @@
     },
     {
       "path": "../../lib/error"
+    },
+    {
+      "path": "../../lib/schemas"
     }
   ],
   "include": ["src/**/*"]

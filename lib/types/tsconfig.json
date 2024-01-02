@@ -9,6 +9,9 @@
     },
     {
       "path": "../validated"
+    },
+    {
+      "path": "../schemas"
     }
   ],
   "compilerOptions": {
