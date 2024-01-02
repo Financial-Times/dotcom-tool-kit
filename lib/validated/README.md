@@ -12,7 +12,7 @@ We _could_ still use exceptions/rejections for this, along with `Promise.allSett
 
 Instead, we model these errors using an explicit return value, `Validated<T>`. This type is a union of `Valid<T>` which represents a correct value, and `Invalid` which represents a problem with a list of `string` reasons. By making this an explicit type, we clearly mark all the functions that can return errors we may want to collate, and make it impossible to use the values without deciding what to do with the errors.
 
-This pattern is modelled after Go's [error handling using multiple return values](https://go.dev/doc/tutorial/handle-errors), Rust's [`Result<T, E>` type](https://doc.rust-lang.org/book/ch09-00-error-handling.html) and Haskell's [`Either a b` type](https://hackage.haskell.org/package/base-4.19.0.0/docs/Data-Either.html).
+This pattern is modelled after Go's [error handling using multiple return values](https://go.dev/doc/tutorial/handle-errors), Rust's [`Result<T, E>` type](https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html) and Haskell's [`Either a b` type](https://hackage.haskell.org/package/base-4.19.0.0/docs/Data-Either.html).
 
 ## Usage
 
