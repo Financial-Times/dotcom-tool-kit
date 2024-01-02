@@ -27,15 +27,18 @@
     "@dotcom-tool-kit/logger": "^3.3.0",
     "@dotcom-tool-kit/validated": "^1.0.0",
     "semver": "^7.3.7",
-    "tslib": "^2.3.1",
-    "zod": "^3.20.6"
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@dotcom-tool-kit/schemas": "^1.0.0",
     "@jest/globals": "^27.4.6",
     "@types/prompts": "^2.0.14",
     "@types/semver": "^7.3.9",
-    "winston": "^3.5.1"
+    "winston": "^3.5.1",
+    "zod": "^3.22.4"
+  },
+  "peerDependencies": {
+    "zod": "^3.22.4"
   },
   "engines": {
     "node": "16.x || 18.x",

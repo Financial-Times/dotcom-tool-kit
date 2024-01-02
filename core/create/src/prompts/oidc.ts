@@ -155,12 +155,17 @@ export default async function oidcPrompt(): Promise<boolean> {
   const dopplerEnvVars = new DopplerEnvVars(winstonLogger, 'prod', {
     project: 'dotcom-tool-kit'
   })
-  const dopplerSecretsSchema = z.object({
-    CIRCLECI_AUTH_TOKEN: z.string(),
-    GITHUB_ACCESS_TOKEN: z.string(),
-    [`AWS_ACCESS_KEY_ID_${awsAccount}`]: z.string(),
-    [`AWS_SECRET_KEY_${awsAccount}`]: z.string()
-  })
+  const dopplerSecretsSchema = z
+    .object({
+      CIRCLECI_AUTH_TOKEN: z.string(),
+      GITHUB_ACCESS_TOKEN: z.string()
+    })
+    .merge(
+      z.object({
+        [`AWS_ACCESS_KEY_ID_${awsAccount}`]: z.string(),
+        [`AWS_SECRET_KEY_${awsAccount}`]: z.string()
+      })
+    )
   const dopplerEnv = dopplerSecretsSchema.parse(await dopplerEnvVars.get())
 
   const serverlessConfigRaw = await fs.readFile('serverless.yml', 'utf8')

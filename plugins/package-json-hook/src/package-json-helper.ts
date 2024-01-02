@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import type { z } from 'zod'
 import { Hook, HookInstallation, Plugin } from '@dotcom-tool-kit/types'
 import fs from 'fs'
 import get from 'lodash/get'
