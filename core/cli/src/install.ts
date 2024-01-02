@@ -5,15 +5,8 @@ import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
 import { loadConfig } from './config'
 import { hasConfigChanged, updateHashes } from './config/hash'
-import {
-  Hook,
-  HookClass,
-  ValidConfig,
-  Validated,
-  invalid,
-  reduceValidated,
-  valid
-} from '@dotcom-tool-kit/types'
+import { Hook, HookClass, ValidConfig } from '@dotcom-tool-kit/types'
+import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
 import { reducePluginHookInstallations } from './plugin/reduce-installations'
 import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/types/src/conflict'
 import { Options as HookSchemaOptions, HookSchemas } from '@dotcom-tool-kit/types/lib/hooks'
