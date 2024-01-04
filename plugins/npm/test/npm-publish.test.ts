@@ -1,7 +1,5 @@
-import { semVerRegex } from '@dotcom-tool-kit/types/lib/npm'
 import NpmPublish from '../src/tasks/publish'
 import winston, { Logger } from 'winston'
-import { ToolKitError } from '../../../lib/error/lib'
 import * as state from '@dotcom-tool-kit/state'
 import pacote, { ManifestResult } from 'pacote'
 import { publish } from 'libnpmpublish'
@@ -38,8 +36,8 @@ describe('NpmPublish', () => {
     const task = new NpmPublish(logger, 'NpmPublish', {})
     await expect(async () => {
       await task.run()
-    }).rejects.toThrow(
-      new ToolKitError(`Could not find state for ci, check that you are running this task on circleci`)
+    }).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"Could not find state for ci, check that you are running this task on circleci"`
     )
   })
 
@@ -49,10 +47,8 @@ describe('NpmPublish', () => {
     const task = new NpmPublish(logger, 'NpmPublish', {})
     await expect(async () => {
       await task.run()
-    }).rejects.toThrow(
-      new ToolKitError(
-        'CIRCLE_TAG environment variable not found. Make sure you are running this on a release version!'
-      )
+    }).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"No \`tag\` variable found in the Tool Kit \`ci\` state. Make sure this task is running on a CI tag branch."`
     )
   })
 
@@ -72,10 +68,8 @@ describe('NpmPublish', () => {
     const task = new NpmPublish(logger, 'NpmPublish', {})
     await expect(async () => {
       await task.run()
-    }).rejects.toThrow(
-      new ToolKitError(
-        `CIRCLE_TAG does not match regex ${semVerRegex}. Configure your release version to match the regex eg. v1.2.3-beta.8`
-      )
+    }).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"The Tool Kit \`ci\` state \`tag\` variable random-branch does not match regex /^v\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-.+)?/. Configure your release version to match the regex eg. v1.2.3-beta.8"`
     )
   })
 
