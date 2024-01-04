@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import type { z } from 'zod'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import groupBy from 'lodash/groupBy'
