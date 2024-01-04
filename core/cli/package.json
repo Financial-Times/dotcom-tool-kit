@@ -37,7 +37,8 @@
     "chai": "^4.3.4",
     "globby": "^10.0.2",
     "ts-node": "^8.10.2",
-    "winston": "^3.5.1"
+    "winston": "^3.5.1",
+    "zod": "^3.22.4"
   },
   "dependencies": {
     "@dotcom-tool-kit/error": "^3.1.0",
@@ -52,7 +53,7 @@
     "resolve-pkg": "^2.0.0",
     "tslib": "^2.3.1",
     "yaml": "^1.10.2",
-    "zod-validation-error": "^0.3.0"
+    "zod-validation-error": "^2.1.0"
   },
   "engines": {
     "node": "16.x || 18.x",

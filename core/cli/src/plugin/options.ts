@@ -1,6 +1,6 @@
 import { ValidPluginsConfig } from '@dotcom-tool-kit/types'
 import { InvalidOption } from '../messages'
-import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/plugins'
+import { SchemaOptions, PluginSchemas } from '@dotcom-tool-kit/schemas'
 import { isConflict } from '@dotcom-tool-kit/types/src/conflict'
 import type { Logger } from 'winston'
 
@@ -14,7 +14,7 @@ export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig
       continue
     }
 
-    const pluginSchema = Schemas[pluginId]
+    const pluginSchema = PluginSchemas[pluginId]
     if (!pluginSchema) {
       logger.silly(`skipping validation of ${pluginId} plugin as no schema can be found`)
       continue

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { PackageJsonSchema } from './schema/hooks/package-json'
+import { PackageJsonSchema } from './hooks/package-json'
 
 export const HookSchemas = {
   PackageJson: PackageJsonSchema
