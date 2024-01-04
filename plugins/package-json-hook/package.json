@@ -23,14 +23,14 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/package-json-hook",
   "peerDependencies": {
-    "zod": "3.x"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@dotcom-tool-kit/schemas": "^1.0.0",
     "@jest/globals": "^27.4.6",
     "@types/lodash": "^4.14.185",
     "winston": "^3.5.1",
-    "zod": "^3.20.2"
+    "zod": "^3.22.4"
   },
   "files": [
     "/lib",
