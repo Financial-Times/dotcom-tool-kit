@@ -4,12 +4,7 @@ import { importEntryPoint } from './plugin/entry-point'
 
 const loadInitEntrypoints = async (logger: Logger, config: ValidConfig): Promise<Validated<Init[]>> => {
   const initClassResults = reduceValidated(
-    await Promise.all(
-      config.inits.map(async (entryPoint) => {
-        const hookResult = await importEntryPoint(Init, entryPoint)
-        return hookResult.map((initClass) => initClass as InitClass)
-      })
-    )
+    await Promise.all(config.inits.map((entryPoint) => importEntryPoint(Init as InitClass, entryPoint)))
   )
 
   return initClassResults.map((initClasses) => initClasses.map((initClass) => new initClass(logger)))
