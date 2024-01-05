@@ -30,7 +30,11 @@ let hasLoggedMigrationWarning = false
 export class DopplerEnvVars {
   options: DopplerOptions
 
-  constructor(private logger: Logger, public environment: Environment, options?: DopplerOptions) {
+  constructor(
+    private logger: Logger,
+    public environment: Environment,
+    options?: DopplerOptions
+  ) {
     let dopplerOptions = options ?? getOptions('@dotcom-tool-kit/doppler')
     if (!(dopplerOptions && dopplerOptions.project)) {
       // HACK:20230829:IM check the project passed to the Vault options too so

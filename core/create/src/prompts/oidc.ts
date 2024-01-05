@@ -1,18 +1,20 @@
+import { promises as fs } from 'fs'
+import path from 'path'
+
 import { GetPolicyCommand, GetPolicyVersionCommand, IAMClient } from '@aws-sdk/client-iam'
 import { GetCallerIdentityCommand, STSClient } from '@aws-sdk/client-sts'
-import { ToolKitError } from '@dotcom-tool-kit/error'
-import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { Octokit } from '@octokit/rest'
 import * as suggester from 'code-suggester'
 import { highlight } from 'cli-highlight'
-import { promises as fs } from 'fs'
 import fetch from 'node-fetch'
-import path from 'path'
 import prompt from 'prompts'
 import { simpleGit } from 'simple-git'
 import YAML from 'yaml'
 import { z } from 'zod'
+
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
+import { styles, rootLogger as winstonLogger } from '@dotcom-tool-kit/logger'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 // git mode indicating an object blob is a file
 const FILE_MODE = '100644' as const

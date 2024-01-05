@@ -1,4 +1,5 @@
 import winston from 'winston'
+
 import { createFormatter } from './format'
 import { consoleTransport } from './transports'
 

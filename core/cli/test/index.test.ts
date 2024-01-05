@@ -1,15 +1,18 @@
+import * as path from 'path'
+
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import type { Valid } from '@dotcom-tool-kit/validated'
 import type { Plugin } from '@dotcom-tool-kit/plugin'
 import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
-import { describe, expect, it, jest } from '@jest/globals'
-import * as path from 'path'
-import winston, { Logger } from 'winston'
+
 import { createConfig, validateConfig } from '../src/config'
 import { loadPlugin, resolvePlugin } from '../src/plugin'
 import { validatePlugins } from '../src/config/validate-plugins'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
 jest.setTimeout(20000)

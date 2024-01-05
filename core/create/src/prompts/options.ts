@@ -1,13 +1,15 @@
-import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import type { RCFile } from '@dotcom-tool-kit/plugin'
-import type { RawConfig } from '@dotcom-tool-kit/config'
-import type { PromptGenerators } from '@dotcom-tool-kit/schemas'
 import { promises as fs } from 'fs'
+
 import YAML from 'yaml'
 import type Logger from 'komatsu'
 import partition from 'lodash/partition'
 import prompt from 'prompts'
-import { z } from 'zod'
+import { type z } from 'zod'
+
+import type { PromptGenerators } from '@dotcom-tool-kit/schemas'
+import type { RawConfig } from '@dotcom-tool-kit/config'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
+import { styles, rootLogger as winstonLogger } from '@dotcom-tool-kit/logger'
 
 interface OptionSettings {
   name: string

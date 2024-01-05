@@ -1,5 +1,5 @@
 import type { Validated } from '@dotcom-tool-kit/validated'
-import type { EntryPoint, CommandTask, PluginOptions, Plugin } from '@dotcom-tool-kit/plugin'
+import type { CommandTask, EntryPoint, Plugin, PluginOptions } from '@dotcom-tool-kit/plugin'
 import type { SchemaOptions } from '@dotcom-tool-kit/schemas'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
 

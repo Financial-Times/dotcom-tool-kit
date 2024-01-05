@@ -1,10 +1,13 @@
-import { ToolKitError } from '@dotcom-tool-kit/error/lib'
-import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
-import winston, { Logger } from 'winston'
+
+import { describe, expect, it } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
+import { ToolKitError } from '@dotcom-tool-kit/error/lib'
+
 import ESLint from '../../src/tasks/eslint'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 

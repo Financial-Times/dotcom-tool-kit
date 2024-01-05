@@ -1,9 +1,12 @@
-import { describe, it, expect, jest } from '@jest/globals'
-import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars'
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
+
+import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars'
 import heroku from '../src/herokuClient'
-import winston, { Logger } from 'winston'
-const logger = (winston as unknown) as Logger
+
+const logger = winston as unknown as Logger
 type DopplerPath = {
   project: string
 }
@@ -37,7 +40,11 @@ const reviewPatchBody = {
 }
 class DopplerEnvVarsMock {
   dopplerPath: DopplerPath
-  constructor(_dopplerPath: DopplerPath, public environment: string, private migrated: boolean) {
+  constructor(
+    _dopplerPath: DopplerPath,
+    public environment: string,
+    private migrated: boolean
+  ) {
     this.dopplerPath = dopplerPath
   }
   fallbackToVault() {
@@ -67,7 +74,8 @@ jest.mock('../src/herokuClient', () => {
     })
   }
 })
-const DopplerEnvVarsMocked = jest.mocked<any>(DopplerEnvVars, true)
+
+const DopplerEnvVarsMocked = jest.mocked<unknown>(DopplerEnvVars, true)
 jest.mock('@dotcom-tool-kit/doppler')
 function mockDopplerEnvVars(migrated: boolean) {
   DopplerEnvVarsMocked.mockImplementation(

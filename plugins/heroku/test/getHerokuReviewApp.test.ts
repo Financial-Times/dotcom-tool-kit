@@ -1,10 +1,11 @@
-import { describe, it, expect, jest } from '@jest/globals'
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import { getHerokuReviewApp } from '../src/getHerokuReviewApp'
 import { repeatedCheckForSuccessStatus } from '../src/repeatedCheckForSuccessStatus'
 import heroku from '../src/herokuClient'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const pipelineId = 'pipeline-id'
 

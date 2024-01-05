@@ -1,12 +1,13 @@
-import { describe, it, expect, jest } from '@jest/globals'
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import Review from '../../src/tasks/review'
 import { getHerokuReviewApp } from '../../src/getHerokuReviewApp'
 import { setStageConfigVars } from '../../src/setConfigVars'
 import { gtg } from '../../src/gtg'
 import heroku from '../../src/herokuClient'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 type State = {
   [key: string]: string

@@ -1,11 +1,13 @@
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import { waitForOk } from '@dotcom-tool-kit/wait-for-ok'
-import { describe, it, expect, jest } from '@jest/globals'
+import { writeState } from '@dotcom-tool-kit/state'
+
 import heroku from '../src/herokuClient'
 import { gtg } from '../src/gtg'
-import { writeState } from '@dotcom-tool-kit/state'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const appName = 'test-app-name'
 const makeUrl = (appName: string) => `https://${appName}-1234567890ab.herokuapp.com/`

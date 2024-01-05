@@ -1,8 +1,10 @@
+import * as path from 'path'
+
+import { cosmiconfig } from 'cosmiconfig'
+import type { Logger } from 'winston'
+
 import { styles as s } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/plugin'
-import { cosmiconfig } from 'cosmiconfig'
-import * as path from 'path'
-import type { Logger } from 'winston'
 
 export const explorer = cosmiconfig('toolkit', { ignoreEmptySearchPlaces: false })
 const emptyConfig = { plugins: [], installs: {}, tasks: {}, commands: {}, options: {}, hooks: [], init: [] }

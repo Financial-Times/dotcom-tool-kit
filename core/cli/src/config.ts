@@ -1,24 +1,26 @@
 import path from 'path'
+
 import type { Logger } from 'winston'
+
+import {
+  findConflictingEntries,
+  findConflicts,
+  isConflict,
+  withoutConflicts
+} from '@dotcom-tool-kit/conflict'
+import { ToolKitConflictError } from '@dotcom-tool-kit/error'
+import { type RawConfig, type ValidConfig, type ValidPluginsConfig } from '@dotcom-tool-kit/config'
 
 import { loadPlugin, resolvePlugin } from './plugin'
 import {
-  findConflicts,
-  withoutConflicts,
-  isConflict,
-  findConflictingEntries
-} from '@dotcom-tool-kit/conflict'
-import { ToolKitConflictError } from '@dotcom-tool-kit/error'
-import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
-import {
-  formatTaskConflicts,
-  formatUndefinedCommandTasks,
-  formatUnusedOptions,
   formatCommandTaskConflicts,
   formatHookConflicts,
-  formatOptionConflicts,
+  formatInvalidOptions,
   formatMissingTasks,
-  formatInvalidOptions
+  formatOptionConflicts,
+  formatTaskConflicts,
+  formatUndefinedCommandTasks,
+  formatUnusedOptions
 } from './messages'
 import { validatePlugins } from './config/validate-plugins'
 import { validatePluginOptions } from './plugin/options'

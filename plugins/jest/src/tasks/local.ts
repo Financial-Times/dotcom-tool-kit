@@ -1,5 +1,6 @@
 import { Task } from '@dotcom-tool-kit/base'
-import { JestSchema } from '@dotcom-tool-kit/schemas/lib/plugins/jest'
+import { type JestSchema } from '@dotcom-tool-kit/schemas/lib/plugins/jest'
+
 import runJest from '../run-jest'
 
 export default class JestLocal extends Task<typeof JestSchema> {

@@ -1,6 +1,7 @@
-import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import fetch from 'node-fetch'
 import prompt from 'prompts'
+
+import { styles, rootLogger as winstonLogger } from '@dotcom-tool-kit/logger'
 
 export default async (): Promise<void> => {
   winstonLogger.info(

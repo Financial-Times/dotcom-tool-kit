@@ -1,7 +1,9 @@
-import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetReview, HerokuApiResPost } from 'heroku-client'
-import { Logger } from 'winston'
+import { type Logger } from 'winston'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
+
+import heroku, { extractHerokuError } from './herokuClient'
 import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus'
 import { getRepoDetails } from './githubApi'
 

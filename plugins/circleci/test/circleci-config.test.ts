@@ -1,12 +1,15 @@
-import { setOptions } from '@dotcom-tool-kit/options/lib'
-import { describe, expect, it } from '@jest/globals'
 import fs from 'fs'
 import path from 'path'
-import winston, { Logger } from 'winston'
+
+import { describe, expect, it } from '@jest/globals'
+import winston, { type Logger } from 'winston'
 import * as YAML from 'yaml'
+
+import { setOptions } from '@dotcom-tool-kit/options/lib'
+
 import CircleCiConfigHook, { generateConfigWithJob } from '../src/circleci-config'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 jest.mock('fs', () => {
   const originalModule = jest.requireActual('fs')

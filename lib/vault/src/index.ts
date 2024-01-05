@@ -1,11 +1,13 @@
-import fetch from '@financial-times/n-fetch'
 import { promises as fs } from 'fs'
 import path from 'path'
 import os from 'os'
+
+import fetch from '@financial-times/n-fetch'
 import type { Logger } from 'winston'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { getOptions } from '@dotcom-tool-kit/options'
-import { VaultOptions } from '@dotcom-tool-kit/schemas/lib/plugins/vault'
+import { type VaultOptions } from '@dotcom-tool-kit/schemas/lib/plugins/vault'
 
 const VAULT_ROLE_ID = process.env.VAULT_ROLE_ID
 const VAULT_SECRET_ID = process.env.VAULT_SECRET_ID

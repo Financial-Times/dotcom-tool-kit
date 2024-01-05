@@ -1,9 +1,12 @@
-import { styles as s } from '@dotcom-tool-kit/logger'
 import path from 'path'
 import fs from 'fs'
-import { baseSymbol, typeSymbol } from './symbols'
-import { Validated, invalid, valid } from '@dotcom-tool-kit/validated'
+
 import semver from 'semver'
+
+import { styles as s } from '@dotcom-tool-kit/logger'
+import { type Validated, invalid, valid } from '@dotcom-tool-kit/validated'
+
+import { baseSymbol, typeSymbol } from './symbols'
 
 const packageJsonPath = path.resolve(__dirname, '../package.json')
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))

@@ -1,7 +1,8 @@
+import { SmokeTest } from '@financial-times/n-test'
+
 import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
-import { SmokeTestSchema } from '@dotcom-tool-kit/schemas/lib/plugins/n-test'
-import { SmokeTest } from '@financial-times/n-test'
+import { type SmokeTestSchema } from '@dotcom-tool-kit/schemas/lib/plugins/n-test'
 import { readState } from '@dotcom-tool-kit/state'
 
 export default class NTest extends Task<typeof SmokeTestSchema> {

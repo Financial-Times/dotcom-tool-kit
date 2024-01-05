@@ -1,4 +1,5 @@
 import winston from 'winston'
+
 import { styles } from './styles'
 
 // This global variable is used to prevent the same label being printed

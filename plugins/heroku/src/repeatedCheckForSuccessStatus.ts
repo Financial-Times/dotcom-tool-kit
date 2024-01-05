@@ -1,7 +1,8 @@
 import pRetry from 'p-retry'
-import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetReview } from 'heroku-client'
 import type { Logger } from 'winston'
+
+import heroku, { extractHerokuError } from './herokuClient'
 
 const NUM_RETRIES = process.env.HEROKU_REVIEW_APP_NUM_RETRIES
   ? parseInt(process.env.HEROKU_REVIEW_APP_NUM_RETRIES, 10)

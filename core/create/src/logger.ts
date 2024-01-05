@@ -1,6 +1,7 @@
-import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import importCwd from 'import-cwd'
-import Logger from 'komatsu'
+import type Logger from 'komatsu'
+
+import type * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 
 export type LoggerError = (Error | ToolkitErrorModule.ToolKitError) & {
   logged?: boolean

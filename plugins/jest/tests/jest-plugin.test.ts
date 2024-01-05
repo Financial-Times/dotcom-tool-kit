@@ -1,10 +1,12 @@
 import { fork } from 'child_process'
+import EventEmitter from 'events'
+
+import winston, { type Logger } from 'winston'
+
 import JestLocal from '../src/tasks/local'
 import JestCI from '../src/tasks/ci'
-import EventEmitter from 'events'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 jest.mock('child_process', () => ({
   fork: jest.fn(() => {

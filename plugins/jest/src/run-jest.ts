@@ -1,7 +1,9 @@
 import { fork } from 'child_process'
-import type { JestOptions, JestMode } from '@dotcom-tool-kit/schemas/lib/plugins/jest'
-import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
+
 import type { Logger } from 'winston'
+
+import type { JestMode, JestOptions } from '@dotcom-tool-kit/schemas/lib/plugins/jest'
+import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 const jestCLIPath = require.resolve('jest-cli/bin/jest')
 
 export default function runJest(logger: Logger, mode: JestMode, options: JestOptions): Promise<void> {

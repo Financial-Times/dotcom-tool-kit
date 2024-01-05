@@ -1,9 +1,10 @@
+import { spawn } from 'child_process'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
-import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
+import { type ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import { spawn } from 'child_process'
 
 export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
   static description = 'Provisions a job on AWS'

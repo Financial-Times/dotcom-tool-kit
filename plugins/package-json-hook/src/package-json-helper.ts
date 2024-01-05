@@ -1,16 +1,17 @@
-import type { z } from 'zod'
-import { Hook, HookInstallation } from '@dotcom-tool-kit/base'
-import type { Plugin } from '@dotcom-tool-kit/plugin'
 import fs from 'fs'
+import path from 'path'
+
+import type { z } from 'zod'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import partition from 'lodash/partition'
 import update from 'lodash/update'
 import merge from 'lodash/merge'
-import path from 'path'
 
-import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/lib/hooks/package-json'
-import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
+import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
+import { type PackageJsonSchema } from '@dotcom-tool-kit/schemas/lib/hooks/package-json'
+import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 
 interface PackageJsonContents {
   [field: string]: PackageJsonContents | string

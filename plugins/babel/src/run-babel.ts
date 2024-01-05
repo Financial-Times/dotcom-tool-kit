@@ -1,11 +1,13 @@
+import { promises as fs } from 'fs'
+import path from 'path'
+
+import * as babel from '@babel/core'
+import fg from 'fast-glob'
+import type { Logger } from 'winston'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookConsole } from '@dotcom-tool-kit/logger'
 import type { BabelOptions } from '@dotcom-tool-kit/schemas/lib/plugins/babel'
-import * as babel from '@babel/core'
-import fg from 'fast-glob'
-import { promises as fs } from 'fs'
-import path from 'path'
-import type { Logger } from 'winston'
 
 export async function runBabel(
   logger: Logger,

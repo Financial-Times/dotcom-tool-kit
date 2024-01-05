@@ -1,9 +1,12 @@
 import pRetry from 'p-retry'
-import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResBuild } from 'heroku-client'
 import type { Logger } from 'winston'
 
-const NUM_RETRIES = process.env.HEROKU_BUILD_NUM_RETRIES ? parseInt(process.env.HEROKU_BUILD_NUM_RETRIES, 10) : 60
+import heroku, { extractHerokuError } from './herokuClient'
+
+const NUM_RETRIES = process.env.HEROKU_BUILD_NUM_RETRIES
+  ? parseInt(process.env.HEROKU_BUILD_NUM_RETRIES, 10)
+  : 60
 
 async function repeatedCheckForBuildSuccess(
   logger: Logger,

@@ -1,12 +1,15 @@
-import NpmPublish from '../src/tasks/publish'
-import winston, { Logger } from 'winston'
-import * as state from '@dotcom-tool-kit/state'
-import pacote, { ManifestResult } from 'pacote'
-import { publish } from 'libnpmpublish'
-import pack from 'libnpmpack'
 import { writeFile } from 'fs/promises'
 
-const logger = (winston as unknown) as Logger
+import winston, { type Logger } from 'winston'
+import pacote, { type ManifestResult } from 'pacote'
+import { publish } from 'libnpmpublish'
+import pack from 'libnpmpack'
+
+import * as state from '@dotcom-tool-kit/state'
+
+import NpmPublish from '../src/tasks/publish'
+
+const logger = winston as unknown as Logger
 
 const readStateMock = jest.spyOn(state, 'readState')
 jest.spyOn(pacote, 'manifest').mockImplementation(() => Promise.resolve({} as ManifestResult))

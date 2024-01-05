@@ -1,11 +1,13 @@
+import { fork } from 'child_process'
+
+import { register } from 'ft-next-router'
+
 import { Task } from '@dotcom-tool-kit/base'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import { register } from 'ft-next-router'
 import { readState } from '@dotcom-tool-kit/state'
 import { hookConsole, hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { fork } from 'child_process'
-import { NextRouterSchema } from '@dotcom-tool-kit/schemas/lib/plugins/next-router'
+import { type NextRouterSchema } from '@dotcom-tool-kit/schemas/lib/plugins/next-router'
 
 export default class NextRouter extends Task<typeof NextRouterSchema> {
   static description = ''

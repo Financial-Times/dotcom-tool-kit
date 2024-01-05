@@ -1,6 +1,7 @@
+import Heroku, { type HerokuError } from 'heroku-client'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import Heroku, { HerokuError } from 'heroku-client'
 
 const HEROKU_AUTH_TOKEN = process.env.HEROKU_AUTH_TOKEN
 

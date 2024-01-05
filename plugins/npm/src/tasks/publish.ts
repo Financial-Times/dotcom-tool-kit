@@ -1,14 +1,16 @@
 import { readFile, writeFile } from 'fs/promises'
-import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Task } from '@dotcom-tool-kit/base'
+import { PassThrough as PassThroughStream } from 'stream'
+
 import pacote from 'pacote'
-import { readState } from '@dotcom-tool-kit/state'
 import pack from 'libnpmpack'
 import { publish } from 'libnpmpublish'
-import { styles } from '@dotcom-tool-kit/logger'
 import tar from 'tar'
-import { PassThrough as PassThroughStream } from 'stream'
 import type { PackageJson } from '@npm/types'
+
+import { styles } from '@dotcom-tool-kit/logger'
+import { readState } from '@dotcom-tool-kit/state'
+import { Task } from '@dotcom-tool-kit/base'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 type TagType = 'prerelease' | 'latest'
 

@@ -1,7 +1,8 @@
+import { fork } from 'child_process'
+
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
 import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/lib/plugins/typescript'
-import { fork } from 'child_process'
 
 const tscPath = require.resolve('typescript/bin/tsc')
 

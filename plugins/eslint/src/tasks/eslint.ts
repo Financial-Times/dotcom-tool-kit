@@ -1,8 +1,9 @@
+import { ESLint } from 'eslint'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
-import { ESLintSchema } from '@dotcom-tool-kit/schemas/lib/plugins/eslint'
-import { ESLint } from 'eslint'
+import { type ESLintSchema } from '@dotcom-tool-kit/schemas/lib/plugins/eslint'
 
 export default class Eslint extends Task<typeof ESLintSchema> {
   static description = ''

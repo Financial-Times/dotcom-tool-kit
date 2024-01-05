@@ -1,5 +1,6 @@
-import { styles } from '@dotcom-tool-kit/logger'
 import prompt from 'prompts'
+
+import { styles } from '@dotcom-tool-kit/logger'
 
 export interface ConfirmationParams {
   deleteConfig: boolean

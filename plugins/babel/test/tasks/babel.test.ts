@@ -1,10 +1,12 @@
-import { beforeAll, describe, expect, it } from '@jest/globals'
-import Babel from '../../src/tasks/development'
 import { promises as fs } from 'fs'
 import * as path from 'path'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+import { beforeAll, describe, expect, it } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
+import Babel from '../../src/tasks/development'
+
+const logger = winston as unknown as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 const outputPath = path.join(testDirectory, 'lib')

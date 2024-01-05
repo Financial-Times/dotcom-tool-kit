@@ -1,10 +1,12 @@
-import { describe, it, expect, beforeAll } from '@jest/globals'
 import * as path from 'path'
-import Prettier from '../../src/tasks/prettier'
 import { promises as fsp } from 'fs'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+import { beforeAll, describe, expect, it } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
+import Prettier from '../../src/tasks/prettier'
+
+const logger = winston as unknown as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 
