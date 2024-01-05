@@ -1,9 +1,9 @@
 import type { Logger } from 'winston'
-import { Base } from './base'
-import { hookSymbol, typeSymbol } from './symbols'
+import { Base } from '../../types/src/base'
+import { hookSymbol, typeSymbol } from '../../types/src/symbols'
 import { z } from 'zod'
-import { Plugin } from './index'
-import { Conflict, isConflict } from './conflict'
+import { Plugin } from '../../types/src/index'
+import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 
 export interface HookInstallation<Options = Record<string, unknown>> {
   options: Options

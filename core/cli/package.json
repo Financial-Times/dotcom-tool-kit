@@ -41,6 +41,7 @@
     "zod": "^3.22.4"
   },
   "dependencies": {
+    "@dotcom-tool-kit/conflict": "^1.0.0",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
     "@dotcom-tool-kit/options": "^3.2.1",

@@ -10,7 +10,12 @@
     },
     {
       "path": "../../lib/schemas"
+    },
+    {
+      "path": "../../lib/conflict"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
