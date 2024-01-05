@@ -9,7 +9,7 @@ import {
   findConflictingEntries
 } from '@dotcom-tool-kit/conflict'
 import { ToolKitConflictError } from '@dotcom-tool-kit/error'
-import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/types'
+import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import {
   formatTaskConflicts,
   formatUndefinedCommandTasks,

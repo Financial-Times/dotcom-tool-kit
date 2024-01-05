@@ -1,5 +1,7 @@
 # Tool Kit Option Schemas
 
+> ⚠️ this README is out of date and describes the pre-Zod schema types. update plz
+
 ## Overview
 
 Tool Kit allows plugins to take options from a `.toolkitrc.yml` file. Each

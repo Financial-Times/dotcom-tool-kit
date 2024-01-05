@@ -1,5 +1,6 @@
-import { CommandTask, Plugin, ValidPluginsConfig } from '@dotcom-tool-kit/types'
-import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+import type { CommandTask, Plugin } from '@dotcom-tool-kit/plugin'
+import type {ValidPluginsConfig} from '@dotcom-tool-kit/config'
+import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { isDescendent } from './is-descendent'
 
 export const mergePluginCommands = (config: ValidPluginsConfig, plugin: Plugin) => {

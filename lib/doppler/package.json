@@ -10,7 +10,6 @@
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
     "@dotcom-tool-kit/options": "^3.2.1",
-    "@dotcom-tool-kit/types": "^3.6.1",
     "@dotcom-tool-kit/vault": "^3.2.1",
     "tslib": "^2.3.1"
   },

@@ -10,7 +10,6 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/types": "^3.6.1",
     "@dotcom-tool-kit/circleci": "^6.0.3",
     "@dotcom-tool-kit/npm": "^3.3.2",
     "tslib": "^2.3.1"
