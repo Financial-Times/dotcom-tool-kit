@@ -1,34 +1,34 @@
-export type RCFile = {
-	plugins: string[]
-	installs: { [id: string]: string }
-	tasks: { [id: string]: string }
-	commands: { [id: string]: string | string[] }
-	options: { [id: string]: Record<string, unknown> }
-	hooks: { [id: string]: Record<string, unknown> }[]
-	init: string[]
- }
+import type { Validated } from '@dotcom-tool-kit/validated'
+import type { EntryPoint, CommandTask, PluginOptions, Plugin } from '@dotcom-tool-kit/plugin'
+import type { SchemaOptions } from '@dotcom-tool-kit/schemas'
+import type { Conflict } from '@dotcom-tool-kit/conflict'
 
- export interface Plugin {
-	id: string
-	root: string
-	rcFile?: RCFile
-	parent?: Plugin
-	children?: Plugin[]
- }
+export interface RawConfig {
+  root: string
+  plugins: { [id: string]: Validated<Plugin> }
+  resolvedPlugins: Set<string>
+  tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
+  commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
+  options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
+  hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
+  inits: EntryPoint[]
+}
 
- export interface CommandTask {
-	id: string
-	plugin: Plugin
-	tasks: string[]
- }
+export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
+  plugins: { [id: string]: Plugin }
+}
 
- export interface PluginOptions {
-	options: Record<string, unknown>
-	plugin: Plugin
-	forPlugin: Plugin
- }
+export type ValidPluginOptions<Id extends keyof SchemaOptions> = Omit<PluginOptions, 'options'> & {
+  options: SchemaOptions[Id]
+}
 
- export interface EntryPoint {
-	plugin: Plugin
-	modulePath: string
- }
+export type ValidOptions = {
+  [Id in keyof SchemaOptions]: ValidPluginOptions<Id>
+}
+
+export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'options' | 'hooks'> & {
+  tasks: { [id: string]: EntryPoint }
+  commandTasks: { [id: string]: CommandTask }
+  options: ValidOptions
+  hooks: { [id: string]: EntryPoint }
+}

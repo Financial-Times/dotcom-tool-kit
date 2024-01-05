@@ -12,6 +12,7 @@
   "dependencies": {
     "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/conflict": "^1.0.0",
+    "@dotcom-tool-kit/plugin": "^1.0.0",
     "@financial-times/package-json": "^3.0.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"

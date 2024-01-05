@@ -6,6 +6,9 @@
   },
   "references": [
     {
+      "path": "../../core/cli"
+    },
+    {
       "path": "../../lib/base"
     },
     {
@@ -24,7 +27,5 @@
       "path": "../../lib/schemas"
     }
   ],
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

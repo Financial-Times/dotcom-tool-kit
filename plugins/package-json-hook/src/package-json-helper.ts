@@ -1,5 +1,6 @@
 import type { z } from 'zod'
-import { Hook, HookInstallation, Plugin } from '@dotcom-tool-kit/base'
+import { Hook, HookInstallation } from '@dotcom-tool-kit/base'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
 import fs from 'fs'
 import get from 'lodash/get'
 import set from 'lodash/set'

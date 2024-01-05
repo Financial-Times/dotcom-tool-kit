@@ -2,7 +2,7 @@
   "name": "@dotcom-tool-kit/base",
   "version": "3.4.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/conflict": "^1.0.0"
+    "@dotcom-tool-kit/conflict": "^1.0.0",
+    "@dotcom-tool-kit/validated": "^1.0.0",
+    "semver": "^7.5.4",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@dotcom-tool-kit/logger": "^3.3.0",
+    "@dotcom-tool-kit/plugin": "^1.0.0",
+    "winston": "^3.11.0",
+    "zod": "^3.22.4"
+  },
+  "peerDependencies": {
+    "zod": "^3.22.4"
   }
 }

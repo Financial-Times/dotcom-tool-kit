@@ -12,7 +12,10 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/types"
+      "path": "../../lib/config"
+    },
+    {
+      "path": "../../lib/plugin"
     },
     {
       "path": "../../lib/schemas"
