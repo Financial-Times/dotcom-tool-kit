@@ -1,9 +1,9 @@
 import type { Logger } from 'winston'
 import type { HookClass, HookInstallation } from '@dotcom-tool-kit/base'
-import type { Plugin} from '@dotcom-tool-kit/plugin'
-import type { ValidConfig} from '@dotcom-tool-kit/config'
-import type { HookSchemas, HookOptions } from '@dotcom-tool-kit/schemas'
-import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
+import type { ValidConfig } from '@dotcom-tool-kit/config'
+import { HookSchemas, HookOptions } from '@dotcom-tool-kit/schemas'
+import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { groupBy } from 'lodash'
 
 // this function recursively collects all the hook installation requests from all plugins,

@@ -1,6 +1,7 @@
-import { Init, InitClass, ValidConfig } from '@dotcom-tool-kit/base'
+import type { ValidConfig } from '@dotcom-tool-kit/config'
+import { Init, InitClass } from '@dotcom-tool-kit/base'
 import { Validated, reduceValidated } from '@dotcom-tool-kit/validated'
-import { Logger } from 'winston'
+import type { Logger } from 'winston'
 import { importEntryPoint } from './plugin/entry-point'
 
 const loadInitEntrypoints = async (logger: Logger, config: ValidConfig): Promise<Validated<Init[]>> => {

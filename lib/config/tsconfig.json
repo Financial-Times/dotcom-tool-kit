@@ -2,16 +2,10 @@
   "extends": "../../tsconfig.settings.json",
   "references": [
     {
-      "path": "../conflict"
-    },
-    {
-      "path": "../logger"
-    },
-    {
       "path": "../plugin"
     },
     {
-      "path": "../validated"
+      "path": "../schemas"
     }
   ],
   "compilerOptions": {

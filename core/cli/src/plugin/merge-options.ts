@@ -1,7 +1,7 @@
-import type { Plugin, PluginOptions} from '@dotcom-tool-kit/plugin'
+import type { Plugin, PluginOptions } from '@dotcom-tool-kit/plugin'
 import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { isDescendent } from './is-descendent'
-import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 
 // merge options from this plugin's config with any options we've collected already
 // TODO this is almost the exact same code as for command tasks, refactor

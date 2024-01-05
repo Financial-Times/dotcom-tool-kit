@@ -1,5 +1,6 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
-import { Plugin, RawConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
+import type { RawConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
 import resolvePkg from 'resolve-pkg'
 import type { Logger } from 'winston'
