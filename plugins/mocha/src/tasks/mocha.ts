@@ -1,5 +1,5 @@
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { glob } from 'glob'
 import { MochaSchema } from '@dotcom-tool-kit/schemas/lib/plugins/mocha'
 import { fork } from 'child_process'

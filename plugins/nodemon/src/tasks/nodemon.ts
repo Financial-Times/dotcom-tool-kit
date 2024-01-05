@@ -1,5 +1,5 @@
 import { hookFork } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { NodemonSchema } from '@dotcom-tool-kit/schemas/lib/plugins/nodemon'
 import { writeState } from '@dotcom-tool-kit/state'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'

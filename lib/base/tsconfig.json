@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "references": [
+    {
+      "path": "../conflict"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  }
+}

@@ -1,7 +1,7 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { getOptions } from '@dotcom-tool-kit/options'
-import { Hook } from '@dotcom-tool-kit/types'
+import { Hook } from '@dotcom-tool-kit/base'
 import { promises as fs } from 'fs'
 import { diffStringsUnified } from 'jest-diff'
 import isPlainObject from 'lodash/isPlainObject'

@@ -3,7 +3,7 @@ import * as path from 'path'
 import { promises as fs } from 'fs'
 import PackageJson from '../src/package-json-helper'
 import winston, { Logger } from 'winston'
-import { HookInstallation } from '@dotcom-tool-kit/types'
+import { HookInstallation } from '@dotcom-tool-kit/base'
 import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/lib/hooks/package-json'
 
 const logger = (winston as unknown) as Logger
