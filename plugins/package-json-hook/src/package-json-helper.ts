@@ -9,7 +9,7 @@ import merge from 'lodash/merge'
 import path from 'path'
 
 import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/lib/hooks/package-json'
-import { Conflict, isConflict } from '@dotcom-tool-kit/types/src/conflict'
+import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 
 interface PackageJsonContents {
   [field: string]: PackageJsonContents | string

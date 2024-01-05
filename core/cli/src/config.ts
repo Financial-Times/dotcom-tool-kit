@@ -7,7 +7,7 @@ import {
   withoutConflicts,
   isConflict,
   findConflictingEntries
-} from '@dotcom-tool-kit/types/lib/conflict'
+} from '@dotcom-tool-kit/conflict'
 import { ToolKitConflictError } from '@dotcom-tool-kit/error'
 import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/types'
 import {

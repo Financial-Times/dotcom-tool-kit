@@ -1,4 +1,4 @@
-import type { Conflict } from './conflict'
+import type { Conflict } from '@dotcom-tool-kit/conflict'
 import type { Validated } from '@dotcom-tool-kit/validated'
 import type { SchemaOptions } from '@dotcom-tool-kit/schemas'
 

@@ -23,6 +23,7 @@
     "extends": "../../package.json"
   },
   "dependencies": {
+    "@dotcom-tool-kit/conflict": "^1.0.0",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.0",
     "@dotcom-tool-kit/validated": "^1.0.0",
