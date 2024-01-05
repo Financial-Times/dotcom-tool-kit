@@ -1,5 +1,5 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
-import { RCFile } from '@dotcom-tool-kit/types/src'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
 import { cosmiconfig } from 'cosmiconfig'
 import * as path from 'path'
 import type { Logger } from 'winston'

@@ -30,7 +30,7 @@ export abstract class Base {
     if (!this.is(objectToCheck)) {
       return invalid([
         `${s.plugin(
-          '@dotcom-tool-kit/types'
+          '@dotcom-tool-kit/base'
         )} type symbol is missing, make sure that this object derives from the ${s.code('Task')} or ${s.code(
           'Hook'
         )} class defined by the plugin`
@@ -38,7 +38,7 @@ export abstract class Base {
     }
 
     // an 'objectToCheck' from a plugin is compatible with this CLI if its
-    // version is semver-compatible with the @dotcom-tool-kit/types included by
+    // version is semver-compatible with the @dotcom-tool-kit/base included by
     // the CLI (which is what's calling this). so, prepend ^ to our version,
     // and check our version satisfies that.
 
