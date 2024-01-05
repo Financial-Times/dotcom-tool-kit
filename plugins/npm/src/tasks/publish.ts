@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs/promises'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import pacote from 'pacote'
 import { readState } from '@dotcom-tool-kit/state'
 import pack from 'libnpmpack'

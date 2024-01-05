@@ -1,5 +1,5 @@
 import { writeState } from '@dotcom-tool-kit/state'
-import { Init } from '@dotcom-tool-kit/types'
+import { Init } from '@dotcom-tool-kit/base'
 
 export default class CircleCIEnvVars extends Init {
   async init() {

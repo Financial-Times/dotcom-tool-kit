@@ -25,8 +25,8 @@
     "typescript": "3.x || 4.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/logger": "^3.4.0",
-    "@dotcom-tool-kit/types": "^3.6.0"
+    "@dotcom-tool-kit/base": "^3.4.1",
+    "@dotcom-tool-kit/logger": "^3.4.0"
   },
   "devDependencies": {
     "@dotcom-tool-kit/schemas": "^1.0.0",

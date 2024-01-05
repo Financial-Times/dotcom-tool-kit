@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import * as fs from 'fs'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import path from 'path'

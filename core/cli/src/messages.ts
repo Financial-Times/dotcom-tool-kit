@@ -1,5 +1,5 @@
 import { styles as s, styles } from '@dotcom-tool-kit/logger'
-import type { CommandTask, EntryPoint, Hook, Plugin, PluginOptions } from '@dotcom-tool-kit/types'
+import type { CommandTask, EntryPoint, Hook, Plugin, PluginOptions } from '@dotcom-tool-kit/base'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import type { Conflict } from '@dotcom-tool-kit/conflict'

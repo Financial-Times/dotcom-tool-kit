@@ -50,7 +50,7 @@ export abstract class Base {
     } else {
       return invalid([
         `object is from an outdated version of ${s.plugin(
-          '@dotcom-tool-kit/types'
+          '@dotcom-tool-kit/base'
         )}, make sure you're using at least version ${s.heading(this.version)} of the plugin`
       ])
     }

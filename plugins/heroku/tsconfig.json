@@ -20,7 +20,7 @@
       "path": "../npm"
     },
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     },
     {
       "path": "../../lib/logger"
@@ -36,5 +36,7 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

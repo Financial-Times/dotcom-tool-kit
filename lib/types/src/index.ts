@@ -3,10 +3,6 @@ import type { Validated } from '@dotcom-tool-kit/validated'
 import type { SchemaOptions } from '@dotcom-tool-kit/schemas'
 
 export * from '@dotcom-tool-kit/validated'
-export * from './base'
-export * from './task'
-export * from './hook'
-export * from './init'
 
 export type RCFile = {
   plugins: string[]

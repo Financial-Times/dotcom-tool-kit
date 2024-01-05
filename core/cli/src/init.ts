@@ -1,4 +1,4 @@
-import { Init, InitClass, ValidConfig } from '@dotcom-tool-kit/types'
+import { Init, InitClass, ValidConfig } from '@dotcom-tool-kit/base'
 import { Validated, reduceValidated } from '@dotcom-tool-kit/validated'
 import { Logger } from 'winston'
 import { importEntryPoint } from './plugin/entry-point'

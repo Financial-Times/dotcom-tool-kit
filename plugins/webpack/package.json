@@ -17,9 +17,9 @@
     "test": "cd ../../ ; npx jest --silent --projects plugins/webpack"
   },
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.0",
-    "@dotcom-tool-kit/types": "^3.6.0",
     "webpack-cli": "^4.6.0",
     "tslib": "^2.3.1"
   },

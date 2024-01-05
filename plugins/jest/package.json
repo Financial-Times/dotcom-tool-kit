@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/logger": "^3.4.0",
-    "@dotcom-tool-kit/types": "^3.6.0",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {

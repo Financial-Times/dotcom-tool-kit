@@ -1,5 +1,5 @@
 import { runBabel } from '../run-babel'
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { BabelSchema } from '@dotcom-tool-kit/schemas/lib/plugins/babel'
 
 export default class BabelProduction extends Task<typeof BabelSchema> {
