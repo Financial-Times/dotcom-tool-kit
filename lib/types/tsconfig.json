@@ -12,6 +12,9 @@
     },
     {
       "path": "../schemas"
+    },
+    {
+      "path": "../conflict"
     }
   ],
   "compilerOptions": {

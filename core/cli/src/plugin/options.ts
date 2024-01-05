@@ -1,7 +1,7 @@
 import { ValidPluginsConfig } from '@dotcom-tool-kit/types'
 import { InvalidOption } from '../messages'
 import { SchemaOptions, PluginSchemas } from '@dotcom-tool-kit/schemas'
-import { isConflict } from '@dotcom-tool-kit/types/src/conflict'
+import { isConflict } from '@dotcom-tool-kit/conflict'
 import type { Logger } from 'winston'
 
 export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig): InvalidOption[] => {
