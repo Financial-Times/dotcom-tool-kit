@@ -10,10 +10,10 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
     "@dotcom-tool-kit/package-json-hook": "^4.2.0",
-    "@dotcom-tool-kit/types": "^3.6.1",
     "fast-glob": "^3.2.7",
     "hook-std": "^2.0.0",
     "prettier": "^2.2.1",

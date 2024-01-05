@@ -7,10 +7,10 @@
     "test": "cd ../../ ; npx jest --silent --projects plugins/circleci"
   },
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
     "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/types": "^3.6.1",
     "jest-diff": "^29.5.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1",

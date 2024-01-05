@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { JestSchema } from '@dotcom-tool-kit/schemas/lib/plugins/jest'
 import runJest from '../run-jest'
 

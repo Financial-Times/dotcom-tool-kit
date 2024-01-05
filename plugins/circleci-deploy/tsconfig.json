@@ -6,7 +6,7 @@
   },
   "references": [
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     },
     {
       "path": "../../lib/options"
@@ -15,5 +15,7 @@
       "path": "../circleci"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

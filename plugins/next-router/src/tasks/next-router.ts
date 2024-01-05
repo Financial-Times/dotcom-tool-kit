@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { register } from 'ft-next-router'
 import { readState } from '@dotcom-tool-kit/state'

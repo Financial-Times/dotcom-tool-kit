@@ -28,10 +28,12 @@
     "npm": "7.x || 8.x || 9.x || 10.x"
   },
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/doppler": "^1.1.1",
     "@dotcom-tool-kit/logger": "^3.4.1",
-    "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/types": "^3.6.1",
+    "@dotcom-tool-kit/state": "^3.3.0"
+  },
+  "devDependencies": {
     "@dotcom-tool-kit/schemas": "^1.0.0"
   }
 }

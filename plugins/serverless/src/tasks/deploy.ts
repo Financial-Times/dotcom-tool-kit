@@ -1,6 +1,6 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { getOptions } from '@dotcom-tool-kit/options'
