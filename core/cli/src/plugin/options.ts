@@ -1,4 +1,4 @@
-import { ValidPluginsConfig } from '@dotcom-tool-kit/types'
+import { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { InvalidOption } from '../messages'
 import { SchemaOptions, PluginSchemas } from '@dotcom-tool-kit/schemas'
 import { isConflict } from '@dotcom-tool-kit/conflict'

@@ -1,6 +1,6 @@
 import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import type { RCFile } from '@dotcom-tool-kit/types'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
 import { exec as _exec } from 'child_process'
 import type { cosmiconfig } from 'cosmiconfig'
 import type { loadConfig as loadConfigType } from 'dotcom-tool-kit/lib/config'

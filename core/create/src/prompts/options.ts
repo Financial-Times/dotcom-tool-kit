@@ -1,5 +1,6 @@
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import type { RCFile, RawConfig } from '@dotcom-tool-kit/types'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
+import type { RawConfig } from '@dotcom-tool-kit/config'
 import type { PromptGenerators } from '@dotcom-tool-kit/schemas'
 import { promises as fs } from 'fs'
 import YAML from 'yaml'
