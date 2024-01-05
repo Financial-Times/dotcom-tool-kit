@@ -11,7 +11,10 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/types"
+      "path": "../../lib/plugin"
+    },
+    {
+      "path": "../../lib/config"
     },
     {
       "path": "../../lib/validated"
@@ -24,7 +27,5 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

@@ -13,9 +13,10 @@
     },
     {
       "path": "../../lib/conflict"
+    },
+    {
+      "path": "../../lib/plugin"
     }
   ],
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
