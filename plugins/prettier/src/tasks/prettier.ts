@@ -60,7 +60,7 @@ export default class Prettier extends Task<typeof PrettierSchema> {
     try {
       await fsp.writeFile(
         filepath,
-        prettier.format(fileContent, { ...(prettierConfig as prettier.Options), filepath })
+        await prettier.format(fileContent, { ...(prettierConfig as prettier.Options), filepath })
       )
     } finally {
       unhook()
