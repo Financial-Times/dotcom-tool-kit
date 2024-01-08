@@ -1,7 +1,7 @@
 import type { Logger } from 'winston'
 
 import { type ValidPluginsConfig } from '@dotcom-tool-kit/config'
-import { PluginSchemas, type SchemaOptions } from '@dotcom-tool-kit/schemas'
+import { PluginSchemas, type PluginOptions } from '@dotcom-tool-kit/schemas'
 import { isConflict } from '@dotcom-tool-kit/conflict'
 
 import { type InvalidOption } from '../messages'
@@ -10,7 +10,7 @@ export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig
   const invalidOptions: InvalidOption[] = []
 
   for (const [id, plugin] of Object.entries(config.plugins)) {
-    const pluginId = id as keyof SchemaOptions
+    const pluginId = id as keyof PluginOptions
     const pluginOptions = config.pluginOptions[pluginId]
     if (pluginOptions && isConflict(pluginOptions)) {
       continue
