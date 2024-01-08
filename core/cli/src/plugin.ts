@@ -9,8 +9,9 @@ import { indentReasons } from './messages'
 import { mergePluginTasks } from './plugin/merge-tasks'
 import { mergePluginHooks } from './plugin/merge-hooks'
 import { mergePluginCommands } from './plugin/merge-commands'
-import { mergePluginOptions } from './plugin/merge-options'
+import { mergePluginOptions } from './plugin/merge-plugin-options'
 import { mergePluginInits } from './plugin/merge-inits'
+import { mergeTaskOptions } from './plugin/merge-task-options'
 
 export async function loadPlugin(
   id: string,
@@ -78,6 +79,7 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
   mergePluginHooks(config, plugin)
   mergePluginCommands(config, plugin)
   mergePluginOptions(config, plugin)
+  mergeTaskOptions(config, plugin)
   mergePluginInits(config, plugin)
 
   config.resolvedPlugins.add(plugin.id)

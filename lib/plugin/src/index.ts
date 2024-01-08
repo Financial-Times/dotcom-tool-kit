@@ -3,7 +3,10 @@ export type RCFile = {
   installs: { [id: string]: string }
   tasks: { [id: string]: string }
   commands: { [id: string]: string | string[] }
-  options: { plugins: { [id: string]: Record<string, unknown> } }
+  options: {
+    plugins: { [id: string]: Record<string, unknown> }
+    tasks: { [id: string]: Record<string, unknown> }
+  }
   hooks: { [id: string]: Record<string, unknown> }[]
   init: string[]
 }
@@ -26,6 +29,12 @@ export interface OptionsForPlugin {
   options: Record<string, unknown>
   plugin: Plugin
   forPlugin: Plugin
+}
+
+export interface OptionsForTask {
+  options: Record<string, unknown>
+  plugin: Plugin
+  task: string
 }
 
 export interface EntryPoint {
