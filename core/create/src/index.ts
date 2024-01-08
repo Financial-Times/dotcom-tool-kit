@@ -104,7 +104,7 @@ async function main() {
     installs: {},
     tasks: {},
     commands: {},
-    options: {},
+    options: { plugins: {} },
     hooks: [],
     init: []
   }

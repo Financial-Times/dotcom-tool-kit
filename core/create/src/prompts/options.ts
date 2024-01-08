@@ -52,7 +52,7 @@ async function optionsPromptForPlugin(
             { onCancel }
           )
           if (stringOption !== '') {
-            toolKitConfig.options[plugin][optionName] = stringOption
+            toolKitConfig.options.plugins[plugin][optionName] = stringOption
           }
           break
         case 'ZodBoolean':
@@ -68,7 +68,7 @@ async function optionsPromptForPlugin(
             { onCancel }
           )
           if (boolOption !== '') {
-            toolKitConfig.options[plugin][optionName] = boolOption
+            toolKitConfig.options.plugins[plugin][optionName] = boolOption
           }
           break
         case 'ZodNumber':
@@ -82,7 +82,7 @@ async function optionsPromptForPlugin(
             { onCancel }
           )
           if (numberOption !== '') {
-            toolKitConfig.options[plugin][optionName] = Number.parseFloat(numberOption)
+            toolKitConfig.options.plugins[plugin][optionName] = Number.parseFloat(numberOption)
           }
           break
         case 'ZodArray':
@@ -100,7 +100,9 @@ async function optionsPromptForPlugin(
                 { onCancel }
               )
               if (stringArrayOption !== '' && stringArrayOption !== undefined) {
-                toolKitConfig.options[plugin][optionName] = stringArrayOption.split(',').map((s) => s.trim())
+                toolKitConfig.options.plugins[plugin][optionName] = stringArrayOption
+                  .split(',')
+                  .map((s) => s.trim())
               }
               break
             case 'ZodNumber':
@@ -115,7 +117,7 @@ async function optionsPromptForPlugin(
                 { onCancel }
               )
               if (numberArrayOption !== '' && numberArrayOption !== undefined) {
-                toolKitConfig.options[plugin][optionName] = numberArrayOption
+                toolKitConfig.options.plugins[plugin][optionName] = numberArrayOption
                   .split(',')
                   .map((s) => Number.parseFloat(s.trim()))
               }
@@ -137,7 +139,7 @@ async function optionsPromptForPlugin(
                 { onCancel }
               )
               if (option !== '') {
-                toolKitConfig.options[plugin][optionName] = option
+                toolKitConfig.options.plugins[plugin][optionName] = option
               }
               break
           }
@@ -156,7 +158,7 @@ async function optionsPromptForPlugin(
             { onCancel }
           )
           if (option !== '') {
-            toolKitConfig.options[plugin][optionName] = option
+            toolKitConfig.options.plugins[plugin][optionName] = option
           }
           break
         case 'ZodUnion':
@@ -194,6 +196,8 @@ const isPartialOptional = (partial: ZodPartial): partial is z.ZodOptional<z.ZodT
   typeof (partial as z.ZodOptional<z.ZodTypeAny>).unwrap === 'function'
 
 export default async ({ logger, config, toolKitConfig, configPath }: OptionsParams): Promise<boolean> => {
+  toolKitConfig.options.plugins = {}
+
   for (const plugin of Object.keys(config.plugins)) {
     let options: z.AnyZodObject
     let generators: PromptGenerators<z.AnyZodObject> | undefined
@@ -219,7 +223,6 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
     const anyRequired = required.length > 0
 
     const styledPlugin = styles.plugin(pluginName)
-    toolKitConfig.options[plugin] = {}
 
     if (anyRequired) {
       winstonLogger.info(`Please now configure the options for the ${styledPlugin} plugin.`)
@@ -237,7 +240,7 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
            * the object is partial because not all options for a plugin will
            * have generators, but all values in the record will be defined
            **/
-          toolKitConfig.options[plugin][optionName] = await generator!(
+          toolKitConfig.options.plugins![plugin][optionName] = await generator!(
             winstonLogger.child({ plugin }),
             prompt,
             onCancel
@@ -248,7 +251,7 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
         }
       }
       if (cancelled) {
-        delete toolKitConfig.options[plugin]
+        delete toolKitConfig.options.plugins[plugin]
         return true
       }
     }
@@ -273,7 +276,7 @@ export default async ({ logger, config, toolKitConfig, configPath }: OptionsPara
           })
         )
       } else if (!anyRequired) {
-        delete toolKitConfig.options[plugin]
+        delete toolKitConfig.options.plugins[plugin]
       }
     }
   }

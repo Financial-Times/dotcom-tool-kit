@@ -8,7 +8,7 @@ import { isDescendent } from './is-descendent'
 // TODO this is almost the exact same code as for command tasks, refactor
 export const mergePluginOptions = (config: ValidPluginsConfig, plugin: Plugin) => {
   if (plugin.rcFile) {
-    for (const [id, configOptions] of Object.entries(plugin.rcFile.options)) {
+    for (const [id, configOptions] of Object.entries(plugin.rcFile.options.plugins ?? {})) {
       // users can specify root options with the dotcom-tool-kit key to mirror
       // the name of the root npm package
       const pluginId = id === 'dotcom-tool-kit' ? 'app root' : id
