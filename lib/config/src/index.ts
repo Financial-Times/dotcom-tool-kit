@@ -1,6 +1,6 @@
 import type { Validated } from '@dotcom-tool-kit/validated'
 import type { EntryPoint, CommandTask, OptionsForPlugin, Plugin } from '@dotcom-tool-kit/plugin'
-import type { SchemaOptions } from '@dotcom-tool-kit/schemas'
+import type { PluginOptions } from '@dotcom-tool-kit/schemas'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
 
 export interface RawConfig {
@@ -18,12 +18,12 @@ export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
   plugins: { [id: string]: Plugin }
 }
 
-export type ValidPluginOptions<Id extends keyof SchemaOptions> = Omit<OptionsForPlugin, 'options'> & {
-  options: SchemaOptions[Id]
+export type ValidPluginOptions<Id extends keyof PluginOptions> = Omit<OptionsForPlugin, 'options'> & {
+  options: PluginOptions[Id]
 }
 
 export type ValidOptions = {
-  [Id in keyof SchemaOptions]: ValidPluginOptions<Id>
+  [Id in keyof PluginOptions]: ValidPluginOptions<Id>
 }
 
 export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'pluginOptions' | 'hooks'> & {

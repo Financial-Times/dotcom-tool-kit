@@ -7,7 +7,7 @@ export const HookSchemas = {
 }
 
 // Gives the TypeScript type represented by each Schema
-export type Options = {
+export type HookOptions = {
   [plugin in keyof typeof HookSchemas]: typeof HookSchemas[plugin] extends z.ZodTypeAny
     ? z.infer<typeof HookSchemas[plugin]>
     : never
