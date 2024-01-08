@@ -34,6 +34,7 @@ export const createConfig = (): RawConfig => ({
   tasks: {},
   commandTasks: {},
   pluginOptions: {},
+  taskOptions: {},
   hooks: {},
   inits: []
 })
