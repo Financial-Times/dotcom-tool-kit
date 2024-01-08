@@ -24,15 +24,11 @@ export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig
       // Set up options entry for plugins that don't have options specified
       // explicitly. They could still have default options that are set by zod.
       if (!pluginOptions) {
-        // TypeScript struggles with this type as it sees one side as
-        // `Foo<a | b | c>` and the other as `Foo<a> | Foo<b> | Foo<c>` for
-        // some reason (something to do with the record indexing) and it can't
-        // unify them. But they are equivalent so let's force it with a cast.
         config.pluginOptions[pluginId] = {
           options: result.data,
           plugin: config.plugins['app root'],
           forPlugin: plugin
-        } as any // eslint-disable-line @typescript-eslint/no-explicit-any
+        }
       } else {
         pluginOptions.options = result.data
       }
