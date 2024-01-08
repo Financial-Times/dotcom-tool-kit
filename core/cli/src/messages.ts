@@ -1,6 +1,6 @@
 import { styles as s, styles } from '@dotcom-tool-kit/logger'
 import type { Hook } from '@dotcom-tool-kit/base'
-import type { CommandTask, EntryPoint, Plugin, PluginOptions } from '@dotcom-tool-kit/plugin'
+import type { CommandTask, EntryPoint, Plugin, OptionsForPlugin } from '@dotcom-tool-kit/plugin'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
@@ -50,12 +50,12 @@ You must resolve this conflict by explicitly configuring which task to run for t
 
 `
 
-const formatOptionConflict = (conflict: Conflict<PluginOptions>): string => `${s.plugin(
+const formatOptionConflict = (conflict: Conflict<OptionsForPlugin>): string => `${s.plugin(
   conflict.conflicting[0].forPlugin.id
 )}, configured by:
 ${conflict.conflicting.map((option) => `- ${s.plugin(option.plugin.id)}`)}`
 
-export const formatOptionConflicts = (conflicts: Conflict<PluginOptions>[]): string => `${s.heading(
+export const formatOptionConflicts = (conflicts: Conflict<OptionsForPlugin>[]): string => `${s.heading(
   'These plugins have conflicting options'
 )}:
 
