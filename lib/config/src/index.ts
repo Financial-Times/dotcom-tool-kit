@@ -1,5 +1,11 @@
 import type { Validated } from '@dotcom-tool-kit/validated'
-import type { EntryPoint, CommandTask, OptionsForPlugin, Plugin } from '@dotcom-tool-kit/plugin'
+import type {
+  CommandTask,
+  EntryPoint,
+  Plugin,
+  OptionsForPlugin,
+  OptionsForTask
+} from '@dotcom-tool-kit/plugin'
 import type { PluginOptions } from '@dotcom-tool-kit/schemas'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
 
@@ -10,6 +16,7 @@ export interface RawConfig {
   tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
   pluginOptions: { [id: string]: OptionsForPlugin | Conflict<OptionsForPlugin> | undefined }
+  taskOptions: { [id: string]: OptionsForTask | Conflict<OptionsForTask> | undefined }
   hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   inits: EntryPoint[]
 }
