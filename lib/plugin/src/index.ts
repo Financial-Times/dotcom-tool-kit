@@ -22,7 +22,7 @@ export interface CommandTask {
   tasks: string[]
 }
 
-export interface PluginOptions {
+export interface OptionsForPlugin {
   options: Record<string, unknown>
   plugin: Plugin
   forPlugin: Plugin

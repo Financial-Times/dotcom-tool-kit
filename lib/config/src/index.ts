@@ -1,5 +1,5 @@
 import type { Validated } from '@dotcom-tool-kit/validated'
-import type { EntryPoint, CommandTask, PluginOptions, Plugin } from '@dotcom-tool-kit/plugin'
+import type { EntryPoint, CommandTask, OptionsForPlugin, Plugin } from '@dotcom-tool-kit/plugin'
 import type { SchemaOptions } from '@dotcom-tool-kit/schemas'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
 
@@ -9,7 +9,7 @@ export interface RawConfig {
   resolvedPlugins: Set<string>
   tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
-  pluginOptions: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
+  pluginOptions: { [id: string]: OptionsForPlugin | Conflict<OptionsForPlugin> | undefined }
   hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   inits: EntryPoint[]
 }
@@ -18,7 +18,7 @@ export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
   plugins: { [id: string]: Plugin }
 }
 
-export type ValidPluginOptions<Id extends keyof SchemaOptions> = Omit<PluginOptions, 'options'> & {
+export type ValidPluginOptions<Id extends keyof SchemaOptions> = Omit<OptionsForPlugin, 'options'> & {
   options: SchemaOptions[Id]
 }
 
