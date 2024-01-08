@@ -6,7 +6,7 @@ import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/lib/plugins/type
 
 const tscPath = require.resolve('typescript/bin/tsc')
 
-export default abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
+export default abstract class TypeScriptTask extends Task<{ plugin: typeof TypeScriptSchema }> {
   abstract taskArgs: string[]
 
   async run(): Promise<void> {

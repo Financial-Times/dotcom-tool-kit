@@ -11,7 +11,7 @@ import { gtg } from '../gtg'
 import { setStageConfigVars } from '../setConfigVars'
 import herokuClient, { extractHerokuError } from '../herokuClient'
 
-export default class HerokuReview extends Task<typeof HerokuSchema> {
+export default class HerokuReview extends Task<{ plugin: typeof HerokuSchema }> {
   static description = ''
 
   async run(): Promise<void> {

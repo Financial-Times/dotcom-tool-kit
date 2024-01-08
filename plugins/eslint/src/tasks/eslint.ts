@@ -5,7 +5,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
 import { type ESLintSchema } from '@dotcom-tool-kit/schemas/lib/plugins/eslint'
 
-export default class Eslint extends Task<typeof ESLintSchema> {
+export default class Eslint extends Task<{ plugin: typeof ESLintSchema }> {
   static description = ''
 
   async run(files?: string[]): Promise<void> {

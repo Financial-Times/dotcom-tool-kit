@@ -8,7 +8,7 @@ import { Task } from '@dotcom-tool-kit/base'
 import { type MochaSchema } from '@dotcom-tool-kit/schemas/lib/plugins/mocha'
 const mochaCLIPath = require.resolve('mocha/bin/mocha')
 
-export default class Mocha extends Task<typeof MochaSchema> {
+export default class Mocha extends Task<{ plugin: typeof MochaSchema }> {
   static description = ''
 
   async run(): Promise<void> {

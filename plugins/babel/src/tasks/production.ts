@@ -3,7 +3,7 @@ import { type BabelSchema } from '@dotcom-tool-kit/schemas/lib/plugins/babel'
 
 import { runBabel } from '../run-babel'
 
-export default class BabelProduction extends Task<typeof BabelSchema> {
+export default class BabelProduction extends Task<{ plugin: typeof BabelSchema }> {
   static description = 'build babel'
 
   async run(): Promise<void> {

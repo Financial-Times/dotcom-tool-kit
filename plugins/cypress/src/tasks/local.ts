@@ -6,7 +6,7 @@ import { Task } from '@dotcom-tool-kit/base'
 import { type CypressSchema } from '@dotcom-tool-kit/schemas/lib/plugins/cypress'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 
-export default class CypressLocal extends Task<typeof CypressSchema> {
+export default class CypressLocal extends Task<{ plugin: typeof CypressSchema }> {
   async run(): Promise<void> {
     const cypressEnv: Record<string, string> = {}
     if (this.pluginOptions.localUrl) {

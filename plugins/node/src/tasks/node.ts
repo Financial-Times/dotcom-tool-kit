@@ -10,7 +10,7 @@ import { Task } from '@dotcom-tool-kit/base'
 import { type NodeSchema } from '@dotcom-tool-kit/schemas/lib/plugins/node'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 
-export default class Node extends Task<typeof NodeSchema> {
+export default class Node extends Task<{ plugin: typeof NodeSchema }> {
   static description = ''
 
   async run(): Promise<void> {

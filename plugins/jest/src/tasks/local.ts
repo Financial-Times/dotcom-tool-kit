@@ -3,7 +3,7 @@ import { type JestSchema } from '@dotcom-tool-kit/schemas/lib/plugins/jest'
 
 import runJest from '../run-jest'
 
-export default class JestLocal extends Task<typeof JestSchema> {
+export default class JestLocal extends Task<{ plugin: typeof JestSchema }> {
   static description = ''
 
   async run(): Promise<void> {

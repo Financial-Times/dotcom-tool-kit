@@ -5,7 +5,7 @@ import { Task } from '@dotcom-tool-kit/base'
 import { type SmokeTestSchema } from '@dotcom-tool-kit/schemas/lib/plugins/n-test'
 import { readState } from '@dotcom-tool-kit/state'
 
-export default class NTest extends Task<typeof SmokeTestSchema> {
+export default class NTest extends Task<{ plugin: typeof SmokeTestSchema }> {
   static description = ''
 
   async run(): Promise<void> {
