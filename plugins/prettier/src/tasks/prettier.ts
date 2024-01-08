@@ -11,11 +11,11 @@ export default class Prettier extends Task<typeof PrettierSchema> {
 
   async run(files?: string[]): Promise<void> {
     try {
-      const filepaths = await fg(files ?? this.options.files)
+      const filepaths = await fg(files ?? this.pluginOptions.files)
       for (const filepath of filepaths) {
         const { ignored } = await prettier.getFileInfo(filepath)
         if (!ignored) {
-          await this.formatFile(filepath, this.options)
+          await this.formatFile(filepath, this.pluginOptions)
         }
       }
     } catch (err) {
@@ -50,7 +50,7 @@ export default class Prettier extends Task<typeof PrettierSchema> {
       prettierConfig = options.configOptions
     }
 
-    const { ignored } = await prettier.getFileInfo(filepath, { ignorePath: this.options.ignoreFile })
+    const { ignored } = await prettier.getFileInfo(filepath, { ignorePath: this.pluginOptions.ignoreFile })
 
     if (ignored) {
       return

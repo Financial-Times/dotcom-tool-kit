@@ -38,7 +38,7 @@ export default class NextRouter extends Task<typeof NextRouterSchema> {
 
     const unhook = hookConsole(this.logger, 'ft-next-router')
     try {
-      await register({ service: this.options.appName, port: local.port })
+      await register({ service: this.pluginOptions.appName, port: local.port })
     } finally {
       unhook()
     }

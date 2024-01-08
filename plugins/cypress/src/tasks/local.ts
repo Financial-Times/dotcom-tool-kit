@@ -8,8 +8,8 @@ import { CypressSchema } from '@dotcom-tool-kit/schemas/lib/plugins/cypress'
 export default class CypressLocal extends Task<typeof CypressSchema> {
   async run(): Promise<void> {
     const cypressEnv: Record<string, string> = {}
-    if (this.options.localUrl) {
-      cypressEnv.CYPRESS_BASE_URL = this.options.localUrl
+    if (this.pluginOptions.localUrl) {
+      cypressEnv.CYPRESS_BASE_URL = this.pluginOptions.localUrl
     }
 
     const doppler = new DopplerEnvVars(this.logger, 'dev')
