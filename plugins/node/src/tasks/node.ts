@@ -12,7 +12,7 @@ export default class Node extends Task<typeof NodeSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, args, useVault, ports } = this.options
+    const { entry, args, useVault, ports } = this.pluginOptions
 
     let vaultEnv = {}
 

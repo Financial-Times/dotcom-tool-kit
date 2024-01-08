@@ -11,7 +11,7 @@ export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
   static description = 'Provisions a job on AWS'
 
   async run(): Promise<void> {
-    const { useVault, configPath, buildNumVariable, systemCode, regions } = this.options
+    const { useVault, configPath, buildNumVariable, systemCode, regions } = this.pluginOptions
     const buildNum = process.env[buildNumVariable]
 
     if (buildNum === undefined) {

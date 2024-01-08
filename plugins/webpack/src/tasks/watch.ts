@@ -8,7 +8,7 @@ export default class WebpackWatch extends Task<typeof WebpackSchema> {
   async run(): Promise<void> {
     // don't wait for Webpack to exit, to leave it running in the background
     runWebpack(this.logger, {
-      ...this.options,
+      ...this.pluginOptions,
       mode: 'development',
       watch: true
     })

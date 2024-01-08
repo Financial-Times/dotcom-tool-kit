@@ -6,6 +6,6 @@ export default class JestCI extends Task<typeof JestSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    await runJest(this.logger, 'ci', this.options)
+    await runJest(this.logger, 'ci', this.pluginOptions)
   }
 }

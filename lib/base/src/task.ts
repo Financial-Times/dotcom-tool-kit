@@ -3,9 +3,8 @@ import { Base } from './base'
 import { taskSymbol, typeSymbol } from './symbols'
 import type { Logger } from 'winston'
 
-export abstract class Task<O extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
+export abstract class Task<PluginOptions extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
   static description: string
-  id: string
 
   static get [typeSymbol](): symbol {
     return taskSymbol
@@ -15,14 +14,14 @@ export abstract class Task<O extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
     return taskSymbol
   }
 
-  options: z.output<O>
   logger: Logger
 
-  constructor(logger: Logger, id: string, options: z.output<O>) {
+  constructor(
+    logger: Logger,
+    public id: string,
+    public pluginOptions: z.output<PluginOptions>
+  ) {
     super()
-
-    this.id = id
-    this.options = options
     this.logger = logger.child({ task: id })
   }
 
