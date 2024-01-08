@@ -7,7 +7,7 @@ import { spawn } from 'child_process'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { writeState } from '@dotcom-tool-kit/state'
 
-export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
+export default class ServerlessProvision extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Provisions a job on AWS'
 
   async run(): Promise<void> {

@@ -10,6 +10,7 @@ import { checkInstall } from './install'
 import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
+import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 
 type ErrorSummary = {
   task: string
@@ -26,14 +27,18 @@ const loadTasks = async (
       const entryPoint = config.tasks[taskName]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
-      return taskResult.map((Task) => [
-        taskName,
-        new ((Task as unknown) as TaskConstructor)(
+      return taskResult.map((Task) => {
+        const taskSchema = TaskSchemas[taskName as keyof TaskOptions]
+        const parsedOptions = taskSchema ? taskSchema.parse(config.taskOptions[taskName]) : {}
+
+        const task = new ((Task as unknown) as TaskConstructor)(
           logger,
           taskName,
-          getOptions(entryPoint.plugin.id as OptionKey) ?? {}
+          getOptions(entryPoint.plugin.id as OptionKey) ?? {},
+          parsedOptions
         )
-      ])
+        return [taskName, task]
+      })
     })
   )
 

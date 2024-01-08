@@ -6,7 +6,7 @@ import { hookConsole, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-export default class Prettier extends Task<typeof PrettierSchema> {
+export default class Prettier extends Task<{ plugin: typeof PrettierSchema }> {
   static description = ''
 
   async run(files?: string[]): Promise<void> {

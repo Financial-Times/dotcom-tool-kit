@@ -6,7 +6,7 @@ import { readState } from '@dotcom-tool-kit/state'
 
 const pa11yCIPath = require.resolve('pa11y-ci/bin/pa11y-ci')
 
-export default class Pa11y extends Task<typeof Pa11ySchema> {
+export default class Pa11y extends Task<{ plugin: typeof Pa11ySchema }> {
   static description = ''
 
   async run(): Promise<void> {

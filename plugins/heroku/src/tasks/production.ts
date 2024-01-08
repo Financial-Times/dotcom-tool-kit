@@ -8,7 +8,7 @@ import heroku, { extractHerokuError } from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
 
-export default class HerokuProduction extends Task<typeof HerokuSchema> {
+export default class HerokuProduction extends Task<{ plugin: typeof HerokuSchema }> {
   static description = ''
 
   async run(): Promise<void> {

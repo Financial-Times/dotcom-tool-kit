@@ -10,7 +10,7 @@ import { getPipelineCouplings } from '../getPipelineCouplings'
 import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
 import { setStagingSlug } from '../setStagingSlug'
 
-export default class HerokuStaging extends Task<typeof HerokuSchema> {
+export default class HerokuStaging extends Task<{ plugin: typeof HerokuSchema }> {
   static description = ''
 
   async run(): Promise<void> {

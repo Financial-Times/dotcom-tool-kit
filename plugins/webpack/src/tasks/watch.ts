@@ -2,7 +2,7 @@ import { Task } from '@dotcom-tool-kit/base'
 import { WebpackSchema } from '@dotcom-tool-kit/schemas/lib/plugins/webpack'
 import runWebpack from '../run-webpack'
 
-export default class WebpackWatch extends Task<typeof WebpackSchema> {
+export default class WebpackWatch extends Task<{ plugin: typeof WebpackSchema }> {
   static description = 'Run Webpack in watch mode in the background'
 
   async run(): Promise<void> {

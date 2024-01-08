@@ -9,7 +9,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import herokuClient, { extractHerokuError } from '../herokuClient'
 import type { HerokuApiResPipeline } from 'heroku-client'
 
-export default class HerokuReview extends Task<typeof HerokuSchema> {
+export default class HerokuReview extends Task<{ plugin: typeof HerokuSchema }> {
   static description = ''
 
   async run(): Promise<void> {
