@@ -11,7 +11,7 @@ export const mergePluginOptions = (config: ValidPluginsConfig, plugin: Plugin) =
       // users can specify root options with the dotcom-tool-kit key to mirror
       // the name of the root npm package
       const pluginId = id === 'dotcom-tool-kit' ? 'app root' : id
-      const existingOptions = config.options[pluginId]
+      const existingOptions = config.pluginOptions[pluginId]
 
       const pluginOptions: PluginOptions = {
         options: configOptions,
@@ -33,15 +33,15 @@ export const mergePluginOptions = (config: ValidPluginsConfig, plugin: Plugin) =
             conflicting: conflicting.concat(pluginOptions)
           }
 
-          config.options[pluginId] = conflict
+          config.pluginOptions[pluginId] = conflict
         } else {
           // if we're here, any existing options are from a child plugin,
           // so merge in overrides from the parent
-          config.options[pluginId] = { ...existingOptions, ...pluginOptions }
+          config.pluginOptions[pluginId] = { ...existingOptions, ...pluginOptions }
         }
       } else {
         // this options key might not have been set yet, in which case use the new one
-        config.options[pluginId] = pluginOptions
+        config.pluginOptions[pluginId] = pluginOptions
       }
     }
   }

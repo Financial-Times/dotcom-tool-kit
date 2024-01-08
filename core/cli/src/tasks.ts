@@ -59,7 +59,7 @@ ${availableCommands}`
     throw error
   }
 
-  for (const pluginOptions of Object.values(config.options)) {
+  for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }

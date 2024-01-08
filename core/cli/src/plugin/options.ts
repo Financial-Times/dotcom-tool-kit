@@ -9,7 +9,7 @@ export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig
 
   for (const [id, plugin] of Object.entries(config.plugins)) {
     const pluginId = id as keyof SchemaOptions
-    const pluginOptions = config.options[pluginId]
+    const pluginOptions = config.pluginOptions[pluginId]
     if (pluginOptions && isConflict(pluginOptions)) {
       continue
     }
@@ -28,7 +28,7 @@ export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig
         // `Foo<a | b | c>` and the other as `Foo<a> | Foo<b> | Foo<c>` for
         // some reason (something to do with the record indexing) and it can't
         // unify them. But they are equivalent so let's force it with a cast.
-        config.options[pluginId] = {
+        config.pluginOptions[pluginId] = {
           options: result.data,
           plugin: config.plugins['app root'],
           forPlugin: plugin
