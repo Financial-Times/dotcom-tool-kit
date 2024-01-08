@@ -8,11 +8,11 @@ import { type Validated, invalid, reduceValidated, valid } from '@dotcom-tool-ki
 
 import { loadToolKitRC } from './rc-file'
 import { indentReasons } from './messages'
-import { mergePluginTasks } from './plugin/merge-tasks'
-import { mergePluginHooks } from './plugin/merge-hooks'
-import { mergePluginCommands } from './plugin/merge-commands'
+import { mergeTasks } from './plugin/merge-tasks'
+import { mergeHooks } from './plugin/merge-hooks'
+import { mergeCommands } from './plugin/merge-commands'
 import { mergePluginOptions } from './plugin/merge-plugin-options'
-import { mergePluginInits } from './plugin/merge-inits'
+import { mergeInits } from './plugin/merge-inits'
 import { mergeTaskOptions } from './plugin/merge-task-options'
 
 export async function loadPlugin(
@@ -77,12 +77,12 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
     }
   }
 
-  mergePluginTasks(config, plugin)
-  mergePluginHooks(config, plugin)
-  mergePluginCommands(config, plugin)
+  mergeTasks(config, plugin)
+  mergeHooks(config, plugin)
+  mergeCommands(config, plugin)
   mergePluginOptions(config, plugin)
   mergeTaskOptions(config, plugin)
-  mergePluginInits(config, plugin)
+  mergeInits(config, plugin)
 
   config.resolvedPlugins.add(plugin.id)
 }
