@@ -22,7 +22,7 @@ import { UploadAssetsToS3Schema } from './plugins/upload-assets-to-s3'
 import { VaultSchema } from './plugins/vault'
 import { WebpackSchema } from './plugins/webpack'
 
-export const Schemas = {
+export const PluginSchemas = {
   'app root': RootSchema,
   '@dotcom-tool-kit/babel': BabelSchema,
   '@dotcom-tool-kit/circleci': CircleCISchema,
@@ -47,8 +47,8 @@ export const Schemas = {
 }
 
 // Gives the TypeScript type represented by each Schema
-export type Options = {
-  [plugin in keyof typeof Schemas]: typeof Schemas[plugin] extends z.ZodTypeAny
-    ? z.infer<typeof Schemas[plugin]>
+export type PluginOptions = {
+  [plugin in keyof typeof PluginSchemas]: (typeof PluginSchemas)[plugin] extends z.ZodTypeAny
+    ? z.infer<(typeof PluginSchemas)[plugin]>
     : never
 }
