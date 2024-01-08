@@ -1,4 +1,4 @@
-import type { Plugin, PluginOptions } from '@dotcom-tool-kit/plugin'
+import type { Plugin, OptionsForPlugin } from '@dotcom-tool-kit/plugin'
 import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 
@@ -14,7 +14,7 @@ export const mergePluginOptions = (config: ValidPluginsConfig, plugin: Plugin) =
       const pluginId = id === 'dotcom-tool-kit' ? 'app root' : id
       const existingOptions = config.pluginOptions[pluginId]
 
-      const pluginOptions: PluginOptions = {
+      const pluginOptions: OptionsForPlugin = {
         options: configOptions,
         plugin,
         forPlugin: config.plugins[pluginId]
@@ -29,7 +29,7 @@ export const mergePluginOptions = (config: ValidPluginsConfig, plugin: Plugin) =
         if (!existingFromDescendent) {
           const conflicting = isConflict(existingOptions) ? existingOptions.conflicting : [existingOptions]
 
-          const conflict: Conflict<PluginOptions> = {
+          const conflict: Conflict<OptionsForPlugin> = {
             plugin,
             conflicting: conflicting.concat(pluginOptions)
           }
