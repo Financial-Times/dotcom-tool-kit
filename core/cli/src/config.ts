@@ -33,7 +33,7 @@ export const createConfig = (): RawConfig => ({
   resolvedPlugins: new Set(),
   tasks: {},
   commandTasks: {},
-  options: {},
+  pluginOptions: {},
   hooks: {},
   inits: []
 })
@@ -44,7 +44,7 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
   const commandTaskConflicts = findConflicts(Object.values(config.commandTasks))
   const hookConflicts = findConflictingEntries(config.hooks)
   const taskConflicts = findConflictingEntries(config.tasks)
-  const optionConflicts = findConflicts(Object.values(config.options))
+  const optionConflicts = findConflicts(Object.values(config.pluginOptions))
 
   const definedCommandTaskConflicts = commandTaskConflicts.filter((conflict) => {
     return conflict.conflicting[0].id in config.hooks
@@ -109,7 +109,7 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     error.details += formatInvalidOptions(invalidOptions)
   }
 
-  const unusedOptions = Object.entries(config.options)
+  const unusedOptions = Object.entries(config.pluginOptions)
     .filter(
       ([, option]) =>
         option && !isConflict(option) && !option.forPlugin && option.plugin.root === process.cwd()

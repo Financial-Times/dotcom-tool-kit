@@ -9,7 +9,7 @@ export interface RawConfig {
   resolvedPlugins: Set<string>
   tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
-  options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
+  pluginOptions: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
   hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   inits: EntryPoint[]
 }
@@ -26,9 +26,9 @@ export type ValidOptions = {
   [Id in keyof SchemaOptions]: ValidPluginOptions<Id>
 }
 
-export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'options' | 'hooks'> & {
+export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'pluginOptions' | 'hooks'> & {
   tasks: { [id: string]: EntryPoint }
   commandTasks: { [id: string]: CommandTask }
-  options: ValidOptions
+  pluginOptions: ValidOptions
   hooks: { [id: string]: EntryPoint }
 }
