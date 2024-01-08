@@ -14,7 +14,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, configPath, useVault, ports } = this.options
+    const { entry, configPath, useVault, ports } = this.pluginOptions
 
     let dopplerEnv = {}
 
