@@ -11,7 +11,7 @@ import {
   UploadAssetsToS3Schema
 } from '@dotcom-tool-kit/schemas/lib/plugins/upload-assets-to-s3'
 
-export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema> {
+export default class UploadAssetsToS3 extends Task<{ plugin: typeof UploadAssetsToS3Schema }> {
   static description = ''
 
   async run(): Promise<void> {

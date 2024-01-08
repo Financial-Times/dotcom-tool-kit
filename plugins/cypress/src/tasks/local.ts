@@ -5,7 +5,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
 import { CypressSchema } from '@dotcom-tool-kit/schemas/lib/plugins/cypress'
 
-export default class CypressLocal extends Task<typeof CypressSchema> {
+export default class CypressLocal extends Task<{ plugin: typeof CypressSchema }> {
   async run(): Promise<void> {
     const cypressEnv: Record<string, string> = {}
     if (this.pluginOptions.localUrl) {

@@ -6,7 +6,7 @@ import { fork } from 'child_process'
 import { promisify } from 'util'
 const mochaCLIPath = require.resolve('mocha/bin/mocha')
 
-export default class Mocha extends Task<typeof MochaSchema> {
+export default class Mocha extends Task<{ plugin: typeof MochaSchema }> {
   static description = ''
 
   async run(): Promise<void> {

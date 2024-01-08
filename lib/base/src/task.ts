@@ -3,7 +3,14 @@ import { Base } from './base'
 import { taskSymbol, typeSymbol } from './symbols'
 import type { Logger } from 'winston'
 
-export abstract class Task<PluginOptions extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
+type Default<T, D> = T extends undefined ? D : T
+
+export abstract class Task<
+  Options extends {
+    plugin?: z.ZodTypeAny
+    task?: z.ZodTypeAny
+  } = Record<never, never>
+> extends Base {
   static description: string
 
   static get [typeSymbol](): symbol {
@@ -19,7 +26,8 @@ export abstract class Task<PluginOptions extends z.ZodTypeAny = z.ZodTypeAny> ex
   constructor(
     logger: Logger,
     public id: string,
-    public pluginOptions: z.output<PluginOptions>
+    public pluginOptions: z.output<Default<Options['plugin'], z.ZodTypeAny>>,
+    public options: z.output<Default<Options['task'], z.ZodTypeAny>>
   ) {
     super()
     this.logger = logger.child({ task: id })
@@ -29,7 +37,12 @@ export abstract class Task<PluginOptions extends z.ZodTypeAny = z.ZodTypeAny> ex
 }
 
 export type TaskConstructor = {
-  new <O extends z.ZodTypeAny>(logger: Logger, id: string, options: Partial<z.infer<O>>): Task<O>
+  new <O extends { plugin: z.ZodTypeAny; task: z.ZodTypeAny }>(
+    logger: Logger,
+    id: string,
+    pluginOptions: Partial<z.infer<O['plugin']>>,
+    options: Partial<z.infer<O['task']>>
+  ): Task<O>
 }
 
 export type TaskClass = TaskConstructor & typeof Task

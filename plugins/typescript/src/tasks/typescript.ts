@@ -5,7 +5,7 @@ import { fork } from 'child_process'
 
 const tscPath = require.resolve('typescript/bin/tsc')
 
-export default abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
+export default abstract class TypeScriptTask extends Task<{ plugin: typeof TypeScriptSchema }> {
   abstract taskArgs: string[]
 
   async run(): Promise<void> {
