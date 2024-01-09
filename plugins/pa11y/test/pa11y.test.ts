@@ -1,11 +1,14 @@
-import { describe, it, expect, jest } from '@jest/globals'
-import Pa11y from '../src/tasks/pa11y'
-import winston, { Logger } from 'winston'
 import EventEmitter from 'events'
+
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import * as state from '@dotcom-tool-kit/state'
 
+import Pa11y from '../src/tasks/pa11y'
+
 const appName = 'test-app-name'
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 jest.mock('child_process', () => ({
   fork: jest.fn(() => {

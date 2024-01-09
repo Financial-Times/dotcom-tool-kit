@@ -1,7 +1,9 @@
-import { loadConfig } from './config'
-import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
-import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
+
+import { type OptionKey, setOptions } from '@dotcom-tool-kit/options'
+import { styles } from '@dotcom-tool-kit/logger'
+
+import { loadConfig } from './config'
 
 export default async function showHelp(logger: Logger, hooks: string[]): Promise<void> {
   const config = await loadConfig(logger)

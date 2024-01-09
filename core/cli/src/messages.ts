@@ -1,8 +1,9 @@
+import type { z } from 'zod'
+import { fromZodError } from 'zod-validation-error'
+
 import { styles as s, styles } from '@dotcom-tool-kit/logger'
 import type { Hook } from '@dotcom-tool-kit/base'
 import type { CommandTask, EntryPoint, Plugin, PluginOptions } from '@dotcom-tool-kit/plugin'
-import type { z } from 'zod'
-import { fromZodError } from 'zod-validation-error'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
 
 const formatTaskConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>
@@ -154,8 +155,8 @@ export function formatPluginTree(plugin: Plugin): string[] {
             ? `└ ${line}`
             : `├ ${line}`
           : childIndex === children.length - 1
-          ? `  ${line}`
-          : `│ ${line}`
+            ? `  ${line}`
+            : `│ ${line}`
       )
     )
   ]

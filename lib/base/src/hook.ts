@@ -1,9 +1,11 @@
 import type { Logger } from 'winston'
-import { Base } from './base'
-import { hookSymbol, typeSymbol } from './symbols'
 import type { z } from 'zod'
+
 import type { Plugin } from '@dotcom-tool-kit/plugin'
-import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+
+import { hookSymbol, typeSymbol } from './symbols'
+import { Base } from './base'
 
 export interface HookInstallation<Options = Record<string, unknown>> {
   options: Options
@@ -51,7 +53,11 @@ export abstract class Hook<Options extends z.ZodTypeAny = z.ZodTypeAny, State = 
     return [parentInstallation]
   }
 
-  constructor(logger: Logger, public id: string, public options: z.output<Options>) {
+  constructor(
+    logger: Logger,
+    public id: string,
+    public options: z.output<Options>
+  ) {
     super()
     this.logger = logger.child({ hook: this.constructor.name })
   }

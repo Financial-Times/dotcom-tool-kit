@@ -1,6 +1,7 @@
 import type { Logger } from 'winston'
-import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResBuild } from 'heroku-client'
+
+import heroku, { extractHerokuError } from './herokuClient'
 import { getRepoDetails } from './githubApi'
 
 async function createBuild(logger: Logger, appName: string): Promise<HerokuApiResBuild> {

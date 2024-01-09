@@ -1,8 +1,10 @@
-import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { promises as fs } from 'fs'
-import partition from 'lodash/partition'
 import path from 'path'
+
+import parseMakefileRules from '@quarterto/parse-makefile-rules'
+import partition from 'lodash/partition'
+
+import { styles, rootLogger as winstonLogger } from '@dotcom-tool-kit/logger'
 
 export default async (): Promise<void> => {
   // Handle case-sensitive file systems
@@ -26,11 +28,11 @@ export default async (): Promise<void> => {
     const targets = Object.keys(rules)
     winstonLogger.info(`${styles.ruler()}\n`)
     winstonLogger.info(
-      "We recommend deleting your old Makefile as it will no longer be used. In the" +
-"future you can run tasks with 'npm run' instead. Make sure that you won't be" +
-"deleting any task logic that hasn't already been migrated to Tool Kit. If you" +
-"find anything that can't be handled by Tool Kit then please let the Platforms" +
-"team know."
+      'We recommend deleting your old Makefile as it will no longer be used. In the' +
+        "future you can run tasks with 'npm run' instead. Make sure that you won't be" +
+        "deleting any task logic that hasn't already been migrated to Tool Kit. If you" +
+        "find anything that can't be handled by Tool Kit then please let the Platforms" +
+        'team know.'
     )
 
     const equivalentHooks: Record<string, string> = {

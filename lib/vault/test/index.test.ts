@@ -1,11 +1,13 @@
-import { describe, it, beforeAll, beforeEach, afterAll, jest, expect } from '@jest/globals'
-import { VaultEnvVars } from '../src/index'
+import fs from 'fs'
+
+import { afterAll, beforeAll, beforeEach, describe, expect, it, jest } from '@jest/globals'
 import fetch from '@financial-times/n-fetch'
 import { mocked } from 'ts-jest/utils'
-import fs from 'fs'
-import winston, { Logger } from 'winston'
+import winston, { type Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+import { VaultEnvVars } from '../src/index'
+
+const logger = winston as unknown as Logger
 
 let CIRCLECI: string
 if (process.env.CIRCLECI) {

@@ -1,14 +1,16 @@
-import { Task } from '@dotcom-tool-kit/base'
 import * as fs from 'fs'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import path from 'path'
+
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import mime from 'mime'
 import { glob } from 'glob'
+
+import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import {
-  UploadAssetsToS3Options,
-  UploadAssetsToS3Schema
+  type UploadAssetsToS3Options,
+  type UploadAssetsToS3Schema
 } from '@dotcom-tool-kit/schemas/lib/plugins/upload-assets-to-s3'
 
 export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema> {

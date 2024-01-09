@@ -1,7 +1,9 @@
-import heroku, { extractHerokuError } from './herokuClient'
-import { ToolKitError } from '@dotcom-tool-kit/error'
 import type { HerokuApiResPatch } from 'heroku-client'
 import type { Logger } from 'winston'
+
+import { ToolKitError } from '@dotcom-tool-kit/error'
+
+import heroku, { extractHerokuError } from './herokuClient'
 
 async function scaleDyno(
   logger: Logger,

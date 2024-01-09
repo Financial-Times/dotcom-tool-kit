@@ -1,12 +1,14 @@
+import { fork } from 'child_process'
+
+import getPort from 'get-port'
+import waitPort from 'wait-port'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookConsole, hookFork, styles } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
-import { NodeSchema } from '@dotcom-tool-kit/schemas/lib/plugins/node'
+import { type NodeSchema } from '@dotcom-tool-kit/schemas/lib/plugins/node'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import { fork } from 'child_process'
-import getPort from 'get-port'
-import waitPort from 'wait-port'
 
 export default class Node extends Task<typeof NodeSchema> {
   static description = ''

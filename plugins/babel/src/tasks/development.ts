@@ -1,6 +1,7 @@
-import { runBabel } from '../run-babel'
 import { Task } from '@dotcom-tool-kit/base'
-import { BabelSchema } from '@dotcom-tool-kit/schemas/lib/plugins/babel'
+import { type BabelSchema } from '@dotcom-tool-kit/schemas/lib/plugins/babel'
+
+import { runBabel } from '../run-babel'
 
 export default class BabelDevelopment extends Task<typeof BabelSchema> {
   static description = 'build babel'

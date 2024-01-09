@@ -1,13 +1,15 @@
-import type { ValidConfig } from '@dotcom-tool-kit/config'
-import { Task, TaskConstructor } from '@dotcom-tool-kit/base'
-import { Validated, reduceValidated } from '@dotcom-tool-kit/validated'
 import type { Logger } from 'winston'
-import { importEntryPoint } from './plugin/entry-point'
-import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
-import { loadConfig } from './config'
+
+import type { ValidConfig } from '@dotcom-tool-kit/config'
+import { Task, type TaskConstructor } from '@dotcom-tool-kit/base'
+import { type Validated, reduceValidated } from '@dotcom-tool-kit/validated'
+import { type OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { checkInstall } from './install'
 import { styles } from '@dotcom-tool-kit/logger'
+
+import { importEntryPoint } from './plugin/entry-point'
+import { loadConfig } from './config'
+import { checkInstall } from './install'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 
@@ -29,7 +31,7 @@ const loadTasks = async (
 
       return taskResult.map((Task) => [
         taskName,
-        new ((Task as unknown) as TaskConstructor)(
+        new (Task as unknown as TaskConstructor)(
           logger,
           taskName,
           getOptions(entryPoint.plugin.id as OptionKey) ?? {}

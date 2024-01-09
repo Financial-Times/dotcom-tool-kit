@@ -1,6 +1,8 @@
-import { loadConfig } from './config'
-import type { Logger } from 'winston'
 import util from 'util'
+
+import type { Logger } from 'winston'
+
+import { loadConfig } from './config'
 import { formatPluginTree } from './messages'
 
 export { runTasks } from './tasks'

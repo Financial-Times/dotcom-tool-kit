@@ -1,9 +1,11 @@
+import type { HerokuApiResGetApp } from 'heroku-client'
+
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
-import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
-import type { HerokuApiResGetApp } from 'heroku-client'
+import { type HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
+
 import heroku, { extractHerokuError } from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'

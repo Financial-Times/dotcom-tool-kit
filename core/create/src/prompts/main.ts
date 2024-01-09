@@ -1,7 +1,9 @@
-import { styles } from '@dotcom-tool-kit/logger'
-import type { PackageJson } from '@financial-times/package-json'
 import { existsSync } from 'fs'
+
+import type { PackageJson } from '@financial-times/package-json'
 import prompt from 'prompts'
+
+import { styles } from '@dotcom-tool-kit/logger'
 
 type PromptNames = 'preset' | 'additional' | 'addEslintConfig' | 'deleteConfig' | 'uninstall'
 

@@ -1,11 +1,13 @@
 // The standard Jest types clash with the mocha types in the global scope so
 // explicitly import them instead.
-import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
-import Mocha from '../../src/tasks/mocha'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+import { describe, expect, it } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
+import Mocha from '../../src/tasks/mocha'
+
+const logger = winston as unknown as Logger
 
 describe('mocha', () => {
   it('should succeed with passing tests', async () => {

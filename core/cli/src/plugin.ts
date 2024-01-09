@@ -1,9 +1,11 @@
+import resolvePkg from 'resolve-pkg'
+import type { Logger } from 'winston'
+
 import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Plugin } from '@dotcom-tool-kit/plugin'
 import type { RawConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
-import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
-import resolvePkg from 'resolve-pkg'
-import type { Logger } from 'winston'
+import { type Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
+
 import { loadToolKitRC } from './rc-file'
 import { indentReasons } from './messages'
 import { mergePluginTasks } from './plugin/merge-tasks'

@@ -1,4 +1,5 @@
 import type { Logger } from 'winston'
+
 import { initSymbol, typeSymbol } from './symbols'
 import { Base } from './base'
 

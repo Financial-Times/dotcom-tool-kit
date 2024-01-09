@@ -1,8 +1,10 @@
 import type { Logger } from 'winston'
-import heroku, { extractHerokuError } from './herokuClient'
+import { type HerokuApiResPost } from 'heroku-client'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { HerokuApiResPost } from 'heroku-client'
 import { writeState } from '@dotcom-tool-kit/state'
+
+import heroku, { extractHerokuError } from './herokuClient'
 
 async function setStagingSlug(logger: Logger, appName: string, slug: string): Promise<void> {
   try {

@@ -1,10 +1,12 @@
-import { Task } from '@dotcom-tool-kit/base'
-import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
 import { spawn } from 'child_process'
-import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
+
 import getPort from 'get-port'
 import waitPort from 'wait-port'
+
+import { Task } from '@dotcom-tool-kit/base'
+import { type ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
+import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
+import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 
 export default class ServerlessRun extends Task<typeof ServerlessSchema> {
   static description = 'Run serverless functions locally'

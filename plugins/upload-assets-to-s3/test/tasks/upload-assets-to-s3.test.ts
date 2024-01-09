@@ -1,14 +1,17 @@
-import { describe, it, expect, beforeEach } from '@jest/globals'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
-import { UploadAssetsToS3Options } from '@dotcom-tool-kit/schemas/lib/plugins/upload-assets-to-s3'
 import * as path from 'path'
-import winston, { Logger } from 'winston'
+
+import { beforeEach, describe, expect, it } from '@jest/globals'
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import winston, { type Logger } from 'winston'
+
+import { type UploadAssetsToS3Options } from '@dotcom-tool-kit/schemas/lib/plugins/upload-assets-to-s3'
+
 import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'
 jest.mock('@aws-sdk/client-s3')
 
 const mockedS3Client = jest.mocked(S3Client, true)
 const mockedPutObjectCommand = jest.mocked(PutObjectCommand, true)
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 

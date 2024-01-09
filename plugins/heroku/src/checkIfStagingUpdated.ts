@@ -1,8 +1,10 @@
-import { ToolKitError } from '@dotcom-tool-kit/error'
 import pRetry from 'p-retry'
-import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetRelease } from 'heroku-client'
 import type { Logger } from 'winston'
+
+import { ToolKitError } from '@dotcom-tool-kit/error'
+
+import heroku, { extractHerokuError } from './herokuClient'
 
 const NUM_RETRIES = process.env.HEROKU_STAGING_NUM_RETRIES
   ? parseInt(process.env.HEROKU_STAGING_NUM_RETRIES, 10)

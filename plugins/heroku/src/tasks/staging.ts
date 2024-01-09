@@ -1,5 +1,7 @@
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { type HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
+
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
 import { setAppConfigVars } from '../setConfigVars'
 import { createBuild } from '../createBuild'
@@ -7,7 +9,6 @@ import { repeatedCheckForBuildSuccess } from '../repeatedCheckForBuildSuccess'
 import { scaleDyno } from '../scaleDyno'
 import { gtg } from '../gtg'
 import { getPipelineCouplings } from '../getPipelineCouplings'
-import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
 import { setStagingSlug } from '../setStagingSlug'
 
 export default class HerokuStaging extends Task<typeof HerokuSchema> {

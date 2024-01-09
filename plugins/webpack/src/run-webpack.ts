@@ -1,5 +1,7 @@
 import { fork } from 'child_process'
-import { Logger } from 'winston'
+
+import { type Logger } from 'winston'
+
 import type { WebpackOptions } from '@dotcom-tool-kit/schemas/lib/plugins/webpack'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 

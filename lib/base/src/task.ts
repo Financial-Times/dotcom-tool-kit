@@ -1,7 +1,8 @@
 import type { z } from 'zod'
+import type { Logger } from 'winston'
+
 import { Base } from './base'
 import { taskSymbol, typeSymbol } from './symbols'
-import type { Logger } from 'winston'
 
 export abstract class Task<O extends z.ZodTypeAny = z.ZodTypeAny> extends Base {
   static description: string

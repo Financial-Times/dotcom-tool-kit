@@ -1,9 +1,10 @@
-import { describe, it, expect, jest } from '@jest/globals'
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import Teardown from '../../src/tasks/teardown'
 import * as utils from '../../src/scaleDyno'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const appName = 'staging-app-name'
 

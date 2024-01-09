@@ -1,4 +1,6 @@
-import { describe, it, expect, jest } from '@jest/globals'
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import Staging from '../../src/tasks/staging'
 import { getPipelineCouplings } from '../../src/getPipelineCouplings'
 import { getHerokuStagingApp } from '../../src/getHerokuStagingApp'
@@ -7,10 +9,9 @@ import { scaleDyno } from '../../src/scaleDyno'
 import { setStagingSlug } from '../../src/setStagingSlug'
 import { repeatedCheckForBuildSuccess } from '../../src/repeatedCheckForBuildSuccess'
 import { gtg } from '../../src/gtg'
-import winston, { Logger } from 'winston'
 import { createBuild } from '../../src/createBuild'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const pipeline = 'test-pipeline'
 const appName = 'test-appName'

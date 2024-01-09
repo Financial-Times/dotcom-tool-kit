@@ -1,9 +1,11 @@
-import heroku, { extractHerokuError } from './herokuClient'
 import type { HerokuApiResGetGtg } from 'heroku-client'
 import type { Logger } from 'winston'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { waitForOk } from '@dotcom-tool-kit/wait-for-ok'
-import { State, writeState } from '@dotcom-tool-kit/state'
+import { type State, writeState } from '@dotcom-tool-kit/state'
+
+import heroku, { extractHerokuError } from './herokuClient'
 
 async function gtg(logger: Logger, appIdOrName: string, environment: keyof State): Promise<void> {
   const appDetails = await heroku

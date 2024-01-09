@@ -1,17 +1,20 @@
-import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
-import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import type { RCFile } from '@dotcom-tool-kit/plugin'
-import loadPackageJson from '@financial-times/package-json'
 import { exec as _exec } from 'child_process'
+import { promises as fs } from 'fs'
+import path from 'path'
+import { promisify } from 'util'
+
+import loadPackageJson from '@financial-times/package-json'
 import type { cosmiconfig } from 'cosmiconfig'
 import type { loadConfig as loadConfigType } from 'dotcom-tool-kit/lib/config'
-import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
 import Logger from 'komatsu'
 import pacote from 'pacote'
-import path from 'path'
-import { promisify } from 'util'
 import YAML from 'yaml'
+
+import type { RCFile } from '@dotcom-tool-kit/plugin'
+import { styles, rootLogger as winstonLogger } from '@dotcom-tool-kit/logger'
+import type * as ToolkitErrorModule from '@dotcom-tool-kit/error'
+
 import { catchToolKitErrorsInLogger, hasToolKitConflicts } from './logger'
 import makefileHint from './makefile'
 import confirmationPrompt from './prompts/confirmation'
@@ -46,9 +49,11 @@ function getEslintConfigContent(): string {
 function clearConfigCache() {
   // we need to import explorer from the app itself instead of npx as this is
   // the object used by installHooks()
-  return (importCwd('dotcom-tool-kit/lib/rc-file') as {
-    explorer: ReturnType<typeof cosmiconfig>
-  }).explorer.clearSearchCache()
+  return (
+    importCwd('dotcom-tool-kit/lib/rc-file') as {
+      explorer: ReturnType<typeof cosmiconfig>
+    }
+  ).explorer.clearSearchCache()
 }
 
 async function executeMigration(

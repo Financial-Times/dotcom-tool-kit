@@ -1,7 +1,9 @@
-import { configPaths, readState, writeState } from '@dotcom-tool-kit/state'
 import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
-import { Logger } from 'winston'
+
+import { type Logger } from 'winston'
+
+import { configPaths, readState, writeState } from '@dotcom-tool-kit/state'
 
 export async function fileHash(path: string): Promise<string> {
   const hashFunc = createHash('sha512')

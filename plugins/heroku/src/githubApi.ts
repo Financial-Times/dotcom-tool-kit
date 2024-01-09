@@ -1,8 +1,9 @@
 import { request } from '@octokit/request'
 import { RequestError } from '@octokit/request-error'
+import { type Logger } from 'winston'
+
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Logger } from 'winston'
 
 const githubAuthToken = process.env.GITHUB_AUTH_TOKEN
 

@@ -1,11 +1,14 @@
-import { ChildProcess } from 'child_process'
-import { Readable, Transform } from 'stream'
-import { Logger } from 'winston'
+import { type ChildProcess } from 'child_process'
+import { type Readable, Transform } from 'stream'
+
+import { type Logger } from 'winston'
+import ansiRegex from 'ansi-regex'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
+
 import { rootLogger } from './logger'
 import { styles as s } from './styles'
 import { HookTransport, consoleTransport } from './transports'
-import ansiRegex from 'ansi-regex'
 
 const ansiRegexText = ansiRegex().source
 const whitespaceRegex = /\s|\n/g

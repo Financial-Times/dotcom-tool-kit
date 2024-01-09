@@ -1,7 +1,9 @@
-import prettier from 'prettier'
-import { PrettierOptions, PrettierSchema } from '@dotcom-tool-kit/schemas/lib/plugins/prettier'
 import { promises as fsp } from 'fs'
+
+import prettier from 'prettier'
 import fg from 'fast-glob'
+
+import { type PrettierOptions, type PrettierSchema } from '@dotcom-tool-kit/schemas/lib/plugins/prettier'
 import { hookConsole, styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'

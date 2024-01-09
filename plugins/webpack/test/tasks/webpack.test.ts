@@ -1,11 +1,13 @@
-import { describe, jest, it, expect } from '@jest/globals'
-import DevelopmentWebpack from '../../src/tasks/development'
-import ProductionWebpack from '../../src/tasks/production'
 import { fork } from 'child_process'
 import EventEmitter from 'events'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
+import DevelopmentWebpack from '../../src/tasks/development'
+import ProductionWebpack from '../../src/tasks/production'
+
+const logger = winston as unknown as Logger
 
 jest.mock('child_process', () => ({
   fork: jest.fn(() => {

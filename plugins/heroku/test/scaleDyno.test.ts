@@ -1,9 +1,10 @@
-import { describe, it, expect, jest } from '@jest/globals'
+import { describe, expect, it, jest } from '@jest/globals'
+import winston, { type Logger } from 'winston'
+
 import { scaleDyno } from '../src/scaleDyno'
 import heroku from '../src/herokuClient'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const appName = 'test-staging-app-name'
 

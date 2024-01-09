@@ -1,11 +1,14 @@
-import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
-import * as puppeteer from 'puppeteer'
-import NTest from '../../src/tasks/n-test'
-import { writeState } from '@dotcom-tool-kit/state'
-import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+import { describe, expect, it } from '@jest/globals'
+import * as puppeteer from 'puppeteer'
+import winston, { type Logger } from 'winston'
+
+import { writeState } from '@dotcom-tool-kit/state'
+
+import NTest from '../../src/tasks/n-test'
+
+const logger = winston as unknown as Logger
 
 const configAbsolutePath = path.join(__dirname, '../files/smoke.js')
 // n-test prepends the CWD to the given config path

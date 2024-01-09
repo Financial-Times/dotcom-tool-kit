@@ -1,7 +1,8 @@
+import lintStaged from 'lint-staged'
+
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookConsole } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
-import lintStaged from 'lint-staged'
 
 export default class LintStaged extends Task {
   static description = ''
