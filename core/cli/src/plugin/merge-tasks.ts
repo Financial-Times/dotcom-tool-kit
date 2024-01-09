@@ -1,5 +1,5 @@
 import type{ EntryPoint, Plugin } from '@dotcom-tool-kit/plugin'
-import type {ValidPluginsConfig } from '@dotcom-tool-kit/config'
+import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { isConflict } from '@dotcom-tool-kit/conflict'
 
 // add plugin tasks to our task registry, handling any conflicts
