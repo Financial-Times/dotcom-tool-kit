@@ -1,4 +1,4 @@
-import { Plugin } from '@dotcom-tool-kit/types'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
 
 export function isDescendent(possibleAncestor: Plugin, possibleDescendent: Plugin): boolean {
   if (!possibleDescendent.parent) {

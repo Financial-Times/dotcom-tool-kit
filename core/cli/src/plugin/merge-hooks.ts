@@ -1,5 +1,6 @@
-import { EntryPoint, Plugin, ValidPluginsConfig } from '@dotcom-tool-kit/types'
-import { isConflict } from '@dotcom-tool-kit/types/src/conflict'
+import type { EntryPoint, Plugin } from '@dotcom-tool-kit/plugin'
+import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
+import { isConflict } from '@dotcom-tool-kit/conflict'
 
 export const mergePluginHooks = (config: ValidPluginsConfig, plugin: Plugin) => {
   if (plugin.rcFile) {

@@ -1,4 +1,5 @@
-import { Plugin, ValidPluginsConfig } from '@dotcom-tool-kit/types'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
+import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 
 export const mergePluginInits = (config: ValidPluginsConfig, plugin: Plugin) => {
   if (plugin.rcFile) {

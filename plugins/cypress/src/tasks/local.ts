@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { CypressSchema } from '@dotcom-tool-kit/schemas/lib/plugins/cypress'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 

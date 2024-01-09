@@ -1,47 +1,7 @@
-import type { Conflict } from './conflict'
 import type { Validated } from '@dotcom-tool-kit/validated'
+import type { EntryPoint, CommandTask, PluginOptions, Plugin } from '@dotcom-tool-kit/plugin'
 import type { SchemaOptions } from '@dotcom-tool-kit/schemas'
-
-export * from '@dotcom-tool-kit/validated'
-export * from './base'
-export * from './task'
-export * from './hook'
-export * from './init'
-
-export type RCFile = {
-  plugins: string[]
-  installs: { [id: string]: string }
-  tasks: { [id: string]: string }
-  commands: { [id: string]: string | string[] }
-  options: { [id: string]: Record<string, unknown> }
-  hooks: { [id: string]: Record<string, unknown> }[]
-  init: string[]
-}
-
-export interface Plugin {
-  id: string
-  root: string
-  rcFile?: RCFile
-  parent?: Plugin
-  children?: Plugin[]
-}
-
-export interface CommandTask {
-  id: string
-  plugin: Plugin
-  tasks: string[]
-}
-
-export interface PluginOptions {
-  options: Record<string, unknown>
-  plugin: Plugin
-  forPlugin: Plugin
-}
-
-export interface EntryPoint {
-  plugin: Plugin
-  modulePath: string
-}
+import type { Conflict } from '@dotcom-tool-kit/conflict'
 
 export interface RawConfig {
   root: string

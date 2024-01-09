@@ -1,5 +1,7 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Plugin, Valid, ValidPluginsConfig } from '@dotcom-tool-kit/types'
+import type { Valid } from '@dotcom-tool-kit/validated'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
+import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'

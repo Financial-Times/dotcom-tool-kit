@@ -10,11 +10,11 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/doppler": "^1.0.6",
     "@dotcom-tool-kit/error": "^3.1.0",
     "@dotcom-tool-kit/logger": "^3.3.0",
     "@dotcom-tool-kit/state": "^3.1.1",
-    "@dotcom-tool-kit/types": "^3.4.1",
     "ft-next-router": "^3.0.0",
     "tslib": "^2.3.1"
   },

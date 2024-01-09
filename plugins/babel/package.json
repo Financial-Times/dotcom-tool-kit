@@ -16,9 +16,9 @@
   },
   "keywords": [],
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/error": "^3.1.0",
     "@dotcom-tool-kit/logger": "^3.3.0",
-    "@dotcom-tool-kit/types": "^3.4.1",
     "fast-glob": "^3.2.11",
     "tslib": "^2.3.1"
   },

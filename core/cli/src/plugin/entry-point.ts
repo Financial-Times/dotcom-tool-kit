@@ -1,6 +1,7 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
 
-import { Base, EntryPoint } from '@dotcom-tool-kit/types'
+import type { Base } from '@dotcom-tool-kit/base'
+import type { EntryPoint } from '@dotcom-tool-kit/plugin'
 import { Validated, invalid } from '@dotcom-tool-kit/validated'
 import resolvePkg from 'resolve-pkg'
 import { isPlainObject } from 'lodash'

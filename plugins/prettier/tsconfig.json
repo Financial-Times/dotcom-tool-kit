@@ -1,6 +1,8 @@
 {
   "extends": "../../tsconfig.settings.json",
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
@@ -13,7 +15,7 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import * as exec from '@actions/exec'
 

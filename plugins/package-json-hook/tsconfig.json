@@ -6,10 +6,16 @@
   },
   "references": [
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     },
     {
       "path": "../../lib/schemas"
+    },
+    {
+      "path": "../../lib/conflict"
+    },
+    {
+      "path": "../../lib/plugin"
     }
   ],
   "include": ["src/**/*"]

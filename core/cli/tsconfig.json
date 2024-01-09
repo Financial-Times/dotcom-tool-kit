@@ -11,10 +11,16 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/types"
+      "path": "../../lib/plugin"
+    },
+    {
+      "path": "../../lib/config"
     },
     {
       "path": "../../lib/validated"
+    },
+    {
+      "path": "../../lib/conflict"
     }
   ],
   "compilerOptions": {
