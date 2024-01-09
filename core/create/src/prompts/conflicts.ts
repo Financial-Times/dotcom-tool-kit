@@ -1,6 +1,6 @@
 import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import type { RCFile} from '@dotcom-tool-kit/plugin'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
 import type { ValidConfig } from '@dotcom-tool-kit/config'
 import type installHooksType from 'dotcom-tool-kit/lib/install'
 import { promises as fs } from 'fs'
