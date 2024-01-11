@@ -174,6 +174,23 @@
     * @dotcom-tool-kit/npm bumped from ^3.2.2 to ^3.2.3
     * @dotcom-tool-kit/serverless bumped from ^2.2.12 to ^2.2.13
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v3.0.13...backend-serverless-app-v3.1.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^3.2.9 to ^3.3.0
+    * @dotcom-tool-kit/node bumped from ^3.3.9 to ^3.4.0
+    * @dotcom-tool-kit/npm bumped from ^3.2.3 to ^3.3.0
+    * @dotcom-tool-kit/serverless bumped from ^2.2.13 to ^2.3.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v2.1.11...backend-serverless-app-v3.0.0) (2023-10-09)
 
 

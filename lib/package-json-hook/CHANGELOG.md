@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v4.1.0...package-json-hook-v4.2.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v4.0.0...package-json-hook-v4.1.0) (2023-04-28)
 
 

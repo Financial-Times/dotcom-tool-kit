@@ -203,6 +203,22 @@
     * @dotcom-tool-kit/circleci bumped from ^5.3.8 to ^5.3.9
     * @dotcom-tool-kit/npm bumped from ^3.2.2 to ^3.2.3
 
+## [5.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v5.2.12...circleci-npm-v5.3.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.5.0 to ^3.6.0
+    * @dotcom-tool-kit/circleci bumped from ^5.3.9 to ^5.4.0
+    * @dotcom-tool-kit/npm bumped from ^3.2.3 to ^3.3.0
+
 ## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v5.1.2...circleci-npm-v5.2.0) (2023-05-30)
 
 

@@ -65,6 +65,21 @@
     * @dotcom-tool-kit/logger bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.1.7...typescript-v2.2.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.3.1 to ^3.4.0
+    * @dotcom-tool-kit/types bumped from ^3.5.0 to ^3.6.0
+
 ## [2.1.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.1.5...typescript-v2.1.6) (2023-11-29)
 
 

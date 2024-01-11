@@ -259,6 +259,21 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.2.8 to ^3.2.9
     * @dotcom-tool-kit/heroku bumped from ^3.3.14 to ^3.3.15
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v3.1.24...circleci-heroku-v3.2.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^3.2.9 to ^3.3.0
+    * @dotcom-tool-kit/heroku bumped from ^3.3.15 to ^3.4.0
+
 ## [3.1.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-heroku-v3.1.7...circleci-heroku-v3.1.8) (2023-07-04)
 
 

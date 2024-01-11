@@ -156,6 +156,22 @@
     * @dotcom-tool-kit/lint-staged bumped from ^4.1.5 to ^4.1.6
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v3.1.6...lint-staged-npm-v3.2.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/husky-npm bumped from ^4.1.0 to ^4.2.0
+    * @dotcom-tool-kit/lint-staged bumped from ^4.1.6 to ^4.2.0
+    * @dotcom-tool-kit/options bumped from ^3.1.6 to ^3.2.0
+
 ## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v3.0.0...lint-staged-npm-v3.1.0) (2023-04-28)
 
 
