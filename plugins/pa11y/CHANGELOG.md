@@ -90,6 +90,20 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [0.5.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.5.1...pa11y-v0.5.2) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.5.0 to ^3.6.0
+
 ## [0.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.4.6...pa11y-v0.5.0) (2023-11-17)
 
 

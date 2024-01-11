@@ -162,6 +162,23 @@
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
     * @dotcom-tool-kit/doppler bumped from ^1.0.8 to ^1.0.9
 
+## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v3.3.9...nodemon-v3.4.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.1.0 to ^3.2.0
+    * @dotcom-tool-kit/state bumped from ^3.1.1 to ^3.2.0
+    * @dotcom-tool-kit/types bumped from ^3.5.0 to ^3.6.0
+    * @dotcom-tool-kit/doppler bumped from ^1.0.9 to ^1.1.0
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v3.2.1...nodemon-v3.3.0) (2023-09-19)
 
 

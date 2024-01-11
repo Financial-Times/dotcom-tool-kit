@@ -161,6 +161,28 @@
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.15...heroku-v3.4.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.0.9 to ^1.1.0
+    * @dotcom-tool-kit/error bumped from ^3.1.0 to ^3.2.0
+    * @dotcom-tool-kit/logger bumped from ^3.3.1 to ^3.4.0
+    * @dotcom-tool-kit/npm bumped from ^3.2.3 to ^3.3.0
+    * @dotcom-tool-kit/options bumped from ^3.1.6 to ^3.2.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^4.1.0 to ^4.2.0
+    * @dotcom-tool-kit/state bumped from ^3.1.1 to ^3.2.0
+    * @dotcom-tool-kit/types bumped from ^3.5.0 to ^3.6.0
+    * @dotcom-tool-kit/wait-for-ok bumped from ^3.1.0 to ^3.2.0
+
 ## [3.3.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.12...heroku-v3.3.13) (2023-11-24)
 
 

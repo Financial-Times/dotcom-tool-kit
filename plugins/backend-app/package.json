@@ -1,13 +1,13 @@
 {
   "name": "@dotcom-tool-kit/backend-app",
-  "version": "3.1.24",
+  "version": "3.2.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/backend-heroku-app": "^3.0.12"
+    "@dotcom-tool-kit/backend-heroku-app": "^3.1.0"
   },
   "repository": {
     "type": "git",

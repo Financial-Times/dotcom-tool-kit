@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.1.1...state-v3.2.0) (2024-01-11)
+
+
+### Features
+
+* add support for Node v20 ([759ac10](https://github.com/Financial-Times/dotcom-tool-kit/commit/759ac10e309885e99f54ae431c301c32ee04f972))
+
 ## [3.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.1.0...state-v3.1.1) (2023-10-03)
 
 
