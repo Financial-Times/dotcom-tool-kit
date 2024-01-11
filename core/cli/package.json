@@ -54,8 +54,8 @@
     "zod-validation-error": "^0.3.0"
   },
   "engines": {
-    "node": "16.x || 18.x",
-    "npm": "7.x || 8.x || 9.x"
+    "node": "16.x || 18.x || 20.x",
+    "npm": "7.x || 8.x || 9.x || 10.x"
   },
   "files": [
     "/bin",
