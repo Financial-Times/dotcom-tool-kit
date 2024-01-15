@@ -1,4 +1,3 @@
-import { BabelSchema } from './plugins/babel'
 import { CircleCISchema } from './plugins/circleci'
 import { CypressSchema } from './plugins/cypress'
 import { DopplerSchema } from './plugins/doppler'
@@ -23,7 +22,6 @@ import { type InferSchemaOptions } from './infer'
 
 export const PluginSchemas = {
   'app root': RootSchema,
-  '@dotcom-tool-kit/babel': BabelSchema,
   '@dotcom-tool-kit/circleci': CircleCISchema,
   '@dotcom-tool-kit/cypress': CypressSchema,
   '@dotcom-tool-kit/doppler': DopplerSchema,
