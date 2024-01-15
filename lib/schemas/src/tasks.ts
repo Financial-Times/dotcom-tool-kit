@@ -1,9 +1,8 @@
-import { z } from 'zod'
-
 import { type InferSchemaOptions } from './infer'
+import { BabelSchema } from './tasks/babel'
 
 export const TaskSchemas = {
-  'fake schema': z.never()
+  Babel: BabelSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>

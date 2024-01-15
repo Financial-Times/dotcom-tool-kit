@@ -1,10 +1,9 @@
 tasks:
-  BabelDevelopment: './lib/tasks/development'
-  BabelProduction: './lib/tasks/production'
+  Babel: './lib/tasks/babel'
 
 commands:
-  'build:local': BabelDevelopment
-  'build:ci': BabelProduction
-  'build:remote': BabelProduction
+  'build:local': Babel
+  'build:ci': Babel
+  'build:remote': Babel
 
 version: 2
