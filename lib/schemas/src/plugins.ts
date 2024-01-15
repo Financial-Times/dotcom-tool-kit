@@ -2,7 +2,6 @@ import { CircleCISchema } from './plugins/circleci'
 import { CypressSchema } from './plugins/cypress'
 import { DopplerSchema } from './plugins/doppler'
 import { RootSchema } from './plugins/dotcom-tool-kit'
-import { ESLintSchema } from './plugins/eslint'
 import { HerokuSchema } from './plugins/heroku'
 import { LintStagedNpmSchema } from './plugins/lint-staged-npm'
 import { JestSchema } from './plugins/jest'
@@ -25,7 +24,6 @@ export const PluginSchemas = {
   '@dotcom-tool-kit/circleci': CircleCISchema,
   '@dotcom-tool-kit/cypress': CypressSchema,
   '@dotcom-tool-kit/doppler': DopplerSchema,
-  '@dotcom-tool-kit/eslint': ESLintSchema,
   '@dotcom-tool-kit/heroku': HerokuSchema,
   '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
   '@dotcom-tool-kit/jest': JestSchema,
