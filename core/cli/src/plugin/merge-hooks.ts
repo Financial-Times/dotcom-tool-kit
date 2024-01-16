@@ -2,7 +2,7 @@ import type { EntryPoint, Plugin } from '@dotcom-tool-kit/plugin'
 import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { isConflict } from '@dotcom-tool-kit/conflict'
 
-export const mergePluginHooks = (config: ValidPluginsConfig, plugin: Plugin) => {
+export const mergeHooks = (config: ValidPluginsConfig, plugin: Plugin) => {
   if (plugin.rcFile) {
     // add hooks to the registry, handling any conflicts
     // TODO refactor with command conflict handler

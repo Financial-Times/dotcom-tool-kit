@@ -6,6 +6,7 @@ import { type Validated, reduceValidated } from '@dotcom-tool-kit/validated'
 import { type OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
+import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 
 import { importEntryPoint } from './plugin/entry-point'
 import { loadConfig } from './config'
@@ -28,14 +29,18 @@ const loadTasks = async (
       const entryPoint = config.tasks[taskName]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
-      return taskResult.map((Task) => [
-        taskName,
-        new (Task as unknown as TaskConstructor)(
+      return taskResult.map((Task) => {
+        const taskSchema = TaskSchemas[taskName as keyof TaskOptions]
+        const parsedOptions = taskSchema ? taskSchema.parse(config.taskOptions[taskName]) : {}
+
+        const task = new (Task as unknown as TaskConstructor)(
           logger,
           taskName,
-          getOptions(entryPoint.plugin.id as OptionKey) ?? {}
+          getOptions(entryPoint.plugin.id as OptionKey) ?? {},
+          parsedOptions
         )
-      ])
+        return [taskName, task]
+      })
     })
   )
 
@@ -61,7 +66,7 @@ ${availableCommands}`
     throw error
   }
 
-  for (const pluginOptions of Object.values(config.options)) {
+  for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }

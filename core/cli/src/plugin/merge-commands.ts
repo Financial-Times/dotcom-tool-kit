@@ -4,7 +4,7 @@ import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 
 import { isDescendent } from './is-descendent'
 
-export const mergePluginCommands = (config: ValidPluginsConfig, plugin: Plugin) => {
+export const mergeCommands = (config: ValidPluginsConfig, plugin: Plugin) => {
   if (plugin.rcFile) {
     for (const [id, configCommandTask] of Object.entries(plugin.rcFile.commands)) {
       // handle conflicts between commands from different plugins

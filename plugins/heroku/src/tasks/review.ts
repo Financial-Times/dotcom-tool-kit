@@ -11,14 +11,14 @@ import { gtg } from '../gtg'
 import { setStageConfigVars } from '../setConfigVars'
 import herokuClient, { extractHerokuError } from '../herokuClient'
 
-export default class HerokuReview extends Task<typeof HerokuSchema> {
+export default class HerokuReview extends Task<{ plugin: typeof HerokuSchema }> {
   static description = ''
 
   async run(): Promise<void> {
     try {
       const pipeline = await herokuClient
-        .get<HerokuApiResPipeline>(`/pipelines/${this.options.pipeline}`)
-        .catch(extractHerokuError(`getting pipeline ${this.options.pipeline}`))
+        .get<HerokuApiResPipeline>(`/pipelines/${this.pluginOptions.pipeline}`)
+        .catch(extractHerokuError(`getting pipeline ${this.pluginOptions.pipeline}`))
       await setStageConfigVars(this.logger, 'review', 'prod', pipeline.id)
 
       let reviewAppId = await getHerokuReviewApp(this.logger, pipeline.id)

@@ -9,7 +9,7 @@ import { hookConsole, hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logg
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { type NextRouterSchema } from '@dotcom-tool-kit/schemas/lib/plugins/next-router'
 
-export default class NextRouter extends Task<typeof NextRouterSchema> {
+export default class NextRouter extends Task<{ plugin: typeof NextRouterSchema }> {
   static description = ''
 
   async run(): Promise<void> {
@@ -40,7 +40,7 @@ export default class NextRouter extends Task<typeof NextRouterSchema> {
 
     const unhook = hookConsole(this.logger, 'ft-next-router')
     try {
-      await register({ service: this.options.appName, port: local.port })
+      await register({ service: this.pluginOptions.appName, port: local.port })
     } finally {
       unhook()
     }

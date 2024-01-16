@@ -1,3 +1,4 @@
-export { Options as SchemaOptions, Schemas as PluginSchemas } from './plugins'
-export { Options as HookOptions, HookSchemas } from './hooks'
+export * from './hooks'
+export * from './plugins'
 export * from './prompts'
+export * from './tasks'

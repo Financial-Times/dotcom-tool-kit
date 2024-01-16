@@ -8,11 +8,11 @@ import { type ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serv
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 
-export default class ServerlessRun extends Task<typeof ServerlessSchema> {
+export default class ServerlessRun extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Run serverless functions locally'
 
   async run(): Promise<void> {
-    const { useVault, ports, configPath } = this.options
+    const { useVault, ports, configPath } = this.pluginOptions
 
     let dopplerEnv = {}
 
