@@ -12,7 +12,6 @@ import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 
 type ErrorSummary = {
-  hook: string
   task: string
   error: Error
 }
@@ -41,22 +40,22 @@ const loadTasks = async (
   return reduceValidated(taskResults).map(Object.fromEntries)
 }
 
-export async function runTasks(logger: Logger, hooks: string[], files?: string[]): Promise<void> {
+export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
   const config = await loadConfig(logger)
 
-  const availableHooks = Object.keys(config.hooks)
+  const availableCommands = Object.keys(config.commandTasks)
     .sort()
     .map((id) => `- ${id}`)
     .join('\n')
 
-  const missingHooks = hooks.filter((id) => !config.hooks[id])
+  const missingCommands = commands.filter((id) => !config.commandTasks[id])
 
-  if (missingHooks.length > 0) {
-    const error = new ToolKitError(`hooks ${missingHooks} do not exist`)
-    error.details = `maybe you need to install a plugin to handle these hooks, or configure them in your Tool Kit configuration.
+  if (missingCommands.length > 0) {
+    const error = new ToolKitError(`commands ${missingCommands} do not exist`)
+    error.details = `maybe you need to install a plugin to define these commands, or configure them in your Tool Kit configuration.
 
-hooks that are available are:
-${availableHooks}`
+commands that are available are:
+${availableCommands}`
     throw error
   }
 
@@ -74,25 +73,25 @@ ${availableHooks}`
     process.execArgv.push('--no-experimental-fetch')
   }
 
-  const taskNames = hooks.flatMap((hook) => config.commandTasks[hook]?.tasks ?? [])
+  const taskNames = commands.flatMap((command) => config.commandTasks[command]?.tasks ?? [])
   const tasks = (await loadTasks(logger, taskNames, config)).unwrap('tasks are invalid')
 
-  for (const hook of hooks) {
+  for (const command of commands) {
     const errors: ErrorSummary[] = []
 
-    if (!config.commandTasks[hook]) {
-      logger.warn(`no task configured for ${hook}: skipping assignment...`)
+    if (!config.commandTasks[command]) {
+      logger.warn(`no task configured for ${command}: skipping assignment...`)
       continue
     }
 
-    for (const id of config.commandTasks[hook].tasks) {
+    for (const id of config.commandTasks[command].tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(id)} task`))
         await tasks[id].run(files)
       } catch (error) {
-        // allow subsequent hook tasks to run on error
+        // TODO use validated for this
+        // allow subsequent command tasks to run on error
         errors.push({
-          hook,
           task: id,
           error: error as Error
         })
@@ -100,7 +99,7 @@ ${availableHooks}`
     }
 
     if (errors.length > 0) {
-      const error = new ToolKitError(`error running tasks for ${styles.hook(hook)}`)
+      const error = new ToolKitError(`error running tasks for ${styles.hook(command)}`)
       error.details = errors
         .map(
           ({ task, error }) =>
