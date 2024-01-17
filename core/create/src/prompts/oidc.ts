@@ -168,7 +168,8 @@ export default async function oidcPrompt(): Promise<boolean> {
   const serverlessConfigRaw = await fs.readFile('serverless.yml', 'utf8')
   const serverlessConfig = YAML.parse(serverlessConfigRaw)
   const serviceName = serverlessConfig?.service
-  let stackTags = serverlessConfig?.provider?.stackTags as StackTags | undefined
+  const serviceProvider = serverlessConfig?.provider
+  let stackTags = (serviceProvider?.stackTags ?? serviceProvider?.tags) as StackTags | undefined
   if (!stackTags) {
     const { systemCode, teamDL } = await prompt(
       [
