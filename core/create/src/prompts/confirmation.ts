@@ -27,20 +27,18 @@ export default ({
 
 install the following packages:
 ${packagesToInstall.map((p) => `- ${styles.plugin(p)}`).join('\n')}\
-
-${addEslintConfig ? `\nadd a default eslint config file at ${styles.filepath('./.eslintrc.js')}` : ''}
-
+${addEslintConfig ? `\n\nadd a default eslint config file at ${styles.filepath('./.eslintrc.js')}` : ''}\
 ${
   packagesToRemove.length > 0
-    ? '\nuninstall the following packages:\n' +
-      packagesToRemove.map((p) => `- ${styles.plugin(p)}`).join('\n') +
-      '\n'
+    ? '\n\nuninstall the following packages:\n' +
+      packagesToRemove.map((p) => `- ${styles.plugin(p)}`).join('\n')
     : ''
 }
+
 create a ${styles.filepath('.toolkitrc.yml')} containing:
-${configFile}\
-${deleteConfig ? `\nregenerate ${styles.filepath('.circleci/config.yml')}` : ''}
-${fixGitignore ? `\nupdate ${styles.filepath('.gitignore')}` : ''}
+${configFile.trimEnd()}\
+${deleteConfig ? `\n\nregenerate ${styles.filepath('.circleci/config.yml')}` : ''}\
+${fixGitignore ? `\n\nupdate ${styles.filepath('.gitignore')}` : ''}
 
 sound good?`
     }
