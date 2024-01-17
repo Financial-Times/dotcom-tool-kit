@@ -99,7 +99,14 @@ const getPreviousIAMPermissions = async (
   const getPolicyCommand = new GetPolicyCommand({
     PolicyArn: `arn:aws:iam::${accountId}:policy/FTDeployPolicyFor_${serviceName}`
   })
-  const { Policy: policy } = await iamClient.send(getPolicyCommand)
+  let policy
+  try {
+    const policyCommand = await iamClient.send(getPolicyCommand)
+    policy = policyCommand.Policy
+    // the AWS call will throw an error if the policy doesn't exist, in which
+    // case we should instead return undefined to signal we want to use the
+    // default permissions
+  } catch {}
   if (!policy) {
     return
   }
