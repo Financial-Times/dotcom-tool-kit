@@ -165,7 +165,16 @@ export default async function oidcPrompt(): Promise<boolean> {
   })
   const dopplerEnv = dopplerSecretsSchema.parse(await dopplerEnvVars.get())
 
-  const serverlessConfigRaw = await fs.readFile('serverless.yml', 'utf8')
+  let serverlessConfigRaw
+  try {
+    serverlessConfigRaw = await fs.readFile('serverless.yml', 'utf8')
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+      throw err
+    }
+    // check serverless.yaml (note the additional 'a') as well
+    serverlessConfigRaw = await fs.readFile('serverless.yaml', 'utf8')
+  }
   const serverlessConfig = YAML.parse(serverlessConfigRaw)
   const serviceName = serverlessConfig?.service
   const serviceProvider = serverlessConfig?.provider
