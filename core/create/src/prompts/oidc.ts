@@ -311,6 +311,8 @@ export default async function oidcPrompt(): Promise<boolean> {
     await suggester.createPullRequest(octokit, changes, {
       upstreamRepo,
       upstreamOwner: 'Financial-Times',
+      // replace ' ' and '_' with '-' to create a more standard git branch name
+      branch: `oidc-role-${stackTags.systemCode.replace(/_| /g, '-')}`,
       fork: false,
       title,
       description,
