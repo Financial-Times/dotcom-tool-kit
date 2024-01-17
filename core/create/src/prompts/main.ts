@@ -68,20 +68,35 @@ export default async ({
             },
             { title: 'ESLint', value: 'eslint', description: 'an open source JavaScript linting utility' },
             { title: 'Prettier', value: 'prettier', description: 'an opinionated code formatter' },
-            { title: 'lint-staged', value: 'lint-staged', description: 'run linters on git staged files' },
+            {
+              title: 'lint-staged',
+              value: 'lint-staged-npm',
+              description: 'run linters on git staged files'
+            },
             {
               title: 'Upload assets to S3',
               value: 'upload-assets-to-s3',
               description: "required this to make your app's CSS and JS available in production"
             }
-          ].map((choice) => ({
-            ...choice,
-            title: styles.plugin(choice.title),
-            selected:
-              choice.value === 'upload-assets-to-s3'
-                ? prev === 'frontend-app'
-                : isPackageInstalled(choice.value)
-          }))
+          ].map((choice) => {
+            let selected: boolean
+            switch (choice.value) {
+              case 'upload-assets-to-s3':
+                selected = prev === 'frontend-app'
+                break
+              case 'lint-staged-npm':
+                selected = isPackageInstalled('lint-staged')
+                break
+              // all other choices are for a plugin that matches the target's package name
+              default:
+                selected = isPackageInstalled(choice.value)
+            }
+            return {
+              ...choice,
+              title: styles.plugin(choice.title),
+              selected
+            }
+          })
       },
       {
         name: 'addEslintConfig',
