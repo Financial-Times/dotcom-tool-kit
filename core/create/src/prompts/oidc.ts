@@ -325,7 +325,7 @@ export default async function oidcPrompt(): Promise<boolean> {
   )
   if (prConfirm) {
     const octokit = new Octokit({ auth: dopplerEnv.GITHUB_ACCESS_TOKEN })
-    await suggester.createPullRequest(octokit, changes, {
+    const prNumber = await suggester.createPullRequest(octokit, changes, {
       upstreamRepo,
       upstreamOwner: 'Financial-Times',
       // replace ' ' and '_' with '-' to create a more standard git branch name
@@ -335,6 +335,9 @@ export default async function oidcPrompt(): Promise<boolean> {
       description,
       message: `feat: add OIDC authentication for ${stackTags.systemCode}`
     })
+    winstonLogger.info(
+      `The PR was successfully created! You can track it at https://github.com/Financial-Times/${upstreamRepo}/pull/${prNumber}`
+    )
   }
   return cancelled
 }
