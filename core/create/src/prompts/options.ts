@@ -29,7 +29,7 @@ async function optionsPromptForPlugin(
   for (const { name: optionName, type: optionType, default: optionDefault } of options) {
     const typeDescription = optionType.description ? ` (${optionType.description})` : ''
     const defaultSuffix = optionDefault
-      ? ` (leave blank to use default value ${styles.code(JSON.stringify(optionDefault))})`
+      ? ` (leave blank to use default value ${styles.code(String(optionDefault))})`
       : ''
 
     const typeSwitch = async (optionType: z.ZodTypeAny) => {
