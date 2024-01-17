@@ -62,13 +62,12 @@ async function optionsPromptForPlugin(
               message:
                 `Would you like to enable option '${styles.option(optionName)}'?` +
                 typeDescription +
-                defaultSuffix
+                defaultSuffix,
+              initial: optionDefault as boolean | undefined
             },
             { onCancel }
           )
-          if (boolOption !== '') {
-            toolKitConfig.options[plugin][optionName] = boolOption
-          }
+          toolKitConfig.options[plugin][optionName] = boolOption
           break
         case 'ZodNumber':
           const { numberOption } = await prompt(
