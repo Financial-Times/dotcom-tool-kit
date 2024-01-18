@@ -99,7 +99,14 @@ const getPreviousIAMPermissions = async (
   const getPolicyCommand = new GetPolicyCommand({
     PolicyArn: `arn:aws:iam::${accountId}:policy/FTDeployPolicyFor_${serviceName}`
   })
-  const { Policy: policy } = await iamClient.send(getPolicyCommand)
+  let policy
+  try {
+    const policyCommand = await iamClient.send(getPolicyCommand)
+    policy = policyCommand.Policy
+    // the AWS call will throw an error if the policy doesn't exist, in which
+    // case we should instead return undefined to signal we want to use the
+    // default permissions
+  } catch {}
   if (!policy) {
     return
   }
@@ -165,10 +172,20 @@ export default async function oidcPrompt(): Promise<boolean> {
   })
   const dopplerEnv = dopplerSecretsSchema.parse(await dopplerEnvVars.get())
 
-  const serverlessConfigRaw = await fs.readFile('serverless.yml', 'utf8')
+  let serverlessConfigRaw
+  try {
+    serverlessConfigRaw = await fs.readFile('serverless.yml', 'utf8')
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+      throw err
+    }
+    // check serverless.yaml (note the additional 'a') as well
+    serverlessConfigRaw = await fs.readFile('serverless.yaml', 'utf8')
+  }
   const serverlessConfig = YAML.parse(serverlessConfigRaw)
   const serviceName = serverlessConfig?.service
-  let stackTags = serverlessConfig?.provider?.stackTags as StackTags | undefined
+  const serviceProvider = serverlessConfig?.provider
+  let stackTags = (serviceProvider?.stackTags ?? serviceProvider?.tags) as StackTags | undefined
   if (!stackTags) {
     const { systemCode, teamDL } = await prompt(
       [
@@ -308,14 +325,19 @@ export default async function oidcPrompt(): Promise<boolean> {
   )
   if (prConfirm) {
     const octokit = new Octokit({ auth: dopplerEnv.GITHUB_ACCESS_TOKEN })
-    await suggester.createPullRequest(octokit, changes, {
+    const prNumber = await suggester.createPullRequest(octokit, changes, {
       upstreamRepo,
       upstreamOwner: 'Financial-Times',
+      // replace ' ' and '_' with '-' to create a more standard git branch name
+      branch: `oidc-role-${stackTags.systemCode.replace(/_| /g, '-')}`,
       fork: false,
       title,
       description,
       message: `feat: add OIDC authentication for ${stackTags.systemCode}`
     })
+    winstonLogger.info(
+      `The PR was successfully created! You can track it at https://github.com/Financial-Times/${upstreamRepo}/pull/${prNumber}`
+    )
   }
   return cancelled
 }
