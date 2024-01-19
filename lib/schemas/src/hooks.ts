@@ -1,9 +1,11 @@
 import { type z } from 'zod'
 
+import { CircleCiSchema } from './hooks/circleci'
 import { PackageJsonSchema } from './hooks/package-json'
 
 export const HookSchemas = {
-  PackageJson: PackageJsonSchema
+  PackageJson: PackageJsonSchema,
+  CircleCiConfig: CircleCiSchema
 }
 
 // Gives the TypeScript type represented by each Schema

@@ -6,8 +6,7 @@ module.exports = {
   clearMocks: true,
   globals: {
     'ts-jest': {
-      tsconfig: 'tsconfig.settings.json',
-      isolatedModules: true
+      tsconfig: 'tsconfig.settings.json'
     }
   }
 }

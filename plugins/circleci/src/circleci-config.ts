@@ -6,11 +6,14 @@ import isPlainObject from 'lodash/isPlainObject'
 import isMatch from 'lodash/isMatch'
 import merge from 'lodash/merge'
 import mergeWith from 'lodash/mergeWith'
+import partition from 'lodash/partition'
 import type { PartialDeep } from 'type-fest'
 import YAML from 'yaml'
-import type { z } from 'zod'
 
-import { Hook } from '@dotcom-tool-kit/base'
+import type { CircleCiOptions, CircleCiSchema } from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
+import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
+import { type Plugin } from '@dotcom-tool-kit/plugin'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
@@ -30,6 +33,8 @@ type JobConfig = {
 type TriggerConfig = {
   schedule?: { cron: string; filters?: { branches: { only?: string; ignore?: string } } }
 }
+
+type Step = Record<string, string | string[]>
 
 type Job = string | { [job: string]: JobConfig }
 
@@ -53,29 +58,12 @@ interface CircleConfig {
   jobs: {
     [job: string]: {
       docker: { image: string }[]
-      steps: (string | { [command: string]: { path?: string } })[]
+      steps: (string | { [command: string]: Step })[]
     }
   }
   workflows: {
-    'tool-kit': {
-      when: {
-        not: {
-          equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-        }
-      }
-      jobs: Job[]
-    }
-    nightly: {
-      when: {
-        and: [
-          {
-            equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-          },
-          {
-            equal: ['nightly', '<< pipeline.schedule.name >>']
-          }
-        ]
-      }
+    [workflow: string]: {
+      when: unknown
       jobs: Job[]
     }
   }
@@ -100,8 +88,7 @@ const getNodeVersions = (): Array<string> => {
   // empty string. The first executor is named 'node' without any reference to
   // the version so the plugins which don't support matrices don't need to know
   // the version option.
-  const nodeVersion = getOptions('@dotcom-tool-kit/circleci')?.nodeVersion ?? ''
-  return Array.isArray(nodeVersion) ? nodeVersion : [nodeVersion]
+  return getOptions('@dotcom-tool-kit/circleci')?.cimgNodeVersions ?? ['']
 }
 
 /* Applies a verion identifier for all but the first (and therefore default)
@@ -307,14 +294,91 @@ const hasJob = (expectedJob: string, jobs: NonNullable<Workflow['jobs']>): boole
       (typeof job === 'object' && job.hasOwnProperty(expectedJob))
   )
 
-export default abstract class CircleCiConfig extends Hook<z.ZodTypeAny, CircleCIState> {
+const isObject = (val: unknown): val is Record<string, unknown> => isPlainObject(val)
+
+const customOptionsOverlap = (
+  installation: Record<string, unknown>,
+  other: Record<string, unknown>
+): boolean =>
+  Object.entries(installation).some(([key, value]) => {
+    if (key in other) {
+      const otherVal = other[key]
+      if (isObject(value) && isObject(otherVal)) {
+        return customOptionsOverlap(value, otherVal)
+      } else if (Array.isArray(value) && Array.isArray(otherVal)) {
+        return false
+      } else {
+        return value !== otherVal
+      }
+    } else {
+      return false
+    }
+  })
+
+const installationsOverlap = (
+  installation: HookInstallation<CircleCiOptions>,
+  other: HookInstallation<CircleCiOptions>
+): boolean => customOptionsOverlap(installation.options?.custom ?? {}, other.options?.custom ?? {})
+
+const partitionInstallations = (
+  installation: HookInstallation<CircleCiOptions>,
+  mergeable: HookInstallation<CircleCiOptions>[],
+  unmergeable: HookInstallation<CircleCiOptions>[]
+): [HookInstallation<CircleCiOptions>[], HookInstallation<CircleCiOptions>[]] => {
+  const [noLongerMergeable, stillMergeable] = partition(mergeable, (other) =>
+    installationsOverlap(installation, other)
+  )
+
+  const overlapsWithUnmergeable = unmergeable.some((other) => installationsOverlap(installation, other))
+
+  if (noLongerMergeable.length > 0 || overlapsWithUnmergeable) {
+    return [stillMergeable, [...unmergeable, ...noLongerMergeable, installation]]
+  }
+
+  return [[...stillMergeable, installation], unmergeable]
+}
+
+const mergeInstallationResults = (
+  plugin: Plugin,
+  mergeable: HookInstallation<CircleCiOptions>[],
+  unmergeable: HookInstallation<CircleCiOptions>[]
+) => {
+  const results: (HookInstallation<CircleCiOptions> | Conflict<HookInstallation>)[] = []
+
+  if (mergeable.length > 0) {
+    results.push({
+      plugin,
+      forHook: 'CircleCiConfig',
+      hookConstructor: CircleCiConfig,
+      options: mergeWith(
+        {},
+        ...mergeable.map((installation) => installation.options),
+        (obj: unknown, source: unknown) => {
+          if (Array.isArray(obj)) {
+            return obj.concat(source)
+          }
+        }
+      )
+    })
+  }
+
+  if (unmergeable.length > 0) {
+    results.push({
+      plugin,
+      conflicting: unmergeable
+    })
+  }
+
+  return results
+}
+
+export default class CircleCiConfig extends Hook<typeof CircleCiSchema, CircleCIState> {
   installGroup = 'circleci'
 
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
   _circleConfig?: string
   haveCheckedBaseConfig = false
   _versionTag?: string
-  abstract config: CircleCIStatePartial
 
   async getCircleConfig(): Promise<string | undefined> {
     if (!this._circleConfig) {
@@ -332,6 +396,26 @@ export default abstract class CircleCiConfig extends Hook<z.ZodTypeAny, CircleCI
     return this._circleConfig
   }
 
+  static mergeChildInstallations(
+    plugin: Plugin,
+    childInstallations: (HookInstallation<CircleCiOptions> | Conflict<HookInstallation<CircleCiOptions>>)[]
+  ): (HookInstallation<CircleCiOptions> | Conflict<HookInstallation>)[] {
+    const [mergeable, unmergeable] = childInstallations.reduce<
+      [HookInstallation<CircleCiOptions>[], HookInstallation<CircleCiOptions>[]]
+    >(
+      ([mergeable, unmergeable], installation) => {
+        if (isConflict(installation)) {
+          return [mergeable, [...unmergeable, ...installation.conflicting]]
+        } else {
+          return partitionInstallations(installation, mergeable, unmergeable)
+        }
+      },
+      [[], []]
+    )
+
+    return mergeInstallationResults(plugin, mergeable, unmergeable)
+  }
+
   async isInstalled(): Promise<boolean> {
     const rawConfig = await this.getCircleConfig()
     if (!rawConfig) {
@@ -344,18 +428,56 @@ export default abstract class CircleCiConfig extends Hook<z.ZodTypeAny, CircleCI
       return false
     }
     this.haveCheckedBaseConfig = true
-    return isMatch(config, this.config)
+    // return isMatch(config, this.config)
+    return false
   }
 
   async install(state?: CircleCIState): Promise<CircleCIState> {
     if (!state) {
-      state = getInitialState()
+      // state = getInitialState()
+      // useful for debugging generated config
+      state = {} as CircleCIState
     }
+    const generated = {
+      executors: this.options.executors?.reduce<PartialDeep<CircleCIState['executors']>>((acc, executor) => {
+        acc[executor.name] ??= {}
+        merge(acc[executor.name], { docker: [{ image: executor.image }] })
+        return acc
+      }, {}),
+      jobs: this.options.jobs?.reduce<PartialDeep<CircleCIState['jobs']>>((acc, job) => {
+        acc[job.name] ??= {}
+        merge(acc[job.name], {
+          steps: [
+            { attach_workspace: { at: '.' } },
+            { run: { command: job.command } },
+            { persist_to_workspace: { root: '.', paths: ['.'] } }
+          ]
+        })
+        return acc
+      }, {}),
+      workflows: this.options.workflows?.reduce<PartialDeep<CircleCIState['workflows']>>((acc, workflow) => {
+        acc[workflow.name] ??= {}
+        merge(acc[workflow.name], {
+          jobs: workflow.jobs.map((name) => {
+            const jobConfig = this.options.jobs!.find(({ name: jobName }) => name === jobName)!
+            return {
+              [name]: {
+                requires: jobConfig.requires,
+                ...(jobConfig.runOnce
+                  ? {}
+                  : { matrix: { parameters: { executor: getNodeVersions().map(nodeVersionToExecutor) } } })
+              }
+            }
+          })
+        })
+        return acc
+      }, {})
+    } satisfies CircleCIStatePartial
     // define a customiser function to make sure only jobs that aren't already
     // listed are merged into the CircleCI config, and to force new jobs to be
     // concatenated onto the array of other jobs rather than zipping them
     // (i.e., overwriting the first few jobs in the array)
-    mergeWith(state, this.config, (prevState, newConfig, key) => {
+    mergeWith(state, generated, this.options.custom ?? {}, (prevState, newConfig, key) => {
       if (key === 'jobs' && Array.isArray(prevState)) {
         const uniqueJobs = newConfig.filter((job: Job) => !hasJob(getJobName(job), prevState))
         return prevState.concat(uniqueJobs)

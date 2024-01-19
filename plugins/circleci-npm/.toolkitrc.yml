@@ -4,3 +4,27 @@ plugins:
 
 commands:
   'publish:tag': NpmPublish
+
+options:
+  '@dotcom-tool-kit/circleci':
+    cimgNodeVersions:
+      - '18.19'
+      - '20.10'
+
+hooks:
+  - CircleCiConfig:
+      jobs:
+        - name: tool-kit/publish-tag
+          command: 'publish:tag'
+          requires:
+            - 'tool-kit/test'
+          runOnce: true
+          custom:
+            context: 'npm-publish-token'
+            filters:
+              branches:
+                ignore: '/.*/'
+      workflows:
+        - name: 'tool-kit'
+          jobs:
+            - 'tool-kit/publish-tag'
