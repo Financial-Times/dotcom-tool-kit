@@ -194,6 +194,13 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.3.8 to ^3.3.9
 
+## [3.5.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.1...create-v3.5.2) (2024-01-19)
+
+
+### Bug Fixes
+
+* don't suggest upload-assets-to-s3 in additional plugin prompt ([5f201cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/5f201cd42797bf498a73909aa97370b5679c4189))
+
 ## [3.5.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.0...create-v3.5.1) (2024-01-18)
 
 
