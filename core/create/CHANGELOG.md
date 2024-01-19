@@ -194,6 +194,21 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.3.8 to ^3.3.9
 
+## [3.5.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.0...create-v3.5.1) (2024-01-18)
+
+
+### Bug Fixes
+
+* **create:** check tags field for Serverless metadata too ([fd9f05b](https://github.com/Financial-Times/dotcom-tool-kit/commit/fd9f05bcfa36749bd751386ee4786cb9f19f775c))
+* **create:** default boolean prompt to the default option ([f7edb1c](https://github.com/Financial-Times/dotcom-tool-kit/commit/f7edb1c5564abfc65fcb95eb73c1fcb4bd2647e4))
+* **create:** don't crash if we fail to find previous IAM deployment role ([242ebd0](https://github.com/Financial-Times/dotcom-tool-kit/commit/242ebd01dc9da0ddbad9de91d5685852b509124a))
+* **create:** don't print default string options with quotes ([ba4b428](https://github.com/Financial-Times/dotcom-tool-kit/commit/ba4b428ce1ff868aef057d4cd2a9f603899a2911))
+* **create:** install lint-staged-npm instead of lint-staged ([3d16223](https://github.com/Financial-Times/dotcom-tool-kit/commit/3d16223e3d11dd4c682174fba0d8fcb80c328b50))
+* **create:** print a link to a generated OIDC PR for the user to track ([48b7650](https://github.com/Financial-Times/dotcom-tool-kit/commit/48b7650965ac90fcf3d235cdd665d4a8521843db))
+* **create:** support serverless.yaml when inferring OIDC metadata ([6b3fab2](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b3fab23215a628e9050acc80787ffb43117709f))
+* **create:** use a unique branch name for each OIDC PR ([529d9d6](https://github.com/Financial-Times/dotcom-tool-kit/commit/529d9d68575594b9cf2a7fc40c279fd3389b5715))
+* **create:** use correct number of line breaks in confirmation prompt ([6e6e97d](https://github.com/Financial-Times/dotcom-tool-kit/commit/6e6e97debf9dd8d199c080fd65c91e6c074e05ac))
+
 ## [3.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.4.0...create-v3.5.0) (2024-01-11)
 
 
