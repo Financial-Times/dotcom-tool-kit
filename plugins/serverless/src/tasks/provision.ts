@@ -5,6 +5,7 @@ import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { spawn } from 'child_process'
 import { getOptions } from '@dotcom-tool-kit/options'
+import { writeState } from '@dotcom-tool-kit/state'
 
 export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
   static description = 'Provisions a job on AWS'
@@ -40,13 +41,15 @@ export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
       }
     }
 
+    const stageName = `ci${buildNum}`
+
     this.logger.verbose('starting the child serverless process...')
     const args = [
       'deploy',
       '--region',
       regions[0],
       '--stage',
-      `ci${buildNum}`,
+      stageName,
       '--aws-profile',
       `CircleCI-role-${systemCode}`
     ]
@@ -63,5 +66,8 @@ export default class ServerlessProvision extends Task<typeof ServerlessSchema> {
 
     hookFork(this.logger, 'serverless', child)
     await waitOnExit('serverless', child)
+    writeState('review', {
+      stageName
+    })
   }
 }
