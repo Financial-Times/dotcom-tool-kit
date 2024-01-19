@@ -110,6 +110,7 @@ export const hooks = {
   'deploy:review': DeployReview,
   'deploy:staging': DeployStaging,
   'test:review': TestReview,
+  'teardown:review': TestReview,
   'test:staging': TestStaging,
   'teardown:staging': TestStaging,
   'deploy:production': DeployProduction

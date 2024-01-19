@@ -37,4 +37,5 @@ plugins:
 |-|-|-|
 | `ServerlessRun` | Run application with `serverless` | `run:local` |
 | `ServerlessProvision` | Deploy review app with `serverless` | `deploy:review` |
+| `ServerlessTeardown` | Remove review app with `serverless` | `teardown:review` |
 | `ServerlessDeploy` | Deploy production app with `serverless` | `deploy:production` |

@@ -8,3 +8,4 @@ hooks:
   'run:local': ServerlessRun
   'deploy:review': ServerlessProvision
   'deploy:production': ServerlessDeploy
+  'teardown:review': ServerlessTeardown
