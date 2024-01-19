@@ -5,4 +5,23 @@ plugins:
 commands:
   'publish:tag': NpmPublish
 
+options:
+  hooks:
+    - CircleCi:
+        jobs:
+          - name: publish-tag
+            command: 'publish:tag'
+        workflows:
+          - name: 'tool-kit'
+            jobs:
+              - name: 'publish-tag'
+                requires:
+                  - 'test'
+                splitIntoMatrix: true
+                custom:
+                  context: 'npm-publish-token'
+                  filters:
+                    branches:
+                      ignore: '/.*/'
+
 version: 2

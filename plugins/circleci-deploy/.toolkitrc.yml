@@ -1,4 +1,69 @@
 plugins:
   - '@dotcom-tool-kit/circleci'
 
+options:
+  hooks:
+    - CircleCi:
+        jobs:
+          - name: deploy-review
+            command: 'deploy:review'
+          - name: deploy-staging
+            command: 'deploy:staging'
+          - name: e2e-test-review
+            command: 'test:review'
+          - name: e2e-test-staging
+            command: 'test:staging'
+          - name: deploy-production
+            command: 'deploy:production'
+        workflows:
+          - name: 'tool-kit'
+            jobs:
+              - name: 'deploy-review'
+                requires:
+                  - 'setup'
+                  - 'waiting-for-approval'
+                splitIntoMatrix: false
+                custom:
+                  filters:
+                    branches:
+                      ignore: main
+              - name: 'deploy-staging'
+                requires:
+                  - 'setup'
+                splitIntoMatrix: false
+                custom:
+                  filters:
+                    branches:
+                      only: main
+              - name: 'e2e-test-review'
+                requires:
+                  - 'deploy-review'
+                splitIntoMatrix: false
+                custom:
+              - name: 'e2e-test-staging'
+                splitIntoMatrix: false
+                requires:
+                  - 'deploy-staging'
+                custom:
+              - name: 'deploy-production'
+                requires:
+                  - 'test'
+                  - 'e2e-test-staging'
+                splitIntoMatrix: false
+                custom:
+                  filters:
+                    branches:
+                      only: main
+          - name: 'nightly'
+            jobs:
+              - name: 'deploy-review'
+                requires:
+                  - 'setup'
+                  - 'waiting-for-approval'
+                splitIntoMatrix: false
+                custom:
+                  filters:
+                    branches:
+                      ignore: main
+
 version: 2
