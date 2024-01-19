@@ -53,7 +53,7 @@ export default async ({
         name: 'additional',
         type: 'multiselect',
         message: 'Would you like to install any additional plugins?',
-        choices: (prev) =>
+        choices: () =>
           [
             {
               title: 'Jest',
@@ -72,18 +72,10 @@ export default async ({
               title: 'lint-staged',
               value: 'lint-staged-npm',
               description: 'run linters on git staged files'
-            },
-            {
-              title: 'Upload assets to S3',
-              value: 'upload-assets-to-s3',
-              description: "required this to make your app's CSS and JS available in production"
             }
           ].map((choice) => {
             let selected: boolean
             switch (choice.value) {
-              case 'upload-assets-to-s3':
-                selected = prev === 'frontend-app'
-                break
               case 'lint-staged-npm':
                 selected = isPackageInstalled('lint-staged')
                 break
