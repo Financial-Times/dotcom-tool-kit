@@ -20,7 +20,7 @@ const getBizOpsApiKey = async () => {
   return bizOpsApiKey
 }
 
-export const getBizOpsSystem = async (systemCode: string): Promise<BizOpsSystem> => {
+export const getBizOpsSystem = async (systemCode: string): Promise<BizOpsSystem | undefined> => {
   const query = `#graphql
     query ToolKitMigrationMetadata($systemCode: String!) {
       systems(where: { code: $systemCode }) {
@@ -52,8 +52,10 @@ export const getBizOpsSystem = async (systemCode: string): Promise<BizOpsSystem>
       }
     }
   )
-  const { data } = BizOpsData.parse(await resp.json())
-  return data.systems[0]
+  const result = BizOpsData.safeParse(await resp.json())
+  if (result.success) {
+    return result.data.data.systems[0]
+  }
 }
 
 export { BizOpsData, BizOpsSystem }
