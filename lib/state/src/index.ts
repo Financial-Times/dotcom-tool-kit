@@ -14,6 +14,7 @@ interface CIState {
 export interface ReviewState {
   appId: string
   appName: string
+  stageName: string
   url: string
 }
 
