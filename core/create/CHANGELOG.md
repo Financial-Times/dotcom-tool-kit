@@ -194,6 +194,14 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.3.8 to ^3.3.9
 
+## [3.5.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.2...create-v3.5.3) (2024-01-23)
+
+
+### Bug Fixes
+
+* **create:** add spaces between words across newline boundaries in code ([ca1bee7](https://github.com/Financial-Times/dotcom-tool-kit/commit/ca1bee758156ff6e1aede0848ba54d793b7bf4bf))
+* **create:** allow components to be migrated without parsing crash ([f360ae4](https://github.com/Financial-Times/dotcom-tool-kit/commit/f360ae43ac7ba9ec5fcaa5a95ac52221bd917193))
+
 ## [3.5.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.1...create-v3.5.2) (2024-01-19)
 
 
