@@ -73,6 +73,27 @@
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [2.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.3.0...serverless-v2.4.0) (2024-01-23)
+
+
+### Features
+
+* add ServerlessTeardown task ([52b4d0f](https://github.com/Financial-Times/dotcom-tool-kit/commit/52b4d0f92586691b4d7ba150dabc3fda5fbcbd53))
+* add teardown:review hook ([e00fcb4](https://github.com/Financial-Times/dotcom-tool-kit/commit/e00fcb4739f684ab62329dfe246b4981a9fdebc9))
+* pass serverless stageName through review state ([7228d17](https://github.com/Financial-Times/dotcom-tool-kit/commit/7228d17001221fe46df0d89025654298baac2533))
+
+
+### Bug Fixes
+
+* fix the ServerlessTeardown import ([b67afdd](https://github.com/Financial-Times/dotcom-tool-kit/commit/b67afdd09d75100b005305ebd584b4ed5af5768a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
+
 ## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.2.13...serverless-v2.3.0) (2024-01-11)
 
 

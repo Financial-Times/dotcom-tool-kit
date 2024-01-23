@@ -161,6 +161,13 @@
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/npm bumped from ^3.3.0 to ^3.3.1
+    * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.15...heroku-v3.4.0) (2024-01-11)
 
 

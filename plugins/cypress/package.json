@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/cypress",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -30,7 +30,7 @@
   "dependencies": {
     "@dotcom-tool-kit/doppler": "^1.1.0",
     "@dotcom-tool-kit/logger": "^3.4.0",
-    "@dotcom-tool-kit/state": "^3.2.0",
+    "@dotcom-tool-kit/state": "^3.3.0",
     "@dotcom-tool-kit/types": "^3.6.0"
   }
 }

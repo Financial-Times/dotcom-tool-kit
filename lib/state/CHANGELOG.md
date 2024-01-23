@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.2.0...state-v3.3.0) (2024-01-23)
+
+
+### Features
+
+* pass serverless stageName through review state ([7228d17](https://github.com/Financial-Times/dotcom-tool-kit/commit/7228d17001221fe46df0d89025654298baac2533))
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.1.1...state-v3.2.0) (2024-01-11)
 
 

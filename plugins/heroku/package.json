@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/heroku",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -13,10 +13,10 @@
     "@dotcom-tool-kit/doppler": "^1.1.0",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.0",
-    "@dotcom-tool-kit/npm": "^3.3.0",
+    "@dotcom-tool-kit/npm": "^3.3.1",
     "@dotcom-tool-kit/options": "^3.2.0",
     "@dotcom-tool-kit/package-json-hook": "^4.2.0",
-    "@dotcom-tool-kit/state": "^3.2.0",
+    "@dotcom-tool-kit/state": "^3.3.0",
     "@dotcom-tool-kit/types": "^3.6.0",
     "@dotcom-tool-kit/wait-for-ok": "^3.2.0",
     "@octokit/request": "^5.6.0",

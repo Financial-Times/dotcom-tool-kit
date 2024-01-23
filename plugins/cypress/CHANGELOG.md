@@ -32,6 +32,12 @@
     * @dotcom-tool-kit/logger bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v3.3.2...cypress-v3.4.0) (2024-01-11)
 
 
