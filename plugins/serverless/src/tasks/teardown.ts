@@ -9,9 +9,9 @@ export default class ServerlessTeardown extends Task<typeof ServerlessSchema> {
   static description = 'Teardown existing serverless functions'
 
   async run(): Promise<void> {
-		const { configPath, systemCode, regions } = this.options
+    const { configPath, systemCode, regions } = this.options
 
-		const reviewState = readState('review')
+    const reviewState = readState('review')
 
     if (!reviewState || !reviewState.stageName) {
       throw new ToolKitError(
@@ -31,5 +31,5 @@ export default class ServerlessTeardown extends Task<typeof ServerlessSchema> {
     hookFork(this.logger, 'serverless', child)
 
     await waitOnExit('serverless', child)
-	}
+  }
 }
