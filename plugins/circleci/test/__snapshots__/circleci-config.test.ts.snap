@@ -29,7 +29,7 @@ Object {
     },
   },
   "orbs": Object {
-    "tool-kit": "financial-times/dotcom-tool-kit@4",
+    "tool-kit": "financial-times/dotcom-tool-kit@5",
   },
   "version": 2.1,
   "workflows": Object {
