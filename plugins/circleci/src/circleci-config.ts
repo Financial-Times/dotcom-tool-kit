@@ -14,7 +14,7 @@ import path from 'path'
 import type { PartialDeep } from 'type-fest'
 import YAML from 'yaml'
 
-const MAJOR_ORB_VERSION = '4'
+const MAJOR_ORB_VERSION = '5'
 
 export type CircleCIState = CircleConfig
 /**
