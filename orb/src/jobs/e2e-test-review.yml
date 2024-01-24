@@ -10,9 +10,5 @@ steps:
   - run:
       name: Smoke tests
       command: npx dotcom-tool-kit test:review
-  - run:
-      when: always
-      name: Teardown review app
-      command: npx dotcom-tool-kit teardown:review
   - store_artifacts:
       path: /root/project/e2e-test-results
