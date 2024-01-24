@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.3.0...orb-v4.3.1) (2024-01-24)
+
+
+### Bug Fixes
+
+* temporarily remove teardown:review step from e2e-test-review job. This was a breaking change and it should have required a major release ([4202398](https://github.com/Financial-Times/dotcom-tool-kit/commit/4202398632f7b36832234a5a0305a1b6cbb4e322))
+
 ## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.2.3...orb-v4.3.0) (2024-01-23)
 
 
