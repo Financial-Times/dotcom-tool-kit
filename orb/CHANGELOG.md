@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.2.3...orb-v4.3.0) (2024-01-23)
+
+
+### Features
+
+* add teardown:review hook ([e00fcb4](https://github.com/Financial-Times/dotcom-tool-kit/commit/e00fcb4739f684ab62329dfe246b4981a9fdebc9))
+
 ## [4.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.2.2...orb-v4.2.3) (2023-10-24)
 
 

@@ -162,6 +162,12 @@
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
     * @dotcom-tool-kit/doppler bumped from ^1.0.8 to ^1.0.9
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v3.3.9...nodemon-v3.4.0) (2024-01-11)
 
 

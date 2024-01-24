@@ -84,6 +84,20 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^5.3.8 to ^5.3.9
 
+## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.3.0...circleci-deploy-v3.4.0) (2024-01-23)
+
+
+### Features
+
+* add teardown:review hook ([e00fcb4](https://github.com/Financial-Times/dotcom-tool-kit/commit/e00fcb4739f684ab62329dfe246b4981a9fdebc9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^5.4.0 to ^5.4.1
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.2.9...circleci-deploy-v3.3.0) (2024-01-11)
 
 
