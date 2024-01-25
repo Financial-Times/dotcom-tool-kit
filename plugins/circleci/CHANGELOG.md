@@ -114,6 +114,18 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
 
+## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.4.1...circleci-v6.0.0) (2024-01-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** Bump MAJOR_ORB_VERSION to 5, which adds the teardown:review hook into the e2e-test-review jobA
+
+### Bug Fixes
+
+* **circleci:** Bump MAJOR_ORB_VERSION to 5, which adds the teardown:review hook into the e2e-test-review jobA ([19b5b09](https://github.com/Financial-Times/dotcom-tool-kit/commit/19b5b091016fb483e0e4aa93fda0a090ca97ad43))
+* **circleci:** update circleci snapshot test ([bd9b3a5](https://github.com/Financial-Times/dotcom-tool-kit/commit/bd9b3a5542410e9368d3cff4a3107333f5107d79))
+
 ## [5.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.3.9...circleci-v5.4.0) (2024-01-11)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "dotcom-tool-kit",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "description": "modern, maintainable, modular developer tooling for FT.com projects",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -21,11 +21,11 @@
   },
   "devDependencies": {
     "@dotcom-tool-kit/babel": "^3.2.0",
-    "@dotcom-tool-kit/backend-heroku-app": "^3.1.1",
-    "@dotcom-tool-kit/circleci": "^5.4.1",
-    "@dotcom-tool-kit/circleci-deploy": "^3.4.0",
+    "@dotcom-tool-kit/backend-heroku-app": "^3.1.2",
+    "@dotcom-tool-kit/circleci": "^6.0.0",
+    "@dotcom-tool-kit/circleci-deploy": "^3.4.1",
     "@dotcom-tool-kit/eslint": "^3.2.0",
-    "@dotcom-tool-kit/frontend-app": "^3.2.1",
+    "@dotcom-tool-kit/frontend-app": "^3.2.2",
     "@dotcom-tool-kit/heroku": "^3.4.1",
     "@dotcom-tool-kit/mocha": "^3.2.0",
     "@dotcom-tool-kit/n-test": "^3.3.1",
