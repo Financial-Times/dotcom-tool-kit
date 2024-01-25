@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.3.1...orb-v5.0.0) (2024-01-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **orb:** add teardown:review step to e2e-test-review job
+
+### Bug Fixes
+
+* **orb:** add teardown:review step to e2e-test-review job ([e09d874](https://github.com/Financial-Times/dotcom-tool-kit/commit/e09d87476288f3bd5c83fd5fd141bf6a3c059e36))
+
 ## [4.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.3.0...orb-v4.3.1) (2024-01-24)
 
 

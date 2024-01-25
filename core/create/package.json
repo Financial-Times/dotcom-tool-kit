@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/create",
-  "version": "3.5.4",
+  "version": "3.5.5",
   "description": "",
   "main": "lib",
   "bin": "./bin/create-tool-kit",
@@ -51,7 +51,7 @@
     "@types/pacote": "^11.1.3",
     "@types/prompts": "^2.0.14",
     "cosmiconfig": "^7.0.1",
-    "dotcom-tool-kit": "^3.4.1",
+    "dotcom-tool-kit": "^3.4.2",
     "type-fest": "^3.13.1"
   },
   "volta": {
