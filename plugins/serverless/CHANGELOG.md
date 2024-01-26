@@ -73,6 +73,13 @@
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [2.4.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.0...serverless-v2.4.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **serverless:** read env vars on ServerlessTeardown task ([d115cf9](https://github.com/Financial-Times/dotcom-tool-kit/commit/d115cf95782b398dbbfbfb0256fd9e2f0fa4ce1e))
+
 ## [2.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.3.0...serverless-v2.4.0) (2024-01-23)
 
 
