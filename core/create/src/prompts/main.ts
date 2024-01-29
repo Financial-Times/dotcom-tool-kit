@@ -72,6 +72,11 @@ export default async ({
               title: 'lint-staged',
               value: 'lint-staged-npm',
               description: 'run linters on git staged files'
+            },
+            {
+              title: 'TypeScript',
+              value: 'typescript',
+              description: 'a strongly typed programming language that builds on JavaScript'
             }
           ].map((choice) => {
             let selected: boolean
