@@ -73,6 +73,13 @@
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [2.4.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.1...serverless-v2.4.2) (2024-01-29)
+
+
+### Bug Fixes
+
+* **serverless:** remove aws-profile flag from ServerlessTeardown task ([6f89b82](https://github.com/Financial-Times/dotcom-tool-kit/commit/6f89b822532c89769a60ee3277a4c0f45c341f24))
+
 ## [2.4.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.0...serverless-v2.4.1) (2024-01-26)
 
 
