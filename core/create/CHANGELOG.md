@@ -206,6 +206,13 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.4.1 to ^3.4.2
 
+## [3.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.5...create-v3.6.0) (2024-01-29)
+
+
+### Features
+
+* **create:** add option for typescript in extra plugins prompt ([b814b68](https://github.com/Financial-Times/dotcom-tool-kit/commit/b814b68b4a5e7b6398024e6f706245d3cece0fb9))
+
 ## [3.5.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.2...create-v3.5.3) (2024-01-23)
 
 

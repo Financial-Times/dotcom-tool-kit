@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/create",
-  "version": "3.5.5",
+  "version": "3.6.0",
   "description": "",
   "main": "lib",
   "bin": "./bin/create-tool-kit",

@@ -1,6 +1,6 @@
 {
   "core/cli": "3.4.2",
-  "core/create": "3.5.5",
+  "core/create": "3.6.0",
   "lib/error": "3.2.0",
   "lib/logger": "3.4.0",
   "lib/options": "3.2.0",
@@ -37,7 +37,7 @@
   "plugins/typescript": "2.2.0",
   "plugins/backend-heroku-app": "3.1.2",
   "plugins/circleci-deploy": "3.4.1",
-  "plugins/backend-serverless-app": "3.2.2",
-  "plugins/serverless": "2.4.1",
+  "plugins/backend-serverless-app": "3.2.3",
+  "plugins/serverless": "2.4.2",
   "lib/doppler": "1.1.0"
 }
