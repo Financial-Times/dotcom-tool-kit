@@ -21,7 +21,7 @@ For general questions about using Tool Kit please see the [Tool Kit FAQs](./docs
 For an empty repository (containing at least a valid `package.json`), or to migrate an existing repo from [n-gage](https://github.com/financial-times/n-gage), you can run the interactive Tool Kit init script:
 
 ```sh
-npm init @dotcom-tool-kit
+npm init @dotcom-tool-kit@latest
 ```
 
 See [the migration guide](./docs/migrating-to-tool-kit.md) for a full explanation of what this script does.
