@@ -28,13 +28,15 @@ to follow along with.
 The migration tool is published to npm as `@dotcom-tool-kit/create`. Thanks to
 some [syntax sugar
 magic](https://docs.npmjs.com/cli/v7/commands/npm-init#description) provided by
-npm's `npm init` script this means you can just run
+npm's `npm init` script this means you can run
 
 ```shell
-npm init @dotcom-tool-kit
+npm init @dotcom-tool-kit@latest
 ```
 
-within your repository to fetch the tool and start migrating. Answer the
+within your repository to fetch the tool and start migrating. We include the
+`@latest` specifier here to make sure you're using the latest version of the
+migration tool, as `npx` has a particularly aggressive cache. Answer the
 questions posed by the tool's prompts to configure Tool Kit in a way that's
 suitable for your app or service. Let's now look in detail at each of the steps
 in the migration process.
