@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.0.0...orb-v5.0.1) (2024-02-01)
+
+
+### Bug Fixes
+
+* add serverles-assume-role steps to e2e-test-review job ([d25947c](https://github.com/Financial-Times/dotcom-tool-kit/commit/d25947c55e201cebb359c4e1950edeca486c4604))
+
 ## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v4.3.1...orb-v5.0.0) (2024-01-25)
 
 

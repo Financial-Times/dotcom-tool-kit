@@ -192,6 +192,12 @@
   * dependencies
     * @dotcom-tool-kit/serverless bumped from ^2.4.1 to ^2.4.2
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/serverless bumped from ^2.4.2 to ^2.4.3
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v3.1.0...backend-serverless-app-v3.2.0) (2024-01-23)
 
 
