@@ -73,6 +73,13 @@
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [2.4.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.2...serverless-v2.4.3) (2024-02-01)
+
+
+### Bug Fixes
+
+* make ServerlessTeardown task run with CircleCI role ([1c893d0](https://github.com/Financial-Times/dotcom-tool-kit/commit/1c893d03a0e66f63ec9e4b5313efb44e2b2eadfd))
+
 ## [2.4.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.1...serverless-v2.4.2) (2024-01-29)
 
 
