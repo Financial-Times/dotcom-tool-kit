@@ -11,7 +11,7 @@ export default class ServerlessTeardown extends Task<typeof ServerlessSchema> {
   static description = 'Teardown existing serverless functions'
 
   async run(): Promise<void> {
-    const { useVault, configPath, regions } = this.options
+    const { useVault, configPath, regions, systemCode } = this.options
 
     const reviewState = readState('review')
 
@@ -42,7 +42,15 @@ export default class ServerlessTeardown extends Task<typeof ServerlessSchema> {
 
     this.logger.verbose('starting the child serverless process...')
 
-    const args = ['remove', '--region', regions[0], '--stage', reviewState.stageName]
+    const args = [
+      'remove',
+      '--region',
+      regions[0],
+      '--stage',
+      reviewState.stageName,
+      '--aws-profile',
+      `CircleCI-role-${systemCode}`
+    ]
     if (configPath) {
       args.push('--config', './serverless.yml')
     }
