@@ -1,33 +1,11 @@
 import CircleCiConfigHook, {
   CircleCIStatePartial,
-  generateConfigWithJob,
-  JobGeneratorOptions
+  generateConfigWithJob
 } from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { JobConfig } from '@dotcom-tool-kit/types/src/circleci'
 import type { Logger } from 'winston'
-
-// CircleCI config generator which will additionally optionally pass Serverless
-// options as parameters to the orb job to enable OIDC authentication
-const generateConfigWithServerlessOptions = (
-  logger: Logger,
-  jobOptions: JobGeneratorOptions
-): CircleCIStatePartial => {
-  const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
-  const herokuOptions = getOptions('@dotcom-tool-kit/heroku')
-  if (serverlessOptions && herokuOptions) {
-    logger.warn(
-      'Tool Kit currently does not support managing Heroku and Serverless apps in the same project.'
-    )
-  }
-  if (serverlessOptions?.awsAccountId && serverlessOptions?.systemCode) {
-    jobOptions.additionalFields ??= {}
-    jobOptions.additionalFields['aws-account-id'] = serverlessOptions.awsAccountId
-    jobOptions.additionalFields['system-code'] = serverlessOptions.systemCode
-  }
-  return generateConfigWithJob(jobOptions)
-}
 
 const getServerlessAdditionalFields = (logger: Logger): JobConfig => {
   const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
@@ -49,24 +27,21 @@ const getServerlessAdditionalFields = (logger: Logger): JobConfig => {
   }
 }
 
-const CYPRESS_JOB_OPTIONS = {
-  addToNightly: false,
-  splitIntoMatrix: false
-}
-
 export class DeployReview extends CircleCiConfigHook {
   static job = 'tool-kit/deploy-review'
   // needs to be a getter so that we can lazily wait for the global options
   // object to be assigned before getting values from it
   get config(): CircleCIStatePartial {
-    return generateConfigWithServerlessOptions(this.logger, {
+    // CircleCI config generator which will additionally optionally pass Serverless
+    // options as parameters to the orb job to enable OIDC authentication
+    const serverlessAdditionalsFields = getServerlessAdditionalFields(this.logger)
+
+    return generateConfigWithJob({
       name: DeployReview.job,
       addToNightly: true,
       requires: ['tool-kit/setup', 'waiting-for-approval'],
       splitIntoMatrix: false,
-      additionalFields: {
-        filters: { branches: { ignore: 'main' } }
-      }
+      additionalFields: { filters: { branches: { ignore: 'main' } }, ...serverlessAdditionalsFields }
     })
   }
 }
@@ -91,7 +66,8 @@ export class TestReview extends CircleCiConfigHook {
     const jobOptions = {
       name: TestReview.job,
       requires: [DeployReview.job],
-      ...CYPRESS_JOB_OPTIONS
+      addToNightly: false,
+      splitIntoMatrix: false
     }
 
     // CircleCI config generator which will additionally optionally pass Serverless
@@ -119,7 +95,8 @@ export class TestStaging extends CircleCiConfigHook {
     const jobOptions = {
       name: TestStaging.job,
       requires: [DeployStaging.job],
-      ...CYPRESS_JOB_OPTIONS
+      addToNightly: false,
+      splitIntoMatrix: false
     }
 
     const options = getOptions('@dotcom-tool-kit/circleci')
@@ -139,12 +116,17 @@ export class TestStaging extends CircleCiConfigHook {
 export class DeployProduction extends CircleCiConfigHook {
   static job = 'tool-kit/deploy-production'
   get config(): CircleCIStatePartial {
-    return generateConfigWithServerlessOptions(this.logger, {
+    // CircleCI config generator which will additionally optionally pass Serverless
+    // options as parameters to the orb job to enable OIDC authentication
+    const serverlessAdditionalsFields = getServerlessAdditionalFields(this.logger)
+
+    return generateConfigWithJob({
       name: DeployProduction.job,
       addToNightly: false,
       requires: [TestStaging.job, TestCI.job],
       splitIntoMatrix: false,
       additionalFields: {
+        ...serverlessAdditionalsFields,
         filters: { branches: { only: 'main' } }
       }
     })
