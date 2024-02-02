@@ -5,6 +5,7 @@ import CircleCiConfigHook, {
 } from '@dotcom-tool-kit/circleci/lib/circleci-config'
 import { TestCI } from '@dotcom-tool-kit/circleci/lib/index'
 import { getOptions } from '@dotcom-tool-kit/options'
+import { JobConfig } from '@dotcom-tool-kit/types/src/circleci'
 import type { Logger } from 'winston'
 
 // CircleCI config generator which will additionally optionally pass Serverless
@@ -26,6 +27,31 @@ const generateConfigWithServerlessOptions = (
     jobOptions.additionalFields['system-code'] = serverlessOptions.systemCode
   }
   return generateConfigWithJob(jobOptions)
+}
+
+const getServerlessAdditionalFields = (logger: Logger): JobConfig => {
+  const serverlessOptions = getOptions('@dotcom-tool-kit/serverless')
+  const herokuOptions = getOptions('@dotcom-tool-kit/heroku')
+
+  if (serverlessOptions && herokuOptions) {
+    logger.warn(
+      'Tool Kit currently does not support managing Heroku and Serverless apps in the same project.'
+    )
+  }
+
+  if (!serverlessOptions?.awsAccountId || !serverlessOptions?.systemCode) {
+    return {}
+  }
+
+  return {
+    'aws-account-id': serverlessOptions.awsAccountId,
+    'system-code': serverlessOptions.systemCode
+  }
+}
+
+const CYPRESS_JOB_OPTIONS = {
+  addToNightly: false,
+  splitIntoMatrix: false
 }
 
 export class DeployReview extends CircleCiConfigHook {
@@ -58,37 +84,60 @@ export class DeployStaging extends CircleCiConfigHook {
   }
 }
 
-abstract class CypressCiHook extends CircleCiConfigHook {
-  abstract job: string
-  abstract requiredJobs: string[]
+export class TestReview extends CircleCiConfigHook {
+  static job = 'tool-kit/e2e-test-review'
 
   get config() {
-    const options = getOptions('@dotcom-tool-kit/circleci')
-    const simplejobOptions = {
-      name: this.job,
-      addToNightly: false,
-      requires: this.requiredJobs,
-      splitIntoMatrix: false
+    const jobOptions = {
+      name: TestReview.job,
+      requires: [DeployReview.job],
+      ...CYPRESS_JOB_OPTIONS
     }
+
+    // CircleCI config generator which will additionally optionally pass Serverless
+    // options as parameters to the orb job to enable OIDC authentication
+    const serverlessAdditionalsFields = getServerlessAdditionalFields(this.logger)
+
+    const options = getOptions('@dotcom-tool-kit/circleci')
     if (options?.cypressImage) {
       return {
         executors: { cypress: { docker: [{ image: options.cypressImage }] } },
-        ...generateConfigWithJob({ ...simplejobOptions, additionalFields: { executor: 'cypress' } })
+        ...generateConfigWithJob({
+          ...jobOptions,
+          additionalFields: { ...serverlessAdditionalsFields, executor: 'cypress' }
+        })
       }
-    } else {
-      return generateConfigWithJob(simplejobOptions)
     }
+    return generateConfigWithJob({ ...jobOptions, additionalFields: serverlessAdditionalsFields })
   }
 }
 
-export class TestReview extends CypressCiHook {
-  job = 'tool-kit/e2e-test-review'
-  requiredJobs = [DeployReview.job]
-}
+export class TestStaging extends CircleCiConfigHook {
+  static job = 'tool-kit/e2e-test-staging'
 
-export class TestStaging extends CypressCiHook {
-  job = 'tool-kit/e2e-test-staging'
-  requiredJobs = [DeployStaging.job]
+  get config() {
+    const jobOptions = {
+      name: TestReview.job,
+      requires: [DeployStaging.job],
+      ...CYPRESS_JOB_OPTIONS
+    }
+
+    // CircleCI config generator which will additionally optionally pass Serverless
+    // options as parameters to the orb job to enable OIDC authentication
+    const serverlessAdditionalsFields = getServerlessAdditionalFields(this.logger)
+
+    const options = getOptions('@dotcom-tool-kit/circleci')
+    if (options?.cypressImage) {
+      return {
+        executors: { cypress: { docker: [{ image: options.cypressImage }] } },
+        ...generateConfigWithJob({
+          ...jobOptions,
+          additionalFields: { ...serverlessAdditionalsFields, executor: 'cypress' }
+        })
+      }
+    }
+    return generateConfigWithJob({ ...jobOptions, additionalFields: serverlessAdditionalsFields })
+  }
 }
 
 export class DeployProduction extends CircleCiConfigHook {
@@ -97,7 +146,7 @@ export class DeployProduction extends CircleCiConfigHook {
     return generateConfigWithServerlessOptions(this.logger, {
       name: DeployProduction.job,
       addToNightly: false,
-      requires: [new TestStaging(this.logger).job, TestCI.job],
+      requires: [TestStaging.job, TestCI.job],
       splitIntoMatrix: false,
       additionalFields: {
         filters: { branches: { only: 'main' } }
