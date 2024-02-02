@@ -122,21 +122,17 @@ export class TestStaging extends CircleCiConfigHook {
       ...CYPRESS_JOB_OPTIONS
     }
 
-    // CircleCI config generator which will additionally optionally pass Serverless
-    // options as parameters to the orb job to enable OIDC authentication
-    const serverlessAdditionalsFields = getServerlessAdditionalFields(this.logger)
-
     const options = getOptions('@dotcom-tool-kit/circleci')
     if (options?.cypressImage) {
       return {
         executors: { cypress: { docker: [{ image: options.cypressImage }] } },
         ...generateConfigWithJob({
           ...jobOptions,
-          additionalFields: { ...serverlessAdditionalsFields, executor: 'cypress' }
+          additionalFields: { executor: 'cypress' }
         })
       }
     }
-    return generateConfigWithJob({ ...jobOptions, additionalFields: serverlessAdditionalsFields })
+    return generateConfigWithJob(jobOptions)
   }
 }
 
