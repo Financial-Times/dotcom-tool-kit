@@ -117,7 +117,7 @@ export class TestStaging extends CircleCiConfigHook {
 
   get config() {
     const jobOptions = {
-      name: TestReview.job,
+      name: TestStaging.job,
       requires: [DeployStaging.job],
       ...CYPRESS_JOB_OPTIONS
     }
