@@ -90,6 +90,14 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^5.4.1 to ^6.0.0
 
+## [3.4.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.4.1...circleci-deploy-v3.4.2) (2024-02-05)
+
+
+### Bug Fixes
+
+* **circleci-deploy:** remove unneeded serverless additional fields in TestStaging hook ([1286d7b](https://github.com/Financial-Times/dotcom-tool-kit/commit/1286d7bc62e067bffd5de558921eae1b1fe03964))
+* **circleci-deploy:** rename TestStaging job ([9641645](https://github.com/Financial-Times/dotcom-tool-kit/commit/9641645ac92ab3909a8dbb1d5e3bb1ea2663e33d))
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.3.0...circleci-deploy-v3.4.0) (2024-01-23)
 
 
