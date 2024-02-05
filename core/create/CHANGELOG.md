@@ -206,6 +206,12 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.4.1 to ^3.4.2
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.4.2 to ^3.4.3
+
 ## [3.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.5...create-v3.6.0) (2024-01-29)
 
 
