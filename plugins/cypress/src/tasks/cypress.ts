@@ -15,7 +15,7 @@ export class CypressLocal extends Task<typeof CypressSchema> {
     const vault = new DopplerEnvVars(this.logger, 'dev')
     const vaultEnv = await vault.get()
 
-    const env = { ...process.env, ...cypressEnv, ...vaultEnv }
+    const env = { ...process.env, ...vaultEnv, ...cypressEnv }
     this.logger.info('running cypress' + (env.CYPRESS_BASE_URL ? ` against ${env.CYPRESS_BASE_URL}` : ''))
     const testProcess = spawn('cypress', ['run'], { env })
     hookFork(this.logger, 'cypress', testProcess)
