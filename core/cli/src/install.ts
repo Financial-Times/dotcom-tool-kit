@@ -5,14 +5,14 @@ import type { Logger } from 'winston'
 import { loadConfig, ValidConfig } from './config'
 import { postInstall } from './postInstall'
 
-// implementation of the Array.some method that supports asynchronous predicates
-async function asyncSome<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
+// implementation of the Array.every method that supports asynchronous predicates
+async function asyncEvery<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
   for (const val of arr) {
-    if (await pred(val)) {
-      return true
+    if (!(await pred(val))) {
+      return false
     }
   }
-  return false
+  return true
 }
 
 export default async function installHooks(logger: Logger): Promise<ValidConfig> {
@@ -25,24 +25,18 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
   }
 
   const errors: Error[] = []
-  // HACK: achieve backwards compatibility with older versions of the circleci
-  // plugin that required a postinstall function to run instead of the new
-  // commitInstall method. remove in major update of cli.
-  let usesNewCircleCIGroup = false
   // group hooks without an installGroup separately so that their check()
   // method runs independently
   const groups = groupBy(config.hooks, (hook) => hook.installGroup ?? '__' + hook.id)
-  for (const [groupId, group] of Object.entries(groups)) {
+  for (const group of Object.values(groups)) {
     try {
-      if (await asyncSome(group, async (hook) => !(await hook.check()))) {
+      const allChecksPassed = await asyncEvery(group, (hook) => hook.check())
+      if (!allChecksPassed) {
         let state = undefined
         for (const hook of group) {
           state = await hook.install(state)
         }
         if (state) {
-          if (groupId === 'circleci') {
-            usesNewCircleCIGroup = true
-          }
           try {
             await group[0].commitInstall(state)
           } catch (err) {
@@ -63,6 +57,10 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
     }
   }
 
+  // HACK: achieve backwards compatibility with older versions of the circleci
+  // plugin that required a postinstall function to run instead of the new
+  // commitInstall method. remove in major update of cli.
+  const usesNewCircleCIGroup = Object.keys(groups).includes('circleci')
   if (!usesNewCircleCIGroup) {
     await postInstall(logger)
   }
