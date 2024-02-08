@@ -368,6 +368,13 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.1 to ^3.4.2
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.2 to ^3.2.3
 
+## [3.4.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.4.3...dotcom-tool-kit-v3.4.4) (2024-02-08)
+
+
+### Bug Fixes
+
+* **cli:** make sure postInstall step isn't run when checks are passing ([ef57f83](https://github.com/Financial-Times/dotcom-tool-kit/commit/ef57f83de1e8868d29d0787eb19327d49613a1b6))
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.3.11...dotcom-tool-kit-v3.4.0) (2024-01-11)
 
 

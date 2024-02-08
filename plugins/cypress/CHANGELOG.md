@@ -38,6 +38,17 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v3.4.1...cypress-v4.0.0) (2024-02-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **cypress:** allow Tool Kit options to override Doppler secrets
+
+### Bug Fixes
+
+* **cypress:** allow Tool Kit options to override Doppler secrets ([1358b73](https://github.com/Financial-Times/dotcom-tool-kit/commit/1358b73b7b9b34bd9aa406cd5b11a0acd12a31be))
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v3.3.2...cypress-v3.4.0) (2024-01-11)
 
 

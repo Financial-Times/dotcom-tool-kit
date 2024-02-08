@@ -73,6 +73,13 @@
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [2.4.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.3...serverless-v2.4.4) (2024-02-08)
+
+
+### Bug Fixes
+
+* **serverless:** pass --aws-profile flag to deploy command ([3f35ffd](https://github.com/Financial-Times/dotcom-tool-kit/commit/3f35ffd1c2431c77826e2789894ccd0ba41bbb52))
+
 ## [2.4.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.2...serverless-v2.4.3) (2024-02-01)
 
 
