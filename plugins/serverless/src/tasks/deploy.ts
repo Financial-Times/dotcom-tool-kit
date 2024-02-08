@@ -10,7 +10,7 @@ export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
   static description = 'Deploys on AWS'
 
   async run(): Promise<void> {
-    const { useVault, configPath, buildNumVariable, regions } = this.options
+    const { useVault, configPath, buildNumVariable, regions, systemCode } = this.options
     const buildNum = process.env[buildNumVariable]
 
     if (buildNum === undefined) {
@@ -42,7 +42,15 @@ export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
 
     for (const region of regions) {
       this.logger.verbose('starting the child serverless process...')
-      const args = ['deploy', '--region', region, '--stage', 'prod']
+      const args = [
+        'deploy',
+        '--region',
+        region,
+        '--stage',
+        'prod',
+        '--aws-profile',
+        `CircleCI-role-${systemCode}`
+      ]
       if (configPath) {
         args.push('--config', configPath)
       }
