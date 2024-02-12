@@ -38,6 +38,13 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
 
+## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v4.0.0...cypress-v4.0.1) (2024-02-12)
+
+
+### Bug Fixes
+
+* **cypress:** use correct name when logging Cypress URL in CI ([ffb3214](https://github.com/Financial-Times/dotcom-tool-kit/commit/ffb3214bb742897311e24fbe0e9876c6ad913289))
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v3.4.1...cypress-v4.0.0) (2024-02-08)
 
 
