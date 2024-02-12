@@ -34,7 +34,7 @@ export class CypressCi extends Task<typeof CypressSchema> {
       cypressEnv.CYPRESS_BASE_URL = `https://${process.env.CY_CUSTOM_DOMAIN_STAGING}`
     }
 
-    this.logger.info(`running cypress against ${cypressEnv.CYPRESS_BASEURL}`)
+    this.logger.info(`running cypress against ${cypressEnv.CYPRESS_BASE_URL}`)
     const testProcess = spawn('cypress', ['run'], { env: { ...process.env, ...cypressEnv } })
     hookFork(this.logger, 'cypress', testProcess)
     return waitOnExit('cypress', testProcess)
