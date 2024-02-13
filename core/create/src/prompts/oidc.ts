@@ -3,6 +3,8 @@ import { GetCallerIdentityCommand, STSClient } from '@aws-sdk/client-sts'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
+import { setOptions } from '@dotcom-tool-kit/options'
+import type { RCFile } from '@dotcom-tool-kit/types'
 import { Octokit } from '@octokit/rest'
 import * as suggester from 'code-suggester'
 import { highlight } from 'cli-highlight'
@@ -123,7 +125,11 @@ const getPreviousIAMPermissions = async (
   }
 }
 
-export default async function oidcPrompt(): Promise<boolean> {
+export interface OidcParams {
+  toolKitConfig: RCFile
+}
+
+export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise<boolean> {
   let cancelled = false
   // support an early return if the user interrupts one of the prompts
   const onCancel = () => {
@@ -143,7 +149,14 @@ export default async function oidcPrompt(): Promise<boolean> {
     path.resolve(__dirname, '../../files/oidc-cloudformation.yml'),
     'utf8'
   )
-  const cloudformationTemplate = YAML.parseDocument(cloudformationTemplateRaw)
+  // CloudFormation's intrinsic functions need to be defined as custom tags in
+  // the schema if we need to add any nodes including them programmatically
+  const subCustomTag: YAML.ScalarTag = {
+    tag: '!Sub',
+    identify: (value) => typeof value === 'string',
+    resolve: (str) => str
+  }
+  const cloudformationTemplate = YAML.parseDocument(cloudformationTemplateRaw, { customTags: [subCustomTag] })
 
   const { awsAccount }: { awsAccount: string } = await prompt(
     {
@@ -230,10 +243,31 @@ export default async function oidcPrompt(): Promise<boolean> {
         winstonLogger.info(
           'Found the permissions assigned to an IAM user for CI deployments previously. Reusing these permissions for your OIDC role policy.'
         )
-        cloudformationTemplate.setIn(
-          ['Resources', 'CircleciOIDCRolePolicy', 'Properties', 'PolicyDocument'],
-          previousDocument
+        const policyPath = ['Resources', 'CircleciOIDCRolePolicy', 'Properties', 'PolicyDocument']
+        cloudformationTemplate.setIn(policyPath, cloudformationTemplate.createNode(previousDocument))
+
+        // HACK:20240213:IM Guess Doppler project name to use in Parameter
+        // store path using the same logic we use to infer the name from Tool
+        // Kit vault plugin options. The class tries to read the options from
+        // the global options object so let's set these options based on what's
+        // been selected during the options prompt.
+        setOptions('@dotcom-tool-kit/vault', toolKitConfig.options['@dotcom-tool-kit/vault'])
+        setOptions('@dotcom-tool-kit/doppler', toolKitConfig.options['@dotcom-tool-kit/doppler'])
+        const dopplerProjectName = new DopplerEnvVars(winstonLogger, 'prod').options.project
+        const ssmAction = 'ssm:GetParameter'
+        const ssmResource = `arn:aws:ssm:eu-west-1:\${AWS::AccountId}:parameter:/${dopplerProjectName}/*`
+        winstonLogger.info(
+          `Adding a permission to allow secrets set by Doppler in Parameter Store to be read so the app is ready for the Doppler migration. Will allow the ${styles.code(
+            ssmAction
+          )} scoped to the ${styles.code(ssmResource)} resource.`
         )
+        const subbedResource = cloudformationTemplate.createNode(ssmResource, { tag: '!Sub' })
+        cloudformationTemplate.addIn([...policyPath, 'Statement'], {
+          Sid: 'AllowReadDopplerSecrets',
+          Effect: 'Allow',
+          Action: [ssmAction],
+          Resource: [subbedResource]
+        })
       } else {
         winstonLogger.info(
           "Couldn't find any old IAM permissions to reuse for this project. Falling back to the default permissions recommended by Cloud Enablement."
