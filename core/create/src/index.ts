@@ -201,7 +201,7 @@ async function main() {
     await scheduledPipelinePrompt()
   }
   if (Object.keys(config.plugins).some((id) => id.includes('serverless'))) {
-    const oidcCancelled = await oidcInfrastructurePrompt()
+    const oidcCancelled = await oidcInfrastructurePrompt({ toolKitConfig })
     if (oidcCancelled) {
       return
     }
