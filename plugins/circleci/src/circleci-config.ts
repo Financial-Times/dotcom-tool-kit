@@ -10,6 +10,7 @@ import isPlainObject from 'lodash/isPlainObject'
 import isMatch from 'lodash/isMatch'
 import merge from 'lodash/merge'
 import mergeWith from 'lodash/mergeWith'
+import omit from 'lodash/omit'
 import path from 'path'
 import type { PartialDeep } from 'type-fest'
 import YAML from 'yaml'
@@ -138,7 +139,7 @@ export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCISta
         {
           [options.name]: merge(
             { ...jobBase, requires: jobBase.requires.filter((dep) => dep !== 'waiting-for-approval') },
-            { ...options.additionalFields, filters: undefined }
+            omit(options.additionalFields, ['filters'])
           )
         }
       ]
