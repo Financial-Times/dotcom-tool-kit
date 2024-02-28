@@ -114,6 +114,14 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
 
+## [6.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v6.0.0...circleci-v6.0.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* **circleci:** remove unneeded filters property from nightly builds ([8080636](https://github.com/Financial-Times/dotcom-tool-kit/commit/808063617988dbf8cf2213641e91318c58b0dce7))
+* **circleci:** use omit to remove the filters property from nightly jobs ([f955768](https://github.com/Financial-Times/dotcom-tool-kit/commit/f955768948a6a96c566b5cd23e8cfaa524fd184a))
+
 ## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v5.4.1...circleci-v6.0.0) (2024-01-25)
 
 
