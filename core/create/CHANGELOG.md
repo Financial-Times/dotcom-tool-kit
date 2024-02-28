@@ -218,6 +218,20 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.4.3 to ^3.4.4
 
+## [3.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.6.2...create-v3.7.0) (2024-02-28)
+
+
+### Features
+
+* **create:** include permission to read Doppler secrets in OIDC role ([f3d855c](https://github.com/Financial-Times/dotcom-tool-kit/commit/f3d855c9a983bfe699a167f01c45df9810d7aeab))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.4.4 to ^3.4.5
+
 ## [3.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.5.5...create-v3.6.0) (2024-01-29)
 
 
