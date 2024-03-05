@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 
 Description: CircleCI OIDC nested stack role and policy
 
@@ -30,7 +30,7 @@ Resources:
       Roles:
         - Fn::GetAtt: [CircleciOidcNestedStackRole, Outputs.CircleciOidcRole]
       PolicyDocument:
-        Version: "2012-10-17"
+        Version: '2012-10-17'
         Statement:
           - Sid: AllowCloudformationStackActions
             Effect: Allow
@@ -55,7 +55,7 @@ Resources:
             Action:
               - cloudformation:CreateUploadBucket
               - cloudformation:ValidateTemplate
-            Resource: "*"
+            Resource: '*'
           - Sid: AllowRoleManagementActionsWithPermissionsBoundary
             Effect: Allow
             Action:
@@ -123,4 +123,4 @@ Resources:
             Action:
               - ssm:GetParameter
             Resource:
-              - !Sub arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter:/${SystemCode}/*
+              - !Sub arn:aws:ssm:eu-west-1:${AWS::AccountId}:parameter/${SystemCode}/*

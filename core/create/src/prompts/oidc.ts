@@ -255,7 +255,7 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
         setOptions('@dotcom-tool-kit/doppler', toolKitConfig.options['@dotcom-tool-kit/doppler'])
         const dopplerProjectName = new DopplerEnvVars(winstonLogger, 'prod').options.project
         const ssmAction = 'ssm:GetParameter'
-        const ssmResource = `arn:aws:ssm:eu-west-1:\${AWS::AccountId}:parameter:/${dopplerProjectName}/*`
+        const ssmResource = `arn:aws:ssm:eu-west-1:\${AWS::AccountId}:parameter/${dopplerProjectName}/*`
         winstonLogger.info(
           `Adding a permission to allow secrets set by Doppler in Parameter Store to be read so the app is ready for the Doppler migration. Will allow the ${styles.code(
             ssmAction
