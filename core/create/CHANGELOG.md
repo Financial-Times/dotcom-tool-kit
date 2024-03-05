@@ -218,6 +218,13 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.4.3 to ^3.4.4
 
+## [3.7.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.0...create-v3.7.1) (2024-03-05)
+
+
+### Bug Fixes
+
+* **create:** remove extra colon from Doppler SSM IAM ARNs ([5334870](https://github.com/Financial-Times/dotcom-tool-kit/commit/5334870d492a79f85d3e20a3668e422291279d8f))
+
 ## [3.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.6.2...create-v3.7.0) (2024-02-28)
 
 
