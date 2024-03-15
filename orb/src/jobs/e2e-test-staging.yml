@@ -2,11 +2,26 @@ parameters:
   executor:
     default: default
     type: executor
+  aws-account-id:
+    default: ''
+    type: string
+  system-code:
+    default: ''
+    type: string
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - when:
+      condition:
+        and:
+          - << parameters.aws-account-id >>
+          - << parameters.system-code >>
+      steps:
+        - serverless-assume-role:
+            aws-account-id: << parameters.aws-account-id >>
+            system-code: << parameters.system-code >>
   - run:
       name: Run smoke tests on staging
       command: npx dotcom-tool-kit test:staging
