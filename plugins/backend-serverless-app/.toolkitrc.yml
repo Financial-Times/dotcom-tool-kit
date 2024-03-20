@@ -7,5 +7,7 @@ plugins:
 hooks:
   'run:local': ServerlessRun
   'deploy:review': ServerlessProvision
+  'deploy:staging': ServerlessProvision
   'deploy:production': ServerlessDeploy
   'teardown:review': ServerlessTeardown
+  'teardown:staging': ServerlessTeardown

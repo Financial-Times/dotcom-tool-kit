@@ -27,8 +27,12 @@ const getServerlessAdditionalFields = (logger: Logger): JobConfig => {
   }
 }
 
-export class DeployReview extends CircleCiConfigHook {
-  static job = 'tool-kit/deploy-review'
+abstract class DeployConfigHook extends CircleCiConfigHook {
+  abstract job: string
+  abstract requiredJobs: string[]
+  abstract filters: JobConfig['filters']
+  abstract addToNightly: boolean
+
   // needs to be a getter so that we can lazily wait for the global options
   // object to be assigned before getting values from it
   get config(): CircleCIStatePartial {
@@ -37,35 +41,44 @@ export class DeployReview extends CircleCiConfigHook {
     const serverlessAdditionalsFields = getServerlessAdditionalFields(this.logger)
 
     return generateConfigWithJob({
-      name: DeployReview.job,
-      addToNightly: true,
-      requires: ['tool-kit/setup', 'waiting-for-approval'],
+      name: this.job,
+      addToNightly: this.addToNightly,
+      requires: this.requiredJobs,
       splitIntoMatrix: false,
-      additionalFields: { filters: { branches: { ignore: 'main' } }, ...serverlessAdditionalsFields }
+      additionalFields: { ...serverlessAdditionalsFields, filters: this.filters }
     })
   }
 }
 
-export class DeployStaging extends CircleCiConfigHook {
-  static job = 'tool-kit/deploy-staging'
-  get config(): CircleCIStatePartial {
-    return generateConfigWithJob({
-      name: DeployStaging.job,
-      addToNightly: false,
-      requires: ['tool-kit/setup'],
-      splitIntoMatrix: false,
-      additionalFields: { filters: { branches: { only: 'main' } } }
-    })
-  }
+export class DeployReview extends DeployConfigHook {
+  job = 'tool-kit/deploy-review'
+  requiredJobs = ['tool-kit/setup', 'waiting-for-approval']
+  filters = { branches: { ignore: 'main' } }
+  addToNightly = true
 }
 
-export class TestReview extends CircleCiConfigHook {
-  static job = 'tool-kit/e2e-test-review'
+export class DeployStaging extends DeployConfigHook {
+  job = 'tool-kit/deploy-staging'
+  requiredJobs = ['tool-kit/setup']
+  filters = { branches: { only: 'main' } }
+  addToNightly = false
+}
+
+export class DeployProduction extends DeployConfigHook {
+  job = 'tool-kit/deploy-production'
+  requiredJobs = [new TestStaging(this.logger).job, TestCI.job]
+  filters = { branches: { only: 'main' } }
+  addToNightly = false
+}
+
+abstract class TestConfigHook extends CircleCiConfigHook {
+  abstract job: string
+  abstract requiredJobs: string[]
 
   get config() {
     const jobOptions = {
-      name: TestReview.job,
-      requires: [DeployReview.job],
+      name: this.job,
+      requires: this.requiredJobs,
       addToNightly: false,
       splitIntoMatrix: false
     }
@@ -88,49 +101,14 @@ export class TestReview extends CircleCiConfigHook {
   }
 }
 
-export class TestStaging extends CircleCiConfigHook {
-  static job = 'tool-kit/e2e-test-staging'
-
-  get config() {
-    const jobOptions = {
-      name: TestStaging.job,
-      requires: [DeployStaging.job],
-      addToNightly: false,
-      splitIntoMatrix: false
-    }
-
-    const options = getOptions('@dotcom-tool-kit/circleci')
-    if (options?.cypressImage) {
-      return {
-        executors: { cypress: { docker: [{ image: options.cypressImage }] } },
-        ...generateConfigWithJob({
-          ...jobOptions,
-          additionalFields: { executor: 'cypress' }
-        })
-      }
-    }
-    return generateConfigWithJob(jobOptions)
-  }
+export class TestReview extends TestConfigHook {
+  job = 'tool-kit/e2e-test-review'
+  requiredJobs = [new DeployReview(this.logger).job]
 }
 
-export class DeployProduction extends CircleCiConfigHook {
-  static job = 'tool-kit/deploy-production'
-  get config(): CircleCIStatePartial {
-    // CircleCI config generator which will additionally optionally pass Serverless
-    // options as parameters to the orb job to enable OIDC authentication
-    const serverlessAdditionalsFields = getServerlessAdditionalFields(this.logger)
-
-    return generateConfigWithJob({
-      name: DeployProduction.job,
-      addToNightly: false,
-      requires: [TestStaging.job, TestCI.job],
-      splitIntoMatrix: false,
-      additionalFields: {
-        ...serverlessAdditionalsFields,
-        filters: { branches: { only: 'main' } }
-      }
-    })
-  }
+export class TestStaging extends TestConfigHook {
+  job = 'tool-kit/e2e-test-staging'
+  requiredJobs = [new DeployStaging(this.logger).job]
 }
 
 export const hooks = {
