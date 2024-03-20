@@ -180,8 +180,8 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
   const dopplerSecretsSchema = z.object({
     CIRCLECI_AUTH_TOKEN: z.string(),
     GITHUB_ACCESS_TOKEN: z.string(),
-    [`AWS_ACCESS_KEY_ID_${awsAccountDopplerName}`]: z.string(),
-    [`AWS_SECRET_KEY_${awsAccountDopplerName}`]: z.string()
+    [`AWS_${awsAccountDopplerName}_ACCESS_KEY_ID`]: z.string(),
+    [`AWS_${awsAccountDopplerName}_SECRET_ACCESS_KEY`]: z.string()
   })
   const dopplerEnv = dopplerSecretsSchema.parse(await dopplerEnvVars.get())
 
@@ -235,8 +235,8 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
     }
     if (fetchOldPermissions) {
       const previousDocument = await getPreviousIAMPermissions(
-        dopplerEnv[`AWS_ACCESS_KEY_ID_${awsAccountDopplerName}`],
-        dopplerEnv[`AWS_SECRET_KEY_${awsAccountDopplerName}`],
+        dopplerEnv[`AWS_${awsAccountDopplerName}_ACCESS_KEY_ID`],
+        dopplerEnv[`AWS_${awsAccountDopplerName}_SECRET_ACCESS_KEY`],
         serviceName
       )
       if (previousDocument) {
