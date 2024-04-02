@@ -13,7 +13,25 @@ module.exports = {
     'no-console': 'error',
     // Necessary to allow us to define arguments in a method that only subclasses use
     // https://github.com/typescript-eslint/typescript-eslint/issues/586#issuecomment-510099609
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    // Prettier sometimes like inserting semis
+    '@typescript-eslint/no-extra-semi': 'off',
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      {
+        fixStyle: 'inline-type-imports'
+      }
+    ],
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']]
+      }
+    ]
+  },
+  settings: {
+    'import/internal-regex': '^(@dotcom-tool-kit/|dotcom-tool-kit$)'
   },
   overrides: [
     {
