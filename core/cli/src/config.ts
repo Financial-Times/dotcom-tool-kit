@@ -12,12 +12,7 @@ import { ToolKitConflictError } from '@dotcom-tool-kit/error'
 import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import {
   formatTaskConflicts,
-<<<<<<< HEAD
-  formatUndefinedCommandTasks,
   formatUnusedPluginOptions,
-=======
-  formatUnusedOptions,
->>>>>>> 6ab84a23 (fix: remove check for undefined commands)
   formatCommandTaskConflicts,
   formatHookConflicts,
   formatPluginOptionConflicts,
