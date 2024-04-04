@@ -12,8 +12,12 @@ import { ToolKitConflictError } from '@dotcom-tool-kit/error'
 import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import {
   formatTaskConflicts,
+<<<<<<< HEAD
   formatUndefinedCommandTasks,
   formatUnusedPluginOptions,
+=======
+  formatUnusedOptions,
+>>>>>>> 6ab84a23 (fix: remove check for undefined commands)
   formatCommandTaskConflicts,
   formatHookConflicts,
   formatPluginOptionConflicts,
@@ -94,21 +98,6 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     }
   }
 
-  const configuredCommandTasks = withoutConflicts(Object.values(config.commandTasks))
-  const definedHookIds = new Set(Object.keys(config.hooks))
-  const undefinedCommandTasks = configuredCommandTasks.filter(() => {
-    return false //TODO
-    // we only care about undefined hooks that were configured by the app, not default config from plugins
-    // const fromApp = commandTask.plugin.root === process.cwd()
-    // const hookDefined = definedHookIds.has(commandTask.id)
-    // return fromApp && !hookDefined
-  })
-
-  if (undefinedCommandTasks.length > 0) {
-    shouldThrow = true
-    error.details += formatUndefinedCommandTasks(undefinedCommandTasks, Array.from(definedHookIds))
-  }
-
   const invalidOptions = validatePluginOptions(logger, config)
 
   if (invalidOptions.length > 0) {
@@ -138,6 +127,8 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     shouldThrow = true
     error.details += formatUnusedTaskOptions(unusedTaskOptions, Object.keys(config.tasks))
   }
+
+  const configuredCommandTasks = withoutConflicts(Object.values(config.commandTasks))
 
   const missingTasks = configuredCommandTasks
     .map((hook) => ({
