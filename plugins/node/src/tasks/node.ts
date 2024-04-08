@@ -28,14 +28,6 @@ export default class Node extends Task<{ plugin: typeof NodeSchema }> {
         port: ports
       }))
 
-    if (!entry) {
-      const error = new ToolKitError(
-        `the ${styles.task('Node')} task requires an ${styles.option('entry')} option`
-      )
-      error.details = `this is the entrypoint for your app, e.g. ${styles.filepath('server/app.js')}`
-      throw error
-    }
-
     this.logger.verbose('starting the child node process...')
     const child = fork(entry, args, {
       env: {
