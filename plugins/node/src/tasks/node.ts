@@ -1,18 +1,17 @@
-import { ToolKitError } from '@dotcom-tool-kit/error'
-import { hookConsole, hookFork, styles } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
-import { NodeSchema } from '@dotcom-tool-kit/schemas/lib/plugins/node'
+import { NodeSchema } from '@dotcom-tool-kit/schemas/lib/tasks/node'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { fork } from 'child_process'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 
-export default class Node extends Task<{ plugin: typeof NodeSchema }> {
+export default class Node extends Task<{ task: typeof NodeSchema }> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, args, useVault, ports } = this.pluginOptions
+    const { entry, args, useVault, ports } = this.options
 
     let vaultEnv = {}
 
