@@ -6,7 +6,6 @@ import { HerokuSchema } from './plugins/heroku'
 import { LintStagedNpmSchema } from './plugins/lint-staged-npm'
 import { SmokeTestSchema } from './plugins/n-test'
 import { NextRouterSchema } from './plugins/next-router'
-import { PrettierSchema } from './plugins/prettier'
 import { ServerlessSchema } from './plugins/serverless'
 import { TypeScriptSchema } from './plugins/typescript'
 import { UploadAssetsToS3Schema } from './plugins/upload-assets-to-s3'
@@ -23,7 +22,6 @@ export const PluginSchemas = {
   '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
   '@dotcom-tool-kit/n-test': SmokeTestSchema,
   '@dotcom-tool-kit/next-router': NextRouterSchema,
-  '@dotcom-tool-kit/prettier': PrettierSchema,
   '@dotcom-tool-kit/serverless': ServerlessSchema,
   '@dotcom-tool-kit/typescript': TypeScriptSchema,
   '@dotcom-tool-kit/upload-assets-to-s3': UploadAssetsToS3Schema,
