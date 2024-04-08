@@ -12,6 +12,7 @@ export const PrettierSchema = z.object({
     trailingComma: 'none'
   })
 })
+
 export type PrettierOptions = z.infer<typeof PrettierSchema>
 
 export const Schema = PrettierSchema
