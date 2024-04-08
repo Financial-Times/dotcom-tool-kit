@@ -25,17 +25,21 @@ export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
   plugins: { [id: string]: Plugin }
 }
 
-export type ValidPluginOptions<Id extends keyof PluginOptions> = Omit<OptionsForPlugin, 'options'> & {
+export type ValidOptionsForPlugin<Id extends keyof PluginOptions> = Omit<OptionsForPlugin, 'options'> & {
   options: PluginOptions[Id]
 }
 
-export type ValidOptions = {
-  [Id in keyof PluginOptions]: ValidPluginOptions<Id>
+export type ValidPluginOptions = {
+  [Id in keyof PluginOptions]: ValidOptionsForPlugin<Id>
 }
 
-export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'pluginOptions' | 'hooks'> & {
+export type ValidConfig = Omit<
+  ValidPluginsConfig,
+  'tasks' | 'commandTasks' | 'pluginOptions' | 'taskOptions' | 'hooks'
+> & {
   tasks: { [id: string]: EntryPoint }
   commandTasks: { [id: string]: CommandTask }
-  pluginOptions: ValidOptions
+  pluginOptions: ValidPluginOptions
+  taskOptions: { [id: string]: OptionsForTask }
   hooks: { [id: string]: EntryPoint }
 }

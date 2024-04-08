@@ -19,7 +19,7 @@ type ErrorSummary = {
 
 const loadTasks = async (
   logger: Logger,
-  taskNames: string[],
+  taskNames: (keyof TaskOptions)[],
   config: ValidConfig
 ): Promise<Validated<Record<string, Task>>> => {
   const taskResults = await Promise.all(
@@ -28,10 +28,10 @@ const loadTasks = async (
       const taskResult = await importEntryPoint(Task, entryPoint)
 
       return taskResult.map((Task) => {
-        const taskSchema = TaskSchemas[taskName as keyof TaskOptions]
+        const taskSchema = TaskSchemas[taskName]
         const parsedOptions = taskSchema ? taskSchema.parse(config.taskOptions[taskName]) : {}
 
-        const task = new ((Task as unknown) as TaskConstructor)(
+        const task = new (Task as unknown as TaskConstructor)(
           logger,
           taskName,
           getOptions(entryPoint.plugin.id as OptionKey) ?? {},
@@ -78,7 +78,9 @@ ${availableCommands}`
     process.execArgv.push('--no-experimental-fetch')
   }
 
-  const taskNames = commands.flatMap((command) => config.commandTasks[command]?.tasks ?? [])
+  const taskNames = commands.flatMap(
+    (command) => config.commandTasks[command]?.tasks ?? []
+  ) as (keyof TaskOptions)[]
   const tasks = (await loadTasks(logger, taskNames, config)).unwrap('tasks are invalid')
 
   for (const command of commands) {
