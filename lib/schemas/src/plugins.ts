@@ -4,7 +4,6 @@ import { DopplerSchema } from './plugins/doppler'
 import { RootSchema } from './plugins/dotcom-tool-kit'
 import { HerokuSchema } from './plugins/heroku'
 import { LintStagedNpmSchema } from './plugins/lint-staged-npm'
-import { SmokeTestSchema } from './plugins/n-test'
 import { NextRouterSchema } from './plugins/next-router'
 import { ServerlessSchema } from './plugins/serverless'
 import { VaultSchema } from './plugins/vault'
@@ -17,7 +16,6 @@ export const PluginSchemas = {
   '@dotcom-tool-kit/doppler': DopplerSchema,
   '@dotcom-tool-kit/heroku': HerokuSchema,
   '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
-  '@dotcom-tool-kit/n-test': SmokeTestSchema,
   '@dotcom-tool-kit/next-router': NextRouterSchema,
   '@dotcom-tool-kit/serverless': ServerlessSchema,
   '@dotcom-tool-kit/vault': VaultSchema
