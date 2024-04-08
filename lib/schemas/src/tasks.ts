@@ -7,6 +7,7 @@ import { NodeSchema } from './tasks/node'
 import { NodemonSchema } from './tasks/nodemon'
 import { Pa11ySchema } from './tasks/pa11y'
 import { PrettierSchema } from './tasks/prettier'
+import { TypeScriptSchema } from './tasks/typescript'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -16,7 +17,8 @@ export const TaskSchemas = {
   Node: NodeSchema,
   Nodemon: NodemonSchema,
   Pa11y: Pa11ySchema,
-  Prettier: PrettierSchema
+  Prettier: PrettierSchema,
+  TypeScript: TypeScriptSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>
