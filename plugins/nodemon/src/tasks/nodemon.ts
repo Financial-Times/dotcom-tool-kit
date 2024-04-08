@@ -12,11 +12,11 @@ export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, configPath, useVault, ports } = this.options
+    const { entry, configPath, useDoppler, ports } = this.options
 
     let dopplerEnv = {}
 
-    if (useVault) {
+    if (useDoppler) {
       const doppler = new DopplerEnvVars(this.logger, 'dev')
 
       dopplerEnv = await doppler.get()
