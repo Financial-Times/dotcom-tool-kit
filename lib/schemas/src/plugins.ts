@@ -8,7 +8,6 @@ import { SmokeTestSchema } from './plugins/n-test'
 import { NextRouterSchema } from './plugins/next-router'
 import { ServerlessSchema } from './plugins/serverless'
 import { VaultSchema } from './plugins/vault'
-import { WebpackSchema } from './plugins/webpack'
 import { type InferSchemaOptions } from './infer'
 
 export const PluginSchemas = {
@@ -21,8 +20,7 @@ export const PluginSchemas = {
   '@dotcom-tool-kit/n-test': SmokeTestSchema,
   '@dotcom-tool-kit/next-router': NextRouterSchema,
   '@dotcom-tool-kit/serverless': ServerlessSchema,
-  '@dotcom-tool-kit/vault': VaultSchema,
-  '@dotcom-tool-kit/webpack': WebpackSchema
+  '@dotcom-tool-kit/vault': VaultSchema
 }
 
 export type PluginOptions = InferSchemaOptions<typeof PluginSchemas>
