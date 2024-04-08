@@ -10,6 +10,7 @@ import { PrettierSchema } from './tasks/prettier'
 import { TypeScriptSchema } from './tasks/typescript'
 import { UploadAssetsToS3Schema } from './tasks/upload-assets-to-s3'
 import { WebpackSchema } from './tasks/webpack'
+import { SmokeTestSchema } from './tasks/n-test'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -22,7 +23,8 @@ export const TaskSchemas = {
   Prettier: PrettierSchema,
   TypeScript: TypeScriptSchema,
   UploadAssetsToS3: UploadAssetsToS3Schema,
-  Webpack: WebpackSchema
+  Webpack: WebpackSchema,
+  NTest: SmokeTestSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>
