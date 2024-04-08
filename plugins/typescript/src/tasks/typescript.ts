@@ -14,10 +14,6 @@ export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> 
       args.unshift('--project', this.options.configPath)
     }
 
-    if (this.options.extraArgs) {
-      args.push(...this.options.extraArgs)
-    }
-
     const child = fork(tscPath, args, { silent: true })
     hookFork(this.logger, 'typescript', child)
     const exitPromise = waitOnExit('typescript', child)
