@@ -26,8 +26,8 @@ export abstract class Task<
   constructor(
     logger: Logger,
     public id: string,
-    public pluginOptions: z.output<Default<Options['plugin'], z.ZodTypeAny>>,
-    public options: z.output<Default<Options['task'], z.ZodTypeAny>>
+    public pluginOptions: z.output<Default<Options['plugin'], z.ZodObject<Record<string, never>>>>,
+    public options: z.output<Default<Options['task'], z.ZodObject<Record<string, never>>>>
   ) {
     super()
     this.logger = logger.child({ task: id })
