@@ -6,7 +6,6 @@ import { HerokuSchema } from './plugins/heroku'
 import { LintStagedNpmSchema } from './plugins/lint-staged-npm'
 import { SmokeTestSchema } from './plugins/n-test'
 import { NextRouterSchema } from './plugins/next-router'
-import { NodeSchema } from './plugins/node'
 import { NodemonSchema } from './plugins/nodemon'
 import { Pa11ySchema } from './plugins/pa11y'
 import { PrettierSchema } from './plugins/prettier'
@@ -26,7 +25,6 @@ export const PluginSchemas = {
   '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
   '@dotcom-tool-kit/n-test': SmokeTestSchema,
   '@dotcom-tool-kit/next-router': NextRouterSchema,
-  '@dotcom-tool-kit/node': NodeSchema,
   '@dotcom-tool-kit/nodemon': NodemonSchema,
   '@dotcom-tool-kit/pa11y': Pa11ySchema,
   '@dotcom-tool-kit/prettier': PrettierSchema,
