@@ -5,6 +5,7 @@ import { JestSchema } from './tasks/jest'
 import { MochaSchema } from './tasks/mocha'
 import { NodeSchema } from './tasks/node'
 import { NodemonSchema } from './tasks/nodemon'
+import { Pa11ySchema } from './tasks/pa11y'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -12,7 +13,8 @@ export const TaskSchemas = {
   Jest: JestSchema,
   Mocha: MochaSchema,
   Node: NodeSchema,
-  Nodemon: NodemonSchema
+  Nodemon: NodemonSchema,
+  Pa11y: Pa11ySchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>
