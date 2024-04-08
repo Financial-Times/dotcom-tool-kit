@@ -1,10 +1,9 @@
 tasks:
-  CypressCi: './lib/tasks/ci'
-  CypressLocal: './lib/tasks/local'
+  Cypress: './lib/tasks/cypress'
 
 commands:
-  'test:review': CypressCi
-  'test:staging': CypressCi
-  'e2e:local': CypressLocal
+  'test:review': Cypress
+  'test:staging': Cypress
+  'e2e:local': Cypress
 
 version: 2
