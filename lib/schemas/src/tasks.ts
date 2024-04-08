@@ -12,6 +12,7 @@ import { UploadAssetsToS3Schema } from './tasks/upload-assets-to-s3'
 import { WebpackSchema } from './tasks/webpack'
 import { SmokeTestSchema } from './tasks/n-test'
 import { CypressSchema } from './tasks/cypress'
+import { HerokuProductionSchema } from './tasks/heroku-production'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -26,7 +27,8 @@ export const TaskSchemas = {
   UploadAssetsToS3: UploadAssetsToS3Schema,
   Webpack: WebpackSchema,
   NTest: SmokeTestSchema,
-  Cypress: CypressSchema
+  Cypress: CypressSchema,
+  HerokuProduction: HerokuProductionSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>

@@ -7,8 +7,12 @@ import type { HerokuApiResGetApp } from 'heroku-client'
 import heroku, { extractHerokuError } from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
+import { HerokuProductionSchema } from '@dotcom-tool-kit/schemas/src/tasks/heroku-production'
 
-export default class HerokuProduction extends Task<{ plugin: typeof HerokuSchema }> {
+export default class HerokuProduction extends Task<{
+  plugin: typeof HerokuSchema
+  task: typeof HerokuProductionSchema
+}> {
   static description = ''
 
   async run(): Promise<void> {
@@ -20,7 +24,7 @@ export default class HerokuProduction extends Task<{ plugin: typeof HerokuSchema
       }
       const { slugId } = state
 
-      const { scaling } = this.pluginOptions
+      const { scaling } = this.options
 
       const scale = async () => {
         for (const [appName, typeConfig] of Object.entries(scaling)) {
