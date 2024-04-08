@@ -3,14 +3,18 @@ import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
-import { CypressSchema } from '@dotcom-tool-kit/schemas/lib/plugins/cypress'
+import { CypressSchema } from '@dotcom-tool-kit/schemas/lib/tasks/cypress'
 
-export default class Cypress extends Task<{ plugin: typeof CypressSchema }> {
+export default class Cypress extends Task<{ task: typeof CypressSchema }> {
   async run(): Promise<void> {
     const reviewState = readState('review')
     const appState = reviewState ?? readState('staging')
     const cypressEnv: Record<string, string> = {}
     let dopplerEnv = {}
+
+    if (this.options.url) {
+      cypressEnv.CYPRESS_BASE_URL = this.options.url
+    }
 
     if (appState) {
       cypressEnv.CYPRESS_BASE_URL = appState.url ? appState.url : `https://${appState.appName}.herokuapp.com`
@@ -19,10 +23,6 @@ export default class Cypress extends Task<{ plugin: typeof CypressSchema }> {
         cypressEnv.CYPRESS_REVIEW_APP = 'true'
       }
     } else {
-      if (this.pluginOptions.localUrl) {
-        cypressEnv.CYPRESS_BASE_URL = this.pluginOptions.localUrl
-      }
-
       const doppler = new DopplerEnvVars(this.logger, 'dev')
       dopplerEnv = await doppler.get()
     }

@@ -11,6 +11,7 @@ import { TypeScriptSchema } from './tasks/typescript'
 import { UploadAssetsToS3Schema } from './tasks/upload-assets-to-s3'
 import { WebpackSchema } from './tasks/webpack'
 import { SmokeTestSchema } from './tasks/n-test'
+import { CypressSchema } from './tasks/cypress'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -24,7 +25,8 @@ export const TaskSchemas = {
   TypeScript: TypeScriptSchema,
   UploadAssetsToS3: UploadAssetsToS3Schema,
   Webpack: WebpackSchema,
-  NTest: SmokeTestSchema
+  NTest: SmokeTestSchema,
+  Cypress: CypressSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>
