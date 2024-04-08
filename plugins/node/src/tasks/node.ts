@@ -11,14 +11,14 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, args, useVault, ports } = this.options
+    const { entry, args, useDoppler, ports } = this.options
 
-    let vaultEnv = {}
+    let dopplerEnv = {}
 
-    if (useVault) {
-      const vault = new DopplerEnvVars(this.logger, 'dev')
+    if (useDoppler) {
+      const doppler = new DopplerEnvVars(this.logger, 'dev')
 
-      vaultEnv = await vault.get()
+      dopplerEnv = await doppler.get()
     }
 
     const port =
@@ -30,7 +30,7 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
     this.logger.verbose('starting the child node process...')
     const child = fork(entry, args, {
       env: {
-        ...vaultEnv,
+        ...dopplerEnv,
         PORT: port.toString(),
         ...process.env
       },
