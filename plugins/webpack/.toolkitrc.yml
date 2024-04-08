@@ -1,12 +1,10 @@
 tasks:
-  WebpackDevelopment: './lib/tasks/development'
-  WebpackProduction: './lib/tasks/production'
-  WebpackWatch: './lib/tasks/watch'
+  Webpack: './lib/tasks/webpack'
 
 commands:
-  'build:local': WebpackDevelopment
-  'build:ci': WebpackProduction
-  'build:remote': WebpackProduction
-  'run:local': WebpackWatch
+  'build:local': Webpack
+  'build:ci': Webpack
+  'build:remote': Webpack
+  'run:local': Webpack
 
 version: 2
