@@ -1,6 +1,12 @@
 import { styles as s, styles } from '@dotcom-tool-kit/logger'
 import type { Hook } from '@dotcom-tool-kit/base'
-import type { CommandTask, EntryPoint, Plugin, OptionsForPlugin } from '@dotcom-tool-kit/plugin'
+import type {
+  CommandTask,
+  EntryPoint,
+  Plugin,
+  OptionsForPlugin,
+  OptionsForTask
+} from '@dotcom-tool-kit/plugin'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
@@ -50,18 +56,35 @@ You must resolve this conflict by explicitly configuring which task to run for t
 
 `
 
-const formatOptionConflict = (conflict: Conflict<OptionsForPlugin>): string => `${s.plugin(
+const formatPluginOptionConflict = (conflict: Conflict<OptionsForPlugin>): string => `${s.plugin(
   conflict.conflicting[0].forPlugin.id
 )}, configured by:
 ${conflict.conflicting.map((option) => `- ${s.plugin(option.plugin.id)}`)}`
 
-export const formatOptionConflicts = (conflicts: Conflict<OptionsForPlugin>[]): string => `${s.heading(
+export const formatPluginOptionConflicts = (conflicts: Conflict<OptionsForPlugin>[]): string => `${s.heading(
   'These plugins have conflicting options'
 )}:
 
-${conflicts.map(formatOptionConflict).join('\n')}
+${conflicts.map(formatPluginOptionConflict).join('\n')}
 
 You must resolve this conflict by providing options in your app's Tool Kit configuration for these plugins, or installing a use-case plugin that provides these options. See ${s.URL(
+  'https://github.com/financial-times/dotcom-tool-kit/tree/main/readme.md#options'
+)} for more details.
+
+`
+
+const formatTaskOptionConflict = (conflict: Conflict<OptionsForTask>): string => `${s.task(
+  conflict.conflicting[0].task
+)}, configured by:
+${conflict.conflicting.map((option) => `- ${s.plugin(option.plugin.id)}`)}`
+
+export const formatTaskOptionConflicts = (conflicts: Conflict<OptionsForTask>[]): string => `${s.heading(
+  'These tasks have conflicting options'
+)}:
+
+${conflicts.map(formatTaskOptionConflict).join('\n')}
+
+You must resolve this conflict by providing options in your app's Tool Kit configuration for these tasks, or installing a use-case plugin that provides these options. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/readme.md#options'
 )} for more details.
 
@@ -100,7 +123,7 @@ ${invalidOptions
 Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.
 `
 
-export const formatUnusedOptions = (
+export const formatUnusedPluginOptions = (
   unusedOptions: string[],
   definedPlugins: string[]
 ): string => `Options are defined in your Tool Kit configuration for plugins that don't exist:
@@ -113,6 +136,22 @@ ${
   definedPlugins.length > 0
     ? `Plugins that are defined and can have options set are: ${definedPlugins.map(s.plugin).join(', ')}`
     : `There are no plugins installed currently. You'll need to install some plugins before options can be set.`
+}.
+`
+
+export const formatUnusedTaskOptions = (
+  unusedOptions: string[],
+  definedTasks: string[]
+): string => `Options are defined in your Tool Kit configuration for tasks that don't exist:
+
+${unusedOptions.map((optionName) => `- ${s.task(optionName)}`).join('\n')}
+
+They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
+
+${
+  definedTasks.length > 0
+    ? `Task that are defined and can have options set are: ${definedTasks.map(s.task).join(', ')}`
+    : `You don't have currently any plugins installed that provide tasks. You'll need to install some plugins before options can be set.`
 }.
 `
 
