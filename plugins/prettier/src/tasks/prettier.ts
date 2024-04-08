@@ -41,14 +41,6 @@ export default class Prettier extends Task<{ task: typeof PrettierSchema }> {
         throw error
       }
     }
-    if (!prettierConfig && options.configOptions) {
-      this.logger.warn(
-        `prettier could not find the specified configFile${
-          options.configFile ? ` (${styles.filepath(options.configFile)})` : ''
-        }), using ${styles.option('configOptions')} instead`
-      )
-      prettierConfig = options.configOptions
-    }
 
     const { ignored } = await prettier.getFileInfo(filepath, { ignorePath: this.options.ignoreFile })
 
@@ -58,10 +50,7 @@ export default class Prettier extends Task<{ task: typeof PrettierSchema }> {
 
     const unhook = hookConsole(this.logger, 'prettier')
     try {
-      await fsp.writeFile(
-        filepath,
-        prettier.format(fileContent, { ...(prettierConfig as prettier.Options), filepath })
-      )
+      await fsp.writeFile(filepath, prettier.format(fileContent, { ...prettierConfig, filepath }))
     } finally {
       unhook()
     }
