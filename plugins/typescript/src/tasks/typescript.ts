@@ -7,11 +7,23 @@ const tscPath = require.resolve('typescript/bin/tsc')
 
 export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> {
   async run(): Promise<void> {
-    // TODO: add monorepo support with --build option
     const args = []
 
+    // TODO:KB:20240408 refactor this
+    if (this.options.build) {
+      args.push('--build')
+    }
+
+    if (this.options.watch) {
+      args.push('--watch')
+    }
+
+    if (this.options.noEmit) {
+      args.push('--noEmit')
+    }
+
     if (this.options.configPath) {
-      args.unshift('--project', this.options.configPath)
+      args.push('--project', this.options.configPath)
     }
 
     const child = fork(tscPath, args, { silent: true })
