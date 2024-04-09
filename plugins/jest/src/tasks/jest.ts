@@ -37,7 +37,7 @@ export default class Jest extends Task<{ task: typeof JestSchema }> {
 
     // TODO:20231107:IM we should probably refactor this plugin to move
     // CI-specific logic to be within the CI task module
-    if (this.options.mode === 'ci') {
+    if (this.options.ci) {
       args.push('--ci')
       // only relevant if running on CircleCI, other CI environments might handle
       // virtualisation completely differently
