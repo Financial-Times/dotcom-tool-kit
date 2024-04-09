@@ -5,9 +5,7 @@ export const ServerlessSchema = z.object({
   awsAccountId: z.string(),
   systemCode: z.string(),
   regions: z.array(z.string()).default(['eu-west-1']),
-  configPath: z.string().optional(),
-  useDoppler: z.boolean().default(true),
-  ports: z.number().array().default([3001, 3002, 3003])
+  configPath: z.string().optional()
 })
 
 export type ServerlessOptions = z.infer<typeof ServerlessSchema>
