@@ -11,7 +11,7 @@ export default class ServerlessTeardown extends Task<{ plugin: typeof Serverless
   static description = 'Teardown existing serverless functions'
 
   async run(): Promise<void> {
-    const { useVault, configPath, regions, systemCode } = this.pluginOptions
+    const { useDoppler, configPath, regions, systemCode } = this.pluginOptions
 
     const reviewState = readState('review')
 
@@ -28,7 +28,7 @@ export default class ServerlessTeardown extends Task<{ plugin: typeof Serverless
     // skip this call if we find the project has already added options for
     // doppler in the Tool Kit configuration.
     const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler')?.project)
-    if (useVault && !migratedToolKitToDoppler) {
+    if (useDoppler && !migratedToolKitToDoppler) {
       const dopplerCi = new DopplerEnvVars(this.logger, 'ci')
       const vaultCi = await dopplerCi.fallbackToVault()
       // HACK:20231023:IM don't read secrets when the project has already
