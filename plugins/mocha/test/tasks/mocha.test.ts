@@ -5,21 +5,31 @@ import * as path from 'path'
 import Mocha from '../../src/tasks/mocha'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 describe('mocha', () => {
   it('should succeed with passing tests', async () => {
-    const task = new Mocha(logger, 'Mocha', {
-      files: path.resolve(__dirname, '../files/pass') + '/**/*.js'
-    })
+    const task = new Mocha(
+      logger,
+      'Mocha',
+      {},
+      {
+        files: path.resolve(__dirname, '../files/pass') + '/**/*.js'
+      }
+    )
 
     await task.run()
   })
 
   it('should throw with failing tests', async () => {
-    const task = new Mocha(logger, 'Mocha', {
-      files: path.resolve(__dirname, '../files/fail') + '/**/*.js'
-    })
+    const task = new Mocha(
+      logger,
+      'Mocha',
+      {},
+      {
+        files: path.resolve(__dirname, '../files/fail') + '/**/*.js'
+      }
+    )
 
     expect.assertions(1)
     try {
