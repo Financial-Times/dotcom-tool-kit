@@ -1,10 +1,9 @@
 import { fork } from 'node:child_process'
-import JestLocal from '../src/tasks/local'
-import JestCI from '../src/tasks/ci'
+import Jest from '../src/tasks/jest'
 import EventEmitter from 'events'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 jest.mock('node:child_process', () => ({
   fork: jest.fn(() => {
@@ -19,55 +18,36 @@ jest.mock('node:child_process', () => ({
 jest.mock('@dotcom-tool-kit/logger')
 
 describe('jest plugin', () => {
-  describe('local', () => {
-    it('should call jest cli with configPath if configPath is passed in', async () => {
-      const jestLocal = new JestLocal(logger, 'JestLocal', { configPath: './src/jest.config.js' })
-      await jestLocal.run()
+  it('should call jest cli without configPath by default', async () => {
+    const jest = new Jest(logger, 'Jest', {}, {})
+    await jest.run()
 
-      expect(fork).toBeCalledWith(
-        expect.any(String),
-        expect.arrayContaining(['--config=./src/jest.config.js']),
-        {
-          silent: true
-        }
-      )
-    })
-
-    it('should call jest cli without configPath by default', async () => {
-      const jestLocal = new JestLocal(logger, 'JestLocal', {})
-      await jestLocal.run()
-
-      expect(fork).toBeCalledWith(
-        expect.any(String),
-        expect.not.arrayContaining([expect.stringContaining('--config')]),
-        { silent: true }
-      )
-    })
+    expect(fork).toBeCalledWith(
+      expect.any(String),
+      expect.not.arrayContaining([expect.stringContaining('--config')]),
+      { silent: true }
+    )
   })
 
-  describe('ci', () => {
-    it('should call jest cli with configPath if configPath is passed in', async () => {
-      const jestCI = new JestCI(logger, 'JestCI', { configPath: './src/jest.config.js' })
-      await jestCI.run()
+  it('should call jest cli with configPath if configPath is passed in', async () => {
+    const jest = new Jest(logger, 'Jest', {}, { configPath: './src/jest.config.js' })
+    await jest.run()
 
-      expect(fork).toBeCalledWith(
-        expect.any(String),
-        expect.arrayContaining(['--ci', '--config=./src/jest.config.js']),
-        {
-          silent: true
-        }
-      )
-    })
+    expect(fork).toBeCalledWith(
+      expect.any(String),
+      expect.arrayContaining(['--config=./src/jest.config.js']),
+      {
+        silent: true
+      }
+    )
+  })
 
-    it('should call jest cli without configPath by default', async () => {
-      const jestCI = new JestCI(logger, 'JestCI', {})
-      await jestCI.run()
+  it('should call jest cli with ci if ci is passed in', async () => {
+    const jest = new Jest(logger, 'Jest', {}, { ci: true })
+    await jest.run()
 
-      expect(fork).toBeCalledWith(
-        expect.any(String),
-        expect.not.arrayContaining([expect.stringContaining('--config')]),
-        { silent: true }
-      )
+    expect(fork).toBeCalledWith(expect.any(String), expect.arrayContaining(['--ci']), {
+      silent: true
     })
   })
 })
