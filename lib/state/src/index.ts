@@ -5,13 +5,14 @@ const target = process.env.INIT_CWD || process.cwd()
 const stateDir = target ? path.join(target, '.toolkitstate') : '.toolkitstate'
 
 export const configPaths = ['.toolkitrc.yml', 'package.json', '.circleci/config.yml'] as const
-type InstallState = Record<typeof configPaths[number], string>
+type InstallState = Record<(typeof configPaths)[number], string>
 
 interface CIState {
   repo: string
   branch: string
   version: string
   tag: string
+  buildNumber: string
 }
 
 export interface ReviewState {

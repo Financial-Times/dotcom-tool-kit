@@ -5,21 +5,13 @@ import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverles
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { spawn } from 'child_process'
+import { readState } from '@dotcom-tool-kit/state'
 
 export default class ServerlessDeploy extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Deploys on AWS'
 
   async run(): Promise<void> {
-    const { useDoppler, configPath, buildNumVariable, regions, systemCode } = this.pluginOptions
-    const buildNum = process.env[buildNumVariable]
-
-    if (buildNum === undefined) {
-      throw new ToolKitError(
-        `the ${styles.task('ServerlessDeploy')} task requires the ${styles.code(
-          `$${buildNumVariable}`
-        )} environment variable to be defined`
-      )
-    }
+    const { useDoppler, configPath, regions, systemCode } = this.pluginOptions
 
     let vaultEnv = {}
     // HACK:20231124:IM We need to call Vault to check whether a project has
