@@ -17,20 +17,20 @@ import { ServerlessRunSchema } from './tasks/serverless-run'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
+  Cypress: CypressSchema,
   Eslint: ESLintSchema,
+  HerokuProduction: HerokuProductionSchema,
   Jest: JestSchema,
   Mocha: MochaSchema,
   Node: NodeSchema,
   Nodemon: NodemonSchema,
+  NTest: SmokeTestSchema,
   Pa11y: Pa11ySchema,
   Prettier: PrettierSchema,
+  ServerlessRun: ServerlessRunSchema,
   TypeScript: TypeScriptSchema,
   UploadAssetsToS3: UploadAssetsToS3Schema,
-  Webpack: WebpackSchema,
-  NTest: SmokeTestSchema,
-  Cypress: CypressSchema,
-  HerokuProduction: HerokuProductionSchema,
-  ServerlessRun: ServerlessRunSchema
+  Webpack: WebpackSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>
