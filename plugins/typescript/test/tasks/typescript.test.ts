@@ -1,12 +1,10 @@
 import { describe, jest, it, expect } from '@jest/globals'
-import TypeScriptBuild from '../../src/tasks/build'
-import TypeScriptWatch from '../../src/tasks/watch'
-import TypeScriptTest from '../../src/tasks/test'
+import TypeScript from '../../src/tasks/typescript'
 import { fork } from 'child_process'
 import EventEmitter from 'events'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 jest.mock('child_process', () => ({
   fork: jest.fn(() => {
@@ -24,36 +22,45 @@ const tscPath = require.resolve('typescript/bin/tsc')
 const configPath = 'tsconfig.json'
 
 describe('typescript', () => {
-  describe('correct arguments', () => {
-    it('should start tsc build with correct arguments', async () => {
-      const task = new TypeScriptBuild(logger, 'TypeScriptBuild', { configPath })
-      await task.run()
+  it('should run tsc', async () => {
+    const task = new TypeScript(logger, 'TypeScript', {}, { configPath })
+    await task.run()
 
-      expect(fork).toBeCalledWith(tscPath, ['--project', configPath], { silent: true })
-    })
+    expect(fork).toBeCalledWith(tscPath, ['--project', configPath], { silent: true })
+  })
 
-    it('should start tsc watch with correct arguments', async () => {
-      const task = new TypeScriptWatch(logger, 'TypeScriptWatch', { configPath })
-      await task.run()
+  it('watch option should run tsc with --watch arg', async () => {
+    const task = new TypeScript(logger, 'TypeScript', {}, { configPath, watch: true })
+    await task.run()
 
-      expect(fork).toBeCalledWith(tscPath, ['--project', configPath, '--watch'], { silent: true })
-    })
+    expect(fork).toBeCalledWith(tscPath, ['--watch', '--project', configPath], { silent: true })
+  })
 
-    it('should start tsc test with correct arguments', async () => {
-      const task = new TypeScriptTest(logger, 'TypeScriptTest', { configPath })
-      await task.run()
+  it('noEmit option should run tsc with --noEmit arg', async () => {
+    const task = new TypeScript(logger, 'TypeScript', {}, { configPath, noEmit: true })
+    await task.run()
 
-      expect(fork).toBeCalledWith(tscPath, ['--project', configPath, '--noEmit'], { silent: true })
-    })
+    expect(fork).toBeCalledWith(tscPath, ['--noEmit', '--project', configPath], { silent: true })
+  })
 
-    it('should pass in extra arguments', async () => {
-      const extraArgs = ['--verbose', '--force']
-      const task = new TypeScriptBuild(logger, 'TypeScriptBuild', { configPath, extraArgs })
-      await task.run()
+  it('build option should run tsc with --build arg', async () => {
+    const task = new TypeScript(logger, 'TypeScript', {}, { configPath, build: true })
+    await task.run()
 
-      expect(fork).toBeCalledWith(tscPath, ['--project', configPath, ...extraArgs], {
-        silent: true
-      })
+    expect(fork).toBeCalledWith(tscPath, ['--build', '--project', configPath], { silent: true })
+  })
+
+  it('can combine options', async () => {
+    const task = new TypeScript(
+      logger,
+      'TypeScript',
+      {},
+      { configPath, build: true, watch: true, noEmit: true }
+    )
+    await task.run()
+
+    expect(fork).toBeCalledWith(tscPath, ['--build', '--watch', '--noEmit', '--project', configPath], {
+      silent: true
     })
   })
 })
