@@ -7,6 +7,8 @@ import fs from 'fs/promises'
 
 const logger = winston as unknown as Logger
 
+temp.track()
+
 describe('eslint', () => {
   let testDirectory: string
 
