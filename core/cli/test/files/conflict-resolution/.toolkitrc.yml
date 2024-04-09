@@ -9,24 +9,26 @@ options:
     '@dotcom-tool-kit/heroku':
       pipeline: tool-kit-test
       systemCode: tool-kit-test
+    '@dotcom-tool-kit/vault':
+      team: platforms
+      app: tool-kit-test
+  tasks:
+    HerokuProduction:
       scaling:
         tool-kit-test:
           web:
             size: standard-1x
             quantity: 1
-    '@dotcom-tool-kit/vault':
-      team: platforms
-      app: tool-kit-test
 
 commands:
   build:local:
-    - WebpackDevelopment
-    - BabelDevelopment
+    - Webpack
+    - Babel
   build:ci:
-    - WebpackProduction
-    - BabelProduction
+    - Webpack
+    - Babel
   build:remote:
-    - WebpackProduction
-    - BabelProduction
+    - Webpack
+    - Babel
 
 version: 2
