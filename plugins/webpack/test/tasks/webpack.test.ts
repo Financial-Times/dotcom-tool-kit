@@ -1,11 +1,10 @@
 import { describe, jest, it, expect } from '@jest/globals'
-import DevelopmentWebpack from '../../src/tasks/development'
-import ProductionWebpack from '../../src/tasks/production'
+import Webpack from '../../src/tasks/webpack'
 import { fork } from 'child_process'
 import EventEmitter from 'events'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 jest.mock('child_process', () => ({
   fork: jest.fn(() => {
@@ -26,7 +25,7 @@ describe('webpack', () => {
   describe('development', () => {
     it('should call webpack cli with correct arguments', async () => {
       const configPath = 'webpack.config.js'
-      const task = new DevelopmentWebpack(logger, 'DevelopmentWebpack', { configPath })
+      const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'development' })
       await task.run()
 
       expect(fork).toBeCalledWith(
@@ -40,7 +39,7 @@ describe('webpack', () => {
   describe('production', () => {
     it('should call webpack cli with correct arguments', async () => {
       const configPath = 'webpack.config.js'
-      const task = new ProductionWebpack(logger, 'ProductionWebpack', { configPath })
+      const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'production' })
       await task.run()
 
       expect(fork).toBeCalledWith(
@@ -57,7 +56,7 @@ describe('webpack', () => {
       process.allowedNodeEnvironmentFlags = { has: jest.fn(() => true) } as any
 
       const configPath = 'webpack.config.js'
-      const task = new ProductionWebpack(logger, 'ProductionWebpack', { configPath })
+      const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'production' })
       await task.run()
 
       expect(mockedFork.mock.calls[0][2]?.execArgv).toEqual(
@@ -70,7 +69,7 @@ describe('webpack', () => {
       process.allowedNodeEnvironmentFlags = { has: jest.fn(() => false) } as any
 
       const configPath = 'webpack.config.js'
-      const task = new ProductionWebpack(logger, 'ProductionWebpack', { configPath })
+      const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'production' })
       await task.run()
 
       expect(mockedFork.mock.calls[0][2]?.execArgv).toEqual(
