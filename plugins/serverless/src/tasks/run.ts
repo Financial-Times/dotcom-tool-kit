@@ -10,11 +10,11 @@ export default class ServerlessRun extends Task<{ plugin: typeof ServerlessSchem
   static description = 'Run serverless functions locally'
 
   async run(): Promise<void> {
-    const { useVault, ports, configPath } = this.pluginOptions
+    const { useDoppler, ports, configPath } = this.pluginOptions
 
     let dopplerEnv = {}
 
-    if (useVault) {
+    if (useDoppler) {
       const doppler = new DopplerEnvVars(this.logger, 'dev')
 
       dopplerEnv = await doppler.get()

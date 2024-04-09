@@ -11,7 +11,7 @@ export default class ServerlessProvision extends Task<{ plugin: typeof Serverles
   static description = 'Provisions a job on AWS'
 
   async run(): Promise<void> {
-    const { useVault, configPath, buildNumVariable, systemCode, regions } = this.pluginOptions
+    const { useDoppler, configPath, buildNumVariable, systemCode, regions } = this.pluginOptions
     const buildNum = process.env[buildNumVariable]
 
     if (buildNum === undefined) {
@@ -29,7 +29,7 @@ export default class ServerlessProvision extends Task<{ plugin: typeof Serverles
     // skip this call if we find the project has already added options for
     // doppler in the Tool Kit configuration.
     const migratedToolKitToDoppler = Boolean(getOptions('@dotcom-tool-kit/doppler')?.project)
-    if (useVault && !migratedToolKitToDoppler) {
+    if (useDoppler && !migratedToolKitToDoppler) {
       const dopplerCi = new DopplerEnvVars(this.logger, 'ci')
       const vaultCi = await dopplerCi.fallbackToVault()
       // HACK:20231023:IM don't read secrets when the project has already
