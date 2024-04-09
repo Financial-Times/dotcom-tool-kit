@@ -68,7 +68,8 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     hookConflicts.length > 0 ||
     definedCommandTaskConflicts.length > 0 ||
     taskConflicts.length > 0 ||
-    pluginOptionConflicts.length > 0
+    pluginOptionConflicts.length > 0 ||
+    taskOptionConflicts.length > 0
   ) {
     shouldThrow = true
 
