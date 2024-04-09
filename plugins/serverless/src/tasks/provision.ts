@@ -5,21 +5,33 @@ import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverles
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { spawn } from 'child_process'
 import { getOptions } from '@dotcom-tool-kit/options'
-import { writeState } from '@dotcom-tool-kit/state'
+import { readState, writeState } from '@dotcom-tool-kit/state'
 
 export default class ServerlessProvision extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Provisions a job on AWS'
 
   async run(): Promise<void> {
-    const { useDoppler, configPath, buildNumVariable, systemCode, regions } = this.pluginOptions
-    const buildNum = process.env[buildNumVariable]
+    const { useDoppler, configPath, systemCode, regions } = this.pluginOptions
+    const ciState = readState('ci')
 
-    if (buildNum === undefined) {
+    if (!ciState) {
       throw new ToolKitError(
-        `the ${styles.task('ServerlessProvision')} task requires the ${styles.code(
-          `$${buildNumVariable}`
-        )} environment variable to be defined`
+        `the ${styles.task(
+          'ServerlessDeploy'
+        )} should be run in CI, but no CI state was found. check you have a plugin installed that initialises the CI state.`
       )
+    }
+
+    const buildNum = ciState?.buildNumber
+
+    if (!buildNum) {
+      const error = new ToolKitError(
+        `the ${styles.task('ServerlessDeploy')} requires a CI build number in the CI state.`
+      )
+
+      error.details = `this is provided by plugins such as ${styles.plugin(
+        'circleci'
+      )}, which populates it from the CIRCLE_BUILD_NUM environment variable.`
     }
 
     let vaultEnv = {}
