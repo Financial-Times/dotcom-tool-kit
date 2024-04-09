@@ -13,6 +13,7 @@ import { WebpackSchema } from './tasks/webpack'
 import { SmokeTestSchema } from './tasks/n-test'
 import { CypressSchema } from './tasks/cypress'
 import { HerokuProductionSchema } from './tasks/heroku-production'
+import { ServerlessRunSchema } from './tasks/serverless-run'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -28,7 +29,8 @@ export const TaskSchemas = {
   Webpack: WebpackSchema,
   NTest: SmokeTestSchema,
   Cypress: CypressSchema,
-  HerokuProduction: HerokuProductionSchema
+  HerokuProduction: HerokuProductionSchema,
+  ServerlessRun: ServerlessRunSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>
