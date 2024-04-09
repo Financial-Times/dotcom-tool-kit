@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const ESLintSchema = z.object({
+  configPath: z.string().optional(),
   files: z.string().array().or(z.string()).default(['**/*.js'])
 })
 
