@@ -2,9 +2,9 @@ import { z } from 'zod'
 
 export const TypeScriptSchema = z.object({
   configPath: z.string().optional(),
-  build: z.boolean().default(false),
-  watch: z.boolean().default(false),
-  noEmit: z.boolean().default(false)
+  build: z.literal(true).optional(),
+  watch: z.literal(true).optional(),
+  noEmit: z.literal(true).optional()
 })
 
 export type TypeScriptOptions = z.infer<typeof TypeScriptSchema>
