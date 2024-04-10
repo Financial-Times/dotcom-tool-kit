@@ -49,6 +49,7 @@ export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boo
 
   // if a toolkitrc contains a non-empty options field, but not options.{plugins,tasks,hooks},
   // assume it's an old-style, plugins-only options field.
+  // TODO:KB:20240410 remove this legacy options field handling in a future major version
   if (
     config.options &&
     Object.keys(config.options).length > 0 &&
