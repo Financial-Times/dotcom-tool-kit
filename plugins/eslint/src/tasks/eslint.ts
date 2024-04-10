@@ -4,12 +4,12 @@ import { Task } from '@dotcom-tool-kit/base'
 import { ESLintSchema } from '@dotcom-tool-kit/schemas/lib/plugins/eslint'
 import { ESLint } from 'eslint'
 
-export default class Eslint extends Task<typeof ESLintSchema> {
+export default class Eslint extends Task<{ plugin: typeof ESLintSchema }> {
   static description = ''
 
   async run(files?: string[]): Promise<void> {
-    const eslint = new ESLint(this.options.options)
-    const results = await eslint.lintFiles(files ?? this.options.files)
+    const eslint = new ESLint(this.pluginOptions.options)
+    const results = await eslint.lintFiles(files ?? this.pluginOptions.files)
     const formatter = await eslint.loadFormatter('stylish')
     const resultText = formatter.format(results)
 

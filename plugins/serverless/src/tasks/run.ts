@@ -6,11 +6,11 @@ import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 
-export default class ServerlessRun extends Task<typeof ServerlessSchema> {
+export default class ServerlessRun extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Run serverless functions locally'
 
   async run(): Promise<void> {
-    const { useVault, ports, configPath } = this.options
+    const { useVault, ports, configPath } = this.pluginOptions
 
     let dopplerEnv = {}
 

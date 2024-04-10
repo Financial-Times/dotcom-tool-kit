@@ -56,11 +56,11 @@ export async function reducePluginHookInstallations(
     return hookClass.mergeChildInstallations(plugin, installations)
   })
 
-  if (plugin.rcFile.hooks.length === 0) {
+  if (plugin.rcFile.options.hooks.length === 0) {
     return childInstallations
   }
 
-  return plugin.rcFile.hooks.flatMap((hookEntry) =>
+  return plugin.rcFile.options.hooks.flatMap((hookEntry) =>
     Object.entries(hookEntry).flatMap(([id, configHookOptions]) => {
       const hookClass = hookClasses[id]
       const parsedOptions = HookSchemas[id as keyof HookOptions].parse(configHookOptions)

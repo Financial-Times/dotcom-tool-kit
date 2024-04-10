@@ -8,11 +8,11 @@ import { fork } from 'child_process'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 
-export default class Node extends Task<typeof NodeSchema> {
+export default class Node extends Task<{ plugin: typeof NodeSchema }> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, args, useVault, ports } = this.options
+    const { entry, args, useVault, ports } = this.pluginOptions
 
     let vaultEnv = {}
 

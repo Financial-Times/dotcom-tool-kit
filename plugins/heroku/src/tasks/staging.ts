@@ -10,19 +10,19 @@ import { getPipelineCouplings } from '../getPipelineCouplings'
 import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
 import { setStagingSlug } from '../setStagingSlug'
 
-export default class HerokuStaging extends Task<typeof HerokuSchema> {
+export default class HerokuStaging extends Task<{ plugin: typeof HerokuSchema }> {
   static description = ''
 
   async run(): Promise<void> {
     try {
       this.logger.verbose(`retrieving pipeline details...`)
-      await getPipelineCouplings(this.logger, this.options.pipeline)
+      await getPipelineCouplings(this.logger, this.pluginOptions.pipeline)
 
       this.logger.verbose(`retrieving staging app details...`)
       const appName = await getHerokuStagingApp()
 
       // setting config vars on staging from the doppler production directory
-      await setAppConfigVars(this.logger, appName, 'prod', this.options.systemCode)
+      await setAppConfigVars(this.logger, appName, 'prod', this.pluginOptions.systemCode)
 
       // create build from latest commit, even on no change
       const buildDetails = await createBuild(this.logger, appName)

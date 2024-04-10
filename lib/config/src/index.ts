@@ -1,6 +1,12 @@
 import type { Validated } from '@dotcom-tool-kit/validated'
-import type { EntryPoint, CommandTask, PluginOptions, Plugin } from '@dotcom-tool-kit/plugin'
-import type { SchemaOptions } from '@dotcom-tool-kit/schemas'
+import type {
+  CommandTask,
+  EntryPoint,
+  Plugin,
+  OptionsForPlugin,
+  OptionsForTask
+} from '@dotcom-tool-kit/plugin'
+import type { PluginOptions } from '@dotcom-tool-kit/schemas'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
 
 export interface RawConfig {
@@ -9,7 +15,8 @@ export interface RawConfig {
   resolvedPlugins: Set<string>
   tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
-  options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
+  pluginOptions: { [id: string]: OptionsForPlugin | Conflict<OptionsForPlugin> | undefined }
+  taskOptions: { [id: string]: OptionsForTask | Conflict<OptionsForTask> | undefined }
   hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   inits: EntryPoint[]
 }
@@ -18,17 +25,21 @@ export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
   plugins: { [id: string]: Plugin }
 }
 
-export type ValidPluginOptions<Id extends keyof SchemaOptions> = Omit<PluginOptions, 'options'> & {
-  options: SchemaOptions[Id]
+export type ValidOptionsForPlugin<Id extends keyof PluginOptions> = Omit<OptionsForPlugin, 'options'> & {
+  options: PluginOptions[Id]
 }
 
-export type ValidOptions = {
-  [Id in keyof SchemaOptions]: ValidPluginOptions<Id>
+export type ValidPluginOptions = {
+  [Id in keyof PluginOptions]: ValidOptionsForPlugin<Id>
 }
 
-export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'commandTasks' | 'options' | 'hooks'> & {
+export type ValidConfig = Omit<
+  ValidPluginsConfig,
+  'tasks' | 'commandTasks' | 'pluginOptions' | 'taskOptions' | 'hooks'
+> & {
   tasks: { [id: string]: EntryPoint }
   commandTasks: { [id: string]: CommandTask }
-  options: ValidOptions
+  pluginOptions: ValidPluginOptions
+  taskOptions: { [id: string]: OptionsForTask }
   hooks: { [id: string]: EntryPoint }
 }

@@ -46,6 +46,6 @@ describe('n-test', () => {
       await task.run()
     } catch {}
 
-    expect(task.options.host).toEqual(appUrl)
+    expect(task.pluginOptions.host).toEqual(appUrl)
   })
 })

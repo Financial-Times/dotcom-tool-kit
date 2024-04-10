@@ -8,7 +8,7 @@ import heroku, { extractHerokuError } from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
 
-export default class HerokuProduction extends Task<typeof HerokuSchema> {
+export default class HerokuProduction extends Task<{ plugin: typeof HerokuSchema }> {
   static description = ''
 
   async run(): Promise<void> {
@@ -20,7 +20,7 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
       }
       const { slugId } = state
 
-      const { scaling } = this.options
+      const { scaling } = this.pluginOptions
 
       const scale = async () => {
         for (const [appName, typeConfig] of Object.entries(scaling)) {
@@ -33,7 +33,7 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
       }
       const promote = async () => {
         this.logger.verbose('promoting staging to production....')
-        await promoteStagingToProduction(this.logger, slugId, this.options.systemCode)
+        await promoteStagingToProduction(this.logger, slugId, this.pluginOptions.systemCode)
         this.logger.info('staging has been successfully promoted to production')
       }
 

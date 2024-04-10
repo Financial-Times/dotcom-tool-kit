@@ -13,12 +13,14 @@ import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/con
 import {
   formatTaskConflicts,
   formatUndefinedCommandTasks,
-  formatUnusedOptions,
+  formatUnusedPluginOptions,
   formatCommandTaskConflicts,
   formatHookConflicts,
-  formatOptionConflicts,
+  formatPluginOptionConflicts,
   formatMissingTasks,
-  formatInvalidOptions
+  formatInvalidOptions,
+  formatTaskOptionConflicts,
+  formatUnusedTaskOptions
 } from './messages'
 import { validatePlugins } from './config/validate-plugins'
 import { validatePluginOptions } from './plugin/options'
@@ -31,7 +33,8 @@ export const createConfig = (): RawConfig => ({
   resolvedPlugins: new Set(),
   tasks: {},
   commandTasks: {},
-  options: {},
+  pluginOptions: {},
+  taskOptions: {},
   hooks: {},
   inits: []
 })
@@ -42,7 +45,8 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
   const commandTaskConflicts = findConflicts(Object.values(config.commandTasks))
   const hookConflicts = findConflictingEntries(config.hooks)
   const taskConflicts = findConflictingEntries(config.tasks)
-  const optionConflicts = findConflicts(Object.values(config.options))
+  const pluginOptionConflicts = findConflicts(Object.values(config.pluginOptions))
+  const taskOptionConflicts = findConflicts(Object.values(config.taskOptions))
 
   const definedCommandTaskConflicts = commandTaskConflicts.filter((conflict) => {
     return conflict.conflicting[0].id in config.hooks
@@ -64,7 +68,8 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     hookConflicts.length > 0 ||
     definedCommandTaskConflicts.length > 0 ||
     taskConflicts.length > 0 ||
-    optionConflicts.length > 0
+    pluginOptionConflicts.length > 0 ||
+    taskOptionConflicts.length > 0
   ) {
     shouldThrow = true
 
@@ -80,8 +85,12 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
       error.details += formatTaskConflicts(taskConflicts)
     }
 
-    if (optionConflicts.length) {
-      error.details += formatOptionConflicts(optionConflicts)
+    if (pluginOptionConflicts.length) {
+      error.details += formatPluginOptionConflicts(pluginOptionConflicts)
+    }
+
+    if (taskOptionConflicts.length) {
+      error.details += formatTaskOptionConflicts(taskOptionConflicts)
     }
   }
 
@@ -107,15 +116,27 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     error.details += formatInvalidOptions(invalidOptions)
   }
 
-  const unusedOptions = Object.entries(config.options)
+  const unusedPluginOptions = Object.entries(config.pluginOptions)
     .filter(
       ([, option]) =>
         option && !isConflict(option) && !option.forPlugin && option.plugin.root === process.cwd()
     )
     .map(([id]) => id)
-  if (unusedOptions.length > 0) {
+
+  if (unusedPluginOptions.length > 0) {
     shouldThrow = true
-    error.details += formatUnusedOptions(unusedOptions, Object.keys(config.plugins))
+    error.details += formatUnusedPluginOptions(unusedPluginOptions, Object.keys(config.plugins))
+  }
+
+  const unusedTaskOptions = Object.entries(config.taskOptions)
+    .filter(
+      ([, option]) => option && !isConflict(option) && !option.task && option.plugin.root === process.cwd()
+    )
+    .map(([id]) => id)
+
+  if (unusedTaskOptions.length > 0) {
+    shouldThrow = true
+    error.details += formatUnusedTaskOptions(unusedTaskOptions, Object.keys(config.tasks))
   }
 
   const missingTasks = configuredCommandTasks

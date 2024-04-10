@@ -10,6 +10,7 @@ import { checkInstall } from './install'
 import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
+import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 
 type ErrorSummary = {
   task: string
@@ -18,7 +19,7 @@ type ErrorSummary = {
 
 const loadTasks = async (
   logger: Logger,
-  taskNames: string[],
+  taskNames: (keyof TaskOptions)[],
   config: ValidConfig
 ): Promise<Validated<Record<string, Task>>> => {
   const taskResults = await Promise.all(
@@ -26,14 +27,18 @@ const loadTasks = async (
       const entryPoint = config.tasks[taskName]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
-      return taskResult.map((Task) => [
-        taskName,
-        new (Task as unknown as TaskConstructor)(
+      return taskResult.map((Task) => {
+        const taskSchema = TaskSchemas[taskName]
+        const parsedOptions = taskSchema ? taskSchema.parse(config.taskOptions[taskName]) : {}
+
+        const task = new (Task as unknown as TaskConstructor)(
           logger,
           taskName,
-          getOptions(entryPoint.plugin.id as OptionKey) ?? {}
+          getOptions(entryPoint.plugin.id as OptionKey) ?? {},
+          parsedOptions
         )
-      ])
+        return [taskName, task]
+      })
     })
   )
 
@@ -59,7 +64,7 @@ ${availableCommands}`
     throw error
   }
 
-  for (const pluginOptions of Object.values(config.options)) {
+  for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }
@@ -73,7 +78,9 @@ ${availableCommands}`
     process.execArgv.push('--no-experimental-fetch')
   }
 
-  const taskNames = commands.flatMap((command) => config.commandTasks[command]?.tasks ?? [])
+  const taskNames = commands.flatMap(
+    (command) => config.commandTasks[command]?.tasks ?? []
+  ) as (keyof TaskOptions)[]
   const tasks = (await loadTasks(logger, taskNames, config)).unwrap('tasks are invalid')
 
   for (const command of commands) {

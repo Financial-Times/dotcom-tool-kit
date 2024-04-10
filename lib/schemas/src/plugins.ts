@@ -1,5 +1,3 @@
-import type { z } from 'zod'
-
 import { BabelSchema } from './plugins/babel'
 import { CircleCISchema } from './plugins/circleci'
 import { CypressSchema } from './plugins/cypress'
@@ -21,8 +19,9 @@ import { TypeScriptSchema } from './plugins/typescript'
 import { UploadAssetsToS3Schema } from './plugins/upload-assets-to-s3'
 import { VaultSchema } from './plugins/vault'
 import { WebpackSchema } from './plugins/webpack'
+import { type InferSchemaOptions } from './infer'
 
-export const Schemas = {
+export const PluginSchemas = {
   'app root': RootSchema,
   '@dotcom-tool-kit/babel': BabelSchema,
   '@dotcom-tool-kit/circleci': CircleCISchema,
@@ -46,9 +45,4 @@ export const Schemas = {
   '@dotcom-tool-kit/webpack': WebpackSchema
 }
 
-// Gives the TypeScript type represented by each Schema
-export type Options = {
-  [plugin in keyof typeof Schemas]: typeof Schemas[plugin] extends z.ZodTypeAny
-    ? z.infer<typeof Schemas[plugin]>
-    : never
-}
+export type PluginOptions = InferSchemaOptions<typeof PluginSchemas>
