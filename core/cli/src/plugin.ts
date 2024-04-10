@@ -1,5 +1,5 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
-import type { Plugin } from '@dotcom-tool-kit/plugin'
+import { CURRENT_RC_FILE_VERSION, type Plugin } from '@dotcom-tool-kit/plugin'
 import type { RawConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
 import resolvePkg from 'resolve-pkg'
@@ -39,6 +39,16 @@ export async function loadPlugin(
     parent,
     rcFile: await loadToolKitRC(logger, pluginRoot, isAppRoot),
     children: [] as Plugin[]
+  }
+
+  if (!isAppRoot && plugin.rcFile.version !== CURRENT_RC_FILE_VERSION) {
+    return invalid([
+      `plugin ${s.plugin(id)} has a v${s.code((plugin.rcFile.version ?? 1).toString())} ${s.code(
+        '.toolkitrc.yml'
+      )}, but this version of Tool Kit can only load v${s.code(
+        CURRENT_RC_FILE_VERSION.toString()
+      )}. please update this plugin.`
+    ])
   }
 
   // ESlint disable explanation: erroring due to a possible race condition but is a false positive since the config variable isn't from another scope and can't be written to concurrently.
