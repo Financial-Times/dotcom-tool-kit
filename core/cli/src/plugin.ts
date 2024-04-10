@@ -77,7 +77,7 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
 
   mergeTasks(config, plugin)
   mergeHooks(config, plugin)
-  mergeCommands(config, plugin)
+  mergeCommands(config, plugin, logger)
   mergePluginOptions(config, plugin)
   mergeTaskOptions(config, plugin)
   mergeInits(config, plugin)
