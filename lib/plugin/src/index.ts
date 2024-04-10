@@ -1,3 +1,6 @@
+type TaskSpecWithOptions = Record<string, Record<string, unknown>>
+type TaskSpec = string | TaskSpecWithOptions
+
 export const CURRENT_RC_FILE_VERSION = 2
 
 export type RCFile = {
@@ -5,8 +8,8 @@ export type RCFile = {
   plugins: string[]
   installs: { [id: string]: string }
   tasks: { [id: string]: string }
-  commands: { [id: string]: string | string[] }
-  hooks?: { [id: string]: string | string[] }
+  commands: { [id: string]: TaskSpec | TaskSpec[] }
+  hooks?: { [id: string]: TaskSpec | TaskSpec[] }
   options: {
     plugins: { [id: string]: Record<string, unknown> }
     tasks: { [id: string]: Record<string, unknown> }
@@ -26,7 +29,7 @@ export interface Plugin {
 export interface CommandTask {
   id: string
   plugin: Plugin
-  tasks: string[]
+  tasks: { name: string; options: Record<string, unknown> }[]
 }
 
 export interface OptionsForPlugin {

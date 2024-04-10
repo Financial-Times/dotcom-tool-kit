@@ -19,25 +19,25 @@ type ErrorSummary = {
 
 const loadTasks = async (
   logger: Logger,
-  taskNames: (keyof TaskOptions)[],
+  tasks: { name: string; options: Record<string, unknown> }[],
   config: ValidConfig
 ): Promise<Validated<Record<string, Task>>> => {
   const taskResults = await Promise.all(
-    taskNames.map(async (taskName) => {
-      const entryPoint = config.tasks[taskName]
+    tasks.map(async ({ name }) => {
+      const entryPoint = config.tasks[name]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
       return taskResult.map((Task) => {
-        const taskSchema = TaskSchemas[taskName]
-        const parsedOptions = taskSchema ? taskSchema.parse(config.taskOptions[taskName]) : {}
+        const taskSchema = TaskSchemas[name as keyof TaskOptions]
+        const parsedOptions = taskSchema ? taskSchema.parse(config.taskOptions[name]) : {}
 
         const task = new (Task as unknown as TaskConstructor)(
           logger,
-          taskName,
+          name,
           getOptions(entryPoint.plugin.id as OptionKey) ?? {},
           parsedOptions
         )
-        return [taskName, task]
+        return [name, task]
       })
     })
   )
@@ -77,10 +77,9 @@ ${availableCommands}`
     process.execArgv.push('--no-experimental-fetch')
   }
 
-  const taskNames = commands.flatMap(
-    (command) => config.commandTasks[command]?.tasks ?? []
-  ) as (keyof TaskOptions)[]
-  const tasks = (await loadTasks(logger, taskNames, config)).unwrap('tasks are invalid')
+  const commandTasks = commands.flatMap((command) => config.commandTasks[command]?.tasks ?? [])
+
+  const tasks = (await loadTasks(logger, commandTasks, config)).unwrap('tasks are invalid')
 
   for (const command of commands) {
     const errors: ErrorSummary[] = []
@@ -90,10 +89,12 @@ ${availableCommands}`
       continue
     }
 
-    for (const id of config.commandTasks[command].tasks) {
+    for (const taskSpec of config.commandTasks[command].tasks) {
+      const taskId = typeof taskSpec === 'string' ? taskSpec : Object.keys(taskSpec)[0]
+
       try {
-        logger.info(styles.taskHeader(`running ${styles.task(id)} task`))
-        await tasks[id].run(files)
+        logger.info(styles.taskHeader(`running ${styles.task(taskId)} task`))
+        await tasks[taskId].run(files)
       } catch (error) {
         // if there's an exit code, that's a request from the task to exit early
         if (error instanceof ToolKitError && error.exitCode) {
@@ -103,7 +104,7 @@ ${availableCommands}`
         // if not, we allow subsequent hook tasks to run on error
         // TODO use validated for this
         errors.push({
-          task: id,
+          task: taskId,
           error: error as Error
         })
       }
