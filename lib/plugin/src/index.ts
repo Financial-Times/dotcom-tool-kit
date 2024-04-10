@@ -1,4 +1,7 @@
+export const CURRENT_RC_FILE_VERSION = 2
+
 export type RCFile = {
+  version?: typeof CURRENT_RC_FILE_VERSION
   plugins: string[]
   installs: { [id: string]: string }
   tasks: { [id: string]: string }

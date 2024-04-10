@@ -8,3 +8,5 @@ commands:
     - WebpackDevelopment # run a webpack compile before starting the server because dotcom-server-asset-loader expects a manifest to exist
     - Node
     - WebpackWatch
+
+version: 2

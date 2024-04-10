@@ -69,6 +69,7 @@ export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boo
   }
 
   return {
+    version: config.version ?? undefined,
     plugins: config.plugins ?? [],
     installs: config.installs ?? {},
     tasks: config.tasks ?? {},
