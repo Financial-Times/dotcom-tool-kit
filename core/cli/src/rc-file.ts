@@ -10,8 +10,7 @@ const emptyConfig = {
   installs: {},
   tasks: {},
   commands: {},
-  options: { plugins: {}, tasks: {} },
-  hooks: [],
+  options: { plugins: {}, tasks: {}, hooks: [] },
   init: []
 } satisfies RCFile
 let rootConfig: string | undefined
@@ -51,9 +50,13 @@ export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boo
     tasks: config.tasks ?? {},
     commands: config.commands ?? {},
     options: config.options
-      ? { plugins: config.options.plugins ?? {}, tasks: config.options.tasks ?? {} }
-      : { plugins: {}, tasks: {} },
-    hooks: config.hooks ?? [],
+      ? {
+          plugins: config.options.plugins ?? {},
+          tasks: config.options.tasks ?? {},
+          hooks: config.options.hooks ?? []
+        }
+      : { plugins: {}, tasks: {}, hooks: [] },
+    hooks: config.hooks ?? undefined,
     init: config.init ?? []
   }
 }

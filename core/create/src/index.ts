@@ -47,9 +47,11 @@ function getEslintConfigContent(): string {
 function clearConfigCache() {
   // we need to import explorer from the app itself instead of npx as this is
   // the object used by installHooks()
-  return (importCwd('dotcom-tool-kit/lib/rc-file') as {
-    explorer: ReturnType<typeof cosmiconfig>
-  }).explorer.clearSearchCache()
+  return (
+    importCwd('dotcom-tool-kit/lib/rc-file') as {
+      explorer: ReturnType<typeof cosmiconfig>
+    }
+  ).explorer.clearSearchCache()
 }
 
 async function executeMigration(
@@ -116,8 +118,7 @@ async function main() {
     installs: {},
     tasks: {},
     commands: {},
-    options: { plugins: {}, tasks: {} },
-    hooks: [],
+    options: { plugins: {}, tasks: {}, hooks: [] },
     init: []
   }
 
