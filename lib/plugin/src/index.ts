@@ -3,11 +3,12 @@ export type RCFile = {
   installs: { [id: string]: string }
   tasks: { [id: string]: string }
   commands: { [id: string]: string | string[] }
+  hooks?: { [id: string]: string | string[] }
   options: {
     plugins: { [id: string]: Record<string, unknown> }
     tasks: { [id: string]: Record<string, unknown> }
+    hooks: { [id: string]: Record<string, unknown> }[]
   }
-  hooks: { [id: string]: Record<string, unknown> }[]
   init: string[]
 }
 
