@@ -21,3 +21,5 @@ commands:
   'test:ci':
     - Mocha
     - Eslint
+
+version: 2

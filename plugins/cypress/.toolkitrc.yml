@@ -6,3 +6,5 @@ commands:
   'test:review': CypressCi
   'test:staging': CypressCi
   'e2e:local': CypressLocal
+
+version: 2

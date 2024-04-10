@@ -1,2 +1,4 @@
 installs:
   PackageJson: './lib/package-json-helper'
+
+version: 2

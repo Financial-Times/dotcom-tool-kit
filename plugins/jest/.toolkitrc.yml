@@ -5,3 +5,5 @@ tasks:
 commands:
   'test:local': JestLocal
   'test:ci': JestCI
+
+version: 2

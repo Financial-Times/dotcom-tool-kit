@@ -7,3 +7,5 @@ tasks:
 commands:
   run:local:
     - NextRouter
+
+version: 2

@@ -4,3 +4,5 @@ tasks:
 commands:
   'format:local': Prettier
   'format:staged': Prettier
+
+version: 2

@@ -6,3 +6,5 @@ commands:
   'build:local': BabelDevelopment
   'build:ci': BabelProduction
   'build:remote': BabelProduction
+
+version: 2

@@ -1,3 +1,5 @@
 plugins:
   - '@dotcom-tool-kit/lint-staged'
   - '@dotcom-tool-kit/husky-npm'
+
+version: 2

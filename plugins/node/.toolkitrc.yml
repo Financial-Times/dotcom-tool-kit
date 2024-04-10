@@ -6,3 +6,5 @@ tasks:
 
 commands:
   'run:local': Node
+
+version: 2

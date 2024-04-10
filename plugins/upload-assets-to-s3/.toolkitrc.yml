@@ -3,3 +3,5 @@ tasks:
 
 commands:
   'release:remote': UploadAssetsToS3
+
+version: 2

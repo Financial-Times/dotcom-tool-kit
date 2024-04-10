@@ -3,3 +3,5 @@ installs:
 
 init:
   - './lib/init-env-vars'
+
+version: 2
