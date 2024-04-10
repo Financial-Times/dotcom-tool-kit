@@ -93,23 +93,6 @@ You must resolve this conflict by providing options in your app's Tool Kit confi
 const formatPlugin = (plugin: Plugin): string =>
   plugin.id === 'app root' ? s.app('your app') : `plugin ${s.plugin(plugin.id)}`
 
-// TODO text similarity "did you mean...?"
-export const formatUndefinedCommandTasks = (
-  undefinedHooks: CommandTask[],
-  definedHooks: string[]
-): string => `TODO Hooks must be defined by a plugin before you can configure a task to run for them. In your Tool Kit configuration you've configured hooks that aren't defined:
-
-${undefinedHooks.map((hook) => `- ${s.hook(hook.id)}`).join('\n')}
-
-They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
-
-${
-  definedHooks.length > 0
-    ? `Hooks that are defined and available for tasks are: ${definedHooks.map(s.hook).join(', ')}`
-    : `There are no hooks defined by this app's plugins. You probably need to install some plugins to define hooks.`
-}.
-`
-
 export type InvalidOption = [string, z.ZodError]
 
 export const formatInvalidOptions = (
