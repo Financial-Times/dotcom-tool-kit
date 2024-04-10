@@ -10,6 +10,8 @@ export const mergeCommands = (config: ValidPluginsConfig, plugin: Plugin, logger
   if (plugin.rcFile) {
     let commands = plugin.rcFile.commands
 
+    // TODO:KB:20240410 remove this legacy hooks field handling and the associated
+    // field in the type definitions in a future major version
     if (plugin.rcFile.hooks) {
       commands = plugin.rcFile.hooks
       logger.warn(
