@@ -3,3 +3,5 @@ tasks:
 
 commands:
   'git:precommit': LintStaged
+
+version: 2

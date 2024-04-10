@@ -9,3 +9,5 @@ commands:
   'deploy:review': ServerlessProvision
   'deploy:production': ServerlessDeploy
   'teardown:review': ServerlessTeardown
+
+version: 2

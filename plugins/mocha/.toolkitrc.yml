@@ -4,3 +4,5 @@ tasks:
 commands:
   'test:local': Mocha
   'test:ci': Mocha
+
+version: 2

@@ -4,3 +4,5 @@ tasks:
 commands:
   'test:review': NTest
   'test:staging': NTest
+
+version: 2
