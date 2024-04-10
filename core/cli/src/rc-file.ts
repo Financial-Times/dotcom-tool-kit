@@ -18,9 +18,11 @@ let rootConfig: string | undefined
 type RawRCFile = {
   [key in Exclude<keyof RCFile, 'options'>]?: RCFile[key] | null
 } & {
-  options: {
-    [key in keyof RCFile['options']]?: RCFile['options'][key] | null
-  }
+  options:
+    | {
+        [key in keyof RCFile['options']]?: RCFile['options'][key] | null
+      }
+    | null
 }
 
 export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boolean): Promise<RCFile> {
@@ -44,6 +46,27 @@ export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boo
   }
 
   const config: RawRCFile = result.config
+
+  // if a toolkitrc contains a non-empty options field, but not options.{plugins,tasks,hooks},
+  // assume it's an old-style, plugins-only options field.
+  if (
+    config.options &&
+    Object.keys(config.options).length > 0 &&
+    !(config.options.plugins || config.options.tasks || config.options.hooks)
+  ) {
+    config.options = {
+      plugins: config.options as { [id: string]: Record<string, unknown> }
+    }
+
+    logger.warn(
+      `plugin at ${s.filepath(path.dirname(root))} has an ${s.code(
+        'options'
+      )} field that only contains plugin options. these options should be moved to ${s.code(
+        'options.plugins'
+      )}.`
+    )
+  }
+
   return {
     plugins: config.plugins ?? [],
     installs: config.installs ?? {},
