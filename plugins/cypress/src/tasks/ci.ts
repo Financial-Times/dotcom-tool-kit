@@ -4,7 +4,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
 import { CypressSchema } from '@dotcom-tool-kit/schemas/lib/plugins/cypress'
 
-export default class CypressCi extends Task<typeof CypressSchema> {
+export default class CypressCi extends Task<{ plugin: typeof CypressSchema }> {
   async run(): Promise<void> {
     const reviewState = readState('review')
     const cypressEnv: Record<string, string> = {}

@@ -8,11 +8,11 @@ import nodemon from 'nodemon'
 import { Readable } from 'stream'
 import { shouldDisableNativeFetch } from 'dotcom-tool-kit'
 
-export default class Nodemon extends Task<typeof NodemonSchema> {
+export default class Nodemon extends Task<{ plugin: typeof NodemonSchema }> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, configPath, useVault, ports } = this.options
+    const { entry, configPath, useVault, ports } = this.pluginOptions
 
     let dopplerEnv = {}
 

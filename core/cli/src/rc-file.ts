@@ -5,11 +5,22 @@ import * as path from 'path'
 import type { Logger } from 'winston'
 
 export const explorer = cosmiconfig('toolkit', { ignoreEmptySearchPlaces: false })
-const emptyConfig = { plugins: [], installs: {}, tasks: {}, commands: {}, options: {}, hooks: [], init: [] }
+const emptyConfig = {
+  plugins: [],
+  installs: {},
+  tasks: {},
+  commands: {},
+  options: { plugins: {}, tasks: {}, hooks: [] },
+  init: []
+} satisfies RCFile
 let rootConfig: string | undefined
 
 type RawRCFile = {
-  [key in keyof RCFile]?: RCFile[key] | null
+  [key in Exclude<keyof RCFile, 'options'>]?: RCFile[key] | null
+} & {
+  options: {
+    [key in keyof RCFile['options']]?: RCFile['options'][key] | null
+  }
 }
 
 export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boolean): Promise<RCFile> {
@@ -38,8 +49,14 @@ export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boo
     installs: config.installs ?? {},
     tasks: config.tasks ?? {},
     commands: config.commands ?? {},
-    options: config.options ?? {},
-    hooks: config.hooks ?? [],
+    options: config.options
+      ? {
+          plugins: config.options.plugins ?? {},
+          tasks: config.options.tasks ?? {},
+          hooks: config.options.hooks ?? []
+        }
+      : { plugins: {}, tasks: {}, hooks: [] },
+    hooks: config.hooks ?? undefined,
     init: config.init ?? []
   }
 }

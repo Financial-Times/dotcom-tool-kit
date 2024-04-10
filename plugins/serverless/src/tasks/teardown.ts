@@ -7,11 +7,11 @@ import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { spawn } from 'child_process'
 import { getOptions } from '@dotcom-tool-kit/options'
 
-export default class ServerlessTeardown extends Task<typeof ServerlessSchema> {
+export default class ServerlessTeardown extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Teardown existing serverless functions'
 
   async run(): Promise<void> {
-    const { useVault, configPath, regions, systemCode } = this.options
+    const { useVault, configPath, regions, systemCode } = this.pluginOptions
 
     const reviewState = readState('review')
 

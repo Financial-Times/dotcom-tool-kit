@@ -5,13 +5,14 @@ plugins:
   - '@dotcom-tool-kit/circleci-deploy' # test:local hook via npm plugin and test:ci hook
 
 options:
-  '@dotcom-tool-kit/eslint':
-    files:
-      - webpack.config.js
-  '@dotcom-tool-kit/mocha':
-    testDir: './mocha_tests'
-  '@dotcom-tool-kit/n-test':
-    host: 'https://example.com'
+  plugins:
+    '@dotcom-tool-kit/eslint':
+      files:
+        - webpack.config.js
+    '@dotcom-tool-kit/mocha':
+      testDir: './mocha_tests'
+    '@dotcom-tool-kit/n-test':
+      host: 'https://example.com'
 
 commands:
   'test:local':

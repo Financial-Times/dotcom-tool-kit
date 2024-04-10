@@ -5,17 +5,17 @@ import { fork } from 'child_process'
 
 const tscPath = require.resolve('typescript/bin/tsc')
 
-export default abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
+export default abstract class TypeScriptTask extends Task<{ plugin: typeof TypeScriptSchema }> {
   abstract taskArgs: string[]
 
   async run(): Promise<void> {
     // TODO: add monorepo support with --build option
     const args = [...this.taskArgs]
-    if (this.options.configPath) {
-      args.unshift('--project', this.options.configPath)
+    if (this.pluginOptions.configPath) {
+      args.unshift('--project', this.pluginOptions.configPath)
     }
-    if (this.options.extraArgs) {
-      args.push(...this.options.extraArgs)
+    if (this.pluginOptions.extraArgs) {
+      args.push(...this.pluginOptions.extraArgs)
     }
 
     const child = fork(tscPath, args, { silent: true })

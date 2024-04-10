@@ -6,11 +6,11 @@ import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { spawn } from 'child_process'
 
-export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
+export default class ServerlessDeploy extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Deploys on AWS'
 
   async run(): Promise<void> {
-    const { useVault, configPath, buildNumVariable, regions, systemCode } = this.options
+    const { useVault, configPath, buildNumVariable, regions, systemCode } = this.pluginOptions
     const buildNum = process.env[buildNumVariable]
 
     if (buildNum === undefined) {

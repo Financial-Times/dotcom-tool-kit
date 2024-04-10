@@ -2,10 +2,26 @@ import type { CommandTask, Plugin } from '@dotcom-tool-kit/plugin'
 import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { isDescendent } from './is-descendent'
+import { Logger } from 'winston'
+import { styles as s } from '@dotcom-tool-kit/logger'
+import path from 'path'
 
-export const mergePluginCommands = (config: ValidPluginsConfig, plugin: Plugin) => {
+export const mergeCommands = (config: ValidPluginsConfig, plugin: Plugin, logger: Logger) => {
   if (plugin.rcFile) {
-    for (const [id, configCommandTask] of Object.entries(plugin.rcFile.commands)) {
+    let commands = plugin.rcFile.commands
+
+    // TODO:KB:20240410 remove this legacy hooks field handling and the associated
+    // field in the type definitions in a future major version
+    if (plugin.rcFile.hooks) {
+      commands = plugin.rcFile.hooks
+      logger.warn(
+        `${s.code('hooks')} is deprecated in ${s.filepath('.toolkitrc.yml')}. please rename ${s.code(
+          'hooks'
+        )} to ${s.code('commands')} in ${s.filepath(path.join(plugin.root, '.toolkitrc.yml'))}.`
+      )
+    }
+
+    for (const [id, configCommandTask] of Object.entries(commands)) {
       // handle conflicts between commands from different plugins
       const existingCommandTask = config.commandTasks[id]
       const newCommandTask: CommandTask = {

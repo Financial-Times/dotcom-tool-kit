@@ -6,7 +6,7 @@ import { readState } from '@dotcom-tool-kit/state'
 
 const pa11yCIPath = require.resolve('pa11y-ci/bin/pa11y-ci')
 
-export default class Pa11y extends Task<typeof Pa11ySchema> {
+export default class Pa11y extends Task<{ plugin: typeof Pa11ySchema }> {
   static description = ''
 
   async run(): Promise<void> {
@@ -19,7 +19,7 @@ export default class Pa11y extends Task<typeof Pa11ySchema> {
       process.env.TEST_URL = `https://${reviewState.appName}.herokuapp.com`
     }
 
-    const args = this.options.configFile ? ['--config', this.options.configFile] : []
+    const args = this.pluginOptions.configFile ? ['--config', this.pluginOptions.configFile] : []
 
     this.logger.info(`running pa11y-ci ${args.join(' ')}`)
     const child = fork(pa11yCIPath, args, { silent: true })

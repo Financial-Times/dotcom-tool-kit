@@ -138,7 +138,7 @@ To avoid boilerplate for tasks (the most common use case for options), when defi
 import { Task } from '@dotcom-tool-kit/types'
 import { ESLintOptions, ESLintSchema } from '@dotcom-tool-kit/schemas/lib/plugins/eslint'
 
-export default class Eslint extends Task<typeof ESLintSchema> {
+export default class Eslint extends Task<{ plugin: typeof ESLintSchema }> {
   static description = ''
 
   async run(): Promise<void> {

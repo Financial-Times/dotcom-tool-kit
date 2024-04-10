@@ -101,7 +101,7 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
 export default async function installHooks(logger: Logger): Promise<ValidConfig> {
   const config = await loadConfig(logger)
 
-  for (const pluginOptions of Object.values(config.options)) {
+  for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }
