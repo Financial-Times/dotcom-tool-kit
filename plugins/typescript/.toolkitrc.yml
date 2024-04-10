@@ -9,3 +9,5 @@ commands:
   'build:remote': TypeScriptBuild
   'run:local': TypeScriptWatch
   'test:local': TypeScriptTest
+
+version: 2

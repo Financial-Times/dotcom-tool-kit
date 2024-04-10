@@ -5,3 +5,5 @@ commands:
   'test:local': Eslint
   'test:ci': Eslint
   'test:staged': Eslint
+
+version: 2

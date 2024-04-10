@@ -7,3 +7,5 @@ plugins:
 options:
 
 commands:
+
+version: 2

@@ -7,3 +7,5 @@ commands:
   'deploy:staging': HerokuStaging
   'deploy:production': HerokuProduction
   'teardown:staging': HerokuTeardown
+
+version: 2

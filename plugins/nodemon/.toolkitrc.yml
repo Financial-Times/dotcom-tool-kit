@@ -6,3 +6,5 @@ tasks:
 
 commands:
   'run:local': Nodemon
+
+version: 2

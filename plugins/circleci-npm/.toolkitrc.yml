@@ -4,3 +4,5 @@ plugins:
 
 commands:
   'publish:tag': NpmPublish
+
+version: 2

@@ -10,3 +10,5 @@ tasks:
 
 commands:
   'cleanup:remote': NpmPrune
+
+version: 2

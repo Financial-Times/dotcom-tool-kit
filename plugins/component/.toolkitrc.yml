@@ -1,3 +1,5 @@
 plugins:
   - '@dotcom-tool-kit/npm'
   - '@dotcom-tool-kit/circleci-npm'
+
+version: 2

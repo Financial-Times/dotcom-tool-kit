@@ -8,3 +8,5 @@ commands:
   'build:ci': WebpackProduction
   'build:remote': WebpackProduction
   'run:local': WebpackWatch
+
+version: 2

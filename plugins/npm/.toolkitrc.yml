@@ -1,3 +1,5 @@
 tasks:
   NpmPrune: './lib/tasks/prune'
   NpmPublish: './lib/tasks/publish'
+
+version: 2
