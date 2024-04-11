@@ -105,7 +105,10 @@ describe('cli', () => {
       const validConfig = validateConfig(validPluginConfig, logger)
 
       expect(validConfig).not.toHaveProperty('commandTasks.build:local.conflicting')
-      expect(validConfig.commandTasks['build:local'].tasks).toEqual(['Webpack', 'Babel'])
+      expect(validConfig.commandTasks['build:local'].tasks.map((task) => task.task)).toEqual([
+        'Webpack',
+        'Babel'
+      ])
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details
