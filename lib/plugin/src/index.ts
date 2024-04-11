@@ -29,7 +29,7 @@ export interface Plugin {
 export interface CommandTask {
   id: string
   plugin: Plugin
-  tasks: { name: string; options: Record<string, unknown> }[]
+  tasks: OptionsForTask[]
 }
 
 export interface OptionsForPlugin {
