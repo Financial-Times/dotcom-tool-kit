@@ -57,7 +57,7 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     commandTaskConflicts.map((conflict) => ({
       command: conflict.conflicting[0].id,
       conflictingTasks: conflict.conflicting.flatMap((command) =>
-        command.tasks.map((task) => ({ task: task.name, plugin: command.plugin.id }))
+        command.tasks.map((task) => ({ task: task.task, plugin: command.plugin.id }))
       )
     }))
   )
@@ -128,7 +128,7 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
   const missingTasks = configuredCommandTasks
     .map((command) => ({
       command,
-      tasks: command.tasks.filter((task) => !config.tasks[task.name])
+      tasks: command.tasks.filter((task) => !config.tasks[task.task])
     }))
     .filter(({ tasks }) => tasks.length > 0)
 

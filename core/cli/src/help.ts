@@ -50,7 +50,7 @@ ${(Hook.constructor as any).description ? (Hook.constructor as any).description 
 ${
   tasks && tasks.tasks.length
     ? `runs ${tasks.tasks.length > 1 ? 'these tasks' : 'this task'}:
-${tasks.tasks.map((task) => `- ${styles.task(task.name)}`).join('\n')}`
+${tasks.tasks.map((task) => `- ${styles.task(task.task)}`).join('\n')}`
     : styles.dim('no tasks configured to run on this hook.')
 }
 ${styles.ruler()}

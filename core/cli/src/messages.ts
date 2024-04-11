@@ -41,7 +41,7 @@ const formatCommandTaskConflict = (conflict: Conflict<CommandTask>): string => `
 ${conflict.conflicting
   .map(
     (command) =>
-      `- ${command.tasks.map((task) => s.task(task.name)).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
+      `- ${command.tasks.map((task) => s.task(task.task)).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
         command.plugin.id
       )}`
   )
@@ -149,10 +149,10 @@ ${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join
 Run ${s.task('dotcom-tool-kit --install')} to install these hooks.
 `
 
-type Missing = { command: CommandTask; tasks: { name: string; options: Record<string, unknown> }[] }
+type Missing = { command: CommandTask; tasks: OptionsForTask[] }
 
 const formatMissingTask = (missing: Missing): string =>
-  `- ${missing.tasks.map((task) => s.task(task.name)).join(', ')} ${s.dim(
+  `- ${missing.tasks.map((task) => s.task(task.task)).join(', ')} ${s.dim(
     `(assigned to ${s.hook(missing.command.id)} by ${formatPlugin(missing.command.plugin)})`
   )}`
 

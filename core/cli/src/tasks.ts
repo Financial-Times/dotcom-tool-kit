@@ -11,6 +11,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
+import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 
 type ErrorSummary = {
   task: string
@@ -19,25 +20,27 @@ type ErrorSummary = {
 
 const loadTasks = async (
   logger: Logger,
-  tasks: { name: string; options: Record<string, unknown> }[],
+  tasks: OptionsForTask[],
   config: ValidConfig
 ): Promise<Validated<Record<string, Task>>> => {
   const taskResults = await Promise.all(
-    tasks.map(async ({ name, options }) => {
-      const entryPoint = config.tasks[name]
+    tasks.map(async ({ task: taskId, options }) => {
+      const entryPoint = config.tasks[taskId]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
       return taskResult.map((Task) => {
-        const taskSchema = TaskSchemas[name as keyof TaskOptions]
-        const parsedOptions = taskSchema ? taskSchema.parse({ ...config.taskOptions[name], ...options }) : {}
+        const taskSchema = TaskSchemas[taskId as keyof TaskOptions]
+        const parsedOptions = taskSchema
+          ? taskSchema.parse({ ...config.taskOptions[taskId].options, ...options })
+          : {}
 
         const task = new (Task as unknown as TaskConstructor)(
           logger,
-          name,
+          taskId,
           getOptions(entryPoint.plugin.id as OptionKey) ?? {},
           parsedOptions
         )
-        return [name, task]
+        return [taskId, task]
       })
     })
   )
@@ -89,9 +92,7 @@ ${availableCommands}`
       continue
     }
 
-    for (const taskSpec of config.commandTasks[command].tasks) {
-      const taskId = typeof taskSpec === 'string' ? taskSpec : Object.keys(taskSpec)[0]
-
+    for (const { task: taskId } of config.commandTasks[command].tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(taskId)} task`))
         await tasks[taskId].run(files)
