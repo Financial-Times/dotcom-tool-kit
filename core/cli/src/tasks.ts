@@ -23,13 +23,13 @@ const loadTasks = async (
   config: ValidConfig
 ): Promise<Validated<Record<string, Task>>> => {
   const taskResults = await Promise.all(
-    tasks.map(async ({ name }) => {
+    tasks.map(async ({ name, options }) => {
       const entryPoint = config.tasks[name]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
       return taskResult.map((Task) => {
         const taskSchema = TaskSchemas[name as keyof TaskOptions]
-        const parsedOptions = taskSchema ? taskSchema.parse(config.taskOptions[name]) : {}
+        const parsedOptions = taskSchema ? taskSchema.parse({ ...config.taskOptions[name], ...options }) : {}
 
         const task = new (Task as unknown as TaskConstructor)(
           logger,
