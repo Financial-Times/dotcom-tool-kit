@@ -2,26 +2,33 @@
   "extends": "../../tsconfig.settings.json",
   "references": [
     {
-      "path": "../../lib/error"
+      "path": "../../lib/base"
     },
     {
-      "path": "../../lib/state"
+      "path": "../../lib/conflict"
+    },
+    {
+      "path": "../../lib/error"
     },
     {
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/base"
+      "path": "../../lib/options"
     },
     {
-      "path": "../../lib/options"
+      "path": "../../lib/plugin"
+    },
+    {
+      "path": "../../lib/schemas"
+    },
+    {
+      "path": "../../lib/state"
     }
   ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
