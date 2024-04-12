@@ -46,7 +46,8 @@ const anotherTestWorkflowJob: CircleCiWorkflowJob = {
 }
 const simpleOptions: CircleCiOptions = {
   jobs: [testJob],
-  workflows: [{ name: 'tool-kit', jobs: [testWorkflowJob] }]
+  workflows: [{ name: 'tool-kit', jobs: [testWorkflowJob] }],
+  disableBaseConfig: true
 }
 
 describe('CircleCI config hook', () => {
@@ -61,10 +62,10 @@ describe('CircleCI config hook', () => {
     process.chdir(originalDir)
   })
 
-  describe.skip('check', () => {
+  describe('isInstalled', () => {
     it('should return true if the hook job is in the circleci workflow', async () => {
       process.chdir(path.join(__dirname, 'files', 'with-hook'))
-      const hook = new CircleCi(logger, 'CircleCi', {})
+      const hook = new CircleCi(logger, 'CircleCi', simpleOptions)
       expect(await hook.isInstalled()).toBeTruthy()
     })
 
@@ -76,7 +77,7 @@ describe('CircleCI config hook', () => {
 
     it('should return false if the base configuration is missing', async () => {
       process.chdir(path.join(__dirname, 'files', 'with-hook'))
-      const hook = new CircleCi(logger, 'CircleCi', simpleOptions)
+      const hook = new CircleCi(logger, 'CircleCi', { ...simpleOptions, disableBaseConfig: false })
       expect(await hook.isInstalled()).toBeFalsy()
     })
   })

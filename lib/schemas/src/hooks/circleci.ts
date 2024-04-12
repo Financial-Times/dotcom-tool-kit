@@ -30,7 +30,8 @@ export const CircleCiSchema = z.object({
   executors: z.array(CircleCiExecutor).optional(),
   jobs: z.array(CircleCiJob).optional(),
   workflows: z.array(CircleCiWorkflow).optional(),
-  custom: CircleCiCustomConfig.optional()
+  custom: CircleCiCustomConfig.optional(),
+  disableBaseConfig: z.boolean().optional()
 })
 
 export type CircleCiOptions = z.infer<typeof CircleCiSchema>

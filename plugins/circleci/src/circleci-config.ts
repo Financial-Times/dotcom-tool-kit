@@ -410,25 +410,25 @@ export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState>
 
   generateConfig(): CircleCIState {
     if (!this.generatedConfig) {
-      const generated = {
-        executors: Object.fromEntries(
-          this.options.executors?.map(
-            (executor) => [executor.name, { docker: [{ image: executor.image }] }],
-            {}
-          ) ?? []
-        ),
-        workflows: Object.fromEntries(
-          this.options.workflows?.map((workflow) => {
+      const generated: CircleCIStatePartial = {}
+      if (this.options.executors) {
+        generated.executors = Object.fromEntries(
+          this.options.executors.map((executor) => [executor.name, { docker: [{ image: executor.image }] }])
+        )
+      }
+      if (this.options.workflows) {
+        generated.workflows = Object.fromEntries(
+          this.options.workflows.map((workflow) => {
             const generatedJobs = {
               jobs: generateJobs(workflow)
             }
             return [workflow.name, mergeWithConcatenatedArrays(generatedJobs, workflow.custom)]
-          }) ?? []
+          })
         )
-      } satisfies CircleCIStatePartial
+      }
       this.generatedConfig = mergeWithConcatenatedArrays(
         {},
-        getBaseConfig(),
+        this.options.disableBaseConfig ? {} : getBaseConfig(),
         generated,
         this.options.custom ?? {}
       )
