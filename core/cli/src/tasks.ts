@@ -72,7 +72,6 @@ ${availableCommands}`
 
   await runInit(logger, config)
   await checkInstall(logger, config)
-  await runInit(logger, config)
 
   if (shouldDisableNativeFetch()) {
     process.execArgv.push('--no-experimental-fetch')
