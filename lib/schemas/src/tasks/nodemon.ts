@@ -4,7 +4,7 @@ export const NodemonSchema = z.object({
   entry: z.string().default('./server/app.js'),
   configPath: z.string().optional(),
   useDoppler: z.boolean().default(true),
-  ports: z.number().array().default([3001, 3002, 3003])
+  ports: z.union([z.number().array(), z.literal(false)]).default([3001, 3002, 3003])
 })
 
 export type NodemonOptions = z.infer<typeof NodemonSchema>

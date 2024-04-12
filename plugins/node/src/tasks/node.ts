@@ -21,11 +21,12 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
       dopplerEnv = await doppler.get()
     }
 
-    const port =
-      Number(process.env.PORT) ||
-      (await getPort({
-        port: ports
-      }))
+    const port = ports
+      ? Number(process.env.PORT) ||
+        (await getPort({
+          port: ports
+        }))
+      : false
 
     this.logger.verbose('starting the child node process...')
     const child = fork(entry, args, {
@@ -38,16 +39,18 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
     })
     hookFork(this.logger, entry, child)
 
-    const unhook = hookConsole(this.logger, 'wait-port')
-    try {
-      await waitPort({
-        host: 'localhost',
-        port: port
-      })
-    } finally {
-      unhook()
-    }
+    if (port) {
+      const unhook = hookConsole(this.logger, 'wait-port')
+      try {
+        await waitPort({
+          host: 'localhost',
+          port
+        })
+      } finally {
+        unhook()
+      }
 
-    writeState('local', { port })
+      writeState('local', { port })
+    }
   }
 }
