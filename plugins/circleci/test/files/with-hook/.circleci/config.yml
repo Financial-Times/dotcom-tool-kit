@@ -1,20 +1,8 @@
 workflows:
   tool-kit:
     jobs:
-      - test-job:
-          name: test-job-node
+      - tool-kit/test-job:
           requires:
             - waiting-for-approval
-            - that-job-node
-          executor: node
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+(-.+)?/
-  nightly:
-    jobs:
-      - test-job:
-          name: test-job-node
-          requires:
-            - waiting-for-approval
-            - that-job-node
+            - tool-kit/that-job-node
           executor: node
