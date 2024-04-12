@@ -35,7 +35,7 @@ pkg.homepage = `https://github.com/financial-times/dotcom-tool-kit/tree/main/${d
 pkg.author = 'FT.com Platforms Team <platforms-team.customer-products@ft.com>'
 pkg.files = ['/lib', '.toolkitrc.yml']
 pkg.engines = {
-  node: '16.x || 18.x',
+  node: '18.x || 20.x',
   npm: '7.x || 8.x || 9.x'
 }
 pkg.peerDependencies = {
