@@ -116,7 +116,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 expect.objectContaining({
                   'tool-kit/test-job': expect.objectContaining({
-                    requires: ['waiting-for-approval', 'tool-kit/that-job-node']
+                    requires: ['waiting-for-approval', 'tool-kit/that-job']
                   })
                 })
               ])
