@@ -113,6 +113,8 @@ const matrixBoilerplate = () => ({
  */
 export const tagFilter = { filters: { tags: { only: `${/^v\d+\.\d+\.\d+(-.+)?/}` } } }
 
+// helper override to the Lodash mergeWith function with a pre-defined
+// customiser that will concatenate arrays rather than overriding them by index
 const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
   mergeWith(arg0, ...args, (obj: unknown, source: unknown) => {
     if (Array.isArray(obj)) {
@@ -244,26 +246,51 @@ const installationsOverlap = (
     rootOptionOverlaps(installation.options?.[rootOption] ?? [], other.options?.[rootOption] ?? [])
   )
 
+// classify installation as either mergeable or unmergeable, and mark any other
+// installations that overlap with it as now unmergeable
 const partitionInstallations = (
   installation: HookInstallation<CircleCiOptions>,
-  mergeable: HookInstallation<CircleCiOptions>[],
-  unmergeable: HookInstallation<CircleCiOptions>[]
+  currentlyMergeable: HookInstallation<CircleCiOptions>[],
+  currentlyUnmergeable: HookInstallation<CircleCiOptions>[]
 ): [HookInstallation<CircleCiOptions>[], HookInstallation<CircleCiOptions>[]] => {
-  const [noLongerMergeable, stillMergeable] = partition(mergeable, (other) =>
+  const [noLongerMergeable, mergeable] = partition(currentlyMergeable, (other) =>
     installationsOverlap(installation, other)
   )
+  const unmergeable = currentlyUnmergeable.concat(noLongerMergeable)
 
-  const overlapsWithUnmergeable = unmergeable.some((other) => installationsOverlap(installation, other))
-
+  const overlapsWithUnmergeable = currentlyUnmergeable.some((other) =>
+    installationsOverlap(installation, other)
+  )
   if (noLongerMergeable.length > 0 || overlapsWithUnmergeable) {
-    return [stillMergeable, [...unmergeable, ...noLongerMergeable, installation]]
+    unmergeable.push(installation)
+  } else {
+    mergeable.push(installation)
   }
 
-  return [[...stillMergeable, installation], unmergeable]
+  return [mergeable, unmergeable]
 }
 
+// find any items with the same value in their 'name' field and merge those
+// together
 const mergeRootOptions = <T extends { name: string }>(options: T[]): T[] =>
   Object.values(groupBy(options, 'name')).map((matching) => mergeWithConcatenatedArrays({}, ...matching))
+
+const mergeInstallations = (installations: HookInstallation<CircleCiOptions>[]): CircleCiOptions => ({
+  // merge each of the root options ('executors', 'jobs', 'workflows') using
+  // their 'name' keys
+  ...Object.fromEntries(
+    rootOptionKeys.map((rootKey) => {
+      // flatten each installation's options into a single array (the order of
+      // the installations in the array is maintained)
+      const rootOptions = installations.flatMap<{ name: string }>(
+        (installation) => installation.options[rootKey] ?? []
+      )
+      return [rootKey, mergeRootOptions(rootOptions)]
+    })
+  ),
+  // squash all the custom options together
+  custom: mergeWithConcatenatedArrays({}, ...installations.map((installation) => installation.options.custom))
+})
 
 const mergeInstallationResults = (
   plugin: Plugin,
@@ -277,20 +304,7 @@ const mergeInstallationResults = (
       plugin,
       forHook: 'CircleCi',
       hookConstructor: CircleCi,
-      options: {
-        ...Object.fromEntries(
-          rootOptionKeys.map((rootKey) => {
-            const rootOptions = mergeable.flatMap<{ name: string }>(
-              (installation) => installation.options[rootKey] ?? []
-            )
-            return [rootKey, mergeRootOptions(rootOptions)]
-          })
-        ),
-        custom: mergeWithConcatenatedArrays(
-          {},
-          ...mergeable.map((installation) => installation.options.custom)
-        )
-      }
+      options: mergeInstallations(mergeable)
     })
   }
 
@@ -311,6 +325,8 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] =>
     const splitIntoMatrix = job.splitIntoMatrix ?? true
     return {
       [toolKitOrbPrefix(job.name)]: merge(
+        // repeatedly check splitIntoMatrix in different arguments so we can
+        // generate config with a nice order of keys
         splitIntoMatrix ? { name: `tool-kit/${job.name}-<< matrix.executor >>` } : {},
         {
           requires: job.requires.map((required) => {
@@ -318,6 +334,8 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] =>
               return required
             }
             const requiredOrb = toolKitOrbPrefix(required)
+            // only need to include a suffix for the required job if it splits
+            // into a matrix for Node versions
             const splitRequiredIntoMatrix =
               workflow.jobs?.find(({ name: jobName }) => required === jobName)?.splitIntoMatrix ?? true
             if (!splitRequiredIntoMatrix) {
@@ -368,6 +386,8 @@ export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState>
       [HookInstallation<CircleCiOptions>[], HookInstallation<CircleCiOptions>[]]
     >(
       ([mergeable, unmergeable], installation) => {
+        // a conflicting installation is marked as unmergeable without
+        // affecting the mergeability of the other installations
         if (isConflict(installation)) {
           return [mergeable, [...unmergeable, ...installation.conflicting]]
         } else {
