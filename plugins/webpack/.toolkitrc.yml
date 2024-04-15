@@ -1,5 +1,12 @@
-hooks:
+tasks:
+  WebpackDevelopment: './lib/tasks/development'
+  WebpackProduction: './lib/tasks/production'
+  WebpackWatch: './lib/tasks/watch'
+
+commands:
   'build:local': WebpackDevelopment
   'build:ci': WebpackProduction
   'build:remote': WebpackProduction
   'run:local': WebpackWatch
+
+version: 2

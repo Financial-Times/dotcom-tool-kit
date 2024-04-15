@@ -14,7 +14,7 @@ references:
       - image: cimg/node:<< parameters.node-version >>
     parameters:
       node-version:
-        default: '20.10'
+        default: '20.12'
         type: string
 
   workspace_root: &workspace_root ~/project
@@ -184,21 +184,21 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - test:
           requires:
             - build-v<< matrix.node-version >>
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - lint:
           requires:
             - build-v<< matrix.node-version >>
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
 
   release-please:
     when:
@@ -228,21 +228,21 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - test:
           requires:
             - build-v<< matrix.node-version >>
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - lint:
           requires:
             - build-v<< matrix.node-version >>
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
 
   build-test-publish:
     when:
@@ -257,7 +257,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - test:
           filters:
             <<: *filters_release_build
@@ -266,7 +266,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - lint:
           filters:
             <<: *filters_release_build
@@ -275,14 +275,14 @@ workflows:
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - publish:
           context: npm-publish-token
           filters:
             <<: *filters_release_build
           requires:
-            - lint-v20.10
-            - test-v20.10
+            - lint-v20.12
+            - test-v20.12
 
   build-test-prepublish:
     when:
@@ -297,7 +297,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - test:
           filters:
             <<: *filters_prerelease_build
@@ -306,7 +306,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - lint:
           filters:
             <<: *filters_prerelease_build
@@ -315,14 +315,14 @@ workflows:
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - prepublish:
           context: npm-publish-token
           filters:
             <<: *filters_prerelease_build
           requires:
-            - lint-v20.10
-            - test-v20.10
+            - lint-v20.12
+            - test-v20.12
 
   nightly:
     when:
@@ -339,7 +339,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
       - test:
           requires:
             - build-v<< matrix.node-version >>
@@ -347,7 +347,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '16.14', '18.16', '20.10' ]
+              node-version: [ '18.20', '20.12' ]
 
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit

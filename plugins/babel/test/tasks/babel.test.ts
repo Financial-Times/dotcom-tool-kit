@@ -17,7 +17,7 @@ describe('babel', () => {
   })
 
   it('should transpile the file', async () => {
-    const task = new Babel(logger, {
+    const task = new Babel(logger, 'Babel', {
       files: path.join(testDirectory, 'index.js'),
       outputPath,
       configFile: path.join(testDirectory, 'babel.config.json')

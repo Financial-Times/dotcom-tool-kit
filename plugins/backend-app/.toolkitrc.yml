@@ -1,2 +1,4 @@
 plugins:
   - '@dotcom-tool-kit/backend-heroku-app'
+
+version: 2

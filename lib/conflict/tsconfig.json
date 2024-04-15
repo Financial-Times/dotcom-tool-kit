@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "references": [
+    {
+      "path": "../plugin"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  }
+}

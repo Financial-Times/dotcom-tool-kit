@@ -1,15 +1,28 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
-import { RCFile } from '@dotcom-tool-kit/types/src'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
 import { cosmiconfig } from 'cosmiconfig'
 import * as path from 'path'
 import type { Logger } from 'winston'
 
 export const explorer = cosmiconfig('toolkit', { ignoreEmptySearchPlaces: false })
-const emptyConfig = { plugins: [], hooks: {}, options: {} }
+const emptyConfig = {
+  plugins: [],
+  installs: {},
+  tasks: {},
+  commands: {},
+  options: { plugins: {}, tasks: {}, hooks: [] },
+  init: []
+} satisfies RCFile
 let rootConfig: string | undefined
 
 type RawRCFile = {
-  [key in keyof RCFile]?: RCFile[key] | null
+  [key in Exclude<keyof RCFile, 'options'>]?: RCFile[key] | null
+} & {
+  options:
+    | {
+        [key in keyof RCFile['options']]?: RCFile['options'][key] | null
+      }
+    | null
 }
 
 export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boolean): Promise<RCFile> {
@@ -33,9 +46,42 @@ export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boo
   }
 
   const config: RawRCFile = result.config
+
+  // if a toolkitrc contains a non-empty options field, but not options.{plugins,tasks,hooks},
+  // assume it's an old-style, plugins-only options field.
+  // TODO:KB:20240410 remove this legacy options field handling in a future major version
+  if (
+    config.options &&
+    Object.keys(config.options).length > 0 &&
+    !(config.options.plugins || config.options.tasks || config.options.hooks)
+  ) {
+    config.options = {
+      plugins: config.options as { [id: string]: Record<string, unknown> }
+    }
+
+    logger.warn(
+      `plugin at ${s.filepath(path.dirname(root))} has an ${s.code(
+        'options'
+      )} field that only contains plugin options. these options should be moved to ${s.code(
+        'options.plugins'
+      )}.`
+    )
+  }
+
   return {
+    version: config.version ?? undefined,
     plugins: config.plugins ?? [],
-    hooks: config.hooks ?? {},
-    options: config.options ?? {}
+    installs: config.installs ?? {},
+    tasks: config.tasks ?? {},
+    commands: config.commands ?? {},
+    options: config.options
+      ? {
+          plugins: config.options.plugins ?? {},
+          tasks: config.options.tasks ?? {},
+          hooks: config.options.hooks ?? []
+        }
+      : { plugins: {}, tasks: {}, hooks: [] },
+    hooks: config.hooks ?? undefined,
+    init: config.init ?? []
   }
 }

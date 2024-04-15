@@ -4,7 +4,7 @@
   "lib/error": "3.2.0",
   "lib/logger": "3.4.0",
   "lib/options": "3.2.0",
-  "lib/package-json-hook": "4.2.0",
+  "plugins/package-json-hook": "4.2.0",
   "lib/state": "3.3.0",
   "lib/types": "3.6.0",
   "lib/vault": "3.2.0",

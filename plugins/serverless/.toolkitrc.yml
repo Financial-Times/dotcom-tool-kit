@@ -1,0 +1,6 @@
+tasks:
+  ServerlessRun: './lib/tasks/run'
+  ServerlessDeploy: './lib/tasks/deploy'
+  ServerlessProvision: './lib/tasks/provision'
+
+version: 2

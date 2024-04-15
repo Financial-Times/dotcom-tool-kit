@@ -1,6 +1,6 @@
 import { hookFork } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/types'
-import { NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
+import { Task } from '@dotcom-tool-kit/base'
+import { NodemonSchema } from '@dotcom-tool-kit/schemas/lib/plugins/nodemon'
 import { writeState } from '@dotcom-tool-kit/state'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import getPort from 'get-port'
@@ -8,11 +8,11 @@ import nodemon from 'nodemon'
 import { Readable } from 'stream'
 import { shouldDisableNativeFetch } from 'dotcom-tool-kit'
 
-export default class Nodemon extends Task<typeof NodemonSchema> {
+export default class Nodemon extends Task<{ plugin: typeof NodemonSchema }> {
   static description = ''
 
   async run(): Promise<void> {
-    const { entry, configPath, useVault, ports } = this.options
+    const { entry, configPath, useVault, ports } = this.pluginOptions
 
     let dopplerEnv = {}
 

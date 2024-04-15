@@ -1,3 +1,9 @@
-hooks:
+tasks:
+  JestLocal: './lib/tasks/local'
+  JestCI: './lib/tasks/ci'
+
+commands:
   'test:local': JestLocal
   'test:ci': JestCI
+
+version: 2

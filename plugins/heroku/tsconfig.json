@@ -14,24 +14,29 @@
       "path": "../../lib/doppler"
     },
     {
-      "path": "../../lib/package-json-hook"
+      "path": "../../plugins/package-json-hook"
     },
     {
       "path": "../npm"
     },
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     },
     {
       "path": "../../lib/logger"
     },
     {
       "path": "../../lib/options"
+    },
+    {
+      "path": "../../lib/schemas"
     }
   ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

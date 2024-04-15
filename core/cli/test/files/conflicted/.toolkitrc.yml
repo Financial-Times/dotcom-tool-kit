@@ -6,4 +6,6 @@ plugins:
 
 options:
 
-hooks:
+commands:
+
+version: 2

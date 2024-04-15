@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from '@jest/globals'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
-import { UploadAssetsToS3Options } from '@dotcom-tool-kit/types/lib/schema/upload-assets-to-s3'
+import { UploadAssetsToS3Options } from '@dotcom-tool-kit/schemas/lib/plugins/upload-assets-to-s3'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
 import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'
@@ -32,7 +32,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should upload all globbed files for review', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       directory: testDirectory
     })
@@ -45,7 +45,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should upload all globbed files for prod', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       directory: testDirectory
     })
@@ -58,7 +58,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should strip base path from S3 key', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       extensions: 'gz',
       directory: testDirectory,
@@ -73,7 +73,7 @@ describe('upload-assets-to-s3', () => {
   })
 
   it('should use correct Content-Encoding for compressed files', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       extensions: 'gz',
       directory: testDirectory
@@ -93,22 +93,17 @@ describe('upload-assets-to-s3', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(mockedS3Client.prototype.send as any).mockRejectedValue(new Error(mockError))
 
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       directory: testDirectory
     })
 
-    expect.assertions(1)
-    try {
-      await task.run()
-    } catch (e) {
-      expect(e.details).toEqual(mockError)
-    }
+    await expect(task.run()).rejects.toThrow('ft-next-hashed-assets-prod failed')
   })
 
   // HACK:20231006:IM make sure hack to support Doppler migration works
   it('should fallback to uppercase environment variable', async () => {
-    const task = new UploadAssetsToS3(logger, {
+    const task = new UploadAssetsToS3(logger, 'UploadAssestToS3', {
       ...defaults,
       directory: testDirectory
     })

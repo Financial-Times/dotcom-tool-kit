@@ -26,7 +26,7 @@ describe('webpack', () => {
   describe('development', () => {
     it('should call webpack cli with correct arguments', async () => {
       const configPath = 'webpack.config.js'
-      const task = new DevelopmentWebpack(logger, { configPath })
+      const task = new DevelopmentWebpack(logger, 'DevelopmentWebpack', { configPath })
       await task.run()
 
       expect(fork).toBeCalledWith(
@@ -40,7 +40,7 @@ describe('webpack', () => {
   describe('production', () => {
     it('should call webpack cli with correct arguments', async () => {
       const configPath = 'webpack.config.js'
-      const task = new ProductionWebpack(logger, { configPath })
+      const task = new ProductionWebpack(logger, 'ProductionWebpack', { configPath })
       await task.run()
 
       expect(fork).toBeCalledWith(
@@ -57,7 +57,7 @@ describe('webpack', () => {
       process.allowedNodeEnvironmentFlags = { has: jest.fn(() => true) } as any
 
       const configPath = 'webpack.config.js'
-      const task = new ProductionWebpack(logger, { configPath })
+      const task = new ProductionWebpack(logger, 'ProductionWebpack', { configPath })
       await task.run()
 
       expect(mockedFork.mock.calls[0][2]?.execArgv).toEqual(
@@ -70,7 +70,7 @@ describe('webpack', () => {
       process.allowedNodeEnvironmentFlags = { has: jest.fn(() => false) } as any
 
       const configPath = 'webpack.config.js'
-      const task = new ProductionWebpack(logger, { configPath })
+      const task = new ProductionWebpack(logger, 'ProductionWebpack', { configPath })
       await task.run()
 
       expect(mockedFork.mock.calls[0][2]?.execArgv).toEqual(

@@ -1,16 +1,16 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/types'
-import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
+import { Task } from '@dotcom-tool-kit/base'
+import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { getOptions } from '@dotcom-tool-kit/options'
 import { spawn } from 'child_process'
 
-export default class ServerlessDeploy extends Task<typeof ServerlessSchema> {
+export default class ServerlessDeploy extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Deploys on AWS'
 
   async run(): Promise<void> {
-    const { useVault, configPath, buildNumVariable, regions, systemCode } = this.options
+    const { useVault, configPath, buildNumVariable, regions, systemCode } = this.pluginOptions
     const buildNum = process.env[buildNumVariable]
 
     if (buildNum === undefined) {

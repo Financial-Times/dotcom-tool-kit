@@ -6,7 +6,10 @@
   },
   "references": [
     {
-      "path": "../../lib/types"
+      "path": "../../core/cli"
+    },
+    {
+      "path": "../../lib/base"
     },
     {
       "path": "../../lib/error"
@@ -19,6 +22,9 @@
     },
     {
       "path": "../../lib/state"
+    },
+    {
+      "path": "../../lib/schemas"
     }
   ],
   "include": ["src/**/*"]

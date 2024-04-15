@@ -1,6 +1,13 @@
-hooks:
+tasks:
+  TypeScriptBuild: './lib/tasks/build'
+  TypeScriptWatch: './lib/tasks/watch'
+  TypeScriptTest: './lib/tasks/test'
+
+commands:
   'build:local': TypeScriptBuild
   'build:ci': TypeScriptBuild
   'build:remote': TypeScriptBuild
   'run:local': TypeScriptWatch
   'test:local': TypeScriptTest
+
+version: 2

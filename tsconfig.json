@@ -44,7 +44,7 @@
       "path": "lib/error"
     },
     {
-      "path": "lib/package-json-hook"
+      "path": "plugins/package-json-hook"
     },
     {
       "path": "plugins/circleci"
@@ -62,7 +62,19 @@
       "path": "core/create"
     },
     {
-      "path": "lib/types"
+      "path": "lib/config"
+    },
+    {
+      "path": "lib/plugin"
+    },
+    {
+      "path": "lib/validated"
+    },
+    {
+      "path": "lib/conflict"
+    },
+    {
+      "path": "lib/base"
     },
     {
       "path": "plugins/prettier"
@@ -111,6 +123,9 @@
     },
     {
       "path": "plugins/serverless"
+    },
+    {
+      "path": "lib/schemas"
     }
   ]
 }

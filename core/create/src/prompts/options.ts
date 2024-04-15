@@ -1,7 +1,7 @@
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import type { RCFile } from '@dotcom-tool-kit/types'
-import type { PromptGenerators } from '@dotcom-tool-kit/types/src/schema'
-import type { RawConfig } from 'dotcom-tool-kit/lib/config'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
+import type { RawConfig } from '@dotcom-tool-kit/config'
+import type { PromptGenerators } from '@dotcom-tool-kit/schemas'
 import { promises as fs } from 'fs'
 import YAML from 'yaml'
 import type Logger from 'komatsu'
@@ -51,7 +51,7 @@ async function optionsPromptForPlugin(
             { onCancel }
           )
           if (stringOption !== '') {
-            toolKitConfig.options[plugin][optionName] = stringOption
+            toolKitConfig.options.plugins[plugin][optionName] = stringOption
           }
           break
         case 'ZodBoolean':
@@ -67,7 +67,7 @@ async function optionsPromptForPlugin(
             },
             { onCancel }
           )
-          toolKitConfig.options[plugin][optionName] = boolOption
+          toolKitConfig.options.plugins[plugin][optionName] = boolOption
           break
         case 'ZodNumber':
           const { numberOption } = await prompt(
@@ -80,7 +80,7 @@ async function optionsPromptForPlugin(
             { onCancel }
           )
           if (numberOption !== '') {
-            toolKitConfig.options[plugin][optionName] = Number.parseFloat(numberOption)
+            toolKitConfig.options.plugins[plugin][optionName] = Number.parseFloat(numberOption)
           }
           break
         case 'ZodArray':
@@ -98,7 +98,9 @@ async function optionsPromptForPlugin(
                 { onCancel }
               )
               if (stringArrayOption !== '' && stringArrayOption !== undefined) {
-                toolKitConfig.options[plugin][optionName] = stringArrayOption.split(',').map((s) => s.trim())
+                toolKitConfig.options.plugins[plugin][optionName] = stringArrayOption
+                  .split(',')
+                  .map((s) => s.trim())
               }
               break
             case 'ZodNumber':
@@ -113,7 +115,7 @@ async function optionsPromptForPlugin(
                 { onCancel }
               )
               if (numberArrayOption !== '' && numberArrayOption !== undefined) {
-                toolKitConfig.options[plugin][optionName] = numberArrayOption
+                toolKitConfig.options.plugins[plugin][optionName] = numberArrayOption
                   .split(',')
                   .map((s) => Number.parseFloat(s.trim()))
               }
@@ -135,7 +137,7 @@ async function optionsPromptForPlugin(
                 { onCancel }
               )
               if (option !== '') {
-                toolKitConfig.options[plugin][optionName] = option
+                toolKitConfig.options.plugins[plugin][optionName] = option
               }
               break
           }
@@ -154,7 +156,7 @@ async function optionsPromptForPlugin(
             { onCancel }
           )
           if (option !== '') {
-            toolKitConfig.options[plugin][optionName] = option
+            toolKitConfig.options.plugins[plugin][optionName] = option
           }
           break
         case 'ZodUnion':
@@ -199,6 +201,8 @@ export default async ({
   configPath,
   bizOpsSystem
 }: OptionsParams): Promise<boolean> => {
+  toolKitConfig.options.plugins = {}
+
   for (const plugin of Object.keys(config.plugins)) {
     let options: z.AnyZodObject
     let generators: PromptGenerators<z.AnyZodObject> | undefined
@@ -208,7 +212,7 @@ export default async ({
       // TODO allow different schemas for tasks within a plugin
       const { Schema, generators: SchemaGenerators } =
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require(`@dotcom-tool-kit/types/lib/schema/${pluginName}`)
+        require(`@dotcom-tool-kit/schemas/lib/plugins/${pluginName}`)
       options = Schema
       generators = SchemaGenerators
     } catch (err) {
@@ -224,7 +228,6 @@ export default async ({
     const anyRequired = required.length > 0
 
     const styledPlugin = styles.plugin(pluginName)
-    toolKitConfig.options[plugin] = {}
 
     if (anyRequired) {
       winstonLogger.info(`Please now configure the options for the ${styledPlugin} plugin.`)
@@ -238,7 +241,7 @@ export default async ({
            * the object is partial because not all options for a plugin will
            * have generators, but all values in the record will be defined
            **/
-          toolKitConfig.options[plugin][optionName] = await generator!(
+          toolKitConfig.options.plugins![plugin][optionName] = await generator!(
             winstonLogger.child({ plugin }),
             prompt,
             onCancel,
@@ -256,12 +259,12 @@ export default async ({
           plugin,
           required
             .map(([name, type]) => ({ name, type }))
-            .filter(({ name }) => !toolKitConfig.options[plugin][name])
+            .filter(({ name }) => !toolKitConfig.options.plugins[plugin][name])
         )
       }
 
       if (cancelled) {
-        delete toolKitConfig.options[plugin]
+        delete toolKitConfig.options.plugins[plugin]
         return true
       }
     }
@@ -286,7 +289,7 @@ export default async ({
           })
         )
       } else if (!anyRequired) {
-        delete toolKitConfig.options[plugin]
+        delete toolKitConfig.options.plugins[plugin]
       }
     }
   }

@@ -8,15 +8,15 @@ export interface ConflictingTask {
   plugin: string
 }
 
-export interface HookTaskConflict {
-  hook: string
+export interface CommandTaskConflict {
+  command: string
   conflictingTasks: ConflictingTask[]
 }
 
 export class ToolKitConflictError extends ToolKitError {
-  conflicts: HookTaskConflict[]
+  conflicts: CommandTaskConflict[]
 
-  constructor(message: string, conflicts: HookTaskConflict[]) {
+  constructor(message: string, conflicts: CommandTaskConflict[]) {
     super(message)
     this.conflicts = conflicts
   }

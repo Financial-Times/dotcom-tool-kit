@@ -58,7 +58,7 @@ Tasks won't be usable by your plugin's users unless you export them from the ent
 
 A hook ensures a repo using Tool Kit has the relevant configuration to run things from Tool Kit.
 
-A hook extends the `Hook` class from `@dotcom-tool-kit/types`, implementing its abstract asynchronous `check` and `install` functions. You also need to write a helpful `description` field, which will be displayed in the `--help` text.
+A hook extends the `Hook` class from `@dotcom-tool-kit/types`, implementing its abstract asynchronous `isInstalled` and `install` functions. You also need to write a helpful `description` field, which will be displayed in the `--help` text.
 
 ```typescript
 import { Hook } from '@dotcom-tool-kit/types'
@@ -66,7 +66,7 @@ import { Hook } from '@dotcom-tool-kit/types'
 export default NpmRunTest extends Hook {
   static description = 'hook to run tasks with `npm run test`'
 
-  async check(): Promise<boolean> {
+  async isInstalled(): Promise<boolean> {
     // return true if the `test` script is correctly defined in `package.json`
   }
 
@@ -94,7 +94,7 @@ This lets different plugins define the same abstractly labelled hooks with diffe
 
 #### Defining options
 
-Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. We use the [`zod` library](https://zod.dev) to specify the schema, which allows us to define what we expect the options to look like and use this specification to validate the options we receive as well as generate TypeScript types for them. Options are defined in the `@dotcom-tool-kit/types` package, in the `schema` files. Create a file in [`src/schema`](../lib/types/src/schema) for your plugin, which should export a `NameOfPluginSchema` object (that should also be exported as `Schema`), and a `NameOfPluginOptions` type that uses the `SchemaOutput` generic type.
+Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. We use the [`zod` library](https://zod.dev) to specify the schema, which allows us to define what we expect the options to look like and use this specification to validate the options we receive as well as generate TypeScript types for them. Options are defined in the `@dotcom-tool-kit/types` package, in the `schema` files. Create a file in [`src/schema`](../lib/schema/lib/plugins) for your plugin, which should export a `NameOfPluginSchema` object (that should also be exported as `Schema`), and a `NameOfPluginOptions` type that uses the `SchemaOutput` generic type.
 
 ```typescript
 import { z } from 'zod'
@@ -136,9 +136,9 @@ To avoid boilerplate for tasks (the most common use case for options), when defi
 
 ```typescript
 import { Task } from '@dotcom-tool-kit/types'
-import { ESLintOptions, ESLintSchema } from '@dotcom-tool-kit/types/lib/schema/eslint'
+import { ESLintOptions, ESLintSchema } from '@dotcom-tool-kit/schemas/lib/plugins/eslint'
 
-export default class Eslint extends Task<typeof ESLintSchema> {
+export default class Eslint extends Task<{ plugin: typeof ESLintSchema }> {
   static description = ''
 
   async run(): Promise<void> {

@@ -1,3 +1,8 @@
-hooks:
+tasks:
+  NTest: './lib/tasks/n-test'
+
+commands:
   'test:review': NTest
   'test:staging': NTest
+
+version: 2

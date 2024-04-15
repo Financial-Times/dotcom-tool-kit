@@ -4,7 +4,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { setOptions } from '@dotcom-tool-kit/options'
-import type { RCFile } from '@dotcom-tool-kit/types'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
 import { Octokit } from '@octokit/rest'
 import * as suggester from 'code-suggester'
 import { highlight } from 'cli-highlight'
@@ -177,12 +177,17 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
   const dopplerEnvVars = new DopplerEnvVars(winstonLogger, 'prod', {
     project: 'dotcom-tool-kit'
   })
-  const dopplerSecretsSchema = z.object({
-    CIRCLECI_AUTH_TOKEN: z.string(),
-    GITHUB_ACCESS_TOKEN: z.string(),
-    [`AWS_${awsAccountDopplerName}_ACCESS_KEY_ID`]: z.string(),
-    [`AWS_${awsAccountDopplerName}_SECRET_ACCESS_KEY`]: z.string()
-  })
+  const dopplerSecretsSchema = z
+    .object({
+      CIRCLECI_AUTH_TOKEN: z.string(),
+      GITHUB_ACCESS_TOKEN: z.string()
+    })
+    .merge(
+      z.object({
+        [`AWS_${awsAccountDopplerName}_ACCESS_KEY_ID`]: z.string(),
+        [`AWS_${awsAccountDopplerName}_SECRET_ACCESS_KEY`]: z.string()
+      })
+    )
   const dopplerEnv = dopplerSecretsSchema.parse(await dopplerEnvVars.get())
 
   let serverlessConfigRaw
@@ -251,8 +256,8 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
         // Kit vault plugin options. The class tries to read the options from
         // the global options object so let's set these options based on what's
         // been selected during the options prompt.
-        setOptions('@dotcom-tool-kit/vault', toolKitConfig.options['@dotcom-tool-kit/vault'])
-        setOptions('@dotcom-tool-kit/doppler', toolKitConfig.options['@dotcom-tool-kit/doppler'])
+        setOptions('@dotcom-tool-kit/vault', toolKitConfig.options.plugins['@dotcom-tool-kit/vault'])
+        setOptions('@dotcom-tool-kit/doppler', toolKitConfig.options.plugins['@dotcom-tool-kit/doppler'])
         const dopplerProjectName = new DopplerEnvVars(winstonLogger, 'prod').options.project
         const ssmAction = 'ssm:GetParameter'
         const ssmResource = `arn:aws:ssm:eu-west-1:\${AWS::AccountId}:parameter/${dopplerProjectName}/*`

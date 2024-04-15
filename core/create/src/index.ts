@@ -1,6 +1,6 @@
 import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import type { RCFile } from '@dotcom-tool-kit/types'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
 import { exec as _exec } from 'child_process'
 import type { cosmiconfig } from 'cosmiconfig'
 import type { loadConfig as loadConfigType } from 'dotcom-tool-kit/lib/config'
@@ -47,9 +47,11 @@ function getEslintConfigContent(): string {
 function clearConfigCache() {
   // we need to import explorer from the app itself instead of npx as this is
   // the object used by installHooks()
-  return (importCwd('dotcom-tool-kit/lib/rc-file') as {
-    explorer: ReturnType<typeof cosmiconfig>
-  }).explorer.clearSearchCache()
+  return (
+    importCwd('dotcom-tool-kit/lib/rc-file') as {
+      explorer: ReturnType<typeof cosmiconfig>
+    }
+  ).explorer.clearSearchCache()
 }
 
 async function executeMigration(
@@ -113,8 +115,11 @@ async function executeMigration(
 async function main() {
   const toolKitConfig: RCFile = {
     plugins: [],
-    hooks: {},
-    options: {}
+    installs: {},
+    tasks: {},
+    commands: {},
+    options: { plugins: {}, tasks: {}, hooks: [] },
+    init: []
   }
 
   const originalCircleConfig = await fsp.readFile(circleConfigPath, 'utf8').catch(() => undefined)

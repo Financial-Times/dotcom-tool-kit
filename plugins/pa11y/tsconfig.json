@@ -3,18 +3,26 @@
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src",
-    "lib": ["ES2019", "DOM"]
+    "lib": [
+      "ES2019",
+      "DOM"
+    ]
   },
   "references": [
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     },
     {
       "path": "../../lib/logger"
     },
     {
       "path": "../../lib/error"
+    },
+    {
+      "path": "../../lib/schemas"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

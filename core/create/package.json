@@ -16,7 +16,9 @@
     "@dotcom-tool-kit/doppler": "^1.1.0",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.0",
-    "@dotcom-tool-kit/types": "^3.6.0",
+    "@dotcom-tool-kit/schemas": "^1.0.0",
+    "@dotcom-tool-kit/plugin": "^1.0.0",
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@octokit/rest": "^19.0.5",
     "@quarterto/parse-makefile-rules": "^1.1.0",
     "cli-highlight": "^2.1.11",
@@ -30,7 +32,8 @@
     "prompts": "^2.4.1",
     "simple-git": "^3.16.1",
     "tslib": "^2.3.1",
-    "yaml": "^2.2.1"
+    "yaml": "^2.2.1",
+    "zod": "^3.22.4"
   },
   "repository": {
     "type": "git",
@@ -58,7 +61,7 @@
     "extends": "../../package.json"
   },
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   }
 }

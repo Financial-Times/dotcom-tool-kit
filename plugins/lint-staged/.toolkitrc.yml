@@ -1,2 +1,7 @@
-hooks:
+tasks:
+  LintStaged: './lib/tasks/lint-staged'
+
+commands:
   'git:precommit': LintStaged
+
+version: 2

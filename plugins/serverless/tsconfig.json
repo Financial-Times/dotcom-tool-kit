@@ -6,7 +6,7 @@
   },
   "references": [
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     },
     {
       "path": "../../lib/doppler"
@@ -16,7 +16,12 @@
     },
     {
       "path": "../../lib/options"
+    },
+    {
+      "path": "../../lib/schemas"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

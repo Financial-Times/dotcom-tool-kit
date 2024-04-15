@@ -11,10 +11,10 @@
       "path": "../options"
     },
     {
-      "path": "../types"
+      "path": "../vault"
     },
     {
-      "path": "../vault"
+      "path": "../schemas"
     }
   ],
   "compilerOptions": {

@@ -6,8 +6,10 @@
   },
   "references": [
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

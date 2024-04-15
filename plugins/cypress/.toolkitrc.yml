@@ -1,5 +1,10 @@
-hooks:
+tasks:
+  CypressCi: './lib/tasks/ci'
+  CypressLocal: './lib/tasks/local'
+
+commands:
   'test:review': CypressCi
   'test:staging': CypressCi
   'e2e:local': CypressLocal
 
+version: 2

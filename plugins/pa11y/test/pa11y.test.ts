@@ -35,14 +35,14 @@ describe('pa11y', () => {
   })
   it("sets process.env.TEST_URL as a herokuapp url if readState('review') is truthy", async () => {
     MOCK_ENV = 'ci'
-    const pa11y = new Pa11y(logger, {})
+    const pa11y = new Pa11y(logger, 'Pa11y', {})
     await pa11y.run()
 
     expect(process.env.TEST_URL).toBe(`https://${appName}.herokuapp.com`)
   })
   it("sets process.env.TEST_URL as a local env url if readState('local') is truthy", async () => {
     MOCK_ENV = 'local'
-    const pa11y = new Pa11y(logger, {})
+    const pa11y = new Pa11y(logger, 'Pa11y', {})
     await pa11y.run()
 
     expect(process.env.TEST_URL).toBe(`https://local.ft.com:5050`)

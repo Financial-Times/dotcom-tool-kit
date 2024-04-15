@@ -1,4 +1,4 @@
-import { checkInstall, loadConfig } from './config'
+import { loadConfig } from './config'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import { styles } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
@@ -10,13 +10,11 @@ export default async function showHelp(logger: Logger, hooks: string[]): Promise
     hooks = Object.keys(config.hooks).sort()
   }
 
-  for (const pluginOptions of Object.values(config.options)) {
+  for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
     }
   }
-
-  await checkInstall(config)
 
   const missingHooks = hooks.filter((hook) => !config.hooks[hook])
 
@@ -45,16 +43,14 @@ ${
     const Hook = config.hooks[hook]
 
     if (Hook) {
-      const tasks = config.hookTasks[hook]
+      const tasks = config.commandTasks[hook]
       /* eslint-disable @typescript-eslint/no-explicit-any -- Object.constructor does not consider static properties */
       logger.info(`${styles.heading(hook)}
 ${(Hook.constructor as any).description ? (Hook.constructor as any).description + '\n' : ''}
 ${
   tasks && tasks.tasks.length
     ? `runs ${tasks.tasks.length > 1 ? 'these tasks' : 'this task'}:
-${tasks.tasks
-  .map((task) => `- ${styles.task(task)} ${styles.dim(config.tasks[task].description)}`)
-  .join('\n')}`
+${tasks.tasks.map((task) => `- ${styles.task(task)}`).join('\n')}`
     : styles.dim('no tasks configured to run on this hook.')
 }
 ${styles.ruler()}

@@ -3,8 +3,10 @@ plugins:
   - '@dotcom-tool-kit/backend-heroku-app'
   - '@dotcom-tool-kit/upload-assets-to-s3'
 
-hooks:
+commands:
   'run:local':
     - WebpackDevelopment # run a webpack compile before starting the server because dotcom-server-asset-loader expects a manifest to exist
     - Node
     - WebpackWatch
+
+version: 2

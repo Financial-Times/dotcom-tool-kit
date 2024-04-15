@@ -1,21 +1,21 @@
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/types'
-import type { TypeScriptSchema } from '@dotcom-tool-kit/types/lib/schema/typescript'
+import { Task } from '@dotcom-tool-kit/base'
+import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/lib/plugins/typescript'
 import { fork } from 'child_process'
 
 const tscPath = require.resolve('typescript/bin/tsc')
 
-abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
+export default abstract class TypeScriptTask extends Task<{ plugin: typeof TypeScriptSchema }> {
   abstract taskArgs: string[]
 
   async run(): Promise<void> {
     // TODO: add monorepo support with --build option
     const args = [...this.taskArgs]
-    if (this.options.configPath) {
-      args.unshift('--project', this.options.configPath)
+    if (this.pluginOptions.configPath) {
+      args.unshift('--project', this.pluginOptions.configPath)
     }
-    if (this.options.extraArgs) {
-      args.push(...this.options.extraArgs)
+    if (this.pluginOptions.extraArgs) {
+      args.push(...this.pluginOptions.extraArgs)
     }
 
     const child = fork(tscPath, args, { silent: true })
@@ -29,22 +29,4 @@ abstract class TypeScriptTask extends Task<typeof TypeScriptSchema> {
     // tsc is quite quiet by default so let the user know it actually ran
     this.logger.info('code compiled successfully')
   }
-}
-
-export class TypeScriptBuild extends TypeScriptTask {
-  static description = 'compile TypeScript to JavaScript'
-
-  taskArgs = []
-}
-
-export class TypeScriptWatch extends TypeScriptTask {
-  static description = 'rebuild TypeScript project every file change'
-
-  taskArgs = ['--watch']
-}
-
-export class TypeScriptTest extends TypeScriptTask {
-  static description = 'type check TypeScript code'
-
-  taskArgs = ['--noEmit']
 }
