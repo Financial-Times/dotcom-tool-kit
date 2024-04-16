@@ -79,7 +79,7 @@ export const loadHookInstallations = async (
 }
 
 export async function checkInstall(logger: Logger, config: ValidConfig): Promise<void> {
-  if (!(await hasConfigChanged(logger))) {
+  if (!(await hasConfigChanged(logger, config))) {
     return
   }
 
@@ -95,7 +95,7 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
     throw error
   }
 
-  await updateHashes()
+  await updateHashes(config)
 }
 
 export default async function installHooks(logger: Logger): Promise<ValidConfig> {
@@ -150,7 +150,7 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
     throw error
   }
 
-  await updateHashes()
+  await updateHashes(config)
 
   return config
 }

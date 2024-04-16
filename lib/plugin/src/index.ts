@@ -1,12 +1,16 @@
 type TaskSpecWithOptions = Record<string, Record<string, unknown>>
 type TaskSpec = string | TaskSpecWithOptions
+type InstallsSpec = {
+  entryPoint: string
+  managesFiles?: string[]
+}
 
 export const CURRENT_RC_FILE_VERSION = 2
 
 export type RCFile = {
   version?: typeof CURRENT_RC_FILE_VERSION
   plugins: string[]
-  installs: { [id: string]: string }
+  installs: { [id: string]: InstallsSpec }
   tasks: { [id: string]: string }
   commands: { [id: string]: TaskSpec | TaskSpec[] }
   hooks?: { [id: string]: TaskSpec | TaskSpec[] }

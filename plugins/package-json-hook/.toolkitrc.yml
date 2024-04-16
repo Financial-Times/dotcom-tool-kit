@@ -1,4 +1,7 @@
 installs:
-  PackageJson: './lib/package-json-helper'
+  PackageJson:
+    entryPoint: './lib/package-json-helper'
+    managedFiles:
+      - 'package.json'
 
 version: 2
