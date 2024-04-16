@@ -377,6 +377,20 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.2 to ^3.4.3
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.3 to ^3.2.4
 
+## [3.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.4.5...dotcom-tool-kit-v3.5.0) (2024-04-16)
+
+
+### Features
+
+* exit running tasks early if the task threw an error with an exitCode ([d98850a](https://github.com/Financial-Times/dotcom-tool-kit/commit/d98850a85df0c629675535ef5d5ea7915887cde0))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/eslint bumped from ^3.2.0 to ^3.2.1
+
 ## [3.4.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.4.3...dotcom-tool-kit-v3.4.4) (2024-02-08)
 
 

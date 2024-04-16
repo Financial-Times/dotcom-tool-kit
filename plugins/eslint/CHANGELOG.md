@@ -115,6 +115,13 @@
     * @dotcom-tool-kit/logger bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [3.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v3.2.0...eslint-v3.2.1) (2024-04-16)
+
+
+### Bug Fixes
+
+* remove exitCode from eslint-thrown errors ([8c314ff](https://github.com/Financial-Times/dotcom-tool-kit/commit/8c314ffafdc59112284a730ffc6933b8075f6790))
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v3.1.6...eslint-v3.2.0) (2024-01-11)
 
 
