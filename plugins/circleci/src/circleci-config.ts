@@ -93,13 +93,8 @@ const getNodeVersions = (): Array<string> => {
 const nodeVersionToExecutor = (version: string, index: number): string =>
   index === 0 ? 'node' : `node${version.replaceAll('.', '_')}`
 
-// These boilerplate objects are (typically) needed for each job. They can be
-// spread into your custom config, and are automatically included when calling
-// generateSimpleJob.
-
-// Needs to be lazy as the node versions haven't been loaded yet when this
-// module is initialised.
-const matrixBoilerplate = () => ({
+const matrixBoilerplate = (jobName: string) => ({
+  name: `${jobName}-<< matrix.executor >>`,
   matrix: {
     parameters: {
       executor: getNodeVersions().map(nodeVersionToExecutor)
@@ -123,6 +118,8 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
   })
 
 const getBaseConfig = (): CircleCIState => {
+  const runsOnMultipleNodeVersions = getNodeVersions().length > 1
+  const setupMatrix = runsOnMultipleNodeVersions ? matrixBoilerplate('tool-kit/setup') : { executor: 'node' }
   return {
     version: 2.1,
     orbs: {
@@ -168,9 +165,8 @@ const getBaseConfig = (): CircleCIState => {
           },
           {
             'tool-kit/setup': {
-              name: 'tool-kit/setup-<< matrix.executor >>',
+              ...setupMatrix,
               requires: ['checkout', 'waiting-for-approval'],
-              ...matrixBoilerplate(),
               ...tagFilter
             }
           }
@@ -187,16 +183,7 @@ const getBaseConfig = (): CircleCIState => {
             }
           ]
         },
-        jobs: [
-          'checkout',
-          {
-            'tool-kit/setup': {
-              name: 'tool-kit/setup-<< matrix.executor >>',
-              requires: ['checkout'],
-              ...matrixBoilerplate()
-            }
-          }
-        ]
+        jobs: ['checkout', { 'tool-kit/setup': { ...setupMatrix, requires: ['checkout'] } }]
       }
     }
   }
@@ -320,14 +307,17 @@ const mergeInstallationResults = (
 
 const toolKitOrbPrefix = (job: string) => `tool-kit/${job}`
 
-const generateJobs = (workflow: CircleCiWorkflow): Job[] =>
-  workflow.jobs.map((job) => {
-    const splitIntoMatrix = job.splitIntoMatrix ?? true
+const generateJobs = (workflow: CircleCiWorkflow): Job[] => {
+  const runsOnMultipleNodeVersions = getNodeVersions().length > 1
+  return workflow.jobs.map((job) => {
+    const splitIntoMatrix = runsOnMultipleNodeVersions && (job.splitIntoMatrix ?? true)
     return {
       [toolKitOrbPrefix(job.name)]: merge(
-        // repeatedly check splitIntoMatrix in different arguments so we can
-        // generate config with a nice order of keys
-        splitIntoMatrix ? { name: `tool-kit/${job.name}-<< matrix.executor >>` } : {},
+        splitIntoMatrix
+          ? matrixBoilerplate(job.name)
+          : {
+              executor: 'node'
+            },
         {
           requires: job.requires.map((required) => {
             if (['checkout', 'waiting-for-approval'].includes(required)) {
@@ -337,25 +327,20 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] =>
             // only need to include a suffix for the required job if it splits
             // into a matrix for Node versions
             const splitRequiredIntoMatrix =
-              workflow.jobs?.find(({ name: jobName }) => required === jobName)?.splitIntoMatrix ?? true
+              runsOnMultipleNodeVersions &&
+              (workflow.jobs?.find(({ name: jobName }) => required === jobName)?.splitIntoMatrix ?? true)
             if (!splitRequiredIntoMatrix) {
               return requiredOrb
             }
             return `${requiredOrb}-${splitIntoMatrix ? '<< matrix.executor >>' : 'node'}`
           })
         },
-        splitIntoMatrix
-          ? {
-              matrix: { parameters: { executor: getNodeVersions().map(nodeVersionToExecutor) } }
-            }
-          : {
-              executor: 'node'
-            },
         workflow.runOnRelease ? tagFilter : {},
         job.custom
       )
     }
   })
+}
 
 export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState> {
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
