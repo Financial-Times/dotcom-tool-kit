@@ -18,7 +18,6 @@ export default class Eslint extends Task<typeof ESLintSchema> {
     if (errorCount > 0) {
       const error = new ToolKitError('eslint returned linting errors')
       error.details = resultText
-      error.exitCode = errorCount
       throw error
     } else {
       this.logger.info(styles.title('ESLint output was:'))
