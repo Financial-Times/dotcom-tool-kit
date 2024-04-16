@@ -5,8 +5,8 @@ import { fork } from 'child_process'
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
-export default class Babel extends Task<{ task: typeof WebpackSchema }> {
-  static description = 'build babel'
+export default class Webpack extends Task<{ task: typeof WebpackSchema }> {
+  static description = 'build webpack'
 
   async run(): Promise<void> {
     this.logger.info('starting Webpack...')
