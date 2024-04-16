@@ -22,11 +22,12 @@ export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
       dopplerEnv = await doppler.get()
     }
 
-    const port =
-      Number(process.env.PORT) ||
-      (await getPort({
-        port: ports
-      }))
+    const port = ports
+      ? Number(process.env.PORT) ||
+        (await getPort({
+          port: ports
+        }))
+      : false
 
     this.logger.verbose('starting the child nodemon process...')
 
@@ -68,6 +69,7 @@ export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
       nodemonLogger.log(nodemonToWinstonLogLevel(msg.type), msg.message + '\n')
     })
     await new Promise((resolve) => nodemon.on('start', resolve))
-    writeState('local', { port })
+
+    if (port) writeState('local', { port })
   }
 }
