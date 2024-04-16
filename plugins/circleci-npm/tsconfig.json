@@ -15,7 +15,5 @@
       "path": "../npm"
     }
   ],
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

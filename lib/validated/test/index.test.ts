@@ -27,9 +27,7 @@ describe('Validated', () => {
     })
 
     it('should do nothing for invalid', () => {
-      expect(
-        invalid<number>(['hello']).map((value) => value * 2)
-      ).toEqual(
+      expect(invalid<number>(['hello']).map((value) => value * 2)).toEqual(
         expect.objectContaining({
           valid: false,
           reasons: ['hello']
@@ -49,9 +47,7 @@ describe('Validated', () => {
     })
 
     it('should map reasons of invalid', () => {
-      expect(
-        invalid<number>(['hello']).mapError((reasons) => reasons.concat('another reason'))
-      ).toEqual(
+      expect(invalid<number>(['hello']).mapError((reasons) => reasons.concat('another reason'))).toEqual(
         expect.objectContaining({
           valid: false,
           reasons: ['hello', 'another reason']
@@ -80,9 +76,7 @@ describe('Validated', () => {
     })
 
     it('should do nothing for invalid', () => {
-      expect(
-        invalid<number>(['hello']).flatMap((value) => valid(value * 2))
-      ).toEqual(
+      expect(invalid<number>(['hello']).flatMap((value) => valid(value * 2))).toEqual(
         expect.objectContaining({
           valid: false,
           reasons: ['hello']
