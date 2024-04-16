@@ -1,5 +1,6 @@
 installs:
-  CircleCi: './lib/circleci-config'
+  CircleCi:
+    entryPoint: './lib/circleci-config'
 
 options:
   hooks:
