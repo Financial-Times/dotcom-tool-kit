@@ -17,7 +17,7 @@ export default class Cypress extends Task<{ task: typeof CypressSchema }> {
     }
 
     if (appState) {
-      cypressEnv.CYPRESS_BASE_URL = appState.url ? appState.url : `https://${appState.appName}.herokuapp.com`
+      cypressEnv.CYPRESS_BASE_URL = appState.url ?? `https://${appState.appName}.herokuapp.com`
 
       if (reviewState) {
         cypressEnv.CYPRESS_REVIEW_APP = 'true'
