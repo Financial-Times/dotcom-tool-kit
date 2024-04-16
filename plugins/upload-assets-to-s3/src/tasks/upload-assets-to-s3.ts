@@ -9,13 +9,13 @@ import { styles } from '@dotcom-tool-kit/logger'
 import {
   UploadAssetsToS3Options,
   UploadAssetsToS3Schema
-} from '@dotcom-tool-kit/schemas/lib/plugins/upload-assets-to-s3'
+} from '@dotcom-tool-kit/schemas/lib/tasks/upload-assets-to-s3'
 
-export default class UploadAssetsToS3 extends Task<{ plugin: typeof UploadAssetsToS3Schema }> {
+export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsToS3Schema }> {
   static description = ''
 
   async run(): Promise<void> {
-    await this.uploadAssetsToS3(this.pluginOptions)
+    await this.uploadAssetsToS3(this.options)
   }
   async uploadFile(file: string, options: UploadAssetsToS3Options, s3: S3Client): Promise<void> {
     const type = getFileType(file)

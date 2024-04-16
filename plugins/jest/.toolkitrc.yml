@@ -1,9 +1,8 @@
 tasks:
-  JestLocal: './lib/tasks/local'
-  JestCI: './lib/tasks/ci'
+  Jest: './lib/tasks/jest'
 
 commands:
-  'test:local': JestLocal
-  'test:ci': JestCI
+  'test:local': Jest
+  'test:ci': Jest # TODO provide default mode option here
 
 version: 2

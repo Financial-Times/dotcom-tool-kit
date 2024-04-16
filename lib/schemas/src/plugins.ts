@@ -1,48 +1,41 @@
-import { BabelSchema } from './plugins/babel'
+import { z } from 'zod'
+
 import { CircleCISchema } from './plugins/circleci'
-import { CypressSchema } from './plugins/cypress'
 import { DopplerSchema } from './plugins/doppler'
 import { RootSchema } from './plugins/dotcom-tool-kit'
-import { ESLintSchema } from './plugins/eslint'
 import { HerokuSchema } from './plugins/heroku'
 import { LintStagedNpmSchema } from './plugins/lint-staged-npm'
-import { JestSchema } from './plugins/jest'
-import { MochaSchema } from './plugins/mocha'
-import { SmokeTestSchema } from './plugins/n-test'
 import { NextRouterSchema } from './plugins/next-router'
-import { NodeSchema } from './plugins/node'
-import { NodemonSchema } from './plugins/nodemon'
-import { Pa11ySchema } from './plugins/pa11y'
-import { PrettierSchema } from './plugins/prettier'
 import { ServerlessSchema } from './plugins/serverless'
-import { TypeScriptSchema } from './plugins/typescript'
-import { UploadAssetsToS3Schema } from './plugins/upload-assets-to-s3'
 import { VaultSchema } from './plugins/vault'
-import { WebpackSchema } from './plugins/webpack'
 import { type InferSchemaOptions } from './infer'
+
+// TODO:KB:20240412 remove legacyPluginOptions in a future major version
+export const legacyPluginOptions: Record<string, string> = {
+  '@dotcom-tool-kit/babel': 'Babel',
+  '@dotcom-tool-kit/cypress': 'Cypress',
+  '@dotcom-tool-kit/eslint': 'ESLint',
+  '@dotcom-tool-kit/jest': 'Jest',
+  '@dotcom-tool-kit/mocha': 'Mocha',
+  '@dotcom-tool-kit/n-test': 'NTest',
+  '@dotcom-tool-kit/node': 'Node',
+  '@dotcom-tool-kit/nodemon': 'Nodemon',
+  '@dotcom-tool-kit/pa11y': 'Pa11y',
+  '@dotcom-tool-kit/prettier': 'Prettier',
+  '@dotcom-tool-kit/typescript': 'TypeScript',
+  '@dotcom-tool-kit/upload-assets-to-s3': 'UploadAssetsToS3',
+  '@dotcom-tool-kit/webpack': 'Webpack'
+}
 
 export const PluginSchemas = {
   'app root': RootSchema,
-  '@dotcom-tool-kit/babel': BabelSchema,
   '@dotcom-tool-kit/circleci': CircleCISchema,
-  '@dotcom-tool-kit/cypress': CypressSchema,
   '@dotcom-tool-kit/doppler': DopplerSchema,
-  '@dotcom-tool-kit/eslint': ESLintSchema,
   '@dotcom-tool-kit/heroku': HerokuSchema,
   '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
-  '@dotcom-tool-kit/jest': JestSchema,
-  '@dotcom-tool-kit/mocha': MochaSchema,
-  '@dotcom-tool-kit/n-test': SmokeTestSchema,
   '@dotcom-tool-kit/next-router': NextRouterSchema,
-  '@dotcom-tool-kit/node': NodeSchema,
-  '@dotcom-tool-kit/nodemon': NodemonSchema,
-  '@dotcom-tool-kit/pa11y': Pa11ySchema,
-  '@dotcom-tool-kit/prettier': PrettierSchema,
   '@dotcom-tool-kit/serverless': ServerlessSchema,
-  '@dotcom-tool-kit/typescript': TypeScriptSchema,
-  '@dotcom-tool-kit/upload-assets-to-s3': UploadAssetsToS3Schema,
-  '@dotcom-tool-kit/vault': VaultSchema,
-  '@dotcom-tool-kit/webpack': WebpackSchema
+  '@dotcom-tool-kit/vault': VaultSchema
 }
 
 export type PluginOptions = InferSchemaOptions<typeof PluginSchemas>

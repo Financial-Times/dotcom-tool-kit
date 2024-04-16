@@ -1,13 +1,12 @@
 tasks:
-  TypeScriptBuild: './lib/tasks/build'
-  TypeScriptWatch: './lib/tasks/watch'
-  TypeScriptTest: './lib/tasks/test'
+  TypeScript: './lib/tasks'
 
 commands:
-  'build:local': TypeScriptBuild
-  'build:ci': TypeScriptBuild
-  'build:remote': TypeScriptBuild
-  'run:local': TypeScriptWatch
-  'test:local': TypeScriptTest
+  # TODO add options here once we support per-command-assignment options
+  'build:local': TypeScript
+  'build:ci': TypeScript
+  'build:remote': TypeScript
+  'run:local': TypeScript # watch
+  'test:local': TypeScript # noEmit
 
 version: 2
