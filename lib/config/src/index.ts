@@ -19,6 +19,7 @@ export interface RawConfig {
   taskOptions: { [id: string]: OptionsForTask | Conflict<OptionsForTask> | undefined }
   hooks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   inits: EntryPoint[]
+  hookManagedFiles: Set<string>
 }
 
 export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {

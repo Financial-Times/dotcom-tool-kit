@@ -6,11 +6,11 @@ export const mergeHooks = (config: ValidPluginsConfig, plugin: Plugin) => {
   if (plugin.rcFile) {
     // add hooks to the registry, handling any conflicts
     // TODO refactor with command conflict handler
-    for (const [hookName, modulePath] of Object.entries(plugin.rcFile.installs || {})) {
+    for (const [hookName, hookSpec] of Object.entries(plugin.rcFile.installs || {})) {
       const existingHookId = config.hooks[hookName]
       const entryPoint: EntryPoint = {
         plugin,
-        modulePath
+        modulePath: hookSpec.entryPoint
       }
 
       if (existingHookId) {
@@ -22,6 +22,7 @@ export const mergeHooks = (config: ValidPluginsConfig, plugin: Plugin) => {
         }
       } else {
         config.hooks[hookName] = entryPoint
+        hookSpec.managesFiles?.forEach((file) => config.hookManagedFiles.add(file))
       }
     }
   }
