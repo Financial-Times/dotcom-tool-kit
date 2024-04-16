@@ -218,6 +218,20 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.4.3 to ^3.4.4
 
+## [3.7.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.1...create-v3.7.2) (2024-04-16)
+
+
+### Bug Fixes
+
+* **create:** use Doppler-managed AWS key format ([67622a4](https://github.com/Financial-Times/dotcom-tool-kit/commit/67622a456df0517fc6b5572109b5f5418324fe2b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.4.5 to ^3.5.0
+
 ## [3.7.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.0...create-v3.7.1) (2024-03-05)
 
 
