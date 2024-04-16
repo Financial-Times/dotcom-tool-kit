@@ -1,4 +1,5 @@
-import { configPaths, readState, writeState } from '@dotcom-tool-kit/state'
+import { ValidConfig } from '@dotcom-tool-kit/config'
+import { readState, writeState } from '@dotcom-tool-kit/state'
 import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 import { Logger } from 'winston'
@@ -17,20 +18,26 @@ export async function fileHash(path: string): Promise<string> {
   }
 }
 
-export async function updateHashes(): Promise<void> {
+export async function updateHashes(config: ValidConfig): Promise<void> {
   const hashes = Object.fromEntries(
-    await Promise.all(configPaths.map(async (path) => [path, await fileHash(path)]))
+    await Promise.all(
+      ['.toolkitrc.yml', ...config.hookManagedFiles].map(async (path) => [path, await fileHash(path)])
+    )
   )
   writeState('install', hashes)
 }
 
-export async function hasConfigChanged(logger: Logger): Promise<boolean> {
+export async function hasConfigChanged(logger: Logger, config: ValidConfig): Promise<boolean> {
   const hashes = readState('install')
+
   if (!hashes) {
     return true
   }
-  for (const [path, prevHash] of Object.entries(hashes)) {
+
+  for (const path of ['.toolkitrc.yml', ...config.hookManagedFiles]) {
     const newHash = await fileHash(path)
+    const prevHash = hashes[path]
+
     if (newHash !== prevHash) {
       logger.debug(`hash for path ${path} has changed, running hook checks`)
       return true
