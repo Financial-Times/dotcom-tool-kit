@@ -6,7 +6,7 @@ import { publish } from 'libnpmpublish'
 import pack from 'libnpmpack'
 import { writeFile } from 'fs/promises'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const readStateMock = jest.spyOn(state, 'readState')
 jest.spyOn(pacote, 'manifest').mockImplementation(() => Promise.resolve({} as ManifestResult))

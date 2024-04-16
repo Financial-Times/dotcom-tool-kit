@@ -3,7 +3,7 @@ import winston, { Logger } from 'winston'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
 import { DopplerEnvVars } from '../src/index'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 jest.mock('@dotcom-tool-kit/vault')
 const mockedVaultEnvVars = jest.mocked(VaultEnvVars)

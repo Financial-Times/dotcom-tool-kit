@@ -21,9 +21,11 @@ export function installHooks(logger: typeof winstonLogger): Promise<ValidConfig>
   // we need to import installHooks from the app itself instead of npx or else
   // loadPlugin will load rawPlugin from npx and Task will be loaded from the
   // app, leading to task.prototype failing the instanceof Task check
-  return (importCwd('dotcom-tool-kit/lib/install') as {
-    default: typeof installHooksType
-  }).default(logger)
+  return (
+    importCwd('dotcom-tool-kit/lib/install') as {
+      default: typeof installHooksType
+    }
+  ).default(logger)
 }
 
 export default async ({ error, logger, toolKitConfig, configPath }: ConflictsParams): Promise<boolean> => {

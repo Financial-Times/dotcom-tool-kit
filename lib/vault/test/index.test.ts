@@ -5,7 +5,7 @@ import { mocked } from 'ts-jest/utils'
 import fs from 'fs'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 let CIRCLECI: string
 if (process.env.CIRCLECI) {

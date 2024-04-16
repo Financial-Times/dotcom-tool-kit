@@ -3,7 +3,7 @@ import { repeatedCheckForSuccessStatus } from '../src/repeatedCheckForSuccessSta
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const reviewAppId = 'review-app-id'
 
