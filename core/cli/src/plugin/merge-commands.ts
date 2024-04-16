@@ -27,7 +27,15 @@ export const mergeCommands = (config: ValidPluginsConfig, plugin: Plugin, logger
       const newCommandTask: CommandTask = {
         id,
         plugin,
-        tasks: Array.isArray(configCommandTask) ? configCommandTask : [configCommandTask]
+        tasks: (Array.isArray(configCommandTask) ? configCommandTask : [configCommandTask]).flatMap(
+          (commandTask) => {
+            if (typeof commandTask === 'string') {
+              return [{ task: commandTask, options: {}, plugin }]
+            }
+
+            return Object.entries(commandTask).map(([task, options]) => ({ task, options, plugin }))
+          }
+        )
       }
 
       if (existingCommandTask) {

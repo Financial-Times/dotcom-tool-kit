@@ -11,6 +11,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
+import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 
 type ErrorSummary = {
   task: string
@@ -19,25 +20,27 @@ type ErrorSummary = {
 
 const loadTasks = async (
   logger: Logger,
-  taskNames: (keyof TaskOptions)[],
+  tasks: OptionsForTask[],
   config: ValidConfig
 ): Promise<Validated<Record<string, Task>>> => {
   const taskResults = await Promise.all(
-    taskNames.map(async (taskName) => {
-      const entryPoint = config.tasks[taskName]
+    tasks.map(async ({ task: taskId, options }) => {
+      const entryPoint = config.tasks[taskId]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
       return taskResult.map((Task) => {
-        const taskSchema = TaskSchemas[taskName]
-        const parsedOptions = taskSchema ? taskSchema.parse(config.taskOptions[taskName]) : {}
+        const taskSchema = TaskSchemas[taskId as keyof TaskOptions]
+        const parsedOptions = taskSchema
+          ? taskSchema.parse({ ...config.taskOptions[taskId].options, ...options })
+          : {}
 
         const task = new (Task as unknown as TaskConstructor)(
           logger,
-          taskName,
+          taskId,
           getOptions(entryPoint.plugin.id as OptionKey) ?? {},
           parsedOptions
         )
-        return [taskName, task]
+        return [taskId, task]
       })
     })
   )
@@ -77,10 +80,9 @@ ${availableCommands}`
     process.execArgv.push('--no-experimental-fetch')
   }
 
-  const taskNames = commands.flatMap(
-    (command) => config.commandTasks[command]?.tasks ?? []
-  ) as (keyof TaskOptions)[]
-  const tasks = (await loadTasks(logger, taskNames, config)).unwrap('tasks are invalid')
+  const commandTasks = commands.flatMap((command) => config.commandTasks[command]?.tasks ?? [])
+
+  const tasks = (await loadTasks(logger, commandTasks, config)).unwrap('tasks are invalid')
 
   for (const command of commands) {
     const errors: ErrorSummary[] = []
@@ -90,15 +92,15 @@ ${availableCommands}`
       continue
     }
 
-    for (const id of config.commandTasks[command].tasks) {
+    for (const { task: taskId } of config.commandTasks[command].tasks) {
       try {
-        logger.info(styles.taskHeader(`running ${styles.task(id)} task`))
-        await tasks[id].run(files)
+        logger.info(styles.taskHeader(`running ${styles.task(taskId)} task`))
+        await tasks[taskId].run(files)
       } catch (error) {
         // TODO use validated for this
         // allow subsequent command tasks to run on error
         errors.push({
-          task: id,
+          task: taskId,
           error: error as Error
         })
       }
