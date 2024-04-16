@@ -1,21 +1,29 @@
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
-import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/lib/plugins/typescript'
+import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/lib/tasks/typescript'
 import { fork } from 'child_process'
 
 const tscPath = require.resolve('typescript/bin/tsc')
 
-export default abstract class TypeScriptTask extends Task<{ plugin: typeof TypeScriptSchema }> {
-  abstract taskArgs: string[]
-
+export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> {
   async run(): Promise<void> {
-    // TODO: add monorepo support with --build option
-    const args = [...this.taskArgs]
-    if (this.pluginOptions.configPath) {
-      args.unshift('--project', this.pluginOptions.configPath)
+    const args = []
+
+    // TODO:KB:20240408 refactor this
+    if (this.options.build) {
+      args.push('--build')
     }
-    if (this.pluginOptions.extraArgs) {
-      args.push(...this.pluginOptions.extraArgs)
+
+    if (this.options.watch) {
+      args.push('--watch')
+    }
+
+    if (this.options.noEmit) {
+      args.push('--noEmit')
+    }
+
+    if (this.options.configPath) {
+      args.push('--project', this.options.configPath)
     }
 
     const child = fork(tscPath, args, { silent: true })

@@ -9,7 +9,7 @@ import { createConfig, validateConfig } from '../src/config'
 import { loadPlugin, resolvePlugin } from '../src/plugin'
 import { validatePlugins } from '../src/config/validate-plugins'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
 jest.setTimeout(20000)
@@ -105,10 +105,7 @@ describe('cli', () => {
       const validConfig = validateConfig(validPluginConfig, logger)
 
       expect(validConfig).not.toHaveProperty('commandTasks.build:local.conflicting')
-      expect(validConfig.commandTasks['build:local'].tasks).toEqual([
-        'WebpackDevelopment',
-        'BabelDevelopment'
-      ])
+      expect(validConfig.commandTasks['build:local'].tasks).toEqual(['Webpack', 'Babel'])
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details

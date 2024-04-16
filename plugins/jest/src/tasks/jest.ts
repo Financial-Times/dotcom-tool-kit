@@ -1,8 +1,9 @@
+import { Task } from '@dotcom-tool-kit/base'
+import { JestSchema } from '@dotcom-tool-kit/schemas/lib/tasks/jest'
 import { fork } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
-import type { JestOptions, JestMode } from '@dotcom-tool-kit/schemas/lib/plugins/jest'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
-import type { Logger } from 'winston'
+
 const jestCLIPath = require.resolve('jest-cli/bin/jest')
 
 // By default Jest will choose the number of worker threads based on the number
@@ -28,23 +29,27 @@ async function guessVCpus(): Promise<number> {
   }
 }
 
-export default async function runJest(logger: Logger, mode: JestMode, options: JestOptions): Promise<void> {
-  const args = ['--colors', options.configPath ? `--config=${options.configPath}` : '']
-  // TODO:20231107:IM we should probably refactor this plugin to move
-  // CI-specific logic to be within the CI task module
-  if (mode === 'ci') {
-    args.push('--ci')
-    // only relevant if running on CircleCI, other CI environments might handle
-    // virtualisation completely differently
-    if (process.env.CIRCLECI) {
-      // leave one vCPU free for the main thread, same as the default Jest
-      // logic
-      const maxWorkers = (await guessVCpus()) - 1
-      args.push(`--max-workers=${maxWorkers}`)
+export default class Jest extends Task<{ task: typeof JestSchema }> {
+  static description = ''
+
+  async run(): Promise<void> {
+    const args = ['--colors', this.options.configPath ? `--config=${this.options.configPath}` : '']
+
+    if (this.options.ci) {
+      args.push('--ci')
+      // only relevant if running on CircleCI, other CI environments might handle
+      // virtualisation completely differently
+      if (process.env.CIRCLECI) {
+        // leave one vCPU free for the main thread, same as the default Jest
+        // logic
+        const maxWorkers = (await guessVCpus()) - 1
+        args.push(`--max-workers=${maxWorkers}`)
+      }
     }
+
+    this.logger.info(`running jest ${args.join(' ')}`)
+    const child = fork(jestCLIPath, args, { silent: true })
+    hookFork(this.logger, 'jest', child)
+    return waitOnExit('jest', child)
   }
-  logger.info(`running jest ${args.join(' ')}`)
-  const child = fork(jestCLIPath, args, { silent: true })
-  hookFork(logger, 'jest', child)
-  return waitOnExit('jest', child)
 }

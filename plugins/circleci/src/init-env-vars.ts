@@ -7,7 +7,8 @@ export default class CircleCIEnvVars extends Init {
       branch: process.env.CIRCLE_BRANCH,
       repo: process.env.CIRCLE_PROJECT_REPONAME,
       version: process.env.CIRCLE_SHA1,
-      tag: process.env.CIRCLE_TAG
+      tag: process.env.CIRCLE_TAG,
+      buildNumber: process.env.CIRCLE_BUILD_NUM
     }
 
     if (process.env.CIRCLECI) {
