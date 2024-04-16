@@ -5,6 +5,6 @@ export const ServerlessRunSchema = z.object({
   useDoppler: z.boolean().default(true)
 })
 
-export type ServerlessOptions = z.infer<typeof ServerlessRunSchema>
+export type ServerlessRunOptions = z.infer<typeof ServerlessRunSchema>
 
 export const Schema = ServerlessRunSchema
