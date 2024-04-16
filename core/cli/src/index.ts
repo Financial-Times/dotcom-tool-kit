@@ -81,7 +81,12 @@ ${availableHooks}`
       try {
         await task.run(files)
       } catch (error) {
-        // allow subsequent hook tasks to run on error
+        // if there's an exit code, that's a request from the task to exit early
+        if(error instanceof ToolKitError && error.exitCode) {
+          throw error
+        }
+
+        // if not, we allow subsequent hook tasks to run on error
         errors.push({
           hook,
           task: id,
