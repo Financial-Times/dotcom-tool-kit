@@ -22,6 +22,7 @@ export const mergeHooks = (config: ValidPluginsConfig, plugin: Plugin) => {
         }
       } else {
         config.hooks[hookName] = entryPoint
+        hookSpec.managesFiles?.forEach((file) => config.hookManagedFiles.add(file))
       }
     }
   }
