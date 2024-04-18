@@ -1,9 +1,13 @@
-import colours from 'ansi-colors'
+import colours, { stripColor } from 'ansi-colors'
+import { boxen } from '@visulima/boxen'
+
+type BoxenOptions = typeof boxen extends (text: string, options?: infer O) => string ? O : never
 
 // consistent styling use cases for terminal colours
 // don't use ansi-colors directly, define a style please
 export const styles = {
-  hook: colours.magenta,
+  hook: colours.yellow,
+  command: colours.magenta,
   task: colours.blueBright,
   plugin: colours.cyan,
   URL: colours.cyan.underline,
@@ -20,5 +24,16 @@ export const styles = {
   error: (string: string): string => `${styles.errorHighlight.bold('‼︎')} ${styles.title(string)}`,
   warningHighlight: colours.yellow,
   warning: (string: string): string => styles.warningHighlight.bold('⚠︎') + ' ' + string,
-  ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2))
+  infoHighlight: colours.blue,
+  info: (string: string): string => styles.infoHighlight('ℹ︎') + ' ' + string,
+  ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2)),
+  box: (string: string, options: Partial<BoxenOptions>) =>
+    boxen(string, {
+      borderStyle: 'round',
+      padding: { left: 1, right: 1 },
+      ...options
+    }),
+  groupHeader: (string: string) => ` ╭─${'─'.repeat(stripColor(string).length)}─╮
+─┤ ${string} ├─${'─'.repeat(process.stdout.columns / 2 - stripColor(string).length - 6)}
+ ╰─${'─'.repeat(stripColor(string).length)}─╯`
 }
