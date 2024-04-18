@@ -1,13 +1,46 @@
 import { loadConfig } from './config'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
-import { styles } from '@dotcom-tool-kit/logger'
+import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
+import YAML from 'yaml'
+import $t from 'endent'
+import { CommandTask, OptionsForTask } from '@dotcom-tool-kit/plugin'
 
-export default async function showHelp(logger: Logger, hooks: string[]): Promise<void> {
+const toolKitIntro = s.box(
+  $t`
+    Tool Kit is modern, maintainable & modular developer tooling for FT.com projects.
+    ${s.URL('https://github.com/financial-times/dotcom-tool-kit')}
+  `,
+  { headerText: `🧰 ${s.title(`welcome to ${s.app('Tool Kit')}!`)}` }
+)
+
+const formatTask = ({ task, options }: OptionsForTask) => $t`
+  ${s.task(task)}${
+  Object.keys(options).length > 0
+    ? ` ${s.dim('with options:')}
+    ${YAML.stringify(options).trim()}`
+    : ''
+}
+`
+
+const formatCommandTask = (command: string, { tasks, plugin }: CommandTask) => $t`
+  ${s.groupHeader(s.command(command))}
+  ${
+    tasks.length
+      ? $t`
+        ${s.info(`${plugin.id !== 'app root' ? `from plugin ${s.plugin(plugin.id)}. ` : ''}runs tasks:`)}
+        ${tasks.map((task) => `- ${formatTask(task)}`).join('\n')}
+      `
+      : s.warning('no tasks configured to run on this command')
+  }
+`
+
+export default async function showHelp(logger: Logger, commands: string[]): Promise<void> {
   const config = await loadConfig(logger)
+  const printAllCommands = commands.length === 0
 
-  if (hooks.length === 0) {
-    hooks = Object.keys(config.hooks).sort()
+  if (printAllCommands) {
+    commands = Object.keys(config.commandTasks).sort()
   }
 
   for (const pluginOptions of Object.values(config.pluginOptions)) {
@@ -16,52 +49,49 @@ export default async function showHelp(logger: Logger, hooks: string[]): Promise
     }
   }
 
-  const missingHooks = hooks.filter((hook) => !config.hooks[hook])
+  logger.info($t`
+    ${toolKitIntro}
+    ${
+      Object.keys(config.commandTasks).length === 0
+        ? s.warning($t`
+          there are no commands available. add some commands by defining them in your ${s.filepath(
+            '.toolkitrc.yml'
+          )} or installing plugins that define commands.
+        `)
+        : ''
+    }
+  `)
 
-  logger.info(`
-🧰 ${styles.title(`welcome to ${styles.app('Tool Kit')}!`)}
+  const missingCommands = commands.filter((command) => !config.commandTasks[command])
 
-Tool Kit is modern, maintainable & modular developer tooling for FT.com projects.
+  if (missingCommands.length) {
+    logger.warn(
+      s.warning($t`
+      no such ${missingCommands.length > 1 ? 'commands' : 'command'} ${missingCommands
+        .map(s.command)
+        .join(', ')}
+    `)
+    )
+  }
 
-${styles.URL('https://github.com/financial-times/dotcom-tool-kit')}
+  for (const command of commands) {
+    const commandTask = config.commandTasks[command]
 
-${styles.ruler()}
-${
-  Object.keys(config.hooks).length === 0
-    ? `there are no hooks available. you'll need to install plugins that define hooks to be able to run Tool Kit tasks.`
-    : styles.dim(
-        hooks.length === 0
-          ? 'available hooks'
-          : `help for ${hooks.length - missingHooks.length} ${
-              hooks.length - missingHooks.length > 1 ? 'hooks' : 'hook'
-            }`
-      )
-}:
-`)
-
-  for (const hook of hooks) {
-    const Hook = config.hooks[hook]
-
-    if (Hook) {
-      const tasks = config.commandTasks[hook]
-      /* eslint-disable @typescript-eslint/no-explicit-any -- Object.constructor does not consider static properties */
-      logger.info(`${styles.heading(hook)}
-${(Hook.constructor as any).description ? (Hook.constructor as any).description + '\n' : ''}
-${
-  tasks && tasks.tasks.length
-    ? `runs ${tasks.tasks.length > 1 ? 'these tasks' : 'this task'}:
-${tasks.tasks.map((task) => `- ${styles.task(task.task)}`).join('\n')}`
-    : styles.dim('no tasks configured to run on this hook.')
-}
-${styles.ruler()}
-`)
-      /*eslint-enable @typescript-eslint/no-explicit-any */
+    if (commandTask) {
+      logger.info(formatCommandTask(command, commandTask))
     }
   }
 
-  if (missingHooks.length) {
-    logger.warn(
-      `no such ${missingHooks.length > 1 ? 'hooks' : 'hook'} ${missingHooks.map(styles.hook).join(', ')}`
-    )
+  if (printAllCommands) {
+    for (const [hook, entryPoint] of Object.entries(config.hooks)) {
+      const managesFiles = entryPoint.plugin.rcFile?.installs[hook].managesFiles ?? []
+      logger.info($t`
+        ${s.groupHeader(s.hook(hook))}
+        ${s.info($t`
+          from plugin ${s.plugin(entryPoint.plugin.id)}${managesFiles.length ? '. manages files:' : ''}
+        `)}
+        ${managesFiles.map((file) => `- ${s.filepath(file)}`).join('\n')}
+      `)
+    }
   }
 }
