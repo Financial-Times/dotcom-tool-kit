@@ -21,11 +21,11 @@ export const styles = {
   title: colours.bold.underline,
   taskHeader: colours.bgWhite.black,
   errorHighlight: colours.red,
-  error: (string: string): string => `${styles.errorHighlight.bold('‼︎')} ${styles.title(string)}`,
+  error: (string: string): string => `${styles.errorHighlight.bold('‼')} ${styles.title(string)}`,
   warningHighlight: colours.yellow,
-  warning: (string: string): string => styles.warningHighlight.bold('⚠︎') + ' ' + string,
+  warning: (string: string): string => styles.warningHighlight.bold('⚠') + ' ' + string,
   infoHighlight: colours.blue,
-  info: (string: string): string => styles.infoHighlight('ℹ︎') + ' ' + string,
+  info: (string: string): string => styles.infoHighlight('ℹ') + ' ' + string,
   ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2)),
   box: (string: string, options: Partial<BoxenOptions>) =>
     boxen(string, {
