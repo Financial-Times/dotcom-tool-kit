@@ -5,6 +5,7 @@ import type { Logger } from 'winston'
 import YAML from 'yaml'
 import $t from 'endent'
 import { CommandTask, OptionsForTask } from '@dotcom-tool-kit/plugin'
+import { ValidConfig } from '@dotcom-tool-kit/config'
 
 const toolKitIntro = s.box(
   $t`
@@ -23,17 +24,57 @@ const formatTask = ({ task, options }: OptionsForTask) => $t`
 }
 `
 
+const formatCommandTasks = (config: ValidConfig, commands: string[]) =>
+  s.box(
+    $t`
+  ${s.info(
+    `commands run Tool Kit tasks with ${s.code(
+      'npx dotcom-tool-kit $command'
+    )}, or via configuration installed by hooks in your repository.`
+  )}
+  ${commands
+    .map((command) =>
+      config.commandTasks[command] ? formatCommandTask(command, config.commandTasks[command]) + '\n' : ''
+    )
+    .join('')}
+`,
+    {
+      headerText: s.title('⚙️ available commands')
+    }
+  )
+
 const formatCommandTask = (command: string, { tasks, plugin }: CommandTask) => $t`
   ${s.groupHeader(s.command(command))}
   ${
     tasks.length
       ? $t`
         ${s.info(`${plugin.id !== 'app root' ? `from plugin ${s.plugin(plugin.id)}. ` : ''}runs tasks:`)}
-        ${tasks.map((task) => `- ${formatTask(task)}`).join('\n')}
+        ${tasks.map((task) => `  - ${formatTask(task)}`).join('\n')}
       `
-      : s.warning('no tasks configured to run on this command')
+      : s.warning(`no tasks configured to run for ${s.command(command)}`)
   }
 `
+
+const formatHooks = (config: ValidConfig) =>
+  s.box(
+    $t`
+  ${s.info('hooks manage configuration files in your repository, for running Tool Kit commands.')}
+  ${Object.entries(config.hooks)
+    .map(([hook, entryPoint]) => {
+      const managesFiles = entryPoint.plugin.rcFile?.installs[hook].managesFiles ?? []
+      return $t`
+        ${s.groupHeader(s.hook(hook))}
+        ${s.info($t`
+          from plugin ${s.plugin(entryPoint.plugin.id)}
+        `)}
+        ${managesFiles.length ? 'manages files:' : ''}
+        ${managesFiles.map((file) => `  - ${s.filepath(file)}`).join('\n')}
+      `
+    })
+    .join('\n')}
+`,
+    { headerText: s.title('🎣 installed hooks') }
+  )
 
 export default async function showHelp(logger: Logger, commands: string[]): Promise<void> {
   const config = await loadConfig(logger)
@@ -49,20 +90,13 @@ export default async function showHelp(logger: Logger, commands: string[]): Prom
     }
   }
 
-  logger.info($t`
-    ${toolKitIntro}
-    ${
-      Object.keys(config.commandTasks).length === 0
-        ? s.warning($t`
-          there are no commands available. add some commands by defining them in your ${s.filepath(
-            '.toolkitrc.yml'
-          )} or installing plugins that define commands.
-        `)
-        : ''
-    }
-  `)
+  logger.info(toolKitIntro)
 
   const missingCommands = commands.filter((command) => !config.commandTasks[command])
+
+  if (printAllCommands && Object.keys(config.hooks).length) {
+    logger.info(formatHooks(config))
+  }
 
   if (missingCommands.length) {
     logger.warn(
@@ -74,24 +108,15 @@ export default async function showHelp(logger: Logger, commands: string[]): Prom
     )
   }
 
-  for (const command of commands) {
-    const commandTask = config.commandTasks[command]
-
-    if (commandTask) {
-      logger.info(formatCommandTask(command, commandTask))
+  logger.info($t`
+    ${
+      Object.keys(config.commandTasks).length === 0
+        ? s.warning($t`
+          there are no commands available. add some commands by defining them in your ${s.filepath(
+            '.toolkitrc.yml'
+          )} or installing plugins that define commands.
+        `)
+        : formatCommandTasks(config, commands)
     }
-  }
-
-  if (printAllCommands) {
-    for (const [hook, entryPoint] of Object.entries(config.hooks)) {
-      const managesFiles = entryPoint.plugin.rcFile?.installs[hook].managesFiles ?? []
-      logger.info($t`
-        ${s.groupHeader(s.hook(hook))}
-        ${s.info($t`
-          from plugin ${s.plugin(entryPoint.plugin.id)}${managesFiles.length ? '. manages files:' : ''}
-        `)}
-        ${managesFiles.map((file) => `- ${s.filepath(file)}`).join('\n')}
-      `)
-    }
-  }
+  `)
 }
