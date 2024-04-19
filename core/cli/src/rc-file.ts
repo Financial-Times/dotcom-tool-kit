@@ -1,10 +1,10 @@
+import fs from 'node:fs/promises'
 import { styles as s } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/plugin'
-import { cosmiconfig } from 'cosmiconfig'
 import * as path from 'path'
 import type { Logger } from 'winston'
+import * as YAML from 'yaml'
 
-export const explorer = cosmiconfig('toolkit', { ignoreEmptySearchPlaces: false })
 const emptyConfig = {
   plugins: [],
   installs: {},
@@ -13,7 +13,6 @@ const emptyConfig = {
   options: { plugins: {}, tasks: {}, hooks: [] },
   init: []
 } satisfies RCFile
-let rootConfig: string | undefined
 
 type RawRCFile = {
   [key in Exclude<keyof RCFile, 'options'>]?: RCFile[key] | null
@@ -25,27 +24,20 @@ type RawRCFile = {
     | null
 }
 
-export async function loadToolKitRC(logger: Logger, root: string, isAppRoot: boolean): Promise<RCFile> {
-  const result = await explorer.search(root)
 
-  if (!result?.config) {
-    return emptyConfig
-  }
-  if (isAppRoot) {
-    rootConfig = result.filepath
-  } else if (result.filepath === rootConfig) {
-    // Make sure that custom plugins which don't have a config file won't cause
-    // the resolver to use the root config instead and start an infinite loop
-    // of config resolution.
-    logger.warn(
-      `plugin at ${s.filepath(path.dirname(root))} has no config file. please add an empty ${s.filepath(
-        '.toolkitrc'
-      )} file to avoid potential config resolution issues.`
-    )
-    return emptyConfig
+export async function loadToolKitRC(logger: Logger, root: string): Promise<RCFile> {
+  let rawConfig: string
+  try {
+    rawConfig = await fs.readFile(path.join(root, '.toolkitrc.yml'), 'utf8')
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
+      return emptyConfig
+    } else {
+      throw err
+    }
   }
 
-  const config: RawRCFile = result.config
+  const config: RawRCFile = YAML.parse(rawConfig)
 
   // if a toolkitrc contains a non-empty options field, but not options.{plugins,tasks,hooks},
   // assume it's an old-style, plugins-only options field.
