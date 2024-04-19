@@ -37,7 +37,7 @@ export async function loadPlugin(
     id,
     root: pluginRoot,
     parent,
-    rcFile: await loadToolKitRC(logger, pluginRoot, isAppRoot),
+    rcFile: await loadToolKitRC(logger, pluginRoot),
     children: [] as Plugin[]
   }
 
