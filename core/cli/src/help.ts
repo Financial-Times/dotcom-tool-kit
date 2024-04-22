@@ -12,7 +12,7 @@ const toolKitIntro = s.box(
     Tool Kit is modern, maintainable & modular developer tooling for FT.com projects.
     ${s.URL('https://github.com/financial-times/dotcom-tool-kit')}
   `,
-  { headerText: `🧰 ${s.title(`welcome to ${s.app('Tool Kit')}!`)}` }
+  { title: `🧰 ${s.title(`welcome to ${s.app('Tool Kit')}!`)}` }
 )
 
 const formatTask = ({ task, options }: OptionsForTask) => $t`
@@ -38,7 +38,7 @@ const formatCommandTasks = (config: ValidConfig, commands: string[]) =>
 
 `,
     {
-      headerText: '⛭ ' + s.title('available commands')
+      title: '⛭ ' + s.title('available commands')
     }
   )
 
@@ -74,7 +74,7 @@ const formatHooks = (config: ValidConfig) =>
     })
     .join('\n')}
 `,
-    { headerText: s.title('🎣 installed hooks') }
+    { title: s.title('🎣 installed hooks') }
   )
 
 export default async function showHelp(logger: Logger, commands: string[]): Promise<void> {
