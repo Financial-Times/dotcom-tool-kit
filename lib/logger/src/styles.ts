@@ -1,4 +1,5 @@
-import colours, { stripColor } from 'ansi-colors'
+import colours from 'chalk'
+import stripAnsi from 'strip-ansi'
 import { boxen } from '@visulima/boxen'
 
 type BoxenOptions = typeof boxen extends (text: string, options?: infer O) => string ? O : never
@@ -20,12 +21,14 @@ export const styles = {
   dim: colours.grey,
   title: colours.bold.underline,
   taskHeader: colours.bgWhite.black,
-  errorHighlight: colours.red,
-  error: (string: string): string => `${styles.errorHighlight.bold('‼')} ${styles.title(string)}`,
-  warningHighlight: colours.yellow,
-  warning: (string: string): string => styles.warningHighlight.bold('⚠') + ' ' + string,
-  infoHighlight: colours.blue,
-  info: (string: string): string => styles.infoHighlight('ℹ') + ' ' + string,
+  errorHighlight: colours.bgRed.bold,
+  error: (string: string): string => `${styles.errorHighlight(' × ️')} ${styles.title(string)}`,
+  warningHighlight: colours.bgYellow.bold,
+  warning: (string: string): string => styles.warningHighlight(' ! ') + ' ' + string,
+  infoHighlight: colours.bgBlueBright.bold,
+  info: (string: string): string => styles.infoHighlight(' i ') + ' ' + string,
+  helpHighlight: colours.bgGreen.bold,
+  help: (string: string): string => styles.helpHighlight(' ? ') + ' ' + string,
   ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2)),
   box: (string: string, options: Partial<BoxenOptions>) =>
     boxen(string, {
@@ -33,7 +36,7 @@ export const styles = {
       padding: { left: 1, right: 1 },
       ...options
     }),
-  groupHeader: (string: string) => ` ╭─${'─'.repeat(stripColor(string).length)}─╮
-─┤ ${string} ├─${'─'.repeat(process.stdout.columns / 2 - stripColor(string).length - 6)}
- ╰─${'─'.repeat(stripColor(string).length)}─╯`
+  groupHeader: (string: string) => ` ╭─${'─'.repeat(stripAnsi(string).length)}─╮
+─┤ ${string} ├─${'─'.repeat(process.stdout.columns / 2 - stripAnsi(string).length - 6)}
+ ╰─${'─'.repeat(stripAnsi(string).length)}─╯`
 }
