@@ -93,27 +93,24 @@ export default async function showHelp(logger: Logger, commands: string[]): Prom
 
   logger.info(toolKitIntro)
 
+  const definedCommands = commands.filter((command) => config.commandTasks[command])
   const missingCommands = commands.filter((command) => !config.commandTasks[command])
 
   if (printAllCommands && Object.keys(config.hooks).length) {
     logger.info(formatHooks(config))
   }
 
-  if (missingCommands.length !== commands.length) {
-    logger.info($t`
-      ${
-        Object.keys(config.commandTasks).length === 0
-          ? s.warning($t`
-            there are no commands available. add some commands by defining them in your ${s.filepath(
-              '.toolkitrc.yml'
-            )} or installing plugins that define commands.
-          `)
-          : formatCommandTasks(config, commands)
-      }
-    `)
-  }
-
-  if (missingCommands.length) {
+  if (Object.keys(config.commandTasks).length === 0) {
+    logger.warn(
+      s.warning($t`
+          there are no commands available. add some commands by defining them in your ${s.filepath(
+            '.toolkitrc.yml'
+          )} or installing plugins that define commands.
+        `)
+    )
+  } else if (definedCommands.length > 0) {
+    logger.info(formatCommandTasks(config, definedCommands))
+  } else if (missingCommands.length) {
     logger.warn(
       s.error($t`
       no such ${missingCommands.length > 1 ? 'commands' : 'command'} ${missingCommands
