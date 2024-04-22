@@ -22,7 +22,7 @@ export const styles = {
   title: colours.bold.underline,
   taskHeader: colours.bgWhite.black,
   errorHighlight: colours.bgRed.bold,
-  error: (string: string): string => `${styles.errorHighlight(' × ️')} ${styles.title(string)}`,
+  error: (string: string): string => `${styles.errorHighlight(' × ')} ${styles.title(string)}`,
   warningHighlight: colours.bgYellow.bold,
   warning: (string: string): string => styles.warningHighlight(' ! ') + ' ' + string,
   infoHighlight: colours.bgBlueBright.bold,
