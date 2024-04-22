@@ -21,14 +21,13 @@ const formatTask = ({ task, options }: OptionsForTask) => $t`
     ? ` ${s.dim('with options:')}
     ${YAML.stringify(options).trim()}`
     : ''
-}
-`
+}`
 
 const formatCommandTasks = (config: ValidConfig, commands: string[]) =>
   s.box(
     $t`
-  ${s.info(
-    `commands run Tool Kit tasks with ${s.code(
+  ${s.help(
+    `${s.command('commands')} run Tool Kit tasks with ${s.code(
       'npx dotcom-tool-kit $command'
     )}, or via configuration installed by hooks in your repository.`
   )}
@@ -39,7 +38,7 @@ const formatCommandTasks = (config: ValidConfig, commands: string[]) =>
     .join('')}
 `,
     {
-      headerText: s.title('⚙️ available commands')
+      headerText: '⛭ ' + s.title('available commands')
     }
   )
 
@@ -58,7 +57,9 @@ const formatCommandTask = (command: string, { tasks, plugin }: CommandTask) => $
 const formatHooks = (config: ValidConfig) =>
   s.box(
     $t`
-  ${s.info('hooks manage configuration files in your repository, for running Tool Kit commands.')}
+  ${s.help(
+    `${s.hook('hooks')} manage configuration files in your repository, for running Tool Kit commands.`
+  )}
   ${Object.entries(config.hooks)
     .map(([hook, entryPoint]) => {
       const managesFiles = entryPoint.plugin.rcFile?.installs[hook].managesFiles ?? []
@@ -100,9 +101,9 @@ export default async function showHelp(logger: Logger, commands: string[]): Prom
 
   if (missingCommands.length) {
     logger.warn(
-      s.warning($t`
+      s.error($t`
       no such ${missingCommands.length > 1 ? 'commands' : 'command'} ${missingCommands
-        .map(s.command)
+        .map((id) => s.command(id))
         .join(', ')}
     `)
     )
