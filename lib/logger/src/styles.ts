@@ -1,6 +1,6 @@
 import colours from 'chalk'
 import stripAnsi from 'strip-ansi'
-import boxen from 'boxen'
+import boxen from '@apaleslimghost/boxen'
 
 // consistent styling use cases for terminal colours
 // don't use ansi-colors directly, define a style please
