@@ -1,8 +1,6 @@
 import colours from 'chalk'
 import stripAnsi from 'strip-ansi'
-import { boxen } from '@visulima/boxen'
-
-type BoxenOptions = typeof boxen extends (text: string, options?: infer O) => string ? O : never
+import boxen from 'boxen'
 
 // consistent styling use cases for terminal colours
 // don't use ansi-colors directly, define a style please
@@ -30,10 +28,10 @@ export const styles = {
   helpHighlight: colours.bgGreen.black,
   help: (string: string): string => styles.helpHighlight(' ? ') + ' ' + string,
   ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2)),
-  box: (string: string, options: Partial<BoxenOptions>) =>
+  box: (string: string, options: Partial<boxen.Options>) =>
     boxen(string, {
       borderStyle: 'round',
-      padding: { left: 1, right: 1 },
+      padding: { top: 0, bottom: 0, left: 1, right: 1 },
       ...options
     }),
   groupHeader: (string: string) => ` ╭─${'─'.repeat(stripAnsi(string).length)}─╮
