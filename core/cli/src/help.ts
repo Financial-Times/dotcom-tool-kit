@@ -32,10 +32,10 @@ const formatCommandTasks = (config: ValidConfig, commands: string[]) =>
     )}, or via configuration installed by hooks in your repository.`
   )}
   ${commands
-    .map((command) =>
-      config.commandTasks[command] ? formatCommandTask(command, config.commandTasks[command]) + '\n' : ''
-    )
-    .join('')}
+    .filter((command) => config.commandTasks[command])
+    .map((command) => formatCommandTask(command, config.commandTasks[command]))
+    .join('\n')}
+
 `,
     {
       headerText: '⛭ ' + s.title('available commands')
