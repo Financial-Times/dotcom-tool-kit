@@ -10,7 +10,7 @@ const { convertSchemas, formatModelsAsMarkdown } = require('zod2md')
 
 function formatSchemas(title, schemas) {
   const converted = convertSchemas(schemas)
-  return formatModelsAsMarkdown(converted, { title })
+  return formatModelsAsMarkdown(converted, { title, transformName: (name) => '`' + name + '`' })
 }
 
 function formatPluginSchemas({ plugin, hooks, tasks }) {
@@ -19,9 +19,9 @@ function formatPluginSchemas({ plugin, hooks, tasks }) {
   return $t`
     ${
       PluginSchemas[plugin]
-        ? formatSchemas(plugin, [
+        ? formatSchemas('Plugin-wide options', [
             {
-              name: ' ',
+              name: plugin,
               schema: PluginSchemas[plugin]
             }
           ])
@@ -30,7 +30,7 @@ function formatPluginSchemas({ plugin, hooks, tasks }) {
     ${
       tasksWithSchemas.length
         ? formatSchemas(
-            'Tasks',
+            'Task options',
             tasksWithSchemas.map((task) => ({
               name: task,
               schema: TaskSchemas[task]
@@ -41,7 +41,7 @@ function formatPluginSchemas({ plugin, hooks, tasks }) {
     ${
       hooksWithSchemas.length
         ? formatSchemas(
-            'Hooks',
+            'Hook options',
             hooksWithSchemas.map((hook) => ({
               name: hook,
               schema: HookSchemas[hook]
@@ -53,7 +53,7 @@ function formatPluginSchemas({ plugin, hooks, tasks }) {
 }
 
 function postProcessMarkdown(markdown) {
-  return '## Options\n\n' + markdown.replaceAll(/^#/gm, '###')
+  return markdown.replace(/^#/gm, '##').replace(/_Object containing the following properties:_\n\n/g, '')
 }
 
 async function getPluginSchemas(plugin) {
@@ -83,7 +83,7 @@ function replaceBetween(text, replaceWith, startMarker, endMarker) {
 }
 
 async function main() {
-  const plugins = ['jest'] //await fs.readdir('plugins')
+  const plugins = ['serverless'] //await fs.readdir('plugins')
 
   return await Promise.all(
     plugins.map(async (plugin) => {
