@@ -4,9 +4,10 @@ export const NextRouterSchema = z.object({
   appName: z
     .string()
     .describe(
-      'This needs to be same as the name your app is registered under in next-service-registry. This is usually – but not always – your system code.'
+      "The system's `name` field as it appears in [next-service-registry](https://next-registry.ft.com/v2). **This is often different to its Biz Ops system code**, so be sure to check."
     )
 })
+
 export type NextRouterOptions = z.infer<typeof NextRouterSchema>
 
 export const Schema = NextRouterSchema
