@@ -81,7 +81,7 @@ function replaceBetween(text, replaceWith, startMarker, endMarker) {
 }
 
 async function main() {
-  const plugins = ['circleci'] //await fs.readdir('plugins')
+  const plugins = await fs.readdir('plugins')
 
   return await Promise.all(
     plugins.map(async (plugin) => {
@@ -89,14 +89,20 @@ async function main() {
       const generatedOptionsMarkdown = await formatPluginSchemas(plugin)
 
       const originalReadme = await fs.readFile(readmePath, 'utf-8')
-      const replacedReadme = replaceBetween(
-        originalReadme,
-        generatedOptionsMarkdown,
-        BEGIN_COMMENT,
-        END_COMMENT
-      )
 
-      await fs.writeFile(readmePath, replacedReadme, 'utf-8')
+      try {
+        const replacedReadme = replaceBetween(
+          originalReadme,
+          generatedOptionsMarkdown,
+          BEGIN_COMMENT,
+          END_COMMENT
+        )
+
+        await fs.writeFile(readmePath, replacedReadme, 'utf-8')
+        console.log(`written ${readmePath}`)
+      } catch (e) {
+        console.error(`no replacement markers in ${readmePath}`)
+      }
     })
   )
 }
