@@ -106,4 +106,32 @@ options:
       `"cannot reference plugin options when specifying options"`
     )
   })
+
+  it('should print multiple invalid tags in error', async () => {
+    mockedFs.readFile.mockResolvedValueOnce(
+      yaml(`
+options:
+  plugins:
+    test:
+      !toolkit/if-defined 'test.foo':
+        foo: !toolkit/option 'test.foo'
+    other-test:
+      - bar: !toolkit/option 'test.bar'
+`)
+    )
+
+    expect.assertions(2)
+    try {
+      await loadConfig(logger, { validate: false })
+    } catch (error) {
+      expect(error.details.split('\n\n')).toHaveLength(3)
+      expect(error.details).toMatchInlineSnapshot(`
+        "YAML tag referencing options used at path 'options.plugins.test'
+
+        YAML tag referencing options used at path 'options.plugins.test.foo'
+
+        YAML tag referencing options used at path 'options.plugins.other-test.0.bar'"
+      `)
+    }
+  })
 })
