@@ -1,7 +1,7 @@
 installs:
   CircleCi:
     entryPoint: './lib/circleci-config'
-    managedFiles:
+    managesFiles:
       - '.circleci/config.yml'
 
 options:
