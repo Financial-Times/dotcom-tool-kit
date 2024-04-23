@@ -2,10 +2,22 @@ import { PromptGenerators } from '../prompts'
 import { z } from 'zod'
 
 export const ServerlessSchema = z.object({
-  awsAccountId: z.string(),
-  systemCode: z.string(),
-  regions: z.array(z.string()).default(['eu-west-1']),
-  configPath: z.string().optional()
+  awsAccountId: z
+    .string()
+    .describe(
+      'the ID of the AWS account you wish to deploy to (account IDs can be found at the [FT login page](https://awslogin.in.ft.com/))'
+    ),
+  systemCode: z.string().describe('the system code for your app'),
+  regions: z
+    .array(z.string())
+    .default(['eu-west-1'])
+    .describe('an array of AWS regions you want to deploy to'),
+  configPath: z
+    .string()
+    .optional()
+    .describe(
+      'path to your serverless config file. If this is not provided, Serverless defaults to `./serverless.yml` but [other config fomats are accepted](https://www.serverless.com/framework/docs/providers/aws/guide/intro#alternative-configuration-format)'
+    )
 })
 
 export type ServerlessOptions = z.infer<typeof ServerlessSchema>
