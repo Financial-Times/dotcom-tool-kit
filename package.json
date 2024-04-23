@@ -20,6 +20,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "devDependencies": {
+    "@apaleslimghost/zod2md": "^0.2.0-0",
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
     "@dotcom-reliability-kit/eslint-config": "^2.0.0",
@@ -39,7 +40,8 @@
     "prettier": "^2.8.8",
     "release-please": "^15.0.0",
     "ts-jest": "^29.1.2",
-    "typescript": "~5.4.5"
+    "typescript": "~5.4.5",
+    "zod2md": "^0.1.2"
   },
   "workspaces": [
     "core/*",
