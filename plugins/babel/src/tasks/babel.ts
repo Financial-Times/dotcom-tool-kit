@@ -13,7 +13,7 @@ export default class Babel extends Task<{ task: typeof BabelSchema }> {
   static description = 'build babel'
 
   async run(): Promise<void> {
-    const fileGlob = this.options.files ?? 'src/**/*.js'
+    const fileGlob = this.options.files
     const files = await fg(fileGlob)
     // Work out the root of the glob so we can strip this part of the path out of
     // the outputted files.
@@ -21,7 +21,7 @@ export default class Babel extends Task<{ task: typeof BabelSchema }> {
     //       a glob of 'src/a/**/*.js' = src/a/b.js -> lib/b.js
     const { base } = fg.generateTasks(fileGlob)[0]
 
-    const outputPath = this.options.outputPath ?? 'lib'
+    const outputPath = this.options.outputPath
 
     this.logger.info('running babel')
     const unhook = hookConsole(this.logger, 'babel')

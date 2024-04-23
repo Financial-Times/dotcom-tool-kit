@@ -25,7 +25,7 @@ plugins:
 ### `ServerlessRun`
 
 Run serverless functions locally
-#### Options
+#### Task options
 
 | Property     | Description                                                 | Type            | Default            |
 | :----------- | :---------------------------------------------------------- | :-------------- | :----------------- |
