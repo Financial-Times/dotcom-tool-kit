@@ -5,6 +5,10 @@ import type { Logger } from 'winston'
 
 type Default<T, D> = T extends undefined ? D : T
 
+export type TaskRunContext = {
+  files?: string[]
+}
+
 export abstract class Task<
   Options extends {
     plugin?: z.ZodTypeAny
@@ -31,7 +35,7 @@ export abstract class Task<
     this.logger = logger.child({ task: id })
   }
 
-  abstract run(files?: string[]): Promise<void>
+  abstract run(runContext: TaskRunContext): Promise<void>
 }
 
 export type TaskConstructor = {
