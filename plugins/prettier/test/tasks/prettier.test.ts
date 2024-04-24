@@ -1,4 +1,3 @@
-import { describe, it, expect, beforeAll } from '@jest/globals'
 import * as path from 'path'
 import Prettier from '../../src/tasks/prettier'
 import { promises as fsp } from 'fs'

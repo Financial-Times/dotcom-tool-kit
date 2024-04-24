@@ -6,7 +6,7 @@ import winston, { Logger } from 'winston'
 import { HookInstallation } from '@dotcom-tool-kit/base'
 import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/lib/hooks/package-json'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 describe('package.json hook', () => {
   const originalDir = process.cwd()
@@ -71,8 +71,8 @@ describe('package.json hook', () => {
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
         expect(packageJson).toMatchInlineSnapshot(`
-          Object {
-            "scripts": Object {
+          {
+            "scripts": {
               "test-hook": "dotcom-tool-kit test:hook",
             },
           }
@@ -105,8 +105,8 @@ describe('package.json hook', () => {
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
         expect(packageJson).toMatchInlineSnapshot(`
-          Object {
-            "scripts": Object {
+          {
+            "scripts": {
               "test-hook": "dotcom-tool-kit test:hook --",
             },
           }
@@ -136,9 +136,9 @@ describe('package.json hook', () => {
         const packageJson = JSON.parse(await fs.readFile(pkgPath, 'utf-8'))
 
         expect(packageJson).toMatchInlineSnapshot(`
-          Object {
-            "scripts": Object {
-              "nested": Object {
+          {
+            "scripts": {
+              "nested": {
                 "test-hook": "dotcom-tool-kit test:hook",
               },
             },
@@ -189,7 +189,7 @@ describe('package.json hook', () => {
       expect(
         PackageJson.mergeChildInstallations(
           plugin,
-          (childInstallations as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
+          childInstallations as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
         )
       ).toEqual([
         {
@@ -238,7 +238,7 @@ describe('package.json hook', () => {
       expect(
         PackageJson.mergeChildInstallations(
           plugin,
-          (childInstallations as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
+          childInstallations as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
         )
       ).toEqual([
         {
@@ -297,7 +297,7 @@ describe('package.json hook', () => {
       expect(
         PackageJson.mergeChildInstallations(
           plugin,
-          (childInstallations as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
+          childInstallations as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
         )
       ).toEqual([
         {
@@ -372,8 +372,8 @@ describe('package.json hook', () => {
       expect(
         PackageJson.overrideChildInstallations(
           plugin,
-          (parentInstallation as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
-          (childInstallations as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
+          parentInstallation as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
+          childInstallations as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
         )
       ).toEqual([
         {
@@ -437,8 +437,8 @@ describe('package.json hook', () => {
       expect(
         PackageJson.overrideChildInstallations(
           plugin,
-          (parentInstallation as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
-          (childInstallations as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
+          parentInstallation as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
+          childInstallations as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
         )
       ).toEqual([
         {
@@ -499,8 +499,8 @@ describe('package.json hook', () => {
       expect(
         PackageJson.overrideChildInstallations(
           plugin,
-          (parentInstallation as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
-          (childInstallations as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
+          parentInstallation as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
+          childInstallations as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
         )
       ).toEqual([
         {
@@ -595,8 +595,8 @@ describe('package.json hook', () => {
       expect(
         PackageJson.overrideChildInstallations(
           plugin,
-          (parentInstallation as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
-          (childInstallations as unknown) as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
+          parentInstallation as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>,
+          childInstallations as unknown as HookInstallation<Zod.output<typeof PackageJsonSchema>>[]
         )
       ).toEqual([
         {
