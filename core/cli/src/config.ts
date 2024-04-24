@@ -143,14 +143,22 @@ export function validateConfig(config: ValidPluginsConfig): ValidConfig {
   return validConfig
 }
 
-export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
-export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<RawConfig>
+export function loadConfig(logger: Logger, options?: { validate?: true; root?: string }): Promise<ValidConfig>
+export function loadConfig(logger: Logger, options?: { validate?: false; root?: string }): Promise<RawConfig>
 
-export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | RawConfig> {
+export async function loadConfig(
+  logger: Logger,
+  { validate = true, root }: { validate?: boolean; root?: string } = {}
+): Promise<ValidConfig | RawConfig> {
   const config = createConfig()
 
   // start loading config and child plugins, starting from the consumer app directory
-  const rootPlugin = await loadPlugin('app root', config, logger)
+  const rootPlugin = await loadPlugin(
+    'app root',
+    config,
+    logger,
+    root ? { id: 'workspace root', root } : undefined
+  )
   const validRootPlugin = rootPlugin.unwrap('root plugin was not valid!')
 
   const validatedPluginConfig = validatePlugins(config)
