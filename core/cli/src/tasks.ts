@@ -56,9 +56,7 @@ const loadTasks = async (
   return reduceValidated(taskResults)
 }
 
-export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
-  const config = await loadConfig(logger)
-
+export async function runTasksFromConfig(logger: Logger, config: ValidConfig, commands: string[], files?: string[]): Promise<void> {
   for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
@@ -130,4 +128,10 @@ ${error.details}`
       throw error
     }
   }
+}
+
+export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
+  const config = await loadConfig(logger)
+
+  return runTasksFromConfig(logger, config, commands, files)
 }
