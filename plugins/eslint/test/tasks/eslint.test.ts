@@ -42,7 +42,7 @@ describe('eslint', () => {
       }
     )
 
-    await expect(task.run()).resolves.toBeUndefined()
+    await expect(task.run({ command: 'test:local' })).resolves.toBeUndefined()
   })
 
   it('should fail on linter error', async () => {
@@ -56,7 +56,7 @@ describe('eslint', () => {
       }
     )
 
-    await expect(task.run()).rejects.toHaveProperty(
+    await expect(task.run({ command: 'test:local' })).rejects.toHaveProperty(
       'details',
       expect.stringContaining('1 problem (1 error, 0 warnings)')
     )
