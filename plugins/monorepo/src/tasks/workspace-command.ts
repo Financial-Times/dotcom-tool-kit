@@ -5,8 +5,9 @@ import path from 'path'
 import { loadConfig } from 'dotcom-tool-kit/lib/config'
 import { runTasksFromConfig } from 'dotcom-tool-kit/lib/tasks'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { WorkspaceCommandSchema } from '@dotcom-tool-kit/schemas/lib/tasks/workspace-command'
 
-export default class WorkspaceCommand extends Task {
+export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceCommandSchema }> {
   async runPackageCommand(packageId: string, packagePath: string, command: string, files?: string[]) {
     const config = await loadConfig(this.logger, { root: packagePath })
 
@@ -20,7 +21,9 @@ export default class WorkspaceCommand extends Task {
     const workspaces = await mapWorkspaces({ cwd, pkg })
 
     const results = await Promise.allSettled(
-      Array.from(workspaces, ([id, packagePath]) => this.runPackageCommand(id, packagePath, command, files))
+      Array.from(workspaces, ([id, packagePath]) =>
+        this.runPackageCommand(id, packagePath, this.options.command ?? command, files)
+      )
     )
 
     const erroredCommands = results.filter(
@@ -29,7 +32,7 @@ export default class WorkspaceCommand extends Task {
 
     if (erroredCommands.length) {
       // TODO improve error messages
-      const error = new ToolKitError(`error running workspace command ${command}`)
+      const error = new ToolKitError(`error running workspace command ${this.options.command ?? command}`)
       error.details = erroredCommands.map((result) => result.reason.toString()).join('\n\n')
       throw error
     }
