@@ -48,9 +48,12 @@ const loadTasks = async (
   return reduceValidated(taskResults).map(Object.fromEntries)
 }
 
-export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
-  const config = await loadConfig(logger)
-
+export async function runTasksFromConfig(
+  logger: Logger,
+  config: ValidConfig,
+  commands: string[],
+  files?: string[]
+) {
   const availableCommands = Object.keys(config.commandTasks)
     .sort()
     .map((id) => `- ${id}`)
@@ -127,4 +130,10 @@ ${error.details}`
       throw error
     }
   }
+}
+
+export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
+  const config = await loadConfig(logger)
+
+  return runTasksFromConfig(logger, config, commands, files)
 }
