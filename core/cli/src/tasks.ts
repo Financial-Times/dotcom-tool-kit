@@ -95,7 +95,7 @@ ${availableCommands}`
     for (const { task: taskId } of config.commandTasks[command].tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(taskId)} task`))
-        await tasks[taskId].run(files)
+        await tasks[taskId].run({ files })
       } catch (error) {
         // TODO use validated for this
         // allow subsequent command tasks to run on error
