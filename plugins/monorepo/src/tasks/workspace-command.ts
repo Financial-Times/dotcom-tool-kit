@@ -18,13 +18,10 @@ export default class WorkspaceCommand extends Task {
 
     const workspaces = await mapWorkspaces({ cwd, pkg })
 
-    const packagePromises: Array<Promise<void>> = []
+    const results = await Promise.allSettled(
+      Array.from(workspaces, ([id, packagePath]) => this.runPackageCommand(id, packagePath, command, files))
+    )
 
-    for (const [id, packagePath] of workspaces) {
-      packagePromises.push(this.runPackageCommand(id, packagePath, command, files))
-    }
-
-    const results = await Promise.allSettled(packagePromises)
     const erroredCommands = results.filter(
       (result): result is PromiseRejectedResult => result.status === 'rejected'
     )
