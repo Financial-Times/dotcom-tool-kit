@@ -14,6 +14,7 @@ import { SmokeTestSchema } from './tasks/n-test'
 import { CypressSchema } from './tasks/cypress'
 import { HerokuProductionSchema } from './tasks/heroku-production'
 import { ServerlessRunSchema } from './tasks/serverless-run'
+import { WorkspaceCommandSchema } from './tasks/workspace-command'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -30,7 +31,8 @@ export const TaskSchemas = {
   ServerlessRun: ServerlessRunSchema,
   TypeScript: TypeScriptSchema,
   UploadAssetsToS3: UploadAssetsToS3Schema,
-  Webpack: WebpackSchema
+  Webpack: WebpackSchema,
+  WorkspaceCommand: WorkspaceCommandSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>

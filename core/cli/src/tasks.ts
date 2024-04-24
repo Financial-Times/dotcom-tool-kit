@@ -30,9 +30,8 @@ const loadTasks = async (
 
       return taskResult.map((Task) => {
         const taskSchema = TaskSchemas[taskId as keyof TaskOptions]
-        const parsedOptions = taskSchema
-          ? taskSchema.parse({ ...config.taskOptions[taskId].options, ...options })
-          : {}
+        const configOptions = config.taskOptions[taskId]?.options ?? {}
+        const parsedOptions = taskSchema ? taskSchema.parse({ ...configOptions, ...options }) : {}
 
         const task = new (Task as unknown as TaskConstructor)(
           logger,
@@ -48,9 +47,12 @@ const loadTasks = async (
   return reduceValidated(taskResults).map(Object.fromEntries)
 }
 
-export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
-  const config = await loadConfig(logger)
-
+export async function runTasksFromConfig(
+  logger: Logger,
+  config: ValidConfig,
+  commands: string[],
+  files?: string[]
+) {
   const availableCommands = Object.keys(config.commandTasks)
     .sort()
     .map((id) => `- ${id}`)
@@ -95,7 +97,7 @@ ${availableCommands}`
     for (const { task: taskId } of config.commandTasks[command].tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(taskId)} task`))
-        await tasks[taskId].run(files)
+        await tasks[taskId].run({ files, command })
       } catch (error) {
         // TODO use validated for this
         // allow subsequent command tasks to run on error
@@ -127,4 +129,10 @@ ${error.details}`
       throw error
     }
   }
+}
+
+export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
+  const config = await loadConfig(logger)
+
+  return runTasksFromConfig(logger, config, commands, files)
 }
