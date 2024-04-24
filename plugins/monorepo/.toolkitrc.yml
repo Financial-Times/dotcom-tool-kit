@@ -1,0 +1,4 @@
+tasks:
+  WorkspaceCommand: ./lib/tasks/workspace-command
+
+version: 2
