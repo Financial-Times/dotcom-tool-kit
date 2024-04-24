@@ -30,9 +30,8 @@ const loadTasks = async (
 
       return taskResult.map((Task) => {
         const taskSchema = TaskSchemas[taskId as keyof TaskOptions]
-        const parsedOptions = taskSchema
-          ? taskSchema.parse({ ...config.taskOptions[taskId].options, ...options })
-          : {}
+        const configOptions = config.taskOptions[taskId]?.options ?? {}
+        const parsedOptions = taskSchema ? taskSchema.parse({ ...configOptions, ...options }) : {}
 
         const task = new (Task as unknown as TaskConstructor)(
           logger,
