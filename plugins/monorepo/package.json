@@ -28,6 +28,7 @@
     "dotcom-tool-kit": "3.x"
   },
   "dependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@npmcli/map-workspaces": "^3.0.6"
   },
   "devDependencies": {
