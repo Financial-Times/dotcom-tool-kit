@@ -1,0 +1,37 @@
+{
+  "name": "@dotcom-tool-kit/monorepo",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "plugins/monorepo"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/monorepo",
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ],
+  "engines": {
+    "node": "18.x || 20.x",
+    "npm": "7.x || 8.x || 9.x"
+  },
+  "peerDependencies": {
+    "dotcom-tool-kit": "4.0.0-beta.5"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/schemas": "2.0.0-beta.0",
+    "@npmcli/map-workspaces": "^3.0.6"
+  },
+  "devDependencies": {
+    "@types/npmcli__map-workspaces": "^3.0.4"
+  }
+}
