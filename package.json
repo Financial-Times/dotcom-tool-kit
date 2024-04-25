@@ -54,6 +54,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
+      "pre-push": "./scripts/generate-and-commit-docs.sh",
       "commit-msg": "commitlint --edit",
       "post-checkout": "npm run clean-up-packages -- $HUSKY_GIT_PARAMS"
     }
