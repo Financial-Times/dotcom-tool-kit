@@ -22,6 +22,7 @@ export const TaskSchemas = {
   Eslint: ESLintSchema,
   HerokuProduction: HerokuProductionSchema,
   Jest: JestSchema,
+  LintStaged: z.object({}).describe('Run `lint-staged` in your repo, for use with git hooks.'),
   Mocha: MochaSchema,
   Node: NodeSchema,
   Nodemon: NodemonSchema,
