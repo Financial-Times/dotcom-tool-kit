@@ -18,7 +18,7 @@ if ! git diff --quiet --exit-code; then
 	git commit -m 'docs: automatically regenerate schema docs' plugins/\*/readme.md
 
 	echo ''
-	echo -e "\e[31m!! automatically generated documentation has been regenerated and committed. please push again\e[0m"
+	echo -e $'\e[31m\!\! automatically generated documentation has been regenerated and committed. please push again\e[0m'
 	echo ''
 
 	if [ "$HAS_CHANGES" == "yes" ]; then
