@@ -6,6 +6,7 @@ import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
 import { createConfig, validateConfig } from '../src/config'
+import { loadHookInstallations } from '../src/install'
 import { loadPlugin, resolvePlugin, resolvePluginOptions } from '../src/plugin'
 import { validatePlugins } from '../src/config/validate-plugins'
 
@@ -120,5 +121,25 @@ describe('cli', () => {
 
       throw e
     }
+  })
+
+  it('should successfully install when options for different hooks are defined', async () => {
+    const config = createConfig()
+
+    const plugin = await loadPlugin('app root', config, logger, {
+      id: 'reolved test root',
+      root: path.join(__dirname, 'files/multiple-hook-options')
+    })
+    expect(plugin.valid).toBe(true)
+
+    const validatedPluginConfig = validatePlugins(config)
+    expect(validatedPluginConfig.valid).toBe(true)
+    const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
+
+    resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
+
+    const validConfig = validateConfig(validPluginConfig, logger)
+    const hooks = await loadHookInstallations(logger, validConfig)
+    expect(hooks.valid).toBe(true)
   })
 })
