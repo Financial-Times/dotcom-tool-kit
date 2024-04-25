@@ -14,6 +14,7 @@ import { SmokeTestSchema } from './tasks/n-test'
 import { CypressSchema } from './tasks/cypress'
 import { HerokuProductionSchema } from './tasks/heroku-production'
 import { ServerlessRunSchema } from './tasks/serverless-run'
+import { z } from 'zod'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -24,6 +25,8 @@ export const TaskSchemas = {
   Mocha: MochaSchema,
   Node: NodeSchema,
   Nodemon: NodemonSchema,
+  NpmPrune: z.object({}).describe('Prune development npm dependencies.'),
+  NpmPublish: z.object({}).describe('Publish package to the npm registry.'),
   NTest: SmokeTestSchema,
   Pa11y: Pa11ySchema,
   Prettier: PrettierSchema,
