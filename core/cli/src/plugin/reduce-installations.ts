@@ -6,6 +6,9 @@ import { HookSchemas, HookOptions } from '@dotcom-tool-kit/schemas'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { groupBy } from 'lodash'
 
+const extractForHook = (installation: HookInstallation | Conflict<HookInstallation>): string =>
+  isConflict(installation) ? installation.conflicting[0].forHook : installation.forHook
+
 // this function recursively collects all the hook installation requests from all plugins,
 // and merges them into a single, flat array of HookInstallation objects and/or Conflicts.
 //
@@ -46,15 +49,13 @@ export async function reducePluginHookInstallations(
     (plugin.children ?? []).map((child) => reducePluginHookInstallations(logger, config, hookClasses, child))
   ).then((installations) => installations.flat())
 
-  const childInstallations = Object.entries(
-    groupBy(rawChildInstallations, (installation) =>
-      isConflict(installation) ? installation.conflicting[0].forHook : installation.forHook
-    )
-  ).flatMap(([forHook, installations]) => {
-    const hookClass = hookClasses[forHook]
+  const childInstallations = Object.entries(groupBy(rawChildInstallations, extractForHook)).flatMap(
+    ([forHook, installations]) => {
+      const hookClass = hookClasses[forHook]
 
-    return hookClass.mergeChildInstallations(plugin, installations)
-  })
+      return hookClass.mergeChildInstallations(plugin, installations)
+    }
+  )
 
   if (plugin.rcFile.options.hooks.length === 0) {
     return childInstallations
@@ -72,7 +73,10 @@ export async function reducePluginHookInstallations(
         hookConstructor: hookClass
       }
 
-      return hookClass.overrideChildInstallations(plugin, installation, childInstallations)
+      const childInstallationsForHook = childInstallations.filter(
+        (childInstallation) => id === extractForHook(childInstallation)
+      )
+      return hookClass.overrideChildInstallations(plugin, installation, childInstallationsForHook)
     })
   )
 }
