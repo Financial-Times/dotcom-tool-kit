@@ -1,7 +1,7 @@
 import path from 'path'
 import type { Logger } from 'winston'
 
-import { loadPlugin, resolvePlugin } from './plugin'
+import { loadPlugin, resolvePlugin, resolvePluginOptions } from './plugin'
 import {
   findConflicts,
   withoutConflicts,
@@ -22,14 +22,18 @@ import {
   formatUnusedTaskOptions
 } from './messages'
 import { validatePlugins } from './config/validate-plugins'
-import { validatePluginOptions } from './plugin/options'
+import { substituteOptionTags, validatePluginOptions } from './plugin/options'
 
 const coreRoot = path.resolve(__dirname, '../')
 
 export const createConfig = (): RawConfig => ({
   root: coreRoot,
   plugins: {},
-  resolvedPlugins: new Set(),
+  resolutionTrackers: {
+    resolvedPluginOptions: new Set(),
+    substitutedPlugins: new Set(),
+    resolvedPlugins: new Set()
+  },
   tasks: {},
   commandTasks: {},
   pluginOptions: {},
@@ -159,6 +163,10 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
   const validPluginConfig = validatedPluginConfig.unwrap('config was not valid!')
 
   // collate root plugin and descendent hooks, options etc into config
+  // start with options so we can substitute resolved values into other parts
+  // of the config
+  resolvePluginOptions(validRootPlugin, validPluginConfig)
+  substituteOptionTags(validRootPlugin, validPluginConfig)
   resolvePlugin(validRootPlugin, validPluginConfig, logger)
 
   return validate ? validateConfig(validPluginConfig, logger) : config

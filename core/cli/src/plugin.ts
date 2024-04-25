@@ -37,7 +37,7 @@ export async function loadPlugin(
     id,
     root: pluginRoot,
     parent,
-    rcFile: await loadToolKitRC(logger, pluginRoot, isAppRoot),
+    rcFile: await loadToolKitRC(logger, pluginRoot),
     children: [] as Plugin[]
   }
 
@@ -71,10 +71,29 @@ export async function loadPlugin(
     })
 }
 
+export function resolvePluginOptions(plugin: Plugin, config: ValidPluginsConfig): void {
+  // don't resolve plugins that have already been resolved to prevent self-conflicts
+  // between plugins included at multiple points in the tree
+  if (config.resolutionTrackers.resolvedPluginOptions.has(plugin.id)) {
+    return
+  }
+
+  if (plugin.children) {
+    // resolve child plugins first so parents can override the things their children set
+    for (const child of plugin.children) {
+      resolvePluginOptions(child, config)
+    }
+  }
+
+  mergePluginOptions(config, plugin)
+
+  config.resolutionTrackers.resolvedPluginOptions.add(plugin.id)
+}
+
 export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger: Logger): void {
   // don't resolve plugins that have already been resolved to prevent self-conflicts
   // between plugins included at multiple points in the tree
-  if (config.resolvedPlugins.has(plugin.id)) {
+  if (config.resolutionTrackers.resolvedPlugins.has(plugin.id)) {
     return
   }
 
@@ -88,9 +107,8 @@ export function resolvePlugin(plugin: Plugin, config: ValidPluginsConfig, logger
   mergeTasks(config, plugin)
   mergeHooks(config, plugin)
   mergeCommands(config, plugin, logger)
-  mergePluginOptions(config, plugin)
   mergeTaskOptions(config, plugin)
   mergeInits(config, plugin)
 
-  config.resolvedPlugins.add(plugin.id)
+  config.resolutionTrackers.resolvedPlugins.add(plugin.id)
 }

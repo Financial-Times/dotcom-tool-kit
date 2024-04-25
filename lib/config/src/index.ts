@@ -12,7 +12,11 @@ import type { Conflict } from '@dotcom-tool-kit/conflict'
 export interface RawConfig {
   root: string
   plugins: { [id: string]: Validated<Plugin> }
-  resolvedPlugins: Set<string>
+  resolutionTrackers: {
+    resolvedPluginOptions: Set<string>
+    substitutedPlugins: Set<string>
+    resolvedPlugins: Set<string>
+  }
   tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }
   pluginOptions: { [id: string]: OptionsForPlugin | Conflict<OptionsForPlugin> | undefined }
