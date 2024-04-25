@@ -6,7 +6,7 @@ import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
 import { createConfig, validateConfig } from '../src/config'
-import { loadPlugin, resolvePlugin } from '../src/plugin'
+import { loadPlugin, resolvePlugin, resolvePluginOptions } from '../src/plugin'
 import { validatePlugins } from '../src/config/validate-plugins'
 
 const logger = winston as unknown as Logger
@@ -30,6 +30,7 @@ describe('cli', () => {
     expect(validatedPluginConfig.valid).toBe(true)
     const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
+    resolvePluginOptions((plugin as Valid<Plugin>).value, validPluginConfig)
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
@@ -51,6 +52,7 @@ describe('cli', () => {
     expect(validatedPluginConfig.valid).toBe(true)
     const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
+    resolvePluginOptions((plugin as Valid<Plugin>).value, validPluginConfig)
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
@@ -72,6 +74,7 @@ describe('cli', () => {
     expect(validatedPluginConfig.valid).toBe(true)
     const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
+    resolvePluginOptions((plugin as Valid<Plugin>).value, validPluginConfig)
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     try {
@@ -99,6 +102,7 @@ describe('cli', () => {
     expect(validatedPluginConfig.valid).toBe(true)
     const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
+    resolvePluginOptions((plugin as Valid<Plugin>).value, validPluginConfig)
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     try {

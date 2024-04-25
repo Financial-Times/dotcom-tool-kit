@@ -2,7 +2,6 @@ import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/plugin'
 import { exec as _exec } from 'child_process'
-import type { cosmiconfig } from 'cosmiconfig'
 import type { loadConfig as loadConfigType } from 'dotcom-tool-kit/lib/config'
 import fs, { promises as fsp } from 'fs'
 import importCwd from 'import-cwd'
@@ -42,16 +41,6 @@ function getEslintConfigContent(): string {
   }
 };`
   return eslintContentString
-}
-
-function clearConfigCache() {
-  // we need to import explorer from the app itself instead of npx as this is
-  // the object used by installHooks()
-  return (
-    importCwd('dotcom-tool-kit/lib/rc-file') as {
-      explorer: ReturnType<typeof cosmiconfig>
-    }
-  ).explorer.clearSearchCache()
 }
 
 async function executeMigration(
@@ -173,7 +162,6 @@ async function main() {
   if (optionsCancelled) {
     return
   }
-  clearConfigCache()
   try {
     await catchToolKitErrorsInLogger(logger, installHooks(winstonLogger), 'installing Tool Kit hooks', true)
   } catch (error) {
@@ -189,14 +177,12 @@ async function main() {
       if (conflictsCancelled) {
         return
       }
-      clearConfigCache()
       await catchToolKitErrorsInLogger(
         logger,
         installHooks(winstonLogger),
         'installing Tool Kit hooks again',
         false
       )
-      clearConfigCache()
     } else {
       throw error
     }
