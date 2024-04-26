@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 import Babel from '../../src/tasks/babel'
 import { promises as fs } from 'fs'
 import * as path from 'path'
@@ -10,12 +10,6 @@ const testDirectory = path.join(__dirname, '../files')
 const outputPath = path.join(testDirectory, 'lib')
 
 describe('babel', () => {
-  let transpiledFixture: string
-
-  beforeAll(async () => {
-    transpiledFixture = await fs.readFile(path.join(testDirectory, 'fixtures/transpiled.js'), 'utf8')
-  })
-
   it('should transpile the file', async () => {
     const task = new Babel(
       logger,
@@ -30,6 +24,16 @@ describe('babel', () => {
     )
     await task.run()
     const transpiled = await fs.readFile(path.join(outputPath, 'index.js'), 'utf8')
-    expect(transpiled).toEqual(transpiledFixture)
+    expect(transpiled).toMatchInlineSnapshot(`
+      ""use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+      exports.test = test;
+      function test(x) {
+        return x !== null && x !== void 0 ? x : 0;
+      }"
+    `)
   })
 })

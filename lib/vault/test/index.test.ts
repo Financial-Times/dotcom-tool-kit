@@ -1,11 +1,10 @@
 import { describe, it, beforeAll, beforeEach, afterAll, jest, expect } from '@jest/globals'
 import { VaultEnvVars } from '../src/index'
 import fetch from '@financial-times/n-fetch'
-import { mocked } from 'ts-jest/utils'
 import fs from 'fs'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 let CIRCLECI: string
 if (process.env.CIRCLECI) {
@@ -15,7 +14,7 @@ const VAULT_AUTH_GITHUB_TOKEN = process.env.VAULT_AUTH_GITHUB_TOKEN || undefined
 
 jest.mock('@financial-times/n-fetch')
 
-const mockedFetch = mocked(fetch, true)
+const mockedFetch = jest.mocked(fetch, true)
 
 jest.mock('path', () => {
   return {

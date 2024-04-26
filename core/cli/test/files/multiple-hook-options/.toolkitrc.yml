@@ -1,0 +1,12 @@
+plugins:
+  - '@dotcom-tool-kit/circleci'
+  - '@dotcom-tool-kit/package-json-hook'
+options:
+  hooks:
+    - PackageJson:
+        scripts:
+          somethingcustom: 'test:local'
+    - CircleCi:
+        jobs:
+          - name: test
+            command: test:local
