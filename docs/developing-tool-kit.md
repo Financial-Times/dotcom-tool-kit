@@ -22,6 +22,53 @@ The script will create the plugin folder and add all the necessary configuration
 
 At the root of the repository, `npm run watch` will run the Typescript compiler and build files when you change them. It's recommended to leave that running while you develop things.
 
+## How Tool Kit loads plugins
+
+The Tool Kit CLI works by recursively loading plugins, merging them, depth-first, into a single [`config` object](../lib/config/src/index.ts), while labelling any conflicts between plugins, and allowing their parent plugins to potentially resolve conflicts.
+
+As far as the CLI is concerned, a "plugin" is anything with a `.toolkitrc.yml`. This means a user's repo is considered a plugin, which we label `app root` in the config. It's loaded as the first plugin, and all other plugins are loaded as its descendents.
+
+The Tool Kit CLI initialises in two phases: **loading** plugins, then **resolving** them.
+
+When **loading** a plugin, we parse its `.toolkitrc.yml`, builds a [`plugin` object](../lib/plugin/src/index.ts), and with the `plugins` array from the `.toolkitrc.yml`, load its children.
+
+When **resolving** a plugin, first we resolve its children (i.e. depth-first recursion). Then we merge its tasks, hooks, commands, plugin options, task options, and init functions (in that order) into the `config`.
+
+These all have slightly different logic for what's considered a "conflict", but in general, if a plugin tries to store something with a particular name in the config, and it's already been stored by something that isn't a descendent of this plugin, that's a conflict.
+
+On the other hand, if there's already a conflict in the config that _did_ come from a descendent of the current plugin, this plugin will replace the conflict with what it's currently trying to store, allowing parents to override their children to resolve conflicts.
+
+For an example, consider this (simplified) dependency tree of plugins:
+
+```
+└ app root
+  └ frontend-app
+    ├ backend-heroku-app
+    │ ├ circleci
+    │ └ heroku
+    └ webpack
+```
+
+The plugins will be loaded in this order:
+
+1. `app root`
+2. `frontend-app`
+3. `backend-heroku-app`
+4. `circleci`
+5. `heroku`
+6. `webpack`
+
+And then resolved in this order:
+
+1. `circleci`
+2. `heroku`
+3. `backend-heroku-app`
+4. `webpack`
+5. `frontend-app`
+6. `app root`
+
+This depth-first resolution together with the `app root` being the ultimate ancestor plugin means a repo's `.toolkitrc.yml` can override anything (including conflicts) from any plugin, allowing users to have the final say over what's running when and how it's configured.
+
 ## Plugin structure
 
 Tool Kit plugins are Node modules. Any code in the entry point of the plugin will be run when Tool Kit starts up and loads the plugin. You can use this for any initialisation the plugin needs to do, e.g. writing [state](#state) based on the environment. The module can export an array of [tasks](#tasks) and an object of [hooks](#hooks).
@@ -36,8 +83,6 @@ A task extends the class `Task` from `@dotcom-tool-kit/types`, implementing its 
 import { Task } from '@dotcom-tool-kit/types'
 
 export default class Webpack extends Task {
-  static description = 'bundle your code with webpack'
-
   async run(): Promise<void> {
     // call third-party tooling
   }
@@ -156,6 +201,9 @@ Tool Kit provides the `state` package to allow plugins to store and read this ki
 Look at the [`state` package](../lib/state/) to see how to define, read and write state.
 
 ## General philosophy
+
+> [!TIP]
+> See also the higher-level [Tool Kit principles](./tool-kit-principles.md).
 
 - The Tool Kit core (`cli/core` and the packages it depends on) should **never** depend on any particular plugin. This would prevent users from using alternatives to that plugin.
 
