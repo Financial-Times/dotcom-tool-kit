@@ -114,6 +114,64 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
 
+## [7.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v6.0.1...circleci-v7.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove serverless buildNumVariable in favour of populating it via CI state
+* **circleci:** define CircleCI configs in .toolkitrc.yml
+* drop support for Node 16
+* move base classes into their own package
+* rename Hook#check to Hook#isInstalled
+* remove all current concrete hook subclasses
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* add list of files that CircleCI and package.json hooks manage ([acf2e08](https://github.com/Financial-Times/dotcom-tool-kit/commit/acf2e0805882d6a8fb63177b150795dc8b022712))
+* add support for a managesFiles entry in hook installs fields ([e0e9b05](https://github.com/Financial-Times/dotcom-tool-kit/commit/e0e9b055decf3b0ca39caf49de7931f444b9f505))
+* allow hook classes to specify an options schema ([2b884bf](https://github.com/Financial-Times/dotcom-tool-kit/commit/2b884bfd607d5df6e3190b40ab9fa3c225d4572c))
+* **circleci:** allow projects to rewrite whole CircleCI config ([37507f1](https://github.com/Financial-Times/dotcom-tool-kit/commit/37507f1cad182fcc6956067017cb5ab056ea78b9))
+* **circleci:** define CircleCI configs in .toolkitrc.yml ([641e242](https://github.com/Financial-Times/dotcom-tool-kit/commit/641e242f7edf95bbd7c31bcba89eb532cf9427d1))
+* **circleci:** don't generate matrices if only one Node version used ([ce7d9c2](https://github.com/Financial-Times/dotcom-tool-kit/commit/ce7d9c254f8a5c075377b8846fe6c63a10567566))
+* export CircleCiConfig hook ([f9e81b7](https://github.com/Financial-Times/dotcom-tool-kit/commit/f9e81b756cf48bf68eb3a057427e5cd6a05a8e88))
+* move base classes into their own package ([6cc09b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cc09b5a0afb136810f8e9fa45dea7aa0a10d830))
+* overhaul help output for new abstractions & config structure ([e513389](https://github.com/Financial-Times/dotcom-tool-kit/commit/e513389d4a60ed54b3562dc7c8aad23dae81431d))
+* remove serverless buildNumVariable in favour of populating it via CI state ([bf9fa13](https://github.com/Financial-Times/dotcom-tool-kit/commit/bf9fa136d2dd21a6f2590d5b0b5082be7ffd5983))
+
+
+### Bug Fixes
+
+* make zod peerdeps of types and schema, and explicit deps of cli and create ([9cce80a](https://github.com/Financial-Times/dotcom-tool-kit/commit/9cce80af4dcb1a066d692dafaf97767ca4a59e56))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([d0df633](https://github.com/Financial-Times/dotcom-tool-kit/commit/d0df63395f0cede5b4050dfef5e4b5f705a771b0))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+* remove all current concrete hook subclasses ([ce2dd4b](https://github.com/Financial-Times/dotcom-tool-kit/commit/ce2dd4bf29b81e0160c7a70d2dde3623cb5e9d7a))
+
+
+### Code Refactoring
+
+* rename Hook#check to Hook#isInstalled ([a3db11a](https://github.com/Financial-Times/dotcom-tool-kit/commit/a3db11acfb7f529f0e138543f3b35e5577a634e1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^4.0.0
+    * @dotcom-tool-kit/options bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/state bumped from ^3.3.0 to ^4.0.0
+
 ## [6.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v6.0.0...circleci-v6.0.1) (2024-02-28)
 
 

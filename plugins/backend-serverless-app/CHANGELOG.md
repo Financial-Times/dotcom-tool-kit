@@ -216,6 +216,33 @@
   * dependencies
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.2 to ^3.4.3
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v3.2.7...backend-serverless-app-v4.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* rename `hooks` in toolkitrc to `commands`
+
+### Features
+
+* rename `hooks` in toolkitrc to `commands` ([91daa0e](https://github.com/Financial-Times/dotcom-tool-kit/commit/91daa0e13ebe5440fbdd5783c2b7eead5f588a22))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.3 to ^4.0.0
+    * @dotcom-tool-kit/node bumped from ^3.4.1 to ^4.0.0
+    * @dotcom-tool-kit/npm bumped from ^3.3.1 to ^4.0.0
+    * @dotcom-tool-kit/serverless bumped from ^2.4.4 to ^3.0.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v3.1.0...backend-serverless-app-v3.2.0) (2024-01-23)
 
 

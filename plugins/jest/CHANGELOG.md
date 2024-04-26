@@ -127,6 +127,51 @@
     * @dotcom-tool-kit/logger bumped from ^3.2.0 to ^3.3.0
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v3.4.0...jest-v4.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* change jest "mode" option to a boolean "ci" option
+* move jest options to task options and allow configuring env
+* drop support for Node 16
+* rename Task#options to pluginOptions
+* move base classes into their own package
+* rename `hooks` in toolkitrc to `commands`
+* add new lazy plugin spec to rest of plugins
+
+### Features
+
+* allow tasks to receive a task options object and parse task schema when initialising ([995eb38](https://github.com/Financial-Times/dotcom-tool-kit/commit/995eb386ce8f475c33f7edd7645b73cb57de25f8))
+* change jest "mode" option to a boolean "ci" option ([f067721](https://github.com/Financial-Times/dotcom-tool-kit/commit/f0677219c15bac5da514fae6f1226317c5525e5d))
+* move base classes into their own package ([6cc09b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cc09b5a0afb136810f8e9fa45dea7aa0a10d830))
+* move jest options to task options and allow configuring env ([29ed0f2](https://github.com/Financial-Times/dotcom-tool-kit/commit/29ed0f2843b97732379cdf2c342de8e6ed748409))
+* rename `hooks` in toolkitrc to `commands` ([91daa0e](https://github.com/Financial-Times/dotcom-tool-kit/commit/91daa0e13ebe5440fbdd5783c2b7eead5f588a22))
+* split schemas out into separate package ([6aecf35](https://github.com/Financial-Times/dotcom-tool-kit/commit/6aecf3585aab155fe6f356997fd60bd5c34c38ef))
+
+
+### Performance Improvements
+
+* add new lazy plugin spec to rest of plugins ([c834207](https://github.com/Financial-Times/dotcom-tool-kit/commit/c83420750f9282b550014ae5c3d2cc5b698fd8ca))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+
+
+### Code Refactoring
+
+* rename Task#options to pluginOptions ([1eee853](https://github.com/Financial-Times/dotcom-tool-kit/commit/1eee8535c7984e07235f93e8a9b0a3081ad68b4e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^4.0.0
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v3.3.0...jest-v3.4.0) (2024-01-11)
 
 

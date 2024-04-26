@@ -1,5 +1,24 @@
 # Changelog
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.3.0...state-v4.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove serverless buildNumVariable in favour of populating it via CI state
+* drop support for Node 16
+
+### Features
+
+* **core:** run hook checks when running tasks if files have changed ([f3dfad4](https://github.com/Financial-Times/dotcom-tool-kit/commit/f3dfad4da47cdf788dc4299d465177c8e1504523))
+* read list of files to hash from config ([1159be1](https://github.com/Financial-Times/dotcom-tool-kit/commit/1159be17ffca3ab6a8a4fdf68be1b23d0e3e23aa))
+* remove serverless buildNumVariable in favour of populating it via CI state ([bf9fa13](https://github.com/Financial-Times/dotcom-tool-kit/commit/bf9fa136d2dd21a6f2590d5b0b5082be7ffd5983))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v3.2.0...state-v3.3.0) (2024-01-23)
 
 

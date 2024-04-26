@@ -218,6 +218,64 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.4.3 to ^3.4.4
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.1...create-v4.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* load hook installations from options.hooks
+* move plugin options to a sub key of toolkitrc options entries
+* instantiate a separate hook instance per hook installation request from configs
+* make plugin loading even lazier by having separate entrypoints for each task and hook
+* rename `hooks` in toolkitrc to `commands`
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* allow hook classes to specify an options schema ([2b884bf](https://github.com/Financial-Times/dotcom-tool-kit/commit/2b884bfd607d5df6e3190b40ab9fa3c225d4572c))
+* allow plugins to specify init entrypoints ([f46c5cb](https://github.com/Financial-Times/dotcom-tool-kit/commit/f46c5cbaa4905fac55cd368bb8a6f7ef9d388911))
+* load hook installations from options.hooks ([2f0c2b6](https://github.com/Financial-Times/dotcom-tool-kit/commit/2f0c2b68e6668fdbcc14c88458243f7377eefe39))
+* load plugin rcfile task options into config ([e749170](https://github.com/Financial-Times/dotcom-tool-kit/commit/e749170d67a82064d205b7304b536c6c06a633c5))
+* make plugin loading even lazier by having separate entrypoints for each task and hook ([c66ec83](https://github.com/Financial-Times/dotcom-tool-kit/commit/c66ec83ab9ab9560b3e2835b559cada0e89b3020))
+* move plugin options to a sub key of toolkitrc options entries ([9eaa9b0](https://github.com/Financial-Times/dotcom-tool-kit/commit/9eaa9b0475a471769d5b86fe103139aadfd6e8a6))
+* rename `hooks` in toolkitrc to `commands` ([91daa0e](https://github.com/Financial-Times/dotcom-tool-kit/commit/91daa0e13ebe5440fbdd5783c2b7eead5f588a22))
+* split remaining bits of types into config and plugins packages ([ee5839b](https://github.com/Financial-Times/dotcom-tool-kit/commit/ee5839b7ac6a9fc8321beb8a7503f624aabf15b7))
+* split schemas out into separate package ([6aecf35](https://github.com/Financial-Times/dotcom-tool-kit/commit/6aecf3585aab155fe6f356997fd60bd5c34c38ef))
+
+
+### Bug Fixes
+
+* **create:** no longer need to clean cosmiconfig as we've dropped it ([e120891](https://github.com/Financial-Times/dotcom-tool-kit/commit/e120891eb7b03633a8805da801374a196c128576))
+* **create:** use Doppler-managed AWS key format ([67622a4](https://github.com/Financial-Times/dotcom-tool-kit/commit/67622a456df0517fc6b5572109b5f5418324fe2b))
+* make zod peerdeps of types and schema, and explicit deps of cli and create ([9cce80a](https://github.com/Financial-Times/dotcom-tool-kit/commit/9cce80af4dcb1a066d692dafaf97767ca4a59e56))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([d0df633](https://github.com/Financial-Times/dotcom-tool-kit/commit/d0df63395f0cede5b4050dfef5e4b5f705a771b0))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+
+
+### Code Refactoring
+
+* instantiate a separate hook instance per hook installation request from configs ([8e763f0](https://github.com/Financial-Times/dotcom-tool-kit/commit/8e763f0463126847ac2cbe17f3ff9c362a3026b5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.1.0 to ^2.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^4.0.0
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.4.5 to ^4.0.0
+
 ## [3.7.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.0...create-v3.7.1) (2024-03-05)
 
 

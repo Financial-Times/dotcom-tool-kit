@@ -96,6 +96,41 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^6.0.0 to ^6.0.1
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.4.3...circleci-deploy-v4.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** define CircleCI configs in .toolkitrc.yml
+* drop support for Node 16
+* move base classes into their own package
+* remove all current concrete hook subclasses
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* **circleci-deploy:** define Cypress and Serverless options with tags ([b0585c3](https://github.com/Financial-Times/dotcom-tool-kit/commit/b0585c3ac17474454af9796822b50f36c3b0f793))
+* **circleci:** define CircleCI configs in .toolkitrc.yml ([641e242](https://github.com/Financial-Times/dotcom-tool-kit/commit/641e242f7edf95bbd7c31bcba89eb532cf9427d1))
+* move base classes into their own package ([6cc09b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cc09b5a0afb136810f8e9fa45dea7aa0a10d830))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([d0df633](https://github.com/Financial-Times/dotcom-tool-kit/commit/d0df63395f0cede5b4050dfef5e4b5f705a771b0))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+* remove all current concrete hook subclasses ([ce2dd4b](https://github.com/Financial-Times/dotcom-tool-kit/commit/ce2dd4bf29b81e0160c7a70d2dde3623cb5e9d7a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^6.0.1 to ^7.0.0
+
 ## [3.4.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.4.1...circleci-deploy-v3.4.2) (2024-02-05)
 
 

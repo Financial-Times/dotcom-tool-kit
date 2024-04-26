@@ -306,6 +306,24 @@
   * dependencies
     * @dotcom-tool-kit/backend-heroku-app bumped from ^3.1.3 to ^3.1.4
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v3.2.4...backend-app-v4.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^3.1.4 to ^4.0.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-app-v3.1.24...backend-app-v3.2.0) (2024-01-11)
 
 

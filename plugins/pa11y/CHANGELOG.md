@@ -90,6 +90,48 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [0.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.5.2...pa11y-v0.6.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* move pa11y options to task options
+* drop support for Node 16
+* rename Task#options to pluginOptions
+* move base classes into their own package
+* rename `hooks` in toolkitrc to `commands`
+* add new lazy plugin spec to rest of plugins
+
+### Features
+
+* allow tasks to receive a task options object and parse task schema when initialising ([995eb38](https://github.com/Financial-Times/dotcom-tool-kit/commit/995eb386ce8f475c33f7edd7645b73cb57de25f8))
+* move base classes into their own package ([6cc09b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cc09b5a0afb136810f8e9fa45dea7aa0a10d830))
+* move pa11y options to task options ([d6ac04c](https://github.com/Financial-Times/dotcom-tool-kit/commit/d6ac04ce71eece7e0ee138cab75087c9f980c49a))
+* rename `hooks` in toolkitrc to `commands` ([91daa0e](https://github.com/Financial-Times/dotcom-tool-kit/commit/91daa0e13ebe5440fbdd5783c2b7eead5f588a22))
+* split schemas out into separate package ([6aecf35](https://github.com/Financial-Times/dotcom-tool-kit/commit/6aecf3585aab155fe6f356997fd60bd5c34c38ef))
+
+
+### Performance Improvements
+
+* add new lazy plugin spec to rest of plugins ([c834207](https://github.com/Financial-Times/dotcom-tool-kit/commit/c83420750f9282b550014ae5c3d2cc5b698fd8ca))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+
+
+### Code Refactoring
+
+* rename Task#options to pluginOptions ([1eee853](https://github.com/Financial-Times/dotcom-tool-kit/commit/1eee8535c7984e07235f93e8a9b0a3081ad68b4e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+
 ## [0.5.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/pa11y-v0.5.1...pa11y-v0.5.2) (2024-01-11)
 
 

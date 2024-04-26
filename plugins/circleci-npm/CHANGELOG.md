@@ -222,6 +222,44 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^6.0.0 to ^6.0.1
 
+## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v5.3.3...circleci-npm-v6.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** define CircleCI configs in .toolkitrc.yml
+* drop support for Node 16
+* move base classes into their own package
+* remove all current concrete hook subclasses
+* rename `hooks` in toolkitrc to `commands`
+* add new lazy plugin spec to rest of plugins
+
+### Features
+
+* **circleci:** define CircleCI configs in .toolkitrc.yml ([641e242](https://github.com/Financial-Times/dotcom-tool-kit/commit/641e242f7edf95bbd7c31bcba89eb532cf9427d1))
+* move base classes into their own package ([6cc09b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cc09b5a0afb136810f8e9fa45dea7aa0a10d830))
+* rename `hooks` in toolkitrc to `commands` ([91daa0e](https://github.com/Financial-Times/dotcom-tool-kit/commit/91daa0e13ebe5440fbdd5783c2b7eead5f588a22))
+* split remaining bits of types into config and plugins packages ([ee5839b](https://github.com/Financial-Times/dotcom-tool-kit/commit/ee5839b7ac6a9fc8321beb8a7503f624aabf15b7))
+
+
+### Performance Improvements
+
+* add new lazy plugin spec to rest of plugins ([c834207](https://github.com/Financial-Times/dotcom-tool-kit/commit/c83420750f9282b550014ae5c3d2cc5b698fd8ca))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+* remove all current concrete hook subclasses ([ce2dd4b](https://github.com/Financial-Times/dotcom-tool-kit/commit/ce2dd4bf29b81e0160c7a70d2dde3623cb5e9d7a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^6.0.1 to ^7.0.0
+    * @dotcom-tool-kit/npm bumped from ^3.3.1 to ^4.0.0
+
 ## [5.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v5.2.12...circleci-npm-v5.3.0) (2024-01-11)
 
 

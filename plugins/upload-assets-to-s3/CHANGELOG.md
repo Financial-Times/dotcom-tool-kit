@@ -114,6 +114,52 @@
     * @dotcom-tool-kit/logger bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v3.2.0...upload-assets-to-s3-v4.0.0) (2024-04-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **upload-assets-to-s3:** remove legacy environment variable handling
+* move upload-assets-to-s3 options to task options
+* drop support for Node 16
+* rename Task#options to pluginOptions
+* move base classes into their own package
+* rename `hooks` in toolkitrc to `commands`
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* allow tasks to receive a task options object and parse task schema when initialising ([995eb38](https://github.com/Financial-Times/dotcom-tool-kit/commit/995eb386ce8f475c33f7edd7645b73cb57de25f8))
+* move base classes into their own package ([6cc09b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cc09b5a0afb136810f8e9fa45dea7aa0a10d830))
+* move upload-assets-to-s3 options to task options ([d733325](https://github.com/Financial-Times/dotcom-tool-kit/commit/d73332579afedec9c3027c09ab1efd6f1e58d73c))
+* rename `hooks` in toolkitrc to `commands` ([91daa0e](https://github.com/Financial-Times/dotcom-tool-kit/commit/91daa0e13ebe5440fbdd5783c2b7eead5f588a22))
+* split schemas out into separate package ([6aecf35](https://github.com/Financial-Times/dotcom-tool-kit/commit/6aecf3585aab155fe6f356997fd60bd5c34c38ef))
+* **upload-assets-to-s3:** remove legacy environment variable handling ([1eb0d6b](https://github.com/Financial-Times/dotcom-tool-kit/commit/1eb0d6bd1a1e15e92899f9a3e7784a1928e617e4))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([d0df633](https://github.com/Financial-Times/dotcom-tool-kit/commit/d0df63395f0cede5b4050dfef5e4b5f705a771b0))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+
+
+### Code Refactoring
+
+* rename Task#options to pluginOptions ([1eee853](https://github.com/Financial-Times/dotcom-tool-kit/commit/1eee8535c7984e07235f93e8a9b0a3081ad68b4e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^4.0.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v3.1.7...upload-assets-to-s3-v3.2.0) (2024-01-11)
 
 
