@@ -6,8 +6,6 @@ import { readState } from '@dotcom-tool-kit/state'
 import { spawn } from 'child_process'
 
 export default class ServerlessTeardown extends Task<{ plugin: typeof ServerlessSchema }> {
-  static description = 'Teardown existing serverless functions'
-
   async run(): Promise<void> {
     const { configPath, regions, systemCode } = this.pluginOptions
 
