@@ -12,6 +12,7 @@ if [ "$HAS_CHANGES" == "yes" ]; then
 	git stash --staged --quiet
 fi
 
+npm run build
 node ./scripts/generate-docs.js
 
 if ! git diff --quiet --exit-code; then
