@@ -1,4 +1,4 @@
-# Hooks conflicts
+# Tool Kit plugin conflicts
 
 Tool Kit allows its plugins, and apps using it, to [configure tasks to run on hooks](../readme.md#hooks). It's possible for this configuration to conflict between plugins, in which case you'll need to resolve the conflict.
 
@@ -24,7 +24,7 @@ For example, if your app requires Webpack to run for `build:local` hooks, but no
 
 ```yaml
 hooks:
-  'build:local': WebpackDevelopment
+  'build:local': Webpack
 ```
 
 You can list an array of tasks, which will be run in sequence. For example to run Webpack _then_ Babel:
@@ -32,8 +32,8 @@ You can list an array of tasks, which will be run in sequence. For example to ru
 ```yaml
 hooks:
   'build:local':
-    - WebpackDevelopment
-    - BabelDevelopment
+    - Webpack
+    - Babel
 ```
 
 Resolving the conflict isn't an arbitrary choice; it's entirely down to what your app requires, so make sure the resolution covers your usecases. For many standard usecases, there will be a plugin that includes a common set of plugins and hook resolutions for them. Installing a usecase plugin would let the plugin take care of resolution, so you won't need to do it manually in your app.
