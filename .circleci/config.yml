@@ -7,8 +7,7 @@ references:
   #
   # Workspace
   #
-  container_config_node:
-    &container_config_node
+  container_config_node: &container_config_node
     working_directory: ~/project/build
     docker:
       - image: cimg/node:<< parameters.node-version >>
@@ -19,16 +18,14 @@ references:
 
   workspace_root: &workspace_root ~/project
 
-  attach_workspace:
-    &attach_workspace
+  attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
 
   #
   # Cache creation
   #
-  create_cache:
-    &create_cache
+  create_cache: &create_cache
     save_cache:
       key: cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
       paths:
@@ -37,8 +34,7 @@ references:
   #
   # Cache restoration
   #
-  restore_cache:
-    &restore_cache
+  restore_cache: &restore_cache
     restore_cache:
       keys:
         - cache-v1-{{ .Branch }}-{{ checksum "./package.json" }}
@@ -46,48 +42,41 @@ references:
   #
   # Filters
   #
-  filters_only_main:
-    &filters_only_main
+  filters_only_main: &filters_only_main
     branches:
       only:
         - main
 
-  filters_only_renovate_nori:
-    &filters_only_renovate_nori
+  filters_only_renovate_nori: &filters_only_renovate_nori
     branches:
       only: /(^renovate-.*|^nori\/.*)/
 
-  filters_ignore_tags_renovate_nori_build_main:
-    &filters_ignore_tags_renovate_nori_build_main
+  filters_ignore_tags_renovate_nori_build_main: &filters_ignore_tags_renovate_nori_build_main
     tags:
       ignore: /.*/
     branches:
       ignore: /(^renovate-.*|^nori\/.*|^gh-pages|^main$)/
 
-  filters_main_branch:
-    &filters_main_branch
+  filters_main_branch: &filters_main_branch
     branches:
       only:
         - main
 
-  filters_release_build:
-    &filters_release_build
+  filters_release_build: &filters_release_build
     tags:
       only:
         - /^[\w-]+-v\d+\.\d+\.\d+$/
     branches:
       ignore: /.*/
 
-  filters_prerelease_build:
-    &filters_prerelease_build
+  filters_prerelease_build: &filters_prerelease_build
     tags:
       only:
         - /^[\w-]+-v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
     branches:
       ignore: /.*/
 
-  filters_orbs_release_build:
-    &filters_orbs_release_build
+  filters_orbs_release_build: &filters_orbs_release_build
     tags:
       only:
         # CircleCI doesn't allow prerelease versions to be published
@@ -144,6 +133,23 @@ jobs:
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             --monorepo-tags
 
+  release-please-next:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Update release-please release PR
+          command: npx release-please@15 release-pr --token=${RELEASE_PLEASE_GITHUB_TOKEN}
+            --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+
+      - run:
+          name: Release any unreleased PR merges
+          command: npx release-please@15 github-release
+            --token=${RELEASE_PLEASE_GITHUB_TOKEN}
+            --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+            --monorepo-tags
+            --prerelease
+
   publish:
     <<: *container_config_node
     steps:
@@ -184,21 +190,21 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - test:
           requires:
             - build-v<< matrix.node-version >>
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - lint:
           requires:
             - build-v<< matrix.node-version >>
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
 
   release-please:
     when:
@@ -210,6 +216,19 @@ workflows:
       - release-please:
           filters:
             <<: *filters_only_main
+
+  release-please-next:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
+    jobs:
+      - release-please:
+          filters:
+            branches:
+              only:
+                - next
 
   renovate-nori-build-test:
     when:
@@ -228,21 +247,21 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - test:
           requires:
             - build-v<< matrix.node-version >>
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - lint:
           requires:
             - build-v<< matrix.node-version >>
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
 
   build-test-publish:
     when:
@@ -257,7 +276,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - test:
           filters:
             <<: *filters_release_build
@@ -266,7 +285,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - lint:
           filters:
             <<: *filters_release_build
@@ -275,7 +294,7 @@ workflows:
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - publish:
           context: npm-publish-token
           filters:
@@ -297,7 +316,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - test:
           filters:
             <<: *filters_prerelease_build
@@ -306,7 +325,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - lint:
           filters:
             <<: *filters_prerelease_build
@@ -315,7 +334,7 @@ workflows:
           name: lint-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - prepublish:
           context: npm-publish-token
           filters:
@@ -339,7 +358,7 @@ workflows:
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
       - test:
           requires:
             - build-v<< matrix.node-version >>
@@ -347,7 +366,7 @@ workflows:
           name: test-v<< matrix.node-version >>
           matrix:
             parameters:
-              node-version: [ '18.20', '20.12' ]
+              node-version: ['18.20', '20.12']
 
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit
