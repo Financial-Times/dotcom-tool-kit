@@ -34,6 +34,18 @@ Run serverless functions locally
 
 _All properties are optional._
 
+### `ServerlessDeploy`
+
+Deploy a serverless function
+
+### `ServerlessProvision`
+
+Provision a review serverless function
+
+### `ServerlessTeardown`
+
+Tear down existing serverless functions
+
 
 ## Plugin-wide options
 
