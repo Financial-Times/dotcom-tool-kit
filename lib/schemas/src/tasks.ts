@@ -34,7 +34,10 @@ export const TaskSchemas = {
   NTest: SmokeTestSchema,
   Pa11y: Pa11ySchema,
   Prettier: PrettierSchema,
+  ServerlessDeploy: z.object({}).describe('Deploy a serverless function'),
+  ServerlessProvision: z.object({}).describe('Provision a review serverless function'),
   ServerlessRun: ServerlessRunSchema,
+  ServerlessTeardown: z.object({}).describe('Tear down existing serverless functions'),
   TypeScript: TypeScriptSchema,
   UploadAssetsToS3: UploadAssetsToS3Schema,
   Webpack: WebpackSchema
