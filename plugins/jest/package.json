@@ -31,7 +31,6 @@
   ],
   "devDependencies": {
     "@dotcom-tool-kit/schemas": "^1.0.0",
-    "@jest/globals": "^27.4.6",
     "winston": "^3.5.1"
   },
   "engines": {
