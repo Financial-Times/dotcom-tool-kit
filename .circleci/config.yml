@@ -141,6 +141,7 @@ jobs:
           name: Update release-please release PR
           command: npx release-please@15 release-pr --token=${RELEASE_PLEASE_GITHUB_TOKEN}
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+            --target-branch next
 
       - run:
           name: Release any unreleased PR merges
@@ -149,6 +150,7 @@ jobs:
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             --monorepo-tags
             --prerelease
+            --target-branch next
 
   publish:
     <<: *container_config_node
