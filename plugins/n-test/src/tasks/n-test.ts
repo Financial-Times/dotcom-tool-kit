@@ -5,8 +5,6 @@ import { SmokeTest } from '@financial-times/n-test'
 import { readState } from '@dotcom-tool-kit/state'
 
 export default class NTest extends Task<{ task: typeof SmokeTestSchema }> {
-  static description = ''
-
   async run(): Promise<void> {
     const appState = readState('review') ?? readState('staging')
 

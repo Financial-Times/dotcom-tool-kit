@@ -9,8 +9,6 @@ import { Readable } from 'stream'
 import { shouldDisableNativeFetch } from 'dotcom-tool-kit'
 
 export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
-  static description = ''
-
   async run(): Promise<void> {
     const { entry, configPath, useDoppler, ports } = this.options
 

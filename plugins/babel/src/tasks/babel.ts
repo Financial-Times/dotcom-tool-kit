@@ -10,8 +10,6 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookConsole } from '@dotcom-tool-kit/logger'
 
 export default class Babel extends Task<{ task: typeof BabelSchema }> {
-  static description = 'build babel'
-
   async run(): Promise<void> {
     const fileGlob = this.options.files
     const files = await fg(fileGlob)

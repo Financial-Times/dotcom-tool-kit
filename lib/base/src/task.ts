@@ -11,8 +11,6 @@ export abstract class Task<
     task?: z.ZodTypeAny
   } = Record<never, never>
 > extends Base {
-  static description: string
-
   static get [typeSymbol](): symbol {
     return taskSymbol
   }

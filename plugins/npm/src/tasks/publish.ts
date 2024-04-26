@@ -17,8 +17,6 @@ const prereleaseRegex = /^v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
 const releaseRegex = /^v\d+\.\d+\.\d+$/
 
 export default class NpmPublish extends Task {
-  static description = ''
-
   getNpmTag(tag: string): TagType {
     if (!tag) {
       throw new ToolKitError(

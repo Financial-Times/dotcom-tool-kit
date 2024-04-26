@@ -8,8 +8,6 @@ import { fork } from 'child_process'
 import { NextRouterSchema } from '@dotcom-tool-kit/schemas/lib/plugins/next-router'
 
 export default class NextRouter extends Task<{ plugin: typeof NextRouterSchema }> {
-  static description = ''
-
   async run(): Promise<void> {
     const doppler = new DopplerEnvVars(this.logger, 'dev', {
       project: 'next-router'
