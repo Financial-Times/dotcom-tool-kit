@@ -226,7 +226,7 @@ workflows:
           - scheduled_pipeline
           - << pipeline.trigger_source >>
     jobs:
-      - release-please:
+      - release-please-next:
           filters:
             branches:
               only:
