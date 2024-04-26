@@ -13,8 +13,6 @@ export default class HerokuProduction extends Task<{
   plugin: typeof HerokuSchema
   task: typeof HerokuProductionSchema
 }> {
-  static description = ''
-
   async run(): Promise<void> {
     try {
       this.logger.verbose('retrieving staging slug...')

@@ -12,8 +12,6 @@ import {
 } from '@dotcom-tool-kit/schemas/lib/tasks/upload-assets-to-s3'
 
 export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsToS3Schema }> {
-  static description = ''
-
   async run(): Promise<void> {
     await this.uploadAssetsToS3(this.options)
   }

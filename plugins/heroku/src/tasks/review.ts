@@ -10,8 +10,6 @@ import herokuClient, { extractHerokuError } from '../herokuClient'
 import type { HerokuApiResPipeline } from 'heroku-client'
 
 export default class HerokuReview extends Task<{ plugin: typeof HerokuSchema }> {
-  static description = ''
-
   async run(): Promise<void> {
     try {
       const pipeline = await herokuClient

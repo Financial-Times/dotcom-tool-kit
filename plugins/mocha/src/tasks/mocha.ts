@@ -7,8 +7,6 @@ import { promisify } from 'util'
 const mochaCLIPath = require.resolve('mocha/bin/mocha')
 
 export default class Mocha extends Task<{ task: typeof MochaSchema }> {
-  static description = ''
-
   async run(): Promise<void> {
     const files = await promisify(glob)(this.options.files)
 

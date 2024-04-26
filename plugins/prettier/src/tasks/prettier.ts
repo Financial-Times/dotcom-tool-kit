@@ -7,8 +7,6 @@ import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default class Prettier extends Task<{ task: typeof PrettierSchema }> {
-  static description = ''
-
   async run(files?: string[]): Promise<void> {
     try {
       const filepaths = await fg(files ?? this.options.files)

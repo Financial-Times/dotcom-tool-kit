@@ -6,8 +6,6 @@ import { spawn } from 'child_process'
 import { readState, writeState } from '@dotcom-tool-kit/state'
 
 export default class ServerlessProvision extends Task<{ plugin: typeof ServerlessSchema }> {
-  static description = 'Provisions a job on AWS'
-
   async run(): Promise<void> {
     const { configPath, systemCode, regions } = this.pluginOptions
     const ciState = readState('ci')
