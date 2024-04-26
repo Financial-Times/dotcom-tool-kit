@@ -11,8 +11,6 @@ export default class ServerlessRun extends Task<{
   task: typeof ServerlessRunSchema
   plugin: typeof ServerlessSchema
 }> {
-  static description = 'Run serverless functions locally'
-
   async run(): Promise<void> {
     const { useDoppler, ports } = this.options
     const { configPath } = this.pluginOptions

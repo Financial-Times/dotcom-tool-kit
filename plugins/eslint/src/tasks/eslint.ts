@@ -5,8 +5,6 @@ import { ESLintSchema } from '@dotcom-tool-kit/schemas/lib/tasks/eslint'
 import { ESLint } from 'eslint'
 
 export default class Eslint extends Task<{ task: typeof ESLintSchema }> {
-  static description = ''
-
   async run(files?: string[]): Promise<void> {
     const eslint = new ESLint({ overrideConfigFile: this.options.configPath })
     const results = await eslint.lintFiles(files ?? this.options.files)

@@ -7,8 +7,6 @@ import { readState } from '@dotcom-tool-kit/state'
 const pa11yCIPath = require.resolve('pa11y-ci/bin/pa11y-ci')
 
 export default class Pa11y extends Task<{ task: typeof Pa11ySchema }> {
-  static description = ''
-
   async run(): Promise<void> {
     const localState = readState('local')
     const reviewState = readState('review')

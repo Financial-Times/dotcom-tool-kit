@@ -30,6 +30,7 @@
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "check-engines": "^1.5.0",
+    "endent": "^2.1.0",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
@@ -39,7 +40,9 @@
     "prettier": "^2.8.8",
     "release-please": "^15.0.0",
     "ts-jest": "^29.1.2",
-    "typescript": "~5.4.5"
+    "typescript": "~5.4.5",
+    "winston": "^3.13.0",
+    "zod2md": "^0.1.2"
   },
   "workspaces": [
     "core/*",
@@ -50,6 +53,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
+      "pre-push": "./scripts/generate-and-commit-docs.sh",
       "commit-msg": "commitlint --edit",
       "post-checkout": "npm run clean-up-packages -- $HUSKY_GIT_PARAMS"
     }

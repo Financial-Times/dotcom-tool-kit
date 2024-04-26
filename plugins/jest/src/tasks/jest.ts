@@ -30,8 +30,6 @@ async function guessVCpus(): Promise<number> {
 }
 
 export default class Jest extends Task<{ task: typeof JestSchema }> {
-  static description = ''
-
   async run(): Promise<void> {
     const args = ['--colors', this.options.configPath ? `--config=${this.options.configPath}` : '']
 

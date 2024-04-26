@@ -13,8 +13,8 @@ const logger = winston as unknown as Logger
 const testDirectory = path.join(__dirname, '../files')
 
 const defaults: UploadAssetsToS3Options = {
-  accessKeyId: 'aws_access_hashed_assets',
-  secretAccessKey: 'aws_secret_hashed_assets',
+  accessKeyIdEnvVar: 'AWS_ACCESS_HASHED_ASSETS',
+  secretAccessKeyEnvVar: 'AWS_SECRET_HASHED_ASSETS',
   directory: 'public',
   reviewBucket: ['ft-next-hashed-assets-preview'],
   prodBucket: ['ft-next-hashed-assets-prod'],
@@ -25,10 +25,37 @@ const defaults: UploadAssetsToS3Options = {
 }
 
 describe('upload-assets-to-s3', () => {
+  let oldEnv: Record<string, string | undefined>
+
   beforeEach(() => {
+    oldEnv = { ...process.env }
+
     mockedS3Client.prototype.send.mockReturnValue({
       promise: jest.fn().mockResolvedValue('mock upload complete')
     } as any) // eslint-disable-line @typescript-eslint/no-explicit-any
+  })
+
+  afterEach(() => {
+    process.env = oldEnv
+  })
+
+  it('should throw an error if env vars are not set', async () => {
+    const task = new UploadAssetsToS3(
+      logger,
+      'UploadAssetsToS3',
+      {},
+      {
+        ...defaults,
+        directory: testDirectory
+      }
+    )
+    process.env.NODE_ENV = 'branch'
+    process.env.AWS_ACCESS_HASHED_ASSETS = ''
+    process.env.AWS_SECRET_HASHED_ASSETS = ''
+
+    await expect(task.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"environment variables AWS_ACCESS_HASHED_ASSETS and AWS_SECRET_HASHED_ASSETS not set"`
+    )
   })
 
   it('should upload all globbed files for review', async () => {
@@ -42,6 +69,8 @@ describe('upload-assets-to-s3', () => {
       }
     )
     process.env.NODE_ENV = 'branch'
+    process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
+    process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
     await task.run()
 
@@ -60,6 +89,8 @@ describe('upload-assets-to-s3', () => {
       }
     )
     process.env.NODE_ENV = 'production'
+    process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
+    process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
     await task.run()
 
@@ -80,6 +111,8 @@ describe('upload-assets-to-s3', () => {
       }
     )
     process.env.NODE_ENV = 'production'
+    process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
+    process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
     await task.run()
     const s3 = jest.mocked(mockedS3Client.mock.instances[0])
@@ -99,6 +132,8 @@ describe('upload-assets-to-s3', () => {
       }
     )
     process.env.NODE_ENV = 'production'
+    process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
+    process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
     await task.run()
 
@@ -123,29 +158,9 @@ describe('upload-assets-to-s3', () => {
       }
     )
 
+    process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
+    process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
+
     await expect(task.run()).rejects.toThrow('ft-next-hashed-assets-prod failed')
-  })
-
-  // HACK:20231006:IM make sure hack to support Doppler migration works
-  it('should fallback to uppercase environment variable', async () => {
-    const task = new UploadAssetsToS3(
-      logger,
-      'UploadAssetsToS3',
-      {},
-      {
-        ...defaults,
-        directory: testDirectory
-      }
-    )
-    // must use delete to ensure an environment variable is undefined, setting
-    // 'undefined' will just stringify the word
-    delete process.env.aws_access_hashed_assets
-    process.env.AWS_ACCESS_HASHED_ASSETS = '1234'
-
-    await task.run()
-
-    expect(mockedS3Client).toHaveBeenCalledWith(
-      expect.objectContaining({ credentials: expect.objectContaining({ accessKeyId: '1234' }) })
-    )
   })
 })

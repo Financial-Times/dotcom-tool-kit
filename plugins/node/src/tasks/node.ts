@@ -8,8 +8,6 @@ import getPort from 'get-port'
 import waitPort from 'wait-port'
 
 export default class Node extends Task<{ task: typeof NodeSchema }> {
-  static description = ''
-
   async run(): Promise<void> {
     const { entry, args, useDoppler, ports } = this.options
 

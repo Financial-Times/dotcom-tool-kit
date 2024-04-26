@@ -4,8 +4,6 @@ import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverles
 import { spawn } from 'child_process'
 
 export default class ServerlessDeploy extends Task<{ plugin: typeof ServerlessSchema }> {
-  static description = 'Deploys on AWS'
-
   async run(): Promise<void> {
     const { configPath, regions, systemCode } = this.pluginOptions
 
