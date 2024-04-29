@@ -195,7 +195,8 @@ export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJ
 
         update(
           state,
-          [field + '.' + key],
+          // full stops in the key shouldn't be treated as path separators
+          [field + '.' + key.replace('.', '\\.')],
           (hookState?: PackageJsonStateValue): PackageJsonStateValue => ({
             // prepend each command to maintain the same order as previous implementations
             commands: [...commands, ...(hookState?.commands ?? [])],
@@ -215,7 +216,8 @@ export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJ
     for (const [path, installation] of Object.entries(state)) {
       set(
         packageJson,
-        path,
+        // split the path on unescaped full stops
+        path.split(/(?<!\\)\./).map((component) => component.replace('\\.', '.')),
         `dotcom-tool-kit ${installation.commands.join(' ')}${
           installation.trailingString ? ' ' + installation.trailingString : ''
         }`
