@@ -38,7 +38,7 @@ const toolKitOption = {
   tag: '!toolkit/option',
   // wrap option path with identifier so we can substitute the option's value
   // once it's been resolved later
-  resolve: (option) => ({ [toolKitOptionIdent]: option })
+  resolve: (option) => `${toolKitOptionIdent}${option}`
 } satisfies YAML.ScalarTag
 const toolKitIfDefined = {
   identify: () => false,
