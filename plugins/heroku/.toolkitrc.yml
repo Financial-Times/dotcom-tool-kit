@@ -11,4 +11,13 @@ tasks:
 commands:
   'cleanup:remote': NpmPrune
 
+options:
+  hooks:
+    - PackageJson:
+        scripts:
+          heroku-postbuild:
+            - 'build:remote'
+            - 'release:remote'
+            - 'cleanup:remote'
+
 version: 2
