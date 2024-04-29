@@ -42,11 +42,12 @@ For an example, consider this (simplified) dependency tree of plugins:
 
 ```
 └ app root
-  └ frontend-app
-    ├ backend-heroku-app
-    │ ├ circleci
-    │ └ heroku
-    └ webpack
+  ├ frontend-app
+  │ ├ backend-heroku-app
+  │ │ ├ circleci
+  │ │ └ heroku
+  │ └ webpack
+  └ heroku
 ```
 
 The plugins will be loaded in this order:
@@ -57,6 +58,7 @@ The plugins will be loaded in this order:
 4. `circleci`
 5. `heroku`
 6. `webpack`
+7. (`heroku` has already been loaded, so is skipped here)
 
 And then resolved in this order:
 
@@ -65,7 +67,8 @@ And then resolved in this order:
 3. `backend-heroku-app`
 4. `webpack`
 5. `frontend-app`
-6. `app root`
+6. (`heroku` has already been resolved, so is skipped here)
+7. `app root`
 
 This depth-first resolution together with the `app root` being the ultimate ancestor plugin means a repo's `.toolkitrc.yml` can override anything (including conflicts) from any plugin, allowing users to have the final say over what's running when and how it's configured.
 
