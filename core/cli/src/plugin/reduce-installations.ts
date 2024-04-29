@@ -41,9 +41,10 @@ export async function reducePluginHookInstallations(
   hookClasses: Record<string, HookClass>,
   plugin: Plugin
 ): Promise<(HookInstallation | Conflict<HookInstallation>)[]> {
-  if (!plugin.rcFile) {
+  if (!plugin.rcFile || config.resolutionTrackers.reducedInstallationPlugins.has(plugin.id)) {
     return []
   }
+  config.resolutionTrackers.reducedInstallationPlugins.add(plugin.id)
 
   const rawChildInstallations = await Promise.all(
     (plugin.children ?? []).map((child) => reducePluginHookInstallations(logger, config, hookClasses, child))
