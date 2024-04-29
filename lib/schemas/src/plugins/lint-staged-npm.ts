@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 export const LintStagedNpmSchema = z.object({
-  testGlob: z.string().optional(),
-  formatGlob: z.string().optional()
+  testGlob: z.string().default('**/*.js'),
+  formatGlob: z.string().default('**/*.js')
 })
 export type LintStagedNpmOptions = z.infer<typeof LintStagedNpmSchema>
 
