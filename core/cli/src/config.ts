@@ -32,7 +32,8 @@ export const createConfig = (): RawConfig => ({
   resolutionTrackers: {
     resolvedPluginOptions: new Set(),
     substitutedPlugins: new Set(),
-    resolvedPlugins: new Set()
+    resolvedPlugins: new Set(),
+    reducedInstallationPlugins: new Set()
   },
   tasks: {},
   commandTasks: {},
