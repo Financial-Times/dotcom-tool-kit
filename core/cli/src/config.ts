@@ -8,7 +8,7 @@ import {
   isConflict,
   findConflictingEntries
 } from '@dotcom-tool-kit/conflict'
-import { ToolKitConflictError } from '@dotcom-tool-kit/error'
+import { ToolKitError, ToolKitConflictError } from '@dotcom-tool-kit/error'
 import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import {
   formatTaskConflicts,
@@ -44,7 +44,7 @@ export const createConfig = (): RawConfig => ({
   hookManagedFiles: new Set()
 })
 
-export function validateConfig(config: ValidPluginsConfig, logger: Logger): ValidConfig {
+export function validateConfig(config: ValidPluginsConfig): ValidConfig {
   const validConfig = config as ValidConfig
 
   const commandTaskConflicts = findConflicts(Object.values(config.commandTasks))
@@ -97,13 +97,6 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
     if (taskOptionConflicts.length) {
       error.details += formatTaskOptionConflicts(taskOptionConflicts)
     }
-  }
-
-  const invalidOptions = validatePluginOptions(logger, config)
-
-  if (invalidOptions.length > 0) {
-    shouldThrow = true
-    error.details += formatInvalidOptions(invalidOptions)
   }
 
   const unusedPluginOptions = Object.entries(config.pluginOptions)
@@ -167,8 +160,14 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
   // start with options so we can substitute resolved values into other parts
   // of the config
   resolvePluginOptions(validRootPlugin, validPluginConfig)
+  const invalidOptions = validatePluginOptions(logger, validPluginConfig)
+  if (invalidOptions.length > 0 && validate) {
+    const error = new ToolKitError('There are problems with your plugin options.')
+    error.details = formatInvalidOptions(invalidOptions)
+    throw error
+  }
   substituteOptionTags(validRootPlugin, validPluginConfig)
   resolvePlugin(validRootPlugin, validPluginConfig, logger)
 
-  return validate ? validateConfig(validPluginConfig, logger) : config
+  return validate ? validateConfig(validPluginConfig) : config
 }
