@@ -2,4 +2,15 @@ plugins:
   - '@dotcom-tool-kit/lint-staged'
   - '@dotcom-tool-kit/husky-npm'
 
+options:
+  hooks:
+    - PackageJson:
+        lint-staged:
+          !toolkit/option '@dotcom-tool-kit/lint-staged-npm.testGlob':
+            commands: 'test:staged'
+            trailingString: '--'
+          !toolkit/option '@dotcom-tool-kit/lint-staged-npm.formatGlob':
+            commands: 'format:staged'
+            trailingString: '--'
+
 version: 2
