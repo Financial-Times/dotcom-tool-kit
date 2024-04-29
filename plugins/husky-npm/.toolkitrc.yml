@@ -1,2 +1,8 @@
+options:
+  hooks:
+    - PackageJson:
+        husky.hooks:
+          pre-commit: 'git:precommit'
+          commit-msg: 'git:commitmsg'
 
 version: 2
