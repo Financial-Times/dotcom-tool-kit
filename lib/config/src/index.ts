@@ -16,6 +16,7 @@ export interface RawConfig {
     resolvedPluginOptions: Set<string>
     substitutedPlugins: Set<string>
     resolvedPlugins: Set<string>
+    reducedInstallationPlugins: Set<string>
   }
   tasks: { [id: string]: EntryPoint | Conflict<EntryPoint> }
   commandTasks: { [id: string]: CommandTask | Conflict<CommandTask> }

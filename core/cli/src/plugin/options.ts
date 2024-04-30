@@ -88,48 +88,74 @@ export const substituteOptionTags = (plugin: Plugin, config: ValidPluginsConfig)
       return reduceValidated(node.map((item, i) => deeplySubstitute(item, [...path, i])))
     } else if (node && typeof node === 'object') {
       const entries = Object.entries(node)
-      // !toolkit/option will be marked as a single entry within an object
-      // e.g., { foo: { '__toolkit/option__': 'foo.bar' } }
-      if (entries[0]?.[0] === toolKitOptionIdent) {
-        const validationError = validateTagPath(path)
-        if (validationError) {
-          return invalid([validationError])
-        } else {
-          const optionPath = entries[0][1] as string
-          return valid(resolveOptionPath(optionPath))
-        }
-      } else {
-        const substituted: Validated<[string, unknown]>[] = []
-        for (const [key, value] of entries) {
-          if (key.startsWith(toolKitIfDefinedIdent)) {
-            const validationError = validateTagPath(path)
-            if (validationError) {
-              substituted.push(invalid([validationError]))
-            }
-            // the option path is concatenated after the !toolkit/if-defined
-            // identifier
-            const optionPath = key.slice(toolKitIfDefinedIdent.length)
-            const optionValue = resolveOptionPath(optionPath)
-            // keep walking the path if we've found an error here so we can
-            // gather even more errors to show the user. else skip traversal if
-            // we aren't going to include the node
-            if (optionValue || validationError) {
-              const subbedValues = deeplySubstitute(value, path)
-              if (subbedValues.valid) {
-                substituted.push(...Object.entries(subbedValues.value as object).map((v) => valid(v)))
+      const substituted: Validated<[string, unknown]>[] = []
+      for (const entry of entries) {
+        const subbedEntry = reduceValidated(
+          // allow both keys and (string) values to be substituted by options
+          entry.map((val) => {
+            if (typeof val === 'string' && val.startsWith(toolKitOptionIdent)) {
+              // check the tag path each time so that we can have a separate
+              // error for each incorrect use of the tag
+              const validationError = validateTagPath([...path, entry[0]])
+              if (validationError) {
+                return invalid([validationError])
               } else {
-                /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
-                 * Invalid objects don't need to match the inner type
-                 **/
-                substituted.push(subbedValues as Validated<any>)
+                // the option path is concatenated after the !toolkit/option
+                // identifier
+                const optionPath = val.slice(toolKitOptionIdent.length)
+                const resolvedOption = resolveOptionPath(optionPath)
+                if (typeof resolvedOption === 'string') {
+                  return valid(resolvedOption)
+                } else {
+                  return invalid([
+                    `Option '${optionPath}' referenced at path '${path.join(
+                      '.'
+                    )}' does not resolve to a string (resolved to ${resolvedOption})`
+                  ])
+                }
               }
+            } else {
+              return valid(val)
             }
-          } else {
-            substituted.push(deeplySubstitute(value, [...path, key]).map((subbedValue) => [key, subbedValue]))
-          }
+          })
+        )
+        if (!subbedEntry.valid) {
+          /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
+           * Invalid objects don't need to match the inner type
+           **/
+          substituted.push(subbedEntry as Validated<any>)
+          continue
         }
-        return reduceValidated(substituted).map(Object.fromEntries)
+
+        const [key, value] = subbedEntry.value
+        if (key.startsWith(toolKitIfDefinedIdent)) {
+          const validationError = validateTagPath(path)
+          if (validationError) {
+            substituted.push(invalid([validationError]))
+          }
+          // the option path is concatenated after the !toolkit/if-defined
+          // identifier
+          const optionPath = key.slice(toolKitIfDefinedIdent.length)
+          const optionValue = resolveOptionPath(optionPath)
+          // keep walking the path if we've found an error here so we can
+          // gather even more errors to show the user. else skip traversal if
+          // we aren't going to include the node
+          if (optionValue || validationError) {
+            const subbedValues = deeplySubstitute(value, path)
+            if (subbedValues.valid) {
+              substituted.push(...Object.entries(subbedValues.value as object).map((v) => valid(v)))
+            } else {
+              /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
+               * Invalid objects don't need to match the inner type
+               **/
+              substituted.push(subbedValues as Validated<any>)
+            }
+          }
+        } else {
+          substituted.push(deeplySubstitute(value, [...path, key]).map((subbedValue) => [key, subbedValue]))
+        }
       }
+      return reduceValidated(substituted).map(Object.fromEntries)
     } else {
       return valid(node)
     }

@@ -63,7 +63,13 @@ export const loadHookInstallations = async (
     const conflicts = findConflicts(installations)
 
     if (conflicts.length) {
-      return invalid<[]>([])
+      return invalid<[]>(
+        conflicts.map(
+          // TODO:20240429:IM format a more helpful error message here
+          (conflict) =>
+            `conflicts between ${conflict.conflicting.map((installation) => installation.forHook).join(', ')}`
+        )
+      )
     }
 
     return valid(withoutConflicts(installations))
