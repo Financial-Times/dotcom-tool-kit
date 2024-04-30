@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/config",
-  "version": "1.0.0",
+  "version": "2.0.0-beta.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/conflict": "^1.0.0",
-    "@dotcom-tool-kit/plugin": "^1.0.0",
-    "@dotcom-tool-kit/schemas": "^1.0.0",
-    "@dotcom-tool-kit/validated": "^1.0.0"
+    "@dotcom-tool-kit/conflict": "2.0.0-beta.0",
+    "@dotcom-tool-kit/plugin": "2.0.0-beta.0",
+    "@dotcom-tool-kit/schemas": "2.0.0-beta.0",
+    "@dotcom-tool-kit/validated": "2.0.0-beta.0"
   }
 }

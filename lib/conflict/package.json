@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/conflict",
-  "version": "1.0.0",
+  "version": "2.0.0-beta.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/plugin": "^1.0.0"
+    "@dotcom-tool-kit/plugin": "2.0.0-beta.0"
   }
 }

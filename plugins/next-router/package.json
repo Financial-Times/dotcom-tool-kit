@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/next-router",
-  "version": "3.4.1",
+  "version": "4.0.0-beta.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,11 +10,11 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^3.4.1",
-    "@dotcom-tool-kit/doppler": "^1.1.0",
-    "@dotcom-tool-kit/error": "^3.2.0",
-    "@dotcom-tool-kit/logger": "^3.4.0",
-    "@dotcom-tool-kit/state": "^3.3.0",
+    "@dotcom-tool-kit/base": "4.0.0-beta.0",
+    "@dotcom-tool-kit/doppler": "2.0.0-beta.0",
+    "@dotcom-tool-kit/error": "4.0.0-beta.0",
+    "@dotcom-tool-kit/logger": "4.0.0-beta.0",
+    "@dotcom-tool-kit/state": "4.0.0-beta.0",
     "ft-next-router": "^3.0.0",
     "tslib": "^2.3.1"
   },
@@ -30,13 +30,13 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x"
+    "dotcom-tool-kit": "4.0.0-beta.0"
   },
   "engines": {
     "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.0.0"
+    "@dotcom-tool-kit/schemas": "2.0.0-beta.0"
   }
 }
