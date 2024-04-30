@@ -5,4 +5,9 @@ commands:
   'format:local': Prettier
   'format:staged': Prettier
 
+options:
+  - PackageJson:
+      scripts:
+        format: 'format:local'
+
 version: 2
