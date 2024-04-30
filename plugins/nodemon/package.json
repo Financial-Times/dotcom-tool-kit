@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/nodemon",
-  "version": "3.4.1",
+  "version": "4.0.0-beta.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,15 +10,15 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^3.4.1",
-    "@dotcom-tool-kit/error": "^3.2.0",
-    "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/doppler": "^1.1.0",
+    "@dotcom-tool-kit/base": "4.0.0-beta.0",
+    "@dotcom-tool-kit/error": "4.0.0-beta.0",
+    "@dotcom-tool-kit/state": "4.0.0-beta.0",
+    "@dotcom-tool-kit/doppler": "2.0.0-beta.0",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x",
+    "dotcom-tool-kit": "4.0.0-beta.0",
     "nodemon": "2.x"
   },
   "repository": {
@@ -33,7 +33,7 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.0.0",
+    "@dotcom-tool-kit/schemas": "2.0.0-beta.0",
     "@types/nodemon": "^1.19.1"
   },
   "engines": {

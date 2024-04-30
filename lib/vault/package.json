@@ -1,14 +1,14 @@
 {
   "name": "@dotcom-tool-kit/vault",
-  "version": "3.2.0",
+  "version": "4.0.0-beta.0",
   "description": "",
   "main": "lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@dotcom-tool-kit/error": "^3.2.0",
-    "@dotcom-tool-kit/options": "^3.2.0",
+    "@dotcom-tool-kit/error": "4.0.0-beta.0",
+    "@dotcom-tool-kit/options": "4.0.0-beta.0",
     "@financial-times/n-fetch": "^1.0.0",
     "fs": "0.0.1-security",
     "os": "^0.1.2",
@@ -34,7 +34,7 @@
     "extends": "../../package.json"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.0.0",
+    "@dotcom-tool-kit/schemas": "2.0.0-beta.0",
     "@types/jest": "^27.0.2",
     "winston": "^3.5.1"
   },

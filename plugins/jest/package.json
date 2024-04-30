@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/jest",
-  "version": "3.4.0",
+  "version": "4.0.0-beta.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,12 +10,12 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^3.4.1",
-    "@dotcom-tool-kit/logger": "^3.4.0",
+    "@dotcom-tool-kit/base": "4.0.0-beta.0",
+    "@dotcom-tool-kit/logger": "4.0.0-beta.0",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x",
+    "dotcom-tool-kit": "4.0.0-beta.0",
     "jest-cli": "27.x || 28.x || 29.x"
   },
   "repository": {
@@ -30,7 +30,7 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.0.0",
+    "@dotcom-tool-kit/schemas": "2.0.0-beta.0",
     "winston": "^3.5.1"
   },
   "engines": {
