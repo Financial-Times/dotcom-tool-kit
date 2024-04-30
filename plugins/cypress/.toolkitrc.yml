@@ -6,4 +6,10 @@ commands:
   'test:staging': Cypress
   'e2e:local': Cypress
 
+options:
+  hooks:
+    - PackageJson:
+        scripts:
+          e2e-test: 'e2e:local'
+
 version: 2
