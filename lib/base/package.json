@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/base",
-  "version": "3.4.1",
+  "version": "1.0.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -16,7 +16,7 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/logger": "^3.3.0",
+    "@dotcom-tool-kit/logger": "^4.0.0",
     "@dotcom-tool-kit/plugin": "^1.0.0",
     "winston": "^3.11.0",
     "zod": "^3.22.4"

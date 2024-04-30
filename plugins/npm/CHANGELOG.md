@@ -139,6 +139,49 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.3.1...npm-v4.0.0) (2024-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* move base classes into their own package
+* remove all current concrete hook subclasses
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* move base classes into their own package ([6cc09b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cc09b5a0afb136810f8e9fa45dea7aa0a10d830))
+* move package-json-hook to plugins and export PackageJson hook ([e36d552](https://github.com/Financial-Times/dotcom-tool-kit/commit/e36d552f054526e4730781e1cd344d07e090fa6b))
+* **npm:** add PackageJson hook options ([13369a9](https://github.com/Financial-Times/dotcom-tool-kit/commit/13369a9f50ad619402c279f52e957e377a7f9d42))
+
+
+### Bug Fixes
+
+* make npm publish error messages CI-agnostic ([c3999ed](https://github.com/Financial-Times/dotcom-tool-kit/commit/c3999edeefe8c41b5ce43f4953d306bf348744fa))
+* require package-json-hook plugin in plugins that use PackageJson hook ([49d9733](https://github.com/Financial-Times/dotcom-tool-kit/commit/49d97337da2a6c92440f32ba7740e28ec3fc7edc))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([d0df633](https://github.com/Financial-Times/dotcom-tool-kit/commit/d0df63395f0cede5b4050dfef5e4b5f705a771b0))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+* remove all current concrete hook subclasses ([ce2dd4b](https://github.com/Financial-Times/dotcom-tool-kit/commit/ce2dd4bf29b81e0160c7a70d2dde3623cb5e9d7a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^4.2.0 to ^5.0.0
+    * @dotcom-tool-kit/state bumped from ^3.3.0 to ^4.0.0
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.2.3...npm-v3.3.0) (2024-01-11)
 
 

@@ -168,6 +168,65 @@
     * @dotcom-tool-kit/npm bumped from ^3.3.0 to ^3.3.1
     * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.4.1...heroku-v4.0.0) (2024-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* split heroku options into plugin-wide and heroku production task-specific
+* drop support for Node 16
+* rename Task#options to pluginOptions
+* move base classes into their own package
+* remove all current concrete hook subclasses
+* rename `hooks` in toolkitrc to `commands`
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* allow tasks to receive a task options object and parse task schema when initialising ([995eb38](https://github.com/Financial-Times/dotcom-tool-kit/commit/995eb386ce8f475c33f7edd7645b73cb57de25f8))
+* **heroku:** add PackageJson hook options ([f319cda](https://github.com/Financial-Times/dotcom-tool-kit/commit/f319cda3bfcbc49d2734213e5403ca70a7bffe87))
+* move base classes into their own package ([6cc09b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cc09b5a0afb136810f8e9fa45dea7aa0a10d830))
+* move package-json-hook to plugins and export PackageJson hook ([e36d552](https://github.com/Financial-Times/dotcom-tool-kit/commit/e36d552f054526e4730781e1cd344d07e090fa6b))
+* rename `hooks` in toolkitrc to `commands` ([91daa0e](https://github.com/Financial-Times/dotcom-tool-kit/commit/91daa0e13ebe5440fbdd5783c2b7eead5f588a22))
+* split heroku options into plugin-wide and heroku production task-specific ([9653311](https://github.com/Financial-Times/dotcom-tool-kit/commit/9653311b8d9424327b6f217d626389674472d332))
+* split schemas out into separate package ([6aecf35](https://github.com/Financial-Times/dotcom-tool-kit/commit/6aecf3585aab155fe6f356997fd60bd5c34c38ef))
+
+
+### Bug Fixes
+
+* require package-json-hook plugin in plugins that use PackageJson hook ([49d9733](https://github.com/Financial-Times/dotcom-tool-kit/commit/49d97337da2a6c92440f32ba7740e28ec3fc7edc))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([d0df633](https://github.com/Financial-Times/dotcom-tool-kit/commit/d0df63395f0cede5b4050dfef5e4b5f705a771b0))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+* remove all current concrete hook subclasses ([ce2dd4b](https://github.com/Financial-Times/dotcom-tool-kit/commit/ce2dd4bf29b81e0160c7a70d2dde3623cb5e9d7a))
+
+
+### Code Refactoring
+
+* rename Task#options to pluginOptions ([1eee853](https://github.com/Financial-Times/dotcom-tool-kit/commit/1eee8535c7984e07235f93e8a9b0a3081ad68b4e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/doppler bumped from ^1.1.0 to ^2.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^4.0.0
+    * @dotcom-tool-kit/npm bumped from ^3.3.1 to ^4.0.0
+    * @dotcom-tool-kit/options bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^4.2.0 to ^5.0.0
+    * @dotcom-tool-kit/state bumped from ^3.3.0 to ^4.0.0
+    * @dotcom-tool-kit/wait-for-ok bumped from ^3.2.0 to ^4.0.0
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v3.3.15...heroku-v3.4.0) (2024-01-11)
 
 

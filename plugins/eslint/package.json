@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/eslint",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^3.4.1",
-    "@dotcom-tool-kit/error": "^3.2.0",
-    "@dotcom-tool-kit/logger": "^3.4.0",
+    "@dotcom-tool-kit/base": "^1.0.0",
+    "@dotcom-tool-kit/error": "^4.0.0",
+    "@dotcom-tool-kit/logger": "^4.0.0",
     "tslib": "^2.3.1"
   },
   "repository": {
