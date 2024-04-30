@@ -1,4 +1,5 @@
 plugins:
+  - '@dotcom-tool-kit/package-json-hook'
   - '@dotcom-tool-kit/npm'
   - '@dotcom-tool-kit/doppler' # required so the create script knows we need its options
 

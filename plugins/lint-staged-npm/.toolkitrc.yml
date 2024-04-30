@@ -1,6 +1,7 @@
 plugins:
   - '@dotcom-tool-kit/lint-staged'
   - '@dotcom-tool-kit/husky-npm'
+  - '@dotcom-tool-kit/package-json-hook'
 
 options:
   hooks:
