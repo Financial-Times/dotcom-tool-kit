@@ -126,6 +126,28 @@
   * dependencies
     * @dotcom-tool-kit/types bumped from ^3.4.1 to ^3.5.0
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/options-v3.2.0...options-v4.0.0) (2024-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* rename SchemaOptions to PluginOptions
+
+### Features
+
+* split schemas out into separate package ([6aecf35](https://github.com/Financial-Times/dotcom-tool-kit/commit/6aecf3585aab155fe6f356997fd60bd5c34c38ef))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([6b5d149](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b5d149446c07b9e9ef105ecbc3c0137a6f45ebe))
+
+
+### Code Refactoring
+
+* rename SchemaOptions to PluginOptions ([7de8626](https://github.com/Financial-Times/dotcom-tool-kit/commit/7de862654fe2ca474ddfd6b28bc133a4de17c803))
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/options-v3.1.6...options-v3.2.0) (2024-01-11)
 
 
