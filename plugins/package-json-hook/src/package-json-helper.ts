@@ -88,6 +88,13 @@ function mergeInstallationResults(
   return results
 }
 
+// split the path on all unescaped full stops, then unescape all escaped full
+// stops. this will mean we can pass fields to lodash functions taking a path
+// even if the fields contain full stops.
+function splitAndUnescapePath(path: string): string[] {
+  return path.split(/(?<!\\)\./).map((component) => component.replace('\\.', '.'))
+}
+
 export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJsonState> {
   private _packageJson?: PackageJsonContents
 
@@ -167,7 +174,7 @@ export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJ
     // missing, the check should fail.
     for (const [field, object] of Object.entries(this.options)) {
       for (const [key, command] of Object.entries(object)) {
-        const currentPackageJsonField = get(packageJson, [field, key])
+        const currentPackageJsonField = get(packageJson, [...splitAndUnescapePath(field), key])
 
         if (!currentPackageJsonField || !currentPackageJsonField.includes(command)) {
           return false
@@ -216,8 +223,7 @@ export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJ
     for (const [path, installation] of Object.entries(state)) {
       set(
         packageJson,
-        // split the path on unescaped full stops
-        path.split(/(?<!\\)\./).map((component) => component.replace('\\.', '.')),
+        splitAndUnescapePath(path),
         `dotcom-tool-kit ${installation.commands.join(' ')}${
           installation.trailingString ? ' ' + installation.trailingString : ''
         }`
