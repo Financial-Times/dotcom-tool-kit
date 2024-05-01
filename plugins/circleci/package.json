@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci",
-  "version": "7.0.0-beta.0",
+  "version": "7.0.0-beta.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -47,7 +47,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.0.0-beta.0",
+    "dotcom-tool-kit": "4.0.0-beta.1",
     "zod": "^3.22.4"
   },
   "engines": {

@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/n-test",
-  "version": "4.0.0-beta.0",
+  "version": "4.0.0-beta.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -37,7 +37,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.0.0-beta.0"
+    "dotcom-tool-kit": "4.0.0-beta.1"
   },
   "engines": {
     "node": "18.x || 20.x",
