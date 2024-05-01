@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/package-json-hook",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.2",
   "description": "",
   "main": "lib",
   "scripts": {
