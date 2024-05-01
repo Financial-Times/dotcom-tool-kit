@@ -20,17 +20,6 @@
     "test": "cd ../../ ; npx jest --silent --projects core/cli"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/babel": "^3.2.1",
-    "@dotcom-tool-kit/backend-heroku-app": "^3.1.6",
-    "@dotcom-tool-kit/circleci": "^6.0.3",
-    "@dotcom-tool-kit/circleci-deploy": "^3.4.5",
-    "@dotcom-tool-kit/eslint": "^3.2.2",
-    "@dotcom-tool-kit/frontend-app": "^3.2.6",
-    "@dotcom-tool-kit/heroku": "^3.4.2",
-    "@dotcom-tool-kit/mocha": "^3.2.1",
-    "@dotcom-tool-kit/n-test": "^3.3.2",
-    "@dotcom-tool-kit/npm": "^3.3.2",
-    "@dotcom-tool-kit/webpack": "^3.2.1",
     "@jest/globals": "^27.4.6",
     "@types/lodash": "^4.14.185",
     "@types/node": "^16.18.23",
