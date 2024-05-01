@@ -50,22 +50,6 @@ const loadTasks = async (
 export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
   const config = await loadConfig(logger)
 
-  const availableCommands = Object.keys(config.commandTasks)
-    .sort()
-    .map((id) => `- ${id}`)
-    .join('\n')
-
-  const missingCommands = commands.filter((id) => !config.commandTasks[id])
-
-  if (missingCommands.length > 0) {
-    const error = new ToolKitError(`commands ${missingCommands} do not exist`)
-    error.details = `maybe you need to install a plugin to define these commands, or configure them in your Tool Kit configuration.
-
-commands that are available are:
-${availableCommands}`
-    throw error
-  }
-
   for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
