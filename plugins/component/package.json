@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/component",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.2",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -17,11 +17,11 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "4.0.0-beta.1"
+    "dotcom-tool-kit": "4.0.0-beta.2"
   },
   "dependencies": {
-    "@dotcom-tool-kit/circleci-npm": "6.0.0-beta.1",
-    "@dotcom-tool-kit/npm": "4.0.0-beta.1"
+    "@dotcom-tool-kit/circleci-npm": "6.0.0-beta.2",
+    "@dotcom-tool-kit/npm": "4.0.0-beta.2"
   },
   "engines": {
     "node": "18.x || 20.x",

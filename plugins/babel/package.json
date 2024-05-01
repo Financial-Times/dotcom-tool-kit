@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/babel",
-  "version": "4.0.0-beta.1",
+  "version": "4.0.0-beta.2",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -37,7 +37,7 @@
   },
   "peerDependencies": {
     "@babel/core": "7.x",
-    "dotcom-tool-kit": "4.0.0-beta.1"
+    "dotcom-tool-kit": "4.0.0-beta.2"
   },
   "engines": {
     "node": "18.x || 20.x",

@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/pa11y",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "pa11y",
   "main": "lib",
   "scripts": {
@@ -28,7 +28,7 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "4.0.0-beta.1"
+    "dotcom-tool-kit": "4.0.0-beta.2"
   },
   "devDependencies": {
     "@types/pa11y": "^5.3.4"
