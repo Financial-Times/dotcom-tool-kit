@@ -173,10 +173,23 @@ export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJ
     // field exists, and its string includes the name of the command. if any command from our options is
     // missing, the check should fail.
     for (const [field, object] of Object.entries(this.options)) {
-      for (const [key, command] of Object.entries(object)) {
-        const currentPackageJsonField = get(packageJson, [...splitAndUnescapePath(field), key])
+      for (const [key, entry] of Object.entries(object)) {
+        let commands: string[]
+        if (Array.isArray(entry)) {
+          commands = entry
+        } else if (typeof entry === 'string') {
+          commands = [entry]
+        } else {
+          commands = Array.isArray(entry.commands) ? entry.commands : [entry.commands]
+        }
 
-        if (!currentPackageJsonField || !currentPackageJsonField.includes(command)) {
+        const path = [...splitAndUnescapePath(field), key]
+        const currentPackageJsonField: string = get(packageJson, path)
+
+        if (
+          !currentPackageJsonField ||
+          !commands.every((command) => currentPackageJsonField.includes(command))
+        ) {
           return false
         }
       }
