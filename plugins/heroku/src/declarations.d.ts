@@ -30,7 +30,7 @@ declare module 'heroku-client' {
 
   export type HerokuApiResGetApp = {
     id: string
-    slugSize: number | null
+    slug_size: number | null
   }
 
   export type HerokuApiResGetReview = {

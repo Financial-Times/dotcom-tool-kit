@@ -78,6 +78,6 @@ export default class HerokuProduction extends Task<{
     const appInfo = await heroku
       .get<HerokuApiResGetApp>(`/apps/${appId}`)
       .catch(extractHerokuError(`getting slug size for app ${appId}`))
-    return appInfo.slugSize !== null
+    return appInfo.slug_size !== null
   }
 }
