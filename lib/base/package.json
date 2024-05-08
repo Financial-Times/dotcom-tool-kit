@@ -24,5 +24,6 @@
   "peerDependencies": {
     "zod": "^3.22.4"
   },
-  "type": "module"
+  "type": "module",
+  "exports": "./lib/index.js"
 }

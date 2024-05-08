@@ -10,5 +10,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "exports": "./lib/index.js"
 }

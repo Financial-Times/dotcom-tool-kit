@@ -38,5 +38,6 @@
     "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   },
-  "type": "module"
+  "type": "module",
+  "exports": "./lib/index.js"
 }

@@ -15,5 +15,6 @@
     "@dotcom-tool-kit/schemas": "2.0.0-beta.0",
     "@dotcom-tool-kit/validated": "2.0.0-beta.0"
   },
-  "type": "module"
+  "type": "module",
+  "exports": "./lib/index.js"
 }

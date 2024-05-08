@@ -11,5 +11,6 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "4.0.0-beta.0"
   },
-  "type": "module"
+  "type": "module",
+  "exports": "./lib/index.js"
 }

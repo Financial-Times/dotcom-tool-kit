@@ -12,5 +12,6 @@
   "dependencies": {
     "@dotcom-tool-kit/plugin": "2.0.0-beta.0"
   },
-  "type": "module"
+  "type": "module",
+  "exports": "./lib/index.js"
 }
