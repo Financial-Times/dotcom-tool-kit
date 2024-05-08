@@ -49,7 +49,7 @@
     "@types/financial-times__package-json": "2.0.0-beta.0",
     "@types/lodash": "^4.14.185",
     "@types/node": "^16.18.23",
-    "@types/node-fetch": "^2.6.2",
+    "@types/node-fetch": "^2.6.11",
     "@types/pacote": "^11.1.3",
     "@types/prompts": "^2.0.14",
     "dotcom-tool-kit": "4.0.0-beta.5",
