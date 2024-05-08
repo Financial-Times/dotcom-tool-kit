@@ -1,4 +1,5 @@
 import path from 'path'
+import { fileURLToPath } from 'url'
 import type { Logger } from 'winston'
 
 import { loadPlugin, resolvePlugin, resolvePluginOptions } from './plugin.js'
@@ -24,7 +25,7 @@ import {
 import { validatePlugins } from './config/validate-plugins.js'
 import { substituteOptionTags, validatePluginOptions } from './plugin/options.js'
 
-const coreRoot = path.resolve(__dirname, '../')
+const coreRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../')
 
 export const createConfig = (): RawConfig => ({
   root: coreRoot,

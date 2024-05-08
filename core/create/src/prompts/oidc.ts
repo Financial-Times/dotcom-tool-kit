@@ -13,6 +13,7 @@ import fetch from 'node-fetch'
 import path from 'path'
 import prompt from 'prompts'
 import { simpleGit } from 'simple-git'
+import { fileURLToPath } from 'url'
 import YAML from 'yaml'
 import { z } from 'zod'
 
@@ -146,7 +147,7 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
   }
 
   const cloudformationTemplateRaw = await fs.readFile(
-    path.resolve(__dirname, '../../files/oidc-cloudformation.yml'),
+    path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../files/oidc-cloudformation.yml'),
     'utf8'
   )
   // CloudFormation's intrinsic functions need to be defined as custom tags in
