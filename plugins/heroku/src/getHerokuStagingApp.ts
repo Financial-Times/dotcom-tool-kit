@@ -1,6 +1,6 @@
 import { readState, writeState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import type { HerokuApiResGetStaging } from 'heroku-client'
 
 async function getHerokuStagingApp(): Promise<string> {

@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import * as puppeteer from 'puppeteer'
-import NTest from '../../src/tasks/n-test'
+import NTest from '../../src/tasks/n-test.js'
 import { writeState } from '@dotcom-tool-kit/state'
 import winston, { Logger } from 'winston'
 

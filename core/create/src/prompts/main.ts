@@ -2,7 +2,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import type { PackageJson } from 'type-fest'
 import { existsSync } from 'fs'
 import prompt from 'prompts'
-import { BizOpsSystem } from '../bizOps'
+import { BizOpsSystem } from '../bizOps.js'
 
 type PromptNames = 'preset' | 'additional' | 'addEslintConfig' | 'deleteConfig' | 'fixGitignore' | 'uninstall'
 

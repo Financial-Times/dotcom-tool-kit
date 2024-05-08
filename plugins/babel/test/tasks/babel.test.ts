@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals'
-import Babel from '../../src/tasks/babel'
+import Babel from '../../src/tasks/babel.js'
 import { promises as fs } from 'fs'
 import * as path from 'path'
 import winston, { Logger } from 'winston'

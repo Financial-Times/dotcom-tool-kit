@@ -1,9 +1,9 @@
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import type { HerokuApiResGetReview } from 'heroku-client'
 import type { Logger } from 'winston'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus'
+import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus.js'
 
 async function getHerokuReviewApp(logger: Logger, pipelineId: string): Promise<string | undefined> {
   const state = readState('ci')

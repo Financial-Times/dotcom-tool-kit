@@ -1,5 +1,5 @@
 import type { Logger } from 'winston'
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { HerokuApiResPost } from 'heroku-client'
 import { writeState } from '@dotcom-tool-kit/state'

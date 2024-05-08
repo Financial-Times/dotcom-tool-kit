@@ -1,7 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { getHerokuStagingApp } from '../src/getHerokuStagingApp'
+import { getHerokuStagingApp } from '../src/getHerokuStagingApp.js'
 import { readState, writeState } from '@dotcom-tool-kit/state'
-import heroku from '../src/herokuClient'
+import heroku from '../src/herokuClient.js'
 
 const stagingState = {
   appIds: ['staging-app-id'],

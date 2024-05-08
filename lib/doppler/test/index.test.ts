@@ -1,7 +1,7 @@
 import spawk from 'spawk'
 import winston, { Logger } from 'winston'
 import { VaultEnvVars } from '@dotcom-tool-kit/vault'
-import { DopplerEnvVars } from '../src/index'
+import { DopplerEnvVars } from '../src/index.js'
 
 const logger = (winston as unknown) as Logger
 

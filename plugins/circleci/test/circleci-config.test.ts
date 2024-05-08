@@ -11,7 +11,7 @@ import path from 'path'
 import winston, { Logger } from 'winston'
 import * as YAML from 'yaml'
 
-import CircleCi from '../src/circleci-config'
+import CircleCi from '../src/circleci-config.js'
 
 const logger = winston as unknown as Logger
 

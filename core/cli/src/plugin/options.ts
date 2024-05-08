@@ -8,8 +8,8 @@ import type { Logger } from 'winston'
 import { ZodError, ZodIssueCode } from 'zod'
 import { styles } from '@dotcom-tool-kit/logger'
 
-import { toolKitIfDefinedIdent, toolKitOptionIdent } from '../rc-file'
-import { InvalidOption } from '../messages'
+import { toolKitIfDefinedIdent, toolKitOptionIdent } from '../rc-file.js'
+import { InvalidOption } from '../messages.js'
 
 export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig): InvalidOption[] => {
   const invalidOptions: InvalidOption[] = []

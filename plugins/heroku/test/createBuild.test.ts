@@ -1,7 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { createBuild } from '../src/createBuild'
-import { getRepoDetails } from '../src/githubApi'
-import heroku from '../src/herokuClient'
+import { createBuild } from '../src/createBuild.js'
+import { getRepoDetails } from '../src/githubApi.js'
+import heroku from '../src/herokuClient.js'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger

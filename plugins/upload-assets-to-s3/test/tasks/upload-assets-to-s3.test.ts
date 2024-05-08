@@ -3,7 +3,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import type { UploadAssetsToS3Options } from '@dotcom-tool-kit/schemas/lib/tasks/upload-assets-to-s3'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
-import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'
+import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3.js'
 jest.mock('@aws-sdk/client-s3')
 
 const mockedS3Client = jest.mocked(S3Client, true)

@@ -1,6 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import Production from '../../src/tasks/production'
-import * as utils from '../../src/promoteStagingToProduction'
+import Production from '../../src/tasks/production.js'
+import * as utils from '../../src/promoteStagingToProduction.js'
 import winston, { Logger } from 'winston'
 
 const logger = winston as unknown as Logger

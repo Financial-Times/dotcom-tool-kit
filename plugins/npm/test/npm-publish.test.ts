@@ -1,4 +1,4 @@
-import NpmPublish from '../src/tasks/publish'
+import NpmPublish from '../src/tasks/publish.js'
 import winston, { Logger } from 'winston'
 import * as state from '@dotcom-tool-kit/state'
 import pacote, { ManifestResult } from 'pacote'

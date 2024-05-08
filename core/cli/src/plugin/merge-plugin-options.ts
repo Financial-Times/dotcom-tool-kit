@@ -1,6 +1,6 @@
 import type { Plugin, OptionsForPlugin } from '@dotcom-tool-kit/plugin'
 import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
-import { isDescendent } from './is-descendent'
+import { isDescendent } from './is-descendent.js'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 
 // merge options from this plugin's config with any options we've collected already

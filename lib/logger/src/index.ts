@@ -1,4 +1,4 @@
-export { createFormatter } from './format'
-export { hookConsole, hookFork, waitOnExit } from './helpers'
-export { rootLogger } from './logger'
-export { styles } from './styles'
+export { createFormatter } from './format.js'
+export { hookConsole, hookFork, waitOnExit } from './helpers.js'
+export { rootLogger } from './logger.js'
+export { styles } from './styles.js'

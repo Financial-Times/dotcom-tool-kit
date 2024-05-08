@@ -1,5 +1,5 @@
 import { describe, jest, it, expect } from '@jest/globals'
-import Webpack from '../../src/tasks/webpack'
+import Webpack from '../../src/tasks/webpack.js'
 import { fork } from 'child_process'
 import EventEmitter from 'events'
 import winston, { Logger } from 'winston'

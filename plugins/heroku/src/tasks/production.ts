@@ -4,9 +4,9 @@ import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
 import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
 import type { HerokuApiResGetApp } from 'heroku-client'
-import heroku, { extractHerokuError } from '../herokuClient'
-import { scaleDyno } from '../scaleDyno'
-import { promoteStagingToProduction } from '../promoteStagingToProduction'
+import heroku, { extractHerokuError } from '../herokuClient.js'
+import { scaleDyno } from '../scaleDyno.js'
+import { promoteStagingToProduction } from '../promoteStagingToProduction.js'
 import { HerokuProductionSchema } from '@dotcom-tool-kit/schemas/src/tasks/heroku-production'
 
 export default class HerokuProduction extends Task<{

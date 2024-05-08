@@ -1,6 +1,6 @@
 import type { Logger } from 'winston'
-import { initSymbol, typeSymbol } from './symbols'
-import { Base } from './base'
+import { initSymbol, typeSymbol } from './symbols.js'
+import { Base } from './base.js'
 
 export abstract class Init extends Base {
   logger: Logger

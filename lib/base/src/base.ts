@@ -1,7 +1,7 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
 import path from 'path'
 import fs from 'fs'
-import { baseSymbol, typeSymbol } from './symbols'
+import { baseSymbol, typeSymbol } from './symbols.js'
 import { Validated, invalid, valid } from '@dotcom-tool-kit/validated'
 import semver from 'semver'
 

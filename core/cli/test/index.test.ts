@@ -5,10 +5,10 @@ import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
-import { createConfig, validateConfig } from '../src/config'
-import { loadHookInstallations } from '../src/install'
-import { loadPlugin, resolvePlugin, resolvePluginOptions } from '../src/plugin'
-import { validatePlugins } from '../src/config/validate-plugins'
+import { createConfig, validateConfig } from '../src/config.js'
+import { loadHookInstallations } from '../src/install.js'
+import { loadPlugin, resolvePlugin, resolvePluginOptions } from '../src/plugin.js'
+import { validatePlugins } from '../src/config/validate-plugins.js'
 
 const logger = winston as unknown as Logger
 

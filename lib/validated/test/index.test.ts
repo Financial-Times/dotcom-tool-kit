@@ -1,5 +1,5 @@
 import { describe, expect, it, test } from '@jest/globals'
-import { invalid, reduceValidated, valid } from '../src'
+import { invalid, reduceValidated, valid } from '../src.js'
 
 describe('Validated', () => {
   describe('constructor functions', () => {

@@ -1,7 +1,7 @@
 import { styles } from '@dotcom-tool-kit/logger'
 import prompt from 'prompts'
 import type { PackageJson } from 'type-fest'
-import { BizOpsSystem, getBizOpsSystem } from '../bizOps'
+import { BizOpsSystem, getBizOpsSystem } from '../bizOps.js'
 
 export interface ConfirmationParams {
   packageJson: PackageJson

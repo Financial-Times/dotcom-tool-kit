@@ -1,14 +1,14 @@
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { getHerokuStagingApp } from '../getHerokuStagingApp'
-import { setAppConfigVars } from '../setConfigVars'
-import { createBuild } from '../createBuild'
-import { repeatedCheckForBuildSuccess } from '../repeatedCheckForBuildSuccess'
-import { scaleDyno } from '../scaleDyno'
-import { gtg } from '../gtg'
-import { getPipelineCouplings } from '../getPipelineCouplings'
+import { getHerokuStagingApp } from '../getHerokuStagingApp.js'
+import { setAppConfigVars } from '../setConfigVars.js'
+import { createBuild } from '../createBuild.js'
+import { repeatedCheckForBuildSuccess } from '../repeatedCheckForBuildSuccess.js'
+import { scaleDyno } from '../scaleDyno.js'
+import { gtg } from '../gtg.js'
+import { getPipelineCouplings } from '../getPipelineCouplings.js'
 import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
-import { setStagingSlug } from '../setStagingSlug'
+import { setStagingSlug } from '../setStagingSlug.js'
 
 export default class HerokuStaging extends Task<{ plugin: typeof HerokuSchema }> {
   async run(): Promise<void> {

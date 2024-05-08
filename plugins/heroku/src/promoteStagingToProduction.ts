@@ -1,9 +1,9 @@
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
-import { gtg } from './gtg'
+import { gtg } from './gtg.js'
 import type { Logger } from 'winston'
-import { setAppConfigVars } from './setConfigVars'
+import { setAppConfigVars } from './setConfigVars.js'
 import { HerokuApiResPost } from 'heroku-client'
 
 async function promoteStagingToProduction(

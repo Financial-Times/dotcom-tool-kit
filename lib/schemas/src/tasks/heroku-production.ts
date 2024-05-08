@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { PromptGenerators, SchemaPromptGenerator } from '../prompts'
+import { PromptGenerators, SchemaPromptGenerator } from '../prompts.js'
 import type { Logger } from 'winston'
 import { spawn } from 'node:child_process'
 import { waitOnExit } from '@dotcom-tool-kit/logger'

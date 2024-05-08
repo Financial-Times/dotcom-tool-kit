@@ -1,6 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { setStagingSlug } from '../src/setStagingSlug'
-import heroku from '../src/herokuClient'
+import { setStagingSlug } from '../src/setStagingSlug.js'
+import heroku from '../src/herokuClient.js'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger

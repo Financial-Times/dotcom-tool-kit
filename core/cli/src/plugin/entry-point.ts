@@ -4,7 +4,7 @@ import type { Base } from '@dotcom-tool-kit/base'
 import type { EntryPoint } from '@dotcom-tool-kit/plugin'
 import { Validated, invalid } from '@dotcom-tool-kit/validated'
 import { isPlainObject } from 'lodash'
-import { indentReasons } from '../messages'
+import { indentReasons } from '../messages.js'
 
 const isPlainObjectGuard = (value: unknown): value is Record<string, unknown> => isPlainObject(value)
 

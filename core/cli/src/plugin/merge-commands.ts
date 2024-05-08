@@ -1,7 +1,7 @@
 import type { CommandTask, Plugin } from '@dotcom-tool-kit/plugin'
 import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
-import { isDescendent } from './is-descendent'
+import { isDescendent } from './is-descendent.js'
 import { Logger } from 'winston'
 import { styles as s } from '@dotcom-tool-kit/logger'
 import path from 'path'

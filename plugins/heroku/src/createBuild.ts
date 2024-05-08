@@ -1,7 +1,7 @@
 import type { Logger } from 'winston'
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import type { HerokuApiResBuild } from 'heroku-client'
-import { getRepoDetails } from './githubApi'
+import { getRepoDetails } from './githubApi.js'
 
 async function createBuild(logger: Logger, appName: string): Promise<HerokuApiResBuild> {
   logger.info(`getting latest tarball path for ${appName}...`)

@@ -1,6 +1,6 @@
-import { CircleCiSchema } from './hooks/circleci'
-import { PackageJsonSchema } from './hooks/package-json'
-import { type InferSchemaOptions } from './infer'
+import { CircleCiSchema } from './hooks/circleci.js'
+import { PackageJsonSchema } from './hooks/package-json.js'
+import { type InferSchemaOptions } from './infer.js'
 
 export const HookSchemas = {
   PackageJson: PackageJsonSchema,

@@ -1,6 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { getPipelineCouplings } from '../src/getPipelineCouplings'
-import heroku from '../src/herokuClient'
+import { getPipelineCouplings } from '../src/getPipelineCouplings.js'
+import heroku from '../src/herokuClient.js'
 import { writeState } from '@dotcom-tool-kit/state'
 import winston, { Logger } from 'winston'
 

@@ -1,6 +1,6 @@
 import type { z } from 'zod'
-import { Base } from './base'
-import { taskSymbol, typeSymbol } from './symbols'
+import { Base } from './base.js'
+import { taskSymbol, typeSymbol } from './symbols.js'
 import type { Logger } from 'winston'
 
 type Default<T, D> = T extends undefined ? D : T

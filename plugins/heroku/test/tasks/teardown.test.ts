@@ -1,6 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import Teardown from '../../src/tasks/teardown'
-import * as utils from '../../src/scaleDyno'
+import Teardown from '../../src/tasks/teardown.js'
+import * as utils from '../../src/scaleDyno.js'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger

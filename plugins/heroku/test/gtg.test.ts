@@ -1,7 +1,7 @@
 import { waitForOk } from '@dotcom-tool-kit/wait-for-ok'
 import { describe, it, expect, jest } from '@jest/globals'
-import heroku from '../src/herokuClient'
-import { gtg } from '../src/gtg'
+import heroku from '../src/herokuClient.js'
+import { gtg } from '../src/gtg.js'
 import { writeState } from '@dotcom-tool-kit/state'
 import winston, { Logger } from 'winston'
 

@@ -1,14 +1,14 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import Staging from '../../src/tasks/staging'
-import { getPipelineCouplings } from '../../src/getPipelineCouplings'
-import { getHerokuStagingApp } from '../../src/getHerokuStagingApp'
-import { setAppConfigVars } from '../../src/setConfigVars'
-import { scaleDyno } from '../../src/scaleDyno'
-import { setStagingSlug } from '../../src/setStagingSlug'
-import { repeatedCheckForBuildSuccess } from '../../src/repeatedCheckForBuildSuccess'
-import { gtg } from '../../src/gtg'
+import Staging from '../../src/tasks/staging.js'
+import { getPipelineCouplings } from '../../src/getPipelineCouplings.js'
+import { getHerokuStagingApp } from '../../src/getHerokuStagingApp.js'
+import { setAppConfigVars } from '../../src/setConfigVars.js'
+import { scaleDyno } from '../../src/scaleDyno.js'
+import { setStagingSlug } from '../../src/setStagingSlug.js'
+import { repeatedCheckForBuildSuccess } from '../../src/repeatedCheckForBuildSuccess.js'
+import { gtg } from '../../src/gtg.js'
 import winston, { Logger } from 'winston'
-import { createBuild } from '../../src/createBuild'
+import { createBuild } from '../../src/createBuild.js'
 
 const logger = (winston as unknown) as Logger
 

@@ -1,4 +1,4 @@
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import type { HerokuApiResPatch } from 'heroku-client'
 import type { Logger } from 'winston'

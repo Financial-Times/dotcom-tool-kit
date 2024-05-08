@@ -1,14 +1,14 @@
 import { z } from 'zod'
 
-import { CircleCISchema } from './plugins/circleci'
-import { DopplerSchema } from './plugins/doppler'
-import { RootSchema } from './plugins/dotcom-tool-kit'
-import { HerokuSchema } from './plugins/heroku'
-import { LintStagedNpmSchema } from './plugins/lint-staged-npm'
-import { NextRouterSchema } from './plugins/next-router'
-import { ServerlessSchema } from './plugins/serverless'
-import { VaultSchema } from './plugins/vault'
-import { type InferSchemaOptions } from './infer'
+import { CircleCISchema } from './plugins/circleci.js'
+import { DopplerSchema } from './plugins/doppler.js'
+import { RootSchema } from './plugins/dotcom-tool-kit.js'
+import { HerokuSchema } from './plugins/heroku.js'
+import { LintStagedNpmSchema } from './plugins/lint-staged-npm.js'
+import { NextRouterSchema } from './plugins/next-router.js'
+import { ServerlessSchema } from './plugins/serverless.js'
+import { VaultSchema } from './plugins/vault.js'
+import { type InferSchemaOptions } from './infer.js'
 
 // TODO:KB:20240412 remove legacyPluginOptions in a future major version
 export const legacyPluginOptions: Record<string, string> = {

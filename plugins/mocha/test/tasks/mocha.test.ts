@@ -2,7 +2,7 @@
 // explicitly import them instead.
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
-import Mocha from '../../src/tasks/mocha'
+import Mocha from '../../src/tasks/mocha.js'
 import winston, { Logger } from 'winston'
 
 const logger = winston as unknown as Logger

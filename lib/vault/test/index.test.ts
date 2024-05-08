@@ -1,5 +1,5 @@
 import { describe, it, beforeAll, beforeEach, afterAll, jest, expect } from '@jest/globals'
-import { VaultEnvVars } from '../src/index'
+import { VaultEnvVars } from '../src/index.js'
 import fetch from '@financial-times/n-fetch'
 import fs from 'fs'
 import winston, { Logger } from 'winston'

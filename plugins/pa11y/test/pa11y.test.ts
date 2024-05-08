@@ -1,5 +1,5 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import Pa11y from '../src/tasks/pa11y'
+import Pa11y from '../src/tasks/pa11y.js'
 import winston, { Logger } from 'winston'
 import EventEmitter from 'events'
 import * as state from '@dotcom-tool-kit/state'

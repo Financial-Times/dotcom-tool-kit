@@ -2,9 +2,9 @@ import { ChildProcess } from 'child_process'
 import { Readable, Transform } from 'stream'
 import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { rootLogger } from './logger'
-import { styles as s } from './styles'
-import { HookTransport, consoleTransport } from './transports'
+import { rootLogger } from './logger.js'
+import { styles as s } from './styles.js'
+import { HookTransport, consoleTransport } from './transports.js'
 import ansiRegex from 'ansi-regex'
 
 const ansiRegexText = ansiRegex().source

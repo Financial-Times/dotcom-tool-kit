@@ -1,6 +1,6 @@
 import type { Logger } from 'winston'
-import { Base } from './base'
-import { hookSymbol, typeSymbol } from './symbols'
+import { Base } from './base.js'
+import { hookSymbol, typeSymbol } from './symbols.js'
 import type { z } from 'zod'
 import type { Plugin } from '@dotcom-tool-kit/plugin'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'

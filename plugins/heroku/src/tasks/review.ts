@@ -1,12 +1,12 @@
 import { Task } from '@dotcom-tool-kit/base'
-import { getHerokuReviewApp } from '../getHerokuReviewApp'
-import { buildHerokuReviewApp } from '../buildHerokuReviewApp'
-import { gtg } from '../gtg'
-import { setStageConfigVars } from '../setConfigVars'
+import { getHerokuReviewApp } from '../getHerokuReviewApp.js'
+import { buildHerokuReviewApp } from '../buildHerokuReviewApp.js'
+import { gtg } from '../gtg.js'
+import { setStageConfigVars } from '../setConfigVars.js'
 import { writeState } from '@dotcom-tool-kit/state'
 import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import herokuClient, { extractHerokuError } from '../herokuClient'
+import herokuClient, { extractHerokuError } from '../herokuClient.js'
 import type { HerokuApiResPipeline } from 'heroku-client'
 
 export default class HerokuReview extends Task<{ plugin: typeof HerokuSchema }> {

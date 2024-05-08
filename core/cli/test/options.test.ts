@@ -1,4 +1,4 @@
-import { loadConfig } from '../src/config'
+import { loadConfig } from '../src/config.js'
 
 import * as fs from 'node:fs/promises'
 

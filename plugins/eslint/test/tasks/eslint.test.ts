@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
-import ESLint from '../../src/tasks/eslint'
+import ESLint from '../../src/tasks/eslint.js'
 import temp from 'temp'
 import fs from 'fs/promises'
 

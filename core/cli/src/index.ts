@@ -1,10 +1,10 @@
-import { loadConfig } from './config'
+import { loadConfig } from './config.js'
 import type { Logger } from 'winston'
 import util from 'util'
-import { formatPluginTree } from './messages'
+import { formatPluginTree } from './messages.js'
 
-export { runTasks } from './tasks'
-export { shouldDisableNativeFetch } from './fetch'
+export { runTasks } from './tasks.js'
+export { shouldDisableNativeFetch } from './fetch.js'
 
 export async function listPlugins(logger: Logger): Promise<void> {
   const config = await loadConfig(logger, { validate: false })

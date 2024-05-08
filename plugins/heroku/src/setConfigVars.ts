@@ -1,7 +1,7 @@
 import type { Logger } from 'winston'
 import { DopplerEnvVars, Environment } from '@dotcom-tool-kit/doppler'
 import { getOptions } from '@dotcom-tool-kit/options'
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import type { HerokuApiResGetRegion, HerokuApiResPipeline } from 'heroku-client'
 
 type Stage = 'test' | 'development' | 'review' | 'staging' | 'production'

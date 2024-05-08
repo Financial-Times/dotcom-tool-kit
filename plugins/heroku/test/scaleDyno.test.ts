@@ -1,6 +1,6 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { scaleDyno } from '../src/scaleDyno'
-import heroku from '../src/herokuClient'
+import { scaleDyno } from '../src/scaleDyno.js'
+import heroku from '../src/herokuClient.js'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger

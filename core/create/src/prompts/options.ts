@@ -8,7 +8,7 @@ import type Logger from 'komatsu'
 import partition from 'lodash/partition'
 import prompt from 'prompts'
 import { z } from 'zod'
-import type { BizOpsSystem } from '../bizOps'
+import type { BizOpsSystem } from '../bizOps.js'
 
 interface OptionSettings {
   name: string

@@ -1,9 +1,9 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import Review from '../../src/tasks/review'
-import { getHerokuReviewApp } from '../../src/getHerokuReviewApp'
-import { setStageConfigVars } from '../../src/setConfigVars'
-import { gtg } from '../../src/gtg'
-import heroku from '../../src/herokuClient'
+import Review from '../../src/tasks/review.js'
+import { getHerokuReviewApp } from '../../src/getHerokuReviewApp.js'
+import { setStageConfigVars } from '../../src/setConfigVars.js'
+import { gtg } from '../../src/gtg.js'
+import heroku from '../../src/herokuClient.js'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger

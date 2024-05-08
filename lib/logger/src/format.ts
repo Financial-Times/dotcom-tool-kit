@@ -1,5 +1,5 @@
 import winston from 'winston'
-import { styles } from './styles'
+import { styles } from './styles.js'
 
 // This global variable is used to prevent the same label being printed
 // multiple times in a row. Some processes (e.g., Jest) are prone to frequent

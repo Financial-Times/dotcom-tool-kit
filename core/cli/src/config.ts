@@ -1,7 +1,7 @@
 import path from 'path'
 import type { Logger } from 'winston'
 
-import { loadPlugin, resolvePlugin, resolvePluginOptions } from './plugin'
+import { loadPlugin, resolvePlugin, resolvePluginOptions } from './plugin.js'
 import {
   findConflicts,
   withoutConflicts,
@@ -20,9 +20,9 @@ import {
   formatInvalidPluginOptions,
   formatTaskOptionConflicts,
   formatUnusedTaskOptions
-} from './messages'
-import { validatePlugins } from './config/validate-plugins'
-import { substituteOptionTags, validatePluginOptions } from './plugin/options'
+} from './messages.js'
+import { validatePlugins } from './config/validate-plugins.js'
+import { substituteOptionTags, validatePluginOptions } from './plugin/options.js'
 
 const coreRoot = path.resolve(__dirname, '../')
 

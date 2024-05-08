@@ -1,5 +1,5 @@
 import { fork } from 'node:child_process'
-import Jest from '../src/tasks/jest'
+import Jest from '../src/tasks/jest.js'
 import EventEmitter from 'events'
 import winston, { Logger } from 'winston'
 

@@ -1,4 +1,4 @@
-import { loadConfig } from './config'
+import { loadConfig } from './config.js'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'

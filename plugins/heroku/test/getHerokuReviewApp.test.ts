@@ -1,7 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { getHerokuReviewApp } from '../src/getHerokuReviewApp'
-import { repeatedCheckForSuccessStatus } from '../src/repeatedCheckForSuccessStatus'
-import heroku from '../src/herokuClient'
+import { getHerokuReviewApp } from '../src/getHerokuReviewApp.js'
+import { repeatedCheckForSuccessStatus } from '../src/repeatedCheckForSuccessStatus.js'
+import heroku from '../src/herokuClient.js'
 import winston, { Logger } from 'winston'
 
 const logger = (winston as unknown) as Logger

@@ -1,5 +1,5 @@
 import pRetry from 'p-retry'
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import type { HerokuApiResGetReview } from 'heroku-client'
 import type { Logger } from 'winston'
 

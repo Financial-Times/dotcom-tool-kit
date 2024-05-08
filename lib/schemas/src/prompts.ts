@@ -2,7 +2,7 @@ import type prompts from 'prompts'
 import type { Logger } from 'winston'
 import type { z } from 'zod'
 
-import type { BizOpsSystem } from './bizOps'
+import type { BizOpsSystem } from './bizOps.js'
 
 /**
  * A function that should use the `prompt` parameter passed to build a more

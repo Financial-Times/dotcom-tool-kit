@@ -1,9 +1,9 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { promoteStagingToProduction } from '../src/promoteStagingToProduction'
-import heroku from '../src/herokuClient'
-import { gtg } from '../src/gtg'
+import { promoteStagingToProduction } from '../src/promoteStagingToProduction.js'
+import heroku from '../src/herokuClient.js'
+import { gtg } from '../src/gtg.js'
 import winston, { Logger } from 'winston'
-import { setAppConfigVars } from '../src/setConfigVars'
+import { setAppConfigVars } from '../src/setConfigVars.js'
 
 const logger = (winston as unknown) as Logger
 

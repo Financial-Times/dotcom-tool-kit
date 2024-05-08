@@ -1,9 +1,9 @@
-import heroku, { extractHerokuError } from './herokuClient'
+import heroku, { extractHerokuError } from './herokuClient.js'
 import type { HerokuApiResGetReview, HerokuApiResPost } from 'heroku-client'
 import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus'
-import { getRepoDetails } from './githubApi'
+import { repeatedCheckForSuccessStatus } from './repeatedCheckForSuccessStatus.js'
+import { getRepoDetails } from './githubApi.js'
 
 async function buildHerokuReviewApp(logger: Logger, pipelineId: string): Promise<string> {
   const { branch, repo, source_blob } = await getRepoDetails(logger)

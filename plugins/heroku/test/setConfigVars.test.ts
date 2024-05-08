@@ -1,7 +1,7 @@
 import { describe, it, expect, jest } from '@jest/globals'
-import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars'
+import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars.js'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import heroku from '../src/herokuClient'
+import heroku from '../src/herokuClient.js'
 import winston, { Logger } from 'winston'
 const logger = (winston as unknown) as Logger
 type DopplerPath = {

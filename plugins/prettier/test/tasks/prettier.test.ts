@@ -1,5 +1,5 @@
 import * as path from 'path'
-import Prettier from '../../src/tasks/prettier'
+import Prettier from '../../src/tasks/prettier.js'
 import { promises as fsp } from 'fs'
 import winston, { Logger } from 'winston'
 
