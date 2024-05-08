@@ -2,7 +2,7 @@ import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import type { RCFile } from '@dotcom-tool-kit/plugin'
 import type { ValidConfig } from '@dotcom-tool-kit/config'
-import type installHooksType from 'dotcom-tool-kit/lib/install'
+import type { installHooks as installHooksType } from 'dotcom-tool-kit'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
 import type Logger from 'komatsu'
@@ -22,9 +22,11 @@ export function installHooks(logger: typeof winstonLogger): Promise<ValidConfig>
   // we need to import installHooks from the app itself instead of npx or else
   // loadPlugin will load rawPlugin from npx and Task will be loaded from the
   // app, leading to task.prototype failing the instanceof Task check
-  return (importCwd('dotcom-tool-kit/lib/install') as {
-    default: typeof installHooksType
-  }).default(logger)
+  return (
+    importCwd('dotcom-tool-kit/lib/install') as {
+      default: typeof installHooksType
+    }
+  ).default(logger)
 }
 
 export default async ({ error, logger, toolKitConfig, configPath }: ConflictsParams): Promise<boolean> => {

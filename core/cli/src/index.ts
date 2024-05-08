@@ -3,6 +3,8 @@ import type { Logger } from 'winston'
 import util from 'util'
 import { formatPluginTree } from './messages.js'
 
+export type { loadConfig } from './config.js'
+export type { default as installHooks } from './install.js'
 export { runTasks } from './tasks.js'
 export { shouldDisableNativeFetch } from './fetch.js'
 
