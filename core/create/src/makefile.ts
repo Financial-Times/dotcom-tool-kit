@@ -1,7 +1,7 @@
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import parseMakefileRules from '@quarterto/parse-makefile-rules'
 import { promises as fs } from 'fs'
-import partition from 'lodash/partition'
+import partition from 'lodash/partition.js'
 import path from 'path'
 
 export default async (): Promise<void> => {

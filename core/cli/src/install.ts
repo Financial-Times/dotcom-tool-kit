@@ -1,7 +1,7 @@
 import type { z } from 'zod'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
-import groupBy from 'lodash/groupBy'
+import groupBy from 'lodash/groupBy.js'
 import type { Logger } from 'winston'
 import { loadConfig } from './config.js'
 import { hasConfigChanged, updateHashes } from './config/hash.js'

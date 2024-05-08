@@ -3,7 +3,7 @@ import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Base } from '@dotcom-tool-kit/base'
 import type { EntryPoint } from '@dotcom-tool-kit/plugin'
 import { Validated, invalid } from '@dotcom-tool-kit/validated'
-import { isPlainObject } from 'lodash'
+import isPlainObject from 'lodash/isPlainObject.js'
 import { indentReasons } from '../messages.js'
 
 const isPlainObjectGuard = (value: unknown): value is Record<string, unknown> => isPlainObject(value)

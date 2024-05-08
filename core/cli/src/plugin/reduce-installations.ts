@@ -4,7 +4,7 @@ import type { Plugin } from '@dotcom-tool-kit/plugin'
 import type { ValidConfig } from '@dotcom-tool-kit/config'
 import { HookSchemas, HookOptions } from '@dotcom-tool-kit/schemas'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
-import { groupBy } from 'lodash'
+import groupBy from 'lodash/groupBy.js'
 
 const extractForHook = (installation: HookInstallation | Conflict<HookInstallation>): string =>
   isConflict(installation) ? installation.conflicting[0].forHook : installation.forHook
