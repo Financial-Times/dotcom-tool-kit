@@ -4,7 +4,7 @@ import type {
   CircleCiWorkflowJob,
   CircleCiJob,
   CircleCiOptions
-} from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
+} from '@dotcom-tool-kit/schemas/hooks/circleci.js'
 import { describe, expect, it } from '@jest/globals'
 import fs from 'fs'
 import path from 'path'

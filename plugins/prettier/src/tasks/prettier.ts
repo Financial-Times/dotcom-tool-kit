@@ -1,5 +1,5 @@
 import prettier from 'prettier'
-import { PrettierOptions, PrettierSchema } from '@dotcom-tool-kit/schemas/lib/tasks/prettier'
+import { PrettierOptions, PrettierSchema } from '@dotcom-tool-kit/schemas/tasks/prettier.js'
 import { promises as fsp } from 'fs'
 import fg from 'fast-glob'
 import { hookConsole, styles } from '@dotcom-tool-kit/logger'

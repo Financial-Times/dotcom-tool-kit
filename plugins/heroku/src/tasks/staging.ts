@@ -7,7 +7,7 @@ import { repeatedCheckForBuildSuccess } from '../repeatedCheckForBuildSuccess.js
 import { scaleDyno } from '../scaleDyno.js'
 import { gtg } from '../gtg.js'
 import { getPipelineCouplings } from '../getPipelineCouplings.js'
-import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
+import { HerokuSchema } from '@dotcom-tool-kit/schemas/plugins/heroku.js'
 import { setStagingSlug } from '../setStagingSlug.js'
 
 export default class HerokuStaging extends Task<{ plugin: typeof HerokuSchema }> {

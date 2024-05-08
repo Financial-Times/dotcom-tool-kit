@@ -1,6 +1,6 @@
 import { styles } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
-import { SmokeTestSchema } from '@dotcom-tool-kit/schemas/lib/tasks/n-test'
+import { SmokeTestSchema } from '@dotcom-tool-kit/schemas/tasks/n-test.js'
 import { SmokeTest } from '@financial-times/n-test'
 import { readState } from '@dotcom-tool-kit/state'
 

@@ -18,5 +18,11 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "exports": "./lib/index.js"
+  "exports": {
+    ".": "./lib/index.js",
+    "./bizOps.js": "./lib/bizOps.js",
+    "./hooks/*.js": "./lib/hooks/*.js",
+    "./plugins/*.js": "./lib/plugins/*.js",
+    "./tasks/*.js": "./lib/tasks/*.js"
+  }
 }

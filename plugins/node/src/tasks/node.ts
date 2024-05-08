@@ -1,7 +1,7 @@
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
-import { NodeSchema } from '@dotcom-tool-kit/schemas/lib/tasks/node'
+import { NodeSchema } from '@dotcom-tool-kit/schemas/tasks/node.js'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { fork } from 'child_process'
 import getPort from 'get-port'

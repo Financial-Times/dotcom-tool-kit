@@ -7,7 +7,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { getOptions } from '@dotcom-tool-kit/options'
 import * as Vault from '@dotcom-tool-kit/vault'
-import type { DopplerOptions as ConfiguredDopplerOptions } from '@dotcom-tool-kit/schemas/lib/plugins/doppler'
+import type { DopplerOptions as ConfiguredDopplerOptions } from '@dotcom-tool-kit/schemas/plugins/doppler.js'
 
 export type Environment = 'prod' | 'ci' | 'dev'
 

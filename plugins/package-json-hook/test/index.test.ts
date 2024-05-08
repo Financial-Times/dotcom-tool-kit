@@ -4,7 +4,7 @@ import { promises as fs } from 'fs'
 import PackageJson from '../src/package-json-helper.js'
 import winston, { Logger } from 'winston'
 import { HookInstallation } from '@dotcom-tool-kit/base'
-import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/lib/hooks/package-json'
+import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/hooks/package-json.js'
 
 const logger = winston as unknown as Logger
 

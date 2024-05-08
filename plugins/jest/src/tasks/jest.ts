@@ -1,5 +1,5 @@
 import { Task } from '@dotcom-tool-kit/base'
-import { JestSchema } from '@dotcom-tool-kit/schemas/lib/tasks/jest'
+import { JestSchema } from '@dotcom-tool-kit/schemas/tasks/jest.js'
 import { fork } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'

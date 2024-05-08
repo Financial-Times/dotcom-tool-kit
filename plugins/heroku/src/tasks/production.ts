@@ -2,12 +2,12 @@ import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
-import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
+import { HerokuSchema } from '@dotcom-tool-kit/schemas/plugins/heroku.js'
 import type { HerokuApiResGetApp } from 'heroku-client'
 import heroku, { extractHerokuError } from '../herokuClient.js'
 import { scaleDyno } from '../scaleDyno.js'
 import { promoteStagingToProduction } from '../promoteStagingToProduction.js'
-import { HerokuProductionSchema } from '@dotcom-tool-kit/schemas/src/tasks/heroku-production'
+import { HerokuProductionSchema } from '@dotcom-tool-kit/schemas/tasks/heroku-production.js'
 
 export default class HerokuProduction extends Task<{
   plugin: typeof HerokuSchema

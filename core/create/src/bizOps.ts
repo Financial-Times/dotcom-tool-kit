@@ -1,6 +1,6 @@
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { rootLogger as winstonLogger } from '@dotcom-tool-kit/logger'
-import { BizOpsData, BizOpsSystem } from '@dotcom-tool-kit/schemas/lib/bizOps'
+import { BizOpsData, BizOpsSystem } from '@dotcom-tool-kit/schemas/bizOps.js'
 import fetch from 'node-fetch'
 
 let bizOpsApiKey: string

@@ -1,4 +1,4 @@
-import { type WebpackSchema } from '@dotcom-tool-kit/schemas/lib/tasks/webpack'
+import { type WebpackSchema } from '@dotcom-tool-kit/schemas/tasks/webpack.js'
 import { Task } from '@dotcom-tool-kit/base'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { fork } from 'child_process'

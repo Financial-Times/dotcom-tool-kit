@@ -4,7 +4,7 @@ import path from 'path'
 import * as babel from '@babel/core'
 import fg from 'fast-glob'
 
-import { type BabelSchema } from '@dotcom-tool-kit/schemas/lib/tasks/babel'
+import { type BabelSchema } from '@dotcom-tool-kit/schemas/tasks/babel.js'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookConsole } from '@dotcom-tool-kit/logger'

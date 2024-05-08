@@ -2,7 +2,7 @@ import type {
   CircleCiOptions,
   CircleCiSchema,
   CircleCiWorkflow
-} from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
+} from '@dotcom-tool-kit/schemas/hooks/circleci.js'
 import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
 import { type Plugin } from '@dotcom-tool-kit/plugin'

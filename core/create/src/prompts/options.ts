@@ -212,7 +212,7 @@ export default async ({
       // TODO allow different schemas for tasks within a plugin
       const { Schema, generators: SchemaGenerators } =
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require(`@dotcom-tool-kit/schemas/lib/plugins/${pluginName}`)
+        require(`@dotcom-tool-kit/schemas/plugins/${pluginName}`)
       options = Schema
       generators = SchemaGenerators
     } catch (err) {

@@ -9,7 +9,7 @@ import update from 'lodash/update'
 import merge from 'lodash/merge'
 import path from 'path'
 
-import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/lib/hooks/package-json'
+import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/hooks/package-json.js'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 
 interface PackageJsonContents {

@@ -1,7 +1,7 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
-import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
+import { ServerlessSchema } from '@dotcom-tool-kit/schemas/plugins/serverless.js'
 import { readState } from '@dotcom-tool-kit/state'
 import { spawn } from 'child_process'
 

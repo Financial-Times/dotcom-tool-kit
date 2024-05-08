@@ -9,7 +9,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import {
   UploadAssetsToS3Options,
   UploadAssetsToS3Schema
-} from '@dotcom-tool-kit/schemas/lib/tasks/upload-assets-to-s3'
+} from '@dotcom-tool-kit/schemas/tasks/upload-assets-to-s3.js'
 
 export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsToS3Schema }> {
   async run(): Promise<void> {

@@ -1,6 +1,6 @@
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
-import type { Pa11ySchema } from '@dotcom-tool-kit/schemas/lib/tasks/pa11y'
+import type { Pa11ySchema } from '@dotcom-tool-kit/schemas/tasks/pa11y.js'
 import { fork } from 'child_process'
 import { readState } from '@dotcom-tool-kit/state'
 
