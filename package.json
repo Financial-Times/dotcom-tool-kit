@@ -70,5 +70,6 @@
   },
   "overrides": {
     "type-fest": "3.6.0"
-  }
+  },
+  "type": "module"
 }

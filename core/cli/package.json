@@ -57,5 +57,6 @@
   ],
   "volta": {
     "extends": "../../package.json"
-  }
+  },
+  "type": "module"
 }
