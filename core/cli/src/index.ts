@@ -4,7 +4,8 @@ import util from 'util'
 import { formatPluginTree } from './messages.js'
 
 export type { loadConfig } from './config.js'
-export type { default as installHooks } from './install.js'
+export { default as installHooks } from './install.js'
+export { default as showHelp } from './help.js'
 export { runTasks } from './tasks.js'
 export { shouldDisableNativeFetch } from './fetch.js'
 

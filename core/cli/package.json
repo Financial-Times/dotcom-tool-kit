@@ -14,7 +14,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "dotcom-tool-kit": "./bin/run"
+    "dotcom-tool-kit": "./bin/run.js"
   },
   "scripts": {
     "test": "cd ../../ ; npx jest --silent --projects core/cli"
