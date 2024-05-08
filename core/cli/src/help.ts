@@ -3,7 +3,8 @@ import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
 import YAML from 'yaml'
-import $t from 'endent'
+import endent from 'endent'
+const $t = endent.default
 import { CommandTask, OptionsForTask } from '@dotcom-tool-kit/plugin'
 import { ValidConfig } from '@dotcom-tool-kit/config'
 

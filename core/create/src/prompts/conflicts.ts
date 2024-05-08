@@ -6,7 +6,8 @@ import type installHooksType from 'dotcom-tool-kit/lib/install'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
 import type Logger from 'komatsu'
-import ordinal from 'ordinal'
+import ordinalMod from 'ordinal'
+const ordinal = ordinalMod.default
 import prompt from 'prompts'
 import YAML from 'yaml'
 
