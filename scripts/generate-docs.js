@@ -152,9 +152,9 @@ async function main() {
       const readmePath = path.join('plugins', plugin, 'readme.md')
       const generatedOptionsMarkdown = await formatPluginSchemas(plugin)
 
-      const originalReadme = await fs.readFile(readmePath, 'utf-8')
-
       try {
+        const originalReadme = await fs.readFile(readmePath, 'utf-8')
+
         const replacedReadme = replaceBetween(
           originalReadme,
           generatedOptionsMarkdown,
@@ -165,7 +165,11 @@ async function main() {
         await fs.writeFile(readmePath, replacedReadme, 'utf-8')
         console.log(`written ${readmePath}`)
       } catch (e) {
-        console.error(`no replacement markers in ${readmePath}`)
+        if (e.code === 'ENOENT') {
+          console.error(`${plugin} has no readme`)
+        } else {
+          console.error(`no replacement markers in ${readmePath}`)
+        }
       }
     })
   )
