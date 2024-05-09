@@ -31,7 +31,8 @@ const loadTasks = async (
       return taskResult.map((Task) => {
         const taskSchema = TaskSchemas[taskId as keyof TaskOptions]
         const configOptions = config.taskOptions[taskId]?.options ?? {}
-        const parsedOptions = taskSchema ? taskSchema.parse({ ...configOptions, ...options }) : {}
+        const mergedOptions = { ...configOptions, ...options }
+        const parsedOptions = taskSchema ? taskSchema.parse(mergedOptions) : mergedOptions
 
         const task = new (Task as unknown as TaskConstructor)(
           logger,
