@@ -17,7 +17,7 @@ import {
   formatHookConflicts,
   formatPluginOptionConflicts,
   formatMissingTasks,
-  formatInvalidOptions,
+  formatInvalidPluginOptions,
   formatTaskOptionConflicts,
   formatUnusedTaskOptions
 } from './messages'
@@ -163,7 +163,7 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
   const invalidOptions = validatePluginOptions(logger, validPluginConfig)
   if (invalidOptions.length > 0 && validate) {
     const error = new ToolKitError('There are problems with your plugin options.')
-    error.details = formatInvalidOptions(invalidOptions)
+    error.details = formatInvalidPluginOptions(invalidOptions)
     throw error
   }
   substituteOptionTags(validRootPlugin, validPluginConfig)
