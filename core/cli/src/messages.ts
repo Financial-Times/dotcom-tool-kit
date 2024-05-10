@@ -97,13 +97,14 @@ const formatPlugin = (plugin: Plugin): string =>
 
 export type InvalidOption = [string, z.ZodError]
 
-export const formatInvalidOptions = (
+export const formatInvalidOption = ([id, error]: InvalidOption): string =>
+  fromZodError(error, { prefix: `- ${id} has the issue(s)` }).message
+
+export const formatInvalidPluginOptions = (
   invalidOptions: InvalidOption[]
 ): string => `Options are defined in your Tool Kit configuration that are the wrong types:
 
-${invalidOptions
-  .map(([plugin, error]) => fromZodError(error, { prefix: `- ${s.plugin(plugin)} has the issue(s)` }).message)
-  .join('\n')}
+${invalidOptions.map(([plugin, error]) => formatInvalidOption([s.plugin(plugin), error])).join('\n')}
 
 Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.
 `
