@@ -42,7 +42,7 @@ const loadTasks = async (
             logger,
             taskId,
             getOptions(entryPoint.plugin.id as OptionKey) ?? {},
-            parsedOptions
+            parsedOptions.data
           )
           return valid([taskId, task])
         } else {
