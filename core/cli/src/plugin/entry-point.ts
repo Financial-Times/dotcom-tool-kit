@@ -3,8 +3,6 @@ import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Base } from '@dotcom-tool-kit/base'
 import type { EntryPoint } from '@dotcom-tool-kit/plugin'
 import { Validated, invalid } from '@dotcom-tool-kit/validated'
-import resolveFrom from 'resolve-from'
-import resolvePkg from 'resolve-pkg'
 import { isPlainObject } from 'lodash'
 import { indentReasons } from '../messages'
 
@@ -16,7 +14,7 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
   type: T,
   entryPoint: EntryPoint
 ): Promise<Validated<T>> {
-  const resolvedPath = resolveFrom.silent(entryPoint.plugin.root, entryPoint.modulePath)
+  const resolvedPath = require.resolve(entryPoint.modulePath, { paths: [entryPoint.plugin.root] })
 
   if (!resolvedPath) {
     return invalid([
