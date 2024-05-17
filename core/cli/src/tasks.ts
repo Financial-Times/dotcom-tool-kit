@@ -32,9 +32,10 @@ const loadTasks = async (
       return taskResult.flatMap<[string, Task]>((Task) => {
         const taskSchema = TaskSchemas[taskId as keyof TaskOptions]
         const configOptions = config.taskOptions[taskId]?.options ?? {}
-        const parsedOptions = taskSchema?.safeParse({ ...configOptions, ...options }) ?? {
+        const mergedOptions = { ...configOptions, ...options }
+        const parsedOptions = taskSchema?.safeParse(mergedOptions) ?? {
           success: true,
-          data: {}
+          data: mergedOptions
         }
 
         if (parsedOptions.success) {
