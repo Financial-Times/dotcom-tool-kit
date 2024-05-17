@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/husky-npm",
-  "version": "5.0.0-beta.4",
+  "version": "5.0.0-beta.5",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -14,7 +14,7 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.0.0-beta.4",
+    "dotcom-tool-kit": "4.0.0-beta.5",
     "husky": "4.x"
   },
   "repository": {
