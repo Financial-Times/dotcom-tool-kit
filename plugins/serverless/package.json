@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/serverless",
-  "version": "3.0.0-beta.4",
+  "version": "3.0.0-beta.5",
   "description": "a plugin to manage and deploy apps using AWS Serverless",
   "main": "lib",
   "scripts": {
@@ -21,7 +21,7 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "4.0.0-beta.4",
+    "dotcom-tool-kit": "4.0.0-beta.5",
     "serverless-offline": "^12.0.4"
   },
   "dependencies": {

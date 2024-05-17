@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/upload-assets-to-s3",
-  "version": "4.0.0-beta.4",
+  "version": "4.0.0-beta.5",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -42,7 +42,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.0.0-beta.4"
+    "dotcom-tool-kit": "4.0.0-beta.5"
   },
   "engines": {
     "node": "18.x || 20.x",
