@@ -115,7 +115,9 @@ export function hookFork(
           readableObjectMode: true,
           transform: (message, _enc, callback) => {
             // add the log level and wrap the message for the winston stream to
-            // consume
+            // consume. we preserve newlines here as, unlike other cases, this
+            // logger can be called in the middle of a line depending on when
+            // the stream is flushed.
             callback(null, { level, message: stripAnsiReset(message) })
           }
         })
