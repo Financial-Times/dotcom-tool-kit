@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.0.1...orb-v5.0.2) (2024-05-22)
+
+
+### Bug Fixes
+
+* upgrade serverless-framework orb ([bf66cf7](https://github.com/Financial-Times/dotcom-tool-kit/commit/bf66cf7c2cb808b4a2ce4c4e35e8a5350eb227bb))
+
 ## [5.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.0.0...orb-v5.0.1) (2024-02-01)
 
 
