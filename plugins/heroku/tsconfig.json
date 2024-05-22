@@ -36,7 +36,5 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
