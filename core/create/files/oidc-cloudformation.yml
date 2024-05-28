@@ -17,7 +17,7 @@ Resources:
   CircleciOidcNestedStackRole:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://circleci-nested-stack-template-bucket.s3.eu-west-1.amazonaws.com/circleci-nested-stack-role.yaml
+      TemplateURL: https://circleci-nested-stack-template-bucket.s3.eu-west-1.amazonaws.com/circleci-nested-stack-role-v2.yaml
       Parameters:
         SystemCode: !Ref SystemCode
         CircleciProjectId: !Ref CircleciProjectId
