@@ -218,6 +218,13 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.4.3 to ^3.4.4
 
+## [3.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.2...create-v3.8.0) (2024-05-29)
+
+
+### Features
+
+* change nested stack template to v2 ([c20ac93](https://github.com/Financial-Times/dotcom-tool-kit/commit/c20ac93b259b7f34f5f99962daf99ac18407b307))
+
 ## [3.7.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.1...create-v3.7.2) (2024-04-16)
 
 
