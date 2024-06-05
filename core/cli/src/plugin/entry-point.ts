@@ -3,11 +3,11 @@ import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Base } from '@dotcom-tool-kit/base'
 import type { EntryPoint } from '@dotcom-tool-kit/plugin'
 import { Validated, invalid } from '@dotcom-tool-kit/validated'
-import isPlainObject from 'lodash/isPlainObject.js'
+import isObjectLike from 'lodash/isObjectLike.js'
 import { pathToFileURL } from 'url'
 import { indentReasons } from '../messages.js'
 
-const isPlainObjectGuard = (value: unknown): value is Record<string, unknown> => isPlainObject(value)
+const isObjectLikeGuard = (value: unknown): value is Record<string, unknown> => isObjectLike(value)
 
 // the subclasses of Base have different constructor signatures so we need to omit
 // the constructor from the type bound here so you can actually pass in a subclass
@@ -38,7 +38,7 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
   }
 
   if (
-    isPlainObjectGuard(pluginModule) &&
+    isObjectLikeGuard(pluginModule) &&
     'default' in pluginModule &&
     typeof pluginModule.default === 'function'
   ) {
