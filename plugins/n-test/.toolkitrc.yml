@@ -1,5 +1,5 @@
 tasks:
-  NTest: './lib/tasks/n-test'
+  NTest: './lib/tasks/n-test.js'
 
 commands:
   'test:review': NTest

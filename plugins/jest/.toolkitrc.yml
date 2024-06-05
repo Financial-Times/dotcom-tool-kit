@@ -1,5 +1,5 @@
 tasks:
-  Jest: './lib/tasks/jest'
+  Jest: './lib/tasks/jest.js'
 
 commands:
   'test:local': Jest

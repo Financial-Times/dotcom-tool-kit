@@ -1,6 +1,6 @@
 installs:
   CircleCi:
-    entryPoint: './lib/circleci-config'
+    entryPoint: './lib/circleci-config.js'
     managesFiles:
       - '.circleci/config.yml'
 
@@ -32,6 +32,6 @@ options:
                   - 'build'
 
 init:
-  - './lib/init-env-vars'
+  - './lib/init-env-vars.js'
 
 version: 2

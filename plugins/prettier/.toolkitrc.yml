@@ -2,7 +2,7 @@ plugins:
   - '@dotcom-tool-kit/package-json-hook'
 
 tasks:
-  Prettier: './lib/tasks/prettier'
+  Prettier: './lib/tasks/prettier.js'
 
 commands:
   'format:local': Prettier

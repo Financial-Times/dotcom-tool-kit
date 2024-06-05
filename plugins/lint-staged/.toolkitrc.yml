@@ -1,5 +1,5 @@
 tasks:
-  LintStaged: './lib/tasks/lint-staged'
+  LintStaged: './lib/tasks/lint-staged.js'
 
 commands:
   'git:precommit': LintStaged

@@ -1,5 +1,5 @@
 tasks:
-  Eslint: './lib/tasks/eslint'
+  Eslint: './lib/tasks/eslint.js'
 
 commands:
   'test:local': Eslint

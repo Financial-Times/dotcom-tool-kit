@@ -1,6 +1,6 @@
 installs:
   PackageJson:
-    entryPoint: './lib/package-json-helper'
+    entryPoint: './lib/package-json-helper.js'
     managesFiles:
       - 'package.json'
 

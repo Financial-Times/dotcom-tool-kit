@@ -2,7 +2,7 @@ plugins:
   - '@dotcom-tool-kit/doppler'
 
 tasks:
-  NextRouter: './lib/tasks/next-router'
+  NextRouter: './lib/tasks/next-router.js'
 
 commands:
   run:local:

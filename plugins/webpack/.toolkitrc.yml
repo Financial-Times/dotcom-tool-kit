@@ -1,5 +1,5 @@
 tasks:
-  Webpack: './lib/tasks/webpack'
+  Webpack: './lib/tasks/webpack.js'
 
 commands:
   'build:local': Webpack

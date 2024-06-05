@@ -1,5 +1,5 @@
 tasks:
-  TypeScript: './lib/tasks/typescript'
+  TypeScript: './lib/tasks/typescript.js'
 
 commands:
   # TODO add options here once we support per-command-assignment options

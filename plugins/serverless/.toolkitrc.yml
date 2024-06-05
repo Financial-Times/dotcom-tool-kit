@@ -1,7 +1,7 @@
 tasks:
-  ServerlessRun: './lib/tasks/run'
-  ServerlessDeploy: './lib/tasks/deploy'
-  ServerlessProvision: './lib/tasks/provision'
-  ServerlessTeardown: './lib/tasks/teardown'
+  ServerlessRun: './lib/tasks/run.js'
+  ServerlessDeploy: './lib/tasks/deploy.js'
+  ServerlessProvision: './lib/tasks/provision.js'
+  ServerlessTeardown: './lib/tasks/teardown.js'
 
 version: 2

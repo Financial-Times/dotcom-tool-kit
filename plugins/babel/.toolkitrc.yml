@@ -1,5 +1,5 @@
 tasks:
-  Babel: './lib/tasks/babel'
+  Babel: './lib/tasks/babel.js'
 
 commands:
   'build:local': Babel

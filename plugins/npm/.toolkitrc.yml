@@ -2,8 +2,8 @@ plugins:
   - '@dotcom-tool-kit/package-json-hook'
 
 tasks:
-  NpmPrune: './lib/tasks/prune'
-  NpmPublish: './lib/tasks/publish'
+  NpmPrune: './lib/tasks/prune.js'
+  NpmPublish: './lib/tasks/publish.js'
 
 options:
   hooks:

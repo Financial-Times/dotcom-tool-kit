@@ -2,7 +2,7 @@ plugins:
   - '@dotcom-tool-kit/package-json-hook'
 
 tasks:
-  Cypress: './lib/tasks/cypress'
+  Cypress: './lib/tasks/cypress.js'
 
 commands:
   'test:review': Cypress
