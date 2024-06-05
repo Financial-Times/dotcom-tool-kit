@@ -1,12 +1,14 @@
-const { loadToolKitRC } = require('../core/cli/lib/rc-file')
-const { TaskSchemas } = require('../lib/schemas/lib/tasks')
-const { HookSchemas } = require('../lib/schemas/lib/hooks')
-const { PluginSchemas } = require('../lib/schemas/lib/plugins')
-const { default: $t } = require('endent')
-const logger = require('winston')
-const path = require('path')
-const fs = require('fs/promises')
-const { convertSchemas, formatModelsAsMarkdown } = require('zod2md')
+import { loadToolKitRC } from '../core/cli/lib/rc-file.js'
+import { TaskSchemas } from '../lib/schemas/lib/tasks.js'
+import { HookSchemas } from '../lib/schemas/lib/hooks.js'
+import { PluginSchemas } from '../lib/schemas/lib/plugins.js'
+import endent from 'endent'
+import logger from 'winston'
+import path from 'path'
+import fs from 'fs/promises'
+import { convertSchemas, formatModelsAsMarkdown } from 'zod2md'
+
+const $t = endent.default
 
 function formatSchemas(title, schemas) {
   const converted = schemas.flatMap((schema) => {
@@ -106,31 +108,27 @@ function replaceBetween(text, replaceWith, startMarker, endMarker) {
   return text.slice(0, startIndex + startMarker.length) + replaceWith + text.slice(endIndex)
 }
 
-async function main() {
-  const plugins = await fs.readdir('plugins')
+const plugins = await fs.readdir('plugins')
 
-  return await Promise.all(
-    plugins.map(async (plugin) => {
-      const readmePath = path.join('plugins', plugin, 'readme.md')
-      const generatedOptionsMarkdown = await formatPluginSchemas(plugin)
+await Promise.all(
+  plugins.map(async (plugin) => {
+    const readmePath = path.join('plugins', plugin, 'readme.md')
+    const generatedOptionsMarkdown = await formatPluginSchemas(plugin)
 
-      const originalReadme = await fs.readFile(readmePath, 'utf-8')
+    const originalReadme = await fs.readFile(readmePath, 'utf-8')
 
-      try {
-        const replacedReadme = replaceBetween(
-          originalReadme,
-          generatedOptionsMarkdown,
-          BEGIN_COMMENT,
-          END_COMMENT
-        )
+    try {
+      const replacedReadme = replaceBetween(
+        originalReadme,
+        generatedOptionsMarkdown,
+        BEGIN_COMMENT,
+        END_COMMENT
+      )
 
-        await fs.writeFile(readmePath, replacedReadme, 'utf-8')
-        console.log(`written ${readmePath}`)
-      } catch (e) {
-        console.error(`no replacement markers in ${readmePath}`)
-      }
-    })
-  )
-}
-
-main()
+      await fs.writeFile(readmePath, replacedReadme, 'utf-8')
+      console.log(`written ${readmePath}`)
+    } catch (e) {
+      console.error(`no replacement markers in ${readmePath}`)
+    }
+  })
+)

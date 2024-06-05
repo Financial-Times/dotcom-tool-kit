@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-const fs = require('fs')
-const path = require('path')
-const { execSync } = require('child_process')
+import { execSync } from 'node:child_process'
+import fs from 'node:fs'
+import path from 'node:path'
 
 const name = process.argv[2]
 const camelCaseName = name.replace(/(^|-)./g, (char) => char.slice(-1).toUpperCase())
