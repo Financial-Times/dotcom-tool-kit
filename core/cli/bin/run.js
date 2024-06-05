@@ -37,7 +37,7 @@ try {
     rootLogger.error('', { skipformat: true })
     rootLogger.error(error.message)
     rootLogger.error(styles.ruler() + '\n', { skipformat: true })
-    rootLogger.error(error.details, { skipformat: true })
+    rootLogger.error(error.details + '\n', { skipformat: true })
   } else {
     rootLogger.error(error.stack)
   }
