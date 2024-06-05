@@ -26,7 +26,7 @@
     "@financial-times/eslint-config-next": "^6.0.0",
     "@tsconfig/node18": "^18.2.4",
     "@types/jest": "^27.4.0",
-    "@types/node": "^16.18.23",
+    "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "check-engines": "^1.5.0",
