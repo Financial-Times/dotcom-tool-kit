@@ -3,8 +3,9 @@ import { Task } from '@dotcom-tool-kit/base'
 import { glob } from 'glob'
 import { MochaSchema } from '@dotcom-tool-kit/schemas/tasks/mocha.js'
 import { fork } from 'child_process'
+import { fileURLToPath } from 'url'
 import { promisify } from 'util'
-const mochaCLIPath = require.resolve('mocha/bin/mocha')
+const mochaCLIPath = fileURLToPath(import.meta.resolve('mocha/bin/mocha'))
 
 export default class Mocha extends Task<{ task: typeof MochaSchema }> {
   async run(): Promise<void> {

@@ -41,6 +41,7 @@
     "endent": "^2.1.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
+    "resolve-package-path": "^4.0.3",
     "tslib": "^2.3.1",
     "yaml": "^2.4.1",
     "zod-validation-error": "^2.1.0"

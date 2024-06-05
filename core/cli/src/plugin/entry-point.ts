@@ -4,6 +4,7 @@ import type { Base } from '@dotcom-tool-kit/base'
 import type { EntryPoint } from '@dotcom-tool-kit/plugin'
 import { Validated, invalid } from '@dotcom-tool-kit/validated'
 import isPlainObject from 'lodash/isPlainObject.js'
+import { pathToFileURL } from 'url'
 import { indentReasons } from '../messages.js'
 
 const isPlainObjectGuard = (value: unknown): value is Record<string, unknown> => isPlainObject(value)
@@ -14,7 +15,7 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
   type: T,
   entryPoint: EntryPoint
 ): Promise<Validated<T>> {
-  const resolvedPath = require.resolve(entryPoint.modulePath, { paths: [entryPoint.plugin.root] })
+  const resolvedPath = import.meta.resolve(entryPoint.modulePath, pathToFileURL(entryPoint.plugin.root + '/'))
 
   if (!resolvedPath) {
     return invalid([

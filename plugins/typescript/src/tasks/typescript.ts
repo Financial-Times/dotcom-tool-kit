@@ -2,8 +2,9 @@ import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
 import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/tasks/typescript.js'
 import { fork } from 'child_process'
+import { fileURLToPath } from 'url'
 
-const tscPath = require.resolve('typescript/bin/tsc')
+const tscPath = fileURLToPath(import.meta.resolve('typescript/bin/tsc'))
 
 export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> {
   async run(): Promise<void> {

@@ -2,6 +2,7 @@ import { describe, jest, it, expect } from '@jest/globals'
 import TypeScript from '../../src/tasks/typescript.js'
 import { fork } from 'child_process'
 import EventEmitter from 'events'
+import { fileURLToPath } from 'url'
 import winston, { Logger } from 'winston'
 
 const logger = winston as unknown as Logger
@@ -18,7 +19,7 @@ jest.mock('child_process', () => ({
 }))
 jest.mock('@dotcom-tool-kit/logger')
 
-const tscPath = require.resolve('typescript/bin/tsc')
+const tscPath = fileURLToPath(import.meta.resolve('typescript/bin/tsc'))
 const configPath = 'tsconfig.json'
 
 describe('typescript', () => {

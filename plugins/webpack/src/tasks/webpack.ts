@@ -2,8 +2,9 @@ import { type WebpackSchema } from '@dotcom-tool-kit/schemas/tasks/webpack.js'
 import { Task } from '@dotcom-tool-kit/base'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { fork } from 'child_process'
+import { fileURLToPath } from 'url'
 
-const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
+const webpackCLIPath = fileURLToPath(import.meta.resolve('webpack-cli/bin/cli'))
 
 export default class Webpack extends Task<{ task: typeof WebpackSchema }> {
   async run(): Promise<void> {

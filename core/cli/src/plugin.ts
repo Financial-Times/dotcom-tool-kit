@@ -4,6 +4,7 @@ import type { RawConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
 import * as path from 'path'
 import type { Logger } from 'winston'
+import resolvePackagePath from 'resolve-package-path'
 import { loadToolKitRC } from './rc-file.js'
 import { indentReasons } from './messages.js'
 import { mergeTasks } from './plugin/merge-tasks.js'
@@ -18,9 +19,8 @@ function resolveRoot(id: string, root: string): string {
   // resolve the package.json of a plugin as many plugins don't have valid
   // entrypoints now that we're intending their tasks/hooks to be loaded via
   // entrypoints defined in config
-  const modulePath = isPath ? id : path.join(id, 'package.json')
-  const resolvedPath = require.resolve(modulePath, { paths: [root] })
-  return path.dirname(resolvedPath)
+  const resolvedPath = isPath ? path.join(root, id) : path.dirname(resolvePackagePath(id, root)!)
+  return resolvedPath
 }
 
 export async function loadPlugin(

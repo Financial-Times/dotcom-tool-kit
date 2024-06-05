@@ -2,9 +2,10 @@ import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task } from '@dotcom-tool-kit/base'
 import type { Pa11ySchema } from '@dotcom-tool-kit/schemas/tasks/pa11y.js'
 import { fork } from 'child_process'
+import { fileURLToPath } from 'url'
 import { readState } from '@dotcom-tool-kit/state'
 
-const pa11yCIPath = require.resolve('pa11y-ci/bin/pa11y-ci')
+const pa11yCIPath = fileURLToPath(import.meta.resolve('pa11y-ci/bin/pa11y-ci'))
 
 export default class Pa11y extends Task<{ task: typeof Pa11ySchema }> {
   async run(): Promise<void> {

@@ -2,9 +2,10 @@ import { Task } from '@dotcom-tool-kit/base'
 import { JestSchema } from '@dotcom-tool-kit/schemas/tasks/jest.js'
 import { fork } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
+import { fileURLToPath } from 'node:url'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 
-const jestCLIPath = require.resolve('jest-cli/bin/jest')
+const jestCLIPath = fileURLToPath(import.meta.resolve('jest-cli/bin/jest'))
 
 // By default Jest will choose the number of worker threads based on the number
 // of reported CPUs. However, when running within Docker in CircleCI, the

@@ -5,6 +5,7 @@ import { readState } from '@dotcom-tool-kit/state'
 import { hookConsole, hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
+import { fileURLToPath } from 'url'
 import { NextRouterSchema } from '@dotcom-tool-kit/schemas/plugins/next-router.js'
 
 export default class NextRouter extends Task<{ plugin: typeof NextRouterSchema }> {
@@ -13,7 +14,7 @@ export default class NextRouter extends Task<{ plugin: typeof NextRouterSchema }
       project: 'next-router'
     })
 
-    const routerBin = require.resolve('ft-next-router/bin/next-router')
+    const routerBin = fileURLToPath(import.meta.resolve('ft-next-router/bin/next-router'))
     const dopplerEnv = await doppler.get()
     const child = fork(routerBin, ['--daemon'], {
       env: {

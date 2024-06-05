@@ -2,6 +2,7 @@ import { describe, jest, it, expect } from '@jest/globals'
 import Webpack from '../../src/tasks/webpack.js'
 import { fork } from 'child_process'
 import EventEmitter from 'events'
+import { fileURLToPath } from 'url'
 import winston, { Logger } from 'winston'
 
 const logger = winston as unknown as Logger
@@ -19,7 +20,7 @@ jest.mock('child_process', () => ({
 const mockedFork = jest.mocked(fork)
 jest.mock('@dotcom-tool-kit/logger')
 
-const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
+const webpackCLIPath = fileURLToPath(import.meta.resolve('webpack-cli/bin/cli'))
 
 describe('webpack', () => {
   describe('development', () => {
