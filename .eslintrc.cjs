@@ -8,6 +8,12 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     '@dotcom-reliability-kit/eslint-config'
   ],
+  settings: {
+    'import/resolver': {
+      typescript: true,
+      node: true
+    }
+  },
   rules: {
     // We use winston's logging instead
     'no-console': 'error',
