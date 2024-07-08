@@ -314,7 +314,7 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] => {
     return {
       [toolKitOrbPrefix(job.name)]: merge(
         splitIntoMatrix
-          ? matrixBoilerplate(job.name)
+          ? matrixBoilerplate(toolKitOrbPrefix(job.name))
           : {
               executor: 'node'
             },
