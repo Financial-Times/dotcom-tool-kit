@@ -3,7 +3,7 @@ import { setAppConfigVars, setStageConfigVars } from '../src/setConfigVars'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 type DopplerPath = {
   project: string
 }

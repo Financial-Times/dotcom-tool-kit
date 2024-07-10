@@ -6,7 +6,7 @@ import { gtg } from '../../src/gtg'
 import heroku from '../../src/herokuClient'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 type State = {
   [key: string]: string

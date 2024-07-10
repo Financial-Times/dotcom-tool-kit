@@ -5,7 +5,7 @@ import { gtg } from '../src/gtg'
 import { writeState } from '@dotcom-tool-kit/state'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const appName = 'test-app-name'
 const makeUrl = (appName: string) => `https://${appName}-1234567890ab.herokuapp.com/`
