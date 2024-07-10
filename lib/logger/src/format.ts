@@ -21,9 +21,12 @@ export const createFormatter = (thisLogger: winston.Logger) =>
       }
       if (info.process) {
         labels += `[${styles.dim(info.process)}]`
-      } else {
+      }
+
+      if (!info.process) {
         // simulate the newline present in a normal console.log (which we've
-        // removed from the Console transport)
+        // removed from the Console transport to support logging forked
+        // processes which don't necessarilly flush on a newline)
         message += '\n'
       }
 

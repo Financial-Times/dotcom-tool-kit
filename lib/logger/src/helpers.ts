@@ -8,16 +8,16 @@ import { HookTransport, consoleTransport } from './transports'
 import ansiRegex from 'ansi-regex'
 
 const ansiRegexText = ansiRegex().source
-const whitespaceRegex = /\s|\n/g
-const startRegex = new RegExp(`^(?:(?:${ansiRegexText})|\s|\n)+`)
-const endRegex = new RegExp(`(?:(?:${ansiRegexText})|\s|\n)+$`)
+const ansiOrWhitespaceRegexText = `(?:(?:${ansiRegexText})|\\n)+`
+const startRegex = new RegExp(`^${ansiOrWhitespaceRegexText}`)
+const endRegex = new RegExp(`${ansiOrWhitespaceRegexText}$`)
 
 // RIS escape code to effectively do a clear (^L) on the terminal. TypeScript's
 // watch mode does this and it's annoying to have the logs shunted around when
 // tracking multiple tasks.
 const ansiReset = /\x1Bc/g
 
-// Trim whitespace whilst preserving ANSI escape codes
+// Trim newlines whilst preserving ANSI escape codes
 function ansiTrim(message: string): string {
   let start = 0
   let ansiStart = ''
@@ -33,9 +33,7 @@ function ansiTrim(message: string): string {
     ansiEnd = endResult[0]
     end = -ansiEnd.length
   }
-  return (
-    ansiStart.replace(whitespaceRegex, '') + message.slice(start, end) + ansiEnd.replace(whitespaceRegex, '')
-  )
+  return ansiStart.replace('\n', '') + message.slice(start, end) + ansiEnd.replace('\n', '')
 }
 
 // Remove ANSI escape codes that mess with the terminal state. This selectively
@@ -115,8 +113,10 @@ export function hookFork(
           readableObjectMode: true,
           transform: (message, _enc, callback) => {
             // add the log level and wrap the message for the winston stream to
-            // consume
-            callback(null, { level, message: cleanupLogs(message) })
+            // consume. we preserve newlines here as, unlike other cases, this
+            // logger can be called in the middle of a line depending on when
+            // the stream is flushed.
+            callback(null, { level, message: stripAnsiReset(message) })
           }
         })
       )
