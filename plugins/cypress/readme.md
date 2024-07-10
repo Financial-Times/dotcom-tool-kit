@@ -36,6 +36,8 @@ hooks:
 
 The `CypressCI` task runs on the `test:review` and `test:staging` hooks by default. These will run your Cypress end-to-end tests against the currently deployed review or staging app respectively.
 
+For the Cypress end-to-end tests to be run against the staging app, you will need to add to the project's Vault `continuous-integration` secrets a `CYPRESS_CUSTOM_STAGING_URL` environment variable whose value is the staging app's Heroku URL.
+
 ### Running on another hook
 You can also configure Cypress to run on any other hook; for example, if you want to run it with `npm run test` via the `npm` plugin, you can manually configure Cypress to run on `npm`'s `test:local` hook:
 

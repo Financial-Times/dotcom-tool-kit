@@ -31,7 +31,7 @@ export class CypressCi extends Task<typeof CypressSchema> {
       cypressEnv.CYPRESS_BASE_URL = `https://${reviewState.appName}.herokuapp.com`
       cypressEnv.CYPRESS_REVIEW_APP = 'true'
     } else {
-      cypressEnv.CYPRESS_BASE_URL = `https://${process.env.CY_CUSTOM_DOMAIN_STAGING}`
+      cypressEnv.CYPRESS_BASE_URL = process.env.CYPRESS_CUSTOM_STAGING_URL || ''
     }
 
     this.logger.info(`running cypress against ${cypressEnv.CYPRESS_BASE_URL}`)
