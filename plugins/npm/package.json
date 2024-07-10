@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/npm",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -14,7 +14,7 @@
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/package-json-hook": "^4.2.0",
     "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/types": "^3.6.0",
+    "@dotcom-tool-kit/types": "^3.6.1",
     "libnpmpack": "^3.1.0",
     "libnpmpublish": "^5.0.1",
     "pacote": "^12.0.3",

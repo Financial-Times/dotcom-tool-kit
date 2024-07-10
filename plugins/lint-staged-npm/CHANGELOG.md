@@ -156,6 +156,13 @@
     * @dotcom-tool-kit/lint-staged bumped from ^4.1.5 to ^4.1.6
     * @dotcom-tool-kit/options bumped from ^3.1.5 to ^3.1.6
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/lint-staged bumped from ^4.2.0 to ^4.2.1
+    * @dotcom-tool-kit/options bumped from ^3.2.0 to ^3.2.1
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v3.1.6...lint-staged-npm-v3.2.0) (2024-01-11)
 
 
