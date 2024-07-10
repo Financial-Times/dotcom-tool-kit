@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.4.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.4.0...logger-v3.4.1) (2024-07-10)
+
+
+### Bug Fixes
+
+* **logger:** don't trim 's' from the beginning and end of a line ([130f5fa](https://github.com/Financial-Times/dotcom-tool-kit/commit/130f5fab9a9832f76ea3587e875ee9c2a0809b79))
+* **logger:** stop stripping newlines from hooked subprocess logging ([ff08722](https://github.com/Financial-Times/dotcom-tool-kit/commit/ff0872289946a9a5d68e7ce2dfc0e76f1b7c9388))
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.3.1...logger-v3.4.0) (2024-01-11)
 
 

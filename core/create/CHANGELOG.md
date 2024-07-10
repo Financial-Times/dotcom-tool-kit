@@ -218,6 +218,24 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^3.4.3 to ^3.4.4
 
+## [3.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.2...create-v3.8.0) (2024-07-10)
+
+
+### Features
+
+* change nested stack template to v2 ([c20ac93](https://github.com/Financial-Times/dotcom-tool-kit/commit/c20ac93b259b7f34f5f99962daf99ac18407b307))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^1.1.0 to ^1.1.1
+    * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
+    * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
+  * devDependencies
+    * dotcom-tool-kit bumped from ^3.5.0 to ^3.5.1
+
 ## [3.7.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.7.1...create-v3.7.2) (2024-04-16)
 
 

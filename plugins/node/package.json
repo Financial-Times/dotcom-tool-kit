@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/node",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -12,8 +12,8 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/types": "^3.6.0",
-    "@dotcom-tool-kit/doppler": "^1.1.0",
+    "@dotcom-tool-kit/types": "^3.6.1",
+    "@dotcom-tool-kit/doppler": "^1.1.1",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1",
     "wait-port": "^0.2.9"

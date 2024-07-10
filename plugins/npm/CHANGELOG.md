@@ -139,6 +139,12 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^3.2.0 to ^3.3.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v3.2.3...npm-v3.3.0) (2024-01-11)
 
 

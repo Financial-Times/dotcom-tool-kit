@@ -18,6 +18,12 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^3.2.0 to ^3.3.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
+
 ## [3.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/types-v3.5.0...types-v3.6.0) (2024-01-11)
 
 

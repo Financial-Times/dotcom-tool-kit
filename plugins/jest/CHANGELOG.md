@@ -127,6 +127,13 @@
     * @dotcom-tool-kit/logger bumped from ^3.2.0 to ^3.3.0
     * @dotcom-tool-kit/types bumped from ^3.4.0 to ^3.4.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
+    * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v3.3.0...jest-v3.4.0) (2024-01-11)
 
 
