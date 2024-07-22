@@ -312,6 +312,12 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^3.2.0 to ^3.2.1
     * @dotcom-tool-kit/webpack bumped from ^3.2.0 to ^3.2.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^3.1.5 to ^3.1.6
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v3.1.25...frontend-app-v3.2.0) (2024-01-11)
 
 

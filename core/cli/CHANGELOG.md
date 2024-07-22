@@ -397,6 +397,15 @@
     * @dotcom-tool-kit/npm bumped from ^3.3.1 to ^3.3.2
     * @dotcom-tool-kit/webpack bumped from ^3.2.0 to ^3.2.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^3.1.5 to ^3.1.6
+    * @dotcom-tool-kit/circleci bumped from ^6.0.2 to ^6.0.3
+    * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
+    * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
+
 ## [3.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.4.5...dotcom-tool-kit-v3.5.0) (2024-04-16)
 
 

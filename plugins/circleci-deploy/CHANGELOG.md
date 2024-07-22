@@ -102,6 +102,20 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^6.0.1 to ^6.0.2
 
+## [3.4.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.4.4...circleci-deploy-v3.4.5) (2024-07-22)
+
+
+### Bug Fixes
+
+* **circleci:** don't run review jobs on tagged releases ([0e000ce](https://github.com/Financial-Times/dotcom-tool-kit/commit/0e000ce75fda8d3015373e782596ab445970a16d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^6.0.2 to ^6.0.3
+
 ## [3.4.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.4.1...circleci-deploy-v3.4.2) (2024-02-05)
 
 
