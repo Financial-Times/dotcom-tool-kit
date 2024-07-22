@@ -330,7 +330,7 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] => {
             return `${requiredOrb}-${splitIntoMatrix ? '<< matrix.executor >>' : 'node'}`
           })
         },
-        workflow.runOnRelease ? tagFilter : {},
+        workflow.runOnRelease && job.runOnRelease ? tagFilter : {},
         job.custom
       )
     }
