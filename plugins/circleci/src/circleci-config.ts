@@ -90,6 +90,7 @@ export interface JobGeneratorOptions {
   requires: string[]
   /** whether this job can be run multiple times with different Node versions */
   splitIntoMatrix: boolean
+  skipOnRelease?: boolean
   /** other fields to include in the job */
   additionalFields?: JobConfig
 }
@@ -126,7 +127,12 @@ export const generateConfigWithJob = (options: JobGeneratorOptions): CircleCISta
         jobs: [
           {
             // avoid overwriting the jobBase variable
-            [options.name]: merge({}, jobBase, tagFilter, options.additionalFields)
+            [options.name]: merge(
+              {},
+              jobBase,
+              options.skipOnRelease ? {} : tagFilter,
+              options.additionalFields
+            )
           }
         ]
       }

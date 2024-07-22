@@ -41,6 +41,7 @@ export class DeployReview extends CircleCiConfigHook {
       addToNightly: true,
       requires: ['tool-kit/setup', 'waiting-for-approval'],
       splitIntoMatrix: false,
+      skipOnRelease: true,
       additionalFields: { filters: { branches: { ignore: 'main' } }, ...serverlessAdditionalsFields }
     })
   }
@@ -54,6 +55,7 @@ export class DeployStaging extends CircleCiConfigHook {
       addToNightly: false,
       requires: ['tool-kit/setup'],
       splitIntoMatrix: false,
+      skipOnRelease: true,
       additionalFields: { filters: { branches: { only: 'main' } } }
     })
   }
@@ -67,7 +69,8 @@ export class TestReview extends CircleCiConfigHook {
       name: TestReview.job,
       requires: [DeployReview.job],
       addToNightly: false,
-      splitIntoMatrix: false
+      splitIntoMatrix: false,
+      skipOnRelease: true
     }
 
     // CircleCI config generator which will additionally optionally pass Serverless
@@ -96,7 +99,8 @@ export class TestStaging extends CircleCiConfigHook {
       name: TestStaging.job,
       requires: [DeployStaging.job],
       addToNightly: false,
-      splitIntoMatrix: false
+      splitIntoMatrix: false,
+      skipOnRelease: true
     }
 
     const options = getOptions('@dotcom-tool-kit/circleci')
@@ -125,6 +129,7 @@ export class DeployProduction extends CircleCiConfigHook {
       addToNightly: false,
       requires: [TestStaging.job, TestCI.job],
       splitIntoMatrix: false,
+      skipOnRelease: true,
       additionalFields: {
         ...serverlessAdditionalsFields,
         filters: { branches: { only: 'main' } }
