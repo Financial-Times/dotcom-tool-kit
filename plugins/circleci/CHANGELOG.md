@@ -121,6 +121,13 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [6.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v6.0.2...circleci-v6.0.3) (2024-07-22)
+
+
+### Bug Fixes
+
+* **circleci:** don't run review jobs on tagged releases ([0e000ce](https://github.com/Financial-Times/dotcom-tool-kit/commit/0e000ce75fda8d3015373e782596ab445970a16d))
+
 ## [6.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v6.0.0...circleci-v6.0.1) (2024-02-28)
 
 
