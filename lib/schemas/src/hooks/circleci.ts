@@ -16,6 +16,7 @@ export const CircleCiWorkflowJob = z.object({
   name: z.string(),
   requires: z.array(z.string()),
   splitIntoMatrix: z.boolean().optional(),
+  runOnRelease: z.boolean().default(true),
   custom: z.unknown().optional()
 })
 export type CircleCiWorkflowJob = z.infer<typeof CircleCiWorkflowJob>
