@@ -38,6 +38,9 @@ pkg.engines = {
   node: '18.x || 20.x',
   npm: '7.x || 8.x || 9.x'
 }
+pkg.volta = {
+  extends: '../../package.json'
+}
 pkg.peerDependencies = {
   'dotcom-tool-kit': '3.x'
 }
