@@ -37,6 +37,9 @@ pkg.files = ['/lib', '.toolkitrc.yml']
 pkg.engines = {
   node: '18.x || 20.x || 22.x'
 }
+pkg.volta = {
+  extends: '../../package.json'
+}
 pkg.peerDependencies = {
   'dotcom-tool-kit': '4.x'
 }
