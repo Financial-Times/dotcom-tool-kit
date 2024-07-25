@@ -12,6 +12,9 @@
     },
     {
       "path": "../validated"
+    },
+    {
+      "path": "../config"
     }
   ],
   "compilerOptions": {
