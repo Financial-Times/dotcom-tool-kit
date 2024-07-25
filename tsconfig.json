@@ -132,6 +132,9 @@
     },
     {
       "path": "plugins/node-test"
+    },
+    {
+      "path": "plugins/parallel"
     }
   ]
 }
