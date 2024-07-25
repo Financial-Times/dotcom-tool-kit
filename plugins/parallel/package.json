@@ -29,5 +29,10 @@
   },
   "peerDependencies": {
     "dotcom-tool-kit": "4.0.0-beta.5"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/base": "^4.0.0-beta.0",
+    "@dotcom-tool-kit/schemas": "^2.0.0-beta.0",
+    "@dotcom-tool-kit/task": "^1.2.0"
   }
 }
