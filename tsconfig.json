@@ -126,6 +126,9 @@
     },
     {
       "path": "lib/schemas"
+    },
+    {
+      "path": "plugins/parallel"
     }
   ]
 }
