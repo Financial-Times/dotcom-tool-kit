@@ -1,1 +1,4 @@
 version: 2
+
+tasks:
+  Parallel: './lib/tasks/parallel'
