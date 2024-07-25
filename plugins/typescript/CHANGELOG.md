@@ -72,6 +72,13 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.2.1...typescript-v2.3.0) (2024-07-25)
+
+
+### Features
+
+* **typescript:** support typescript 5 ([48a373c](https://github.com/Financial-Times/dotcom-tool-kit/commit/48a373c9390e1c7136312daa985b867aa740bd4d))
+
 ## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.1.7...typescript-v2.2.0) (2024-01-11)
 
 

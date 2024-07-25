@@ -34,7 +34,7 @@
   "plugins/upload-assets-to-s3": "3.2.1",
   "plugins/webpack": "3.2.1",
   "plugins/cypress": "4.0.2",
-  "plugins/typescript": "2.2.1",
+  "plugins/typescript": "2.3.0",
   "plugins/backend-heroku-app": "3.1.6",
   "plugins/circleci-deploy": "3.4.5",
   "plugins/backend-serverless-app": "3.2.9",
