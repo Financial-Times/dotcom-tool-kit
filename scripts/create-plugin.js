@@ -17,7 +17,7 @@ console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
 console.log('📥 installing dependencies')
-execSync('npm install @dotcom-tool-kit/types')
+execSync('npm install @dotcom-tool-kit/base')
 
 console.log('🔣 adding metadata to package.json')
 
@@ -53,7 +53,7 @@ const tsconfig = {
   },
   references: [
     {
-      path: '../../lib/types'
+      path: '../../lib/base'
     }
   ],
   include: ['src/**/*']
@@ -62,38 +62,12 @@ const tsconfig = {
 fs.writeFileSync('tsconfig.json', JSON.stringify(tsconfig, null, 2))
 
 console.log('📄 adding empty toolkit config')
-fs.writeFileSync('.toolkitrc.yml', '')
+fs.writeFileSync('.toolkitrc.yml', 'version: 2\n')
 
 console.log('🔗 adding reference to root tsconfig')
 const rootTsconfig = JSON.parse(fs.readFileSync('../../tsconfig.json'))
 rootTsconfig.references.push({ path: directory })
 
 fs.writeFileSync('../../tsconfig.json', JSON.stringify(rootTsconfig, null, 2))
-
-console.log(`🏗 scaffolding task ${camelCaseName}`)
-fs.mkdirSync('src/tasks', { recursive: true })
-
-fs.writeFileSync(
-  `src/tasks/${name}.ts`,
-  `import { Task } from '@dotcom-tool-kit/types'
-
-export default class ${camelCaseName} extends Task {
-   static description = ''
-
-   async run(): Promise<void> {
-
-   }
-}`
-)
-
-fs.writeFileSync(
-  'src/index.ts',
-  `import ${camelCaseName} from './tasks/${name}'
-
-export const tasks = [
-  ${camelCaseName}
-]
-`
-)
 
 console.log('🌊 byeee~')
