@@ -41,6 +41,19 @@ ${tasks
     // if one has errored means you'll easily lose any error logs, and having
     // only some of these tasks still running is almost certainly not what the
     // user wants.
-    await Promise.all(taskInstances.map((task) => task.run(context)))
+    try {
+      await Promise.all(taskInstances.map((task) => task.run(context)))
+    } catch (error) {
+      await Promise.all(
+        taskInstances.map((task) =>
+          task.stop().catch((error) => {
+            this.logger.warn(`error stopping ${styles.task(this.id)}:
+${error.message}`)
+          })
+        )
+      )
+
+      throw error
+    }
   }
 }

@@ -2,7 +2,7 @@ import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import { fork } from 'child_process'
+import { ChildProcess, fork } from 'child_process'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 import path from 'path'
@@ -33,6 +33,8 @@ const NodeSchema = z
 export { NodeSchema as schema }
 
 export default class Node extends Task<{ task: typeof NodeSchema }> {
+  child?: ChildProcess
+
   async run({ cwd, config }: TaskRunContext): Promise<void> {
     const { entry, args, useDoppler, ports } = this.options
 
@@ -62,7 +64,7 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
       : false
 
     this.logger.verbose('starting the child node process...')
-    const child = fork(path.resolve(cwd, entry), args, {
+    this.child = fork(path.resolve(cwd, entry), args, {
       env: {
         ...dopplerEnv,
         PORT: port.toString(),
@@ -72,7 +74,7 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
       silent: true,
       cwd
     })
-    hookFork(this.logger, entry, child)
+    hookFork(this.logger, entry, this.child)
 
     if (port) {
       const unhook = hookConsole(this.logger, 'wait-port')
@@ -86,6 +88,13 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
       }
 
       writeState('local', { port })
+    }
+  }
+
+  async stop() {
+    if (this.child && (this.child.exitCode === null || !this.child.killed)) {
+      // SIGINT instead of SIGKILL so the process gets chance to exit gracefully
+      this.child.kill('SIGINT')
     }
   }
 }
