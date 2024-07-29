@@ -20,11 +20,11 @@ type ErrorSummary = {
   error: Error
 }
 
-const loadTasks = async (
+export async function loadTasks(
   logger: Logger,
   tasks: OptionsForTask[],
   config: ValidConfig
-): Promise<Validated<Task[]>> => {
+): Promise<Validated<Task[]>> {
   const taskResults = await Promise.all(
     tasks.map(async ({ task: taskId, options }) => {
       const entryPoint = config.tasks[taskId]
@@ -58,7 +58,7 @@ const loadTasks = async (
   return reduceValidated(taskResults)
 }
 
-export function handleTaskErrors(errors: ErrorSummary[], command?: string) {
+export function handleTaskErrors(errors: ErrorSummary[], command: string) {
   throw new AggregateError(
     errors.map(({ task, error }) => {
       error.name = `${styles.task(task)} → ${error.name}`
@@ -137,40 +137,7 @@ export async function runCommandsFromConfig(
   Object.freeze(config)
 
   for (const { command, tasks } of commandTasks) {
-    const errors: ErrorSummary[] = []
-
-    if (tasks.length === 0) {
-      logger.warn(`no task configured for ${command}: skipping assignment...`)
-    }
-
-    for (const task of tasks) {
-      try {
-        logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
-        await task.run({ files, command, cwd: config.root, config })
-      } catch (error) {
-        // if there's an exit code, that's a request from the task to exit early
-        if (error instanceof ToolKitError && error.exitCode) {
-          throw error
-        }
-
-        // if not, we allow subsequent hook tasks to run on error
-        // TODO use validated for this
-        errors.push({
-          task: task.id,
-          error: error as Error
-        })
-      }
-    }
-
-    if (errors.length > 0) {
-      throw new AggregateError(
-        errors.map(({ task, error }) => {
-          error.name = `${styles.task(task)} → ${error.name}`
-          return error
-        }),
-        `${pluralize('error', errors.length, true)} running tasks for ${styles.command(command)}`
-      )
-    }
+    await runTasks(logger, config, tasks, command, files)
   }
 }
 
