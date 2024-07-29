@@ -1,4 +1,4 @@
-import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork, waitOnExit, styles as s } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
@@ -27,6 +27,17 @@ const NodeSchema = z
       .optional()
       .describe(
         'run Node in watch mode, which restarts your application when the entrypoint or any imported files are changed. **nb** this option is experimental in versions of Node before v20.13.'
+      ),
+    background: z
+      .boolean()
+      .optional()
+      .transform((background) => ({
+        isDefault: typeof background === 'undefined',
+        value: typeof background === 'undefined' ? true : background
+      }))
+      .default(true) // will never be reached because of the transform; here for the documentation generator's benefit
+      .describe(
+        "run the Node process in the background, i.e. don't wait for it to exit before continuing to other Tool Kit tasks. set to `false` to wait for the process to exit, useful for running scripts or [multiple Tool Kit tasks in parallel](../parallel)."
       )
   })
   .describe('Run a Node.js application for local development.')
@@ -88,6 +99,20 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
       }
 
       writeState('local', { port })
+    }
+
+    if (this.options.background.isDefault) {
+      this.logger.warn(
+        `${s.task('Node')} ${s.option(
+          'options.background'
+        )} is not set; falling back to the legacy behaviour of running the process in the background. This will be removed in a future major version of ${s.plugin(
+          '@dotcom-tool-kit/node'
+        )}.`
+      )
+    }
+
+    if (!this.options.background.value) {
+      await waitOnExit('node', this.child)
     }
   }
 
