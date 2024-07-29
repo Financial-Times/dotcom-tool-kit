@@ -1,4 +1,4 @@
-import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
 import { NodeSchema } from '@dotcom-tool-kit/schemas/lib/tasks/node'
@@ -50,5 +50,7 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
 
       writeState('local', { port })
     }
+
+    await waitOnExit('node', child)
   }
 }
