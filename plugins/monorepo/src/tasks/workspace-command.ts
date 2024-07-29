@@ -3,7 +3,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { minimatch } from 'minimatch'
 import pluralize from 'pluralize'
 import { z } from 'zod'
-import { runTasksFromConfig } from 'dotcom-tool-kit/lib/tasks'
+import { runCommandsFromConfig } from 'dotcom-tool-kit/lib/tasks'
 import LoadWorkspaceConfigs from '../load-workspace-configs'
 
 const WorkspaceCommandSchema = z.object({
@@ -90,7 +90,7 @@ ${configsWithCommand.map(({ packageId }) => `- ${styles.plugin(packageId)}`).joi
     const results = await Promise.allSettled(
       configsWithCommand.map(async ({ config, packageId, root }) => {
         if (!this.options.packageFilter || minimatch(root, this.options.packageFilter)) {
-          await runTasksFromConfig(
+          await runCommandsFromConfig(
             this.logger.child({ packageId }),
             config,
             [configuredCommand],

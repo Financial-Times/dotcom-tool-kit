@@ -3,7 +3,7 @@ import type { Logger } from 'winston'
 import util from 'util'
 import { formatPluginTree } from './messages'
 
-export { runTasks } from './tasks'
+export { runCommands } from './tasks'
 export { shouldDisableNativeFetch } from './fetch'
 
 export async function listPlugins(logger: Logger): Promise<void> {
