@@ -19,11 +19,11 @@ type ErrorSummary = {
   error: Error
 }
 
-const loadTasks = async (
+export async function loadTasks(
   logger: Logger,
   tasks: OptionsForTask[],
   config: ValidConfig
-): Promise<Validated<Task[]>> => {
+): Promise<Validated<Task[]>> {
   const taskResults = await Promise.all(
     tasks.map(async ({ task: taskId, options }) => {
       const entryPoint = config.tasks[taskId]
@@ -54,6 +54,55 @@ const loadTasks = async (
   )
 
   return reduceValidated(taskResults)
+}
+
+export async function runTasks(
+  logger: Logger,
+  config: ValidConfig,
+  tasks: Task[],
+  command?: string,
+  files?: string[]
+) {
+  const errors: ErrorSummary[] = []
+
+  if (tasks.length === 0) {
+    logger.warn(`no task configured for ${styles.command(command)}: skipping assignment...`)
+  }
+
+  for (const task of tasks) {
+    try {
+      logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
+      await task.run({ files, config })
+    } catch (error) {
+      // TODO use validated for this
+      // allow subsequent command tasks to run on error
+      errors.push({
+        task: task.id,
+        error: error as Error
+      })
+    }
+  }
+
+  if (errors.length > 0) {
+    const error = new ToolKitError(`error running tasks for ${styles.command(command)}`)
+    error.details = errors
+      .map(
+        ({ task, error }) =>
+          `${styles.heading(`${styles.task(task)}:`)}
+
+${error.message}${
+            error instanceof ToolKitError
+              ? `
+
+${error.details}`
+              : ''
+          }`
+      )
+      .join(`${styles.dim(styles.ruler())}\n`)
+
+    error.exitCode = errors.length + 1
+    throw error
+  }
 }
 
 export async function runCommandsFromConfig(
@@ -87,46 +136,7 @@ export async function runCommandsFromConfig(
   ).unwrap('tasks are invalid!')
 
   for (const { command, tasks } of commandTasks) {
-    const errors: ErrorSummary[] = []
-
-    if (tasks.length === 0) {
-      logger.warn(`no task configured for ${command}: skipping assignment...`)
-    }
-
-    for (const task of tasks) {
-      try {
-        logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
-        await task.run({ files, config })
-      } catch (error) {
-        // TODO use validated for this
-        // allow subsequent command tasks to run on error
-        errors.push({
-          task: task.id,
-          error: error as Error
-        })
-      }
-    }
-
-    if (errors.length > 0) {
-      const error = new ToolKitError(`error running tasks for ${styles.hook(command)}`)
-      error.details = errors
-        .map(
-          ({ task, error }) =>
-            `${styles.heading(`${styles.task(task)}:`)}
-
-${error.message}${
-              error instanceof ToolKitError
-                ? `
-
-${error.details}`
-                : ''
-            }`
-        )
-        .join(`${styles.dim(styles.ruler())}\n`)
-
-      error.exitCode = errors.length + 1
-      throw error
-    }
+    await runTasks(logger, config, tasks, command, files)
   }
 }
 
