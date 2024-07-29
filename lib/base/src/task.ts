@@ -42,6 +42,10 @@ export abstract class Task<
   }
 
   abstract run(runContext: TaskRunContext): Promise<void>
+
+  // not abstract for default behaviour of doing nothing
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  async stop(): Promise<void> {}
 }
 
 export type TaskConstructor = {
