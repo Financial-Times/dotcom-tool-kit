@@ -23,13 +23,13 @@ const loadTasks = async (
   logger: Logger,
   tasks: OptionsForTask[],
   config: ValidConfig
-): Promise<Validated<Record<string, Task>>> => {
+): Promise<Validated<Task[]>> => {
   const taskResults = await Promise.all(
     tasks.map(async ({ task: taskId, options }) => {
       const entryPoint = config.tasks[taskId]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
-      return taskResult.flatMap<[string, Task]>((Task) => {
+      return taskResult.flatMap<Task>((Task) => {
         const taskSchema = TaskSchemas[taskId as keyof TaskOptions]
         const configOptions = config.taskOptions[taskId]?.options ?? {}
         const mergedOptions = { ...configOptions, ...options }
@@ -45,7 +45,7 @@ const loadTasks = async (
             getOptions(entryPoint.plugin.id as OptionKey) ?? {},
             parsedOptions.data
           )
-          return valid([taskId, task])
+          return valid(task)
         } else {
           return invalid([formatInvalidOption([styles.task(taskId), parsedOptions.error])])
         }
@@ -53,7 +53,7 @@ const loadTasks = async (
     })
   )
 
-  return reduceValidated(taskResults).map(Object.fromEntries)
+  return reduceValidated(taskResults)
 }
 
 export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
@@ -72,27 +72,33 @@ export async function runTasks(logger: Logger, commands: string[], files?: strin
     process.execArgv.push('--no-experimental-fetch')
   }
 
-  const commandTasks = commands.flatMap((command) => config.commandTasks[command]?.tasks ?? [])
+  const commandTasks = reduceValidated(
+    await Promise.all(
+      commands.map(async (command) => {
+        const tasks = config.commandTasks[command]?.tasks ?? []
+        const validatedTaskInstances = await loadTasks(logger, tasks, config)
 
-  const tasks = (await loadTasks(logger, commandTasks, config)).unwrap('tasks are invalid')
+        return validatedTaskInstances.map((taskInstances) => ({ command, tasks: taskInstances }))
+      })
+    )
+  ).unwrap('tasks are invalid!')
 
-  for (const command of commands) {
+  for (const { command, tasks } of commandTasks) {
     const errors: ErrorSummary[] = []
 
-    if (!config.commandTasks[command]) {
+    if (tasks.length === 0) {
       logger.warn(`no task configured for ${command}: skipping assignment...`)
-      continue
     }
 
-    for (const { task: taskId } of config.commandTasks[command].tasks) {
+    for (const task of tasks) {
       try {
-        logger.info(styles.taskHeader(`running ${styles.task(taskId)} task`))
-        await tasks[taskId].run(files)
+        logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
+        await task.run(files)
       } catch (error) {
         // TODO use validated for this
         // allow subsequent command tasks to run on error
         errors.push({
-          task: taskId,
+          task: task.id,
           error: error as Error
         })
       }
