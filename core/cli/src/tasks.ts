@@ -25,7 +25,7 @@ export async function loadTasks(
   config: ValidConfig
 ): Promise<Validated<Task[]>> {
   const taskResults = await Promise.all(
-    tasks.map(async ({ task: taskId, options }) => {
+    tasks.map(async ({ task: taskId, options, plugin }) => {
       const entryPoint = config.tasks[taskId]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
@@ -42,6 +42,7 @@ export async function loadTasks(
           const task = new (Task as unknown as TaskConstructor)(
             logger,
             taskId,
+            plugin,
             getOptions(entryPoint.plugin.id as OptionKey) ?? {},
             parsedOptions.data
           )
@@ -54,6 +55,27 @@ export async function loadTasks(
   )
 
   return reduceValidated(taskResults)
+}
+
+export function handleTaskErrors(errors: ErrorSummary[], command?: string) {
+  const error = new ToolKitError(`error running tasks for ${styles.command(command)}`)
+  error.details = errors
+    .map(
+      ({ task, error }) =>
+        `${styles.heading(`${styles.task(task)}:`)}
+
+${error.message}${
+          error instanceof ToolKitError
+            ? `
+
+${error.details}`
+            : ''
+        }`
+    )
+    .join(`${styles.dim(styles.ruler())}\n`)
+
+  error.exitCode = errors.length + 1
+  throw error
 }
 
 export async function runTasks(
@@ -84,24 +106,7 @@ export async function runTasks(
   }
 
   if (errors.length > 0) {
-    const error = new ToolKitError(`error running tasks for ${styles.command(command)}`)
-    error.details = errors
-      .map(
-        ({ task, error }) =>
-          `${styles.heading(`${styles.task(task)}:`)}
-
-${error.message}${
-            error instanceof ToolKitError
-              ? `
-
-${error.details}`
-              : ''
-          }`
-      )
-      .join(`${styles.dim(styles.ruler())}\n`)
-
-    error.exitCode = errors.length + 1
-    throw error
+    handleTaskErrors(errors, command)
   }
 }
 
