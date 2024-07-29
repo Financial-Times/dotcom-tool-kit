@@ -14,6 +14,7 @@ import { SmokeTestSchema } from './tasks/n-test'
 import { CypressSchema } from './tasks/cypress'
 import { HerokuProductionSchema } from './tasks/heroku-production'
 import { ServerlessRunSchema } from './tasks/serverless-run'
+import { WorkspaceCommandSchema } from './tasks/workspace-command'
 import { z } from 'zod'
 
 export const TaskSchemas = {
@@ -40,7 +41,8 @@ export const TaskSchemas = {
   ServerlessTeardown: z.object({}).describe('Tear down existing serverless functions'),
   TypeScript: TypeScriptSchema,
   UploadAssetsToS3: UploadAssetsToS3Schema,
-  Webpack: WebpackSchema
+  Webpack: WebpackSchema,
+  WorkspaceCommand: WorkspaceCommandSchema
 }
 
 export type TaskOptions = InferSchemaOptions<typeof TaskSchemas>
