@@ -58,7 +58,54 @@ const loadTasks = async (
   return reduceValidated(taskResults)
 }
 
-export async function runTasksFromConfig(
+export function handleTaskErrors(errors: ErrorSummary[], command?: string) {
+  throw new AggregateError(
+    errors.map(({ task, error }) => {
+      error.name = `${styles.task(task)} → ${error.name}`
+      return error
+    }),
+    `${pluralize('error', errors.length, true)} running tasks for ${styles.command(command)}`
+  )
+}
+
+export async function runTasks(
+  logger: Logger,
+  config: ValidConfig,
+  tasks: Task[],
+  command: string,
+  files?: string[]
+) {
+  const errors: ErrorSummary[] = []
+
+  if (tasks.length === 0) {
+    logger.warn(`no task configured for ${command}: skipping assignment...`)
+  }
+
+  for (const task of tasks) {
+    try {
+      logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
+      await task.run({ files, command, cwd: config.root, config })
+    } catch (error) {
+      // if there's an exit code, that's a request from the task to exit early
+      if (error instanceof ToolKitError && error.exitCode) {
+        throw error
+      }
+
+      // if not, we allow subsequent hook tasks to run on error
+      // TODO use validated for this
+      errors.push({
+        task: task.id,
+        error: error as Error
+      })
+    }
+  }
+
+  if (errors.length > 0) {
+    handleTaskErrors(errors, command)
+  }
+}
+
+export async function runCommandsFromConfig(
   logger: Logger,
   config: ValidConfig,
   commands: string[],
@@ -127,8 +174,8 @@ export async function runTasksFromConfig(
   }
 }
 
-export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
+export async function runCommands(logger: Logger, commands: string[], files?: string[]): Promise<void> {
   const config = await loadConfig(logger, { root: process.cwd() })
 
-  return runTasksFromConfig(logger, config, commands, files)
+  return runCommandsFromConfig(logger, config, commands, files)
 }
