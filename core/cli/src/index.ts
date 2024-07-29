@@ -4,7 +4,7 @@ import util from 'util'
 import { formatPluginTree } from './messages'
 import { loadHookInstallations } from './install'
 
-export { runTasks } from './tasks'
+export { runCommands } from './tasks'
 export { shouldDisableNativeFetch } from './fetch'
 
 export async function listPlugins(logger: Logger): Promise<void> {

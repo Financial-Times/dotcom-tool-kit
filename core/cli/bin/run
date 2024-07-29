@@ -30,7 +30,7 @@ async function main() {
       const showHelp = require('../lib/help').default
       await showHelp(rootLogger, argv._)
     } else {
-      const { runTasks } = require('../lib')
+      const { runCommands } = require('../lib')
       if (argv['--'].length > 0) {
         // The `--` in a command such as `dotcom-tool-kit test:staged --`
         // delineates between hooks and file patterns. For example, when the
@@ -39,9 +39,9 @@ async function main() {
         // the command becomes something like `dotcom-tool-kit test:staged --
         // index.js`. When this command is executed it runs the configured task
         // where the file path arguments would then be extracted.
-        await runTasks(rootLogger, argv._, argv['--'])
+        await runCommands(rootLogger, argv._, argv['--'])
       } else {
-        await runTasks(rootLogger, argv._)
+        await runCommands(rootLogger, argv._)
       }
     }
   } catch (error) {
