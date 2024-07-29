@@ -56,7 +56,7 @@ const loadTasks = async (
   return reduceValidated(taskResults)
 }
 
-export async function runTasksFromConfig(
+export async function runCommandsFromConfig(
   logger: Logger,
   config: ValidConfig,
   commands: string[],
@@ -130,8 +130,8 @@ ${error.details}`
   }
 }
 
-export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
+export async function runCommands(logger: Logger, commands: string[], files?: string[]): Promise<void> {
   const config = await loadConfig(logger)
 
-  return runTasksFromConfig(logger, config, commands, files)
+  return runCommandsFromConfig(logger, config, commands, files)
 }
