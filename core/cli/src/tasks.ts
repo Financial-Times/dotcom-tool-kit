@@ -26,7 +26,7 @@ export async function loadTasks(
   config: ValidConfig
 ): Promise<Validated<Task[]>> {
   const taskResults = await Promise.all(
-    tasks.map(async ({ task: taskId, options }) => {
+    tasks.map(async ({ task: taskId, options, plugin }) => {
       const entryPoint = config.tasks[taskId]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
@@ -45,7 +45,8 @@ export async function loadTasks(
             logger,
             taskId,
             config.pluginOptions[entryPoint.plugin.id]?.options ?? {},
-            parsedOptions.data
+            parsedOptions.data,
+            plugin
           )
           return valid(task)
         } else {
