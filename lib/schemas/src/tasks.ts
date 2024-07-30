@@ -15,6 +15,7 @@ import { CypressSchema } from './tasks/cypress'
 import { HerokuProductionSchema } from './tasks/heroku-production'
 import { ServerlessRunSchema } from './tasks/serverless-run'
 import { z } from 'zod'
+import { ParallelSchema } from './tasks/parallel'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
@@ -33,6 +34,7 @@ export const TaskSchemas = {
   NpmPublish: z.object({}).describe('Publish package to the npm registry.'),
   NTest: SmokeTestSchema,
   Pa11y: Pa11ySchema,
+  Parallel: ParallelSchema,
   Prettier: PrettierSchema,
   ServerlessDeploy: z.object({}).describe('Deploy a serverless function'),
   ServerlessProvision: z.object({}).describe('Provision a review serverless function'),

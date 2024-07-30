@@ -2,11 +2,14 @@ import type { z } from 'zod'
 import { Base } from './base'
 import { taskSymbol, typeSymbol } from './symbols'
 import type { Logger } from 'winston'
+import type { ValidConfig } from '@dotcom-tool-kit/config'
+import { Plugin } from '@dotcom-tool-kit/plugin'
 
 type Default<T, D> = T extends undefined ? D : T
 
 export type TaskRunContext = {
   files?: string[]
+  config: ValidConfig
 }
 
 export abstract class Task<
@@ -28,6 +31,7 @@ export abstract class Task<
   constructor(
     logger: Logger,
     public id: string,
+    public plugin: Plugin,
     public pluginOptions: z.output<Default<Options['plugin'], z.ZodObject<Record<string, never>>>>,
     public options: z.output<Default<Options['task'], z.ZodObject<Record<string, never>>>>
   ) {
@@ -36,12 +40,17 @@ export abstract class Task<
   }
 
   abstract run(runContext: TaskRunContext): Promise<void>
+
+  // not abstract for default behaviour of doing nothing
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  async stop(): Promise<void> {}
 }
 
 export type TaskConstructor = {
   new <O extends { plugin: z.ZodTypeAny; task: z.ZodTypeAny }>(
     logger: Logger,
     id: string,
+    plugin: Plugin,
     pluginOptions: Partial<z.infer<O['plugin']>>,
     options: Partial<z.infer<O['task']>>
   ): Task<O>
