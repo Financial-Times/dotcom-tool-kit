@@ -25,12 +25,10 @@
       "release-type": "simple"
     },
     "plugins/babel": {},
-    "plugins/backend-app": {},
     "plugins/backend-heroku-app": {},
     "plugins/backend-serverless-app": {},
     "plugins/circleci": {},
     "plugins/circleci-deploy": {},
-    "plugins/circleci-heroku": {},
     "plugins/circleci-npm": {},
     "plugins/component": {},
     "plugins/cypress": {},
