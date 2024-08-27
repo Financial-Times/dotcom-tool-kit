@@ -35,12 +35,12 @@ See [manually adding jobs to your CircleCI config](https://github.com/Financial-
 
 ## Hooks
 
-| Event | Description | Installed to...| Default Tasks
-|-|-|-|-|
-| `deploy:review` | Create and test review app | `deploy-review` job in `.circle/config.yml` | HerokuReview |
-| `deploy:staging` | Deploy app to staging | `deploy-staging` job in `.circle/config.yml` | HerokuStaging |
-| `test:review` | Run smoke tests | `e2e-test-review` job in `.circle/config.yml` | NTest, Pa11y |
-| `teardown:review` | Teardown review lambda | `e2e-test-review` job in `.circle/config.yml` | ServerlessTeardown |
-| `test:staging` | Run smoke tests on staging | `e2e-test-staging` job in `.circle/config.yml` | NTest |
-| `teardown:staging` | Scale down staging | `e2e-test-staging` job in `.circle/config.yml` | HerokuTeardown |
-| `deploy:production` | Deploy to production | `deploy-production` job in `.circle/config.yml` | HerokuProduction |
+| Event               | Description                | Installed to...                                 | Default Tasks      |
+| ------------------- | -------------------------- | ----------------------------------------------- | ------------------ |
+| `deploy:review`     | Create and test review app | `deploy-review` job in `.circle/config.yml`     | HerokuReview       |
+| `deploy:staging`    | Deploy app to staging      | `deploy-staging` job in `.circle/config.yml`    | HerokuStaging      |
+| `test:review`       | Run smoke tests            | `e2e-test-review` job in `.circle/config.yml`   | NTest              |
+| `teardown:review`   | Teardown review lambda     | `e2e-test-review` job in `.circle/config.yml`   | ServerlessTeardown |
+| `test:staging`      | Run smoke tests on staging | `e2e-test-staging` job in `.circle/config.yml`  | NTest              |
+| `teardown:staging`  | Scale down staging         | `e2e-test-staging` job in `.circle/config.yml`  | HerokuTeardown     |
+| `deploy:production` | Deploy to production       | `deploy-production` job in `.circle/config.yml` | HerokuProduction   |
