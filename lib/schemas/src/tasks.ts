@@ -5,7 +5,6 @@ import { JestSchema } from './tasks/jest'
 import { MochaSchema } from './tasks/mocha'
 import { NodeSchema } from './tasks/node'
 import { NodemonSchema } from './tasks/nodemon'
-import { Pa11ySchema } from './tasks/pa11y'
 import { PrettierSchema } from './tasks/prettier'
 import { TypeScriptSchema } from './tasks/typescript'
 import { UploadAssetsToS3Schema } from './tasks/upload-assets-to-s3'
@@ -32,7 +31,6 @@ export const TaskSchemas = {
   NpmPrune: z.object({}).describe('Prune development npm dependencies.'),
   NpmPublish: z.object({}).describe('Publish package to the npm registry.'),
   NTest: SmokeTestSchema,
-  Pa11y: Pa11ySchema,
   Prettier: PrettierSchema,
   ServerlessDeploy: z.object({}).describe('Deploy a serverless function'),
   ServerlessProvision: z.object({}).describe('Provision a review serverless function'),

@@ -20,7 +20,6 @@ export const legacyPluginOptions: Record<string, string> = {
   '@dotcom-tool-kit/n-test': 'NTest',
   '@dotcom-tool-kit/node': 'Node',
   '@dotcom-tool-kit/nodemon': 'Nodemon',
-  '@dotcom-tool-kit/pa11y': 'Pa11y',
   '@dotcom-tool-kit/prettier': 'Prettier',
   '@dotcom-tool-kit/typescript': 'TypeScript',
   '@dotcom-tool-kit/upload-assets-to-s3': 'UploadAssetsToS3',
