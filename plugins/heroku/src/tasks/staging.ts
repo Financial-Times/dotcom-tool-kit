@@ -1,7 +1,6 @@
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { getHerokuStagingApp } from '../getHerokuStagingApp'
-import { setAppConfigVars } from '../setConfigVars'
 import { createBuild } from '../createBuild'
 import { repeatedCheckForBuildSuccess } from '../repeatedCheckForBuildSuccess'
 import { scaleDyno } from '../scaleDyno'
@@ -18,9 +17,6 @@ export default class HerokuStaging extends Task<{ plugin: typeof HerokuSchema }>
 
       this.logger.verbose(`retrieving staging app details...`)
       const appName = await getHerokuStagingApp()
-
-      // setting config vars on staging from the doppler production directory
-      await setAppConfigVars(this.logger, appName, 'prod', this.pluginOptions.systemCode)
 
       // create build from latest commit, even on no change
       const buildDetails = await createBuild(this.logger, appName)

@@ -252,11 +252,10 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
         cloudformationTemplate.setIn(policyPath, cloudformationTemplate.createNode(previousDocument))
 
         // HACK:20240213:IM Guess Doppler project name to use in Parameter
-        // store path using the same logic we use to infer the name from Tool
-        // Kit vault plugin options. The class tries to read the options from
-        // the global options object so let's set these options based on what's
-        // been selected during the options prompt.
-        setOptions('@dotcom-tool-kit/vault', toolKitConfig.options.plugins['@dotcom-tool-kit/vault'])
+        // store path using the same logic we used to use to infer the name
+        // from Tool Kit vault plugin options. The class tries to read the
+        // options from the global options object so let's set these options
+        // based on what's been selected during the options prompt.
         setOptions('@dotcom-tool-kit/doppler', toolKitConfig.options.plugins['@dotcom-tool-kit/doppler'])
         const dopplerProjectName = new DopplerEnvVars(winstonLogger, 'prod').options.project
         const ssmAction = 'ssm:GetParameter'
@@ -304,10 +303,7 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
 
   let githubUsername
   try {
-    // We've already grabbed access tokens via the Doppler library, so we know
-    // that the Doppler credentials are stored in an environment variable, which
-    // we can use to get the current user's login ID.
-    const octokit = new Octokit({ auth: `token ${process.env.VAULT_AUTH_GITHUB_TOKEN}` })
+    const octokit = new Octokit({ auth: `token ${dopplerEnv.GITHUB_ACCESS_TOKEN}` })
     const resp = await octokit.rest.users.getAuthenticated()
     githubUsername = resp.data.login
   } catch (err) {

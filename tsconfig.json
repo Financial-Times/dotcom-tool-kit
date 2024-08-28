@@ -8,9 +8,6 @@
       "path": "lib/state"
     },
     {
-      "path": "lib/vault"
-    },
-    {
       "path": "lib/doppler"
     },
     {

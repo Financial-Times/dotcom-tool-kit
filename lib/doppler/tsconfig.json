@@ -11,9 +11,6 @@
       "path": "../options"
     },
     {
-      "path": "../vault"
-    },
-    {
       "path": "../schemas"
     }
   ],
