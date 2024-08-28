@@ -30,7 +30,7 @@ describe('staging', () => {
     const task = new Production(logger, 'HerokuProduction', pluginOptions, productionOptions)
     await task.run()
 
-    expect(utils.promoteStagingToProduction).toBeCalledWith(expect.anything(), 'slug-id', 'next-health')
+    expect(utils.promoteStagingToProduction).toBeCalledWith(expect.anything(), 'slug-id')
   })
 
   it('should resolve when completed successfully', async () => {

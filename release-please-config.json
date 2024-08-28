@@ -18,7 +18,6 @@
     "lib/schemas": {},
     "lib/state": {},
     "lib/validated": {},
-    "lib/vault": {},
     "lib/wait-for-ok": {},
     "orb": {
       "package-name": "orb",

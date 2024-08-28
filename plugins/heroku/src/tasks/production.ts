@@ -35,7 +35,7 @@ export default class HerokuProduction extends Task<{
       }
       const promote = async () => {
         this.logger.verbose('promoting staging to production....')
-        await promoteStagingToProduction(this.logger, slugId, this.pluginOptions.systemCode)
+        await promoteStagingToProduction(this.logger, slugId)
         this.logger.info('staging has been successfully promoted to production')
       }
 

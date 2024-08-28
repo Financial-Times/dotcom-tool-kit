@@ -3,14 +3,9 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { gtg } from './gtg'
 import type { Logger } from 'winston'
-import { setAppConfigVars } from './setConfigVars'
 import { HerokuApiResPost } from 'heroku-client'
 
-async function promoteStagingToProduction(
-  logger: Logger,
-  slug: string,
-  systemCode?: string
-): Promise<void[]> {
+async function promoteStagingToProduction(logger: Logger, slug: string): Promise<void[]> {
   const state = readState(`production`)
 
   if (!state) {
@@ -31,10 +26,6 @@ async function promoteStagingToProduction(
       .catch(extractHerokuError(`promoting app ID ${appId} to production`))
       .then((response) => gtg(logger, response.app.name, 'production'))
   )
-
-  for (const id of appIds) {
-    await setAppConfigVars(logger, id, 'prod', systemCode)
-  }
 
   return Promise.all(latestRelease)
 }
