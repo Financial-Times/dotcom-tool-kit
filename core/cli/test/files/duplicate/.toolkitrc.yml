@@ -6,7 +6,6 @@ options:
   plugins:
     '@dotcom-tool-kit/heroku':
       pipeline: tool-kit-test
-      systemCode: tool-kit-test
 
     '@dotcom-tool-kit/doppler':
       project: tool-kit-test

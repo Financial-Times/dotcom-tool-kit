@@ -16,8 +16,7 @@ const mockPromoteStagingToProduction = jest.spyOn(utils, 'promoteStagingToProduc
 jest.spyOn(Production.prototype, 'fetchIfAppHasDeployed').mockImplementation(() => Promise.resolve(true))
 
 const pluginOptions = {
-  pipeline: 'next-health',
-  systemCode: 'next-health'
+  pipeline: 'next-health'
 }
 
 const productionOptions = {

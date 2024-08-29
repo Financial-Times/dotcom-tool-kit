@@ -53,7 +53,7 @@ jest.mock('../../src/gtg', () => {
 
 describe('review', () => {
   it('should call pass in the pipeline id to heroku api call', async () => {
-    const task = new Review(logger, 'HerokuReview', { pipeline, systemCode: '' }, { scaling: {} })
+    const task = new Review(logger, 'HerokuReview', { pipeline }, { scaling: {} })
 
     await task.run()
 
@@ -62,7 +62,7 @@ describe('review', () => {
   })
 
   it('should return review app id from get heroku review app', async () => {
-    const task = new Review(logger, 'HerokuReview', { pipeline, systemCode: '' }, { scaling: {} })
+    const task = new Review(logger, 'HerokuReview', { pipeline }, { scaling: {} })
 
     await task.run()
 
@@ -71,7 +71,7 @@ describe('review', () => {
   })
 
   it('should fail if either doppler option is missing', async () => {
-    let task = new Review(logger, 'HerokuReview', { pipeline, systemCode: '' }, { scaling: {} })
+    let task = new Review(logger, 'HerokuReview', { pipeline }, { scaling: {} })
 
     try {
       await task.run()
@@ -79,7 +79,7 @@ describe('review', () => {
       expect(err).toBeTruthy()
     }
 
-    task = new Review(logger, 'HerokuReview', { pipeline, systemCode: '' }, { scaling: {} })
+    task = new Review(logger, 'HerokuReview', { pipeline }, { scaling: {} })
 
     try {
       await task.run()
@@ -89,7 +89,7 @@ describe('review', () => {
   })
 
   it('should write app id to state', async () => {
-    const task = new Review(logger, 'HerokuReview', { pipeline, systemCode: '' }, { scaling: {} })
+    const task = new Review(logger, 'HerokuReview', { pipeline }, { scaling: {} })
 
     await task.run()
 
@@ -97,7 +97,7 @@ describe('review', () => {
   })
 
   it('should call gtg with appName', async () => {
-    const task = new Review(logger, 'HerokuReview', { pipeline, systemCode: '' }, { scaling: {} })
+    const task = new Review(logger, 'HerokuReview', { pipeline }, { scaling: {} })
 
     await task.run()
 
@@ -106,7 +106,7 @@ describe('review', () => {
 
   it('should throw an error if it fails', async () => {
     pipeline = 'wrong-pipeline-name'
-    const task = new Review(logger, 'HerokuReview', { pipeline, systemCode: '' }, { scaling: {} })
+    const task = new Review(logger, 'HerokuReview', { pipeline }, { scaling: {} })
 
     try {
       await task.run()
