@@ -10,9 +10,7 @@ export default class NTest extends Task<{ task: typeof SmokeTestSchema }> {
 
     // if we've built a review or staging app, test against that, not the app in the config
     if (appState) {
-      // HACK:20231003:IM keep the old logic of using the app name as the
-      // subdomain to maintain backwards compatibility
-      this.options.host = appState.url ? appState.url : `https://${appState.appName}.herokuapp.com`
+      this.options.host = appState.url
       // HACK:20231003:IM n-test naively appends paths to the host URL so
       // expects there to be no trailing slash
       if (this.options.host.endsWith('/')) {
