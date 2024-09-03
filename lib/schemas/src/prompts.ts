@@ -16,8 +16,7 @@ export type SchemaPromptGenerator<T> = (
   logger: Logger,
   prompt: typeof prompts,
   onCancel: () => void,
-  // HACK:20231209:IM add bizOpsSystem as optional parameter to maintain
-  // backwards compatibility
+  // bizOpsSystem will be undefined if project is not a system
   bizOpsSystem?: BizOpsSystem
 ) => Promise<T | undefined>
 // This type defines an interface you can use to export prompt generators. The

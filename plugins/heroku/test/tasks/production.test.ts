@@ -16,8 +16,7 @@ const mockPromoteStagingToProduction = jest.spyOn(utils, 'promoteStagingToProduc
 jest.spyOn(Production.prototype, 'fetchIfAppHasDeployed').mockImplementation(() => Promise.resolve(true))
 
 const pluginOptions = {
-  pipeline: 'next-health',
-  systemCode: 'next-health'
+  pipeline: 'next-health'
 }
 
 const productionOptions = {
@@ -30,7 +29,7 @@ describe('staging', () => {
     const task = new Production(logger, 'HerokuProduction', pluginOptions, productionOptions)
     await task.run()
 
-    expect(utils.promoteStagingToProduction).toBeCalledWith(expect.anything(), 'slug-id', 'next-health')
+    expect(utils.promoteStagingToProduction).toBeCalledWith(expect.anything(), 'slug-id')
   })
 
   it('should resolve when completed successfully', async () => {

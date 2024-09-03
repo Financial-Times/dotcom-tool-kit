@@ -76,15 +76,16 @@ export type CircleCIState = CircleConfig
  */
 export type CircleCIStatePartial = PartialDeep<CircleCIState>
 
+// Make this function lazy so that the global options object will have been
+// populated first.
 const getNodeVersions = (): Array<string> => {
-  // HACK: This function should only ever be called after the Tool Kit options
-  // are loaded so that we can see which node versions are specified. However,
-  // older versions of the other CircleCI plugins may not do this properly, so
-  // to avoid a breaking change we fall back to creating an array with a single
-  // empty string. The first executor is named 'node' without any reference to
-  // the version so the plugins which don't support matrices don't need to know
-  // the version option.
-  return getOptions('@dotcom-tool-kit/circleci')?.cimgNodeVersions ?? ['']
+  /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion --
+   * Tool Kit will try and parse options for every plugin it loads which has a
+   * schema. If we're running this code the @dotcom-tool-kit/circleci has by
+   * definition been loaded, and there is a schema associated with it. So the
+   * option field will be guaranteed to be present.
+   **/
+  return getOptions('@dotcom-tool-kit/circleci')!.cimgNodeVersions
 }
 
 /* Applies a verion identifier for all but the first (and therefore default)

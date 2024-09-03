@@ -8,9 +8,6 @@
       "path": "lib/state"
     },
     {
-      "path": "lib/vault"
-    },
-    {
       "path": "lib/doppler"
     },
     {
@@ -108,9 +105,6 @@
     },
     {
       "path": "plugins/circleci-npm"
-    },
-    {
-      "path": "plugins/pa11y"
     },
     {
       "path": "plugins/component"
