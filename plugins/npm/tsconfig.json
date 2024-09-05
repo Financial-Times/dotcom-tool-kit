@@ -18,7 +18,5 @@
       "path": "../../lib/state"
     }
   ],
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

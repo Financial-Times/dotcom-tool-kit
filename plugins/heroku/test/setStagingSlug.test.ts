@@ -3,7 +3,7 @@ import { setStagingSlug } from '../src/setStagingSlug'
 import heroku from '../src/herokuClient'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 const mockHerokuPost = jest.spyOn(heroku, 'post')
 const appName = 'test-app-name'
 const slug = 'test-slug-id'

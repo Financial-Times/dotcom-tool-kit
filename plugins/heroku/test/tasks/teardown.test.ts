@@ -3,7 +3,7 @@ import Teardown from '../../src/tasks/teardown'
 import * as utils from '../../src/scaleDyno'
 import winston, { Logger } from 'winston'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 const appName = 'staging-app-name'
 
