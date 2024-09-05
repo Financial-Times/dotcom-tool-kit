@@ -18,7 +18,7 @@
     "libnpmpack": "^3.1.0",
     "libnpmpublish": "^5.0.1",
     "pacote": "^12.0.3",
-    "tar": "^4.4.16",
+    "tar": "^6.2.1",
     "tslib": "^2.3.1"
   },
   "repository": {
