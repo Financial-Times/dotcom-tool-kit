@@ -1,0 +1,7 @@
+installs:
+  PackageJson:
+    entryPoint: './lib/package-json-helper'
+    managesFiles:
+      - 'package.json'
+
+version: 2

@@ -4,7 +4,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { setOptions } from '@dotcom-tool-kit/options'
-import type { RCFile } from '@dotcom-tool-kit/types'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
 import { Octokit } from '@octokit/rest'
 import * as suggester from 'code-suggester'
 import { highlight } from 'cli-highlight'
@@ -177,12 +177,17 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
   const dopplerEnvVars = new DopplerEnvVars(winstonLogger, 'prod', {
     project: 'dotcom-tool-kit'
   })
-  const dopplerSecretsSchema = z.object({
-    CIRCLECI_AUTH_TOKEN: z.string(),
-    GITHUB_ACCESS_TOKEN: z.string(),
-    [`AWS_${awsAccountDopplerName}_ACCESS_KEY_ID`]: z.string(),
-    [`AWS_${awsAccountDopplerName}_SECRET_ACCESS_KEY`]: z.string()
-  })
+  const dopplerSecretsSchema = z
+    .object({
+      CIRCLECI_AUTH_TOKEN: z.string(),
+      GITHUB_ACCESS_TOKEN: z.string()
+    })
+    .merge(
+      z.object({
+        [`AWS_${awsAccountDopplerName}_ACCESS_KEY_ID`]: z.string(),
+        [`AWS_${awsAccountDopplerName}_SECRET_ACCESS_KEY`]: z.string()
+      })
+    )
   const dopplerEnv = dopplerSecretsSchema.parse(await dopplerEnvVars.get())
 
   let serverlessConfigRaw
@@ -247,12 +252,11 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
         cloudformationTemplate.setIn(policyPath, cloudformationTemplate.createNode(previousDocument))
 
         // HACK:20240213:IM Guess Doppler project name to use in Parameter
-        // store path using the same logic we use to infer the name from Tool
-        // Kit vault plugin options. The class tries to read the options from
-        // the global options object so let's set these options based on what's
-        // been selected during the options prompt.
-        setOptions('@dotcom-tool-kit/vault', toolKitConfig.options['@dotcom-tool-kit/vault'])
-        setOptions('@dotcom-tool-kit/doppler', toolKitConfig.options['@dotcom-tool-kit/doppler'])
+        // store path using the same logic we used to use to infer the name
+        // from Tool Kit vault plugin options. The class tries to read the
+        // options from the global options object so let's set these options
+        // based on what's been selected during the options prompt.
+        setOptions('@dotcom-tool-kit/doppler', toolKitConfig.options.plugins['@dotcom-tool-kit/doppler'])
         const dopplerProjectName = new DopplerEnvVars(winstonLogger, 'prod').options.project
         const ssmAction = 'ssm:GetParameter'
         const ssmResource = `arn:aws:ssm:eu-west-1:\${AWS::AccountId}:parameter/${dopplerProjectName}/*`
@@ -299,10 +303,7 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
 
   let githubUsername
   try {
-    // We've already grabbed access tokens via the Doppler library, so we know
-    // that the Doppler credentials are stored in an environment variable, which
-    // we can use to get the current user's login ID.
-    const octokit = new Octokit({ auth: `token ${process.env.VAULT_AUTH_GITHUB_TOKEN}` })
+    const octokit = new Octokit({ auth: `token ${dopplerEnv.GITHUB_ACCESS_TOKEN}` })
     const resp = await octokit.rest.users.getAuthenticated()
     githubUsername = resp.data.login
   } catch (err) {

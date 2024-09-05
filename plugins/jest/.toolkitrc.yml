@@ -1,3 +1,8 @@
-hooks:
-  'test:local': JestLocal
-  'test:ci': JestCI
+tasks:
+  Jest: './lib/tasks/jest'
+
+commands:
+  'test:local': Jest
+  'test:ci': Jest # TODO provide default mode option here
+
+version: 2

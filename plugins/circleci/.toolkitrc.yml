@@ -1,0 +1,37 @@
+installs:
+  CircleCi:
+    entryPoint: './lib/circleci-config'
+    managesFiles:
+      - '.circleci/config.yml'
+
+options:
+  hooks:
+    - CircleCi:
+        jobs:
+          - name: build
+            command: 'build:ci'
+          - name: test
+            command: 'test:ci'
+        workflows:
+          - name: 'tool-kit'
+            jobs:
+              - name: build
+                requires:
+                  - 'setup'
+              - name: test
+                requires:
+                  - 'build'
+            runOnRelease: true
+          - name: 'nightly'
+            jobs:
+              - name: build
+                requires:
+                  - 'setup'
+              - name: test
+                requires:
+                  - 'build'
+
+init:
+  - './lib/init-env-vars'
+
+version: 2

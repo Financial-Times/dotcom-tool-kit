@@ -10,8 +10,6 @@
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
     "@dotcom-tool-kit/options": "^3.2.1",
-    "@dotcom-tool-kit/types": "^3.6.1",
-    "@dotcom-tool-kit/vault": "^3.2.1",
     "tslib": "^2.3.1"
   },
   "keywords": [],
@@ -32,11 +30,12 @@
     "extends": "../../package.json"
   },
   "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "spawk": "^1.8.1",
     "winston": "^3.5.1"
   },
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   }
 }

@@ -1,7 +1,7 @@
 import * as ToolkitErrorModule from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
-import type { RCFile } from '@dotcom-tool-kit/types'
-import type { ValidConfig } from 'dotcom-tool-kit/lib/config'
+import type { RCFile } from '@dotcom-tool-kit/plugin'
+import type { ValidConfig } from '@dotcom-tool-kit/config'
 import type installHooksType from 'dotcom-tool-kit/lib/install'
 import { promises as fs } from 'fs'
 import importCwd from 'import-cwd'
@@ -31,7 +31,7 @@ export default async ({ error, logger, toolKitConfig, configPath }: ConflictsPar
 
   for (const conflict of error.conflicts) {
     const remainingTasks = conflict.conflictingTasks
-    orderedHooks[conflict.hook] = []
+    orderedHooks[conflict.command] = []
 
     const totalTasks = remainingTasks.length
     for (let i = 1; i <= totalTasks; i++) {
@@ -39,7 +39,7 @@ export default async ({ error, logger, toolKitConfig, configPath }: ConflictsPar
         name: 'order',
         type: 'select',
         message: `Hook ${styles.hook(
-          conflict.hook
+          conflict.command
         )} has multiple tasks configured for it, so an order must be specified. \
 Please select the ${ordinal(i)} package to run.`,
         choices: [
@@ -57,12 +57,12 @@ Please select the ${ordinal(i)} package to run.`,
         break
       } else {
         const { task } = remainingTasks.splice(nextIdx, 1)[0]
-        orderedHooks[conflict.hook].push(task)
+        orderedHooks[conflict.command].push(task)
       }
     }
   }
 
-  toolKitConfig.hooks = orderedHooks
+  toolKitConfig.commands = orderedHooks
   const configFile = YAML.stringify(toolKitConfig)
 
   const { confirm } = await prompt({

@@ -1,2 +1,7 @@
-hooks:
+tasks:
+  UploadAssetsToS3: './lib/tasks/upload-assets-to-s3'
+
+commands:
   'release:remote': UploadAssetsToS3
+
+version: 2

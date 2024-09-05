@@ -1,14 +1,12 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/types'
-import { ESLintSchema } from '@dotcom-tool-kit/types/lib/schema/eslint'
+import { Task } from '@dotcom-tool-kit/base'
+import { ESLintSchema } from '@dotcom-tool-kit/schemas/lib/tasks/eslint'
 import { ESLint } from 'eslint'
 
-export default class Eslint extends Task<typeof ESLintSchema> {
-  static description = ''
-
+export default class Eslint extends Task<{ task: typeof ESLintSchema }> {
   async run(files?: string[]): Promise<void> {
-    const eslint = new ESLint(this.options.options)
+    const eslint = new ESLint({ overrideConfigFile: this.options.configPath })
     const results = await eslint.lintFiles(files ?? this.options.files)
     const formatter = await eslint.loadFormatter('stylish')
     const resultText = formatter.format(results)

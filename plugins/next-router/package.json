@@ -10,11 +10,11 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/error": "^3.2.0",
-    "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/logger": "^3.4.1",
-    "@dotcom-tool-kit/types": "^3.6.1",
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/doppler": "^1.1.1",
+    "@dotcom-tool-kit/error": "^3.2.0",
+    "@dotcom-tool-kit/logger": "^3.4.1",
+    "@dotcom-tool-kit/state": "^3.3.0",
     "ft-next-router": "^3.0.0",
     "tslib": "^2.3.1"
   },
@@ -33,7 +33,10 @@
     "dotcom-tool-kit": "3.x"
   },
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
+  },
+  "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0"
   }
 }

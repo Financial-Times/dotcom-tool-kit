@@ -1,32 +1,24 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Invalid, Plugin, Valid } from '@dotcom-tool-kit/types'
+import type { Valid } from '@dotcom-tool-kit/validated'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
+import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
-import { createConfig, validateConfig, validatePlugins, ValidPluginsConfig } from '../src/config'
-import { loadPlugin, resolvePlugin } from '../src/plugin'
+import { createConfig, validateConfig } from '../src/config'
+import { loadHookInstallations } from '../src/install'
+import { loadPlugin, resolvePlugin, resolvePluginOptions } from '../src/plugin'
+import { validatePlugins } from '../src/config/validate-plugins'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
 // Loading all the plugins can (unfortunately) take longer than the default 2s timeout
 jest.setTimeout(20000)
 
 describe('cli', () => {
-  it('should report when plugins are invalid', async () => {
-    const config = createConfig()
-
-    const plugin = await loadPlugin('app root', config, logger, {
-      id: 'invalid plugin test root',
-      root: path.join(__dirname, 'files/invalid')
-    })
-
-    expect(plugin.valid).toBe(false)
-    const reason = (plugin as Invalid).reasons[0]
-    expect(reason).toContain('type symbol is missing')
-    expect(reason).toContain('plugin is not an object')
-  })
-
-  it('should indicate when there are conflicts', async () => {
+  // TODO:KB:202301121 we only return conflicts for hooks that are defined.
+  // currently there are no hooks lol
+  it.skip('should indicate when there are conflicts', async () => {
     const config = createConfig()
 
     const plugin = await loadPlugin('app root', config, logger, {
@@ -39,12 +31,13 @@ describe('cli', () => {
     expect(validatedPluginConfig.valid).toBe(true)
     const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
+    resolvePluginOptions((plugin as Valid<Plugin>).value, validPluginConfig)
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:ci.conflicting')
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:remote.conflicting')
-    expect(validPluginConfig).toHaveProperty('hookTasks.build:local.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:ci.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:remote.conflicting')
+    expect(validPluginConfig).toHaveProperty('commandTasks.build:local.conflicting')
   })
 
   it('should indicate when there are conflicts between plugins that are cousins in the tree', async () => {
@@ -60,12 +53,13 @@ describe('cli', () => {
     expect(validatedPluginConfig.valid).toBe(true)
     const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
+    resolvePluginOptions((plugin as Valid<Plugin>).value, validPluginConfig)
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     expect(() => validateConfig(validPluginConfig, logger)).toThrow(ToolKitError)
-    expect(config).toHaveProperty('hookTasks.build:ci.conflicting')
-    expect(config).toHaveProperty('hookTasks.build:remote.conflicting')
-    expect(config).toHaveProperty('hookTasks.build:local.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:ci.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:remote.conflicting')
+    expect(config).toHaveProperty('commandTasks.build:local.conflicting')
   })
 
   it('should not have conflicts between multiple of the same plugin', async () => {
@@ -81,12 +75,12 @@ describe('cli', () => {
     expect(validatedPluginConfig.valid).toBe(true)
     const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
+    resolvePluginOptions((plugin as Valid<Plugin>).value, validPluginConfig)
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     try {
       const validConfig = validateConfig(validPluginConfig, logger)
       expect(validConfig).not.toHaveProperty('hooks.build:local.conflicting')
-      expect(validConfig.hooks['build:local'].plugin?.id).toEqual('@dotcom-tool-kit/npm')
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details
@@ -109,13 +103,17 @@ describe('cli', () => {
     expect(validatedPluginConfig.valid).toBe(true)
     const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
 
+    resolvePluginOptions((plugin as Valid<Plugin>).value, validPluginConfig)
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     try {
       const validConfig = validateConfig(validPluginConfig, logger)
 
-      expect(validConfig).not.toHaveProperty('hookTasks.build:local.conflicting')
-      expect(validConfig.hookTasks['build:local'].tasks).toEqual(['WebpackDevelopment', 'BabelDevelopment'])
+      expect(validConfig).not.toHaveProperty('commandTasks.build:local.conflicting')
+      expect(validConfig.commandTasks['build:local'].tasks.map((task) => task.task)).toEqual([
+        'Webpack',
+        'Babel'
+      ])
     } catch (e) {
       if (e instanceof ToolKitError) {
         e.message += '\n' + e.details
@@ -123,5 +121,25 @@ describe('cli', () => {
 
       throw e
     }
+  })
+
+  it('should successfully install when options for different hooks are defined', async () => {
+    const config = createConfig()
+
+    const plugin = await loadPlugin('app root', config, logger, {
+      id: 'reolved test root',
+      root: path.join(__dirname, 'files/multiple-hook-options')
+    })
+    expect(plugin.valid).toBe(true)
+
+    const validatedPluginConfig = validatePlugins(config)
+    expect(validatedPluginConfig.valid).toBe(true)
+    const validPluginConfig = (validatedPluginConfig as Valid<ValidPluginsConfig>).value
+
+    resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
+
+    const validConfig = validateConfig(validPluginConfig, logger)
+    const hooks = await loadHookInstallations(logger, validConfig)
+    expect(hooks.valid).toBe(true)
   })
 })

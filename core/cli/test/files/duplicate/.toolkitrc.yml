@@ -3,16 +3,20 @@ plugins:
   - '@dotcom-tool-kit/heroku'
 
 options:
-  '@dotcom-tool-kit/heroku':
-    pipeline: tool-kit-test
-    systemCode: tool-kit-test
-    scaling:
-      tool-kit-test:
-        web:
-          size: standard-1x
-          quantity: 1
-  '@dotcom-tool-kit/vault':
-    team: platforms
-    app: tool-kit-test
+  plugins:
+    '@dotcom-tool-kit/heroku':
+      pipeline: tool-kit-test
 
-hooks:
+    '@dotcom-tool-kit/doppler':
+      project: tool-kit-test
+  tasks:
+    HerokuProduction:
+      scaling:
+        tool-kit-test:
+          web:
+            size: standard-1x
+            quantity: 1
+
+commands:
+
+version: 2

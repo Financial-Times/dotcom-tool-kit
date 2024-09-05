@@ -10,13 +10,13 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/logger": "^3.4.1",
-    "@dotcom-tool-kit/types": "^3.6.1",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "jest-cli": "27.x || 28.x || 29.x",
-    "dotcom-tool-kit": "3.x"
+    "dotcom-tool-kit": "3.x",
+    "jest-cli": "27.x || 28.x || 29.x"
   },
   "repository": {
     "type": "git",
@@ -30,11 +30,11 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
-    "@jest/globals": "^27.4.6",
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "winston": "^3.5.1"
   },
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   }
 }

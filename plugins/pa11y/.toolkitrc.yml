@@ -1,5 +1,0 @@
-plugins:
-  - '@dotcom-tool-kit/doppler'
-
-hooks:
-  'test:local': Pa11y

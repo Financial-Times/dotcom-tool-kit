@@ -1,12 +1,10 @@
 import spawk from 'spawk'
 import winston, { Logger } from 'winston'
-import { VaultEnvVars } from '@dotcom-tool-kit/vault'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import { DopplerEnvVars } from '../src/index'
 
-const logger = (winston as unknown) as Logger
+const logger = winston as unknown as Logger
 
-jest.mock('@dotcom-tool-kit/vault')
-const mockedVaultEnvVars = jest.mocked(VaultEnvVars)
 spawk.preventUnmatched()
 
 const environment = 'dev'
@@ -29,33 +27,30 @@ describe(`Doppler CLI invocations`, () => {
     spawk.done()
   })
 
-  it("should fall back to Vault when Doppler isn't installed", async () => {
+  it("should throw an error when Doppler isn't installed", async () => {
+    expect.assertions(1)
     const interceptor = spawk.spawn('doppler', expectedArgs)
     /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
      * spawk type definitions are out of date
      **/
     ;(interceptor as any).spawnError('ENOENT')
-    const env = await doppler.get()
-    expect(env).toBeUndefined()
-    expect(mockedVaultEnvVars.mock.instances[0].get).toHaveBeenCalled()
+    await expect(doppler.get()).rejects.toThrow(ToolKitError)
     spawk.done()
   })
 
-  it('should fall back to Vault when Doppler prints an error', async () => {
+  it('should throw an error when Doppler prints an error', async () => {
+    expect.assertions(1)
     const interceptor = spawk.spawn('doppler', expectedArgs)
     interceptor.stderr('doppler had an issue')
-    const env = await doppler.get()
-    expect(env).toBeUndefined()
-    expect(mockedVaultEnvVars.mock.instances[0].get).toHaveBeenCalled()
+    await expect(doppler.get()).rejects.toThrow(ToolKitError)
     spawk.done()
   })
 
-  it('should fall back to Vault when the JSON is unparseable', async () => {
+  it('should throw an error when the JSON is unparseable', async () => {
+    expect.assertions(1)
     const interceptor = spawk.spawn('doppler', expectedArgs)
     interceptor.stdout(JSON.stringify(testEnvironment).slice(0, 20))
-    const env = await doppler.get()
-    expect(env).toBeUndefined()
-    expect(mockedVaultEnvVars.mock.instances[0].get).toHaveBeenCalled()
+    await expect(doppler.get()).rejects.toThrow(ToolKitError)
     spawk.done()
   })
 })

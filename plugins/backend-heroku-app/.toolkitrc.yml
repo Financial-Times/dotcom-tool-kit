@@ -4,9 +4,11 @@ plugins:
   - '@dotcom-tool-kit/heroku'
   - '@dotcom-tool-kit/node'
 
-hooks:
+commands:
   'run:local': Node
   'deploy:review': HerokuReview
   'deploy:staging': HerokuStaging
   'deploy:production': HerokuProduction
   'teardown:staging': HerokuTeardown
+
+version: 2

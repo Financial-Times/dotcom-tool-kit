@@ -1,5 +1,18 @@
-hooks:
-  'test:review': CypressCi
-  'test:staging': CypressCi
-  'e2e:local': CypressLocal
+plugins:
+  - '@dotcom-tool-kit/package-json-hook'
 
+tasks:
+  Cypress: './lib/tasks/cypress'
+
+commands:
+  'test:review': Cypress
+  'test:staging': Cypress
+  'e2e:local': Cypress
+
+options:
+  hooks:
+    - PackageJson:
+        scripts:
+          e2e-test: 'e2e:local'
+
+version: 2

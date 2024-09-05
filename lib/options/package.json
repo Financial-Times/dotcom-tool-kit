@@ -10,7 +10,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/types": "^3.6.1",
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "tslib": "^2.3.1"
   },
   "repository": {
@@ -25,7 +25,7 @@
     ".toolkitrc.yml"
   ],
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   }
 }

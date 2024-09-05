@@ -9,14 +9,14 @@
       "path": "../../lib/error"
     },
     {
-      "path": "../../lib/package-json-hook"
+      "path": "../../plugins/package-json-hook"
     },
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
     },
     {
       "path": "../../lib/state"
-    },
+    }
   ],
   "include": [
     "src/**/*"

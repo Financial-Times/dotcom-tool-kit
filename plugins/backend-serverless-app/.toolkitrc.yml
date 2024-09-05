@@ -4,8 +4,10 @@ plugins:
   - '@dotcom-tool-kit/serverless'
   - '@dotcom-tool-kit/node'
 
-hooks:
+commands:
   'run:local': ServerlessRun
   'deploy:review': ServerlessProvision
   'deploy:production': ServerlessDeploy
   'teardown:review': ServerlessTeardown
+
+version: 2

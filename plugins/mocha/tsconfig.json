@@ -5,13 +5,21 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/types"
+      "path": "../../lib/base"
+    },
+    {
+      "path": "../../lib/schemas"
     }
   ],
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src",
-    "types": ["node", "mocha"]
+    "types": [
+      "node",
+      "mocha"
+    ]
   }
 }

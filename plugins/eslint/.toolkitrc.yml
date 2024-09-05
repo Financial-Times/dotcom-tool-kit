@@ -1,4 +1,9 @@
-hooks:
+tasks:
+  Eslint: './lib/tasks/eslint'
+
+commands:
   'test:local': Eslint
   'test:ci': Eslint
   'test:staged': Eslint
+
+version: 2

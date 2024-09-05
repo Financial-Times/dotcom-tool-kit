@@ -10,6 +10,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/doppler": "^1.1.1",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
@@ -17,7 +18,6 @@
     "@dotcom-tool-kit/options": "^3.2.1",
     "@dotcom-tool-kit/package-json-hook": "^4.2.0",
     "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/types": "^3.6.1",
     "@dotcom-tool-kit/wait-for-ok": "^3.2.0",
     "@octokit/request": "^5.6.0",
     "@octokit/request-error": "^2.1.0",
@@ -34,6 +34,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/heroku",
   "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@types/financial-times__package-json": "^1.9.0",
     "@types/p-retry": "^3.0.1",
     "winston": "^3.5.1"
@@ -49,7 +50,7 @@
     "dotcom-tool-kit": "3.x"
   },
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   }
 }

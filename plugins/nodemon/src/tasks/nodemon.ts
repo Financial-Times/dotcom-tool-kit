@@ -1,6 +1,6 @@
 import { hookFork } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/types'
-import { NodemonSchema } from '@dotcom-tool-kit/types/lib/schema/nodemon'
+import { Task } from '@dotcom-tool-kit/base'
+import { NodemonSchema } from '@dotcom-tool-kit/schemas/lib/tasks/nodemon'
 import { writeState } from '@dotcom-tool-kit/state'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import getPort from 'get-port'
@@ -8,25 +8,24 @@ import nodemon from 'nodemon'
 import { Readable } from 'stream'
 import { shouldDisableNativeFetch } from 'dotcom-tool-kit'
 
-export default class Nodemon extends Task<typeof NodemonSchema> {
-  static description = ''
-
+export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
   async run(): Promise<void> {
-    const { entry, configPath, useVault, ports } = this.options
+    const { entry, configPath, useDoppler, ports } = this.options
 
     let dopplerEnv = {}
 
-    if (useVault) {
+    if (useDoppler) {
       const doppler = new DopplerEnvVars(this.logger, 'dev')
 
       dopplerEnv = await doppler.get()
     }
 
-    const port =
-      Number(process.env.PORT) ||
-      (await getPort({
-        port: ports
-      }))
+    const port = ports
+      ? Number(process.env.PORT) ||
+        (await getPort({
+          port: ports
+        }))
+      : false
 
     this.logger.verbose('starting the child nodemon process...')
 
@@ -44,7 +43,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
     nodemon(config)
     nodemon.on('readable', () => {
       // These fields aren't specified in the type declaration for some reason
-      const { stdout, stderr } = (nodemon as unknown) as { stdout: Readable; stderr: Readable }
+      const { stdout, stderr } = nodemon as unknown as { stdout: Readable; stderr: Readable }
       hookFork(this.logger, entry, { stdout, stderr })
     })
     const nodemonLogger = this.logger.child({ process: 'nodemon' })
@@ -68,6 +67,7 @@ export default class Nodemon extends Task<typeof NodemonSchema> {
       nodemonLogger.log(nodemonToWinstonLogLevel(msg.type), msg.message + '\n')
     })
     await new Promise((resolve) => nodemon.on('start', resolve))
-    writeState('local', { port })
+
+    if (port) writeState('local', { port })
   }
 }

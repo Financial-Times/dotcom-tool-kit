@@ -1,4 +1,9 @@
-hooks:
-  'build:local': BabelDevelopment
-  'build:ci': BabelProduction
-  'build:remote': BabelProduction
+tasks:
+  Babel: './lib/tasks/babel'
+
+commands:
+  'build:local': Babel
+  'build:ci': Babel
+  'build:remote': Babel
+
+version: 2

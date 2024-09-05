@@ -1,6 +1,12 @@
-hooks:
-  'build:local': TypeScriptBuild
-  'build:ci': TypeScriptBuild
-  'build:remote': TypeScriptBuild
-  'run:local': TypeScriptWatch
-  'test:local': TypeScriptTest
+tasks:
+  TypeScript: './lib/tasks/typescript'
+
+commands:
+  # TODO add options here once we support per-command-assignment options
+  'build:local': TypeScript
+  'build:ci': TypeScript
+  'build:remote': TypeScript
+  'run:local': TypeScript # watch
+  'test:local': TypeScript # noEmit
+
+version: 2

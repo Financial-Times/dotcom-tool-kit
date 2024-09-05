@@ -1,16 +1,18 @@
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState } from '@dotcom-tool-kit/state'
 import { styles } from '@dotcom-tool-kit/logger'
-import { HerokuSchema } from '@dotcom-tool-kit/types/lib/schema/heroku'
+import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
 import type { HerokuApiResGetApp } from 'heroku-client'
 import heroku, { extractHerokuError } from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
+import { HerokuProductionSchema } from '@dotcom-tool-kit/schemas/src/tasks/heroku-production'
 
-export default class HerokuProduction extends Task<typeof HerokuSchema> {
-  static description = ''
-
+export default class HerokuProduction extends Task<{
+  plugin: typeof HerokuSchema
+  task: typeof HerokuProductionSchema
+}> {
   async run(): Promise<void> {
     try {
       this.logger.verbose('retrieving staging slug...')
@@ -33,7 +35,7 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
       }
       const promote = async () => {
         this.logger.verbose('promoting staging to production....')
-        await promoteStagingToProduction(this.logger, slugId, this.options.systemCode)
+        await promoteStagingToProduction(this.logger, slugId)
         this.logger.info('staging has been successfully promoted to production')
       }
 
@@ -76,6 +78,6 @@ export default class HerokuProduction extends Task<typeof HerokuSchema> {
     const appInfo = await heroku
       .get<HerokuApiResGetApp>(`/apps/${appId}`)
       .catch(extractHerokuError(`getting slug size for app ${appId}`))
-    return appInfo.slugSize !== null
+    return appInfo.slug_size !== null
   }
 }

@@ -1,15 +1,13 @@
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { register } from 'ft-next-router'
 import { readState } from '@dotcom-tool-kit/state'
 import { hookConsole, hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
-import { NextRouterSchema } from '@dotcom-tool-kit/types/lib/schema/next-router'
+import { NextRouterSchema } from '@dotcom-tool-kit/schemas/lib/plugins/next-router'
 
-export default class NextRouter extends Task<typeof NextRouterSchema> {
-  static description = ''
-
+export default class NextRouter extends Task<{ plugin: typeof NextRouterSchema }> {
   async run(): Promise<void> {
     const doppler = new DopplerEnvVars(this.logger, 'dev', {
       project: 'next-router'
@@ -38,7 +36,7 @@ export default class NextRouter extends Task<typeof NextRouterSchema> {
 
     const unhook = hookConsole(this.logger, 'ft-next-router')
     try {
-      await register({ service: this.options.appName, port: local.port })
+      await register({ service: this.pluginOptions.appName, port: local.port })
     } finally {
       unhook()
     }

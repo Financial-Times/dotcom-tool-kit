@@ -17,17 +17,18 @@
     "test": "cd ../../ ; npx jest --silent --projects plugins/webpack"
   },
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
-    "@dotcom-tool-kit/types": "^3.6.1",
     "webpack-cli": "^4.6.0",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "webpack": "4.x.x || 5.x.x",
-    "dotcom-tool-kit": "3.x"
+    "dotcom-tool-kit": "3.x",
+    "webpack": "4.x.x || 5.x.x"
   },
   "devDependencies": {
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@jest/globals": "^27.4.6",
     "ts-node": "^10.0.0",
     "webpack": "^4.42.1",
@@ -41,7 +42,7 @@
     "extends": "../../package.json"
   },
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   }
 }

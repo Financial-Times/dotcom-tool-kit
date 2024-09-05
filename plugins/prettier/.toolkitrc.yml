@@ -1,3 +1,17 @@
-hooks:
+plugins:
+  - '@dotcom-tool-kit/package-json-hook'
+
+tasks:
+  Prettier: './lib/tasks/prettier'
+
+commands:
   'format:local': Prettier
   'format:staged': Prettier
+
+options:
+  hooks:
+    - PackageJson:
+        scripts:
+          format: 'format:local'
+
+version: 2

@@ -1,72 +1,92 @@
-import type { PluginOptions } from './config'
-import type { Conflict } from './conflict'
-import type { HookTask } from './hook'
 import { styles as s, styles } from '@dotcom-tool-kit/logger'
-import type { Plugin, Hook, TaskClass } from '@dotcom-tool-kit/types'
+import type { Hook } from '@dotcom-tool-kit/base'
+import type {
+  CommandTask,
+  EntryPoint,
+  Plugin,
+  OptionsForPlugin,
+  OptionsForTask
+} from '@dotcom-tool-kit/plugin'
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
+import type { Conflict } from '@dotcom-tool-kit/conflict'
 
-const formatTaskConflict = (conflict: Conflict<TaskClass>): string =>
-  `- ${s.task(conflict.conflicting[0].id || 'unknown task')} ${s.dim(
-    'from plugins'
-  )} ${conflict.conflicting
-    .map((task) => s.plugin(task.plugin ? task.plugin.id : 'unknown plugin'))
+const formatTaskConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>
+  `- ${s.task(key ?? 'unknown task')} ${s.dim('from plugins')} ${conflict.conflicting
+    .map((entryPoint) => s.plugin(entryPoint.plugin.id ?? 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatTaskConflicts = (conflicts: Conflict<TaskClass>[]): string => `${s.heading(
+export const formatTaskConflicts = (conflicts: [string, Conflict<EntryPoint>][]): string => `${s.heading(
   'There are multiple plugins that include the same tasks'
 )}:
 ${conflicts.map(formatTaskConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatHookConflict = (conflict: Conflict<Hook<unknown>>): string =>
-  `- ${s.hook(conflict.conflicting[0].id || 'unknown event')} ${s.dim(
-    'from plugins'
-  )} ${conflict.conflicting
-    .map((task) => s.plugin(task.plugin ? task.plugin.id : 'unknown plugin'))
+const formatHookConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>
+  `- ${s.hook(key ?? 'unknown hook')} ${s.dim('from plugins')} ${conflict.conflicting
+    .map((entryPoint) => s.plugin(entryPoint.plugin.id ?? 'unknown plugin'))
     .join(s.dim(', '))}`
 
-export const formatHookConflicts = (conflicts: Conflict<Hook<unknown>>[]): string => `${s.heading(
+export const formatHookConflicts = (conflicts: [string, Conflict<EntryPoint>][]): string => `${s.heading(
   'There are multiple plugins that include the same hooks'
 )}:
 ${conflicts.map(formatHookConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatHookTaskConflict = (conflict: Conflict<HookTask>): string => `${s.hook(
+const formatCommandTaskConflict = (conflict: Conflict<CommandTask>): string => `${s.hook(
   conflict.conflicting[0].id
 )}:
 ${conflict.conflicting
   .map(
-    (hook) =>
-      `- ${hook.tasks.map(s.task).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(hook.plugin.id)}`
+    (command) =>
+      `- ${command.tasks.map((task) => s.task(task.task)).join(s.dim(', '))} ${s.dim('by plugin')} ${s.plugin(
+        command.plugin.id
+      )}`
   )
   .join('\n')}
 `
 
-export const formatHookTaskConflicts = (conflicts: Conflict<HookTask>[]): string => `${s.heading(
-  'These hooks are configured to run different tasks by multiple plugins'
+export const formatCommandTaskConflicts = (conflicts: Conflict<CommandTask>[]): string => `${s.heading(
+  'These commands are configured to run different tasks by multiple plugins'
 )}:
-${conflicts.map(formatHookTaskConflict).join('\n')}
-You must resolve this conflict by explicitly configuring which task to run for these hooks. See ${s.URL(
+${conflicts.map(formatCommandTaskConflict).join('\n')}
+You must resolve this conflict by explicitly configuring which task to run for these commands. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-hook-conflicts.md'
 )} for more details.
 
 `
 
-const formatOptionConflict = (conflict: Conflict<PluginOptions>): string => `${s.plugin(
+const formatPluginOptionConflict = (conflict: Conflict<OptionsForPlugin>): string => `${s.plugin(
   conflict.conflicting[0].forPlugin.id
 )}, configured by:
 ${conflict.conflicting.map((option) => `- ${s.plugin(option.plugin.id)}`)}`
 
-export const formatOptionConflicts = (conflicts: Conflict<PluginOptions>[]): string => `${s.heading(
+export const formatPluginOptionConflicts = (conflicts: Conflict<OptionsForPlugin>[]): string => `${s.heading(
   'These plugins have conflicting options'
 )}:
 
-${conflicts.map(formatOptionConflict).join('\n')}
+${conflicts.map(formatPluginOptionConflict).join('\n')}
 
 You must resolve this conflict by providing options in your app's Tool Kit configuration for these plugins, or installing a use-case plugin that provides these options. See ${s.URL(
+  'https://github.com/financial-times/dotcom-tool-kit/tree/main/readme.md#options'
+)} for more details.
+
+`
+
+const formatTaskOptionConflict = (conflict: Conflict<OptionsForTask>): string => `${s.task(
+  conflict.conflicting[0].task
+)}, configured by:
+${conflict.conflicting.map((option) => `- ${s.plugin(option.plugin.id)}`)}`
+
+export const formatTaskOptionConflicts = (conflicts: Conflict<OptionsForTask>[]): string => `${s.heading(
+  'These tasks have conflicting options'
+)}:
+
+${conflicts.map(formatTaskOptionConflict).join('\n')}
+
+You must resolve this conflict by providing options in your app's Tool Kit configuration for these tasks, or installing a use-case plugin that provides these options. See ${s.URL(
   'https://github.com/financial-times/dotcom-tool-kit/tree/main/readme.md#options'
 )} for more details.
 
@@ -75,37 +95,21 @@ You must resolve this conflict by providing options in your app's Tool Kit confi
 const formatPlugin = (plugin: Plugin): string =>
   plugin.id === 'app root' ? s.app('your app') : `plugin ${s.plugin(plugin.id)}`
 
-// TODO text similarity "did you mean...?"
-export const formatUndefinedHookTasks = (
-  undefinedHooks: HookTask[],
-  definedHooks: string[]
-): string => `Hooks must be defined by a plugin before you can configure a task to run for them. In your Tool Kit configuration you've configured hooks that aren't defined:
-
-${undefinedHooks.map((hook) => `- ${s.hook(hook.id)}`).join('\n')}
-
-They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
-
-${
-  definedHooks.length > 0
-    ? `Hooks that are defined and available for tasks are: ${definedHooks.map(s.hook).join(', ')}`
-    : `There are no hooks defined by this app's plugins. You probably need to install some plugins to define hooks.`
-}.
-`
-
 export type InvalidOption = [string, z.ZodError]
 
-export const formatInvalidOptions = (
+export const formatInvalidOption = ([id, error]: InvalidOption): string =>
+  fromZodError(error, { prefix: `- ${id} has the issue(s)` }).message
+
+export const formatInvalidPluginOptions = (
   invalidOptions: InvalidOption[]
 ): string => `Options are defined in your Tool Kit configuration that are the wrong types:
 
-${invalidOptions
-  .map(([plugin, error]) => fromZodError(error, { prefix: `- ${s.plugin(plugin)} has the issue(s)` }).message)
-  .join('\n')}
+${invalidOptions.map(([plugin, error]) => formatInvalidOption([s.plugin(plugin), error])).join('\n')}
 
 Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.
 `
 
-export const formatUnusedOptions = (
+export const formatUnusedPluginOptions = (
   unusedOptions: string[],
   definedPlugins: string[]
 ): string => `Options are defined in your Tool Kit configuration for plugins that don't exist:
@@ -121,8 +125,24 @@ ${
 }.
 `
 
+export const formatUnusedTaskOptions = (
+  unusedOptions: string[],
+  definedTasks: string[]
+): string => `Options are defined in your Tool Kit configuration for tasks that don't exist:
+
+${unusedOptions.map((optionName) => `- ${s.task(optionName)}`).join('\n')}
+
+They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
+
+${
+  definedTasks.length > 0
+    ? `Task that are defined and can have options set are: ${definedTasks.map(s.task).join(', ')}`
+    : `You don't have currently any plugins installed that provide tasks. You'll need to install some plugins before options can be set.`
+}.
+`
+
 export const formatUninstalledHooks = (
-  uninstalledHooks: Hook<unknown>[]
+  uninstalledHooks: Hook<z.ZodTypeAny, unknown>[]
 ): string => `These hooks aren't installed into your app:
 
 ${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join('\n')}
@@ -130,11 +150,11 @@ ${uninstalledHooks.map((hook) => `- ${s.hook(hook.id || 'unknown event')}`).join
 Run ${s.task('dotcom-tool-kit --install')} to install these hooks.
 `
 
-type Missing = { hook: HookTask; tasks: string[] }
+type Missing = { command: CommandTask; tasks: OptionsForTask[] }
 
 const formatMissingTask = (missing: Missing): string =>
-  `- ${missing.tasks.map(s.task).join(', ')} ${s.dim(
-    `(assigned to ${s.hook(missing.hook.id)} by ${formatPlugin(missing.hook.plugin)})`
+  `- ${missing.tasks.map((task) => s.task(task.task)).join(', ')} ${s.dim(
+    `(assigned to ${s.hook(missing.command.id)} by ${formatPlugin(missing.command.plugin)})`
   )}`
 
 export const formatMissingTasks = (
@@ -165,3 +185,5 @@ export function formatPluginTree(plugin: Plugin): string[] {
     )
   ]
 }
+
+export const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')

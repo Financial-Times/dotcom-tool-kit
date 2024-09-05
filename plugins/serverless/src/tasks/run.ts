@@ -1,20 +1,23 @@
-import { Task } from '@dotcom-tool-kit/types'
-import { ServerlessSchema } from '@dotcom-tool-kit/types/lib/schema/serverless'
+import { Task } from '@dotcom-tool-kit/base'
+import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
+import { ServerlessRunSchema } from '@dotcom-tool-kit/schemas/src/tasks/serverless-run'
 import { spawn } from 'child_process'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 
-export default class ServerlessRun extends Task<typeof ServerlessSchema> {
-  static description = 'Run serverless functions locally'
-
+export default class ServerlessRun extends Task<{
+  task: typeof ServerlessRunSchema
+  plugin: typeof ServerlessSchema
+}> {
   async run(): Promise<void> {
-    const { useVault, ports, configPath } = this.options
+    const { useDoppler, ports } = this.options
+    const { configPath } = this.pluginOptions
 
     let dopplerEnv = {}
 
-    if (useVault) {
+    if (useDoppler) {
       const doppler = new DopplerEnvVars(this.logger, 'dev')
 
       dopplerEnv = await doppler.get()

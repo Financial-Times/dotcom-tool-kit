@@ -4,11 +4,14 @@ import * as fs from 'fs'
 const target = process.env.INIT_CWD || process.cwd()
 const stateDir = target ? path.join(target, '.toolkitstate') : '.toolkitstate'
 
+type InstallState = Record<string, string>
+
 interface CIState {
   repo: string
   branch: string
   version: string
   tag: string
+  buildNumber: string
 }
 
 export interface ReviewState {
@@ -39,6 +42,7 @@ export interface State {
   staging: StagingState
   production: ProductionState
   local: LocalState
+  install: InstallState
 }
 
 export function readState<T extends keyof State>(stage: T): State[T] | null {

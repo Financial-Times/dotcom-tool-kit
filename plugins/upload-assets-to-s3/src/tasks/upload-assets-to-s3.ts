@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/types'
+import { Task } from '@dotcom-tool-kit/base'
 import * as fs from 'fs'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import path from 'path'
@@ -9,11 +9,9 @@ import { styles } from '@dotcom-tool-kit/logger'
 import {
   UploadAssetsToS3Options,
   UploadAssetsToS3Schema
-} from '@dotcom-tool-kit/types/lib/schema/upload-assets-to-s3'
+} from '@dotcom-tool-kit/schemas/lib/tasks/upload-assets-to-s3'
 
-export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema> {
-  static description = ''
-
+export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsToS3Schema }> {
   async run(): Promise<void> {
     await this.uploadAssetsToS3(this.options)
   }
@@ -76,24 +74,29 @@ export default class UploadAssetsToS3 extends Task<typeof UploadAssetsToS3Schema
       throw new ToolKitError(`no files found at the provided directory: ${options.directory}`)
     }
 
-    // HACK:20231006:IM Doppler doesn't support secrets with lowercase
-    // characters so let's check if the provided AWS environment variable name
-    // is available in all caps as will be the case when running our migration
-    // script.
-    const checkUppercaseName = (envName: string): string | undefined => {
-      return process.env[envName] ?? process.env[envName.toUpperCase()]
+    const accessKeyId = process.env[options.accessKeyIdEnvVar]
+    const secretAccessKey = process.env[options.secretAccessKeyEnvVar]
+
+    if (!accessKeyId || !secretAccessKey) {
+      const missingVars = [
+        !accessKeyId ? options.accessKeyIdEnvVar : false,
+        !secretAccessKey ? options.secretAccessKeyEnvVar : false
+      ]
+
+      const error = new ToolKitError(
+        `environment variable${missingVars.length > 1 ? 's' : ''} ${missingVars.join(' and ')} not set`
+      )
+      error.details = `if your AWS credentials are stored in different environment variables, set the ${styles.code(
+        'accessKeyIdEnvVar'
+      )} and ${styles.code('secretAccessKeyEnvVar')} options for this task.`
+      throw error
     }
+
     const s3 = new S3Client({
       region: options.region,
-      // will fallback to default value for accessKeyId if neither
-      // accessKeyIdEnvVar nor accessKeyId have been provided as options
       credentials: {
-        accessKeyId:
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          checkUppercaseName(options.accessKeyIdEnvVar ?? options.accessKeyId)!,
-        secretAccessKey:
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          checkUppercaseName(options.secretAccessKeyEnvVar ?? options.secretAccessKey)!
+        accessKeyId,
+        secretAccessKey
       }
     })
 

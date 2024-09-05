@@ -7,10 +7,12 @@
     "test": "cd ../../ ; npx jest --silent --projects plugins/circleci"
   },
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
+    "@dotcom-tool-kit/conflict": "^1.0.0",
     "@dotcom-tool-kit/error": "^3.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
+    "@dotcom-tool-kit/options": "^3.2.1",
     "@dotcom-tool-kit/state": "^3.3.0",
-    "@dotcom-tool-kit/types": "^3.6.1",
     "jest-diff": "^29.5.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1",
@@ -28,11 +30,14 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/circleci",
   "devDependencies": {
+    "@dotcom-tool-kit/plugin": "^1.0.0",
+    "@dotcom-tool-kit/schemas": "^1.0.0",
     "@jest/globals": "^27.4.6",
     "@types/jest": "^27.4.0",
     "@types/js-yaml": "^4.0.3",
     "@types/lodash": "^4.14.185",
-    "winston": "^3.5.1"
+    "winston": "^3.5.1",
+    "zod": "^3.22.4"
   },
   "files": [
     "/lib",
@@ -42,10 +47,11 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x"
+    "dotcom-tool-kit": "3.x",
+    "zod": "^3.22.4"
   },
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   }
 }

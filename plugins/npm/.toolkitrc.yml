@@ -1,0 +1,16 @@
+plugins:
+  - '@dotcom-tool-kit/package-json-hook'
+
+tasks:
+  NpmPrune: './lib/tasks/prune'
+  NpmPublish: './lib/tasks/publish'
+
+options:
+  hooks:
+    - PackageJson:
+        scripts:
+          build: 'build:local'
+          test: 'test:local'
+          start: 'run:local'
+
+version: 2

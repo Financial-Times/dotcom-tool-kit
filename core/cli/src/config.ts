@@ -1,97 +1,69 @@
 import path from 'path'
 import type { Logger } from 'winston'
 
-import type { HookTask } from './hook'
-import { loadPlugin, resolvePlugin } from './plugin'
-import { Conflict, findConflicts, withoutConflicts, isConflict } from './conflict'
-import { ToolKitConflictError, ToolKitError } from '@dotcom-tool-kit/error'
-import { TaskClass, Hook, mapValidated, Plugin, reduceValidated, Validated } from '@dotcom-tool-kit/types'
-import { Options as SchemaOptions, Schemas } from '@dotcom-tool-kit/types/lib/schema'
+import { loadPlugin, resolvePlugin, resolvePluginOptions } from './plugin'
 import {
-  InvalidOption,
+  findConflicts,
+  withoutConflicts,
+  isConflict,
+  findConflictingEntries
+} from '@dotcom-tool-kit/conflict'
+import { ToolKitError, ToolKitConflictError } from '@dotcom-tool-kit/error'
+import { RawConfig, ValidConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
+import {
   formatTaskConflicts,
-  formatUndefinedHookTasks,
-  formatUnusedOptions,
-  formatHookTaskConflicts,
+  formatUnusedPluginOptions,
+  formatCommandTaskConflicts,
   formatHookConflicts,
-  formatOptionConflicts,
-  formatUninstalledHooks,
+  formatPluginOptionConflicts,
   formatMissingTasks,
-  formatInvalidOptions
+  formatInvalidPluginOptions,
+  formatTaskOptionConflicts,
+  formatUnusedTaskOptions
 } from './messages'
-
-export interface PluginOptions {
-  options: Record<string, unknown>
-  plugin: Plugin
-  forPlugin: Plugin
-}
-
-export interface RawConfig {
-  root: string
-  plugins: { [id: string]: Validated<Plugin> }
-  resolvedPlugins: Set<Plugin>
-  tasks: { [id: string]: TaskClass | Conflict<TaskClass> }
-  hookTasks: { [id: string]: HookTask | Conflict<HookTask> }
-  options: { [id: string]: PluginOptions | Conflict<PluginOptions> | undefined }
-  hooks: { [id: string]: Hook<unknown> | Conflict<Hook<unknown>> }
-}
-
-export type ValidPluginsConfig = Omit<RawConfig, 'plugins'> & {
-  plugins: { [id: string]: Plugin }
-}
-
-export type ValidPluginOptions<Id extends keyof SchemaOptions> = Omit<PluginOptions, 'options'> & {
-  options: SchemaOptions[Id]
-}
-
-export type ValidOptions = {
-  [Id in keyof SchemaOptions]: ValidPluginOptions<Id>
-}
-
-export type ValidConfig = Omit<ValidPluginsConfig, 'tasks' | 'hookTasks' | 'options' | 'hooks'> & {
-  tasks: { [id: string]: TaskClass }
-  hookTasks: { [id: string]: HookTask }
-  options: ValidOptions
-  hooks: { [id: string]: Hook<unknown> }
-}
+import { validatePlugins } from './config/validate-plugins'
+import { substituteOptionTags, validatePluginOptions } from './plugin/options'
 
 const coreRoot = path.resolve(__dirname, '../')
 
 export const createConfig = (): RawConfig => ({
   root: coreRoot,
   plugins: {},
-  resolvedPlugins: new Set(),
+  resolutionTrackers: {
+    resolvedPluginOptions: new Set(),
+    substitutedPlugins: new Set(),
+    resolvedPlugins: new Set(),
+    reducedInstallationPlugins: new Set()
+  },
   tasks: {},
-  hookTasks: {},
-  options: {},
-  hooks: {}
+  commandTasks: {},
+  pluginOptions: {},
+  taskOptions: {},
+  hooks: {},
+  inits: [],
+  hookManagedFiles: new Set()
 })
 
-async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolean>): Promise<T[]> {
-  const results = await Promise.all(items.map(async (item) => ({ item, keep: await predicate(item) })))
-
-  return results.filter(({ keep }) => keep).map(({ item }) => item)
-}
-
-export function validateConfig(config: ValidPluginsConfig, logger: Logger): ValidConfig {
+export function validateConfig(config: ValidPluginsConfig): ValidConfig {
   const validConfig = config as ValidConfig
 
-  const hookTaskConflicts = findConflicts(Object.values(config.hookTasks))
-  const hookConflicts = findConflicts(Object.values(config.hooks))
-  const taskConflicts = findConflicts(Object.values(config.tasks))
-  const optionConflicts = findConflicts(Object.values(config.options))
+  const commandTaskConflicts = findConflicts(Object.values(config.commandTasks))
+  const hookConflicts = findConflictingEntries(config.hooks)
+  const taskConflicts = findConflictingEntries(config.tasks)
+  const pluginOptionConflicts = findConflicts(Object.values(config.pluginOptions))
+  const taskOptionConflicts = findConflicts(Object.values(config.taskOptions))
 
-  const definedHookTaskConflicts = hookTaskConflicts.filter((conflict) => {
+  const definedCommandTaskConflicts = commandTaskConflicts.filter((conflict) => {
     return conflict.conflicting[0].id in config.hooks
   })
 
   let shouldThrow = false
   const error = new ToolKitConflictError(
     'There are problems with your Tool Kit configuration.',
-    hookTaskConflicts.map((conflict) => ({
-      hook: conflict.conflicting[0].id,
-      conflictingTasks: conflict.conflicting.flatMap((hook) =>
-        hook.tasks.map((task) => ({ task, plugin: hook.plugin.id }))
+    commandTaskConflicts.map((conflict) => ({
+      command: conflict.conflicting[0].id,
+      conflictingTasks: conflict.conflicting.flatMap((command) =>
+        command.tasks.map((task) => ({ task: task.task, plugin: command.plugin.id }))
       )
     }))
   )
@@ -99,9 +71,10 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
 
   if (
     hookConflicts.length > 0 ||
-    definedHookTaskConflicts.length > 0 ||
+    definedCommandTaskConflicts.length > 0 ||
     taskConflicts.length > 0 ||
-    optionConflicts.length > 0
+    pluginOptionConflicts.length > 0 ||
+    taskOptionConflicts.length > 0
   ) {
     shouldThrow = true
 
@@ -109,87 +82,52 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
       error.details += formatHookConflicts(hookConflicts)
     }
 
-    if (definedHookTaskConflicts.length) {
-      error.details += formatHookTaskConflicts(definedHookTaskConflicts)
+    if (definedCommandTaskConflicts.length) {
+      error.details += formatCommandTaskConflicts(definedCommandTaskConflicts)
     }
 
     if (taskConflicts.length) {
       error.details += formatTaskConflicts(taskConflicts)
     }
 
-    if (optionConflicts.length) {
-      error.details += formatOptionConflicts(optionConflicts)
+    if (pluginOptionConflicts.length) {
+      error.details += formatPluginOptionConflicts(pluginOptionConflicts)
+    }
+
+    if (taskOptionConflicts.length) {
+      error.details += formatTaskOptionConflicts(taskOptionConflicts)
     }
   }
 
-  const configuredHookTasks = withoutConflicts(Object.values(config.hookTasks))
-  const definedHookIds = new Set(Object.keys(config.hooks))
-  const undefinedHookTasks = configuredHookTasks.filter((hookTask) => {
-    // we only care about undefined hooks that were configured by the app, not default config from plugins
-    const fromApp = hookTask.plugin.root === process.cwd()
-    const hookDefined = definedHookIds.has(hookTask.id)
-    return fromApp && !hookDefined
-  })
-
-  if (undefinedHookTasks.length > 0) {
-    shouldThrow = true
-    error.details += formatUndefinedHookTasks(undefinedHookTasks, Array.from(definedHookIds))
-  }
-
-  const invalidOptions: InvalidOption[] = []
-  for (const [id, plugin] of Object.entries(config.plugins)) {
-    const pluginId = id as keyof SchemaOptions
-    const pluginOptions = config.options[pluginId]
-    if (pluginOptions && isConflict(pluginOptions)) {
-      continue
-    }
-
-    const pluginSchema = Schemas[pluginId]
-    if (!pluginSchema) {
-      logger.silly(`skipping validation of ${pluginId} plugin as no schema can be found`)
-      continue
-    }
-    const result = pluginSchema.safeParse(pluginOptions?.options ?? {})
-    if (result.success) {
-      // Set up options entry for plugins that don't have options specified
-      // explicitly. They could still have default options that are set by zod.
-      if (!pluginOptions) {
-        // TypeScript struggles with this type as it sees one side as
-        // `Foo<a | b | c>` and the other as `Foo<a> | Foo<b> | Foo<c>` for
-        // some reason (something to do with the record indexing) and it can't
-        // unify them. But they are equivalent so let's force it with a cast.
-        config.options[pluginId] = {
-          options: result.data,
-          plugin: config.plugins['app root'],
-          forPlugin: plugin
-        } as any // eslint-disable-line @typescript-eslint/no-explicit-any
-      } else {
-        pluginOptions.options = result.data
-      }
-    } else {
-      invalidOptions.push([id, result.error])
-    }
-  }
-  if (invalidOptions.length > 0) {
-    shouldThrow = true
-    error.details += formatInvalidOptions(invalidOptions)
-  }
-
-  const unusedOptions = Object.entries(config.options)
+  const unusedPluginOptions = Object.entries(config.pluginOptions)
     .filter(
       ([, option]) =>
         option && !isConflict(option) && !option.forPlugin && option.plugin.root === process.cwd()
     )
     .map(([id]) => id)
-  if (unusedOptions.length > 0) {
+
+  if (unusedPluginOptions.length > 0) {
     shouldThrow = true
-    error.details += formatUnusedOptions(unusedOptions, Object.keys(config.plugins))
+    error.details += formatUnusedPluginOptions(unusedPluginOptions, Object.keys(config.plugins))
   }
 
-  const missingTasks = configuredHookTasks
-    .map((hook) => ({
-      hook,
-      tasks: hook.tasks.filter((id) => !config.tasks[id])
+  const unusedTaskOptions = Object.entries(config.taskOptions)
+    .filter(
+      ([, option]) => option && !isConflict(option) && !option.task && option.plugin.root === process.cwd()
+    )
+    .map(([id]) => id)
+
+  if (unusedTaskOptions.length > 0) {
+    shouldThrow = true
+    error.details += formatUnusedTaskOptions(unusedTaskOptions, Object.keys(config.tasks))
+  }
+
+  const configuredCommandTasks = withoutConflicts(Object.values(config.commandTasks))
+
+  const missingTasks = configuredCommandTasks
+    .map((command) => ({
+      command,
+      tasks: command.tasks.filter((task) => !config.tasks[task.task])
     }))
     .filter(({ tasks }) => tasks.length > 0)
 
@@ -205,26 +143,6 @@ export function validateConfig(config: ValidPluginsConfig, logger: Logger): Vali
   return validConfig
 }
 
-export function validatePlugins(config: RawConfig): Validated<ValidPluginsConfig> {
-  const validatedPlugins = reduceValidated(
-    Object.entries(config.plugins).map(([id, plugin]) => mapValidated(plugin, (p) => [id, p] as const))
-  )
-  return mapValidated(validatedPlugins, (plugins) => ({ ...config, plugins: Object.fromEntries(plugins) }))
-}
-
-export async function checkInstall(config: ValidConfig): Promise<void> {
-  const definedHooks = withoutConflicts(Object.values(config.hooks))
-  const uninstalledHooks = await asyncFilter(definedHooks, async (hook) => {
-    return !(await hook.check())
-  })
-
-  if (uninstalledHooks.length > 0) {
-    const error = new ToolKitError('There are problems with your Tool Kit installation.')
-    error.details = formatUninstalledHooks(uninstalledHooks)
-    throw error
-  }
-}
-
 export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
 export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<RawConfig>
 
@@ -233,24 +151,23 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
 
   // start loading config and child plugins, starting from the consumer app directory
   const rootPlugin = await loadPlugin('app root', config, logger)
-  if (!rootPlugin.valid) {
-    const error = new ToolKitError('root plugin was not valid!')
-    error.details = rootPlugin.reasons.join('\n\n')
-    throw error
-  }
-  const validRootPlugin = rootPlugin.value
+  const validRootPlugin = rootPlugin.unwrap('root plugin was not valid!')
 
   const validatedPluginConfig = validatePlugins(config)
-
-  if (!validatedPluginConfig.valid) {
-    const error = new ToolKitError('config was not valid!')
-    error.details = validatedPluginConfig.reasons.join('\n\n')
-    throw error
-  }
-  const validPluginConfig = validatedPluginConfig.value
+  const validPluginConfig = validatedPluginConfig.unwrap('config was not valid!')
 
   // collate root plugin and descendent hooks, options etc into config
+  // start with options so we can substitute resolved values into other parts
+  // of the config
+  resolvePluginOptions(validRootPlugin, validPluginConfig)
+  const invalidOptions = validatePluginOptions(logger, validPluginConfig)
+  if (invalidOptions.length > 0 && validate) {
+    const error = new ToolKitError('There are problems with your plugin options.')
+    error.details = formatInvalidPluginOptions(invalidOptions)
+    throw error
+  }
+  substituteOptionTags(validRootPlugin, validPluginConfig)
   resolvePlugin(validRootPlugin, validPluginConfig, logger)
 
-  return validate ? validateConfig(validPluginConfig, logger) : config
+  return validate ? validateConfig(validPluginConfig) : config
 }

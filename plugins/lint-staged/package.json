@@ -10,9 +10,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
+    "@dotcom-tool-kit/base": "^3.4.1",
     "@dotcom-tool-kit/package-json-hook": "^4.2.0",
     "@dotcom-tool-kit/logger": "^3.4.1",
-    "@dotcom-tool-kit/types": "^3.6.1",
     "lint-staged": "^11.2.3",
     "tslib": "^2.3.1"
   },
@@ -34,7 +34,7 @@
     "dotcom-tool-kit": "3.x"
   },
   "engines": {
-    "node": "16.x || 18.x || 20.x",
+    "node": "18.x || 20.x",
     "npm": "7.x || 8.x || 9.x || 10.x"
   }
 }
