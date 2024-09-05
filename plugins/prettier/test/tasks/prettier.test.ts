@@ -38,7 +38,7 @@ describe('prettier', () => {
         ignoreFile: 'nonexistent prettierignore'
       }
     )
-    await task.run()
+    await task.run({ command: 'format:local' })
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
     expect(prettified).toEqual(formattedDefaultFixture)
   })
@@ -56,7 +56,7 @@ describe('prettier', () => {
       }
     )
 
-    await task.run()
+    await task.run({ command: 'format:local' })
     const prettified = await fsp.readFile(path.join(testDirectory, 'unformatted.ts'), 'utf8')
     expect(prettified).toEqual(formattedConfigFileFixture)
   })

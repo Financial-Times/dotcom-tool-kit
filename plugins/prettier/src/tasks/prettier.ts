@@ -2,12 +2,12 @@ import prettier from 'prettier'
 import { PrettierOptions, PrettierSchema } from '@dotcom-tool-kit/schemas/lib/tasks/prettier'
 import { promises as fsp } from 'fs'
 import fg from 'fast-glob'
-import { hookConsole, styles } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/base'
+import { hookConsole } from '@dotcom-tool-kit/logger'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default class Prettier extends Task<{ task: typeof PrettierSchema }> {
-  async run(files?: string[]): Promise<void> {
+  async run({ files }: TaskRunContext): Promise<void> {
     try {
       const filepaths = await fg(files ?? this.options.files)
       for (const filepath of filepaths) {

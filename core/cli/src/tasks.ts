@@ -93,7 +93,7 @@ export async function runTasks(logger: Logger, commands: string[], files?: strin
     for (const task of tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
-        await task.run(files)
+        await task.run({ files })
       } catch (error) {
         // if there's an exit code, that's a request from the task to exit early
         if (error instanceof ToolKitError && error.exitCode) {
