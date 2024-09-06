@@ -159,15 +159,9 @@ const getBaseConfig = (): CircleCIState => {
         jobs: [
           { checkout: tagFilter },
           {
-            'waiting-for-approval': {
-              type: 'approval',
-              filters: { branches: { only: '/(^renovate-.*|^nori/.*)/' } }
-            }
-          },
-          {
             'tool-kit/setup': {
               ...setupMatrix,
-              requires: ['checkout', 'waiting-for-approval'],
+              requires: ['checkout'],
               ...tagFilter
             }
           }
@@ -321,7 +315,7 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] => {
             },
         {
           requires: job.requires.map((required) => {
-            if (['checkout', 'waiting-for-approval'].includes(required)) {
+            if (required === 'checkout') {
               return required
             }
             const requiredOrb = toolKitOrbPrefix(required)
