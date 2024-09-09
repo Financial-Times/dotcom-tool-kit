@@ -31,7 +31,7 @@ const testJob: CircleCiJob = {
 }
 const testWorkflowJob: CircleCiWorkflowJob = {
   name: 'test-job',
-  requires: ['waiting-for-approval', 'that-job'],
+  requires: ['that-job'],
   splitIntoMatrix: false
 }
 const overriddenTestJob: CircleCiJob = { ...testJob, command: 'test:override' }
@@ -41,7 +41,7 @@ const anotherTestJob: CircleCiJob = {
 }
 const anotherTestWorkflowJob: CircleCiWorkflowJob = {
   name: 'another-test-job',
-  requires: ['waiting-for-approval', 'this-job'],
+  requires: ['this-job'],
   splitIntoMatrix: true
 }
 const simpleOptions: CircleCiOptions = {
@@ -116,7 +116,7 @@ describe('CircleCI config hook', () => {
               jobs: expect.arrayContaining([
                 expect.objectContaining({
                   'tool-kit/test-job': expect.objectContaining({
-                    requires: ['waiting-for-approval', 'tool-kit/that-job']
+                    requires: ['tool-kit/that-job']
                   })
                 })
               ])
