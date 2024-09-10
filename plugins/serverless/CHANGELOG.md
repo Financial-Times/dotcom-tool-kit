@@ -81,6 +81,56 @@
     * @dotcom-tool-kit/options bumped from ^3.2.0 to ^3.2.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.5...serverless-v3.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* move serverless run ports and useDoppler options to task options
+* remove unused legacy vault/doppler support from serverless deploy/provision/teardown tasks
+* remove serverless buildNumVariable in favour of populating it via CI state
+* rename serverless useVault option to useDoppler
+* drop support for Node 16
+* rename Task#options to pluginOptions
+* move base classes into their own package
+* add new lazy plugin spec to rest of plugins
+
+### Features
+
+* allow tasks to receive a task options object and parse task schema when initialising ([1dce6bd](https://github.com/Financial-Times/dotcom-tool-kit/commit/1dce6bd5e8436bf521e94eb812aa847ca7dd1e4d))
+* move base classes into their own package ([be1681b](https://github.com/Financial-Times/dotcom-tool-kit/commit/be1681b033609a9e332ab072681b6de8d05befb2))
+* move serverless run ports and useDoppler options to task options ([e5791ad](https://github.com/Financial-Times/dotcom-tool-kit/commit/e5791ada3518213ad6a8df9f59dbcf2c3c65f68d))
+* remove serverless buildNumVariable in favour of populating it via CI state ([5c96a07](https://github.com/Financial-Times/dotcom-tool-kit/commit/5c96a07f117de53cbdb2933053f36e7740d6b14d))
+* rename serverless useVault option to useDoppler ([7e0dfb3](https://github.com/Financial-Times/dotcom-tool-kit/commit/7e0dfb38299987890e322762126c1f078b2e1fd4))
+* split schemas out into separate package ([5d538cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/5d538cd692eec6b799587f499c444b3e4f6e78b8))
+
+
+### Performance Improvements
+
+* add new lazy plugin spec to rest of plugins ([5367c9a](https://github.com/Financial-Times/dotcom-tool-kit/commit/5367c9a3e086412c28939c88700b67cb04afcfcd))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+* remove unused legacy vault/doppler support from serverless deploy/provision/teardown tasks ([007038d](https://github.com/Financial-Times/dotcom-tool-kit/commit/007038d1b018c47b99971d9713cd4375be488712))
+
+
+### Code Refactoring
+
+* rename Task#options to pluginOptions ([e73dcae](https://github.com/Financial-Times/dotcom-tool-kit/commit/e73dcae5ff48693545aa20e5c572269c3adf486b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/doppler bumped from ^1.1.1 to ^2.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/options bumped from ^3.2.1 to ^4.0.0
+    * @dotcom-tool-kit/state bumped from ^3.3.0 to ^4.0.0
+
 ## [2.4.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v2.4.3...serverless-v2.4.4) (2024-02-08)
 
 

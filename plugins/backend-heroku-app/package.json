@@ -1,16 +1,16 @@
 {
   "name": "@dotcom-tool-kit/backend-heroku-app",
-  "version": "3.1.6",
+  "version": "4.0.0",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci-deploy": "^3.4.5",
-    "@dotcom-tool-kit/heroku": "^3.4.2",
-    "@dotcom-tool-kit/node": "^3.4.2",
-    "@dotcom-tool-kit/npm": "^3.3.2"
+    "@dotcom-tool-kit/circleci-deploy": "^4.0.0",
+    "@dotcom-tool-kit/heroku": "^4.0.0",
+    "@dotcom-tool-kit/node": "^4.0.0",
+    "@dotcom-tool-kit/npm": "^4.0.0"
   },
   "repository": {
     "type": "git",

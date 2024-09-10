@@ -128,6 +128,64 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v3.2.1...prettier-v4.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* pass task files in as part of a run context object
+* remove prettier configOptions option
+* move prettier options to task options
+* drop support for Node 16
+* rename Task#options to pluginOptions
+* move base classes into their own package
+* remove all current concrete hook subclasses
+* rename `hooks` in toolkitrc to `commands`
+* add new lazy plugin spec to rest of plugins
+
+### Features
+
+* allow tasks to receive a task options object and parse task schema when initialising ([1dce6bd](https://github.com/Financial-Times/dotcom-tool-kit/commit/1dce6bd5e8436bf521e94eb812aa847ca7dd1e4d))
+* move base classes into their own package ([be1681b](https://github.com/Financial-Times/dotcom-tool-kit/commit/be1681b033609a9e332ab072681b6de8d05befb2))
+* move prettier options to task options ([71c24af](https://github.com/Financial-Times/dotcom-tool-kit/commit/71c24af0b1517008f530ce0ece85ccb9018e5100))
+* **prettier:** add PackageJson hook options ([8895c3d](https://github.com/Financial-Times/dotcom-tool-kit/commit/8895c3d8f7908a6d611d912f8b3cc3ecfa85f2d9))
+* remove prettier configOptions option ([6b143d4](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b143d43de921ae2ba66008ddeab83e3ea52d8ce))
+* rename `hooks` in toolkitrc to `commands` ([45baa66](https://github.com/Financial-Times/dotcom-tool-kit/commit/45baa66b231a1e39332187cd3b8fdc36bec9727d))
+* split schemas out into separate package ([5d538cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/5d538cd692eec6b799587f499c444b3e4f6e78b8))
+
+
+### Bug Fixes
+
+* **prettier:** correct hook option field in config ([bba2a99](https://github.com/Financial-Times/dotcom-tool-kit/commit/bba2a996f95874655154dc9723933f0f2f56ece8))
+* require package-json-hook plugin in plugins that use PackageJson hook ([892a4a6](https://github.com/Financial-Times/dotcom-tool-kit/commit/892a4a60c1f8641068cdf0bf3449bf1052c0556d))
+
+
+### Performance Improvements
+
+* add new lazy plugin spec to rest of plugins ([5367c9a](https://github.com/Financial-Times/dotcom-tool-kit/commit/5367c9a3e086412c28939c88700b67cb04afcfcd))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+* remove all current concrete hook subclasses ([62e7dc6](https://github.com/Financial-Times/dotcom-tool-kit/commit/62e7dc6d953efb9fa877143e77707cccee25d844))
+
+
+### Code Refactoring
+
+* pass task files in as part of a run context object ([5aa7327](https://github.com/Financial-Times/dotcom-tool-kit/commit/5aa7327018c0a87c8c9feef36ef9e3735a4f5e6d))
+* rename Task#options to pluginOptions ([e73dcae](https://github.com/Financial-Times/dotcom-tool-kit/commit/e73dcae5ff48693545aa20e5c572269c3adf486b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.1 to ^4.0.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^4.2.0 to ^5.0.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v3.1.6...prettier-v3.2.0) (2024-01-11)
 
 

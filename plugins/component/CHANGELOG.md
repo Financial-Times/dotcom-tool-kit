@@ -189,6 +189,31 @@
   * dependencies
     * @dotcom-tool-kit/circleci-npm bumped from ^5.3.4 to ^5.3.5
 
+## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v4.1.5...component-v5.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* move base classes into their own package
+
+### Features
+
+* move base classes into their own package ([be1681b](https://github.com/Financial-Times/dotcom-tool-kit/commit/be1681b033609a9e332ab072681b6de8d05befb2))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-npm bumped from ^5.3.5 to ^6.0.0
+    * @dotcom-tool-kit/npm bumped from ^3.3.2 to ^4.0.0
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v4.0.5...component-v4.1.0) (2024-01-11)
 
 

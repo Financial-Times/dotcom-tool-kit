@@ -318,6 +318,32 @@
   * dependencies
     * @dotcom-tool-kit/backend-heroku-app bumped from ^3.1.5 to ^3.1.6
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v3.2.6...frontend-app-v4.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* rename `hooks` in toolkitrc to `commands`
+
+### Features
+
+* rename `hooks` in toolkitrc to `commands` ([45baa66](https://github.com/Financial-Times/dotcom-tool-kit/commit/45baa66b231a1e39332187cd3b8fdc36bec9727d))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^3.1.6 to ^4.0.0
+    * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^3.2.1 to ^4.0.0
+    * @dotcom-tool-kit/webpack bumped from ^3.2.1 to ^4.0.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v3.1.25...frontend-app-v3.2.0) (2024-01-11)
 
 

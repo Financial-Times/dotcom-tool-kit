@@ -72,6 +72,57 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.3.0...typescript-v3.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove typescript extraArgs option
+* consolidate typescript tasks and move options to task options
+* drop support for Node 16
+* rename Task#options to pluginOptions
+* move base classes into their own package
+* rename `hooks` in toolkitrc to `commands`
+* add new lazy plugin spec to rest of plugins
+
+### Features
+
+* add watch, noEmit and build options to typescript task ([8ac8551](https://github.com/Financial-Times/dotcom-tool-kit/commit/8ac855173a7b814d7736bde62171695b799b51e6))
+* allow tasks to receive a task options object and parse task schema when initialising ([1dce6bd](https://github.com/Financial-Times/dotcom-tool-kit/commit/1dce6bd5e8436bf521e94eb812aa847ca7dd1e4d))
+* consolidate typescript tasks and move options to task options ([b8a6c34](https://github.com/Financial-Times/dotcom-tool-kit/commit/b8a6c34cf5a73480167155e7b66316698588a6b0))
+* move base classes into their own package ([be1681b](https://github.com/Financial-Times/dotcom-tool-kit/commit/be1681b033609a9e332ab072681b6de8d05befb2))
+* remove typescript extraArgs option ([00b9a8b](https://github.com/Financial-Times/dotcom-tool-kit/commit/00b9a8b8b9b857803f825d0ec0b9cdbf553f1508))
+* rename `hooks` in toolkitrc to `commands` ([45baa66](https://github.com/Financial-Times/dotcom-tool-kit/commit/45baa66b231a1e39332187cd3b8fdc36bec9727d))
+* split schemas out into separate package ([5d538cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/5d538cd692eec6b799587f499c444b3e4f6e78b8))
+
+
+### Bug Fixes
+
+* **typescript:** point config to correct module path for task ([0b3b7cf](https://github.com/Financial-Times/dotcom-tool-kit/commit/0b3b7cfc88b4acc52c893b9d0a112de6add237b4))
+
+
+### Performance Improvements
+
+* add new lazy plugin spec to rest of plugins ([5367c9a](https://github.com/Financial-Times/dotcom-tool-kit/commit/5367c9a3e086412c28939c88700b67cb04afcfcd))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+
+
+### Code Refactoring
+
+* rename Task#options to pluginOptions ([e73dcae](https://github.com/Financial-Times/dotcom-tool-kit/commit/e73dcae5ff48693545aa20e5c572269c3adf486b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.1 to ^4.0.0
+
 ## [2.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.2.1...typescript-v2.3.0) (2024-07-25)
 
 

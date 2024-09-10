@@ -163,6 +163,45 @@
     * @dotcom-tool-kit/lint-staged bumped from ^4.2.0 to ^4.2.1
     * @dotcom-tool-kit/options bumped from ^3.2.0 to ^3.2.1
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v3.2.1...lint-staged-npm-v4.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* remove all current concrete hook subclasses
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* **lint-staged-npm:** add PackageJson hook options ([a594afd](https://github.com/Financial-Times/dotcom-tool-kit/commit/a594afd5dbc8fab5682874595db4cc78df12ab3c))
+
+
+### Bug Fixes
+
+* require package-json-hook plugin in plugins that use PackageJson hook ([892a4a6](https://github.com/Financial-Times/dotcom-tool-kit/commit/892a4a60c1f8641068cdf0bf3449bf1052c0556d))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([9779b83](https://github.com/Financial-Times/dotcom-tool-kit/commit/9779b83d8dbfdcf904229790658daa05ef6c1f8f))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+* remove all current concrete hook subclasses ([62e7dc6](https://github.com/Financial-Times/dotcom-tool-kit/commit/62e7dc6d953efb9fa877143e77707cccee25d844))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/husky-npm bumped from ^4.2.0 to ^5.0.0
+    * @dotcom-tool-kit/lint-staged bumped from ^4.2.1 to ^5.0.0
+    * @dotcom-tool-kit/options bumped from ^3.2.1 to ^4.0.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^4.2.0 to ^5.0.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v3.1.6...lint-staged-npm-v3.2.0) (2024-01-11)
 
 

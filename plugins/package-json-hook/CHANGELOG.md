@@ -1,5 +1,54 @@
 # Changelog
 
+## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v4.2.0...package-json-hook-v5.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* move base classes into their own package
+* rename Hook#check to Hook#isInstalled
+
+### Features
+
+* add list of files that CircleCI and package.json hooks manage ([f51c75a](https://github.com/Financial-Times/dotcom-tool-kit/commit/f51c75acbd095415556b225c31fbcd8e5c742951))
+* add support for a managesFiles entry in hook installs fields ([a89b167](https://github.com/Financial-Times/dotcom-tool-kit/commit/a89b167da9dae6edd6fcc9295a5f8f82e2e30023))
+* allow hook classes to specify an options schema ([01433a7](https://github.com/Financial-Times/dotcom-tool-kit/commit/01433a7d6081c11640adea87a05df18d5a53060a))
+* implement options for packagejson hook ([9182ff6](https://github.com/Financial-Times/dotcom-tool-kit/commit/9182ff67cc443c837e200c34c49a97f3b49148e9))
+* implement PackageJson.overrideChildInstallations ([001e9ce](https://github.com/Financial-Times/dotcom-tool-kit/commit/001e9ce4bf4e556216b483dccc199736f18994ad))
+* implement PackageJsonHook.mergeChildInstallations ([becb741](https://github.com/Financial-Times/dotcom-tool-kit/commit/becb741498c0a125d0df699c5abf7b49b75dde28))
+* move base classes into their own package ([be1681b](https://github.com/Financial-Times/dotcom-tool-kit/commit/be1681b033609a9e332ab072681b6de8d05befb2))
+* move conflict into its own package ([8ab46a0](https://github.com/Financial-Times/dotcom-tool-kit/commit/8ab46a06370d32fd19300fd6a58a775e04a96717))
+* move package-json-hook to plugins and export PackageJson hook ([56336e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/56336e5cebb93c375dcaf28682f95f3da5b26c8a))
+* overhaul help output for new abstractions & config structure ([7d98205](https://github.com/Financial-Times/dotcom-tool-kit/commit/7d982053c67bee0d4c7131821313cf20bfc0f8b7))
+* **package-json-hook:** allow full stops to be escaped so they aren't split as paths ([cb5e591](https://github.com/Financial-Times/dotcom-tool-kit/commit/cb5e591368081e2752e1fc91cfb9edd5c7a5cdb3))
+* split schemas out into separate package ([5d538cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/5d538cd692eec6b799587f499c444b3e4f6e78b8))
+* support trailing string in packagejson options ([2eaee9c](https://github.com/Financial-Times/dotcom-tool-kit/commit/2eaee9cc30fa00a777a658df5654d495780a130c))
+
+
+### Bug Fixes
+
+* make zod peerdeps of types and schema, and explicit deps of cli and create ([bc252ca](https://github.com/Financial-Times/dotcom-tool-kit/commit/bc252ca5245a69a6b7a30ea79fe1219699d102c6))
+* **package-json-hook:** fix isInstalled check so it handles split paths ([e2066b1](https://github.com/Financial-Times/dotcom-tool-kit/commit/e2066b1b5807674f4dfb45525e8d9b0fe4eadf44))
+* **package-json-hook:** handle other kinds of command options ([af3dba0](https://github.com/Financial-Times/dotcom-tool-kit/commit/af3dba0faf9d50b334f305ceed86a2a06669db63))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+
+
+### Code Refactoring
+
+* rename Hook#check to Hook#isInstalled ([c00691b](https://github.com/Financial-Times/dotcom-tool-kit/commit/c00691b4c3994c6fae2aec7fc2c4ada44b2168ac))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v4.1.0...package-json-hook-v4.2.0) (2024-01-11)
 
 

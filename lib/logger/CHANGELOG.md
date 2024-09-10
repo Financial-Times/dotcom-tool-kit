@@ -1,5 +1,37 @@
 # Changelog
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.4.1...logger-v4.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+
+### Features
+
+* better group --help output ([7e22938](https://github.com/Financial-Times/dotcom-tool-kit/commit/7e229382a683757c38bba78fd9bb3c1cd3edde34))
+* overhaul help output for new abstractions & config structure ([7d98205](https://github.com/Financial-Times/dotcom-tool-kit/commit/7d982053c67bee0d4c7131821313cf20bfc0f8b7))
+* various help formatting and working tweaks idk ([77efbdb](https://github.com/Financial-Times/dotcom-tool-kit/commit/77efbdb325f224df3c2cf16521ea66de7defc8c1))
+
+
+### Bug Fixes
+
+* explicitly set error etc mark forgrounds to black for better contrast ([b1a305a](https://github.com/Financial-Times/dotcom-tool-kit/commit/b1a305a67ce9c6d9776d98e50ba6334a1049b415))
+* remove stray unicode variant selector in error mark ([7f52222](https://github.com/Financial-Times/dotcom-tool-kit/commit/7f52222a8b3d7f084a5d77af45fee89cd7516f59))
+* switch from upstream boxen to my fork ([d32dc65](https://github.com/Financial-Times/dotcom-tool-kit/commit/d32dc653fc574698dc92cb8bbd5202affbccc0d1))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+
 ## [3.4.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v3.4.0...logger-v3.4.1) (2024-07-10)
 
 
