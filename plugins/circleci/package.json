@@ -47,7 +47,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x",
+    "dotcom-tool-kit": "4.x",
     "zod": "^3.22.4"
   },
   "engines": {

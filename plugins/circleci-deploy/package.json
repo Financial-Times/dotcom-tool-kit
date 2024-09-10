@@ -31,7 +31,7 @@
     "winston": "^3.5.1"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x"
+    "dotcom-tool-kit": "4.x"
   },
   "engines": {
     "node": "18.x || 20.x",

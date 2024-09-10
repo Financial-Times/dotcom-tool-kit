@@ -21,7 +21,7 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x",
+    "dotcom-tool-kit": "4.x",
     "serverless-offline": "^12.0.4"
   },
   "dependencies": {

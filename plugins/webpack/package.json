@@ -24,7 +24,7 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x",
+    "dotcom-tool-kit": "4.x",
     "webpack": "4.x.x || 5.x.x"
   },
   "devDependencies": {
