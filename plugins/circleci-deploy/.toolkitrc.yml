@@ -23,6 +23,7 @@ options:
                   - 'setup'
                   - 'waiting-for-approval'
                 splitIntoMatrix: false
+                runOnRelease: false
                 custom:
                   filters:
                     branches:
@@ -34,6 +35,7 @@ options:
                 requires:
                   - 'setup'
                 splitIntoMatrix: false
+                runOnRelease: false
                 custom:
                   filters:
                     branches:
@@ -42,6 +44,7 @@ options:
                 requires:
                   - 'deploy-review'
                 splitIntoMatrix: false
+                runOnRelease: false
                 custom:
                   !toolkit/if-defined '@dotcom-tool-kit/circleci.cypressImage':
                     executor: cypress
@@ -50,6 +53,7 @@ options:
                     system-code: !toolkit/option '@dotcom-tool-kit/serverless.systemCode'
               - name: 'e2e-test-staging'
                 splitIntoMatrix: false
+                runOnRelease: false
                 requires:
                   - 'deploy-staging'
                 custom:
@@ -60,6 +64,7 @@ options:
                   - 'test'
                   - 'e2e-test-staging'
                 splitIntoMatrix: false
+                runOnRelease: false
                 custom:
                   filters:
                     branches:
@@ -74,6 +79,7 @@ options:
                   - 'setup'
                   - 'waiting-for-approval'
                 splitIntoMatrix: false
+                runOnRelease: false
                 custom:
                   filters:
                     branches:
