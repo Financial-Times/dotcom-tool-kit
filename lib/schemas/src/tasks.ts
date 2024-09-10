@@ -17,6 +17,7 @@ import { z } from 'zod'
 
 export const TaskSchemas = {
   Babel: BabelSchema,
+  Commitlint: z.object({}).describe('Lint commit messages.'),
   Cypress: CypressSchema,
   Eslint: ESLintSchema,
   HerokuProduction: HerokuProductionSchema,

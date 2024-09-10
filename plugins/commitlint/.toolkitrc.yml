@@ -1,0 +1,7 @@
+tasks:
+  Commitlint: './lib/tasks/commitlint.js'
+
+commands:
+  'git:commitmsg': Commitlint
+
+version: 2

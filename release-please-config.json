@@ -29,6 +29,7 @@
     "plugins/circleci": {},
     "plugins/circleci-deploy": {},
     "plugins/circleci-npm": {},
+    "plugins/commitlint": {},
     "plugins/component": {},
     "plugins/cypress": {},
     "plugins/eslint": {},
