@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/error": "^3.1.0"
+    "@dotcom-tool-kit/error": "^4.0.0"
   }
 }

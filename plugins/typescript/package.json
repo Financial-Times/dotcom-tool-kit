@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/typescript",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -21,12 +21,12 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "3.x",
+    "dotcom-tool-kit": "4.x",
     "typescript": "3.x || 4.x || 5.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^3.4.1",
-    "@dotcom-tool-kit/logger": "^3.4.1"
+    "@dotcom-tool-kit/base": "^1.0.0",
+    "@dotcom-tool-kit/logger": "^4.0.0"
   },
   "devDependencies": {
     "@dotcom-tool-kit/schemas": "^1.0.0",

@@ -1,5 +1,44 @@
 # Changelog
 
+## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v4.2.0...husky-npm-v5.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+* delete the husky hook
+* remove all current concrete hook subclasses
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* **husky-npm:** add PackageJson hook options ([b8f40dc](https://github.com/Financial-Times/dotcom-tool-kit/commit/b8f40dc3fa7e339252bdb5607bc8f43a5ff63c4b))
+* move package-json-hook to plugins and export PackageJson hook ([56336e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/56336e5cebb93c375dcaf28682f95f3da5b26c8a))
+
+
+### Bug Fixes
+
+* require package-json-hook plugin in plugins that use PackageJson hook ([892a4a6](https://github.com/Financial-Times/dotcom-tool-kit/commit/892a4a60c1f8641068cdf0bf3449bf1052c0556d))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([9779b83](https://github.com/Financial-Times/dotcom-tool-kit/commit/9779b83d8dbfdcf904229790658daa05ef6c1f8f))
+
+
+### Miscellaneous Chores
+
+* delete the husky hook ([8162c20](https://github.com/Financial-Times/dotcom-tool-kit/commit/8162c20d7ad425cb2d4405a518d09305134327e8))
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+* remove all current concrete hook subclasses ([62e7dc6](https://github.com/Financial-Times/dotcom-tool-kit/commit/62e7dc6d953efb9fa877143e77707cccee25d844))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/package-json-hook bumped from ^4.2.0 to ^5.0.0
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v4.1.0...husky-npm-v4.2.0) (2024-01-11)
 
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/error-v3.2.0...error-v4.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 16
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/error-v3.1.0...error-v3.2.0) (2024-01-11)
 
 

@@ -27,6 +27,34 @@
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
     * @dotcom-tool-kit/vault bumped from ^3.2.0 to ^3.2.1
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.1.1...doppler-v2.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **vault:** remove references to Vault
+* drop support for Node 16
+
+### Features
+
+* split remaining bits of types into config and plugins packages ([6cde9b9](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cde9b90d4cd02383ae1b18ca38e0843e6c3d3ab))
+* split schemas out into separate package ([5d538cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/5d538cd692eec6b799587f499c444b3e4f6e78b8))
+* **vault:** remove references to Vault ([3af9cf9](https://github.com/Financial-Times/dotcom-tool-kit/commit/3af9cf917989a8505e5a96cf9a4afccdd25815d2))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.1 to ^4.0.0
+    * @dotcom-tool-kit/options bumped from ^3.2.1 to ^4.0.0
+
 ## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v1.0.9...doppler-v1.1.0) (2024-01-11)
 
 

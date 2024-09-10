@@ -121,6 +121,69 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [7.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v6.0.3...circleci-v7.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove backwards compatibility-preserving hacks
+* remove serverless buildNumVariable in favour of populating it via CI state
+* **circleci:** define CircleCI configs in .toolkitrc.yml
+* drop support for Node 16
+* move base classes into their own package
+* rename Hook#check to Hook#isInstalled
+* remove all current concrete hook subclasses
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* add list of files that CircleCI and package.json hooks manage ([f51c75a](https://github.com/Financial-Times/dotcom-tool-kit/commit/f51c75acbd095415556b225c31fbcd8e5c742951))
+* add support for a managesFiles entry in hook installs fields ([a89b167](https://github.com/Financial-Times/dotcom-tool-kit/commit/a89b167da9dae6edd6fcc9295a5f8f82e2e30023))
+* allow hook classes to specify an options schema ([01433a7](https://github.com/Financial-Times/dotcom-tool-kit/commit/01433a7d6081c11640adea87a05df18d5a53060a))
+* **circleci:** allow projects to rewrite whole CircleCI config ([58a96c0](https://github.com/Financial-Times/dotcom-tool-kit/commit/58a96c047497fa3b82914a73db1ad9c17de1ab7a))
+* **circleci:** define CircleCI configs in .toolkitrc.yml ([16f8538](https://github.com/Financial-Times/dotcom-tool-kit/commit/16f853804e728dfc84398d2311f6059076b1aeea))
+* **circleci:** don't generate matrices if only one Node version used ([2136545](https://github.com/Financial-Times/dotcom-tool-kit/commit/21365452f307891cce888cad00aac74ce2603a9d))
+* **circleci:** remove waiting-for-approval job ([d6b6714](https://github.com/Financial-Times/dotcom-tool-kit/commit/d6b67147217cafed6c0c669e0ea953c13e9146d0))
+* export CircleCiConfig hook ([cda5e20](https://github.com/Financial-Times/dotcom-tool-kit/commit/cda5e20db4fbcf38db65b9bc42fb93b2e300dd78))
+* move base classes into their own package ([be1681b](https://github.com/Financial-Times/dotcom-tool-kit/commit/be1681b033609a9e332ab072681b6de8d05befb2))
+* overhaul help output for new abstractions & config structure ([7d98205](https://github.com/Financial-Times/dotcom-tool-kit/commit/7d982053c67bee0d4c7131821313cf20bfc0f8b7))
+* remove backwards compatibility-preserving hacks ([dc008ff](https://github.com/Financial-Times/dotcom-tool-kit/commit/dc008ff156054a5fa61b4e7b4b8bdd638d6ab57f))
+* remove serverless buildNumVariable in favour of populating it via CI state ([5c96a07](https://github.com/Financial-Times/dotcom-tool-kit/commit/5c96a07f117de53cbdb2933053f36e7740d6b14d))
+
+
+### Bug Fixes
+
+* **circleci:** don't run review jobs on tagged releases ([f373212](https://github.com/Financial-Times/dotcom-tool-kit/commit/f373212518183be7841205a6aed7c0c5a96ef747))
+* **circleci:** use correct name for jobs in a matrix ([b22afe2](https://github.com/Financial-Times/dotcom-tool-kit/commit/b22afe28c015a380c36304182a029444ac61dcca))
+* make zod peerdeps of types and schema, and explicit deps of cli and create ([bc252ca](https://github.com/Financial-Times/dotcom-tool-kit/commit/bc252ca5245a69a6b7a30ea79fe1219699d102c6))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([9779b83](https://github.com/Financial-Times/dotcom-tool-kit/commit/9779b83d8dbfdcf904229790658daa05ef6c1f8f))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+* remove all current concrete hook subclasses ([62e7dc6](https://github.com/Financial-Times/dotcom-tool-kit/commit/62e7dc6d953efb9fa877143e77707cccee25d844))
+
+
+### Code Refactoring
+
+* rename Hook#check to Hook#isInstalled ([c00691b](https://github.com/Financial-Times/dotcom-tool-kit/commit/c00691b4c3994c6fae2aec7fc2c4ada44b2168ac))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.1 to ^4.0.0
+    * @dotcom-tool-kit/options bumped from ^3.2.1 to ^4.0.0
+    * @dotcom-tool-kit/state bumped from ^3.3.0 to ^4.0.0
+
 ## [6.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v6.0.2...circleci-v6.0.3) (2024-07-22)
 
 

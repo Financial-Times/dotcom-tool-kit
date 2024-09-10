@@ -102,6 +102,50 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^6.0.1 to ^6.0.2
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.4.5...circleci-deploy-v4.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pa11y:** remove deprecated plugin
+* **circleci:** define CircleCI configs in .toolkitrc.yml
+* drop support for Node 16
+* move base classes into their own package
+* remove all current concrete hook subclasses
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* **circleci-deploy:** define Cypress and Serverless options with tags ([6ee5f3c](https://github.com/Financial-Times/dotcom-tool-kit/commit/6ee5f3cf309a87723c19802fd00dd5b2a991313a))
+* **circleci:** define CircleCI configs in .toolkitrc.yml ([16f8538](https://github.com/Financial-Times/dotcom-tool-kit/commit/16f853804e728dfc84398d2311f6059076b1aeea))
+* move base classes into their own package ([be1681b](https://github.com/Financial-Times/dotcom-tool-kit/commit/be1681b033609a9e332ab072681b6de8d05befb2))
+* **pa11y:** remove deprecated plugin ([dd755f8](https://github.com/Financial-Times/dotcom-tool-kit/commit/dd755f878bb71239d91a04a1095d75d0c78c32f7))
+
+
+### Bug Fixes
+
+* **circleci-deploy:** add missing Serverless options to deploy-review job ([733b182](https://github.com/Financial-Times/dotcom-tool-kit/commit/733b18218bc082d4bba62dc763d7ed7db9313134))
+* **circleci-deploy:** remove unused option from e2e-test-review job ([530a687](https://github.com/Financial-Times/dotcom-tool-kit/commit/530a687a074ccd0b1733fef379935629aba68bac))
+* **circleci:** don't run review jobs on tagged releases ([f373212](https://github.com/Financial-Times/dotcom-tool-kit/commit/f373212518183be7841205a6aed7c0c5a96ef747))
+
+
+### Performance Improvements
+
+* rearchitect plugin loader to lazily load plugins ([9779b83](https://github.com/Financial-Times/dotcom-tool-kit/commit/9779b83d8dbfdcf904229790658daa05ef6c1f8f))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+* remove all current concrete hook subclasses ([62e7dc6](https://github.com/Financial-Times/dotcom-tool-kit/commit/62e7dc6d953efb9fa877143e77707cccee25d844))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^6.0.3 to ^7.0.0
+
 ## [3.4.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v3.4.4...circleci-deploy-v3.4.5) (2024-07-22)
 
 

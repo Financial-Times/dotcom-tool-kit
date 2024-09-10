@@ -406,6 +406,128 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.5.2...dotcom-tool-kit-v4.0.0) (2024-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* pass task files in as part of a run context object
+* **heroku:** remove systemCode option
+* **vault:** remove references to Vault
+* **cli:** drop cosmiconfig and load .toolkitrc.yml at plugin's root
+* drop support for Node 16
+* only load plugins if their toolkitrc version matches the current version
+* load hook installations from options.hooks
+* rename SchemaOptions to PluginOptions
+* move plugin options to a sub key of toolkitrc options entries
+* move base classes into their own package
+* rename Hook#check to Hook#isInstalled
+* instantiate a separate hook instance per hook installation request from configs
+* make plugin loading even lazier by having separate entrypoints for each task and hook
+* rename `hooks` in toolkitrc to `commands`
+* remove legacy circleci postinstall backwards compatibility
+* rearchitect plugin loader to lazily load plugins
+
+### Features
+
+* add a Base subclass for init functions ([0f05227](https://github.com/Financial-Times/dotcom-tool-kit/commit/0f0522773dd5544840efb1c7832b04f0eeebfc43))
+* add command for printing the full config, useful for debugging ([9a6762e](https://github.com/Financial-Times/dotcom-tool-kit/commit/9a6762ecbdfdba1af9dac71028d5acbc986d1f88))
+* add support for a managesFiles entry in hook installs fields ([a89b167](https://github.com/Financial-Times/dotcom-tool-kit/commit/a89b167da9dae6edd6fcc9295a5f8f82e2e30023))
+* allow hook classes to specify an options schema ([01433a7](https://github.com/Financial-Times/dotcom-tool-kit/commit/01433a7d6081c11640adea87a05df18d5a53060a))
+* allow loading old-style options fields with a warning ([f451444](https://github.com/Financial-Times/dotcom-tool-kit/commit/f451444a14a4274fe3ff652f82bad90897877bcb))
+* allow plugins to specify init entrypoints ([51db8ef](https://github.com/Financial-Times/dotcom-tool-kit/commit/51db8efbbe8172ad35defa2fdd2443075a644f13))
+* allow specifying command task options in a toolkitrc ([7b8bc00](https://github.com/Financial-Times/dotcom-tool-kit/commit/7b8bc000b8562eb0dbd00eb2f8f3fc5fab71a57b))
+* allow tasks to receive a task options object and parse task schema when initialising ([1dce6bd](https://github.com/Financial-Times/dotcom-tool-kit/commit/1dce6bd5e8436bf521e94eb812aa847ca7dd1e4d))
+* better formatting for missing commands ([77daf5f](https://github.com/Financial-Times/dotcom-tool-kit/commit/77daf5fc0f4502039260d218e8c6ed9143471d15))
+* better group --help output ([7e22938](https://github.com/Financial-Times/dotcom-tool-kit/commit/7e229382a683757c38bba78fd9bb3c1cd3edde34))
+* **cli:** add support for tags in config that resolve based on options ([8df97b9](https://github.com/Financial-Times/dotcom-tool-kit/commit/8df97b9e6d595740d4b94f34fe5a3f0dccef0994))
+* **cli:** allow key fields in YAML to be substituted by options too ([172f074](https://github.com/Financial-Times/dotcom-tool-kit/commit/172f074a12062a0bc225c9ad0f52b00cdecd1acf))
+* **cli:** drop cosmiconfig and load .toolkitrc.yml at plugin's root ([87d7cbb](https://github.com/Financial-Times/dotcom-tool-kit/commit/87d7cbb905a4a1406ab1f4f6ae222a9d225fe05d))
+* **cli:** gather all YAML tag errors into Validated before throwing ([82b2061](https://github.com/Financial-Times/dotcom-tool-kit/commit/82b206128cee71ad7cba65acfa130731ac5f2313))
+* collect and store the hook-managed files in config ([190afc5](https://github.com/Financial-Times/dotcom-tool-kit/commit/190afc50bdbded129d3e090ebb0e041ba8443b27))
+* **core:** run hook checks when running tasks if files have changed ([cd2bf67](https://github.com/Financial-Times/dotcom-tool-kit/commit/cd2bf67ffb7b431cc1a8e6ecd977de330bec952d))
+* explicitly handle legacy plugin options ([8574516](https://github.com/Financial-Times/dotcom-tool-kit/commit/8574516114a02731c77b877c7f6fb3d550434971))
+* **heroku:** remove systemCode option ([be00602](https://github.com/Financial-Times/dotcom-tool-kit/commit/be00602133549c551f8a79bcbb57f9a723ae9e7c))
+* load hook installations from options.hooks ([aaf1160](https://github.com/Financial-Times/dotcom-tool-kit/commit/aaf1160a4724b07b9d174f9d237721368d2fa087))
+* load hook options from rc files and put them in config ([dcea77a](https://github.com/Financial-Times/dotcom-tool-kit/commit/dcea77a64445e4851b64470e1478215e8142e6b5))
+* load hooks in toolkitrc as commands and warn about it ([d779c01](https://github.com/Financial-Times/dotcom-tool-kit/commit/d779c0151c874a89564b56e9e54155cb0f69fb90))
+* load plugin rcfile task options into config ([3f1b1b1](https://github.com/Financial-Times/dotcom-tool-kit/commit/3f1b1b149e9e5c9c0d00b7f85697469b0ece472a))
+* make plugin loading even lazier by having separate entrypoints for each task and hook ([b4760c2](https://github.com/Financial-Times/dotcom-tool-kit/commit/b4760c24fe588ee1dc4ad74f4649ee802067e4b8))
+* merge in options from the command task when parsing task options ([30ad103](https://github.com/Financial-Times/dotcom-tool-kit/commit/30ad1037d0b8e5120f1a66a8e8392d9cd3a1a277))
+* move base classes into their own package ([be1681b](https://github.com/Financial-Times/dotcom-tool-kit/commit/be1681b033609a9e332ab072681b6de8d05befb2))
+* move conflict into its own package ([8ab46a0](https://github.com/Financial-Times/dotcom-tool-kit/commit/8ab46a06370d32fd19300fd6a58a775e04a96717))
+* move plugin options to a sub key of toolkitrc options entries ([4748eb1](https://github.com/Financial-Times/dotcom-tool-kit/commit/4748eb12d60bef31bd6da00d1447e35af1e0af1a))
+* move validated into its own package ([a8ed591](https://github.com/Financial-Times/dotcom-tool-kit/commit/a8ed59131bc603ed01fd8672646b3c5d75c77bde))
+* only load plugins if their toolkitrc version matches the current version ([65b3403](https://github.com/Financial-Times/dotcom-tool-kit/commit/65b3403b8369aa09ec64b11d20ab44b06d468d86))
+* overhaul help output for new abstractions & config structure ([7d98205](https://github.com/Financial-Times/dotcom-tool-kit/commit/7d982053c67bee0d4c7131821313cf20bfc0f8b7))
+* read list of files to hash from config ([d386ced](https://github.com/Financial-Times/dotcom-tool-kit/commit/d386ced40bdace1525f46aa4337d1037f2d7fcc6))
+* reduce hook installations based on logic from hook classes themselves ([64b6c0a](https://github.com/Financial-Times/dotcom-tool-kit/commit/64b6c0a42c67a9850cce71d92de7d78138a1cbe0))
+* reïntroduce validating plugins when we load them ([b2ebf87](https://github.com/Financial-Times/dotcom-tool-kit/commit/b2ebf87af75f346bb732c0c5fad4f1cedafbfc9c))
+* rename `hooks` in toolkitrc to `commands` ([45baa66](https://github.com/Financial-Times/dotcom-tool-kit/commit/45baa66b231a1e39332187cd3b8fdc36bec9727d))
+* run init classes before install and runTasks ([420749e](https://github.com/Financial-Times/dotcom-tool-kit/commit/420749e54ebc2cab9a67fe3b97db9f851fa78b85))
+* run init classes before install and runTasks ([be2d494](https://github.com/Financial-Times/dotcom-tool-kit/commit/be2d494ccc24724a2c62d2d4fe888a980baf82bf))
+* split remaining bits of types into config and plugins packages ([6cde9b9](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cde9b90d4cd02383ae1b18ca38e0843e6c3d3ab))
+* split schemas out into separate package ([5d538cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/5d538cd692eec6b799587f499c444b3e4f6e78b8))
+* validate task option conflicts and unused task options ([977c92d](https://github.com/Financial-Times/dotcom-tool-kit/commit/977c92debe8c91a90e022c638fac5ad10cff3913))
+* various help formatting and working tweaks idk ([77efbdb](https://github.com/Financial-Times/dotcom-tool-kit/commit/77efbdb325f224df3c2cf16521ea66de7defc8c1))
+* **vault:** remove references to Vault ([3af9cf9](https://github.com/Financial-Times/dotcom-tool-kit/commit/3af9cf917989a8505e5a96cf9a4afccdd25815d2))
+
+
+### Bug Fixes
+
+* allow multiple instances of task with different options ([f50c14e](https://github.com/Financial-Times/dotcom-tool-kit/commit/f50c14ed13c52c81c3f56cf6ffabf7a8b0987cfe))
+* allow tasks with schemas not to have options provided in the config ([a10f04d](https://github.com/Financial-Times/dotcom-tool-kit/commit/a10f04d89aa24effbe3d74e4cd144aa46e07566e))
+* check ids for resolved plugins not plugin options ([f27e3f3](https://github.com/Financial-Times/dotcom-tool-kit/commit/f27e3f3addc113311c91168200653045852dc044))
+* **cli:** allow default option values to be read by YAML tags ([f6fef04](https://github.com/Financial-Times/dotcom-tool-kit/commit/f6fef04ac3d9ea72c709f569749ba20951247c6d))
+* **cli:** avoid hook installation conflicts between niblings ([1d70759](https://github.com/Financial-Times/dotcom-tool-kit/commit/1d70759a8139dca5c4d45f6833828914a47e96f0))
+* **cli:** don't throw when command not declared ([b0e047d](https://github.com/Financial-Times/dotcom-tool-kit/commit/b0e047d381bfec9d8788fb15f7dde8adc0bcc713))
+* **cli:** only override child options for hooks of the same class ([e9ce8b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/e9ce8b5ed4c8a910c09fe9eca911a1cf7f09d873))
+* **cli:** pass through task options when no schema found ([026048e](https://github.com/Financial-Times/dotcom-tool-kit/commit/026048e3935d28cc23047f7c8edd8f54885e70fa))
+* **cli:** print something when hook installations are conflicting ([50024c1](https://github.com/Financial-Times/dotcom-tool-kit/commit/50024c172e628a5dff8b7649f92f3126f2bee2fd))
+* **cli:** properly format Zod errors when parsing task options ([2c2419a](https://github.com/Financial-Times/dotcom-tool-kit/commit/2c2419a7d1367d807df06c22687b1a92b6ee9872))
+* **cli:** resolve custom plugins successfully ([10bbf24](https://github.com/Financial-Times/dotcom-tool-kit/commit/10bbf248c6c3a12290248b6186b901cb757ff6e7))
+* **cli:** store parsed options for Tasks, not Zod's parsing result ([60840a5](https://github.com/Financial-Times/dotcom-tool-kit/commit/60840a52e17033ab014c1c6ec858a87e9b13ed68))
+* fix error message for conflicting tasks and hooks ([073cecc](https://github.com/Financial-Times/dotcom-tool-kit/commit/073ceccad7e93457d578d8f187c055ca7d6b5c31))
+* look in config.commandTasks for defined commands, not config.hooks 😅 ([cb00a5a](https://github.com/Financial-Times/dotcom-tool-kit/commit/cb00a5af82d35299fafe5540526742fe23ac4f8e))
+* make zod peerdeps of types and schema, and explicit deps of cli and create ([bc252ca](https://github.com/Financial-Times/dotcom-tool-kit/commit/bc252ca5245a69a6b7a30ea79fe1219699d102c6))
+* only load the tasks that are needed for the hooks that are running ([3c30cec](https://github.com/Financial-Times/dotcom-tool-kit/commit/3c30cecd49d6e910a4962766f91cad7e4c8b8a86))
+* remove check for undefined commands ([992b20f](https://github.com/Financial-Times/dotcom-tool-kit/commit/992b20f8e30816b35def91b9666509c358691d0a))
+* remove conflicts from task options in valid config type ([5c8a1e0](https://github.com/Financial-Times/dotcom-tool-kit/commit/5c8a1e0845eac058d76512d86702bf9805572f55))
+* throw if there are task option conflicts ([7162580](https://github.com/Financial-Times/dotcom-tool-kit/commit/7162580e4ecd03c77379d4e06ead2f32912d8016))
+* undefined commands logging ([8334ffb](https://github.com/Financial-Times/dotcom-tool-kit/commit/8334ffb6d6ffce4a2ad6e440c473ae7b8620a18d))
+* use resolve-from for entrypoints as resolve-pkg expects a package.json ([957fc06](https://github.com/Financial-Times/dotcom-tool-kit/commit/957fc062665891a5971910da171f1d0d10697752))
+
+
+### Performance Improvements
+
+* **core:** selectively load core modules based on subcommand ([20dd046](https://github.com/Financial-Times/dotcom-tool-kit/commit/20dd046987a9bdb1fa1b7f91a84ac07c3a58b6e0))
+* rearchitect plugin loader to lazily load plugins ([9779b83](https://github.com/Financial-Times/dotcom-tool-kit/commit/9779b83d8dbfdcf904229790658daa05ef6c1f8f))
+
+
+### Miscellaneous Chores
+
+* drop support for Node 16 ([ab95982](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab95982635e255fec49d08af9894c2833a36500e))
+* remove legacy circleci postinstall backwards compatibility ([d16d437](https://github.com/Financial-Times/dotcom-tool-kit/commit/d16d4373dbe9fe7c19611643ad771af48a622f5c))
+
+
+### Code Refactoring
+
+* instantiate a separate hook instance per hook installation request from configs ([34f9a41](https://github.com/Financial-Times/dotcom-tool-kit/commit/34f9a41e8a137bac6d55a0c021c0a9ed9db74e65))
+* pass task files in as part of a run context object ([5aa7327](https://github.com/Financial-Times/dotcom-tool-kit/commit/5aa7327018c0a87c8c9feef36ef9e3735a4f5e6d))
+* rename Hook#check to Hook#isInstalled ([c00691b](https://github.com/Financial-Times/dotcom-tool-kit/commit/c00691b4c3994c6fae2aec7fc2c4ada44b2168ac))
+* rename SchemaOptions to PluginOptions ([0ce24db](https://github.com/Financial-Times/dotcom-tool-kit/commit/0ce24db808d077a0e4647d3bef9eaf55223a1cdf))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^3.4.1 to ^1.0.0
+    * @dotcom-tool-kit/error bumped from ^3.2.0 to ^4.0.0
+    * @dotcom-tool-kit/logger bumped from ^3.4.1 to ^4.0.0
+    * @dotcom-tool-kit/options bumped from ^3.2.1 to ^4.0.0
+    * @dotcom-tool-kit/wait-for-ok bumped from ^3.2.0 to ^4.0.0
+
 ## [3.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.4.5...dotcom-tool-kit-v3.5.0) (2024-04-16)
 
 
