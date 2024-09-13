@@ -3,6 +3,5 @@ workflows:
     jobs:
       - tool-kit/test-job:
           requires:
-            - waiting-for-approval
             - tool-kit/that-job
           executor: node
