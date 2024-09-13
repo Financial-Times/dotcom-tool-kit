@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "references": [
+    {
+      "path": "../../lib/logger"
+    },
+    {
+      "path": "../../lib/base"
+    }
+  ],
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
+    "types": ["node"]
+  }
+}

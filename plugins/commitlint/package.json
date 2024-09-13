@@ -1,0 +1,38 @@
+{
+  "name": "@dotcom-tool-kit/commitlint",
+  "version": "0.0.0",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "test": "cd ../../ ; npx jest --silent --projects plugins/commitlint"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@dotcom-tool-kit/base": "^1.0.0",
+    "@dotcom-tool-kit/logger": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "plugins/commitlint"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/commitlint",
+  "files": [
+    "/lib",
+    ".toolkitrc.yml"
+  ],
+  "volta": {
+    "extends": "../../package.json"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": ">=16.x <=19.x",
+    "dotcom-tool-kit": "4.x"
+  },
+  "engines": {
+    "node": "18.x || 20.x",
+    "npm": "7.x || 8.x || 9.x || 10.x"
+  }
+}
