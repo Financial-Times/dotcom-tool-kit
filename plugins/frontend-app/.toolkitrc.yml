@@ -5,8 +5,11 @@ plugins:
 
 commands:
   'run:local':
-    - WebpackDevelopment # run a webpack compile before starting the server because dotcom-server-asset-loader expects a manifest to exist
+    - Webpack:
+        envName: development # run a webpack compile before starting the server because dotcom-server-asset-loader expects a manifest to exist
     - Node
-    - WebpackWatch
+    - Webpack:
+        envName: development
+        watch: true
 
 version: 2
