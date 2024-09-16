@@ -318,6 +318,22 @@
   * dependencies
     * @dotcom-tool-kit/backend-heroku-app bumped from ^3.1.5 to ^3.1.6
 
+## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v4.0.0...frontend-app-v4.0.1) (2024-09-16)
+
+
+### Bug Fixes
+
+* **webpack:** define Webpack task options for commands ([d3b55cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/d3b55cdd3ef499707a808171ac0c253e54791489))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/webpack bumped from ^4.0.0 to ^4.0.1
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v3.2.6...frontend-app-v4.0.0) (2024-09-10)
 
 
