@@ -53,10 +53,6 @@ export function validateConfig(config: ValidPluginsConfig): ValidConfig {
   const pluginOptionConflicts = findConflicts(Object.values(config.pluginOptions))
   const taskOptionConflicts = findConflicts(Object.values(config.taskOptions))
 
-  const definedCommandTaskConflicts = commandTaskConflicts.filter((conflict) => {
-    return conflict.conflicting[0].id in config.hooks
-  })
-
   let shouldThrow = false
   const error = new ToolKitConflictError(
     'There are problems with your Tool Kit configuration.',
@@ -71,7 +67,7 @@ export function validateConfig(config: ValidPluginsConfig): ValidConfig {
 
   if (
     hookConflicts.length > 0 ||
-    definedCommandTaskConflicts.length > 0 ||
+    commandTaskConflicts.length > 0 ||
     taskConflicts.length > 0 ||
     pluginOptionConflicts.length > 0 ||
     taskOptionConflicts.length > 0
@@ -82,8 +78,8 @@ export function validateConfig(config: ValidPluginsConfig): ValidConfig {
       error.details += formatHookConflicts(hookConflicts)
     }
 
-    if (definedCommandTaskConflicts.length) {
-      error.details += formatCommandTaskConflicts(definedCommandTaskConflicts)
+    if (commandTaskConflicts.length) {
+      error.details += formatCommandTaskConflicts(commandTaskConflicts)
     }
 
     if (taskConflicts.length) {

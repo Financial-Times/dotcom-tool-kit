@@ -52,17 +52,12 @@ references:
       only:
         - main
 
-  filters_only_renovate_nori:
-    &filters_only_renovate_nori
-    branches:
-      only: /(^renovate-.*|^nori\/.*)/
-
-  filters_ignore_tags_renovate_nori_build_main:
-    &filters_ignore_tags_renovate_nori_build_main
+  filters_ignore_main:
+    &filters_ignore_main
     tags:
       ignore: /.*/
     branches:
-      ignore: /(^renovate-.*|^nori\/.*|^gh-pages|^main$)/
+      ignore: /^main$/
 
   filters_main_branch:
     &filters_main_branch
@@ -180,7 +175,7 @@ workflows:
     jobs:
       - build:
           filters:
-            <<: *filters_ignore_tags_renovate_nori_build_main
+            <<: *filters_ignore_main
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:
@@ -218,13 +213,7 @@ workflows:
           - scheduled_pipeline
           - << pipeline.trigger_source >>
     jobs:
-      - waiting-for-approval:
-          type: approval
-          filters:
-            <<: *filters_only_renovate_nori
       - build:
-          requires:
-            - waiting-for-approval
           name: build-v<< matrix.node-version >>
           matrix:
             parameters:

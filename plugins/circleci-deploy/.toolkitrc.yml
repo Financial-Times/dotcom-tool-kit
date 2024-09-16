@@ -21,7 +21,6 @@ options:
               - name: 'deploy-review'
                 requires:
                   - 'setup'
-                  - 'waiting-for-approval'
                 splitIntoMatrix: false
                 runOnRelease: false
                 custom:
@@ -77,7 +76,6 @@ options:
               - name: 'deploy-review'
                 requires:
                   - 'setup'
-                  - 'waiting-for-approval'
                 splitIntoMatrix: false
                 runOnRelease: false
                 custom:
