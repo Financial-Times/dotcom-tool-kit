@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/webpack",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -28,7 +28,7 @@
     "webpack": "4.x.x || 5.x.x"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.0.0",
+    "@dotcom-tool-kit/schemas": "^1.1.0",
     "@jest/globals": "^27.4.6",
     "ts-node": "^10.0.0",
     "webpack": "^4.42.1",

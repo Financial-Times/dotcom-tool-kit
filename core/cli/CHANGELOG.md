@@ -406,6 +406,21 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.0...dotcom-tool-kit-v4.0.1) (2024-09-16)
+
+
+### Bug Fixes
+
+* **cli:** correctly check for conflicting command tasks ([666a9aa](https://github.com/Financial-Times/dotcom-tool-kit/commit/666a9aa9a7c5b4575ad16b5d15c17205c9fea0fb))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/config bumped from ^1.0.0 to ^1.0.1
+    * @dotcom-tool-kit/options bumped from ^4.0.0 to ^4.0.1
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v3.5.2...dotcom-tool-kit-v4.0.0) (2024-09-10)
 
 

@@ -121,6 +121,22 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [7.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.0.0...circleci-v7.0.1) (2024-09-16)
+
+
+### Bug Fixes
+
+* **circleci:** remove leftover references to deleted waiting-for-approval ([4ed4634](https://github.com/Financial-Times/dotcom-tool-kit/commit/4ed46345c88e5e85ae29472605f29b9ab3383772))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^4.0.0 to ^4.0.1
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.0.0 to ^1.1.0
+
 ## [7.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v6.0.3...circleci-v7.0.0) (2024-09-10)
 
 

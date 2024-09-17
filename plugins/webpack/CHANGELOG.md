@@ -128,6 +128,20 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/webpack-v4.0.0...webpack-v4.0.1) (2024-09-16)
+
+
+### Bug Fixes
+
+* **webpack:** define Webpack task options for commands ([d3b55cd](https://github.com/Financial-Times/dotcom-tool-kit/commit/d3b55cdd3ef499707a808171ac0c253e54791489))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.0.0 to ^1.1.0
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/webpack-v3.2.1...webpack-v4.0.0) (2024-09-10)
 
 
