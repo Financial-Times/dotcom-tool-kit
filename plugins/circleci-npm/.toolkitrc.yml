@@ -17,7 +17,7 @@ options:
               - name: 'publish-tag'
                 requires:
                   - 'test'
-                splitIntoMatrix: true
+                splitIntoMatrix: false
                 custom:
                   context: 'npm-publish-token'
                   filters:
