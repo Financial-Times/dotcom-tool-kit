@@ -50,9 +50,10 @@ const toolKitIfDefined = {
 } satisfies YAML.ScalarTag
 
 export async function loadToolKitRC(logger: Logger, root: string): Promise<RCFile> {
+  const configPath = path.join(root, '.toolkitrc.yml')
   let rawConfig: string
   try {
-    rawConfig = await fs.readFile(path.join(root, '.toolkitrc.yml'), 'utf8')
+    rawConfig = await fs.readFile(configPath, 'utf8')
   } catch (err) {
     if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
       return emptyConfig
@@ -77,7 +78,7 @@ export async function loadToolKitRC(logger: Logger, root: string): Promise<RCFil
   const config: RawRCFile = configDoc.toJS() ?? {}
 
   // if a toolkitrc contains a non-empty options field, but not options.{plugins,tasks,hooks},
-  // assume it's an old-style, plugins-only options field.
+  // assume it's an old-style, (hopefully) plugins-only options field.
   // TODO:KB:20240410 remove this legacy options field handling in a future major version
   if (
     config.options &&
@@ -89,11 +90,15 @@ export async function loadToolKitRC(logger: Logger, root: string): Promise<RCFil
     }
 
     logger.warn(
-      `plugin at ${s.filepath(path.dirname(root))} has an ${s.code(
+      `config at ${s.filepath(configPath)} has an ${s.code(
         'options'
-      )} field that only contains plugin options. these options should be moved to ${s.code(
+      )} field, but it isn't specified whether the options are for ${s.plugin('plugins')}, ${s.task(
+        'tasks'
+      )}, or ${s.hook(
+        'hooks'
+      )}. we'll assume these options are for plugins (which may be incorrect!), but this is deprecated and these options should be moved to ${s.code(
         'options.plugins'
-      )}.`
+      )}, ${s.code('options.tasks')}, and ${s.code('options.hooks')} as appropriate.\n`
     )
   }
 
