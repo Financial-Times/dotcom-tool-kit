@@ -53,11 +53,13 @@ export async function loadPlugin(
 
   if (!isAppRoot && plugin.rcFile.version !== CURRENT_RC_FILE_VERSION) {
     return invalid([
-      `plugin ${s.plugin(id)} has a v${s.code((plugin.rcFile.version ?? 1).toString())} ${s.code(
+      `plugin ${s.plugin(id)} has a ${s.code('v' + (plugin.rcFile.version ?? 1).toString())} ${s.filepath(
         '.toolkitrc.yml'
-      )}, but this version of Tool Kit can only load v${s.code(
-        CURRENT_RC_FILE_VERSION.toString()
-      )}. please update this plugin.`
+      )}, but this version of Tool Kit can only load ${s.code(
+        'v' + CURRENT_RC_FILE_VERSION.toString()
+      )} configs. please update this plugin. if it's your own custom plugin you can do this be adding ${s.code(
+        'version: 2'
+      )} to the top of its ${s.filepath('.toolkitrc.yml')}.`
     ])
   }
 
