@@ -1,5 +1,8 @@
 import { z } from 'zod'
 
+export const CircleCiCustom = z.record(z.unknown())
+export type CircleCiCustom = z.infer<typeof CircleCiCustom>
+
 export const CircleCiExecutor = z.object({
   name: z.string(),
   image: z.string()
@@ -17,7 +20,7 @@ export const CircleCiWorkflowJob = z.object({
   requires: z.array(z.string()),
   splitIntoMatrix: z.boolean().optional(),
   runOnRelease: z.boolean().default(true),
-  custom: z.unknown().optional()
+  custom: CircleCiCustom.optional()
 })
 export type CircleCiWorkflowJob = z.infer<typeof CircleCiWorkflowJob>
 
@@ -25,11 +28,11 @@ export const CircleCiWorkflow = z.object({
   name: z.string(),
   jobs: z.array(CircleCiWorkflowJob),
   runOnRelease: z.boolean().optional(),
-  custom: z.unknown().optional()
+  custom: CircleCiCustom.optional()
 })
 export type CircleCiWorkflow = z.infer<typeof CircleCiWorkflow>
 
-export const CircleCiCustomConfig = z.record(z.unknown())
+export const CircleCiCustomConfig = CircleCiCustom
 export type CircleCiCustomConfig = z.infer<typeof CircleCiCustomConfig>
 
 export const CircleCiSchema = z.object({
