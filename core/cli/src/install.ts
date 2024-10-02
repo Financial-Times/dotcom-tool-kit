@@ -1,5 +1,7 @@
+import * as path from 'path'
 import type { z } from 'zod'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { styles } from '@dotcom-tool-kit/logger'
 import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
@@ -65,9 +67,15 @@ export const loadHookInstallations = async (
     if (conflicts.length) {
       return invalid<[]>(
         conflicts.map(
-          // TODO:20240429:IM format a more helpful error message here
           (conflict) =>
-            `conflicts between ${conflict.conflicting.map((installation) => installation.forHook).join(', ')}`
+            `hooks installation conflicts between ${conflict.conflicting
+              .map(
+                (installation, i, array) =>
+                  `${i === array.length - 1 ? 'and ' : ''}the ${styles.hook(
+                    installation.forHook
+                  )} hook from ${styles.filepath(path.relative('', installation.plugin.root))}`
+              )
+              .join(', ')}`
         )
       )
     }
@@ -89,7 +97,9 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
     return
   }
 
-  const hooks = (await loadHookInstallations(logger, config)).unwrap('hooks are invalid')
+  const hooks = (await loadHookInstallations(logger, config)).unwrap(
+    'hooks were found to be invalid when checking install'
+  )
 
   const uninstalledHooks = await asyncFilter(hooks, async (hook) => {
     return !(await hook.isInstalled())
@@ -116,7 +126,9 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
   await runInit(logger, config)
 
   const errors: Error[] = []
-  const hooks = (await loadHookInstallations(logger, config)).unwrap('hooks are invalid')
+  const hooks = (await loadHookInstallations(logger, config)).unwrap(
+    'hooks were found to be invalid when installing'
+  )
 
   // group hooks without an installGroup separately so that their check()
   // method runs independently
