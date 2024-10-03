@@ -206,33 +206,6 @@ workflows:
           filters:
             <<: *filters_only_main
 
-  renovate-nori-build-test:
-    when:
-      not:
-        equal:
-          - scheduled_pipeline
-          - << pipeline.trigger_source >>
-    jobs:
-      - build:
-          name: build-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ '18.20', '20.12' ]
-      - test:
-          requires:
-            - build-v<< matrix.node-version >>
-          name: test-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ '18.20', '20.12' ]
-      - lint:
-          requires:
-            - build-v<< matrix.node-version >>
-          name: lint-v<< matrix.node-version >>
-          matrix:
-            parameters:
-              node-version: [ '18.20', '20.12' ]
-
   build-test-publish:
     when:
       not:
