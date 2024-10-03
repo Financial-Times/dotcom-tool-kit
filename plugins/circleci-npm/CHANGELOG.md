@@ -243,6 +243,13 @@
     * @dotcom-tool-kit/circleci bumped from ^7.0.0 to ^7.0.1
     * @dotcom-tool-kit/npm bumped from ^4.0.0 to ^4.0.1
 
+## [6.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.0.1...circleci-npm-v6.0.2) (2024-10-03)
+
+
+### Bug Fixes
+
+* don't split publish-tag into matrix ([5ed7afc](https://github.com/Financial-Times/dotcom-tool-kit/commit/5ed7afc14000d286d25be27677638a9f84429caa))
+
 ## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v5.3.5...circleci-npm-v6.0.0) (2024-09-10)
 
 
