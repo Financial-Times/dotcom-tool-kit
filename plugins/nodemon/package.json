@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/nodemon",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -13,7 +13,7 @@
     "@dotcom-tool-kit/base": "^1.0.0",
     "@dotcom-tool-kit/error": "^4.0.0",
     "@dotcom-tool-kit/state": "^4.0.0",
-    "@dotcom-tool-kit/doppler": "^2.0.1",
+    "@dotcom-tool-kit/doppler": "^2.0.2",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1"
   },
@@ -33,7 +33,7 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.1.0",
+    "@dotcom-tool-kit/schemas": "^1.1.1",
     "@types/nodemon": "^1.19.1"
   },
   "engines": {

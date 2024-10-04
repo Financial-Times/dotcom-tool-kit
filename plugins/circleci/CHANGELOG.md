@@ -121,6 +121,22 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [7.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.0.1...circleci-v7.0.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* **circleci:** allow workflows with different jobs to be merged ([8c97d7d](https://github.com/Financial-Times/dotcom-tool-kit/commit/8c97d7d34cee831d567fb64c2228c48fe29554a8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/options bumped from ^4.0.1 to ^4.0.2
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.1.0 to ^1.1.1
+
 ## [7.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.0.0...circleci-v7.0.1) (2024-09-16)
 
 

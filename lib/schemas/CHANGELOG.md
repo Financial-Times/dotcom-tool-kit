@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.1.0...schemas-v1.1.1) (2024-10-04)
+
+
+### Bug Fixes
+
+* **circleci:** allow workflows with different jobs to be merged ([8c97d7d](https://github.com/Financial-Times/dotcom-tool-kit/commit/8c97d7d34cee831d567fb64c2228c48fe29554a8))
+* **schemas:** add missing dependency on logger ([718097a](https://github.com/Financial-Times/dotcom-tool-kit/commit/718097a7ef3e1360de38d37222b80f173631f096))
+
 ## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.0.0...schemas-v1.1.0) (2024-09-16)
 
 

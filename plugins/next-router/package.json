@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/next-router",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/base": "^1.0.0",
-    "@dotcom-tool-kit/doppler": "^2.0.1",
+    "@dotcom-tool-kit/doppler": "^2.0.2",
     "@dotcom-tool-kit/error": "^4.0.0",
     "@dotcom-tool-kit/logger": "^4.0.0",
     "@dotcom-tool-kit/state": "^4.0.0",
@@ -37,6 +37,6 @@
     "npm": "7.x || 8.x || 9.x || 10.x"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.1.0"
+    "@dotcom-tool-kit/schemas": "^1.1.1"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/cypress",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -29,12 +29,12 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/base": "^1.0.0",
-    "@dotcom-tool-kit/doppler": "^2.0.1",
+    "@dotcom-tool-kit/doppler": "^2.0.2",
     "@dotcom-tool-kit/logger": "^4.0.0",
-    "@dotcom-tool-kit/package-json-hook": "^5.0.1",
+    "@dotcom-tool-kit/package-json-hook": "^5.0.2",
     "@dotcom-tool-kit/state": "^4.0.0"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.1.0"
+    "@dotcom-tool-kit/schemas": "^1.1.1"
   }
 }

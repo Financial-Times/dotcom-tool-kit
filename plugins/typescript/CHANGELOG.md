@@ -78,6 +78,12 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.0.0 to ^1.1.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.1.0 to ^1.1.1
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.3.0...typescript-v3.0.0) (2024-09-10)
 
 

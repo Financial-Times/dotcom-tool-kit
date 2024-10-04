@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/n-test",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -24,7 +24,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/n-test",
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.1.0",
+    "@dotcom-tool-kit/schemas": "^1.1.1",
     "@jest/globals": "^27.4.6",
     "@types/jest": "^27.4.0",
     "winston": "^3.5.1"
