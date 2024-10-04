@@ -406,6 +406,24 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.1...dotcom-tool-kit-v4.0.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* **cli:** don't print every map argument in error messages ([da54911](https://github.com/Financial-Times/dotcom-tool-kit/commit/da549115f25e990d1ab5882b2e9c0c124aaadb75))
+* **cli:** improve error when trying to load an old Tool Kit config ([59f45a9](https://github.com/Financial-Times/dotcom-tool-kit/commit/59f45a9ee7e415a90605b576ff2b743f1c56dfb9))
+* **cli:** improve hook installation error message ([03acefc](https://github.com/Financial-Times/dotcom-tool-kit/commit/03acefcadf5841a9968062ed5de580aca574b441))
+* **cli:** improve warning for old-style options config ([657c142](https://github.com/Financial-Times/dotcom-tool-kit/commit/657c142db7e9e3aa8326b7f3006bec394b22a9d8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/config bumped from ^1.0.1 to ^1.0.2
+    * @dotcom-tool-kit/options bumped from ^4.0.1 to ^4.0.2
+
 ## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.0...dotcom-tool-kit-v4.0.1) (2024-09-16)
 
 

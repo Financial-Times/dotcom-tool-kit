@@ -128,6 +128,12 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.0.0 to ^1.1.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.1.0 to ^1.1.1
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/eslint-v3.2.2...eslint-v4.0.0) (2024-09-10)
 
 

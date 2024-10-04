@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/prettier",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -13,7 +13,7 @@
     "@dotcom-tool-kit/base": "^1.0.0",
     "@dotcom-tool-kit/error": "^4.0.0",
     "@dotcom-tool-kit/logger": "^4.0.0",
-    "@dotcom-tool-kit/package-json-hook": "^5.0.1",
+    "@dotcom-tool-kit/package-json-hook": "^5.0.2",
     "fast-glob": "^3.2.7",
     "hook-std": "^2.0.0",
     "prettier": "^2.2.1",
