@@ -195,11 +195,22 @@ const isNotToolKitConfig = (config: string): boolean => !config.includes('tool-k
 
 const isObject = (val: unknown): val is Record<string, unknown> => isPlainObject(val)
 
+const rootOptionOverlaps = (root?: { name: string }[], other?: { name: string }[]): boolean => {
+  if (!root || !other) {
+    return false
+  }
+  const otherNames = other.map(({ name }) => name)
+  return root.map(({ name }) => name).some((name) => otherNames.includes(name))
+}
+
 const customOptionsOverlap = (
-  installation: Record<string, unknown>,
-  other: Record<string, unknown>
-): boolean =>
-  Object.entries(installation).some(([key, value]) => {
+  installation?: Record<string, unknown>,
+  other?: Record<string, unknown>
+): boolean => {
+  if (!installation || !other) {
+    return false
+  }
+  return Object.entries(installation).some(([key, value]) => {
     if (key in other) {
       const otherVal = other[key]
       if (isObject(value) && isObject(otherVal)) {
@@ -213,19 +224,31 @@ const customOptionsOverlap = (
       return false
     }
   })
-
-const rootOptionOverlaps = (root: { name: string }[], other: { name: string }[]): boolean => {
-  const otherNames = other.map(({ name }) => name)
-  return root.map(({ name }) => name).some((name) => otherNames.includes(name))
 }
 
-const installationsOverlap = (
-  installation: HookInstallation<CircleCiOptions>,
-  other: HookInstallation<CircleCiOptions>
-): boolean =>
-  customOptionsOverlap(installation.options?.custom ?? {}, other.options?.custom ?? {}) ||
-  rootOptionKeys.some((rootOption) =>
-    rootOptionOverlaps(installation.options?.[rootOption] ?? [], other.options?.[rootOption] ?? [])
+const workflowOptionsOverlap = (installation?: CircleCiWorkflow[], other?: CircleCiWorkflow[]): boolean => {
+  if (!installation || !other) {
+    return false
+  }
+  return installation.some((installationWorkflow) => {
+    const otherWorkflow = other.find(({ name }) => installationWorkflow.name === name)
+    return (
+      otherWorkflow &&
+      ((installationWorkflow.runOnRelease !== undefined &&
+        otherWorkflow.runOnRelease !== undefined &&
+        installationWorkflow.runOnRelease !== otherWorkflow.runOnRelease) ||
+        customOptionsOverlap(installationWorkflow.custom, otherWorkflow.custom) ||
+        rootOptionOverlaps(installationWorkflow.jobs, otherWorkflow.jobs))
+    )
+  })
+}
+
+const installationOptionsOverlap = (installation: CircleCiOptions, other: CircleCiOptions): boolean =>
+  customOptionsOverlap(installation.custom, other.custom) ||
+  workflowOptionsOverlap(installation.workflows, other.workflows) ||
+  rootOptionKeys.some(
+    (rootOption) =>
+      rootOption !== 'workflows' && rootOptionOverlaps(installation[rootOption], other[rootOption])
   )
 
 // classify installation as either mergeable or unmergeable, and mark any other
@@ -236,12 +259,12 @@ const partitionInstallations = (
   currentlyUnmergeable: HookInstallation<CircleCiOptions>[]
 ): [HookInstallation<CircleCiOptions>[], HookInstallation<CircleCiOptions>[]] => {
   const [noLongerMergeable, mergeable] = partition(currentlyMergeable, (other) =>
-    installationsOverlap(installation, other)
+    installationOptionsOverlap(installation.options, other.options)
   )
   const unmergeable = currentlyUnmergeable.concat(noLongerMergeable)
 
   const overlapsWithUnmergeable = currentlyUnmergeable.some((other) =>
-    installationsOverlap(installation, other)
+    installationOptionsOverlap(installation.options, other.options)
   )
   if (noLongerMergeable.length > 0 || overlapsWithUnmergeable) {
     unmergeable.push(installation)
@@ -393,7 +416,7 @@ export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState>
       // assumes a parent resolving one conflict resolves them all
       if (isConflict(installation)) {
         const [canHandle, cannotHandle] = partition(installation.conflicting, (other) =>
-          installationsOverlap(parentInstallation, other)
+          installationOptionsOverlap(parentInstallation.options, other.options)
         )
 
         mergeable.push(...canHandle)
@@ -426,15 +449,16 @@ export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState>
           })
         )
       }
-      this.generatedConfig = mergeWithConcatenatedArrays(
+      const generatedConfig = mergeWithConcatenatedArrays(
         {},
         this.options.disableBaseConfig ? {} : getBaseConfig(),
         generated,
         this.options.custom ?? {}
       )
+      this.generatedConfig = generatedConfig
+      return generatedConfig
     }
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.generatedConfig!
+    return this.generatedConfig
   }
 
   async isInstalled(): Promise<boolean> {

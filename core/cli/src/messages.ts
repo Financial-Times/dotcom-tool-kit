@@ -120,7 +120,9 @@ They could be misspelt, or defined by a Tool Kit plugin that isn't installed in 
 
 ${
   definedPlugins.length > 0
-    ? `Plugins that are defined and can have options set are: ${definedPlugins.map(s.plugin).join(', ')}`
+    ? `Plugins that are defined and can have options set are: ${definedPlugins
+        .map((plugin) => s.plugin(plugin))
+        .join(', ')}`
     : `There are no plugins installed currently. You'll need to install some plugins before options can be set.`
 }.
 `
@@ -136,7 +138,9 @@ They could be misspelt, or defined by a Tool Kit plugin that isn't installed in 
 
 ${
   definedTasks.length > 0
-    ? `Task that are defined and can have options set are: ${definedTasks.map(s.task).join(', ')}`
+    ? `Task that are defined and can have options set are: ${definedTasks
+        .map((task) => s.task(task))
+        .join(', ')}`
     : `You don't have currently any plugins installed that provide tasks. You'll need to install some plugins before options can be set.`
 }.
 `
@@ -166,7 +170,7 @@ ${missingTasks.map(formatMissingTask).join('\n')}
 
 They could be misspelt, or defined by a Tool Kit plugin that isn't used by this app.
 
-Available tasks are: ${tasks.map(s.task).join(', ')}.
+Available tasks are: ${tasks.map((task) => s.task(task)).join(', ')}.
 `
 
 export function formatPluginTree(plugin: Plugin): string[] {
