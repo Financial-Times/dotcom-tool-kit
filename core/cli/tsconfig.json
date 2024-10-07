@@ -21,6 +21,9 @@
     },
     {
       "path": "../../lib/conflict"
+    },
+    {
+      "path": "../../lib/state"
     }
   ],
   "compilerOptions": {
