@@ -406,6 +406,13 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.2...dotcom-tool-kit-v4.0.3) (2024-10-07)
+
+
+### Bug Fixes
+
+* **cli:** add missing dependency on @dotcom-tool-kit/state ([eee137c](https://github.com/Financial-Times/dotcom-tool-kit/commit/eee137ca3f1b91b20e76f88ea2cb7ba358b592b6))
+
 ## [4.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.1...dotcom-tool-kit-v4.0.2) (2024-10-04)
 
 
