@@ -35,7 +35,7 @@ ${conflicts.map(formatHookConflict).join('\n')}
 
 You must resolve this conflict by removing all but one of these plugins.`
 
-const formatCommandTaskConflict = (conflict: Conflict<CommandTask>): string => `${s.hook(
+const formatCommandTaskConflict = (conflict: Conflict<CommandTask>): string => `${s.command(
   conflict.conflicting[0].id
 )}:
 ${conflict.conflicting
@@ -53,7 +53,7 @@ export const formatCommandTaskConflicts = (conflicts: Conflict<CommandTask>[]): 
 )}:
 ${conflicts.map(formatCommandTaskConflict).join('\n')}
 You must resolve this conflict by explicitly configuring which task to run for these commands. See ${s.URL(
-  'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-hook-conflicts.md'
+  'https://github.com/financial-times/dotcom-tool-kit/tree/main/docs/resolving-plugin-conflicts.md'
 )} for more details.
 
 `
@@ -158,13 +158,13 @@ type Missing = { command: CommandTask; tasks: OptionsForTask[] }
 
 const formatMissingTask = (missing: Missing): string =>
   `- ${missing.tasks.map((task) => s.task(task.task)).join(', ')} ${s.dim(
-    `(assigned to ${s.hook(missing.command.id)} by ${formatPlugin(missing.command.plugin)})`
+    `(assigned to ${s.command(missing.command.id)} by ${formatPlugin(missing.command.plugin)})`
   )}`
 
 export const formatMissingTasks = (
   missingTasks: Missing[],
   tasks: string[]
-): string => `These tasks don't exist, but are configured to run from hooks:
+): string => `These tasks don't exist, but are configured to run from commands:
 
 ${missingTasks.map(formatMissingTask).join('\n')}
 
