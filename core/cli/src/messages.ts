@@ -145,6 +145,24 @@ ${
 }.
 `
 
+export const formatUnusedHookOptions = (
+  unusedOptions: string[],
+  definedHooks: string[]
+): string => `Options are defined in your Tool Kit configuration for hooks that don't exist:
+
+${unusedOptions.map((optionName) => `- ${s.hook(optionName)}`).join('\n')}
+
+They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
+
+${
+  definedHooks.length > 0
+    ? `Hooks that are defined and can have options set are: ${definedHooks
+        .map((hook) => s.hook(hook))
+        .join(', ')}`
+    : `You don't have currently any plugins installed that provide hooks. You'll need to install some plugins before options can be set.`
+}.
+`
+
 export const formatUninstalledHooks = (
   uninstalledHooks: Hook<z.ZodTypeAny, unknown>[]
 ): string => `These hooks aren't installed into your app:

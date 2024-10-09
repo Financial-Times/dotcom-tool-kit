@@ -55,11 +55,13 @@ export const loadHookInstallations = async (
   config: ValidConfig
 ): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
   const hookClassResults = await loadHookEntrypoints(logger, config)
-  const installationResults = await hookClassResults
-    .map((hookClasses) =>
-      reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
-    )
-    .awaitValue()
+  const installationResults = (
+    await hookClassResults
+      .map((hookClasses) =>
+        reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
+      )
+      .awaitValue()
+  ).flatMap((installation) => installation)
 
   const installationsWithoutConflicts = installationResults.flatMap((installations) => {
     const conflicts = findConflicts(installations)
