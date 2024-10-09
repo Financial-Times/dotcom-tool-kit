@@ -1,10 +1,16 @@
-import type { Logger } from 'winston'
-import type { HookClass, HookInstallation } from '@dotcom-tool-kit/base'
-import type { Plugin } from '@dotcom-tool-kit/plugin'
-import type { ValidConfig } from '@dotcom-tool-kit/config'
-import { HookSchemas, HookOptions } from '@dotcom-tool-kit/schemas'
-import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { groupBy } from 'lodash'
+import type { Logger } from 'winston'
+import * as z from 'zod'
+
+import type { HookClass, HookInstallation } from '@dotcom-tool-kit/base'
+import type { ValidConfig } from '@dotcom-tool-kit/config'
+import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+import { styles } from '@dotcom-tool-kit/logger'
+import type { Plugin } from '@dotcom-tool-kit/plugin'
+import { HookSchemas } from '@dotcom-tool-kit/schemas'
+import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
+
+import { formatInvalidOption, formatUnusedHookOptions } from '../messages'
 
 const extractForHook = (installation: HookInstallation | Conflict<HookInstallation>): string =>
   isConflict(installation) ? installation.conflicting[0].forHook : installation.forHook
@@ -40,17 +46,25 @@ export async function reducePluginHookInstallations(
   config: ValidConfig,
   hookClasses: Record<string, HookClass>,
   plugin: Plugin
-): Promise<(HookInstallation | Conflict<HookInstallation>)[]> {
+): Promise<Validated<(HookInstallation | Conflict<HookInstallation>)[]>> {
   if (!plugin.rcFile || config.resolutionTrackers.reducedInstallationPlugins.has(plugin.id)) {
-    return []
+    return valid([])
   }
   config.resolutionTrackers.reducedInstallationPlugins.add(plugin.id)
 
-  const rawChildInstallations = await Promise.all(
-    (plugin.children ?? []).map((child) => reducePluginHookInstallations(logger, config, hookClasses, child))
-  ).then((installations) => installations.flat())
+  const rawChildInstallations = reduceValidated(
+    await Promise.all(
+      (plugin.children ?? []).map((child) =>
+        reducePluginHookInstallations(logger, config, hookClasses, child)
+      )
+    )
+  ).map((installations) => installations.flat())
 
-  const childInstallations = Object.entries(groupBy(rawChildInstallations, extractForHook)).flatMap(
+  if (!rawChildInstallations.valid) {
+    return rawChildInstallations
+  }
+
+  const childInstallations = Object.entries(groupBy(rawChildInstallations.value, extractForHook)).flatMap(
     ([forHook, installations]) => {
       const hookClass = hookClasses[forHook]
 
@@ -59,25 +73,41 @@ export async function reducePluginHookInstallations(
   )
 
   if (plugin.rcFile.options.hooks.length === 0) {
-    return childInstallations
+    return valid(childInstallations)
+  }
+  const unusedHookOptions = plugin.rcFile.options.hooks
+    .flatMap(Object.keys)
+    .filter((hookId) => !(hookId in hookClasses))
+    .map((hookId) => styles.hook(hookId))
+  if (unusedHookOptions.length > 0) {
+    return invalid([formatUnusedHookOptions(unusedHookOptions, Object.keys(hookClasses))])
   }
 
-  return plugin.rcFile.options.hooks.flatMap((hookEntry) =>
-    Object.entries(hookEntry).flatMap(([id, configHookOptions]) => {
-      const hookClass = hookClasses[id]
-      const parsedOptions = HookSchemas[id as keyof HookOptions].parse(configHookOptions)
+  const validatedInstallations = plugin.rcFile.options.hooks.flatMap((hookEntry) =>
+    Object.entries(hookEntry).map<Validated<(HookInstallation | Conflict<HookInstallation>)[]>>(
+      ([id, configHookOptions]) => {
+        const hookClass = hookClasses[id]
+        const parsedOptions = (HookSchemas as Record<string, z.ZodSchema | undefined>)[id]?.safeParse(
+          configHookOptions
+        )
+        if (parsedOptions && !parsedOptions.success) {
+          return invalid([formatInvalidOption([styles.hook(id), parsedOptions.error])])
+        }
 
-      const installation: HookInstallation = {
-        options: parsedOptions,
-        plugin,
-        forHook: id,
-        hookConstructor: hookClass
+        const installation: HookInstallation = {
+          options: parsedOptions ?? configHookOptions,
+          plugin,
+          forHook: id,
+          hookConstructor: hookClass
+        }
+
+        const childInstallationsForHook = childInstallations.filter(
+          (childInstallation) => id === extractForHook(childInstallation)
+        )
+        return valid(hookClass.overrideChildInstallations(plugin, installation, childInstallationsForHook))
       }
-
-      const childInstallationsForHook = childInstallations.filter(
-        (childInstallation) => id === extractForHook(childInstallation)
-      )
-      return hookClass.overrideChildInstallations(plugin, installation, childInstallationsForHook)
-    })
+    )
   )
+
+  return reduceValidated(validatedInstallations).map((installations) => installations.flat())
 }
