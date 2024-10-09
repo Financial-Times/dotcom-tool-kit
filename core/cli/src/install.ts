@@ -86,11 +86,9 @@ export const loadHookInstallations = async (
   })
 
   return installationsWithoutConflicts.map((installations) => {
-    return installations.map(({ hookConstructor, forHook, options }) => {
-      const schema = HookSchemas[forHook as keyof HookOptions]
-      const parsedOptions = schema ? schema.parse(options) : {}
-      return new hookConstructor(logger, forHook, parsedOptions)
-    })
+    return installations.map(
+      ({ hookConstructor, forHook, options }) => new hookConstructor(logger, forHook, options)
+    )
   })
 }
 
