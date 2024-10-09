@@ -1,0 +1,8 @@
+tasks:
+  NodeTest: './lib/tasks/node-test'
+
+commands:
+  'test:local': NodeTest
+  'test:ci': NodeTest
+
+version: 2
