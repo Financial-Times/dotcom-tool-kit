@@ -55,11 +55,13 @@ export const loadHookInstallations = async (
   config: ValidConfig
 ): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
   const hookClassResults = await loadHookEntrypoints(logger, config)
-  const installationResults = await hookClassResults
-    .map((hookClasses) =>
-      reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
-    )
-    .awaitValue()
+  const installationResults = (
+    await hookClassResults
+      .map((hookClasses) =>
+        reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
+      )
+      .awaitValue()
+  ).flatMap((installation) => installation)
 
   const installationsWithoutConflicts = installationResults.flatMap((installations) => {
     const conflicts = findConflicts(installations)
@@ -84,11 +86,9 @@ export const loadHookInstallations = async (
   })
 
   return installationsWithoutConflicts.map((installations) => {
-    return installations.map(({ hookConstructor, forHook, options }) => {
-      const schema = HookSchemas[forHook as keyof HookOptions]
-      const parsedOptions = schema ? schema.parse(options) : {}
-      return new hookConstructor(logger, forHook, parsedOptions)
-    })
+    return installations.map(
+      ({ hookConstructor, forHook, options }) => new hookConstructor(logger, forHook, options)
+    )
   })
 }
 
