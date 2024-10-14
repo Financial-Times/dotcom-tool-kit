@@ -406,6 +406,15 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.3...dotcom-tool-kit-v4.0.4) (2024-10-14)
+
+
+### Bug Fixes
+
+* **cli:** avoid parsing hook options twice ([c5ea614](https://github.com/Financial-Times/dotcom-tool-kit/commit/c5ea614d4f0b4e074459a1f9cdead82edd63042d))
+* **cli:** gracefully handle hook installation errors ([c743bd2](https://github.com/Financial-Times/dotcom-tool-kit/commit/c743bd2856ba85bbfd6e4df284c7d536b84c2c55))
+* **cli:** update out-of-date error messages ([6ef7598](https://github.com/Financial-Times/dotcom-tool-kit/commit/6ef759873ccb2095a804ab6c5a5338c98514d349))
+
 ## [4.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.2...dotcom-tool-kit-v4.0.3) (2024-10-07)
 
 
