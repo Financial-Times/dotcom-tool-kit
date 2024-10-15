@@ -95,7 +95,7 @@ export async function reducePluginHookInstallations(
         }
 
         const installation: HookInstallation = {
-          options: parsedOptions ?? configHookOptions,
+          options: parsedOptions?.data ?? configHookOptions,
           plugin,
           forHook: id,
           hookConstructor: hookClass
