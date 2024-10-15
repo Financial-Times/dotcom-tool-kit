@@ -406,6 +406,13 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.4...dotcom-tool-kit-v4.0.5) (2024-10-15)
+
+
+### Bug Fixes
+
+* **cli:** unwrap Zod parsing result for hook options ([dfe34f6](https://github.com/Financial-Times/dotcom-tool-kit/commit/dfe34f6a6efc334bec719ed0caf6fe9b874cac46))
+
 ## [4.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.3...dotcom-tool-kit-v4.0.4) (2024-10-14)
 
 
