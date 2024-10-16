@@ -1,4 +1,3 @@
-import fetch, { FetchError } from 'node-fetch'
 import type { Logger } from 'winston'
 
 const TWO_MINUTES = 2 * 60 * 1000
@@ -9,7 +8,7 @@ function waitForOk(logger: Logger, url: string): Promise<void> {
       logger.info(`⏳ polling: ${url}`)
 
       try {
-        const response = await fetch(url, { timeout: 2000, follow: 0 })
+        const response = await fetch(url, { signal: AbortSignal.timeout(2000), redirect: 'error' })
 
         if (response.ok) {
           logger.info(`✅ ${url} ok!`)
@@ -21,7 +20,7 @@ function waitForOk(logger: Logger, url: string): Promise<void> {
           `❌ ${url} not ok, it's responding with status of ${response.status}, response.ok: ${response.ok}`
         )
       } catch (err) {
-        if (err instanceof FetchError && err.type && err.type === 'request-timeout') {
+        if (err instanceof DOMException && err.name === 'TimeoutError') {
           logger.warn(`👋 Hey, ${url} doesn't seem to be responding yet, so there's that.`)
           logger.warn("You're amazing, by the way. I don't say that often enough. But you really are.")
         } else {
