@@ -33,7 +33,11 @@ export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig
           id,
           new ZodError([
             {
-              message: `options for ${styles.plugin(id)} have moved to the ${styles.task(movedToTask)} task`,
+              message: `your ${styles.filepath('.toolkitrc.yml')} has options for the ${styles.plugin(
+                id
+              )} plugin, which are now task options. move these options to ${styles.code(
+                `options.tasks.${styles.task(movedToTask)}`
+              )}`,
               code: ZodIssueCode.custom,
               path: []
             }
