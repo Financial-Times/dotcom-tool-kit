@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/create",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "",
   "main": "lib",
   "bin": "./bin/create-tool-kit",
@@ -52,7 +52,7 @@
     "@types/node-fetch": "^2.6.2",
     "@types/pacote": "^11.1.3",
     "@types/prompts": "^2.0.14",
-    "dotcom-tool-kit": "^4.0.5",
+    "dotcom-tool-kit": "^4.0.6",
     "type-fest": "^3.13.1"
   },
   "volta": {
