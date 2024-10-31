@@ -406,6 +406,13 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.0.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.5...dotcom-tool-kit-v4.0.6) (2024-10-31)
+
+
+### Bug Fixes
+
+* clarify the plugin→task options error message ([14c5472](https://github.com/Financial-Times/dotcom-tool-kit/commit/14c54727e1151aadeb351e3b9482eb599ec31085))
+
 ## [4.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.4...dotcom-tool-kit-v4.0.5) (2024-10-15)
 
 

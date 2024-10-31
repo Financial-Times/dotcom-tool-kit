@@ -1,6 +1,6 @@
 {
-  "core/cli": "4.0.5",
-  "core/create": "4.0.5",
+  "core/cli": "4.0.6",
+  "core/create": "4.0.6",
   "lib/error": "4.0.0",
   "lib/logger": "4.0.0",
   "lib/options": "4.0.2",
@@ -9,7 +9,7 @@
   "lib/types": "3.6.1",
   "lib/vault": "3.2.1",
   "lib/wait-for-ok": "4.0.0",
-  "orb": "5.0.2",
+  "orb": "5.1.0",
   "plugins/babel": "4.0.2",
   "plugins/backend-app": "3.2.6",
   "plugins/circleci": "7.0.2",

@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.0.2...orb-v5.1.0) (2024-10-31)
+
+
+### Features
+
+* install docker on review and production ([4d10aae](https://github.com/Financial-Times/dotcom-tool-kit/commit/4d10aaec91b62cd4c1834a5b9797aa2cf77e0ae7))
+* install docker on staging deploy ([4f50b34](https://github.com/Financial-Times/dotcom-tool-kit/commit/4f50b34dd004f6cb19d1e6fbb7b5c56d9d8f6333))
+
 ## [5.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.0.1...orb-v5.0.2) (2024-05-22)
 
 
