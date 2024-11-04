@@ -1,0 +1,4 @@
+version: 2
+
+tasks:
+  WorkspaceCommand: ./lib/tasks/workspace-command.js
