@@ -35,6 +35,14 @@ With this plugin, each workspace package is an independent Tool Kit root, which 
 
 The root-level `.toolkitrc.yml` can then use the [`WorkspaceCommand`](#workspacecommand) task to forward commands such as `deploy:production` to just the workspace packages that have that command defined (in this case, the `api` package).
 
+### `@dotcom-tool-kit/monorepo` vs `npm run --workspaces`
+
+It's also possible to run `package.json` scripts in workspace packages using `npm run --workspaces`, and you can acheive a similar workflow by adding these commands as `package.json` scripts at the root level. Depending on your use case that may be preferable for your team or project, but be aware of these tradeoffs:
+
+- If we find there are common monorepo use cases between multiple projects, we can extract the Tool Kit configuration for that into a plugin that can be shared between projects. We can't do that if you're using `package.json` scripts.
+- Mixing between `package.json` scripts and Tool Kit tasks would require chaining them with shell syntax in the `package.json` script, which is harder to read and less maintainable than having all the configuration in `.toolkitrc.yml`, and has worse error-handling behaviour.
+- Due to a [limitation](#plugin-limitations) in this plugin, `package.json` scripts in workspace packages can't be managed by Tool Kit. Any Tool Kit tasks in workspace packages you'd want to run via `npm run --workspaces` would have to be manually maintained as `package.json` scripts, risking your scripts becoming out of sync with the Tool Kit tasks you expect to be running.
+
 ### Plugin limitations
 
 - Hooks in workspace packages are not installed, so configuration files like `package.json` in workspace packages can't be managed by Tool Kit. If you have a use case for this, please contact the Platforms team.
