@@ -78,7 +78,7 @@ const formatHooks = (config: ValidConfig) =>
   )
 
 export default async function showHelp(logger: Logger, commands: string[]): Promise<void> {
-  const config = await loadConfig(logger)
+  const config = await loadConfig(logger, { root: process.cwd() })
   const printAllCommands = commands.length === 0
 
   if (printAllCommands) {

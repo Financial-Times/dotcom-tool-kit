@@ -37,7 +37,7 @@ export async function loadPlugin(
   const isAppRoot = id === 'app root'
 
   // load plugin relative to the parent plugin
-  const root = parent ? parent.root : process.cwd()
+  const root = parent ? parent.root : config.root
   const pluginRoot = isAppRoot ? root : resolveRoot(id, root)
   if (!pluginRoot) {
     return invalid([`could not find path for name ${s.filepath(id)}`])

@@ -115,7 +115,7 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
 }
 
 export default async function installHooks(logger: Logger): Promise<ValidConfig> {
-  const config = await loadConfig(logger)
+  const config = await loadConfig(logger, { root: process.cwd() })
 
   for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {

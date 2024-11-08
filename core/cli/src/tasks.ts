@@ -131,7 +131,7 @@ ${error.details}`
 }
 
 export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
-  const config = await loadConfig(logger)
+  const config = await loadConfig(logger, { root: process.cwd() })
 
   return runTasksFromConfig(logger, config, commands, files)
 }

@@ -2318,7 +2318,7 @@ exports[`loadConfig should load a config from a root 1`] = `
       "app root",
     },
   },
-  "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/core/cli",
+  "root": "core/cli/test/files/successful",
   "taskOptions": {
     "Eslint": {
       "options": {
@@ -5373,7 +5373,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
       "app root",
     },
   },
-  "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/core/cli",
+  "root": "core/cli/test/files/successful",
   "taskOptions": {
     "Eslint": {
       "options": {
@@ -18160,7 +18160,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
       "app root",
     },
   },
-  "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/core/cli",
+  "root": "core/cli/test/files/conflicted",
   "taskOptions": {},
   "tasks": {
     "Babel": {
