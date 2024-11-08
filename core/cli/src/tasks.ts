@@ -56,7 +56,12 @@ const loadTasks = async (
   return reduceValidated(taskResults)
 }
 
-export async function runTasksFromConfig(logger: Logger, config: ValidConfig, commands: string[], files?: string[]): Promise<void> {
+export async function runTasksFromConfig(
+  logger: Logger,
+  config: ValidConfig,
+  commands: string[],
+  files?: string[]
+): Promise<void> {
   for (const pluginOptions of Object.values(config.pluginOptions)) {
     if (pluginOptions.forPlugin) {
       setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
@@ -91,7 +96,7 @@ export async function runTasksFromConfig(logger: Logger, config: ValidConfig, co
     for (const task of tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
-        await task.run({ files, command })
+        await task.run({ files, command, cwd: config.root })
       } catch (error) {
         // if there's an exit code, that's a request from the task to exit early
         if (error instanceof ToolKitError && error.exitCode) {

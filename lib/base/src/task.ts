@@ -8,6 +8,7 @@ type Default<T, D> = T extends undefined ? D : T
 export type TaskRunContext = {
   files?: string[]
   command: string
+  cwd: string
 }
 
 export abstract class Task<
