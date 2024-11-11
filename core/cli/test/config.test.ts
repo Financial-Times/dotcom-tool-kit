@@ -3,6 +3,16 @@ import { loadConfig } from '../src/config'
 import winston, { Logger } from 'winston'
 import { styles as s } from '@dotcom-tool-kit/logger'
 
+// force resolveRoot to return relative paths for machine-agnostic snapshots
+jest.mock('../src/plugin/resolve-root', () => {
+  const {resolveRoot} = jest.requireActual('../src/plugin/resolve-root')
+  return {
+    resolveRoot(id: string, root: string) {
+      return path.relative(process.cwd(), resolveRoot(id, root))
+    }
+  }
+})
+
 const logger = winston as unknown as Logger
 
 describe('loadConfig', () => {
