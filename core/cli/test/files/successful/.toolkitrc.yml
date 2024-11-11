@@ -2,16 +2,15 @@ plugins:
   - '@dotcom-tool-kit/eslint'
   - '@dotcom-tool-kit/mocha'
   - '@dotcom-tool-kit/n-test'
-  - '@dotcom-tool-kit/circleci-deploy' # test:local hook via npm plugin and test:ci hook
 
 options:
-  plugins:
-    '@dotcom-tool-kit/eslint':
+  tasks:
+    Eslint:
       files:
         - webpack.config.js
-    '@dotcom-tool-kit/mocha':
+    Mocha:
       testDir: './mocha_tests'
-    '@dotcom-tool-kit/n-test':
+    NTest:
       host: 'https://example.com'
 
 commands:
