@@ -36,5 +36,6 @@ export const styles = {
     }),
   groupHeader: (string: string) => ` ╭─${'─'.repeat(stripAnsi(string).length)}─╮
 ─┤ ${string} ├─${'─'.repeat(process.stdout.columns / 2 - stripAnsi(string).length - 6)}
- ╰─${'─'.repeat(stripAnsi(string).length)}─╯`
+ ╰─${'─'.repeat(stripAnsi(string).length)}─╯`,
+ strip: stripAnsi
 }
