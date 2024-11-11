@@ -1,12 +1,12 @@
 import { type WebpackSchema } from '@dotcom-tool-kit/schemas/lib/tasks/webpack'
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { fork } from 'child_process'
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
 export default class Webpack extends Task<{ task: typeof WebpackSchema }> {
-  async run(): Promise<void> {
+  async run({cwd}: TaskRunContext): Promise<void> {
     this.logger.info('starting Webpack...')
     const args = ['build', '--color', `--mode=${this.options.envName}`]
 
@@ -25,7 +25,7 @@ export default class Webpack extends Task<{ task: typeof WebpackSchema }> {
       execArgv = [...execArgv, '--openssl-legacy-provider']
     }
 
-    const child = fork(webpackCLIPath, args, { silent: true, execArgv })
+    const child = fork(webpackCLIPath, args, { silent: true, execArgv, cwd })
     hookFork(this.logger, 'webpack', child)
     return waitOnExit('webpack', child)
   }

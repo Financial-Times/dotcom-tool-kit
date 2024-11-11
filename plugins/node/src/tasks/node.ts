@@ -1,14 +1,15 @@
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { NodeSchema } from '@dotcom-tool-kit/schemas/lib/tasks/node'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { fork } from 'child_process'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
+import path from 'path'
 
 export default class Node extends Task<{ task: typeof NodeSchema }> {
-  async run(): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     const { entry, args, useDoppler, ports } = this.options
 
     let dopplerEnv = {}
@@ -27,13 +28,14 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
       : false
 
     this.logger.verbose('starting the child node process...')
-    const child = fork(entry, args, {
+    const child = fork(path.resolve(cwd, entry), args, {
       env: {
         ...dopplerEnv,
         PORT: port.toString(),
         ...process.env
       },
-      silent: true
+      silent: true,
+      cwd
     })
     hookFork(this.logger, entry, child)
 

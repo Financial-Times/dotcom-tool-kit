@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { JestSchema } from '@dotcom-tool-kit/schemas/lib/tasks/jest'
 import { fork } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
@@ -30,7 +30,7 @@ async function guessVCpus(): Promise<number> {
 }
 
 export default class Jest extends Task<{ task: typeof JestSchema }> {
-  async run(): Promise<void> {
+  async run({cwd}: TaskRunContext): Promise<void> {
     const args = ['--colors', this.options.configPath ? `--config=${this.options.configPath}` : '']
 
     if (this.options.ci) {
@@ -46,7 +46,7 @@ export default class Jest extends Task<{ task: typeof JestSchema }> {
     }
 
     this.logger.info(`running jest ${args.join(' ')}`)
-    const child = fork(jestCLIPath, args, { silent: true })
+    const child = fork(jestCLIPath, args, { silent: true, cwd })
     hookFork(this.logger, 'jest', child)
     return waitOnExit('jest', child)
   }

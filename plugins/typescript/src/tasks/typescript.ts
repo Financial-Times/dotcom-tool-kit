@@ -1,12 +1,12 @@
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/lib/tasks/typescript'
 import { fork } from 'child_process'
 
 const tscPath = require.resolve('typescript/bin/tsc')
 
 export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> {
-  async run(): Promise<void> {
+  async run({cwd}: TaskRunContext): Promise<void> {
     const args = []
 
     // TODO:KB:20240408 refactor this
@@ -26,7 +26,7 @@ export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> 
       args.push('--project', this.options.configPath)
     }
 
-    const child = fork(tscPath, args, { silent: true })
+    const child = fork(tscPath, args, { silent: true, cwd })
     hookFork(this.logger, 'typescript', child)
     const exitPromise = waitOnExit('typescript', child)
     // don't wait for tsc to exit if it's set to watch for file changes

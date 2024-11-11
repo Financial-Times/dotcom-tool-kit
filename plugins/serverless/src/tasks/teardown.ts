@@ -1,12 +1,12 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
 import { readState } from '@dotcom-tool-kit/state'
 import { spawn } from 'child_process'
 
 export default class ServerlessTeardown extends Task<{ plugin: typeof ServerlessSchema }> {
-  async run(): Promise<void> {
+  async run({cwd}: TaskRunContext): Promise<void> {
     const { configPath, regions, systemCode } = this.pluginOptions
 
     const reviewState = readState('review')
@@ -33,7 +33,8 @@ export default class ServerlessTeardown extends Task<{ plugin: typeof Serverless
     }
 
     const child = spawn('serverless', args, {
-      env: process.env
+      env: process.env,
+      cwd
     })
 
     hookFork(this.logger, 'serverless', child)
