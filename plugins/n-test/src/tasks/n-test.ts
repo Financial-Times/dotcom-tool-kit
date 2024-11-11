@@ -1,11 +1,12 @@
 import { styles } from '@dotcom-tool-kit/logger'
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { SmokeTestSchema } from '@dotcom-tool-kit/schemas/lib/tasks/n-test'
 import { SmokeTest } from '@financial-times/n-test'
 import { readState } from '@dotcom-tool-kit/state'
+import path from 'path'
 
 export default class NTest extends Task<{ task: typeof SmokeTestSchema }> {
-  async run(): Promise<void> {
+  async run({cwd}: TaskRunContext): Promise<void> {
     const appState = readState('review') ?? readState('staging')
 
     // if we've built a review or staging app, test against that, not the app in the config
@@ -17,6 +18,7 @@ export default class NTest extends Task<{ task: typeof SmokeTestSchema }> {
         this.options.host = this.options.host.slice(0, -1)
       }
     }
+    this.options.config = path.join(cwd, this.options.config ?? 'test/smoke.js')
 
     const smokeTest = new SmokeTest(this.options)
     this.logger.info(

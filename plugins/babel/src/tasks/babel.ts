@@ -5,14 +5,14 @@ import * as babel from '@babel/core'
 import fg from 'fast-glob'
 
 import { type BabelSchema } from '@dotcom-tool-kit/schemas/lib/tasks/babel'
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookConsole } from '@dotcom-tool-kit/logger'
 
 export default class Babel extends Task<{ task: typeof BabelSchema }> {
-  async run(): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     const fileGlob = this.options.files
-    const files = await fg(fileGlob)
+    const files = await fg(fileGlob, {cwd})
     // Work out the root of the glob so we can strip this part of the path out of
     // the outputted files.
     // E.g., a glob of 'src/**/*.js'   = src/a/b.js -> lib/a/b.js

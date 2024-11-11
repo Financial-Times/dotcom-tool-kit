@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import * as fs from 'fs'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import path from 'path'
@@ -7,22 +7,18 @@ import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import {
-  UploadAssetsToS3Options,
   UploadAssetsToS3Schema
 } from '@dotcom-tool-kit/schemas/lib/tasks/upload-assets-to-s3'
 
 export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsToS3Schema }> {
-  async run(): Promise<void> {
-    await this.uploadAssetsToS3(this.options)
-  }
-  async uploadFile(file: string, options: UploadAssetsToS3Options, s3: S3Client): Promise<void> {
+  async uploadFile(file: string, s3: S3Client): Promise<void> {
     const type = getFileType(file)
     const encoding = getFileEncoding(file)
-    const filepath = path.join(options.directory, file)
+    const filepath = path.join(this.options.directory, file)
     const body = fs.createReadStream(filepath)
-    const key = path.posix.join(options.destination, file)
+    const key = path.posix.join(this.options.destination, file)
 
-    const bucketByEnv = process.env.NODE_ENV === 'branch' ? options.reviewBucket : options.prodBucket
+    const bucketByEnv = process.env.NODE_ENV === 'branch' ? this.options.reviewBucket : this.options.prodBucket
     let currentBucket = ''
 
     try {
@@ -34,7 +30,7 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
           ACL: 'public-read',
           ContentType: `${type}; charset=utf-8`,
           ContentEncoding: encoding,
-          CacheControl: options.cacheControl
+          CacheControl: this.options.cacheControl
         }
         currentBucket = params.Bucket
         await s3.send(new PutObjectCommand(params))
@@ -48,7 +44,7 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
             ACL: 'public-read',
             ContentType: `${type}; charset=utf-8`,
             ContentEncoding: encoding,
-            CacheControl: options.cacheControl
+            CacheControl: this.options.cacheControl
           }
           currentBucket = params.Bucket
           await s3.send(new PutObjectCommand(params))
@@ -64,23 +60,24 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
     }
   }
 
-  async uploadAssetsToS3(options: UploadAssetsToS3Options): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     // Wrap extensions in braces if there are multiple
-    const extensions = options.extensions.includes(',') ? `{${options.extensions}}` : options.extensions
+    const extensions = this.options.extensions.includes(',') ? `{${this.options.extensions}}` : this.options.extensions
     const globFile = `**/*${extensions}`
-    const files = glob.sync(globFile, { cwd: options.directory, nodir: true })
+    const resolvedDirectory = path.resolve(cwd, this.options.directory)
+    const files = glob.sync(globFile, { cwd: resolvedDirectory, nodir: true })
 
     if (files.length === 0) {
-      throw new ToolKitError(`no files found at the provided directory: ${options.directory}`)
+      throw new ToolKitError(`no files found at the provided directory: ${resolvedDirectory}`)
     }
 
-    const accessKeyId = process.env[options.accessKeyIdEnvVar]
-    const secretAccessKey = process.env[options.secretAccessKeyEnvVar]
+    const accessKeyId = process.env[this.options.accessKeyIdEnvVar]
+    const secretAccessKey = process.env[this.options.secretAccessKeyEnvVar]
 
     if (!accessKeyId || !secretAccessKey) {
       const missingVars = [
-        !accessKeyId ? options.accessKeyIdEnvVar : false,
-        !secretAccessKey ? options.secretAccessKeyEnvVar : false
+        !accessKeyId ? this.options.accessKeyIdEnvVar : false,
+        !secretAccessKey ? this.options.secretAccessKeyEnvVar : false
       ]
 
       const error = new ToolKitError(
@@ -93,14 +90,14 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
     }
 
     const s3 = new S3Client({
-      region: options.region,
+      region: this.options.region,
       credentials: {
         accessKeyId,
         secretAccessKey
       }
     })
 
-    await Promise.all(files.map((file) => this.uploadFile(file, options, s3)))
+    await Promise.all(files.map((file) => this.uploadFile(file, s3)))
   }
 }
 
