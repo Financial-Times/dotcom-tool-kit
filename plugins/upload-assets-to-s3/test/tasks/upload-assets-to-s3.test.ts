@@ -53,7 +53,7 @@ describe('upload-assets-to-s3', () => {
     process.env.AWS_ACCESS_HASHED_ASSETS = ''
     process.env.AWS_SECRET_HASHED_ASSETS = ''
 
-    await expect(task.run()).rejects.toThrowErrorMatchingInlineSnapshot(
+    await expect(task.run({ command: 'release:remote', cwd: '' })).rejects.toThrowErrorMatchingInlineSnapshot(
       `"environment variables AWS_ACCESS_HASHED_ASSETS and AWS_SECRET_HASHED_ASSETS not set"`
     )
   })
@@ -72,7 +72,7 @@ describe('upload-assets-to-s3', () => {
     process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
     process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
-    await task.run()
+    await task.run({ command: 'release:remote', cwd: '' })
 
     const s3 = mockedS3Client.mock.instances[0]
     expect(s3.send).toHaveBeenCalledTimes(4)
@@ -92,7 +92,7 @@ describe('upload-assets-to-s3', () => {
     process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
     process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
-    await task.run()
+    await task.run({ command: 'release:remote', cwd: '' })
 
     const s3 = mockedS3Client.mock.instances[0]
     expect(s3.send).toHaveBeenCalledTimes(4)
@@ -114,7 +114,7 @@ describe('upload-assets-to-s3', () => {
     process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
     process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
-    await task.run()
+    await task.run({ command: 'release:remote', cwd: '' })
     const s3 = jest.mocked(mockedS3Client.mock.instances[0])
     expect(s3.send).toHaveBeenCalledTimes(1)
     expect(mockedPutObjectCommand.mock.calls[0][0]).toHaveProperty('Key', 'testdir/nested/test.js.gz')
@@ -135,7 +135,7 @@ describe('upload-assets-to-s3', () => {
     process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
     process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
-    await task.run()
+    await task.run({ command: 'release:remote', cwd: '' })
 
     const s3 = mockedS3Client.mock.instances[0]
     expect(s3.send).toHaveBeenCalledTimes(1)
@@ -161,6 +161,6 @@ describe('upload-assets-to-s3', () => {
     process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
     process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
-    await expect(task.run()).rejects.toThrow('ft-next-hashed-assets-prod failed')
+    await expect(task.run({ command: 'release:remote', cwd: '' })).rejects.toThrow('ft-next-hashed-assets-prod failed')
   })
 })

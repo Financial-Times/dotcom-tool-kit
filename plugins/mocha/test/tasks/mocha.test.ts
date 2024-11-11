@@ -18,7 +18,7 @@ describe('mocha', () => {
       }
     )
 
-    await task.run()
+    await task.run({ command: 'test:local', cwd: '' })
   })
 
   it('should throw with failing tests', async () => {
@@ -31,11 +31,8 @@ describe('mocha', () => {
       }
     )
 
-    expect.assertions(1)
-    try {
-      await task.run()
-    } catch (err) {
-      expect(err).toBeTruthy()
-    }
+    await expect(task.run({ command: 'test:local', cwd: '' })).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"mocha process returned a non-zero exit code (1)"`
+    )
   })
 })

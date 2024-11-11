@@ -26,12 +26,12 @@ describe('webpack', () => {
     it('should call webpack cli with correct arguments', async () => {
       const configPath = 'webpack.config.js'
       const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'development' })
-      await task.run()
+      await task.run({ command: 'build:local', cwd: '' })
 
       expect(fork).toBeCalledWith(
         webpackCLIPath,
         ['build', '--color', '--mode=development', '--config=webpack.config.js'],
-        { silent: true, execArgv: expect.arrayContaining([]) }
+        { silent: true, cwd: '', execArgv: expect.arrayContaining([]) }
       )
     })
   })
@@ -40,12 +40,12 @@ describe('webpack', () => {
     it('should call webpack cli with correct arguments', async () => {
       const configPath = 'webpack.config.js'
       const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'production' })
-      await task.run()
+      await task.run({ command: 'build:local', cwd: '' })
 
       expect(fork).toBeCalledWith(
         webpackCLIPath,
         ['build', '--color', '--mode=production', '--config=webpack.config.js'],
-        { silent: true, execArgv: expect.arrayContaining([]) }
+        { silent: true, cwd: '', execArgv: expect.arrayContaining([]) }
       )
     })
   })
@@ -57,7 +57,7 @@ describe('webpack', () => {
 
       const configPath = 'webpack.config.js'
       const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'production' })
-      await task.run()
+      await task.run({ command: 'build:local', cwd: '' })
 
       expect(mockedFork.mock.calls[0][2]?.execArgv).toEqual(
         expect.arrayContaining(['--openssl-legacy-provider'])
@@ -70,7 +70,7 @@ describe('webpack', () => {
 
       const configPath = 'webpack.config.js'
       const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'production' })
-      await task.run()
+      await task.run({ command: 'build:local', cwd: '' })
 
       expect(mockedFork.mock.calls[0][2]?.execArgv).toEqual(
         expect.not.arrayContaining(['--openssl-legacy-provider'])

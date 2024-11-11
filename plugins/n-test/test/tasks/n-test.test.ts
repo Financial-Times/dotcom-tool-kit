@@ -22,7 +22,7 @@ describe('n-test', () => {
       }
     )
 
-    await task.run()
+    await task.run({ command: 'e2e-test:staging', cwd: '' })
   })
 
   it('should fail when there are errors', async () => {
@@ -39,7 +39,7 @@ describe('n-test', () => {
 
     expect.assertions(1)
     try {
-      await task.run()
+      await task.run({ command: 'e2e-test:staging', cwd: '' })
     } catch (err) {
       expect(err).toBeTruthy()
     }
@@ -58,7 +58,7 @@ describe('n-test', () => {
     )
 
     try {
-      await task.run()
+      await task.run({ command: 'e2e-test:staging', cwd: '' })
     } catch {}
 
     expect(task.options.host).toEqual(appUrl)
