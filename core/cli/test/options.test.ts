@@ -29,7 +29,7 @@ options:
 `)
     )
 
-    const config = await loadConfig(logger, { validate: false })
+    const config = await loadConfig(logger, { validate: false, root: process.cwd() })
     const plugin = config.plugins['app root']
     expect(plugin.valid).toBe(true)
     expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.baz).toEqual('bar')
@@ -49,7 +49,7 @@ options:
 `)
     )
 
-    const config = await loadConfig(logger, { validate: false })
+    const config = await loadConfig(logger, { validate: false, root: process.cwd() })
     const plugin = config.plugins['app root']
     expect(plugin.valid).toBe(true)
     expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.hello).toEqual('world')
@@ -66,7 +66,7 @@ options:
 `)
     )
 
-    const config = await loadConfig(logger, { validate: false })
+    const config = await loadConfig(logger, { validate: false, root: process.cwd() })
     const plugin = config.plugins['app root']
     expect(plugin.valid).toBe(true)
     expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.hello).toBeUndefined()
@@ -86,7 +86,7 @@ options:
 `)
     )
 
-    const config = await loadConfig(logger, { validate: false })
+    const config = await loadConfig(logger, { validate: false, root: process.cwd() })
     const plugin = config.plugins['app root']
     expect(plugin.valid).toBe(true)
     expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.hello).toEqual('bar')
@@ -102,7 +102,7 @@ options:
 `)
     )
 
-    expect(loadConfig(logger, { validate: false })).rejects.toThrowErrorMatchingInlineSnapshot(
+    expect(loadConfig(logger, { validate: false, root: process.cwd() })).rejects.toThrowErrorMatchingInlineSnapshot(
       `"cannot reference plugin options when specifying options"`
     )
   })
@@ -122,7 +122,7 @@ options:
 
     expect.assertions(2)
     try {
-      await loadConfig(logger, { validate: false })
+      await loadConfig(logger, { validate: false, root: process.cwd() })
     } catch (error) {
       expect(error.details.split('\n\n')).toHaveLength(3)
       expect(error.details).toMatchInlineSnapshot(`
