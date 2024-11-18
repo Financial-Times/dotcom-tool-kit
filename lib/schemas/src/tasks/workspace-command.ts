@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
 export const WorkspaceCommandSchema = z.object({
-  command: z.string().optional().describe('A specific command to run instead of the command that ran this task.')
+  command: z.string().optional().describe('A specific command to run instead of the command that ran this task.'),
+  packageFilter: z.string().optional().describe('By default, the command will run in every workspace command that has that command assigned to a task. This option is a glob pattern to filter the packages the command will run on. For example, if your workspace has packages in the `plugins` and `lib` folders, set `packageFilter` to `plugins/*` to only run only in the packages in `plugins`.'),
 }).describe(`Runs a Tool Kit command in all workspace packages that have that command. By default, runs the command that was used to run this task.
 
 For example, imagine a monorepo with these \`.toolkitrc.yml\` files:
