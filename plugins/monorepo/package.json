@@ -32,7 +32,8 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/schemas": "^1.1.1",
-    "@npmcli/map-workspaces": "^3.0.6"
+    "@npmcli/map-workspaces": "^3.0.6",
+    "minimatch": "^10.0.1"
   },
   "devDependencies": {
     "@types/npmcli__map-workspaces": "^3.0.4"

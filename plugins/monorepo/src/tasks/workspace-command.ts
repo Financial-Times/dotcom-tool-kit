@@ -6,6 +6,7 @@ import { loadConfig } from 'dotcom-tool-kit/lib/config'
 import { runTasksFromConfig } from 'dotcom-tool-kit/lib/tasks'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { WorkspaceCommandSchema } from '@dotcom-tool-kit/schemas/lib/tasks/workspace-command'
+import {minimatch} from 'minimatch'
 
 export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceCommandSchema }> {
   async runPackageCommand(packageId: string, packagePath: string, command: string, files?: string[]) {
@@ -20,9 +21,11 @@ export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceComma
     const workspaces = await mapWorkspaces({ cwd, pkg })
 
     const results = await Promise.allSettled(
-      Array.from(workspaces, ([id, packagePath]) =>
-        this.runPackageCommand(id, packagePath, this.options.command ?? command, files)
-      )
+      Array.from(workspaces, ([id, packagePath]) => {
+        if(!this.options.packageFilter || minimatch(packagePath, this.options.packageFilter)) {
+          return this.runPackageCommand(id, packagePath, this.options.command ?? command, files)
+        }
+      })
     )
 
     const erroredCommands = results.filter(
