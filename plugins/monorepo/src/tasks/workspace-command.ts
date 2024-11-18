@@ -1,6 +1,7 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import mapWorkspaces from '@npmcli/map-workspaces'
 import fs from 'fs/promises'
+import { minimatch } from 'minimatch'
 import path from 'path'
 import { z } from 'zod'
 import { loadConfig } from 'dotcom-tool-kit/lib/config'
@@ -11,7 +12,13 @@ const WorkspaceCommandSchema = z.object({
   command: z
     .string()
     .optional()
-    .describe('A specific command to run instead of the command that ran this task.')
+    .describe('A specific command to run instead of the command that ran this task.'),
+  packageFilter: z
+    .string()
+    .optional()
+    .describe(
+      'By default, the command will run in every workspace command that has that command assigned to a task. This option is a glob pattern to further filter the packages the command will run on. For example, if your workspace has packages in the `plugins` and `lib` folders, set `packageFilter` to `plugins/*` to only run only in the packages in `plugins` which have a command assigned to a task.'
+    )
 })
   .describe(`Runs a Tool Kit command in all workspace packages that have that command. By default, runs the command that was used to run this task.
 
@@ -84,9 +91,11 @@ export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceComma
     const workspaces = await mapWorkspaces({ cwd, pkg })
 
     const results = await Promise.allSettled(
-      Array.from(workspaces, ([id, packagePath]) =>
-        this.runPackageCommand(id, packagePath, this.options.command ?? command, files)
-      )
+      Array.from(workspaces, ([id, packagePath]) => {
+        if (!this.options.packageFilter || minimatch(packagePath, this.options.packageFilter)) {
+          return this.runPackageCommand(id, packagePath, this.options.command ?? command, files)
+        }
+      })
     )
 
     const erroredCommands = results.filter(
