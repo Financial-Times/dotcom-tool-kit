@@ -13,7 +13,7 @@ import { type InferSchemaOptions } from './infer'
 export const legacyPluginOptions: Record<string, string> = {
   '@dotcom-tool-kit/babel': 'Babel',
   '@dotcom-tool-kit/cypress': 'Cypress',
-  '@dotcom-tool-kit/eslint': 'ESLint',
+  '@dotcom-tool-kit/eslint': 'Eslint',
   '@dotcom-tool-kit/jest': 'Jest',
   '@dotcom-tool-kit/mocha': 'Mocha',
   '@dotcom-tool-kit/n-test': 'NTest',
