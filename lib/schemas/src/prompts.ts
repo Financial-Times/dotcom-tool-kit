@@ -19,14 +19,19 @@ export type SchemaPromptGenerator<T> = (
   // bizOpsSystem will be undefined if project is not a system
   bizOpsSystem?: BizOpsSystem
 ) => Promise<T | undefined>
+
+type InferZodShape<T> = T extends z.ZodObject<infer Shape>
+  ? Shape
+  : // we use .refine to warn about moved plugin options but each call to .refine
+  // wraps the Zod schema type in a ZodEffects which we need to unwrap first
+  T extends z.ZodEffects<infer Unwrapped>
+  ? InferZodShape<Unwrapped>
+  : never
+
 // This type defines an interface you can use to export prompt generators. The
 // `T` type parameter should be the type of your `Schema` object, and it will
 // be mapped into a partial object of `SchemaPromptGenerator` functions with
 // all their return types set to the output type of each option schema.
-export type PromptGenerators<T> = T extends z.ZodObject<infer Shape>
-  ? {
-      [option in keyof Shape as Shape[option] extends z.ZodType
-        ? option
-        : never]?: Shape[option] extends z.ZodType ? SchemaPromptGenerator<z.output<Shape[option]>> : never
-    }
-  : never
+export type PromptGenerators<T> = {
+  [option in keyof InferZodShape<T>]?: SchemaPromptGenerator<z.output<InferZodShape<T>[option]>>
+}
