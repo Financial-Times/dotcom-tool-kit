@@ -1,3 +1,4 @@
+import { movedPluginOptions } from '../moved-plugin-options'
 import { PromptGenerators } from '../prompts'
 import { z } from 'zod'
 
@@ -19,6 +20,9 @@ export const ServerlessSchema = z.object({
       'path to your serverless config file. If this is not provided, Serverless defaults to `./serverless.yml` but [other config fomats are accepted](https://www.serverless.com/framework/docs/providers/aws/guide/intro#alternative-configuration-format)'
     )
 })
+.passthrough()
+.refine(...movedPluginOptions('useVault', 'ServerlessRun', 'useDoppler'))
+.refine(...movedPluginOptions('ports', 'ServerlessRun'))
 
 export type ServerlessOptions = z.infer<typeof ServerlessSchema>
 
