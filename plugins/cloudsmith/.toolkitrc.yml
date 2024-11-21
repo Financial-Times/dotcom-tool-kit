@@ -1,1 +1,37 @@
 version: 2
+
+plugins:
+  - '@dotcom-tool-kit/circleci-deploy'
+
+options:
+  hooks:
+    - CircleCi:
+        workflows:
+          - name: 'tool-kit'
+            jobs:
+              - name: 'deploy-review'
+                custom:
+                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.organisation':
+                    cloudsmith-org: !toolkit/option '@dotcom-tool-kit/cloudsmith.organisation'
+                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
+                    cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
+              - name: 'deploy-staging'
+                custom:
+                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.organisation':
+                    cloudsmith-org: !toolkit/option '@dotcom-tool-kit/cloudsmith.organisation'
+                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
+                    cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
+              - name: 'deploy-production'
+                custom:
+                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.organisation':
+                    cloudsmith-org: !toolkit/option '@dotcom-tool-kit/cloudsmith.organisation'
+                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
+                    cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
+          - name: 'nightly'
+            jobs:
+              - name: 'deploy-review'
+                custom:
+                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.organisation':
+                    cloudsmith-org: !toolkit/option '@dotcom-tool-kit/cloudsmith.organisation'
+                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
+                    cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
