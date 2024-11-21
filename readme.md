@@ -10,23 +10,10 @@ Tool Kit only handles common tooling use cases that are required for most apps t
 
 Your repo does not need to use Tool Kit for all of its tooling, and tooling not supported by Tool Kit can be configured directly in your repo.
 
+> [!TIP]
+> Migrating from an old version of Tool Kit to v4? Check the [migration guide](./docs/migration-guides/v4.md)
+
 ## Installing Tool Kit
-
-### Interactive installation & migration
-
-For an empty repository (containing at least a valid `package.json`), or to migrate an existing repo from [n-gage](https://github.com/financial-times/n-gage), you can run the interactive Tool Kit init script:
-
-```sh
-npm init @dotcom-tool-kit@latest
-```
-
-See [the migration guide](./docs/migrating-to-tool-kit.md) for a full explanation of what this script does.
-
-<details><summary>
-
-### Installing and configuring manually
-
-</summary>
 
 Install the core of Tool Kit as a `devDependency`:
 
@@ -53,8 +40,6 @@ Every time you change your `.toolkitrc.yml`, e.g. adding or removing a plugin or
 ```sh
 npx dotcom-tool-kit --install
 ```
-
-</details>
 
 ## Running Tool Kit
 
