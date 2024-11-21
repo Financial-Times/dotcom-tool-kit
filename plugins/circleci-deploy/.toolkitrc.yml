@@ -1,5 +1,6 @@
 plugins:
   - '@dotcom-tool-kit/circleci'
+  - '@dotcom-tool-kit/cloudsmith'
 
 options:
   hooks:
