@@ -1,4 +1,5 @@
 export class ToolKitError extends Error {
+  name = 'ToolKitError'
   details?: string
   exitCode?: number
 }
