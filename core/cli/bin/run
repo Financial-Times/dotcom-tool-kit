@@ -9,7 +9,8 @@ const argv = require('minimist')(process.argv.slice(2), {
   '--': true
 })
 
-const { rootLogger, styles } = require('@dotcom-tool-kit/logger')
+const { rootLogger } = require('@dotcom-tool-kit/logger')
+const { formatError } = require('../lib/messages')
 
 async function main() {
   try {
@@ -41,16 +42,7 @@ async function main() {
       }
     }
   } catch (error) {
-    if (error.details) {
-      rootLogger.error('', { skipformat: true })
-      rootLogger.error(error.message)
-      rootLogger.error(styles.ruler() + '\n', { skipformat: true })
-      rootLogger.error(error.details, { skipformat: true })
-      rootLogger.error('\n', { skipformat: true })
-    } else {
-      rootLogger.error(error.stack)
-    }
-
+    rootLogger.error(formatError(error), { skipFormat: true })
     process.exitCode = error.exitCode || 1
   }
 }
