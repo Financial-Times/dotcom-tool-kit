@@ -104,10 +104,10 @@ export const formatInvalidOption = ([id, error]: InvalidOption): string =>
 
 export const formatInvalidPluginOptions = (
   invalidOptions: InvalidOption[]
-): string => `${invalidOptions.map(([plugin, error]) => formatInvalidOption([s.plugin(plugin), error])).join('\n')}
+): string => `Please update the options so that they are the expected types.
+${invalidOptions.map(([plugin, error]) => formatInvalidOption([s.plugin(plugin), error])).join('\n')}
 
-Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.
-`
+You can refer to the README for the plugin for examples and descriptions of the options used.`
 
 export const formatUnusedPluginOptions = (
   unusedOptions: string[],
