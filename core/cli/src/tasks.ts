@@ -13,6 +13,7 @@ import { runInit } from './init'
 import { formatInvalidOption } from './messages'
 import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
+import pluralize from 'pluralize'
 
 type ErrorSummary = {
   task: string
@@ -113,24 +114,13 @@ export async function runTasksFromConfig(
     }
 
     if (errors.length > 0) {
-      const error = new ToolKitError(`error running tasks for ${styles.hook(command)}`)
-      error.details = errors
-        .map(
-          ({ task, error }) =>
-            `${styles.heading(`${styles.task(task)}:`)}
-
-${error.message}${
-              error instanceof ToolKitError
-                ? `
-
-${error.details}`
-                : ''
-            }`
-        )
-        .join(`${styles.dim(styles.ruler())}\n`)
-
-      error.exitCode = errors.length + 1
-      throw error
+      throw new AggregateError(
+        errors.map(({ task, error }) => {
+          error.name = `${styles.task(task)} → ${error.name}`
+          return error
+        }),
+        `${pluralize('error', errors.length, true)} running tasks for ${styles.command(command)}`
+      )
     }
   }
 }
