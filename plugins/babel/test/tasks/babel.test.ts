@@ -22,7 +22,7 @@ describe('babel', () => {
         configFile: path.join(testDirectory, 'babel.config.json')
       }
     )
-    await task.run()
+    await task.run({ cwd: process.cwd(), command: 'build:local' })
     const transpiled = await fs.readFile(path.join(outputPath, 'index.js'), 'utf8')
     expect(transpiled).toMatchInlineSnapshot(`
       ""use strict";

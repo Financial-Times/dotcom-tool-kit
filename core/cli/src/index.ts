@@ -7,7 +7,7 @@ export { runTasks } from './tasks'
 export { shouldDisableNativeFetch } from './fetch'
 
 export async function listPlugins(logger: Logger): Promise<void> {
-  const config = await loadConfig(logger, { validate: false })
+  const config = await loadConfig(logger, { validate: false, root: process.cwd() })
 
   const rootPlugin = config.plugins['app root']
   if (rootPlugin?.valid) {
@@ -16,7 +16,7 @@ export async function listPlugins(logger: Logger): Promise<void> {
 }
 
 export async function printConfig(logger: Logger): Promise<void> {
-  const config = await loadConfig(logger, { validate: false })
+  const config = await loadConfig(logger, { validate: false, root: process.cwd() })
 
   logger.info(util.inspect(config, { depth: null, colors: true }))
 }

@@ -1,4 +1,4 @@
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
 import { ServerlessRunSchema } from '@dotcom-tool-kit/schemas/src/tasks/serverless-run'
 import { spawn } from 'child_process'
@@ -11,7 +11,7 @@ export default class ServerlessRun extends Task<{
   task: typeof ServerlessRunSchema
   plugin: typeof ServerlessSchema
 }> {
-  async run(): Promise<void> {
+  async run({cwd}: TaskRunContext): Promise<void> {
     const { useDoppler, ports } = this.options
     const { configPath } = this.pluginOptions
 
@@ -40,7 +40,8 @@ export default class ServerlessRun extends Task<{
         ...dopplerEnv,
         PORT: port.toString(),
         ...process.env
-      }
+      },
+      cwd
     })
 
     hookFork(this.logger, 'serverless', child)

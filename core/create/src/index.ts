@@ -155,7 +155,7 @@ async function main() {
   // the config to avoid any incompatibilities with a version that create might
   // use
   const { loadConfig } = importCwd('dotcom-tool-kit/lib/config') as { loadConfig: typeof loadConfigType }
-  const config = await loadConfig(winstonLogger, { validate: false })
+  const config = await loadConfig(winstonLogger, { validate: false, root: process.cwd() })
   // Give the user a chance to set any configurable options for the plugins
   // they've installed.
   const optionsCancelled = await optionsPrompt({ logger, config, toolKitConfig, configPath, bizOpsSystem })

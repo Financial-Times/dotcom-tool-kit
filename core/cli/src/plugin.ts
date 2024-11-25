@@ -2,7 +2,6 @@ import { styles as s } from '@dotcom-tool-kit/logger'
 import { CURRENT_RC_FILE_VERSION, type Plugin } from '@dotcom-tool-kit/plugin'
 import type { RawConfig, ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
-import * as path from 'path'
 import type { Logger } from 'winston'
 import { loadToolKitRC } from './rc-file'
 import { indentReasons } from './messages'
@@ -12,16 +11,7 @@ import { mergeCommands } from './plugin/merge-commands'
 import { mergePluginOptions } from './plugin/merge-plugin-options'
 import { mergeInits } from './plugin/merge-inits'
 import { mergeTaskOptions } from './plugin/merge-task-options'
-
-function resolveRoot(id: string, root: string): string {
-  const isPath = id.startsWith('.') || id.startsWith('/')
-  // resolve the package.json of a plugin as many plugins don't have valid
-  // entrypoints now that we're intending their tasks/hooks to be loaded via
-  // entrypoints defined in config
-  const modulePath = isPath ? id : path.join(id, 'package.json')
-  const resolvedPath = require.resolve(modulePath, { paths: [root] })
-  return path.dirname(resolvedPath)
-}
+import { resolveRoot } from './plugin/resolve-root'
 
 export async function loadPlugin(
   id: string,
@@ -37,7 +27,7 @@ export async function loadPlugin(
   const isAppRoot = id === 'app root'
 
   // load plugin relative to the parent plugin
-  const root = parent ? parent.root : process.cwd()
+  const root = parent ? parent.root : config.root
   const pluginRoot = isAppRoot ? root : resolveRoot(id, root)
   if (!pluginRoot) {
     return invalid([`could not find path for name ${s.filepath(id)}`])

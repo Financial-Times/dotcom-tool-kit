@@ -7,5 +7,5 @@
 /yarn.lock
 node_modules
 *.tsbuildinfo
-/.toolkitstate
+**/.toolkitstate
 coverage

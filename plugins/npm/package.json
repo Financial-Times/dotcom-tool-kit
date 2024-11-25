@@ -10,7 +10,6 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@actions/exec": "^1.1.0",
     "@dotcom-tool-kit/base": "^1.0.0",
     "@dotcom-tool-kit/error": "^4.0.0",
     "@dotcom-tool-kit/package-json-hook": "^5.0.2",

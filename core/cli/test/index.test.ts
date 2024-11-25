@@ -17,7 +17,7 @@ jest.setTimeout(20000)
 
 describe('cli', () => {
   it('should indicate when there are conflicts', async () => {
-    const config = createConfig()
+    const config = createConfig(process.cwd())
 
     const plugin = await loadPlugin('app root', config, logger, {
       id: 'conflicted test root',
@@ -39,7 +39,7 @@ describe('cli', () => {
   })
 
   it('should indicate when there are conflicts between plugins that are cousins in the tree', async () => {
-    const config = createConfig()
+    const config = createConfig(process.cwd())
 
     const plugin = await loadPlugin('app root', config, logger, {
       id: 'conflicted cousin test root',
@@ -61,7 +61,7 @@ describe('cli', () => {
   })
 
   it('should not have conflicts between multiple of the same plugin', async () => {
-    const config = createConfig()
+    const config = createConfig(process.cwd())
 
     const plugin = await loadPlugin('app root', config, logger, {
       id: 'resolved test root',
@@ -89,7 +89,7 @@ describe('cli', () => {
   })
 
   it('should succeed when conflicts are resolved', async () => {
-    const config = createConfig()
+    const config = createConfig(process.cwd())
 
     const plugin = await loadPlugin('app root', config, logger, {
       id: 'resolved test root',
@@ -122,7 +122,7 @@ describe('cli', () => {
   })
 
   it('should successfully install when options for different hooks are defined', async () => {
-    const config = createConfig()
+    const config = createConfig(process.cwd())
 
     const plugin = await loadPlugin('app root', config, logger, {
       id: 'reolved test root',

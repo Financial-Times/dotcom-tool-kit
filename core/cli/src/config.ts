@@ -25,10 +25,8 @@ import { validatePlugins } from './config/validate-plugins'
 import { substituteOptionTags, validatePluginOptions } from './plugin/options'
 import { styles as s } from '@dotcom-tool-kit/logger'
 
-const coreRoot = path.resolve(__dirname, '../')
-
-export const createConfig = (): RawConfig => ({
-  root: coreRoot,
+export const createConfig = (root: string): RawConfig => ({
+  root,
   plugins: {},
   resolutionTrackers: {
     resolvedPluginOptions: new Set(),
@@ -99,7 +97,7 @@ export function validateConfig(config: ValidPluginsConfig): ValidConfig {
   const unusedPluginOptions = Object.entries(config.pluginOptions)
     .filter(
       ([, option]) =>
-        option && !isConflict(option) && !option.forPlugin && option.plugin.root === process.cwd()
+        option && !isConflict(option) && !option.forPlugin && option.plugin.root === config.root
     )
     .map(([id]) => id)
 
@@ -110,7 +108,7 @@ export function validateConfig(config: ValidPluginsConfig): ValidConfig {
 
   const unusedTaskOptions = Object.entries(config.taskOptions)
     .filter(
-      ([, option]) => option && !isConflict(option) && !option.task && option.plugin.root === process.cwd()
+      ([, option]) => option && !isConflict(option) && !option.task && option.plugin.root === config.root
     )
     .map(([id]) => id)
 
@@ -140,14 +138,21 @@ export function validateConfig(config: ValidPluginsConfig): ValidConfig {
   return validConfig
 }
 
-export function loadConfig(logger: Logger, options?: { validate?: true }): Promise<ValidConfig>
-export function loadConfig(logger: Logger, options?: { validate?: false }): Promise<RawConfig>
+export function loadConfig(logger: Logger, options: { validate?: true; root: string }): Promise<ValidConfig>
+export function loadConfig(logger: Logger, options: { validate?: false; root: string }): Promise<RawConfig>
 
-export async function loadConfig(logger: Logger, { validate = true } = {}): Promise<ValidConfig | RawConfig> {
-  const config = createConfig()
+export async function loadConfig(
+  logger: Logger,
+  { validate = true, root }: { validate?: boolean; root: string }
+): Promise<ValidConfig | RawConfig> {
+  const config = createConfig(root)
 
   // start loading config and child plugins, starting from the consumer app directory
-  const rootPlugin = await loadPlugin('app root', config, logger)
+  const rootPlugin = await loadPlugin(
+    'app root',
+    config,
+    logger,
+  )
   const validRootPlugin = rootPlugin.unwrap('root plugin was not valid!')
 
   const validatedPluginConfig = validatePlugins(config)

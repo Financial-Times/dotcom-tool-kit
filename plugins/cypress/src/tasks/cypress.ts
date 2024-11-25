@@ -2,11 +2,11 @@ import { spawn } from 'child_process'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { CypressSchema } from '@dotcom-tool-kit/schemas/lib/tasks/cypress'
 
 export default class Cypress extends Task<{ task: typeof CypressSchema }> {
-  async run(): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     const reviewState = readState('review')
     const appState = reviewState ?? readState('staging')
     const cypressEnv: Record<string, string> = {}
@@ -30,7 +30,7 @@ export default class Cypress extends Task<{ task: typeof CypressSchema }> {
     this.logger.info(
       'running cypress' + (cypressEnv.CYPRESS_BASE_URL ? ` against ${cypressEnv.CYPRESS_BASE_URL}` : '')
     )
-    const testProcess = spawn('cypress', ['run'], { env: { ...process.env, ...dopplerEnv, ...cypressEnv } })
+    const testProcess = spawn('cypress', ['run'], { env: { ...process.env, ...dopplerEnv, ...cypressEnv }, cwd })
     hookFork(this.logger, 'cypress', testProcess)
     return waitOnExit('cypress', testProcess)
   }

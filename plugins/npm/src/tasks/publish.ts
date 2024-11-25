@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs/promises'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { Task } from '@dotcom-tool-kit/base'
+import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import pacote from 'pacote'
 import { readState } from '@dotcom-tool-kit/state'
 import pack from 'libnpmpack'
@@ -9,6 +9,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import tar from 'tar'
 import { PassThrough as PassThroughStream } from 'stream'
 import type { PackageJson } from '@npm/types'
+import path from 'path'
 
 type TagType = 'prerelease' | 'latest'
 
@@ -42,7 +43,7 @@ export default class NpmPublish extends Task {
       .pipe(tar.t({ onentry: (entry) => this.logger.info(`- ${styles.filepath(entry.path)}`) }))
   }
 
-  async run(): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     this.logger.info('preparing to publish your npm package....')
 
     const ci = readState('ci')
@@ -63,15 +64,14 @@ export default class NpmPublish extends Task {
       )
     }
 
-    const packagePath = 'package.json'
+    const packagePath = path.resolve(cwd, 'package.json')
     const packageJson = JSON.parse(await readFile(packagePath, 'utf8'))
     // overwrite version from the package.json with the version from e.g. the git tag
     packageJson.version = tag.replace(/^v/, '')
     await writeFile(packagePath, JSON.stringify(packageJson, null, 2) + '\n')
 
-    const packageRoot = process.cwd()
-    const manifest = await pacote.manifest(packageRoot)
-    const tarball = await pack(packageRoot)
+    const manifest = await pacote.manifest(cwd)
+    const tarball = await pack(cwd)
 
     await this.listPackedFiles(tarball)
 

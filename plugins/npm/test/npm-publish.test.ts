@@ -5,6 +5,7 @@ import pacote, { ManifestResult } from 'pacote'
 import { publish } from 'libnpmpublish'
 import pack from 'libnpmpack'
 import { writeFile } from 'fs/promises'
+import path from 'path'
 
 const logger = winston as unknown as Logger
 
@@ -33,9 +34,9 @@ describe('NpmPublish', () => {
   it('should throw an error if ci is not found in state', async () => {
     readStateMock.mockReturnValue(null)
 
-    const task = new NpmPublish(logger, 'NpmPublish', {})
+    const task = new NpmPublish(logger, 'NpmPublish', {}, {})
     await expect(async () => {
-      await task.run()
+      await task.run({ command: 'publish:tag', cwd: '' })
     }).rejects.toThrowErrorMatchingInlineSnapshot(
       `"Could not find state for ci, check that you are running this task on circleci"`
     )
@@ -44,30 +45,30 @@ describe('NpmPublish', () => {
   it('should throw error if tag is not found', async () => {
     readStateMock.mockReturnValue({ tag: '', repo: '', branch: '', version: '' })
 
-    const task = new NpmPublish(logger, 'NpmPublish', {})
+    const task = new NpmPublish(logger, 'NpmPublish', {}, {})
     await expect(async () => {
-      await task.run()
+      await task.run({ command: 'publish:tag', cwd: '' })
     }).rejects.toThrowErrorMatchingInlineSnapshot(
       `"No \`tag\` variable found in the Tool Kit \`ci\` state. Make sure this task is running on a CI tag branch."`
     )
   })
 
   it('should return prerelease if match prerelease regex in getNpmTag', () => {
-    const task = new NpmPublish(logger, 'NpmPublish', {})
+    const task = new NpmPublish(logger, 'NpmPublish', {}, {})
     expect(task.getNpmTag('v1.6.0-beta.1')).toEqual('prerelease')
   })
 
   it('should return latest if match latest regex in getNpmTag', () => {
-    const task = new NpmPublish(logger, 'NpmPublish', {})
+    const task = new NpmPublish(logger, 'NpmPublish', {}, {})
     expect(task.getNpmTag('v1.6.0')).toEqual('latest')
   })
 
   it('should throw error if tag does not match semver regex', async () => {
     readStateMock.mockReturnValue({ tag: 'random-branch', repo: '', branch: '', version: '' })
 
-    const task = new NpmPublish(logger, 'NpmPublish', {})
+    const task = new NpmPublish(logger, 'NpmPublish', {}, {})
     await expect(async () => {
-      await task.run()
+      await task.run({ command: 'publish:tag', cwd: '' })
     }).rejects.toThrowErrorMatchingInlineSnapshot(
       `"The Tool Kit \`ci\` state \`tag\` variable random-branch does not match regex /^v\\d+\\.\\d+\\.\\d+(-.+)?/. Configure your release version to match the regex eg. v1.2.3-beta.8"`
     )
@@ -79,8 +80,8 @@ describe('NpmPublish', () => {
     const listPackedFilesSpy = jest.spyOn(NpmPublish.prototype, 'listPackedFiles')
     listPackedFilesSpy.mockImplementation(() => Promise.resolve())
 
-    const task = new NpmPublish(logger, 'NpmPublish', {})
-    await task.run()
+    const task = new NpmPublish(logger, 'NpmPublish', {}, {})
+    await task.run({ command: 'publish:tag', cwd: '' })
 
     expect(listPackedFilesSpy).toBeCalled()
     expect(pack).toBeCalled()
@@ -92,11 +93,11 @@ describe('NpmPublish', () => {
     process.env.NPM_AUTH_TOKEN = process.env.NPM_AUTH_TOKEN || 'dummy_value'
     readStateMock.mockReturnValue({ tag: MOCK_CIRCLE_TAG, repo: '', branch: '', version: '' })
 
-    const task = new NpmPublish(logger, 'NpmPublish', {})
-    await task.run()
+    const task = new NpmPublish(logger, 'NpmPublish', {}, {})
+    await task.run({ command: 'publish:tag', cwd: '' })
 
     expect(writeFile).toHaveBeenCalledWith(
-      'package.json',
+      path.resolve(process.cwd(), 'package.json'),
       expect.stringContaining(`${MOCK_CIRCLE_TAG.replace(/^v/, '')}`)
     )
     expect(publish).toBeCalled()
