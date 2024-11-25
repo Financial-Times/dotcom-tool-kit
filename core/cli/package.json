@@ -23,6 +23,7 @@
     "@jest/globals": "^27.4.6",
     "@types/lodash": "^4.14.185",
     "@types/node": "^16.18.23",
+    "@types/pluralize": "^0.0.33",
     "chai": "^4.3.4",
     "globby": "^10.0.2",
     "ts-node": "^8.10.2",
@@ -43,6 +44,7 @@
     "endent": "^2.1.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
+    "pluralize": "^8.0.0",
     "tslib": "^2.3.1",
     "yaml": "^2.4.1",
     "zod-validation-error": "^2.1.0"

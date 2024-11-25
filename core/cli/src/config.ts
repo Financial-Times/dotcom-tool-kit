@@ -23,6 +23,7 @@ import {
 } from './messages'
 import { validatePlugins } from './config/validate-plugins'
 import { substituteOptionTags, validatePluginOptions } from './plugin/options'
+import { styles as s } from '@dotcom-tool-kit/logger'
 
 const coreRoot = path.resolve(__dirname, '../')
 
@@ -158,7 +159,7 @@ export async function loadConfig(logger: Logger, { validate = true } = {}): Prom
   resolvePluginOptions(validRootPlugin, validPluginConfig)
   const invalidOptions = validatePluginOptions(logger, validPluginConfig)
   if (invalidOptions.length > 0 && validate) {
-    const error = new ToolKitError('There are problems with your plugin options.')
+    const error = new ToolKitError(`There are options in your ${s.filepath('.toolkitrc.yml')} that aren't what Tool Kit expected.`)
     error.details = formatInvalidPluginOptions(invalidOptions)
     throw error
   }
