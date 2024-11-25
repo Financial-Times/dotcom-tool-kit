@@ -10,6 +10,7 @@ import type {
 import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
+import pluralize from 'pluralize'
 
 const formatTaskConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>
   `- ${s.task(key ?? 'unknown task')} ${s.dim('from plugins')} ${conflict.conflicting
@@ -98,13 +99,11 @@ const formatPlugin = (plugin: Plugin): string =>
 export type InvalidOption = [string, z.ZodError]
 
 export const formatInvalidOption = ([id, error]: InvalidOption): string =>
-  fromZodError(error, { prefix: `- ${id} has the issue(s)` }).message
+  fromZodError(error, { prefix: `${s.warning(pluralize('issue', error.issues.length, true))} in ${s.plugin(id)}`, prefixSeparator: ':\n- ', issueSeparator: '\n- ' }).message
 
 export const formatInvalidPluginOptions = (
   invalidOptions: InvalidOption[]
-): string => `Options are defined in your Tool Kit configuration that are the wrong types:
-
-${invalidOptions.map(([plugin, error]) => formatInvalidOption([s.plugin(plugin), error])).join('\n')}
+): string => `${invalidOptions.map(([plugin, error]) => formatInvalidOption([s.plugin(plugin), error])).join('\n')}
 
 Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.
 `
