@@ -3,7 +3,7 @@ import stripAnsi from 'strip-ansi'
 import boxen from '@apaleslimghost/boxen'
 
 // consistent styling use cases for terminal colours
-// don't use ansi-colors directly, define a style please
+// don't use chalk directly, define a style please
 export const styles = {
   hook: colours.yellow,
   command: colours.magenta,
