@@ -10,7 +10,12 @@
     },
     {
       "path": "../../lib/schemas"
+    },
+    {
+      "path": "../../lib/logger"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

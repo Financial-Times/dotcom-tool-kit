@@ -7,6 +7,8 @@ import { runTasksFromConfig } from 'dotcom-tool-kit/lib/tasks'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { WorkspaceCommandSchema } from '@dotcom-tool-kit/schemas/lib/tasks/workspace-command'
 import {minimatch} from 'minimatch'
+import pluralize from 'pluralize'
+import { styles } from '@dotcom-tool-kit/logger'
 
 export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceCommandSchema }> {
   async runPackageCommand(packageId: string, packagePath: string, command: string, files?: string[]) {
@@ -33,10 +35,10 @@ export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceComma
     )
 
     if (erroredCommands.length) {
-      // TODO improve error messages
-      const error = new ToolKitError(`error running workspace command ${this.options.command ?? command}`)
-      error.details = erroredCommands.map((result) => result.reason.toString()).join('\n\n')
-      throw error
+      throw new AggregateError(
+        erroredCommands.map(result => result.reason),
+        `${pluralize('error', erroredCommands.length, true)} running workspace command ${styles.command(this.options.command ?? command)}`
+      )
     }
   }
 }

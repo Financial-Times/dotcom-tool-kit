@@ -31,11 +31,14 @@
     "dotcom-tool-kit": "4.x"
   },
   "dependencies": {
+    "@dotcom-tool-kit/logger": "^4.0.0",
     "@dotcom-tool-kit/schemas": "^1.1.1",
     "@npmcli/map-workspaces": "^3.0.6",
-    "minimatch": "^10.0.1"
+    "minimatch": "^10.0.1",
+    "pluralize": "^8.0.0"
   },
   "devDependencies": {
-    "@types/npmcli__map-workspaces": "^3.0.4"
+    "@types/npmcli__map-workspaces": "^3.0.4",
+    "@types/pluralize": "^0.0.33"
   }
 }
