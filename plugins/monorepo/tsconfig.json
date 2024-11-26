@@ -9,6 +9,9 @@
       "path": "../../lib/base"
     },
     {
+      "path": "../../lib/logger"
+    },
+    {
       "path": "../../core/cli"
     }
   ],

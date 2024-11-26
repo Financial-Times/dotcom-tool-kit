@@ -1,8 +1,10 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
+import { styles } from '@dotcom-tool-kit/logger'
 import mapWorkspaces from '@npmcli/map-workspaces'
 import fs from 'fs/promises'
 import { minimatch } from 'minimatch'
 import path from 'path'
+import pluralize from 'pluralize'
 import { z } from 'zod'
 import { loadConfig } from 'dotcom-tool-kit/lib/config'
 import { runTasksFromConfig } from 'dotcom-tool-kit/lib/tasks'
@@ -103,10 +105,12 @@ export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceComma
     )
 
     if (erroredCommands.length) {
-      // TODO improve error messages
-      const error = new ToolKitError(`error running workspace command ${this.options.command ?? command}`)
-      error.details = erroredCommands.map((result) => result.reason.toString()).join('\n\n')
-      throw error
+      throw new AggregateError(
+        erroredCommands.map((result) => result.reason),
+        `${pluralize('error', erroredCommands.length, true)} running workspace command ${styles.command(
+          this.options.command ?? command
+        )}`
+      )
     }
   }
 }
