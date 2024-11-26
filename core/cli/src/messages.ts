@@ -11,6 +11,7 @@ import type { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
 import pluralize from 'pluralize'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const formatTaskConflict = ([key, conflict]: [string, Conflict<EntryPoint>]): string =>
   `- ${s.task(key ?? 'unknown task')} ${s.dim('from plugins')} ${conflict.conflicting
@@ -103,10 +104,10 @@ export const formatInvalidOption = ([id, error]: InvalidOption): string =>
 
 export const formatInvalidPluginOptions = (
   invalidOptions: InvalidOption[]
-): string => `${invalidOptions.map(([plugin, error]) => formatInvalidOption([s.plugin(plugin), error])).join('\n')}
+): string => `Please update the options so that they are the expected types.
+${invalidOptions.map(([plugin, error]) => formatInvalidOption([s.plugin(plugin), error])).join('\n')}
 
-Please update the options so that they are the expected types. You can refer to the README for the plugin for examples and descriptions of the options used.
-`
+You can refer to the README for the plugin for examples and descriptions of the options used.`
 
 export const formatUnusedPluginOptions = (
   unusedOptions: string[],
@@ -208,3 +209,33 @@ export function formatPluginTree(plugin: Plugin): string[] {
 }
 
 export const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
+
+export function formatError(error: Error) {
+	let output = `${styles.error(error.name)}: ${error.message}\n`
+
+	if(error instanceof AggregateError) {
+		output += error.errors
+			.map(formatError)
+			.map((message, messageIndex) => {
+				const lines = message.split('\n')
+
+        // TODO:KB:20241125 refactor the tree formatter from this and formatPluginTree into a shared function
+				return lines.map(
+					(line, lineIndex) => (
+						messageIndex === error.errors.length - 1 ? (
+							lineIndex === 0 ? '╰─' : '  '
+						) : lineIndex === 0 ? '├─' : '│ '
+					) + line
+				).join('\n')
+			})
+			.join('\n')
+	} else if(error instanceof ToolKitError) {
+		if(error.details) {
+			output += styles.info(error.details)
+		}
+	} else if(error.stack) {
+		output += error.stack.split('\n').slice(1).join('\n')
+	}
+
+	return output + '\n'
+}
