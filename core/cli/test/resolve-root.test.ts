@@ -71,24 +71,43 @@ describe('plugin loading', () => {
     it(`should fail to resolve a node_module plugin that doesn't exist`, () => {
       expect(() => {
         resolveRoot('@dotcom-tool-kit/this-plugin-does-not-exist', '.')
-      }).toThrowErrorMatchingInlineSnapshot(
-        `"Couldn't resolve plugin [36m@dotcom-tool-kit/this-plugin-does-not-exist[39m from directory [3m.[23m"`
+      }).toThrow(
+        expect.objectContaining({
+          message: expect.stringMatching(
+            /Couldn't resolve plugin.+@dotcom-tool-kit\/this-plugin-does-not-exist/
+          ),
+          details: expect.stringMatching(
+            /If this is a built-in Tool Kit plugin, check it's installed as a dependency./
+          )
+        })
       )
     })
 
     it(`should fail to resolve a relative path that doesn't exist`, () => {
       expect(() => {
         resolveRoot('./files/this-file-does-not-exist', '.')
-      }).toThrowErrorMatchingInlineSnapshot(
-        `"Couldn't resolve plugin [36m./files/this-file-does-not-exist[39m from directory [3m.[23m"`
+      }).toThrow(
+        expect.objectContaining({
+          message: expect.stringMatching(/Couldn't resolve plugin.+.\/files\/this-file-does-not-exist/),
+          details: expect.stringMatching(
+            /If this is a built-in Tool Kit plugin, check it's installed as a dependency./
+          )
+        })
       )
     })
 
     it(`should fail to resolve a parent relative path that doesn't exist`, () => {
       expect(() => {
         resolveRoot('../test/files/this-file-does-not-exist', '.')
-      }).toThrowErrorMatchingInlineSnapshot(
-        `"Couldn't resolve plugin [36m../test/files/this-file-does-not-exist[39m from directory [3m.[23m"`
+      }).toThrow(
+        expect.objectContaining({
+          message: expect.stringMatching(
+            /Couldn't resolve plugin.+..\/test\/files\/this-file-does-not-exist/
+          ),
+          details: expect.stringMatching(
+            /If this is a built-in Tool Kit plugin, check it's installed as a dependency./
+          )
+        })
       )
     })
   })
