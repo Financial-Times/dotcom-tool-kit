@@ -70,25 +70,25 @@ describe('plugin loading', () => {
 
     it(`should fail to resolve a node_module plugin that doesn't exist`, () => {
       expect(() => {
-        resolveRoot('@dotcom-tool-kit/this-plugin-does-not-exist', process.cwd())
+        resolveRoot('@dotcom-tool-kit/this-plugin-does-not-exist', '.')
       }).toThrowErrorMatchingInlineSnapshot(
-        `"Cannot find module '@dotcom-tool-kit/this-plugin-does-not-exist/.toolkitrc.yml'"`
+        `"Couldn't resolve plugin [36m@dotcom-tool-kit/this-plugin-does-not-exist[39m from directory [3m.[23m"`
       )
     })
 
     it(`should fail to resolve a relative path that doesn't exist`, () => {
       expect(() => {
-        resolveRoot('./files/this-file-does-not-exist', __dirname)
+        resolveRoot('./files/this-file-does-not-exist', '.')
       }).toThrowErrorMatchingInlineSnapshot(
-        `"Cannot find module './files/this-file-does-not-exist/.toolkitrc.yml'"`
+        `"Couldn't resolve plugin [36m./files/this-file-does-not-exist[39m from directory [3m.[23m"`
       )
     })
 
     it(`should fail to resolve a parent relative path that doesn't exist`, () => {
       expect(() => {
-        resolveRoot('../test/files/this-file-does-not-exist', __dirname)
+        resolveRoot('../test/files/this-file-does-not-exist', '.')
       }).toThrowErrorMatchingInlineSnapshot(
-        `"Cannot find module '../test/files/this-file-does-not-exist/.toolkitrc.yml'"`
+        `"Couldn't resolve plugin [36m../test/files/this-file-does-not-exist[39m from directory [3m.[23m"`
       )
     })
   })
