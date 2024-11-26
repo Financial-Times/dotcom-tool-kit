@@ -13,15 +13,26 @@ jest.mock('../src/plugin/require-resolve', () => {
     resolve: (id: string, options?: { paths?: string[] }) => {
       const result = spawnSync(
         'node',
-        ['-e', `process.stdout.write(require.resolve(${JSON.stringify(id)}${options ? ', ' + JSON.stringify(options) : ''}))`],
-        {cwd: __dirname}
+        [
+          '-e',
+          `try { process.stdout.write(require.resolve(${JSON.stringify(id)}${
+            options ? ', ' + JSON.stringify(options) : ''
+          })) } catch(e) { if(e.code === 'MODULE_NOT_FOUND') { process.exit(153) } else { throw e } }`
+        ],
+        { cwd: __dirname }
       )
 
-      if(result.error) {
+      if (result.error) {
         throw result.error
       }
 
-      if(result.status) {
+      if (result.status) {
+        if (result.status === 153) {
+          const error = new Error(`Cannot find module '${id}'`)
+          ;(error as any).code = 'MODULE_NOT_FOUND'
+          throw error
+        }
+
         throw new Error(result.stderr.toString())
       }
 
@@ -48,6 +59,36 @@ describe('plugin loading', () => {
     it('should resolve a plugin specified as a relative path with an index.js', () => {
       expect(resolveRoot('./files/with-index', __dirname)).toEqual(
         path.resolve(__dirname, './files/with-index')
+      )
+    })
+
+    it('should resolve a plugin specified as a parent relative path', () => {
+      expect(resolveRoot('../test/files/with-index', __dirname)).toEqual(
+        path.resolve(__dirname, './files/with-index')
+      )
+    })
+
+    it(`should fail to resolve a node_module plugin that doesn't exist`, () => {
+      expect(() => {
+        resolveRoot('@dotcom-tool-kit/this-plugin-does-not-exist', process.cwd())
+      }).toThrowErrorMatchingInlineSnapshot(
+        `"Cannot find module '@dotcom-tool-kit/this-plugin-does-not-exist/.toolkitrc.yml'"`
+      )
+    })
+
+    it(`should fail to resolve a relative path that doesn't exist`, () => {
+      expect(() => {
+        resolveRoot('./files/this-file-does-not-exist', __dirname)
+      }).toThrowErrorMatchingInlineSnapshot(
+        `"Cannot find module './files/this-file-does-not-exist/.toolkitrc.yml'"`
+      )
+    })
+
+    it(`should fail to resolve a parent relative path that doesn't exist`, () => {
+      expect(() => {
+        resolveRoot('../test/files/this-file-does-not-exist', __dirname)
+      }).toThrowErrorMatchingInlineSnapshot(
+        `"Cannot find module '../test/files/this-file-does-not-exist/.toolkitrc.yml'"`
       )
     })
   })
