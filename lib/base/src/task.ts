@@ -2,6 +2,7 @@ import type { z } from 'zod'
 import { Base } from './base'
 import { taskSymbol, typeSymbol } from './symbols'
 import type { Logger } from 'winston'
+import type {ValidConfig} from '@dotcom-tool-kit/config'
 
 type Default<T, D> = T extends undefined ? D : T
 
@@ -9,6 +10,7 @@ export type TaskRunContext = {
   files?: string[]
   command: string
   cwd: string
+  config: ValidConfig
 }
 
 export abstract class Task<

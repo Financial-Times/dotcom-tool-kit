@@ -97,7 +97,7 @@ export async function runTasksFromConfig(
     for (const task of tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
-        await task.run({ files, command, cwd: config.root })
+        await task.run({ files, command, cwd: config.root, config })
       } catch (error) {
         // if there's an exit code, that's a request from the task to exit early
         if (error instanceof ToolKitError && error.exitCode) {
