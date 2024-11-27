@@ -72,7 +72,7 @@ export async function runTasksFromConfig(
   await runInit(logger, config)
   await checkInstall(logger, config)
 
-  if (shouldDisableNativeFetch()) {
+  if (shouldDisableNativeFetch(config.pluginOptions['app root'].options)) {
     process.execArgv.push('--no-experimental-fetch')
   }
 
