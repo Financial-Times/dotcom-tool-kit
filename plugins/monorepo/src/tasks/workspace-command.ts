@@ -1,31 +1,18 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
-import mapWorkspaces from '@npmcli/map-workspaces'
-import fs from 'fs/promises'
-import path from 'path'
-import { loadConfig } from 'dotcom-tool-kit/lib/config'
 import { runTasksFromConfig } from 'dotcom-tool-kit/lib/tasks'
-import { ToolKitError } from '@dotcom-tool-kit/error'
 import { WorkspaceCommandSchema } from '@dotcom-tool-kit/schemas/lib/tasks/workspace-command'
 import {minimatch} from 'minimatch'
 import pluralize from 'pluralize'
 import { styles } from '@dotcom-tool-kit/logger'
+import LoadWorkspaceConfigs from '../load-workspace-configs'
+
 
 export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceCommandSchema }> {
-  async runPackageCommand(packageId: string, packagePath: string, command: string, files?: string[]) {
-    const config = await loadConfig(this.logger, { root: packagePath })
-
-    return runTasksFromConfig(this.logger.child({ packageId }), config, [command], files)
-  }
-
-  async run({ cwd, command, files }: TaskRunContext) {
-    const pkg = JSON.parse(await fs.readFile(path.join(cwd, 'package.json'), 'utf8'))
-
-    const workspaces = await mapWorkspaces({ cwd, pkg })
-
+  async run({ command, files }: TaskRunContext) {
     const results = await Promise.allSettled(
-      Array.from(workspaces, ([id, packagePath]) => {
-        if(!this.options.packageFilter || minimatch(packagePath, this.options.packageFilter)) {
-          return this.runPackageCommand(id, packagePath, this.options.command ?? command, files)
+      LoadWorkspaceConfigs.configs.map(async ({ config, packageId, root }) => {
+        if(!this.options.packageFilter || minimatch(root, this.options.packageFilter)) {
+          await runTasksFromConfig(this.logger.child({ packageId }), config, [command], files)
         }
       })
     )
