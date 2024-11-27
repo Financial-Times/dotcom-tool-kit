@@ -78,15 +78,19 @@ export { WorkspaceCommandSchema as schema }
 
 export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceCommandSchema }> {
   async run({ command, files }: TaskRunContext) {
+    const configuredCommand = this.options.command ?? command
+    const configsWithCommand = LoadWorkspaceConfigs.configs.filter(
+      ({ config }) => configuredCommand in config.commandTasks
+    )
+
+    this.logger.info(`Running ${styles.command(configuredCommand)} in:
+${configsWithCommand.map(({ packageId }) => `- ${styles.plugin(packageId)}`).join('\n')}
+`)
+
     const results = await Promise.allSettled(
-      LoadWorkspaceConfigs.configs.map(async ({ config, packageId, root }) => {
+      configsWithCommand.map(async ({ config, packageId, root }) => {
         if (!this.options.packageFilter || minimatch(root, this.options.packageFilter)) {
-          await runTasksFromConfig(
-            this.logger.child({ packageId }),
-            config,
-            [this.options.command ?? command],
-            files
-          )
+          await runTasksFromConfig(this.logger.child({ packageId }), config, [configuredCommand], files)
         }
       })
     )
@@ -99,7 +103,7 @@ export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceComma
       throw new AggregateError(
         erroredCommands.map((result) => result.reason),
         `${pluralize('error', erroredCommands.length, true)} running workspace command ${styles.command(
-          this.options.command ?? command
+          configuredCommand
         )}`
       )
     }
