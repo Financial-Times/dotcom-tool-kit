@@ -74,7 +74,7 @@ export type CircleCIState = CircleConfig
  * hook's config into the larger state, and so each hook only needs to define
  * the parts of the config they want to add to.
  */
-export type CircleCIStatePartial = PartialDeep<CircleCIState>
+export type CircleCIStatePartial = PartialDeep<CircleCIState, { recurseIntoArrays: true }>
 
 // Make this function lazy so that the global options object will have been
 // populated first.
@@ -325,9 +325,9 @@ const mergeInstallationResults = (
 
 const toolKitOrbPrefix = (job: string) => `tool-kit/${job}`
 
-const generateJobs = (workflow: CircleCiWorkflow): Job[] => {
+const generateJobs = (workflow: CircleCiWorkflow): Job[] | undefined => {
   const runsOnMultipleNodeVersions = getNodeVersions().length > 1
-  return workflow.jobs.map((job) => {
+  return workflow.jobs?.map((job) => {
     const splitIntoMatrix = runsOnMultipleNodeVersions && (job.splitIntoMatrix ?? true)
     return {
       [toolKitOrbPrefix(job.name)]: merge(
@@ -337,7 +337,7 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] => {
               executor: 'node'
             },
         {
-          requires: job.requires.map((required) => {
+          requires: job.requires?.map((required) => {
             if (required === 'checkout') {
               return required
             }
