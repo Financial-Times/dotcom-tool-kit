@@ -412,5 +412,50 @@ describe('CircleCI config hook', () => {
         }
       ])
     })
+
+    it('should merge sibling plugins with different custom fields for a workflow job', () => {
+      const childInstallations: HookInstallation<CircleCiOptions>[] = [
+        {
+          plugin: { id: 'a', root: 'plugins/a' },
+          forHook: 'CircleCi',
+          hookConstructor: CircleCi,
+          options: {
+            jobs: [testJob],
+            workflows: [{ name: 'tool-kit', jobs: [{ ...testWorkflowJob, custom: { param1: 'a' } }] }]
+          }
+        },
+        {
+          plugin: { id: 'b', root: 'plugins/b' },
+          forHook: 'CircleCi',
+          hookConstructor: CircleCi,
+          options: {
+            workflows: [{ name: 'tool-kit', jobs: [{ name: testWorkflowJob.name, custom: { param2: 'b' } }] }]
+          }
+        }
+      ]
+
+      const plugin = { id: 'p', root: 'plugins/p' }
+
+      expect(CircleCi.mergeChildInstallations(plugin, childInstallations)).toEqual([
+        {
+          plugin,
+          forHook: 'CircleCi',
+          hookConstructor: CircleCi,
+          options: expect.objectContaining({
+            workflows: expect.arrayContaining([
+              expect.objectContaining({
+                name: 'tool-kit',
+                jobs: expect.arrayContaining([
+                  expect.objectContaining({
+                    name: testWorkflowJob.name,
+                    custom: expect.objectContaining({ param1: 'a', param2: 'b' })
+                  })
+                ])
+              })
+            ])
+          })
+        }
+      ])
+    })
   })
 })
