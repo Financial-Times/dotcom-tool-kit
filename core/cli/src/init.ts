@@ -18,5 +18,7 @@ export async function runInit(logger: Logger, config: ValidConfig): Promise<void
   const initResults = await loadInitEntrypoints(logger, config)
   const inits = initResults.unwrap('plugin initialisation classes were invalid!')
 
-  await Promise.all(inits.map(async (init) => init.init()))
+  await Promise.all(inits.map(async (init) => init.init({
+    cwd: config.root
+  })))
 }

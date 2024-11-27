@@ -2,6 +2,10 @@ import type { Logger } from 'winston'
 import { initSymbol, typeSymbol } from './symbols'
 import { Base } from './base'
 
+export type InitContext = {
+  cwd: string
+}
+
 export abstract class Init extends Base {
   logger: Logger
 
@@ -18,7 +22,7 @@ export abstract class Init extends Base {
     return initSymbol
   }
 
-  abstract init(): Promise<void>
+  abstract init(context: InitContext): Promise<void>
 }
 
 export type InitConstructor = {
