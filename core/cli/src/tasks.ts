@@ -43,7 +43,7 @@ const loadTasks = async (
           const task = new (Task as unknown as TaskConstructor)(
             logger,
             taskId,
-            getOptions(entryPoint.plugin.id as OptionKey) ?? {},
+            config.pluginOptions[entryPoint.plugin.id as keyof PluginOptions].options,
             parsedOptions.data
           )
           return valid(task)
