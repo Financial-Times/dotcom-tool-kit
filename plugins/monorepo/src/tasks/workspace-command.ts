@@ -9,8 +9,16 @@ import LoadWorkspaceConfigs from '../load-workspace-configs'
 
 export default class WorkspaceCommand extends Task<{ task: typeof WorkspaceCommandSchema }> {
   async run({ command, files }: TaskRunContext) {
+    const configsWithCommand = LoadWorkspaceConfigs.configs.filter(
+      ({config}) => command in config.commandTasks
+    )
+
+    this.logger.info(`Running ${styles.command(command)} in:
+${configsWithCommand.map(({ packageId }) => `- ${styles.plugin(packageId)}`).join('\n')}
+`)
+
     const results = await Promise.allSettled(
-      LoadWorkspaceConfigs.configs.map(async ({ config, packageId, root }) => {
+      configsWithCommand.map(async ({ config, packageId, root }) => {
         if(!this.options.packageFilter || minimatch(root, this.options.packageFilter)) {
           await runTasksFromConfig(this.logger.child({ packageId }), config, [command], files)
         }
