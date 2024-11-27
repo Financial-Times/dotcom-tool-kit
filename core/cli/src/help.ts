@@ -5,6 +5,7 @@ import YAML from 'yaml'
 import $t from 'endent'
 import { CommandTask, OptionsForTask } from '@dotcom-tool-kit/plugin'
 import { ValidConfig } from '@dotcom-tool-kit/config'
+import { runInit } from './init'
 
 const toolKitIntro = s.box(
   $t`
@@ -83,6 +84,8 @@ export default async function showHelp(logger: Logger, commands: string[]): Prom
   if (printAllCommands) {
     commands = Object.keys(config.commandTasks).sort()
   }
+
+  await runInit(logger, config)
 
   logger.info(toolKitIntro)
 
