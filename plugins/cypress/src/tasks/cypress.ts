@@ -6,7 +6,7 @@ import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { CypressSchema } from '@dotcom-tool-kit/schemas/lib/tasks/cypress'
 
 export default class Cypress extends Task<{ task: typeof CypressSchema }> {
-  async run({ cwd }: TaskRunContext): Promise<void> {
+  async run({ cwd, config }: TaskRunContext): Promise<void> {
     const reviewState = readState('review')
     const appState = reviewState ?? readState('staging')
     const cypressEnv: Record<string, string> = {}
@@ -23,7 +23,7 @@ export default class Cypress extends Task<{ task: typeof CypressSchema }> {
         cypressEnv.CYPRESS_REVIEW_APP = 'true'
       }
     } else {
-      const doppler = new DopplerEnvVars(this.logger, 'dev')
+      const doppler = new DopplerEnvVars(this.logger, 'dev', config.pluginOptions['@dotcom-tool-kit/doppler']?.options)
       dopplerEnv = await doppler.get()
     }
 

@@ -4,20 +4,17 @@ import type { Logger } from 'winston'
 
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles, waitOnExit } from '@dotcom-tool-kit/logger'
-import { getOptions } from '@dotcom-tool-kit/options'
-import type { DopplerOptions as ConfiguredDopplerOptions } from '@dotcom-tool-kit/schemas/lib/plugins/doppler'
+import type { DopplerOptions } from '@dotcom-tool-kit/schemas/lib/plugins/doppler'
 
 export type Environment = 'prod' | 'ci' | 'dev'
 
-type DopplerOptions = Required<ConfiguredDopplerOptions>
 export type DopplerSecrets = Record<string, string>
 
 export class DopplerEnvVars {
-  options: DopplerOptions
+  options: Required<DopplerOptions>
 
-  constructor(private logger: Logger, public environment: Environment, options?: DopplerOptions) {
-    const dopplerOptions = options ?? getOptions('@dotcom-tool-kit/doppler')
-    if (!(dopplerOptions && dopplerOptions.project)) {
+  constructor(private logger: Logger, public environment: Environment, options: DopplerOptions = {}) {
+    if (!(options && options.project)) {
       const error = new ToolKitError('Doppler options not found in your Tool Kit configuration')
       error.details = `"project" is needed to get your app's secrets from doppler, e.g.
         options:
@@ -28,7 +25,7 @@ export class DopplerEnvVars {
     }
     // TypeScript can't seem to detect that the project field is no longer
     // partial unless it is accessed directly
-    this.options = { project: dopplerOptions.project }
+    this.options = { project: options.project }
   }
 
   async invokeCLI(): Promise<DopplerSecrets | undefined> {
