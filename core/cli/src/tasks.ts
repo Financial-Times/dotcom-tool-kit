@@ -3,7 +3,6 @@ import { Task, TaskConstructor } from '@dotcom-tool-kit/base'
 import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
 import type { Logger } from 'winston'
 import { importEntryPoint } from './plugin/entry-point'
-import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { loadConfig } from './config'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { checkInstall } from './install'
@@ -11,7 +10,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 import { formatInvalidOption } from './messages'
-import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
+import { PluginOptions, type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import pluralize from 'pluralize'
 
@@ -63,12 +62,6 @@ export async function runTasksFromConfig(
   commands: string[],
   files?: string[]
 ): Promise<void> {
-  for (const pluginOptions of Object.values(config.pluginOptions)) {
-    if (pluginOptions.forPlugin) {
-      setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
-    }
-  }
-
   await runInit(logger, config)
   await checkInstall(logger, config)
 

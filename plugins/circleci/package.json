@@ -11,7 +11,6 @@
     "@dotcom-tool-kit/conflict": "^1.0.0",
     "@dotcom-tool-kit/error": "^4.0.0",
     "@dotcom-tool-kit/logger": "^4.0.0",
-    "@dotcom-tool-kit/options": "^4.0.2",
     "@dotcom-tool-kit/state": "^4.0.0",
     "jest-diff": "^29.5.0",
     "lodash": "^4.17.21",

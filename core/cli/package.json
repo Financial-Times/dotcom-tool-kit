@@ -36,7 +36,6 @@
     "@dotcom-tool-kit/conflict": "^1.0.0",
     "@dotcom-tool-kit/error": "^4.0.0",
     "@dotcom-tool-kit/logger": "^4.0.0",
-    "@dotcom-tool-kit/options": "^4.0.2",
     "@dotcom-tool-kit/plugin": "^1.0.0",
     "@dotcom-tool-kit/state": "^4.0.0",
     "@dotcom-tool-kit/validated": "^1.0.0",

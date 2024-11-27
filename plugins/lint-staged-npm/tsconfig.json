@@ -7,10 +7,9 @@
   "references": [
     {
       "path": "../lint-staged"
-    },
-    {
-      "path": "../../lib/options"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

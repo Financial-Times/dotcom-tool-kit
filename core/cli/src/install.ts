@@ -2,7 +2,6 @@ import * as path from 'path'
 import type { z } from 'zod'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
 import { loadConfig } from './config'
@@ -116,12 +115,6 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
 
 export default async function installHooks(logger: Logger): Promise<ValidConfig> {
   const config = await loadConfig(logger, { root: process.cwd() })
-
-  for (const pluginOptions of Object.values(config.pluginOptions)) {
-    if (pluginOptions.forPlugin) {
-      setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
-    }
-  }
 
   await runInit(logger, config)
 

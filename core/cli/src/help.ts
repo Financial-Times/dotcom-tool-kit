@@ -1,5 +1,4 @@
 import { loadConfig } from './config'
-import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import { styles as s } from '@dotcom-tool-kit/logger'
 import type { Logger } from 'winston'
 import YAML from 'yaml'
@@ -83,12 +82,6 @@ export default async function showHelp(logger: Logger, commands: string[]): Prom
 
   if (printAllCommands) {
     commands = Object.keys(config.commandTasks).sort()
-  }
-
-  for (const pluginOptions of Object.values(config.pluginOptions)) {
-    if (pluginOptions.forPlugin) {
-      setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
-    }
   }
 
   logger.info(toolKitIntro)

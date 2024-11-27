@@ -9,7 +9,6 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^4.0.0",
     "@dotcom-tool-kit/logger": "^4.0.0",
-    "@dotcom-tool-kit/options": "^4.0.2",
     "tslib": "^2.3.1"
   },
   "keywords": [],
