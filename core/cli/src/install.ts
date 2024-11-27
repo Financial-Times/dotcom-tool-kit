@@ -12,7 +12,7 @@ import { Hook, HookClass } from '@dotcom-tool-kit/base'
 import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
 import { reducePluginHookInstallations } from './plugin/reduce-installations'
 import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/conflict'
-import { HookOptions, HookSchemas } from '@dotcom-tool-kit/schemas'
+import { PluginOptions } from '@dotcom-tool-kit/schemas'
 import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
 import { runInit } from './init'
@@ -53,7 +53,7 @@ const loadHookEntrypoints = async (
 export const loadHookInstallations = async (
   logger: Logger,
   config: ValidConfig
-): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
+): Promise<Validated<Hook[]>> => {
   const hookClassResults = await loadHookEntrypoints(logger, config)
   const installationResults = (
     await hookClassResults
@@ -87,7 +87,7 @@ export const loadHookInstallations = async (
 
   return installationsWithoutConflicts.map((installations) => {
     return installations.map(
-      ({ hookConstructor, forHook, options }) => new hookConstructor(logger, forHook, options)
+      ({ hookConstructor, forHook, options, plugin }) => new hookConstructor(logger, forHook, options, config.pluginOptions[plugin.id as keyof PluginOptions]?.options)
     )
   })
 }

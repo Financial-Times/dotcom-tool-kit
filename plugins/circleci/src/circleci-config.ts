@@ -388,7 +388,7 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] | undefined => {
   })
 }
 
-export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState> {
+export default class CircleCi extends Hook<{ hook: typeof CircleCiSchema }, CircleCIState> {
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
   private circleConfig?: string
   private generatedConfig?: CircleCIState
