@@ -90,7 +90,15 @@ ${configsWithCommand.map(({ packageId }) => `- ${styles.plugin(packageId)}`).joi
     const results = await Promise.allSettled(
       configsWithCommand.map(async ({ config, packageId, root }) => {
         if (!this.options.packageFilter || minimatch(root, this.options.packageFilter)) {
-          await runTasksFromConfig(this.logger.child({ packageId }), config, [configuredCommand], files)
+          await runTasksFromConfig(
+            this.logger.child({ packageId }),
+            config,
+            [configuredCommand],
+            files
+          ).catch((error) => {
+            error.name = `${styles.plugin(packageId)} → ${error.name}`
+            throw error
+          })
         }
       })
     )
@@ -102,9 +110,9 @@ ${configsWithCommand.map(({ packageId }) => `- ${styles.plugin(packageId)}`).joi
     if (erroredCommands.length) {
       throw new AggregateError(
         erroredCommands.map((result) => result.reason),
-        `${pluralize('error', erroredCommands.length, true)} running workspace command ${styles.command(
+        `${pluralize('error', erroredCommands.length, true)} running command ${styles.command(
           configuredCommand
-        )}`
+        )} in workspace packages`
       )
     }
   }
