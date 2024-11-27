@@ -1,4 +1,7 @@
 version: 2
 
+init:
+  - ./lib/load-workspace-configs.js
+
 tasks:
   WorkspaceCommand: ./lib/tasks/workspace-command.js
