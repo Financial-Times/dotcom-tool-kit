@@ -1,7 +1,8 @@
 import type {
   CircleCiOptions,
   CircleCiSchema,
-  CircleCiWorkflow
+  CircleCiWorkflow,
+  CircleCiWorkflowJob
 } from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
 import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
@@ -74,7 +75,7 @@ export type CircleCIState = CircleConfig
  * hook's config into the larger state, and so each hook only needs to define
  * the parts of the config they want to add to.
  */
-export type CircleCIStatePartial = PartialDeep<CircleCIState>
+export type CircleCIStatePartial = PartialDeep<CircleCIState, { recurseIntoArrays: true }>
 
 // Make this function lazy so that the global options object will have been
 // populated first.
@@ -226,6 +227,27 @@ const customOptionsOverlap = (
   })
 }
 
+const areDefinedAndUnequal = <T>(a: T | undefined, b: T | undefined): boolean =>
+  a !== undefined && b !== undefined && a !== b
+
+const workflowJobOptionsOverlap = (
+  installation?: CircleCiWorkflowJob[],
+  other?: CircleCiWorkflowJob[]
+): boolean => {
+  if (!installation || !other) {
+    return false
+  }
+  return installation.some((installationWorkflowJob) => {
+    const otherWorkflowJob = other.find(({ name }) => installationWorkflowJob.name === name)
+    return (
+      otherWorkflowJob &&
+      (areDefinedAndUnequal(installationWorkflowJob.runOnRelease, otherWorkflowJob.runOnRelease) ||
+        areDefinedAndUnequal(installationWorkflowJob.splitIntoMatrix, otherWorkflowJob.splitIntoMatrix) ||
+        customOptionsOverlap(installationWorkflowJob.custom, otherWorkflowJob.custom))
+    )
+  })
+}
+
 const workflowOptionsOverlap = (installation?: CircleCiWorkflow[], other?: CircleCiWorkflow[]): boolean => {
   if (!installation || !other) {
     return false
@@ -234,11 +256,9 @@ const workflowOptionsOverlap = (installation?: CircleCiWorkflow[], other?: Circl
     const otherWorkflow = other.find(({ name }) => installationWorkflow.name === name)
     return (
       otherWorkflow &&
-      ((installationWorkflow.runOnRelease !== undefined &&
-        otherWorkflow.runOnRelease !== undefined &&
-        installationWorkflow.runOnRelease !== otherWorkflow.runOnRelease) ||
+      (areDefinedAndUnequal(installationWorkflow.runOnRelease, otherWorkflow.runOnRelease) ||
         customOptionsOverlap(installationWorkflow.custom, otherWorkflow.custom) ||
-        rootOptionOverlaps(installationWorkflow.jobs, otherWorkflow.jobs))
+        workflowJobOptionsOverlap(installationWorkflow.jobs, otherWorkflow.jobs))
     )
   })
 }
@@ -290,7 +310,15 @@ const mergeInstallations = (installations: HookInstallation<CircleCiOptions>[]):
       const rootOptions = installations.flatMap<{ name: string }>(
         (installation) => installation.options[rootKey] ?? []
       )
-      return [rootKey, mergeRootOptions(rootOptions)]
+      const mergedOptions = mergeRootOptions(rootOptions)
+      if (rootKey === 'workflows') {
+        mergedOptions.forEach((workflow: CircleCiWorkflow) => {
+          if (workflow.jobs) {
+            workflow.jobs = mergeRootOptions(workflow.jobs)
+          }
+        })
+      }
+      return [rootKey, mergedOptions]
     })
   ),
   // squash all the custom options together
@@ -325,9 +353,9 @@ const mergeInstallationResults = (
 
 const toolKitOrbPrefix = (job: string) => `tool-kit/${job}`
 
-const generateJobs = (workflow: CircleCiWorkflow): Job[] => {
+const generateJobs = (workflow: CircleCiWorkflow): Job[] | undefined => {
   const runsOnMultipleNodeVersions = getNodeVersions().length > 1
-  return workflow.jobs.map((job) => {
+  return workflow.jobs?.map((job) => {
     const splitIntoMatrix = runsOnMultipleNodeVersions && (job.splitIntoMatrix ?? true)
     return {
       [toolKitOrbPrefix(job.name)]: merge(
@@ -337,7 +365,7 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] => {
               executor: 'node'
             },
         {
-          requires: job.requires.map((required) => {
+          requires: job.requires?.map((required) => {
             if (required === 'checkout') {
               return required
             }
