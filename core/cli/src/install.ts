@@ -86,7 +86,10 @@ export const loadHookInstallations = async (
 
   return installationsWithoutConflicts.map((installations) => {
     return installations.map(
-      ({ hookConstructor, forHook, options, plugin }) => new hookConstructor(logger, forHook, options, config.pluginOptions[plugin.id as keyof PluginOptions]?.options)
+      ({ hookConstructor, forHook, options }) => {
+        const hookPlugin = config.hooks[forHook].plugin
+        return new hookConstructor(logger, forHook, options, config.pluginOptions[hookPlugin.id as keyof PluginOptions]?.options)
+      }
     )
   })
 }
