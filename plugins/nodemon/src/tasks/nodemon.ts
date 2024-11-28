@@ -15,7 +15,7 @@ export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
     let dopplerEnv = {}
 
     if (useDoppler) {
-      const doppler = new DopplerEnvVars(this.logger, 'dev')
+      const doppler = new DopplerEnvVars(this.logger, 'dev', config.pluginOptions['@dotcom-tool-kit/doppler']?.options)
 
       dopplerEnv = await doppler.get()
     }
