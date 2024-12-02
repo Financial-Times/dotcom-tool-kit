@@ -4,8 +4,7 @@ import { hookSymbol, typeSymbol } from './symbols'
 import type { z } from 'zod'
 import type { Plugin } from '@dotcom-tool-kit/plugin'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
-
-type Default<T, D> = T extends undefined ? D : T
+import type { Default } from './type-utils'
 
 export interface HookInstallation<Options = Record<string, unknown>> {
   options: Options
@@ -14,10 +13,13 @@ export interface HookInstallation<Options = Record<string, unknown>> {
   hookConstructor: HookConstructor
 }
 
-export abstract class Hook<Options extends {
-  hook?: z.ZodTypeAny,
-  plugin?: z.ZodTypeAny
-} = Record<never, never>, State = unknown> extends Base {
+export abstract class Hook<
+  Options extends {
+    hook?: z.ZodTypeAny
+    plugin?: z.ZodTypeAny
+  } = Record<never, never>,
+  State = unknown
+> extends Base {
   logger: Logger
   // This field is used to collect hooks that share state when running their
   // install methods. All hooks in the same group will run their install method
@@ -55,8 +57,12 @@ export abstract class Hook<Options extends {
     return [parentInstallation]
   }
 
-  constructor(logger: Logger, public id: string,
-    public options: z.output<Default<Options['hook'], z.ZodObject<Record<string, never>>>>, public pluginOptions: z.output<Default<Options['plugin'], z.ZodObject<Record<string, never>>>>) {
+  constructor(
+    logger: Logger,
+    public id: string,
+    public options: z.output<Default<Options['hook'], z.ZodObject<Record<string, never>>>>,
+    public pluginOptions: z.output<Default<Options['plugin'], z.ZodObject<Record<string, never>>>>
+  ) {
     super()
     this.logger = logger.child({ hook: this.constructor.name })
   }
@@ -69,7 +75,9 @@ export abstract class Hook<Options extends {
 }
 
 export type HookConstructor = {
-  new <O extends { plugin: z.ZodTypeAny; hook: z.ZodTypeAny }>(logger: Logger, id: string,
+  new <O extends { plugin: z.ZodTypeAny; hook: z.ZodTypeAny }>(
+    logger: Logger,
+    id: string,
     options: z.infer<O['hook']>,
     pluginOptions: z.infer<O['plugin']>
   ): Hook<O, unknown>
