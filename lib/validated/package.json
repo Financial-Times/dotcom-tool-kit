@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/validated",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/error": "^4.0.0"
+    "@dotcom-tool-kit/error": "^4.0.1"
   }
 }
