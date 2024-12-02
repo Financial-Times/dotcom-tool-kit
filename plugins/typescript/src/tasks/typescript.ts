@@ -3,10 +3,9 @@ import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/lib/tasks/typescript'
 import { fork } from 'child_process'
 
-const tscPath = require.resolve('typescript/bin/tsc')
-
 export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> {
-  async run({cwd}: TaskRunContext): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
+    const tscPath = require.resolve('typescript/bin/tsc', { paths: [cwd] })
     const args = []
 
     // TODO:KB:20240408 refactor this
