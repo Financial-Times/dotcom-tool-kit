@@ -2,6 +2,7 @@ import path from 'path'
 import LoadWorkspaceConfigs from '../src/load-workspace-configs'
 import winston, { Logger } from 'winston'
 import { stripAnsi } from '@relmify/jest-serializer-strip-ansi'
+import { removeRoots } from '../../../core/cli/test/helpers.ts'
 
 const logger = winston as unknown as Logger
 
@@ -54,7 +55,7 @@ describe('LoadWorkspaceConfigs', () => {
       })
     ).resolves.toBeUndefined()
 
-    expect(LoadWorkspaceConfigs.configs).toMatchSnapshot()
+    expect(removeRoots(LoadWorkspaceConfigs.configs)).toMatchSnapshot()
   })
 
   it('should report all config load failures as an AggregateError', async () => {
