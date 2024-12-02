@@ -4,12 +4,13 @@ import { taskSymbol, typeSymbol } from './symbols'
 import type { Logger } from 'winston'
 import type { ValidConfig } from '@dotcom-tool-kit/config'
 import type { Default } from './type-utils'
+import type { ReadonlyDeep } from 'type-fest'
 
 export type TaskRunContext = {
   files?: string[]
   command: string
   cwd: string
-  config: ValidConfig
+  config: ReadonlyDeep<ValidConfig>
 }
 
 export abstract class Task<

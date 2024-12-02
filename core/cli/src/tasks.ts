@@ -80,6 +80,10 @@ export async function runTasksFromConfig(
     )
   ).unwrap('tasks are invalid!')
 
+  // at this point we no longer need to update the config, so freeze it before
+  // passing it into task run contexts so that plugins can't do crimes
+  Object.freeze(config)
+
   for (const { command, tasks } of commandTasks) {
     const errors: ErrorSummary[] = []
 
