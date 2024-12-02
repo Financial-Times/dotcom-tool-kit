@@ -40,7 +40,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                 "tasks": {},
                 "version": undefined,
               },
-              "root": "plugins/monorepo/test/files/a",
+              "root": "plugins/monorepo/test/files/successful/a",
             },
             "rcFile": {
               "commands": {
@@ -120,7 +120,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                     "tasks": {},
                     "version": undefined,
                   },
-                  "root": "plugins/monorepo/test/files/a",
+                  "root": "plugins/monorepo/test/files/successful/a",
                 },
                 "rcFile": {
                   "commands": {
@@ -241,7 +241,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
               "tasks": {},
               "version": undefined,
             },
-            "root": "plugins/monorepo/test/files/a",
+            "root": "plugins/monorepo/test/files/successful/a",
           },
           "tasks": [
             {
@@ -321,7 +321,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                   "tasks": {},
                   "version": undefined,
                 },
-                "root": "plugins/monorepo/test/files/a",
+                "root": "plugins/monorepo/test/files/successful/a",
               },
               "task": "Webpack",
             },
@@ -362,7 +362,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                 "tasks": {},
                 "version": undefined,
               },
-              "root": "plugins/monorepo/test/files/a",
+              "root": "plugins/monorepo/test/files/successful/a",
             },
             "rcFile": {
               "commands": {
@@ -442,7 +442,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                     "tasks": {},
                     "version": undefined,
                   },
-                  "root": "plugins/monorepo/test/files/a",
+                  "root": "plugins/monorepo/test/files/successful/a",
                 },
                 "rcFile": {
                   "commands": {
@@ -523,7 +523,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                 "tasks": {},
                 "version": undefined,
               },
-              "root": "plugins/monorepo/test/files/a",
+              "root": "plugins/monorepo/test/files/successful/a",
             },
             "rcFile": {
               "commands": {
@@ -604,7 +604,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                     "tasks": {},
                     "version": undefined,
                   },
-                  "root": "plugins/monorepo/test/files/a",
+                  "root": "plugins/monorepo/test/files/successful/a",
                 },
                 "rcFile": {
                   "commands": {
@@ -729,7 +729,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
               "tasks": {},
               "version": undefined,
             },
-            "root": "plugins/monorepo/test/files/a",
+            "root": "plugins/monorepo/test/files/successful/a",
           },
           "options": {
             "allowNativeFetch": false,
@@ -807,7 +807,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
               "tasks": {},
               "version": undefined,
             },
-            "root": "plugins/monorepo/test/files/a",
+            "root": "plugins/monorepo/test/files/successful/a",
           },
         },
       },
@@ -845,7 +845,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
               "tasks": {},
               "version": undefined,
             },
-            "root": "plugins/monorepo/test/files/a",
+            "root": "plugins/monorepo/test/files/successful/a",
           },
           "rcFile": {
             "commands": {
@@ -960,7 +960,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
             "tasks": {},
             "version": undefined,
           },
-          "root": "plugins/monorepo/test/files/a",
+          "root": "plugins/monorepo/test/files/successful/a",
         },
       },
       "resolutionTrackers": {
@@ -978,7 +978,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
           "app root",
         },
       },
-      "root": "plugins/monorepo/test/files/a",
+      "root": "plugins/monorepo/test/files/successful/a",
       "taskOptions": {},
       "tasks": {
         "Webpack": {
@@ -1016,7 +1016,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                 "tasks": {},
                 "version": undefined,
               },
-              "root": "plugins/monorepo/test/files/a",
+              "root": "plugins/monorepo/test/files/successful/a",
             },
             "rcFile": {
               "commands": {
@@ -1062,7 +1062,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
       },
     },
     "packageId": "@monorepo-plugin-tests/a",
-    "root": "plugins/monorepo/test/files/a",
+    "root": "plugins/monorepo/test/files/successful/a",
   },
   {
     "config": {
@@ -1102,7 +1102,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                 "tasks": {},
                 "version": undefined,
               },
-              "root": "plugins/monorepo/test/files/b",
+              "root": "plugins/monorepo/test/files/successful/b",
             },
             "rcFile": {
               "commands": {
@@ -1162,7 +1162,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                     "tasks": {},
                     "version": undefined,
                   },
-                  "root": "plugins/monorepo/test/files/b",
+                  "root": "plugins/monorepo/test/files/successful/b",
                 },
                 "rcFile": {
                   "commands": {
@@ -1247,7 +1247,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
               "tasks": {},
               "version": undefined,
             },
-            "root": "plugins/monorepo/test/files/b",
+            "root": "plugins/monorepo/test/files/successful/b",
           },
           "tasks": [
             {
@@ -1309,7 +1309,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                   "tasks": {},
                   "version": undefined,
                 },
-                "root": "plugins/monorepo/test/files/b",
+                "root": "plugins/monorepo/test/files/successful/b",
               },
               "task": "Babel",
             },
@@ -1350,7 +1350,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                 "tasks": {},
                 "version": undefined,
               },
-              "root": "plugins/monorepo/test/files/b",
+              "root": "plugins/monorepo/test/files/successful/b",
             },
             "rcFile": {
               "commands": {
@@ -1410,7 +1410,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                     "tasks": {},
                     "version": undefined,
                   },
-                  "root": "plugins/monorepo/test/files/b",
+                  "root": "plugins/monorepo/test/files/successful/b",
                 },
                 "rcFile": {
                   "commands": {
@@ -1499,7 +1499,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
               "tasks": {},
               "version": undefined,
             },
-            "root": "plugins/monorepo/test/files/b",
+            "root": "plugins/monorepo/test/files/successful/b",
           },
           "options": {
             "allowNativeFetch": false,
@@ -1559,7 +1559,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
               "tasks": {},
               "version": undefined,
             },
-            "root": "plugins/monorepo/test/files/b",
+            "root": "plugins/monorepo/test/files/successful/b",
           },
         },
       },
@@ -1597,7 +1597,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
               "tasks": {},
               "version": undefined,
             },
-            "root": "plugins/monorepo/test/files/b",
+            "root": "plugins/monorepo/test/files/successful/b",
           },
           "rcFile": {
             "commands": {
@@ -1676,7 +1676,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
             "tasks": {},
             "version": undefined,
           },
-          "root": "plugins/monorepo/test/files/b",
+          "root": "plugins/monorepo/test/files/successful/b",
         },
       },
       "resolutionTrackers": {
@@ -1694,7 +1694,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
           "app root",
         },
       },
-      "root": "plugins/monorepo/test/files/b",
+      "root": "plugins/monorepo/test/files/successful/b",
       "taskOptions": {},
       "tasks": {
         "Babel": {
@@ -1732,7 +1732,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
                 "tasks": {},
                 "version": undefined,
               },
-              "root": "plugins/monorepo/test/files/b",
+              "root": "plugins/monorepo/test/files/successful/b",
             },
             "rcFile": {
               "commands": {
@@ -1760,7 +1760,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
       },
     },
     "packageId": "@monorepo-plugin-tests/b",
-    "root": "plugins/monorepo/test/files/b",
+    "root": "plugins/monorepo/test/files/successful/b",
   },
 ]
 `;
