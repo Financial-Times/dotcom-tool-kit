@@ -1,0 +1,7 @@
+plugins:
+  - @dotcom-tool-kit/babel
+
+commands:
+  build:local:
+    - Babel:
+        envName: development

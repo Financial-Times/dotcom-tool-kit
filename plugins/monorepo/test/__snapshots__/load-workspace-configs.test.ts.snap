@@ -1,0 +1,1766 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspace packages 1`] = `
+[
+  {
+    "config": {
+      "commandTasks": {
+        "build:ci": {
+          "id": "build:ci",
+          "plugin": {
+            "children": [],
+            "id": "@dotcom-tool-kit/webpack",
+            "parent": {
+              "children": [
+                [Circular],
+              ],
+              "id": "app root",
+              "parent": undefined,
+              "rcFile": {
+                "commands": {
+                  "build:local": [
+                    {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                  ],
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [
+                  "@dotcom-tool-kit/webpack",
+                ],
+                "tasks": {},
+                "version": undefined,
+              },
+              "root": "plugins/monorepo/test/files/a",
+            },
+            "rcFile": {
+              "commands": {
+                "build:ci": {
+                  "Webpack": {
+                    "envName": "production",
+                  },
+                },
+                "build:local": {
+                  "Webpack": {
+                    "envName": "development",
+                  },
+                },
+                "build:remote": {
+                  "Webpack": {
+                    "envName": "production",
+                  },
+                },
+                "run:local": {
+                  "Webpack": {
+                    "envName": "development",
+                    "watch": true,
+                  },
+                },
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [],
+              "tasks": {
+                "Webpack": "./lib/tasks/webpack",
+              },
+              "version": 2,
+            },
+            "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+          },
+          "tasks": [
+            {
+              "options": {
+                "envName": "production",
+              },
+              "plugin": {
+                "children": [],
+                "id": "@dotcom-tool-kit/webpack",
+                "parent": {
+                  "children": [
+                    [Circular],
+                  ],
+                  "id": "app root",
+                  "parent": undefined,
+                  "rcFile": {
+                    "commands": {
+                      "build:local": [
+                        {
+                          "Webpack": {
+                            "envName": "development",
+                          },
+                        },
+                      ],
+                    },
+                    "hooks": undefined,
+                    "init": [],
+                    "installs": {},
+                    "options": {
+                      "hooks": [],
+                      "plugins": {},
+                      "tasks": {},
+                    },
+                    "plugins": [
+                      "@dotcom-tool-kit/webpack",
+                    ],
+                    "tasks": {},
+                    "version": undefined,
+                  },
+                  "root": "plugins/monorepo/test/files/a",
+                },
+                "rcFile": {
+                  "commands": {
+                    "build:ci": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "build:local": {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                    "build:remote": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "run:local": {
+                      "Webpack": {
+                        "envName": "development",
+                        "watch": true,
+                      },
+                    },
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Webpack": "./lib/tasks/webpack",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+              },
+              "task": "Webpack",
+            },
+          ],
+        },
+        "build:local": {
+          "id": "build:local",
+          "plugin": {
+            "children": [
+              {
+                "children": [],
+                "id": "@dotcom-tool-kit/webpack",
+                "parent": [Circular],
+                "rcFile": {
+                  "commands": {
+                    "build:ci": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "build:local": {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                    "build:remote": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "run:local": {
+                      "Webpack": {
+                        "envName": "development",
+                        "watch": true,
+                      },
+                    },
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Webpack": "./lib/tasks/webpack",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+              },
+            ],
+            "id": "app root",
+            "parent": undefined,
+            "rcFile": {
+              "commands": {
+                "build:local": [
+                  {
+                    "Webpack": {
+                      "envName": "development",
+                    },
+                  },
+                ],
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [
+                "@dotcom-tool-kit/webpack",
+              ],
+              "tasks": {},
+              "version": undefined,
+            },
+            "root": "plugins/monorepo/test/files/a",
+          },
+          "tasks": [
+            {
+              "options": {
+                "envName": "development",
+              },
+              "plugin": {
+                "children": [
+                  {
+                    "children": [],
+                    "id": "@dotcom-tool-kit/webpack",
+                    "parent": [Circular],
+                    "rcFile": {
+                      "commands": {
+                        "build:ci": {
+                          "Webpack": {
+                            "envName": "production",
+                          },
+                        },
+                        "build:local": {
+                          "Webpack": {
+                            "envName": "development",
+                          },
+                        },
+                        "build:remote": {
+                          "Webpack": {
+                            "envName": "production",
+                          },
+                        },
+                        "run:local": {
+                          "Webpack": {
+                            "envName": "development",
+                            "watch": true,
+                          },
+                        },
+                      },
+                      "hooks": undefined,
+                      "init": [],
+                      "installs": {},
+                      "options": {
+                        "hooks": [],
+                        "plugins": {},
+                        "tasks": {},
+                      },
+                      "plugins": [],
+                      "tasks": {
+                        "Webpack": "./lib/tasks/webpack",
+                      },
+                      "version": 2,
+                    },
+                    "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+                  },
+                ],
+                "id": "app root",
+                "parent": undefined,
+                "rcFile": {
+                  "commands": {
+                    "build:local": [
+                      {
+                        "Webpack": {
+                          "envName": "development",
+                        },
+                      },
+                    ],
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [
+                    "@dotcom-tool-kit/webpack",
+                  ],
+                  "tasks": {},
+                  "version": undefined,
+                },
+                "root": "plugins/monorepo/test/files/a",
+              },
+              "task": "Webpack",
+            },
+          ],
+        },
+        "build:remote": {
+          "id": "build:remote",
+          "plugin": {
+            "children": [],
+            "id": "@dotcom-tool-kit/webpack",
+            "parent": {
+              "children": [
+                [Circular],
+              ],
+              "id": "app root",
+              "parent": undefined,
+              "rcFile": {
+                "commands": {
+                  "build:local": [
+                    {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                  ],
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [
+                  "@dotcom-tool-kit/webpack",
+                ],
+                "tasks": {},
+                "version": undefined,
+              },
+              "root": "plugins/monorepo/test/files/a",
+            },
+            "rcFile": {
+              "commands": {
+                "build:ci": {
+                  "Webpack": {
+                    "envName": "production",
+                  },
+                },
+                "build:local": {
+                  "Webpack": {
+                    "envName": "development",
+                  },
+                },
+                "build:remote": {
+                  "Webpack": {
+                    "envName": "production",
+                  },
+                },
+                "run:local": {
+                  "Webpack": {
+                    "envName": "development",
+                    "watch": true,
+                  },
+                },
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [],
+              "tasks": {
+                "Webpack": "./lib/tasks/webpack",
+              },
+              "version": 2,
+            },
+            "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+          },
+          "tasks": [
+            {
+              "options": {
+                "envName": "production",
+              },
+              "plugin": {
+                "children": [],
+                "id": "@dotcom-tool-kit/webpack",
+                "parent": {
+                  "children": [
+                    [Circular],
+                  ],
+                  "id": "app root",
+                  "parent": undefined,
+                  "rcFile": {
+                    "commands": {
+                      "build:local": [
+                        {
+                          "Webpack": {
+                            "envName": "development",
+                          },
+                        },
+                      ],
+                    },
+                    "hooks": undefined,
+                    "init": [],
+                    "installs": {},
+                    "options": {
+                      "hooks": [],
+                      "plugins": {},
+                      "tasks": {},
+                    },
+                    "plugins": [
+                      "@dotcom-tool-kit/webpack",
+                    ],
+                    "tasks": {},
+                    "version": undefined,
+                  },
+                  "root": "plugins/monorepo/test/files/a",
+                },
+                "rcFile": {
+                  "commands": {
+                    "build:ci": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "build:local": {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                    "build:remote": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "run:local": {
+                      "Webpack": {
+                        "envName": "development",
+                        "watch": true,
+                      },
+                    },
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Webpack": "./lib/tasks/webpack",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+              },
+              "task": "Webpack",
+            },
+          ],
+        },
+        "run:local": {
+          "id": "run:local",
+          "plugin": {
+            "children": [],
+            "id": "@dotcom-tool-kit/webpack",
+            "parent": {
+              "children": [
+                [Circular],
+              ],
+              "id": "app root",
+              "parent": undefined,
+              "rcFile": {
+                "commands": {
+                  "build:local": [
+                    {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                  ],
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [
+                  "@dotcom-tool-kit/webpack",
+                ],
+                "tasks": {},
+                "version": undefined,
+              },
+              "root": "plugins/monorepo/test/files/a",
+            },
+            "rcFile": {
+              "commands": {
+                "build:ci": {
+                  "Webpack": {
+                    "envName": "production",
+                  },
+                },
+                "build:local": {
+                  "Webpack": {
+                    "envName": "development",
+                  },
+                },
+                "build:remote": {
+                  "Webpack": {
+                    "envName": "production",
+                  },
+                },
+                "run:local": {
+                  "Webpack": {
+                    "envName": "development",
+                    "watch": true,
+                  },
+                },
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [],
+              "tasks": {
+                "Webpack": "./lib/tasks/webpack",
+              },
+              "version": 2,
+            },
+            "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+          },
+          "tasks": [
+            {
+              "options": {
+                "envName": "development",
+                "watch": true,
+              },
+              "plugin": {
+                "children": [],
+                "id": "@dotcom-tool-kit/webpack",
+                "parent": {
+                  "children": [
+                    [Circular],
+                  ],
+                  "id": "app root",
+                  "parent": undefined,
+                  "rcFile": {
+                    "commands": {
+                      "build:local": [
+                        {
+                          "Webpack": {
+                            "envName": "development",
+                          },
+                        },
+                      ],
+                    },
+                    "hooks": undefined,
+                    "init": [],
+                    "installs": {},
+                    "options": {
+                      "hooks": [],
+                      "plugins": {},
+                      "tasks": {},
+                    },
+                    "plugins": [
+                      "@dotcom-tool-kit/webpack",
+                    ],
+                    "tasks": {},
+                    "version": undefined,
+                  },
+                  "root": "plugins/monorepo/test/files/a",
+                },
+                "rcFile": {
+                  "commands": {
+                    "build:ci": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "build:local": {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                    "build:remote": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "run:local": {
+                      "Webpack": {
+                        "envName": "development",
+                        "watch": true,
+                      },
+                    },
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Webpack": "./lib/tasks/webpack",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+              },
+              "task": "Webpack",
+            },
+          ],
+        },
+      },
+      "hookManagedFiles": Set {},
+      "hooks": {},
+      "inits": [],
+      "pluginOptions": {
+        "app root": {
+          "forPlugin": {
+            "children": [
+              {
+                "children": [],
+                "id": "@dotcom-tool-kit/webpack",
+                "parent": [Circular],
+                "rcFile": {
+                  "commands": {
+                    "build:ci": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "build:local": {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                    "build:remote": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "run:local": {
+                      "Webpack": {
+                        "envName": "development",
+                        "watch": true,
+                      },
+                    },
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Webpack": "./lib/tasks/webpack",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+              },
+            ],
+            "id": "app root",
+            "parent": undefined,
+            "rcFile": {
+              "commands": {
+                "build:local": [
+                  {
+                    "Webpack": {
+                      "envName": "development",
+                    },
+                  },
+                ],
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [
+                "@dotcom-tool-kit/webpack",
+              ],
+              "tasks": {},
+              "version": undefined,
+            },
+            "root": "plugins/monorepo/test/files/a",
+          },
+          "options": {
+            "allowNativeFetch": false,
+          },
+          "plugin": {
+            "children": [
+              {
+                "children": [],
+                "id": "@dotcom-tool-kit/webpack",
+                "parent": [Circular],
+                "rcFile": {
+                  "commands": {
+                    "build:ci": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "build:local": {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                    "build:remote": {
+                      "Webpack": {
+                        "envName": "production",
+                      },
+                    },
+                    "run:local": {
+                      "Webpack": {
+                        "envName": "development",
+                        "watch": true,
+                      },
+                    },
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Webpack": "./lib/tasks/webpack",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+              },
+            ],
+            "id": "app root",
+            "parent": undefined,
+            "rcFile": {
+              "commands": {
+                "build:local": [
+                  {
+                    "Webpack": {
+                      "envName": "development",
+                    },
+                  },
+                ],
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [
+                "@dotcom-tool-kit/webpack",
+              ],
+              "tasks": {},
+              "version": undefined,
+            },
+            "root": "plugins/monorepo/test/files/a",
+          },
+        },
+      },
+      "plugins": {
+        "@dotcom-tool-kit/webpack": {
+          "children": [],
+          "id": "@dotcom-tool-kit/webpack",
+          "parent": {
+            "children": [
+              [Circular],
+            ],
+            "id": "app root",
+            "parent": undefined,
+            "rcFile": {
+              "commands": {
+                "build:local": [
+                  {
+                    "Webpack": {
+                      "envName": "development",
+                    },
+                  },
+                ],
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [
+                "@dotcom-tool-kit/webpack",
+              ],
+              "tasks": {},
+              "version": undefined,
+            },
+            "root": "plugins/monorepo/test/files/a",
+          },
+          "rcFile": {
+            "commands": {
+              "build:ci": {
+                "Webpack": {
+                  "envName": "production",
+                },
+              },
+              "build:local": {
+                "Webpack": {
+                  "envName": "development",
+                },
+              },
+              "build:remote": {
+                "Webpack": {
+                  "envName": "production",
+                },
+              },
+              "run:local": {
+                "Webpack": {
+                  "envName": "development",
+                  "watch": true,
+                },
+              },
+            },
+            "hooks": undefined,
+            "init": [],
+            "installs": {},
+            "options": {
+              "hooks": [],
+              "plugins": {},
+              "tasks": {},
+            },
+            "plugins": [],
+            "tasks": {
+              "Webpack": "./lib/tasks/webpack",
+            },
+            "version": 2,
+          },
+          "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+        },
+        "app root": {
+          "children": [
+            {
+              "children": [],
+              "id": "@dotcom-tool-kit/webpack",
+              "parent": [Circular],
+              "rcFile": {
+                "commands": {
+                  "build:ci": {
+                    "Webpack": {
+                      "envName": "production",
+                    },
+                  },
+                  "build:local": {
+                    "Webpack": {
+                      "envName": "development",
+                    },
+                  },
+                  "build:remote": {
+                    "Webpack": {
+                      "envName": "production",
+                    },
+                  },
+                  "run:local": {
+                    "Webpack": {
+                      "envName": "development",
+                      "watch": true,
+                    },
+                  },
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [],
+                "tasks": {
+                  "Webpack": "./lib/tasks/webpack",
+                },
+                "version": 2,
+              },
+              "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+            },
+          ],
+          "id": "app root",
+          "parent": undefined,
+          "rcFile": {
+            "commands": {
+              "build:local": [
+                {
+                  "Webpack": {
+                    "envName": "development",
+                  },
+                },
+              ],
+            },
+            "hooks": undefined,
+            "init": [],
+            "installs": {},
+            "options": {
+              "hooks": [],
+              "plugins": {},
+              "tasks": {},
+            },
+            "plugins": [
+              "@dotcom-tool-kit/webpack",
+            ],
+            "tasks": {},
+            "version": undefined,
+          },
+          "root": "plugins/monorepo/test/files/a",
+        },
+      },
+      "resolutionTrackers": {
+        "reducedInstallationPlugins": Set {},
+        "resolvedPluginOptions": Set {
+          "@dotcom-tool-kit/webpack",
+          "app root",
+        },
+        "resolvedPlugins": Set {
+          "@dotcom-tool-kit/webpack",
+          "app root",
+        },
+        "substitutedPlugins": Set {
+          "@dotcom-tool-kit/webpack",
+          "app root",
+        },
+      },
+      "root": "plugins/monorepo/test/files/a",
+      "taskOptions": {},
+      "tasks": {
+        "Webpack": {
+          "modulePath": "./lib/tasks/webpack",
+          "plugin": {
+            "children": [],
+            "id": "@dotcom-tool-kit/webpack",
+            "parent": {
+              "children": [
+                [Circular],
+              ],
+              "id": "app root",
+              "parent": undefined,
+              "rcFile": {
+                "commands": {
+                  "build:local": [
+                    {
+                      "Webpack": {
+                        "envName": "development",
+                      },
+                    },
+                  ],
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [
+                  "@dotcom-tool-kit/webpack",
+                ],
+                "tasks": {},
+                "version": undefined,
+              },
+              "root": "plugins/monorepo/test/files/a",
+            },
+            "rcFile": {
+              "commands": {
+                "build:ci": {
+                  "Webpack": {
+                    "envName": "production",
+                  },
+                },
+                "build:local": {
+                  "Webpack": {
+                    "envName": "development",
+                  },
+                },
+                "build:remote": {
+                  "Webpack": {
+                    "envName": "production",
+                  },
+                },
+                "run:local": {
+                  "Webpack": {
+                    "envName": "development",
+                    "watch": true,
+                  },
+                },
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [],
+              "tasks": {
+                "Webpack": "./lib/tasks/webpack",
+              },
+              "version": 2,
+            },
+            "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/webpack",
+          },
+        },
+      },
+    },
+    "packageId": "@monorepo-plugin-tests/a",
+    "root": "plugins/monorepo/test/files/a",
+  },
+  {
+    "config": {
+      "commandTasks": {
+        "build:ci": {
+          "id": "build:ci",
+          "plugin": {
+            "children": [],
+            "id": "@dotcom-tool-kit/babel",
+            "parent": {
+              "children": [
+                [Circular],
+              ],
+              "id": "app root",
+              "parent": undefined,
+              "rcFile": {
+                "commands": {
+                  "build:local": [
+                    {
+                      "Babel": {
+                        "envName": "development",
+                      },
+                    },
+                  ],
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [
+                  "@dotcom-tool-kit/babel",
+                ],
+                "tasks": {},
+                "version": undefined,
+              },
+              "root": "plugins/monorepo/test/files/b",
+            },
+            "rcFile": {
+              "commands": {
+                "build:ci": "Babel",
+                "build:local": "Babel",
+                "build:remote": "Babel",
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [],
+              "tasks": {
+                "Babel": "./lib/tasks/babel",
+              },
+              "version": 2,
+            },
+            "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+          },
+          "tasks": [
+            {
+              "options": {},
+              "plugin": {
+                "children": [],
+                "id": "@dotcom-tool-kit/babel",
+                "parent": {
+                  "children": [
+                    [Circular],
+                  ],
+                  "id": "app root",
+                  "parent": undefined,
+                  "rcFile": {
+                    "commands": {
+                      "build:local": [
+                        {
+                          "Babel": {
+                            "envName": "development",
+                          },
+                        },
+                      ],
+                    },
+                    "hooks": undefined,
+                    "init": [],
+                    "installs": {},
+                    "options": {
+                      "hooks": [],
+                      "plugins": {},
+                      "tasks": {},
+                    },
+                    "plugins": [
+                      "@dotcom-tool-kit/babel",
+                    ],
+                    "tasks": {},
+                    "version": undefined,
+                  },
+                  "root": "plugins/monorepo/test/files/b",
+                },
+                "rcFile": {
+                  "commands": {
+                    "build:ci": "Babel",
+                    "build:local": "Babel",
+                    "build:remote": "Babel",
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Babel": "./lib/tasks/babel",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+              },
+              "task": "Babel",
+            },
+          ],
+        },
+        "build:local": {
+          "id": "build:local",
+          "plugin": {
+            "children": [
+              {
+                "children": [],
+                "id": "@dotcom-tool-kit/babel",
+                "parent": [Circular],
+                "rcFile": {
+                  "commands": {
+                    "build:ci": "Babel",
+                    "build:local": "Babel",
+                    "build:remote": "Babel",
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Babel": "./lib/tasks/babel",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+              },
+            ],
+            "id": "app root",
+            "parent": undefined,
+            "rcFile": {
+              "commands": {
+                "build:local": [
+                  {
+                    "Babel": {
+                      "envName": "development",
+                    },
+                  },
+                ],
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [
+                "@dotcom-tool-kit/babel",
+              ],
+              "tasks": {},
+              "version": undefined,
+            },
+            "root": "plugins/monorepo/test/files/b",
+          },
+          "tasks": [
+            {
+              "options": {
+                "envName": "development",
+              },
+              "plugin": {
+                "children": [
+                  {
+                    "children": [],
+                    "id": "@dotcom-tool-kit/babel",
+                    "parent": [Circular],
+                    "rcFile": {
+                      "commands": {
+                        "build:ci": "Babel",
+                        "build:local": "Babel",
+                        "build:remote": "Babel",
+                      },
+                      "hooks": undefined,
+                      "init": [],
+                      "installs": {},
+                      "options": {
+                        "hooks": [],
+                        "plugins": {},
+                        "tasks": {},
+                      },
+                      "plugins": [],
+                      "tasks": {
+                        "Babel": "./lib/tasks/babel",
+                      },
+                      "version": 2,
+                    },
+                    "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+                  },
+                ],
+                "id": "app root",
+                "parent": undefined,
+                "rcFile": {
+                  "commands": {
+                    "build:local": [
+                      {
+                        "Babel": {
+                          "envName": "development",
+                        },
+                      },
+                    ],
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [
+                    "@dotcom-tool-kit/babel",
+                  ],
+                  "tasks": {},
+                  "version": undefined,
+                },
+                "root": "plugins/monorepo/test/files/b",
+              },
+              "task": "Babel",
+            },
+          ],
+        },
+        "build:remote": {
+          "id": "build:remote",
+          "plugin": {
+            "children": [],
+            "id": "@dotcom-tool-kit/babel",
+            "parent": {
+              "children": [
+                [Circular],
+              ],
+              "id": "app root",
+              "parent": undefined,
+              "rcFile": {
+                "commands": {
+                  "build:local": [
+                    {
+                      "Babel": {
+                        "envName": "development",
+                      },
+                    },
+                  ],
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [
+                  "@dotcom-tool-kit/babel",
+                ],
+                "tasks": {},
+                "version": undefined,
+              },
+              "root": "plugins/monorepo/test/files/b",
+            },
+            "rcFile": {
+              "commands": {
+                "build:ci": "Babel",
+                "build:local": "Babel",
+                "build:remote": "Babel",
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [],
+              "tasks": {
+                "Babel": "./lib/tasks/babel",
+              },
+              "version": 2,
+            },
+            "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+          },
+          "tasks": [
+            {
+              "options": {},
+              "plugin": {
+                "children": [],
+                "id": "@dotcom-tool-kit/babel",
+                "parent": {
+                  "children": [
+                    [Circular],
+                  ],
+                  "id": "app root",
+                  "parent": undefined,
+                  "rcFile": {
+                    "commands": {
+                      "build:local": [
+                        {
+                          "Babel": {
+                            "envName": "development",
+                          },
+                        },
+                      ],
+                    },
+                    "hooks": undefined,
+                    "init": [],
+                    "installs": {},
+                    "options": {
+                      "hooks": [],
+                      "plugins": {},
+                      "tasks": {},
+                    },
+                    "plugins": [
+                      "@dotcom-tool-kit/babel",
+                    ],
+                    "tasks": {},
+                    "version": undefined,
+                  },
+                  "root": "plugins/monorepo/test/files/b",
+                },
+                "rcFile": {
+                  "commands": {
+                    "build:ci": "Babel",
+                    "build:local": "Babel",
+                    "build:remote": "Babel",
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Babel": "./lib/tasks/babel",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+              },
+              "task": "Babel",
+            },
+          ],
+        },
+      },
+      "hookManagedFiles": Set {},
+      "hooks": {},
+      "inits": [],
+      "pluginOptions": {
+        "app root": {
+          "forPlugin": {
+            "children": [
+              {
+                "children": [],
+                "id": "@dotcom-tool-kit/babel",
+                "parent": [Circular],
+                "rcFile": {
+                  "commands": {
+                    "build:ci": "Babel",
+                    "build:local": "Babel",
+                    "build:remote": "Babel",
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Babel": "./lib/tasks/babel",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+              },
+            ],
+            "id": "app root",
+            "parent": undefined,
+            "rcFile": {
+              "commands": {
+                "build:local": [
+                  {
+                    "Babel": {
+                      "envName": "development",
+                    },
+                  },
+                ],
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [
+                "@dotcom-tool-kit/babel",
+              ],
+              "tasks": {},
+              "version": undefined,
+            },
+            "root": "plugins/monorepo/test/files/b",
+          },
+          "options": {
+            "allowNativeFetch": false,
+          },
+          "plugin": {
+            "children": [
+              {
+                "children": [],
+                "id": "@dotcom-tool-kit/babel",
+                "parent": [Circular],
+                "rcFile": {
+                  "commands": {
+                    "build:ci": "Babel",
+                    "build:local": "Babel",
+                    "build:remote": "Babel",
+                  },
+                  "hooks": undefined,
+                  "init": [],
+                  "installs": {},
+                  "options": {
+                    "hooks": [],
+                    "plugins": {},
+                    "tasks": {},
+                  },
+                  "plugins": [],
+                  "tasks": {
+                    "Babel": "./lib/tasks/babel",
+                  },
+                  "version": 2,
+                },
+                "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+              },
+            ],
+            "id": "app root",
+            "parent": undefined,
+            "rcFile": {
+              "commands": {
+                "build:local": [
+                  {
+                    "Babel": {
+                      "envName": "development",
+                    },
+                  },
+                ],
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [
+                "@dotcom-tool-kit/babel",
+              ],
+              "tasks": {},
+              "version": undefined,
+            },
+            "root": "plugins/monorepo/test/files/b",
+          },
+        },
+      },
+      "plugins": {
+        "@dotcom-tool-kit/babel": {
+          "children": [],
+          "id": "@dotcom-tool-kit/babel",
+          "parent": {
+            "children": [
+              [Circular],
+            ],
+            "id": "app root",
+            "parent": undefined,
+            "rcFile": {
+              "commands": {
+                "build:local": [
+                  {
+                    "Babel": {
+                      "envName": "development",
+                    },
+                  },
+                ],
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [
+                "@dotcom-tool-kit/babel",
+              ],
+              "tasks": {},
+              "version": undefined,
+            },
+            "root": "plugins/monorepo/test/files/b",
+          },
+          "rcFile": {
+            "commands": {
+              "build:ci": "Babel",
+              "build:local": "Babel",
+              "build:remote": "Babel",
+            },
+            "hooks": undefined,
+            "init": [],
+            "installs": {},
+            "options": {
+              "hooks": [],
+              "plugins": {},
+              "tasks": {},
+            },
+            "plugins": [],
+            "tasks": {
+              "Babel": "./lib/tasks/babel",
+            },
+            "version": 2,
+          },
+          "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+        },
+        "app root": {
+          "children": [
+            {
+              "children": [],
+              "id": "@dotcom-tool-kit/babel",
+              "parent": [Circular],
+              "rcFile": {
+                "commands": {
+                  "build:ci": "Babel",
+                  "build:local": "Babel",
+                  "build:remote": "Babel",
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [],
+                "tasks": {
+                  "Babel": "./lib/tasks/babel",
+                },
+                "version": 2,
+              },
+              "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+            },
+          ],
+          "id": "app root",
+          "parent": undefined,
+          "rcFile": {
+            "commands": {
+              "build:local": [
+                {
+                  "Babel": {
+                    "envName": "development",
+                  },
+                },
+              ],
+            },
+            "hooks": undefined,
+            "init": [],
+            "installs": {},
+            "options": {
+              "hooks": [],
+              "plugins": {},
+              "tasks": {},
+            },
+            "plugins": [
+              "@dotcom-tool-kit/babel",
+            ],
+            "tasks": {},
+            "version": undefined,
+          },
+          "root": "plugins/monorepo/test/files/b",
+        },
+      },
+      "resolutionTrackers": {
+        "reducedInstallationPlugins": Set {},
+        "resolvedPluginOptions": Set {
+          "@dotcom-tool-kit/babel",
+          "app root",
+        },
+        "resolvedPlugins": Set {
+          "@dotcom-tool-kit/babel",
+          "app root",
+        },
+        "substitutedPlugins": Set {
+          "@dotcom-tool-kit/babel",
+          "app root",
+        },
+      },
+      "root": "plugins/monorepo/test/files/b",
+      "taskOptions": {},
+      "tasks": {
+        "Babel": {
+          "modulePath": "./lib/tasks/babel",
+          "plugin": {
+            "children": [],
+            "id": "@dotcom-tool-kit/babel",
+            "parent": {
+              "children": [
+                [Circular],
+              ],
+              "id": "app root",
+              "parent": undefined,
+              "rcFile": {
+                "commands": {
+                  "build:local": [
+                    {
+                      "Babel": {
+                        "envName": "development",
+                      },
+                    },
+                  ],
+                },
+                "hooks": undefined,
+                "init": [],
+                "installs": {},
+                "options": {
+                  "hooks": [],
+                  "plugins": {},
+                  "tasks": {},
+                },
+                "plugins": [
+                  "@dotcom-tool-kit/babel",
+                ],
+                "tasks": {},
+                "version": undefined,
+              },
+              "root": "plugins/monorepo/test/files/b",
+            },
+            "rcFile": {
+              "commands": {
+                "build:ci": "Babel",
+                "build:local": "Babel",
+                "build:remote": "Babel",
+              },
+              "hooks": undefined,
+              "init": [],
+              "installs": {},
+              "options": {
+                "hooks": [],
+                "plugins": {},
+                "tasks": {},
+              },
+              "plugins": [],
+              "tasks": {
+                "Babel": "./lib/tasks/babel",
+              },
+              "version": 2,
+            },
+            "root": "/Users/kara.brightwell/Code/financial-times/dotcom-tool-kit/plugins/babel",
+          },
+        },
+      },
+    },
+    "packageId": "@monorepo-plugin-tests/b",
+    "root": "plugins/monorepo/test/files/b",
+  },
+]
+`;
