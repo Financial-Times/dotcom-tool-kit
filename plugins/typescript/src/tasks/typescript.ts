@@ -3,8 +3,6 @@ import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { fork } from 'child_process'
 import * as z from 'zod'
 
-const tscPath = require.resolve('typescript/bin/tsc')
-
 const TypeScriptSchema = z
   .object({
     configPath: z
@@ -32,6 +30,7 @@ export { TypeScriptSchema as schema }
 
 export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> {
   async run({ cwd }: TaskRunContext): Promise<void> {
+    const tscPath = require.resolve('typescript/bin/tsc', { paths: [cwd] })
     const args = []
 
     // TODO:KB:20240408 refactor this
