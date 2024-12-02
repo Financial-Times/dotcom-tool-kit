@@ -18,7 +18,7 @@ export const NodeSchema = z
       .boolean()
       .optional()
       .describe(
-        'run Node in watch mode, which restarts your application when the entrypoint or any imported files are changed. **nb** this option is experimental in Node v18 and v20.'
+        'run Node in watch mode, which restarts your application when the entrypoint or any imported files are changed. **nb** this option is experimental in versions of Node before v20.13.'
       )
   })
   .describe('Run a Node.js application for local development.')
