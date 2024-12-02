@@ -1,8 +1,11 @@
 import path from 'path'
 import LoadWorkspaceConfigs from '../src/load-workspace-configs'
 import winston, { Logger } from 'winston'
+import { stripAnsi } from '@relmify/jest-serializer-strip-ansi'
 
 const logger = winston as unknown as Logger
+
+expect.addSnapshotSerializer(stripAnsi)
 
 expect.addSnapshotSerializer({
   test(value) {
@@ -26,13 +29,13 @@ expect.addSnapshotSerializer({
   },
 
   serialize(val, config, indentation, depth, refs, printer) {
-    return `${val.name} ${printer(val.message, config, indentation, depth, refs)} ${printer(
-      { details: val.details },
+    return `${printer(val.name, config, indentation, depth, refs)} ${printer(
+      val.message,
       config,
       indentation,
       depth,
       refs
-    )}`
+    )} ${printer({ details: val.details }, config, indentation, depth, refs)}`
   }
 })
 
@@ -62,19 +65,19 @@ describe('LoadWorkspaceConfigs', () => {
         cwd: path.relative(process.cwd(), path.resolve(__dirname, './files/invalid'))
       })
     ).rejects.toMatchInlineSnapshot(`
-      AggregateError "2 errors loading [3m.toolkitrc.yml[23m in workspace packages" {
+      AggregateError "2 errors loading .toolkitrc.yml in workspace packages" {
         "errors": [
-          [36m@monorepo-plugin-tests/b[39m → ToolKitError "There are options in your [3m.toolkitrc.yml[23m that aren't what Tool Kit expected." {
+          "@monorepo-plugin-tests/b → ToolKitError" "There are options in your .toolkitrc.yml that aren't what Tool Kit expected." {
             "details": "Please update the options so that they are the expected types.
-      [43m[30m ! [39m[49m 2 issues in [36m[36m@dotcom-tool-kit/serverless[39m[36m[39m:
+       !  2 issues in @dotcom-tool-kit/serverless:
       - Required at "awsAccountId"
       - Required at "systemCode"
 
       You can refer to the README for the plugin for examples and descriptions of the options used.",
           },
-          [36m@monorepo-plugin-tests/c[39m → ToolKitError "There are options in your [3m.toolkitrc.yml[23m that aren't what Tool Kit expected." {
+          "@monorepo-plugin-tests/c → ToolKitError" "There are options in your .toolkitrc.yml that aren't what Tool Kit expected." {
             "details": "Please update the options so that they are the expected types.
-      [43m[30m ! [39m[49m 1 issue in [36m[36m@dotcom-tool-kit/heroku[39m[36m[39m:
+       !  1 issue in @dotcom-tool-kit/heroku:
       - Required at "pipeline"
 
       You can refer to the README for the plugin for examples and descriptions of the options used.",
