@@ -3,7 +3,6 @@ import { Task, TaskConstructor } from '@dotcom-tool-kit/base'
 import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
 import type { Logger } from 'winston'
 import { importEntryPoint } from './plugin/entry-point'
-import { OptionKey, getOptions, setOptions } from '@dotcom-tool-kit/options'
 import { loadConfig } from './config'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { checkInstall } from './install'
@@ -11,7 +10,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 import { formatInvalidOption } from './messages'
-import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
+import { PluginOptions, type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import pluralize from 'pluralize'
 
@@ -43,7 +42,7 @@ const loadTasks = async (
           const task = new (Task as unknown as TaskConstructor)(
             logger,
             taskId,
-            getOptions(entryPoint.plugin.id as OptionKey) ?? {},
+            config.pluginOptions[entryPoint.plugin.id as keyof PluginOptions]?.options ?? {},
             parsedOptions.data
           )
           return valid(task)
@@ -63,16 +62,10 @@ export async function runTasksFromConfig(
   commands: string[],
   files?: string[]
 ): Promise<void> {
-  for (const pluginOptions of Object.values(config.pluginOptions)) {
-    if (pluginOptions.forPlugin) {
-      setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
-    }
-  }
-
   await runInit(logger, config)
   await checkInstall(logger, config)
 
-  if (shouldDisableNativeFetch()) {
+  if (shouldDisableNativeFetch(config.pluginOptions['app root'].options)) {
     process.execArgv.push('--no-experimental-fetch')
   }
 
@@ -87,6 +80,10 @@ export async function runTasksFromConfig(
     )
   ).unwrap('tasks are invalid!')
 
+  // at this point we no longer need to update the config, so freeze it before
+  // passing it into task run contexts so that plugins can't do crimes
+  Object.freeze(config)
+
   for (const { command, tasks } of commandTasks) {
     const errors: ErrorSummary[] = []
 
@@ -97,7 +94,7 @@ export async function runTasksFromConfig(
     for (const task of tasks) {
       try {
         logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
-        await task.run({ files, command, cwd: config.root })
+        await task.run({ files, command, cwd: config.root, config })
       } catch (error) {
         // if there's an exit code, that's a request from the task to exit early
         if (error instanceof ToolKitError && error.exitCode) {

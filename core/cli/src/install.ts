@@ -2,7 +2,6 @@ import * as path from 'path'
 import type { z } from 'zod'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import { OptionKey, setOptions } from '@dotcom-tool-kit/options'
 import groupBy from 'lodash/groupBy'
 import type { Logger } from 'winston'
 import { loadConfig } from './config'
@@ -12,7 +11,7 @@ import { Hook, HookClass } from '@dotcom-tool-kit/base'
 import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
 import { reducePluginHookInstallations } from './plugin/reduce-installations'
 import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/conflict'
-import { HookOptions, HookSchemas } from '@dotcom-tool-kit/schemas'
+import { PluginOptions } from '@dotcom-tool-kit/schemas'
 import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
 import { runInit } from './init'
@@ -53,7 +52,7 @@ const loadHookEntrypoints = async (
 export const loadHookInstallations = async (
   logger: Logger,
   config: ValidConfig
-): Promise<Validated<Hook<z.ZodType, unknown>[]>> => {
+): Promise<Validated<Hook[]>> => {
   const hookClassResults = await loadHookEntrypoints(logger, config)
   const installationResults = (
     await hookClassResults
@@ -87,7 +86,10 @@ export const loadHookInstallations = async (
 
   return installationsWithoutConflicts.map((installations) => {
     return installations.map(
-      ({ hookConstructor, forHook, options }) => new hookConstructor(logger, forHook, options)
+      ({ hookConstructor, forHook, options }) => {
+        const hookPlugin = config.hooks[forHook].plugin
+        return new hookConstructor(logger, forHook, options, config.pluginOptions[hookPlugin.id as keyof PluginOptions]?.options)
+      }
     )
   })
 }
@@ -116,12 +118,6 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
 
 export default async function installHooks(logger: Logger): Promise<ValidConfig> {
   const config = await loadConfig(logger, { root: process.cwd() })
-
-  for (const pluginOptions of Object.values(config.pluginOptions)) {
-    if (pluginOptions.forPlugin) {
-      setOptions(pluginOptions.forPlugin.id as OptionKey, pluginOptions.options)
-    }
-  }
 
   await runInit(logger, config)
 

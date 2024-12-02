@@ -26,9 +26,6 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/options"
-    },
-    {
       "path": "../../lib/schemas"
     }
   ],
@@ -36,5 +33,7 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

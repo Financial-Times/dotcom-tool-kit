@@ -95,7 +95,7 @@ function splitAndUnescapePath(path: string): string[] {
   return path.split(/(?<!\\)\./).map((component) => component.replace('\\.', '.'))
 }
 
-export default class PackageJson extends Hook<typeof PackageJsonSchema, PackageJsonState> {
+export default class PackageJson extends Hook<{ hook: typeof PackageJsonSchema }, PackageJsonState> {
   private _packageJson?: PackageJsonContents
 
   installGroup = 'package-json'

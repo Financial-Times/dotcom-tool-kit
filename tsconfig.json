@@ -77,9 +77,6 @@
       "path": "plugins/prettier"
     },
     {
-      "path": "lib/options"
-    },
-    {
       "path": "plugins/node"
     },
     {

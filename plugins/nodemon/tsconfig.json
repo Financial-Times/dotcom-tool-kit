@@ -18,14 +18,16 @@
       "path": "../../lib/logger"
     },
     {
-      "path": "../../lib/options"
-    },
-    {
       "path": "../../lib/state"
     },
     {
       "path": "../../lib/schemas"
+    },
+    {
+      "path": "../../lib/doppler"
     }
   ],
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

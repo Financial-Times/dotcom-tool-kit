@@ -15,7 +15,6 @@
     "@dotcom-tool-kit/error": "^4.0.0",
     "@dotcom-tool-kit/logger": "^4.0.0",
     "@dotcom-tool-kit/npm": "^4.0.2",
-    "@dotcom-tool-kit/options": "^4.0.2",
     "@dotcom-tool-kit/package-json-hook": "^5.0.2",
     "@dotcom-tool-kit/state": "^4.0.0",
     "@dotcom-tool-kit/wait-for-ok": "^4.0.0",

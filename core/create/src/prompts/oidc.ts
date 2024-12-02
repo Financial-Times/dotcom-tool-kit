@@ -3,7 +3,6 @@ import { GetCallerIdentityCommand, STSClient } from '@aws-sdk/client-sts'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger as winstonLogger, styles } from '@dotcom-tool-kit/logger'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import { setOptions } from '@dotcom-tool-kit/options'
 import type { RCFile } from '@dotcom-tool-kit/plugin'
 import { Octokit } from '@octokit/rest'
 import * as suggester from 'code-suggester'
@@ -253,11 +252,9 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
 
         // HACK:20240213:IM Guess Doppler project name to use in Parameter
         // store path using the same logic we used to use to infer the name
-        // from Tool Kit vault plugin options. The class tries to read the
-        // options from the global options object so let's set these options
-        // based on what's been selected during the options prompt.
-        setOptions('@dotcom-tool-kit/doppler', toolKitConfig.options.plugins['@dotcom-tool-kit/doppler'])
-        const dopplerProjectName = new DopplerEnvVars(winstonLogger, 'prod').options.project
+        // from Tool Kit vault plugin options. Pass in the options that were
+        // selected during the options prompt.
+        const dopplerProjectName = new DopplerEnvVars(winstonLogger, 'prod', toolKitConfig.options.plugins['@dotcom-tool-kit/doppler']).options.project
         const ssmAction = 'ssm:GetParameter'
         const ssmResource = `arn:aws:ssm:eu-west-1:\${AWS::AccountId}:parameter/${dopplerProjectName}/*`
         winstonLogger.info(

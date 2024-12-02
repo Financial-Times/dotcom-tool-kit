@@ -1,5 +1,8 @@
 # Developing Tool Kit
 
+> [!WARNING]
+> This guide hasn't been updated since Tool Kit v4 was released. Some of this information is outdated.
+
 Tool Kit is a monorepo. The [`plugins`](/plugins) folder contains several different parts published separately to `npm`. [`core/cli`](/core/cli) is the main entry point. It loads plugins listed by an app's [Tool Kit configuration](../readme.md#configuration). These plugins export tasks that are available when running Tool Kit from your app's folder, allowing apps to include different plugins for different use cases.
 
 Tool Kit requires Node v16. To install dependencies for every package in the workspace, run:

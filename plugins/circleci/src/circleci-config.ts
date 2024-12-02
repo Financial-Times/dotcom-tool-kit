@@ -4,12 +4,14 @@ import type {
   CircleCiWorkflow,
   CircleCiWorkflowJob
 } from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
+import type {
+  CircleCISchema as CircleCiPluginSchema,
+} from '@dotcom-tool-kit/schemas/lib/plugins/circleci'
 import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
 import { type Plugin } from '@dotcom-tool-kit/plugin'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import { getOptions } from '@dotcom-tool-kit/options'
 import { promises as fs } from 'fs'
 import { diffStringsUnified } from 'jest-diff'
 import groupBy from 'lodash/groupBy'
@@ -77,29 +79,17 @@ export type CircleCIState = CircleConfig
  */
 export type CircleCIStatePartial = PartialDeep<CircleCIState, { recurseIntoArrays: true }>
 
-// Make this function lazy so that the global options object will have been
-// populated first.
-const getNodeVersions = (): Array<string> => {
-  /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion --
-   * Tool Kit will try and parse options for every plugin it loads which has a
-   * schema. If we're running this code the @dotcom-tool-kit/circleci has by
-   * definition been loaded, and there is a schema associated with it. So the
-   * option field will be guaranteed to be present.
-   **/
-  return getOptions('@dotcom-tool-kit/circleci')!.cimgNodeVersions
-}
-
 /* Applies a verion identifier for all but the first (and therefore default)
  * Node executor, sanitising the Node version to be suitable for a CircleCI
  * configuration name. */
 const nodeVersionToExecutor = (version: string, index: number): string =>
   index === 0 ? 'node' : `node${version.replaceAll('.', '_')}`
 
-const matrixBoilerplate = (jobName: string) => ({
+const matrixBoilerplate = (jobName: string, nodeVersions: string[]) => ({
   name: `${jobName}-<< matrix.executor >>`,
   matrix: {
     parameters: {
-      executor: getNodeVersions().map(nodeVersionToExecutor)
+      executor: nodeVersions.map(nodeVersionToExecutor)
     }
   }
 })
@@ -119,9 +109,9 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
     }
   })
 
-const getBaseConfig = (): CircleCIState => {
-  const runsOnMultipleNodeVersions = getNodeVersions().length > 1
-  const setupMatrix = runsOnMultipleNodeVersions ? matrixBoilerplate('tool-kit/setup') : { executor: 'node' }
+const getBaseConfig = (nodeVersions: string[]): CircleCIState => {
+  const runsOnMultipleNodeVersions = nodeVersions.length > 1
+  const setupMatrix = runsOnMultipleNodeVersions ? matrixBoilerplate('tool-kit/setup', nodeVersions) : { executor: 'node' }
   return {
     version: 2.1,
     orbs: {
@@ -130,7 +120,7 @@ const getBaseConfig = (): CircleCIState => {
         : `financial-times/dotcom-tool-kit@${MAJOR_ORB_VERSION}`
     },
     executors: Object.fromEntries(
-      getNodeVersions().map((version, i) => [
+      nodeVersions.map((version, i) => [
         nodeVersionToExecutor(version, i),
         {
           docker: [{ image: `cimg/node:${version}` }]
@@ -353,14 +343,14 @@ const mergeInstallationResults = (
 
 const toolKitOrbPrefix = (job: string) => `tool-kit/${job}`
 
-const generateJobs = (workflow: CircleCiWorkflow): Job[] | undefined => {
-  const runsOnMultipleNodeVersions = getNodeVersions().length > 1
+const generateJobs = (workflow: CircleCiWorkflow, nodeVersions: string[]): Job[] | undefined => {
+  const runsOnMultipleNodeVersions = nodeVersions.length > 1
   return workflow.jobs?.map((job) => {
     const splitIntoMatrix = runsOnMultipleNodeVersions && (job.splitIntoMatrix ?? true)
     return {
       [toolKitOrbPrefix(job.name)]: merge(
         splitIntoMatrix
-          ? matrixBoilerplate(toolKitOrbPrefix(job.name))
+          ? matrixBoilerplate(toolKitOrbPrefix(job.name), nodeVersions)
           : {
               executor: 'node'
             },
@@ -388,7 +378,7 @@ const generateJobs = (workflow: CircleCiWorkflow): Job[] | undefined => {
   })
 }
 
-export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState> {
+export default class CircleCi extends Hook<{ hook: typeof CircleCiSchema, plugin: typeof CircleCiPluginSchema }, CircleCIState> {
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
   private circleConfig?: string
   private generatedConfig?: CircleCIState
@@ -460,6 +450,8 @@ export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState>
   }
 
   generateConfig(): CircleCIState {
+    const nodeVersions = this.pluginOptions.cimgNodeVersions
+
     if (!this.generatedConfig) {
       const generated: CircleCIStatePartial = {}
       if (this.options.executors) {
@@ -471,7 +463,7 @@ export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState>
         generated.workflows = Object.fromEntries(
           this.options.workflows.map((workflow) => {
             const generatedJobs = {
-              jobs: generateJobs(workflow)
+              jobs: generateJobs(workflow, nodeVersions)
             }
             return [workflow.name, mergeWithConcatenatedArrays(generatedJobs, workflow.custom)]
           })
@@ -479,7 +471,7 @@ export default class CircleCi extends Hook<typeof CircleCiSchema, CircleCIState>
       }
       const generatedConfig = mergeWithConcatenatedArrays(
         {},
-        this.options.disableBaseConfig ? {} : getBaseConfig(),
+        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions),
         generated,
         this.options.custom ?? {}
       )

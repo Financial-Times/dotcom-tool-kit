@@ -12,7 +12,6 @@
   "dependencies": {
     "@dotcom-tool-kit/husky-npm": "^5.0.2",
     "@dotcom-tool-kit/lint-staged": "^5.0.2",
-    "@dotcom-tool-kit/options": "^4.0.2",
     "@dotcom-tool-kit/package-json-hook": "^5.0.2",
     "tslib": "^2.3.1"
   },

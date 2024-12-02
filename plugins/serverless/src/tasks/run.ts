@@ -11,14 +11,14 @@ export default class ServerlessRun extends Task<{
   task: typeof ServerlessRunSchema
   plugin: typeof ServerlessSchema
 }> {
-  async run({cwd}: TaskRunContext): Promise<void> {
+  async run({ cwd, config }: TaskRunContext): Promise<void> {
     const { useDoppler, ports } = this.options
     const { configPath } = this.pluginOptions
 
     let dopplerEnv = {}
 
     if (useDoppler) {
-      const doppler = new DopplerEnvVars(this.logger, 'dev')
+      const doppler = new DopplerEnvVars(this.logger, 'dev', config.pluginOptions['@dotcom-tool-kit/doppler']?.options)
 
       dopplerEnv = await doppler.get()
     }

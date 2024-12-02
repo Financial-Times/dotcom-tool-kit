@@ -24,11 +24,16 @@
     },
     {
       "path": "../../lib/state"
+    },
+    {
+      "path": "../../lib/base"
     }
   ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
