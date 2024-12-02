@@ -13,6 +13,12 @@ export const NodeSchema = z
       .default([3001, 3002, 3003])
       .describe(
         "ports to try to bind to for this application. set to `false` for an entry point that wouldn't bind to a port, such as a worker process or one-off script."
+      ),
+    watch: z
+      .boolean()
+      .optional()
+      .describe(
+        'run Node in watch mode, which restarts your application when the entrypoint or any imported files are changed. **nb** this option is experimental in Node v18 and v20.'
       )
   })
   .describe('Run a Node.js application for local development.')

@@ -15,9 +15,19 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
     let dopplerEnv = {}
 
     if (useDoppler) {
-      const doppler = new DopplerEnvVars(this.logger, 'dev', config.pluginOptions['@dotcom-tool-kit/doppler']?.options)
+      const doppler = new DopplerEnvVars(
+        this.logger,
+        'dev',
+        config.pluginOptions['@dotcom-tool-kit/doppler']?.options
+      )
 
       dopplerEnv = await doppler.get()
+    }
+
+    const execArgv = [...process.execArgv]
+
+    if (this.options.watch) {
+      execArgv.push('--watch')
     }
 
     const port = ports
@@ -34,6 +44,7 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
         PORT: port.toString(),
         ...process.env
       },
+      execArgv,
       silent: true,
       cwd
     })
