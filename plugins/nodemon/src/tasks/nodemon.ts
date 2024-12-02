@@ -1,5 +1,6 @@
-import { hookFork } from '@dotcom-tool-kit/logger'
+import { hookFork, styles } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 import { writeState } from '@dotcom-tool-kit/state'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
@@ -33,8 +34,16 @@ const NodemonSchema = z
 export { NodemonSchema as schema }
 
 export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
-  async run({ config }: TaskRunContext): Promise<void> {
+  async run({ config, cwd }: TaskRunContext): Promise<void> {
     const { entry, configPath, useDoppler, ports } = this.options
+
+    if (cwd !== process.cwd()) {
+      const error = new ToolKitError('the Nodemon task does not support monorepos')
+      error.details = `Nodemon's support for running in specific directories changes the global environment, so it's not supported for use in monorepos. Use the ${styles.task(
+        'Node'
+      )} task with ${styles.code('watch: true')} instead.`
+      throw error
+    }
 
     let dopplerEnv = {}
 
