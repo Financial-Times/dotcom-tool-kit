@@ -5,6 +5,16 @@ import { stripAnsi } from '@relmify/jest-serializer-strip-ansi'
 
 const logger = winston as unknown as Logger
 
+// force resolveRoot to return relative paths for machine-agnostic snapshots
+jest.mock('../../../core/cli/lib/plugin/resolve-root', () => {
+  const { resolveRoot } = jest.requireActual('../../../core/cli/lib/plugin/resolve-root')
+  return {
+    resolveRoot(id: string, root: string) {
+      return path.relative(process.cwd(), resolveRoot(id, root))
+    }
+  }
+})
+
 expect.addSnapshotSerializer(stripAnsi)
 
 expect.addSnapshotSerializer({
