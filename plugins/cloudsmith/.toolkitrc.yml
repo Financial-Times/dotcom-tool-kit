@@ -11,27 +11,23 @@ options:
             jobs:
               - name: 'deploy-review'
                 custom:
-                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.organisation':
-                    cloudsmith-org: !toolkit/option '@dotcom-tool-kit/cloudsmith.organisation'
+                  cloudsmith-org: financial-times
                   !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
                     cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
               - name: 'deploy-staging'
                 custom:
-                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.organisation':
-                    cloudsmith-org: !toolkit/option '@dotcom-tool-kit/cloudsmith.organisation'
+                  cloudsmith-org: financial-times
                   !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
                     cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
               - name: 'deploy-production'
                 custom:
-                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.organisation':
-                    cloudsmith-org: !toolkit/option '@dotcom-tool-kit/cloudsmith.organisation'
+                  cloudsmith-org: financial-times
                   !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
                     cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
           - name: 'nightly'
             jobs:
               - name: 'deploy-review'
                 custom:
-                  !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.organisation':
-                    cloudsmith-org: !toolkit/option '@dotcom-tool-kit/cloudsmith.organisation'
+                  cloudsmith-org: financial-times
                   !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
                     cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
