@@ -1,0 +1,5 @@
+tasks:
+  DockerBuild: './lib/tasks/build'
+  DockerPush: './lib/tasks/push'
+
+version: 2

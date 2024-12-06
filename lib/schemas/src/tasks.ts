@@ -1,5 +1,6 @@
 import { type InferSchemaOptions } from './infer'
 import { BabelSchema } from './tasks/babel'
+import { DockerPushSchema } from './tasks/docker-push'
 import { ESLintSchema } from './tasks/eslint'
 import { JestSchema } from './tasks/jest'
 import { MochaSchema } from './tasks/mocha'
@@ -19,6 +20,7 @@ export const TaskSchemas = {
   Babel: BabelSchema,
   Commitlint: z.object({}).describe('Lint commit messages.'),
   Cypress: CypressSchema,
+  DockerPush: DockerPushSchema,
   Eslint: ESLintSchema,
   HerokuProduction: HerokuProductionSchema,
   HerokuReview: z.object({}).describe('Create and deploy a Heroku review app.'),
