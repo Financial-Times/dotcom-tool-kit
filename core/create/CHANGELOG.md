@@ -266,6 +266,15 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^4.0.5 to ^4.0.6
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^2.0.3 to ^2.0.4
+    * @dotcom-tool-kit/schemas bumped from ^1.2.0 to ^1.3.0
+  * devDependencies
+    * dotcom-tool-kit bumped from ^4.1.0 to ^4.2.0
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v4.0.6...create-v4.1.0) (2024-12-09)
 
 
