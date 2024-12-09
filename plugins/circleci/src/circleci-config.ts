@@ -4,9 +4,7 @@ import type {
   CircleCiWorkflow,
   CircleCiWorkflowJob
 } from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
-import type {
-  CircleCISchema as CircleCiPluginSchema,
-} from '@dotcom-tool-kit/schemas/lib/plugins/circleci'
+import type { CircleCISchema as CircleCiPluginSchema } from '@dotcom-tool-kit/schemas/lib/plugins/circleci'
 import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
 import { type Plugin } from '@dotcom-tool-kit/plugin'
@@ -98,7 +96,7 @@ const matrixBoilerplate = (jobName: string, nodeVersions: string[]) => ({
  * tagFilter sets the regex for GitHub release tags: CircleCI will ignore jobs
  * when doing a release if the filter isn't made explicit
  */
-export const tagFilter = { filters: { tags: { only: `${/^v\d+\.\d+\.\d+(-.+)?/}` } } }
+export const tagFilter = (tagFilterRegex: string) => ({ filters: { tags: { only: tagFilterRegex } } })
 
 // helper override to the Lodash mergeWith function with a pre-defined
 // customiser that will concatenate arrays rather than overriding them by index
@@ -109,9 +107,11 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
     }
   })
 
-const getBaseConfig = (nodeVersions: string[]): CircleCIState => {
+const getBaseConfig = (nodeVersions: string[], tagFilterRegex: string): CircleCIState => {
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
-  const setupMatrix = runsOnMultipleNodeVersions ? matrixBoilerplate('tool-kit/setup', nodeVersions) : { executor: 'node' }
+  const setupMatrix = runsOnMultipleNodeVersions
+    ? matrixBoilerplate('tool-kit/setup', nodeVersions)
+    : { executor: 'node' }
   return {
     version: 2.1,
     orbs: {
@@ -148,12 +148,12 @@ const getBaseConfig = (nodeVersions: string[]): CircleCIState => {
           }
         },
         jobs: [
-          { checkout: tagFilter },
+          { checkout: tagFilter(tagFilterRegex) },
           {
             'tool-kit/setup': {
               ...setupMatrix,
               requires: ['checkout'],
-              ...tagFilter
+              ...tagFilter(tagFilterRegex)
             }
           }
         ]
@@ -343,7 +343,11 @@ const mergeInstallationResults = (
 
 const toolKitOrbPrefix = (job: string) => `tool-kit/${job}`
 
-const generateJobs = (workflow: CircleCiWorkflow, nodeVersions: string[]): Job[] | undefined => {
+const generateJobs = (
+  workflow: CircleCiWorkflow,
+  nodeVersions: string[],
+  tagFilterRegex: string
+): Job[] | undefined => {
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   return workflow.jobs?.map((job) => {
     const splitIntoMatrix = runsOnMultipleNodeVersions && (job.splitIntoMatrix ?? true)
@@ -371,14 +375,17 @@ const generateJobs = (workflow: CircleCiWorkflow, nodeVersions: string[]): Job[]
             return `${requiredOrb}-${splitIntoMatrix ? '<< matrix.executor >>' : 'node'}`
           })
         },
-        workflow.runOnRelease && job.runOnRelease ? tagFilter : {},
+        workflow.runOnRelease && job.runOnRelease ? tagFilter(tagFilterRegex) : {},
         job.custom
       )
     }
   })
 }
 
-export default class CircleCi extends Hook<{ hook: typeof CircleCiSchema, plugin: typeof CircleCiPluginSchema }, CircleCIState> {
+export default class CircleCi extends Hook<
+  { hook: typeof CircleCiSchema; plugin: typeof CircleCiPluginSchema },
+  CircleCIState
+> {
   circleConfigPath = path.resolve(process.cwd(), '.circleci/config.yml')
   private circleConfig?: string
   private generatedConfig?: CircleCIState
@@ -450,7 +457,7 @@ export default class CircleCi extends Hook<{ hook: typeof CircleCiSchema, plugin
   }
 
   generateConfig(): CircleCIState {
-    const nodeVersions = this.pluginOptions.cimgNodeVersions
+    const { cimgNodeVersions: nodeVersions, tagFilterRegex } = this.pluginOptions
 
     if (!this.generatedConfig) {
       const generated: CircleCIStatePartial = {}
@@ -463,7 +470,7 @@ export default class CircleCi extends Hook<{ hook: typeof CircleCiSchema, plugin
         generated.workflows = Object.fromEntries(
           this.options.workflows.map((workflow) => {
             const generatedJobs = {
-              jobs: generateJobs(workflow, nodeVersions)
+              jobs: generateJobs(workflow, nodeVersions, tagFilterRegex)
             }
             return [workflow.name, mergeWithConcatenatedArrays(generatedJobs, workflow.custom)]
           })
@@ -471,7 +478,7 @@ export default class CircleCi extends Hook<{ hook: typeof CircleCiSchema, plugin
       }
       const generatedConfig = mergeWithConcatenatedArrays(
         {},
-        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions),
+        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions, tagFilterRegex),
         generated,
         this.options.custom ?? {}
       )

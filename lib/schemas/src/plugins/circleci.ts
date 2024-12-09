@@ -13,6 +13,12 @@ export const CircleCISchema = z.object({
     .optional()
     .describe(
       "the Cypress docker image to use. see https://github.com/cypress-io/cypress-docker-images for available images and tags. if this option is present, and you're using the [`circleci-deploy`](../circleci-deploy) plugin, this will override the default `node` executor for the `e2e-test-review` and `e2e-test-staging` jobs."
+    ),
+  tagFilterRegex: z
+    .string()
+    .default(`${/^v\d+\.\d+\.\d+(-.+)?/}`)
+    .describe(
+      'the regular expression used to match tags for jobs that should run on tag workflows. by default, matches tags that look like `v1.2.3`; if your releases use a different tag format, change this option to match your tags.'
     )
 })
 export type CircleCIOptions = z.infer<typeof CircleCISchema>

@@ -14254,6 +14254,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
         "cimgNodeVersions": [
           "18.19-browsers",
         ],
+        "tagFilterRegex": "/^v\\d+\\.\\d+\\.\\d+(-.+)?/",
       },
       "plugin": {
         "children": [
