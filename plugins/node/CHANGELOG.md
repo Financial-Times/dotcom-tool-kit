@@ -184,6 +184,25 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.1.0 to ^1.1.1
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v4.0.2...node-v4.1.0) (2024-12-09)
+
+
+### Features
+
+* add support for `node --watch` ([838f206](https://github.com/Financial-Times/dotcom-tool-kit/commit/838f20624a3cbbb944d8077dde556d1b5c0ea784))
+* run task child processes in the cwd from the task run context ([14d52f8](https://github.com/Financial-Times/dotcom-tool-kit/commit/14d52f81f874a37c12bab3a6fbfddde5ff8d72e7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.0.0 to ^1.1.0
+    * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/doppler bumped from ^2.0.2 to ^2.0.3
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.1.1 to ^1.2.0
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v3.4.2...node-v4.0.0) (2024-09-10)
 
 

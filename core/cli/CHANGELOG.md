@@ -406,6 +406,45 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.6...dotcom-tool-kit-v4.1.0) (2024-12-09)
+
+
+### Features
+
+* add a consistent error formatter that can handle AggregateErrors and use it in the cli entrypoint ([ccc2adc](https://github.com/Financial-Times/dotcom-tool-kit/commit/ccc2adcbdb123312d24de6a6beca0bd23010428f))
+* add a root option to loadConfig instead of using process.cwd() ([d3f1560](https://github.com/Financial-Times/dotcom-tool-kit/commit/d3f1560a0378e2e21bcbca134e6f9ebf76af068f))
+* pass config into taskruncontext ([435ffbc](https://github.com/Financial-Times/dotcom-tool-kit/commit/435ffbc74a81bdd159d4ea01943c6614ed1d3471))
+* pass current command into task run context ([e4cf21c](https://github.com/Financial-Times/dotcom-tool-kit/commit/e4cf21c8c4e502b02918736b8b127097dba27572))
+* pass task cwd through via TaskRunContext ([b12fe30](https://github.com/Financial-Times/dotcom-tool-kit/commit/b12fe30916e99e157e131a99fca6c59960b89f3a))
+* throw an error with a more helpful message from resolveRoot ([6cfaa51](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cfaa51f6b0bf1b0b85c092a69818891aa3f160d))
+* use an AggregateError for task errors ([c49d3b3](https://github.com/Financial-Times/dotcom-tool-kit/commit/c49d3b3f714ac517855804535a492ce5e2aa8e94))
+
+
+### Bug Fixes
+
+* be defensive when getting plugin options for tasks ([55ad81a](https://github.com/Financial-Times/dotcom-tool-kit/commit/55ad81a05bd724aa473f398ba1ba9f14ec354d30))
+* better formatting for option validation message ([53e2004](https://github.com/Financial-Times/dotcom-tool-kit/commit/53e20041e4f7bf14005e8ca3ce75d46b3d6a638f))
+* correct logic for shouldDisableNativeFetch ([224523b](https://github.com/Financial-Times/dotcom-tool-kit/commit/224523b2f3199daad02bb7a66e09f880432a10c6))
+* don't append --no-experimental-fetch multiple times ([edf6443](https://github.com/Financial-Times/dotcom-tool-kit/commit/edf6443e2a07f07c325a3120ded600848d770fda))
+* freeze the config before passing it into tasks ([a0283b9](https://github.com/Financial-Times/dotcom-tool-kit/commit/a0283b9b5a48314a26ce04ce4c176ab5f4aacc07))
+* friendlier and more readable option validation messages ([2dd4b8c](https://github.com/Financial-Times/dotcom-tool-kit/commit/2dd4b8c71624fbbc2260d816c3c0258602d8eb92))
+* get plugin options from the plugin that the hook is from not the plugin installing it ([22ad085](https://github.com/Financial-Times/dotcom-tool-kit/commit/22ad0855daa8abc5d29341cb1fb85fba1e8db07f))
+* log an extra newline after error details ([23ea7e4](https://github.com/Financial-Times/dotcom-tool-kit/commit/23ea7e4655116ca0187f1f2906b49080378d7fda))
+* more consistent validation messages for moved plugin options ([f70662b](https://github.com/Financial-Times/dotcom-tool-kit/commit/f70662b8cdf5f47a11a9d93f96b5e4efb2dfdf61))
+* preserve relative paths in resolveRoot to fix custom plugin loading ([8876631](https://github.com/Financial-Times/dotcom-tool-kit/commit/887663109ac9b0cfb4c39fb038ac111806d0208d))
+* resolve a plugin's .toolkitrc.yml ([f1458d8](https://github.com/Financial-Times/dotcom-tool-kit/commit/f1458d8f4116eb6e89bd6322a6513e6368eb7205))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.0.0 to ^1.1.0
+    * @dotcom-tool-kit/config bumped from ^1.0.2 to ^1.0.3
+    * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/validated bumped from ^1.0.0 to ^1.0.1
+
 ## [4.0.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.5...dotcom-tool-kit-v4.0.6) (2024-10-31)
 
 

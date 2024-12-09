@@ -153,6 +153,23 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.1.0 to ^1.1.1
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v4.0.2...n-test-v4.1.0) (2024-12-09)
+
+
+### Features
+
+* use cwd from task run context in remaining tasks ([c070cc2](https://github.com/Financial-Times/dotcom-tool-kit/commit/c070cc226b4633939fff349894a4a1a9d1987eef))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.0.0 to ^1.1.0
+    * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.0.1
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.1.1 to ^1.2.0
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v3.3.2...n-test-v4.0.0) (2024-09-10)
 
 

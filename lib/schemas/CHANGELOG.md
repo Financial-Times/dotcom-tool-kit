@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.1.1...schemas-v1.2.0) (2024-12-09)
+
+
+### Features
+
+* add support for `node --watch` ([838f206](https://github.com/Financial-Times/dotcom-tool-kit/commit/838f20624a3cbbb944d8077dde556d1b5c0ea784))
+* **circleci:** allow plugins to only specify a subset of hook options ([c39850a](https://github.com/Financial-Times/dotcom-tool-kit/commit/c39850a4df4884bd3141288b3c2bf583c276a65c))
+* **schemas:** add validation warnings for plugin options that moved to task options ([f9fcb35](https://github.com/Financial-Times/dotcom-tool-kit/commit/f9fcb357bb68d201a39af3d30480804995f44cbb))
+
+
+### Bug Fixes
+
+* add cypressImage to circleci schema ([f09078e](https://github.com/Financial-Times/dotcom-tool-kit/commit/f09078e1b70ad8f6f4281ac317c99a4a078503e8))
+* **schema:** correct suggested task name for eslint options ([b5a3edf](https://github.com/Financial-Times/dotcom-tool-kit/commit/b5a3edf540397f46fe9f96a5e472aa5c75b4f787))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.0.1
+
 ## [1.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.1.0...schemas-v1.1.1) (2024-10-04)
 
 

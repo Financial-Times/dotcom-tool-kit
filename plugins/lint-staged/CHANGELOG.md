@@ -140,6 +140,22 @@
   * dependencies
     * @dotcom-tool-kit/package-json-hook bumped from ^5.0.1 to ^5.0.2
 
+## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v5.0.2...lint-staged-v5.1.0) (2024-12-09)
+
+
+### Features
+
+* use cwd from task run context in remaining tasks ([c070cc2](https://github.com/Financial-Times/dotcom-tool-kit/commit/c070cc226b4633939fff349894a4a1a9d1987eef))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.0.0 to ^1.1.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.0.2 to ^5.0.3
+    * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.0.1
+
 ## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v4.2.1...lint-staged-v5.0.0) (2024-09-10)
 
 
