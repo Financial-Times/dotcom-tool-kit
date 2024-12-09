@@ -84,6 +84,23 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.1.0 to ^1.1.1
 
+## [3.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v3.0.2...typescript-v3.1.0) (2024-12-09)
+
+
+### Features
+
+* run task child processes in the cwd from the task run context ([14d52f8](https://github.com/Financial-Times/dotcom-tool-kit/commit/14d52f81f874a37c12bab3a6fbfddde5ff8d72e7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.0.0 to ^1.1.0
+    * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.0.1
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.1.1 to ^1.2.0
+
 ## [3.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v2.3.0...typescript-v3.0.0) (2024-09-10)
 
 

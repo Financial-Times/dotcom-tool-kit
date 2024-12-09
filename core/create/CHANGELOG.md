@@ -266,6 +266,25 @@
   * devDependencies
     * dotcom-tool-kit bumped from ^4.0.5 to ^4.0.6
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v4.0.6...create-v4.1.0) (2024-12-09)
+
+
+### Features
+
+* add a root option to loadConfig instead of using process.cwd() ([d3f1560](https://github.com/Financial-Times/dotcom-tool-kit/commit/d3f1560a0378e2e21bcbca134e6f9ebf76af068f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/doppler bumped from ^2.0.2 to ^2.0.3
+    * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/schemas bumped from ^1.1.1 to ^1.2.0
+  * devDependencies
+    * dotcom-tool-kit bumped from ^4.0.6 to ^4.1.0
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/create-v3.8.1...create-v4.0.0) (2024-09-10)
 
 

@@ -191,6 +191,24 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.1.0 to ^1.1.1
 
+## [4.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v4.0.2...nodemon-v4.0.3) (2024-12-09)
+
+
+### Bug Fixes
+
+* pass doppler options through in nodemon task ([6cbaac2](https://github.com/Financial-Times/dotcom-tool-kit/commit/6cbaac2caef0f4f255d11c87eda541b111e21712))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.0.0 to ^1.1.0
+    * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/doppler bumped from ^2.0.2 to ^2.0.3
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.1.1 to ^1.2.0
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v3.4.2...nodemon-v4.0.0) (2024-09-10)
 
 

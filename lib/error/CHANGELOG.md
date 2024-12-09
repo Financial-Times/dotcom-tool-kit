@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/error-v4.0.0...error-v4.0.1) (2024-12-09)
+
+
+### Bug Fixes
+
+* add a descriptive name property to ToolKitError ([a68e3fd](https://github.com/Financial-Times/dotcom-tool-kit/commit/a68e3fdf197862e71cf12048933ba1f0cc692161))
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/error-v3.2.0...error-v4.0.0) (2024-09-10)
 
 

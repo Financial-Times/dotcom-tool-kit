@@ -121,6 +121,30 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [7.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.0.2...circleci-v7.1.0) (2024-12-09)
+
+
+### Features
+
+* **circleci:** allow plugins to only specify a subset of hook options ([c39850a](https://github.com/Financial-Times/dotcom-tool-kit/commit/c39850a4df4884bd3141288b3c2bf583c276a65c))
+* **circleci:** allow workflow job options to be merged ([e33e579](https://github.com/Financial-Times/dotcom-tool-kit/commit/e33e579fe33a48ea1485a56f92da39e9818d56dc))
+
+
+### Bug Fixes
+
+* add cypressImage to circleci schema ([f09078e](https://github.com/Financial-Times/dotcom-tool-kit/commit/f09078e1b70ad8f6f4281ac317c99a4a078503e8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.0.0 to ^1.1.0
+    * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
+    * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.0.1
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.1.1 to ^1.2.0
+
 ## [7.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.0.1...circleci-v7.0.2) (2024-10-04)
 
 
