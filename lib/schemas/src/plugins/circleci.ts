@@ -16,7 +16,7 @@ export const CircleCISchema = z.object({
     ),
   tagFilterRegex: z
     .string()
-    .default(`${/^v\d+\.\d+\.\d+(-.+)?/}`)
+    .default(/^v\d+\.\d+\.\d+(-.+)?/.toString())
     .describe(
       'the regular expression used to match tags for jobs that should run on tag workflows. by default, matches tags that look like `v1.2.3`; if your releases use a different tag format, change this option to match your tags.'
     )
