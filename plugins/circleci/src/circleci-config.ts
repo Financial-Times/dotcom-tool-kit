@@ -355,7 +355,7 @@ const mergeInstallationResults = (
   return results
 }
 
-const toolKitOrbPrefix = (job: string) => `tool-kit/${job}`
+const toolKitOrbPrefix = (job: string) => (job.includes('/') ? job : `tool-kit/${job}`)
 
 const generateWorkflowJobs = (
   workflow: CircleCiWorkflow,
