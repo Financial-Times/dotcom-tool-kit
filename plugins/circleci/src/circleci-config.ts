@@ -34,7 +34,7 @@ type WorkflowJobConfig = {
   [parameter: string]: unknown
 }
 
-type Step = Record<string, string | string[]>
+type Step = string | { [command: string]: Record<string, unknown> }
 
 type WorkflowJob = string | { [job: string]: WorkflowJobConfig }
 
@@ -55,7 +55,7 @@ interface CircleConfig {
       docker?: { image: string }[]
       executor?: string
       parameters?: unknown
-      steps: (string | { [command: string]: Step })[]
+      steps: Step[]
     }
   }
   workflows: {
@@ -130,14 +130,7 @@ const getBaseConfig = (nodeVersions: string[], tagFilterRegex: string): CircleCI
     jobs: {
       checkout: {
         docker: [{ image: 'cimg/base:stable' }],
-        steps: [
-          'checkout',
-          {
-            'tool-kit/persist-workspace': {
-              path: '.'
-            }
-          }
-        ]
+        steps: ['checkout', persistWorkspaceStep]
       }
     },
     workflows: {
@@ -380,6 +373,19 @@ const generateWorkflowJobs = (
       )
     }
   })
+}
+
+const persistWorkspaceStep = {
+  persist_to_workspace: {
+    root: '.',
+    paths: ['.']
+  }
+}
+
+const attachWorkspaceStep = {
+  'attach-workspace': {
+    at: '.'
+  }
 }
 
 export default class CircleCi extends Hook<
