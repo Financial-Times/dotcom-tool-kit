@@ -1,4 +1,5 @@
 import type {
+  CircleCiJob,
   CircleCiOptions,
   CircleCiSchema,
   CircleCiWorkflow,
@@ -34,6 +35,13 @@ type WorkflowJobConfig = {
   [parameter: string]: unknown
 }
 
+type JobConfig = {
+  docker?: { image: string }[]
+  executor?: string
+  parameters?: unknown
+  steps: Step[]
+}
+
 type Step = string | { [command: string]: Record<string, unknown> }
 
 type WorkflowJob = string | { [job: string]: WorkflowJobConfig }
@@ -51,12 +59,7 @@ interface CircleConfig {
     }
   }
   jobs: {
-    [job: string]: {
-      docker?: { image: string }[]
-      executor?: string
-      parameters?: unknown
-      steps: Step[]
-    }
+    [job: string]: JobConfig
   }
   workflows: {
     [workflow: string]: {
@@ -65,6 +68,24 @@ interface CircleConfig {
     }
   }
 }
+
+// HACK:KB:20241210 we don't output jobs that are currently in the orb. remove this when we delete the orb
+const orbJobs = [
+  'build-test',
+  'build',
+  'deploy-production',
+  'deploy-review',
+  'deploy-staging',
+  'e2e-test-review',
+  'e2e-test-staging',
+  'heroku-promote',
+  'heroku-provision',
+  'heroku-staging',
+  'publish-tag',
+  'publish',
+  'setup',
+  'test'
+]
 
 const MAJOR_ORB_VERSION = '5'
 
@@ -388,6 +409,20 @@ const attachWorkspaceStep = {
   }
 }
 
+const generateJob = (job: CircleCiJob): JobConfig => ({
+  steps: [
+    ...(job.workspace?.attach ? [attachWorkspaceStep] : []),
+    {
+      run: {
+        name: job.name,
+        command: `npx dotcom-tool-kit ${job.command}`
+      }
+    },
+    ...(job.workspace?.persist ? [persistWorkspaceStep] : [])
+  ],
+  ...job.custom
+})
+
 export default class CircleCi extends Hook<
   { hook: typeof CircleCiSchema; plugin: typeof CircleCiPluginSchema },
   CircleCIState
@@ -480,6 +515,15 @@ export default class CircleCi extends Hook<
             }
             return [workflow.name, mergeWithConcatenatedArrays(generatedJobs, workflow.custom)]
           })
+        )
+      }
+      if (this.options.jobs) {
+        generated.jobs = Object.fromEntries(
+          this.options.jobs
+            .filter((job) => !orbJobs.includes(job.name))
+            .map((job) => {
+              return [job.name, generateJob(job)]
+            })
         )
       }
       const generatedConfig = mergeWithConcatenatedArrays(
