@@ -114,6 +114,20 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^7.0.2 to ^7.1.0
 
+## [4.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.0.3...circleci-deploy-v4.0.4) (2024-12-12)
+
+
+### Bug Fixes
+
+* **circleci-deploy:** correct indentation for cypress executor config ([0b5d56c](https://github.com/Financial-Times/dotcom-tool-kit/commit/0b5d56c349de41c68a8bdaeb756aa946b2bbb1e4))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.1.0 to ^7.2.0
+
 ## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.0.0...circleci-deploy-v4.0.1) (2024-09-16)
 
 

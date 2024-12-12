@@ -406,6 +406,21 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.1.0...dotcom-tool-kit-v4.2.0) (2024-12-12)
+
+
+### Features
+
+* allow configuring the circleci tag filter regex ([72412f0](https://github.com/Financial-Times/dotcom-tool-kit/commit/72412f0222f5bd9295deadcc687e42f27e902651))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.0 to ^1.1.1
+    * @dotcom-tool-kit/config bumped from ^1.0.3 to ^1.0.4
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.0.6...dotcom-tool-kit-v4.1.0) (2024-12-09)
 
 
