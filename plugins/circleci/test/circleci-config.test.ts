@@ -5,7 +5,6 @@ import type {
   CircleCiOptions
 } from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
 import { describe, expect, it } from '@jest/globals'
-import fs from 'fs'
 import path from 'path'
 import winston, { Logger } from 'winston'
 import * as YAML from 'yaml'
@@ -13,16 +12,6 @@ import * as YAML from 'yaml'
 import CircleCi from '../src/circleci-config'
 
 const logger = winston as unknown as Logger
-
-jest.mock('fs', () => {
-  const originalModule = jest.requireActual('fs')
-
-  return {
-    ...originalModule,
-    promises: { ...originalModule.promises, writeFile: jest.fn() }
-  }
-})
-const mockedWriteFile = jest.mocked(fs.promises.writeFile)
 
 const testJob: CircleCiJob = {
   name: 'test-job',
@@ -111,31 +100,31 @@ describe('CircleCI config hook', () => {
       )
     })
 
-    it("should add a job with its jobConfig to a file with a comment if it's not there", async () => {
+    it("should add a workflow job with its jobConfig to managed file if it's not there", async () => {
       process.chdir(path.join(__dirname, 'files', 'managed', 'without-workflow-job'))
 
       const hook = new CircleCi(logger, 'CircleCi', configWithWorkflowJob, {
         cimgNodeVersions: ['16.14-browsers']
       })
-      const state = await hook.install()
-      await hook.commitInstall(state)
 
-      const config = YAML.parse(mockedWriteFile.mock.calls[0][1] as string)
-      expect(config).toEqual(
-        expect.objectContaining({
-          workflows: expect.objectContaining({
-            'tool-kit': expect.objectContaining({
-              jobs: expect.arrayContaining([
-                expect.objectContaining({
-                  'tool-kit/test-job': expect.objectContaining({
-                    requires: ['tool-kit/that-job']
-                  })
-                })
-              ])
-            })
-          })
-        })
-      )
+      expect(await hook.install()).toMatchInlineSnapshot(`
+        {
+          "workflows": {
+            "tool-kit": {
+              "jobs": [
+                {
+                  "tool-kit/test-job": {
+                    "executor": "node",
+                    "requires": [
+                      "tool-kit/that-job",
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        }
+      `)
     })
   })
 
