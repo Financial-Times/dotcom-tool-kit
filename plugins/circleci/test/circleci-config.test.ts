@@ -41,6 +41,11 @@ const configWithWorkflowJob: CircleCiOptions = {
   disableBaseConfig: true
 }
 
+const configWithJob: CircleCiOptions = {
+  jobs: [testJob],
+  disableBaseConfig: true
+}
+
 describe('CircleCI config hook', () => {
   const originalDir = process.cwd()
 
@@ -118,6 +123,31 @@ describe('CircleCI config hook', () => {
                     "requires": [
                       "tool-kit/that-job",
                     ],
+                  },
+                },
+              ],
+            },
+          },
+        }
+      `)
+    })
+
+    it("should add a job to managed file if it's not there", async () => {
+      process.chdir(path.join(__dirname, 'files', 'managed', 'without-job'))
+
+      const hook = new CircleCi(logger, 'CircleCi', configWithJob, {
+        cimgNodeVersions: ['16.14-browsers']
+      })
+
+      expect(await hook.install()).toMatchInlineSnapshot(`
+        {
+          "jobs": {
+            "test-job": {
+              "steps": [
+                {
+                  "run": {
+                    "command": "npx dotcom-tool-kit test:local",
+                    "name": "test-job",
                   },
                 },
               ],
