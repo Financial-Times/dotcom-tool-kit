@@ -15,7 +15,17 @@ export type CircleCiExecutor = z.infer<typeof CircleCiExecutor>
 export const CircleCiJob = z
   .object({
     name: z.string(),
-    command: z.string()
+    command: z.string(),
+    workspace: z
+      .object({
+        persist: z.boolean().default(true),
+        attach: z.boolean().default(true)
+      })
+      .default({
+        persist: true,
+        attach: true
+      }),
+    custom: CircleCiCustom.optional()
   })
   .partial()
   .required({ name: true })
