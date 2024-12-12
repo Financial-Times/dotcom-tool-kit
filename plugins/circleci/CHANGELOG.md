@@ -121,6 +121,22 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [7.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.1.0...circleci-v7.2.0) (2024-12-12)
+
+
+### Features
+
+* allow configuring the circleci tag filter regex ([72412f0](https://github.com/Financial-Times/dotcom-tool-kit/commit/72412f0222f5bd9295deadcc687e42f27e902651))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.0 to ^1.1.1
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.2.0 to ^1.3.0
+
 ## [7.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.0.2...circleci-v7.1.0) (2024-12-09)
 
 

@@ -20,6 +20,14 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.1.1 to ^1.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.0 to ^1.1.1
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.2.0 to ^1.3.0
+
 ## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v4.2.0...package-json-hook-v5.0.0) (2024-09-10)
 
 

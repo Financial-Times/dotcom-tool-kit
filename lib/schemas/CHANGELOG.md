@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.2.0...schemas-v1.3.0) (2024-12-12)
+
+
+### Features
+
+* allow configuring the circleci tag filter regex ([72412f0](https://github.com/Financial-Times/dotcom-tool-kit/commit/72412f0222f5bd9295deadcc687e42f27e902651))
+
 ## [1.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.1.1...schemas-v1.2.0) (2024-12-09)
 
 

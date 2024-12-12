@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/config",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "@dotcom-tool-kit/conflict": "^1.0.0",
     "@dotcom-tool-kit/plugin": "^1.0.0",
-    "@dotcom-tool-kit/schemas": "^1.2.0",
+    "@dotcom-tool-kit/schemas": "^1.3.0",
     "@dotcom-tool-kit/validated": "^1.0.1"
   }
 }
