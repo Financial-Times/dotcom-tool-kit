@@ -355,20 +355,27 @@ const mergeInstallationResults = (
   return results
 }
 
-const toolKitOrbPrefix = (job: string) => (job.includes('/') ? job : `tool-kit/${job}`)
+const toolKitOrbPrefix = (job: string, generatedJobs: CircleCIStatePartial['jobs']) => {
+  if (job.includes('/') || (generatedJobs && job in generatedJobs)) {
+    return job
+  }
+
+  return `tool-kit/${job}`
+}
 
 const generateWorkflowJobs = (
   workflow: CircleCiWorkflow,
   nodeVersions: string[],
-  tagFilterRegex: string
+  tagFilterRegex: string,
+  generatedJobs: CircleCIStatePartial['jobs']
 ): WorkflowJob[] | undefined => {
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   return workflow.jobs?.map((job) => {
     const splitIntoMatrix = runsOnMultipleNodeVersions && (job.splitIntoMatrix ?? true)
     return {
-      [toolKitOrbPrefix(job.name)]: merge(
+      [toolKitOrbPrefix(job.name, generatedJobs)]: merge(
         splitIntoMatrix
-          ? matrixBoilerplate(toolKitOrbPrefix(job.name), nodeVersions)
+          ? matrixBoilerplate(toolKitOrbPrefix(job.name, generatedJobs), nodeVersions)
           : {
               executor: 'node'
             },
@@ -377,7 +384,7 @@ const generateWorkflowJobs = (
             if (required === 'checkout') {
               return required
             }
-            const requiredOrb = toolKitOrbPrefix(required)
+            const requiredOrb = toolKitOrbPrefix(required, generatedJobs)
             // only need to include a suffix for the required job if it splits
             // into a matrix for Node versions
             const splitRequiredIntoMatrix =
@@ -507,16 +514,6 @@ export default class CircleCi extends Hook<
           this.options.executors.map((executor) => [executor.name, { docker: [{ image: executor.image }] }])
         )
       }
-      if (this.options.workflows) {
-        generated.workflows = Object.fromEntries(
-          this.options.workflows.map((workflow) => {
-            const generatedJobs = {
-              jobs: generateWorkflowJobs(workflow, nodeVersions, tagFilterRegex)
-            }
-            return [workflow.name, mergeWithConcatenatedArrays(generatedJobs, workflow.custom)]
-          })
-        )
-      }
       if (this.options.jobs) {
         generated.jobs = Object.fromEntries(
           this.options.jobs
@@ -524,6 +521,16 @@ export default class CircleCi extends Hook<
             .map((job) => {
               return [job.name, generateJob(job)]
             })
+        )
+      }
+      if (this.options.workflows) {
+        generated.workflows = Object.fromEntries(
+          this.options.workflows.map((workflow) => {
+            const generatedJobs = {
+              jobs: generateWorkflowJobs(workflow, nodeVersions, tagFilterRegex, generated.jobs ?? {})
+            }
+            return [workflow.name, mergeWithConcatenatedArrays(generatedJobs, workflow.custom)]
+          })
         )
       }
       const generatedConfig = mergeWithConcatenatedArrays(
