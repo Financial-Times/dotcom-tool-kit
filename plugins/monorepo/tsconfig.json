@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "references": [
+    {
+      "path": "../../lib/base"
+    },
+    {
+      "path": "../../lib/schemas"
+    },
+    {
+      "path": "../../lib/logger"
+    }
+  ],
+  "include": [
+    "src/**/*"
+  ]
+}

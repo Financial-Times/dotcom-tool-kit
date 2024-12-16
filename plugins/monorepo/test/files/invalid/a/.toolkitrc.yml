@@ -1,0 +1,7 @@
+plugins:
+  - @dotcom-tool-kit/webpack
+
+commands:
+  build:local:
+    - Webpack:
+        envName: development
