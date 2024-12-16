@@ -12,6 +12,8 @@ export const CircleCiExecutor = z
   .required({ name: true })
 export type CircleCiExecutor = z.infer<typeof CircleCiExecutor>
 
+const CircleCiStep = z.union([z.string(), z.record(z.record(z.unknown()))])
+
 export const CircleCiJob = z
   .object({
     name: z.string(),
@@ -24,6 +26,15 @@ export const CircleCiJob = z
       .default({
         persist: true,
         attach: true
+      }),
+    steps: z
+      .object({
+        pre: z.array(CircleCiStep).default([]),
+        post: z.array(CircleCiStep).default([])
+      })
+      .default({
+        pre: [],
+        post: []
       }),
     custom: CircleCiCustom.optional()
   })
