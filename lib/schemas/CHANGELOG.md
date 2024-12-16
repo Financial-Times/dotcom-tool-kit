@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.3.0...schemas-v1.4.0) (2024-12-16)
+
+
+### Features
+
+* actually output the jobs specified in the circleci hook options ([18b3322](https://github.com/Financial-Times/dotcom-tool-kit/commit/18b33223d298b882332c7db620b44a34f041956c))
+
 ## [1.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.2.0...schemas-v1.3.0) (2024-12-12)
 
 
