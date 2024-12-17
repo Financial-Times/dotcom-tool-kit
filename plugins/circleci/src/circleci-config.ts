@@ -63,7 +63,7 @@ interface CircleConfig {
   }
   workflows: {
     [workflow: string]: {
-      when: unknown
+      when?: unknown
       jobs: WorkflowJob[]
     }
   }
@@ -128,11 +128,7 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
     }
   })
 
-const getBaseConfig = (nodeVersions: string[], tagFilterRegex: string): CircleCIState => {
-  const runsOnMultipleNodeVersions = nodeVersions.length > 1
-  const setupMatrix = runsOnMultipleNodeVersions
-    ? matrixBoilerplate('tool-kit/setup', nodeVersions)
-    : { executor: 'node' }
+const getBaseConfig = (nodeVersions: string[]): CircleCIState => {
   return {
     version: 2.1,
     orbs: {
@@ -148,44 +144,8 @@ const getBaseConfig = (nodeVersions: string[], tagFilterRegex: string): CircleCI
         }
       ])
     ),
-    jobs: {
-      checkout: {
-        docker: [{ image: 'cimg/base:stable' }],
-        steps: ['checkout', persistWorkspaceStep]
-      }
-    },
-    workflows: {
-      'tool-kit': {
-        when: {
-          not: {
-            equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-          }
-        },
-        jobs: [
-          { checkout: tagFilter(tagFilterRegex) },
-          {
-            'tool-kit/setup': {
-              ...setupMatrix,
-              requires: ['checkout'],
-              ...tagFilter(tagFilterRegex)
-            }
-          }
-        ]
-      },
-      nightly: {
-        when: {
-          and: [
-            {
-              equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-            },
-            {
-              equal: ['nightly', '<< pipeline.schedule.name >>']
-            }
-          ]
-        },
-        jobs: ['checkout', { 'tool-kit/setup': { ...setupMatrix, requires: ['checkout'] } }]
-      }
-    }
+    jobs: {},
+    workflows: {}
   }
 }
 
@@ -541,7 +501,7 @@ export default class CircleCi extends Hook<
       }
       const generatedConfig = mergeWithConcatenatedArrays(
         {},
-        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions, tagFilterRegex),
+        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions),
         generated,
         this.options.custom ?? {}
       )

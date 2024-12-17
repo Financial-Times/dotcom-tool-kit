@@ -8,6 +8,17 @@ options:
   hooks:
     - CircleCi:
         jobs:
+          - name: checkout
+            steps:
+              pre:
+                - checkout
+            workspace:
+              attach: false
+              persist: true
+          - name: setup
+            steps:
+              pre:
+                - node/install-packages
           - name: build
             command: 'build:ci'
           - name: test
@@ -15,12 +26,20 @@ options:
         workflows:
           - name: 'tool-kit'
             jobs:
+              - name: 'checkout'
+              - name: 'setup'
+                requires:
+                  - 'checkout'
               - name: build
                 requires:
                   - 'setup'
               - name: test
                 requires:
                   - 'build'
+            custom:
+              when:
+                not:
+                  equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
             runOnRelease: true
           - name: 'nightly'
             jobs:
@@ -30,6 +49,11 @@ options:
               - name: test
                 requires:
                   - 'build'
+            custom:
+              when:
+                and:
+                  - equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
+                  - equal: ['nightly', '<< pipeline.schedule.name >>']
 
 init:
   - './lib/init-env-vars'
