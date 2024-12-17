@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CircleCI config hook config integration test should generate a .circleci/config.yml with the base config from circleci/.toolkitrc.yml 1`] = `
+"version: 2.1
+orbs:
+  tool-kit: financial-times/dotcom-tool-kit@5
+executors:
+  node:
+    docker:
+      - image: cimg/node:18.19-browsers
+jobs:
+  checkout:
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+workflows:
+  tool-kit:
+    jobs:
+      - checkout:
+          executor: node
+      - tool-kit/setup:
+          executor: node
+          requires:
+            - checkout
+      - tool-kit/build:
+          executor: node
+          requires:
+            - tool-kit/setup
+      - tool-kit/test:
+          executor: node
+          requires:
+            - tool-kit/build
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
+  nightly:
+    jobs:
+      - tool-kit/build:
+          executor: node
+          requires:
+            - tool-kit/setup
+      - tool-kit/test:
+          executor: node
+          requires:
+            - tool-kit/build
+    when:
+      and:
+        - equal:
+            - scheduled_pipeline
+            - << pipeline.trigger_source >>
+        - equal:
+            - nightly
+            - << pipeline.schedule.name >>
+"
+`;
