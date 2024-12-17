@@ -88,13 +88,7 @@ export const CircleCiSchema = z
       ),
     custom: CircleCiCustomConfig.optional().describe(
       'arbitrary additional CircleCI configuration that will be merged into the Tool Kit-generated config.'
-    ),
-    disableBaseConfig: z
-      .boolean()
-      .optional()
-      .describe(
-        'set to `true` to omit the Tool Kit CircleCI boilerplate. should be used along with `custom` to provide your own boilerplate.'
-      )
+    )
   })
   .partial()
   .describe(`This hook automatically manages \`.circleci/config.yml\` in your repo to provide configuration for CircleCI workflows to run Tool Kit commands and tasks.

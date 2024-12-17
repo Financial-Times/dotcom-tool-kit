@@ -43,18 +43,15 @@ const anotherTestWorkflowJob: CircleCiWorkflowJob = {
 }
 
 const configWithWorkflowJob: CircleCiOptions = {
-  workflows: [{ name: 'tool-kit', jobs: [testWorkflowJob] }],
-  disableBaseConfig: true
+  workflows: [{ name: 'tool-kit', jobs: [testWorkflowJob] }]
 }
 
 const configWithPrefixedWorkflowJob: CircleCiOptions = {
-  workflows: [{ name: 'tool-kit', jobs: [testPrefixedWorkflowJob] }],
-  disableBaseConfig: true
+  workflows: [{ name: 'tool-kit', jobs: [testPrefixedWorkflowJob] }]
 }
 
 const configWithJob: CircleCiOptions = {
-  jobs: [testJob],
-  disableBaseConfig: true
+  jobs: [testJob]
 }
 
 describe('CircleCI config hook', () => {
@@ -78,17 +75,6 @@ describe('CircleCI config hook', () => {
       const hook = new CircleCi(logger, 'CircleCi', configWithWorkflowJob, {
         cimgNodeVersions: ['16.14-browsers']
       })
-      expect(await hook.isInstalled()).toBeFalsy()
-    })
-
-    it('should return false if the base configuration is missing', async () => {
-      process.chdir(path.join(__dirname, 'files', 'unmanaged', 'with-workflow-job'))
-      const hook = new CircleCi(
-        logger,
-        'CircleCi',
-        { ...configWithWorkflowJob, disableBaseConfig: false },
-        { cimgNodeVersions: ['16.14-browsers'] }
-      )
       expect(await hook.isInstalled()).toBeFalsy()
     })
   })

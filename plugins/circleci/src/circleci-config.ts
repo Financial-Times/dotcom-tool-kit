@@ -501,7 +501,7 @@ export default class CircleCi extends Hook<
       }
       const generatedConfig = mergeWithConcatenatedArrays(
         {},
-        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions),
+        getBaseConfig(nodeVersions),
         generated,
         this.options.custom ?? {}
       )
