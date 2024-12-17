@@ -1,3 +1,6 @@
+version: 2.1
+executors: {}
+jobs: {}
 workflows:
   jobs:
     - not this job
