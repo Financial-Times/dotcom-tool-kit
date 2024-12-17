@@ -17,7 +17,7 @@ const CircleCiStep = z.union([z.string(), z.record(z.record(z.unknown()))])
 export const CircleCiJob = z
   .object({
     name: z.string(),
-    command: z.string(),
+    command: z.string().optional(),
     workspace: z
       .object({
         persist: z.boolean().default(true),
