@@ -1,15 +1,17 @@
 import { type HookInstallation } from '@dotcom-tool-kit/base'
-import type {
-  CircleCiWorkflowJob,
-  CircleCiJob,
-  CircleCiOptions
+import {
+  type CircleCiWorkflowJob,
+  type CircleCiJob,
+  type CircleCiOptions
 } from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
 import { describe, expect, it } from '@jest/globals'
 import path from 'path'
 import winston, { Logger } from 'winston'
 import * as YAML from 'yaml'
+import { loadConfig } from 'dotcom-tool-kit/lib/config'
+import { loadHookInstallations } from 'dotcom-tool-kit/lib/install'
 
-import CircleCi from '../src/circleci-config'
+import CircleCi from '../lib/circleci-config'
 
 const logger = winston as unknown as Logger
 
@@ -572,6 +574,24 @@ describe('CircleCI config hook', () => {
           })
         }
       ])
+    })
+  })
+
+  describe('config integration test', () => {
+    it('should generate a .circleci/config.yml with the base config from circleci/.toolkitrc.yml', async () => {
+      // uses a fixture toolkitrc that loads the circleci plugin instead of the circleci toolkitrc
+      // because option parsing doesn't work if loading the circleci toolkitrc directly
+      const config = await loadConfig(logger, { root: path.resolve(__dirname, 'files') })
+
+      const hookInstallationsPromise = loadHookInstallations(logger, config).then((validated) =>
+        validated.unwrap('hooks were invalid')
+      )
+
+      await expect(hookInstallationsPromise).resolves.toEqual([expect.any(CircleCi)])
+
+      const installation = (await hookInstallationsPromise)[0]
+
+      expect(YAML.stringify(await installation.install())).toMatchSnapshot()
     })
   })
 })
