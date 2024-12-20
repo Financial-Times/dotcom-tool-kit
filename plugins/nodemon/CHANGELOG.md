@@ -200,6 +200,15 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.2.0 to ^1.3.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.1 to ^1.1.2
+    * @dotcom-tool-kit/doppler bumped from ^2.0.4 to ^2.0.5
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.3.0 to ^1.4.0
+
 ## [4.0.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v4.0.2...nodemon-v4.0.3) (2024-12-09)
 
 
