@@ -296,6 +296,15 @@
     * @dotcom-tool-kit/node bumped from ^4.1.0 to ^4.1.1
     * @dotcom-tool-kit/npm bumped from ^4.1.0 to ^4.1.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^4.0.4 to ^4.0.5
+    * @dotcom-tool-kit/heroku bumped from ^4.0.4 to ^4.0.5
+    * @dotcom-tool-kit/node bumped from ^4.1.1 to ^4.1.2
+    * @dotcom-tool-kit/npm bumped from ^4.1.1 to ^4.1.2
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-heroku-app-v3.1.6...backend-heroku-app-v4.0.0) (2024-09-10)
 
 
