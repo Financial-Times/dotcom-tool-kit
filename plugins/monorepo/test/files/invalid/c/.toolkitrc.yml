@@ -1,0 +1,4 @@
+plugins:
+  - @dotcom-tool-kit/heroku
+
+# deliberately missing plugin options to fail validation
