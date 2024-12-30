@@ -35,11 +35,10 @@ pkg.homepage = `https://github.com/financial-times/dotcom-tool-kit/tree/main/${d
 pkg.author = 'FT.com Platforms Team <platforms-team.customer-products@ft.com>'
 pkg.files = ['/lib', '.toolkitrc.yml']
 pkg.engines = {
-  node: '18.x || 20.x',
-  npm: '7.x || 8.x || 9.x'
+  node: '18.x || 20.x || 22.x'
 }
 pkg.peerDependencies = {
-  'dotcom-tool-kit': '3.x'
+  'dotcom-tool-kit': '4.x'
 }
 
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
