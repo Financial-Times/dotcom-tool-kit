@@ -33,7 +33,6 @@
     "dotcom-tool-kit": "4.x"
   },
   "engines": {
-    "node": "18.x || 20.x",
-    "npm": "7.x || 8.x || 9.x || 10.x"
+    "node": "18.x || 20.x || 22.x"
   }
 }
