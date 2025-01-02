@@ -22,7 +22,6 @@
   "devDependencies": {
     "@jest/globals": "^27.4.6",
     "@types/lodash": "^4.14.185",
-    "@types/node": "^16.18.23",
     "@types/pluralize": "^0.0.33",
     "chai": "^4.3.4",
     "globby": "^10.0.2",
