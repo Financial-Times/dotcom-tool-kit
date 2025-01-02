@@ -164,6 +164,24 @@
     * @dotcom-tool-kit/base bumped from ^1.1.0 to ^1.1.1
     * @dotcom-tool-kit/package-json-hook bumped from ^5.0.3 to ^5.0.4
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v4.1.1...npm-v4.2.0) (2025-01-02)
+
+
+### Features
+
+* add support for Node 22 ([df20e7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/df20e7c455a16eeb3e75a2e940c93848d618a218))
+* remove npm engine field ([aec1c78](https://github.com/Financial-Times/dotcom-tool-kit/commit/aec1c78aedb8f26a43b25824eb19e30101806182))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.1 to ^1.1.2
+    * @dotcom-tool-kit/error bumped from ^4.0.1 to ^4.1.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.0.4 to ^5.1.0
+    * @dotcom-tool-kit/state bumped from ^4.0.0 to ^4.1.0
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v4.0.2...npm-v4.1.0) (2024-12-09)
 
 

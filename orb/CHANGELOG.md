@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.1.0...orb-v5.2.0) (2025-01-02)
+
+
+### Features
+
+* add Cloudsmith auth ([3abc644](https://github.com/Financial-Times/dotcom-tool-kit/commit/3abc644285cfb01190df4da982c75ffdde22c983))
+
+
+### Bug Fixes
+
+* **orb:** remove unused build-test job ([280a69e](https://github.com/Financial-Times/dotcom-tool-kit/commit/280a69e1c4b869d3eb4a15981a49aa2ae9d6bfb0))
+
 ## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.0.2...orb-v5.1.0) (2024-10-31)
 
 

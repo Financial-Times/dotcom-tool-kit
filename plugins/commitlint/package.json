@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/commitlint",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.1",
-    "@dotcom-tool-kit/logger": "^4.0.1"
+    "@dotcom-tool-kit/base": "^1.1.2",
+    "@dotcom-tool-kit/logger": "^4.1.0"
   },
   "repository": {
     "type": "git",

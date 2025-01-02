@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v4.0.0...wait-for-ok-v4.1.0) (2025-01-02)
+
+
+### Features
+
+* add support for Node 22 ([df20e7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/df20e7c455a16eeb3e75a2e940c93848d618a218))
+* remove npm engine field ([aec1c78](https://github.com/Financial-Times/dotcom-tool-kit/commit/aec1c78aedb8f26a43b25824eb19e30101806182))
+* **wait-for-ok:** use native fetch instead of node-fetch ([1a9aa82](https://github.com/Financial-Times/dotcom-tool-kit/commit/1a9aa8215640dac4a9e738ca2e08384bd7ddf16d))
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v3.2.0...wait-for-ok-v4.0.0) (2024-09-10)
 
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/error-v4.0.1...error-v4.1.0) (2025-01-02)
+
+
+### Features
+
+* add support for Node 22 ([df20e7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/df20e7c455a16eeb3e75a2e940c93848d618a218))
+* remove npm engine field ([aec1c78](https://github.com/Financial-Times/dotcom-tool-kit/commit/aec1c78aedb8f26a43b25824eb19e30101806182))
+
 ## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/error-v4.0.0...error-v4.0.1) (2024-12-09)
 
 

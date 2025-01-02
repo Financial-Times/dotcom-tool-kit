@@ -342,6 +342,23 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.1.0 to ^4.1.1
     * @dotcom-tool-kit/webpack bumped from ^4.1.0 to ^4.1.1
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v4.0.4...frontend-app-v4.1.0) (2025-01-02)
+
+
+### Features
+
+* add support for Node 22 ([df20e7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/df20e7c455a16eeb3e75a2e940c93848d618a218))
+* remove npm engine field ([aec1c78](https://github.com/Financial-Times/dotcom-tool-kit/commit/aec1c78aedb8f26a43b25824eb19e30101806182))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^4.0.4 to ^4.1.0
+    * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.1.1 to ^4.2.0
+    * @dotcom-tool-kit/webpack bumped from ^4.1.1 to ^4.2.0
+
 ## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v4.0.0...frontend-app-v4.0.1) (2024-09-16)
 
 

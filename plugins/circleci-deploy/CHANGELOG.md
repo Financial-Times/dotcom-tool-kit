@@ -114,6 +114,24 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^7.0.2 to ^7.1.0
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.0.4...circleci-deploy-v4.1.0) (2025-01-02)
+
+
+### Features
+
+* add Cloudsmith auth ([3abc644](https://github.com/Financial-Times/dotcom-tool-kit/commit/3abc644285cfb01190df4da982c75ffdde22c983))
+* add support for Node 22 ([df20e7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/df20e7c455a16eeb3e75a2e940c93848d618a218))
+* **cloudsmith:** create plugin to allow us to set cloudsmith options ([9afd7cb](https://github.com/Financial-Times/dotcom-tool-kit/commit/9afd7cb18ddc4774729ab536353bcd6d06b2e4f2))
+* **cloudsmith:** move cloudsmith CircleCI config into plugin ([4761b73](https://github.com/Financial-Times/dotcom-tool-kit/commit/4761b73b514dc2b7b03df5f8de2934509f3ba6d1))
+* remove npm engine field ([aec1c78](https://github.com/Financial-Times/dotcom-tool-kit/commit/aec1c78aedb8f26a43b25824eb19e30101806182))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.2.0 to ^7.3.0
+
 ## [4.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.0.3...circleci-deploy-v4.0.4) (2024-12-12)
 
 

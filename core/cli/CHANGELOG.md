@@ -406,6 +406,27 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.2.0...dotcom-tool-kit-v4.3.0) (2025-01-02)
+
+
+### Features
+
+* add support for Node 22 ([df20e7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/df20e7c455a16eeb3e75a2e940c93848d618a218))
+* remove npm engine field ([aec1c78](https://github.com/Financial-Times/dotcom-tool-kit/commit/aec1c78aedb8f26a43b25824eb19e30101806182))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.1 to ^1.1.2
+    * @dotcom-tool-kit/config bumped from ^1.0.4 to ^1.0.5
+    * @dotcom-tool-kit/error bumped from ^4.0.1 to ^4.1.0
+    * @dotcom-tool-kit/logger bumped from ^4.0.1 to ^4.1.0
+    * @dotcom-tool-kit/state bumped from ^4.0.0 to ^4.1.0
+    * @dotcom-tool-kit/validated bumped from ^1.0.1 to ^1.0.2
+    * @dotcom-tool-kit/wait-for-ok bumped from ^4.0.0 to ^4.1.0
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.1.0...dotcom-tool-kit-v4.2.0) (2024-12-12)
 
 

@@ -6,6 +6,12 @@
   * dependencies
     * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^4.0.1 to ^4.1.0
+
 ## 1.0.0 (2024-09-10)
 
 

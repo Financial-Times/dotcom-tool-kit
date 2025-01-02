@@ -296,6 +296,24 @@
     * @dotcom-tool-kit/node bumped from ^4.1.0 to ^4.1.1
     * @dotcom-tool-kit/npm bumped from ^4.1.0 to ^4.1.1
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-heroku-app-v4.0.4...backend-heroku-app-v4.1.0) (2025-01-02)
+
+
+### Features
+
+* add support for Node 22 ([df20e7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/df20e7c455a16eeb3e75a2e940c93848d618a218))
+* remove npm engine field ([aec1c78](https://github.com/Financial-Times/dotcom-tool-kit/commit/aec1c78aedb8f26a43b25824eb19e30101806182))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^4.0.4 to ^4.1.0
+    * @dotcom-tool-kit/heroku bumped from ^4.0.4 to ^4.1.0
+    * @dotcom-tool-kit/node bumped from ^4.1.1 to ^4.2.0
+    * @dotcom-tool-kit/npm bumped from ^4.1.1 to ^4.2.0
+
 ## [4.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-heroku-app-v3.1.6...backend-heroku-app-v4.0.0) (2024-09-10)
 
 

@@ -6,6 +6,15 @@
   * devDependencies
     * @dotcom-tool-kit/config bumped from ^1.0.3 to ^1.0.4
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/validated bumped from ^1.0.1 to ^1.0.2
+  * devDependencies
+    * @dotcom-tool-kit/config bumped from ^1.0.4 to ^1.0.5
+    * @dotcom-tool-kit/logger bumped from ^4.0.1 to ^4.1.0
+
 ## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.0.0...base-v1.1.0) (2024-12-09)
 
 

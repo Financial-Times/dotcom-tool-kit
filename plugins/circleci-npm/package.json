@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci-npm",
-  "version": "6.0.5",
+  "version": "6.1.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci": "^7.2.0",
-    "@dotcom-tool-kit/npm": "^4.1.1",
+    "@dotcom-tool-kit/circleci": "^7.3.0",
+    "@dotcom-tool-kit/npm": "^4.2.0",
     "tslib": "^2.3.1"
   },
   "repository": {
