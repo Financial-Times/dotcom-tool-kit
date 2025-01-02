@@ -24,7 +24,7 @@
     "@commitlint/config-conventional": "^16.0.0",
     "@dotcom-reliability-kit/eslint-config": "^2.0.0",
     "@financial-times/eslint-config-next": "^6.0.0",
-    "@tsconfig/node16": "^1.0.3",
+    "@tsconfig/node18": "^18.2.4",
     "@types/jest": "^27.4.0",
     "@types/node": "^18.19.55",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
@@ -39,7 +39,7 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.8.8",
     "release-please": "^15.0.0",
-    "ts-jest": "^29.1.2",
+    "ts-jest": "^29.2.5",
     "typescript": "~5.4.5",
     "winston": "^3.13.0",
     "zod2md": "^0.1.2"
