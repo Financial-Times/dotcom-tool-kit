@@ -121,6 +121,34 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+## [7.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.2.0...circleci-v7.3.0) (2025-01-02)
+
+
+### Features
+
+* actually output the jobs specified in the circleci hook options ([18b3322](https://github.com/Financial-Times/dotcom-tool-kit/commit/18b33223d298b882332c7db620b44a34f041956c))
+* add support for Node 22 ([df20e7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/df20e7c455a16eeb3e75a2e940c93848d618a218))
+* **circleci:** support pre and post tool kit circleci job steps ([36b8624](https://github.com/Financial-Times/dotcom-tool-kit/commit/36b8624af309861e3919ff0b61571d1f929b397a))
+* remove npm engine field ([aec1c78](https://github.com/Financial-Times/dotcom-tool-kit/commit/aec1c78aedb8f26a43b25824eb19e30101806182))
+
+
+### Bug Fixes
+
+* allow non-tool-kit-orb jobs to be specified in workflows ([10fbd3b](https://github.com/Financial-Times/dotcom-tool-kit/commit/10fbd3b80645d64b8a8ccbd95714b5e4a94ca2c2))
+* allow specifying previously-generated jobs ([69a8760](https://github.com/Financial-Times/dotcom-tool-kit/commit/69a876049a9ef0e46b988f2b121cd054622a4005))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.1 to ^1.1.2
+    * @dotcom-tool-kit/error bumped from ^4.0.1 to ^4.1.0
+    * @dotcom-tool-kit/logger bumped from ^4.0.1 to ^4.1.0
+    * @dotcom-tool-kit/state bumped from ^4.0.0 to ^4.1.0
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.3.0 to ^1.4.0
+
 ## [7.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.1.0...circleci-v7.2.0) (2024-12-12)
 
 

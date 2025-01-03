@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.3.0...schemas-v1.4.0) (2025-01-02)
+
+
+### Features
+
+* actually output the jobs specified in the circleci hook options ([18b3322](https://github.com/Financial-Times/dotcom-tool-kit/commit/18b33223d298b882332c7db620b44a34f041956c))
+* add Cloudsmith auth ([3abc644](https://github.com/Financial-Times/dotcom-tool-kit/commit/3abc644285cfb01190df4da982c75ffdde22c983))
+* **circleci:** support pre and post tool kit circleci job steps ([36b8624](https://github.com/Financial-Times/dotcom-tool-kit/commit/36b8624af309861e3919ff0b61571d1f929b397a))
+* **cloudsmith:** hardcode Cloudsmith organisation ([fa2346d](https://github.com/Financial-Times/dotcom-tool-kit/commit/fa2346df559e905cd31c2aed1d32692ba5a2908a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^4.0.1 to ^4.1.0
+
 ## [1.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.2.0...schemas-v1.3.0) (2024-12-12)
 
 
