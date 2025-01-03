@@ -30,6 +30,7 @@
     "plugins/circleci": {},
     "plugins/circleci-deploy": {},
     "plugins/circleci-npm": {},
+    "plugins/cloudsmith": {},
     "plugins/commitlint": {},
     "plugins/component": {},
     "plugins/cypress": {},
