@@ -406,6 +406,13 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+## [4.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.0...dotcom-tool-kit-v4.3.1) (2025-01-06)
+
+
+### Bug Fixes
+
+* **cli:** make sure to load plugins via CJS ([d118686](https://github.com/Financial-Times/dotcom-tool-kit/commit/d118686fab81351a4c64761f3ae557461f3c2a2d))
+
 ## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.2.0...dotcom-tool-kit-v4.3.0) (2025-01-02)
 
 
