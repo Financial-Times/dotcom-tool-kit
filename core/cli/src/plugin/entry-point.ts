@@ -26,7 +26,7 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
 
   let pluginModule: unknown
   try {
-    pluginModule = await import(resolvedPath)
+    pluginModule = require(resolvedPath)
   } catch (e) {
     const err = e as Error
     return invalid([
