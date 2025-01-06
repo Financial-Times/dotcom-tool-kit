@@ -46,5 +46,5 @@
   "lib/schemas": "1.4.0",
   "lib/validated": "1.0.2",
   "plugins/commitlint": "1.2.0",
-  "plugins/cloudsmith": "1.0.0"
+  "plugins/cloudsmith": "1.0.1"
 }

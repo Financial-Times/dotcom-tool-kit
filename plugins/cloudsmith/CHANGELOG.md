@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.0.0...cloudsmith-v1.0.1) (2025-01-06)
+
+
+### Bug Fixes
+
+* add the requires property to CI jobs ([6ef3957](https://github.com/Financial-Times/dotcom-tool-kit/commit/6ef3957b7c46a7593b464c41a84d9ab1d8b15400))
+
 ## 1.0.0 (2025-01-03)
 
 
