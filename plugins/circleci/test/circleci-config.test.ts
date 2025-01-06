@@ -50,7 +50,7 @@ const configWithWorkflowJob: CircleCiOptions = {
 }
 
 const configWithPrefixedWorkflowJob: CircleCiOptions = {
-  workflows: [{ name: 'tool-kit', jobs: [testPrefixedWorkflowJob] }],
+  workflows: [{ name: 'tool-kit', jobs: [{ name: 'another/orb', requires: [] }, testPrefixedWorkflowJob] }],
   disableBaseConfig: true
 }
 
@@ -195,6 +195,12 @@ describe('CircleCI config hook', () => {
           "workflows": {
             "tool-kit": {
               "jobs": [
+                {
+                  "another/orb": {
+                    "executor": "node",
+                    "requires": [],
+                  },
+                },
                 {
                   "slack/approval-notification": {
                     "executor": "node",

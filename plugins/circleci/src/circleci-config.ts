@@ -355,27 +355,38 @@ const mergeInstallationResults = (
   return results
 }
 
-const toolKitOrbPrefix = (job: string, generatedJobs: CircleCIStatePartial['jobs']) => {
-  if (job.includes('/') || (generatedJobs && job in generatedJobs)) {
-    return job
-  }
-
-  return `tool-kit/${job}`
-}
-
 const generateWorkflowJobs = (
   workflow: CircleCiWorkflow,
   nodeVersions: string[],
   tagFilterRegex: string,
   generatedJobs: CircleCIStatePartial['jobs']
 ): WorkflowJob[] | undefined => {
+  // HACK:20250106:IM We were previously implicitly prepending a tool-kit/
+  // prefix to workflow job names, as it was assumed that they all were
+  // referencing jobs from the Tool Kit orb. However, many custom plugins
+  // define custom jobs which need to be referenced too. To avoid a breaking
+  // change where we require the tool-kit/ prefix to be explicit, let's try an
+  // infer whether to prepend the prefix or not.
+  const jobsShouldBeBare = (workflow.jobs ?? []).reduce((acc, job) => {
+    const shouldBeBare =
+      // custom jobs won't want the tool-kit/ prefix
+      (generatedJobs && job.name in generatedJobs) ||
+      // approval jobs don't need to be declared as a custom job before using
+      job.custom?.type === 'approval' ||
+      // a slash implies an orb job so we don't want to add another prefix
+      job.name.includes('/')
+    acc.set(job.name, shouldBeBare)
+    return acc
+  }, new Map<string, boolean>())
+  const toolKitOrbPrefix = (job: string) => (jobsShouldBeBare.get(job) ? job : `tool-kit/${job}`)
+
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   return workflow.jobs?.map((job) => {
     const splitIntoMatrix = runsOnMultipleNodeVersions && (job.splitIntoMatrix ?? true)
     return {
-      [toolKitOrbPrefix(job.name, generatedJobs)]: merge(
+      [toolKitOrbPrefix(job.name)]: merge(
         splitIntoMatrix
-          ? matrixBoilerplate(toolKitOrbPrefix(job.name, generatedJobs), nodeVersions)
+          ? matrixBoilerplate(toolKitOrbPrefix(job.name), nodeVersions)
           : {
               executor: 'node'
             },
@@ -384,7 +395,9 @@ const generateWorkflowJobs = (
             if (required === 'checkout') {
               return required
             }
-            const requiredOrb = toolKitOrbPrefix(required, generatedJobs)
+            // HACK:20250106:IM allow plugins to require orb jobs using the
+            // tool-kit/ prefix as that's what we want to move towards anyway
+            const requiredOrb = toolKitOrbPrefix(required.replace(/^tool-kit\//, ''))
             // only need to include a suffix for the required job if it splits
             // into a matrix for Node versions
             const splitRequiredIntoMatrix =
