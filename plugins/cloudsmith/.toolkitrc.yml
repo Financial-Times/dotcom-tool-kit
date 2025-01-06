@@ -10,16 +10,19 @@ options:
           - name: 'tool-kit'
             jobs:
               - name: 'deploy-review'
+                requires: []
                 custom:
                   cloudsmith-org: financial-times
                   !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
                     cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
               - name: 'deploy-staging'
+                requires: []
                 custom:
                   cloudsmith-org: financial-times
                   !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
                     cloudsmith-service-account: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
               - name: 'deploy-production'
+                requires: []
                 custom:
                   cloudsmith-org: financial-times
                   !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
@@ -27,6 +30,7 @@ options:
           - name: 'nightly'
             jobs:
               - name: 'deploy-review'
+                requires: []
                 custom:
                   cloudsmith-org: financial-times
                   !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
