@@ -23,8 +23,8 @@ export default class DockerBuild extends Task<{
           imageOptions.definition,
           process.cwd()
         ])
-        hookFork(this.logger, 'dockerBuild', child)
-        await waitOnExit('dockerBuild', child)
+        hookFork(this.logger, 'docker-build', child)
+        await waitOnExit('docker-build', child)
       } catch (err) {
         if (err instanceof Error) {
           const error = new ToolKitError('docker build failed to run')

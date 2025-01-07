@@ -43,13 +43,13 @@ export default class DockerPush extends Task<{
           childLogin.stdin.setDefaultEncoding('utf-8')
           childLogin.stdin.write(auth.password)
           childLogin.stdin.end()
-          hookFork(this.logger, 'dockerLogin', childLogin)
-          await waitOnExit('dockerLogin', childLogin)
+          hookFork(this.logger, 'docker-login', childLogin)
+          await waitOnExit('docker-login', childLogin)
         }
 
         const child = spawn('docker', ['push', tag])
-        hookFork(this.logger, 'dockerPush', child)
-        await waitOnExit('dockerPush', child)
+        hookFork(this.logger, 'docker-push', child)
+        await waitOnExit('docker-push', child)
       } catch (err) {
         if (err instanceof Error) {
           const error = new ToolKitError('docker push failed to run')
