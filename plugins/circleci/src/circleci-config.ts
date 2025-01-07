@@ -385,11 +385,14 @@ const generateWorkflowJobs = (
     const splitIntoMatrix = runsOnMultipleNodeVersions && (job.splitIntoMatrix ?? true)
     return {
       [toolKitOrbPrefix(job.name)]: merge(
-        splitIntoMatrix
-          ? matrixBoilerplate(toolKitOrbPrefix(job.name), nodeVersions)
-          : {
-              executor: 'node'
-            },
+        job.name.startsWith('tool-kit/') ||
+          (runsOnMultipleNodeVersions && generatedJobs && job.name in generatedJobs)
+          ? splitIntoMatrix
+            ? matrixBoilerplate(toolKitOrbPrefix(job.name), nodeVersions)
+            : {
+                executor: 'node'
+              }
+          : {},
         {
           requires: job.requires?.map((required) => {
             if (required === 'checkout') {
@@ -429,7 +432,13 @@ const attachWorkspaceStep = {
   }
 }
 
-const generateJob = (job: CircleCiJob): JobConfig => ({
+const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => ({
+  ...(nodeVersions.length > 1
+    ? {
+        parameters: { executor: { default: 'node', type: 'executor' } },
+        executor: '<< parameters.executor >>'
+      }
+    : { executor: 'node' }),
   steps: [
     ...(job.workspace?.attach ?? true ? [attachWorkspaceStep] : []),
     ...(job.steps?.pre ?? []),
@@ -534,7 +543,7 @@ export default class CircleCi extends Hook<
           this.options.jobs
             .filter((job) => !orbJobs.includes(job.name))
             .map((job) => {
-              return [job.name, generateJob(job)]
+              return [job.name, generateJob(job, nodeVersions)]
             })
         )
       }
