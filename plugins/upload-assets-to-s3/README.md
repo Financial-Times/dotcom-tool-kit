@@ -68,4 +68,4 @@ Then running `npm run build` will run the `UploadAssetsToS3` task on your review
 
 | Name | Description | Preconfigured Hook|
 |-|-|-|
-| `UploadAssetsTos3` | Uploads provided files to a given S3 bucket | `release:remote` |
+| `UploadAssetsToS3` | Uploads provided files to a given S3 bucket | `release:remote` |
