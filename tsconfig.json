@@ -120,6 +120,9 @@
     },
     {
       "path": "lib/schemas"
+    },
+    {
+      "path": "plugins/docker"
     }
   ]
 }
