@@ -45,6 +45,7 @@
     "plugins/n-test": {},
     "plugins/next-router": {},
     "plugins/node": {},
+    "plugins/node-test": {},
     "plugins/nodemon": {},
     "plugins/npm": {},
     "plugins/package-json-hook": {},
