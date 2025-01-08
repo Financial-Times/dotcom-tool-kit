@@ -1,4 +1,4 @@
-import { buildImageName } from '../build-image-name'
+import { buildImageName } from '../image-info'
 import { DockerSchema } from '@dotcom-tool-kit/schemas/lib/plugins/docker'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { spawn } from 'node:child_process'
@@ -26,8 +26,8 @@ export default class DockerPush extends Task<{
     // Iterate over different image types like web, worker, etc
     for (const [imageIdentifier, imageOptions] of Object.entries(this.pluginOptions.images)) {
       try {
-        const tag = buildImageName(imageOptions)
-        this.logger.info(`Pushing image "${imageIdentifier}" to ${tag}`)
+        const imageName = buildImageName(imageOptions)
+        this.logger.info(`Pushing image "${imageIdentifier}" to ${imageName}`)
 
         const auth = this.getRegistryAuth(imageOptions.registry)
 
@@ -47,7 +47,7 @@ export default class DockerPush extends Task<{
           await waitOnExit('docker-login', childLogin)
         }
 
-        const child = spawn('docker', ['push', tag])
+        const child = spawn('docker', ['push', '--all-tags', imageName])
         hookFork(this.logger, 'docker-push', child)
         await waitOnExit('docker-push', child)
       } catch (err) {
