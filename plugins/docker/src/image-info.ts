@@ -8,7 +8,7 @@ export function buildImageName({ registry, name }: { registry: string; name: str
 // We're just doing some basic sanitization now to avoid git tags causing issues.
 // If the tag isn't valid then Docker will error so it's not high risk
 function sanitizeDockerTag(tag: string): string {
-  return tag.replace(/[^a-z0-9\._-]+/i, '')
+  return tag.replace(/[^a-z0-9\._-]+/gi, '')
 }
 
 export function getImageTagsFromEnvironment({
