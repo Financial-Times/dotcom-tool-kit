@@ -406,6 +406,13 @@
     * @dotcom-tool-kit/circleci-deploy bumped from ^3.4.4 to ^3.4.5
     * @dotcom-tool-kit/frontend-app bumped from ^3.2.5 to ^3.2.6
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.2 to ^1.1.3
+    * @dotcom-tool-kit/config bumped from ^1.0.5 to ^1.0.6
+
 ## [4.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.0...dotcom-tool-kit-v4.3.1) (2025-01-06)
 
 

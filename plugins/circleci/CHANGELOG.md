@@ -121,6 +121,14 @@
     * @dotcom-tool-kit/logger bumped from ^3.4.0 to ^3.4.1
     * @dotcom-tool-kit/types bumped from ^3.6.0 to ^3.6.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.2 to ^1.1.3
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.4.0 to ^1.5.0
+
 ## [7.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.2.0...circleci-v7.3.0) (2025-01-02)
 
 

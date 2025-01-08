@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.4.0...schemas-v1.5.0) (2025-01-08)
+
+
+### Features
+
+* add schemas for the docker plugin ([ab43813](https://github.com/Financial-Times/dotcom-tool-kit/commit/ab43813d1fa35a9e038346405896477ae0be171f))
+
 ## [1.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.3.0...schemas-v1.4.0) (2025-01-02)
 
 

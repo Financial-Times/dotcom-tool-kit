@@ -1,13 +1,13 @@
 {
   "name": "@dotcom-tool-kit/circleci",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "",
   "main": "lib",
   "scripts": {
     "test": "cd ../../ ; npx jest --silent --projects plugins/circleci"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.2",
+    "@dotcom-tool-kit/base": "^1.1.3",
     "@dotcom-tool-kit/conflict": "^1.0.0",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.0",
@@ -30,7 +30,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/circleci",
   "devDependencies": {
     "@dotcom-tool-kit/plugin": "^1.0.0",
-    "@dotcom-tool-kit/schemas": "^1.4.0",
+    "@dotcom-tool-kit/schemas": "^1.5.0",
     "@jest/globals": "^27.4.6",
     "@types/jest": "^27.4.0",
     "@types/js-yaml": "^4.0.3",
