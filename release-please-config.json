@@ -1,8 +1,6 @@
 {
   "bootstrap-sha": "47035e3bd4e3ac399319b3421ce86a82f1c1ab21",
-  "plugins": [
-    "node-workspace"
-  ],
+  "plugins": ["node-workspace"],
   "prerelease": true,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
@@ -34,6 +32,7 @@
     "plugins/commitlint": {},
     "plugins/component": {},
     "plugins/cypress": {},
+    "plugins/docker": {},
     "plugins/eslint": {},
     "plugins/frontend-app": {},
     "plugins/heroku": {},

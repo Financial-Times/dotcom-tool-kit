@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import { CircleCISchema } from './plugins/circleci'
 import { CloudsmithSchema } from './plugins/cloudsmith'
+import { DockerSchema } from './plugins/docker'
 import { DopplerSchema } from './plugins/doppler'
 import { RootSchema } from './plugins/dotcom-tool-kit'
 import { HerokuSchema } from './plugins/heroku'
@@ -30,6 +31,7 @@ export const PluginSchemas = {
   'app root': RootSchema,
   '@dotcom-tool-kit/circleci': CircleCISchema,
   '@dotcom-tool-kit/cloudsmith': CloudsmithSchema,
+  '@dotcom-tool-kit/docker': DockerSchema,
   '@dotcom-tool-kit/doppler': DopplerSchema,
   '@dotcom-tool-kit/heroku': HerokuSchema,
   '@dotcom-tool-kit/lint-staged-npm': LintStagedNpmSchema,
