@@ -147,6 +147,13 @@
     * @dotcom-tool-kit/base bumped from ^1.1.0 to ^1.1.1
     * @dotcom-tool-kit/package-json-hook bumped from ^5.0.3 to ^5.0.4
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.2 to ^1.1.3
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.1.0 to ^5.1.1
+
 ## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v5.1.1...lint-staged-v5.2.0) (2025-01-02)
 
 

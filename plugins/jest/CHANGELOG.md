@@ -154,6 +154,14 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.2.0 to ^1.3.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.2 to ^1.1.3
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.4.0 to ^1.5.0
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v4.1.1...jest-v4.2.0) (2025-01-02)
 
 
