@@ -413,6 +413,13 @@
     * @dotcom-tool-kit/base bumped from ^1.1.2 to ^1.1.3
     * @dotcom-tool-kit/config bumped from ^1.0.5 to ^1.0.6
 
+## [4.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.2...dotcom-tool-kit-v4.3.3) (2025-01-09)
+
+
+### Bug Fixes
+
+* actually support CJS in importEntryPoint ([2caed3d](https://github.com/Financial-Times/dotcom-tool-kit/commit/2caed3db66f678e49db09a72456cf072604826a8))
+
 ## [4.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.0...dotcom-tool-kit-v4.3.1) (2025-01-06)
 
 
