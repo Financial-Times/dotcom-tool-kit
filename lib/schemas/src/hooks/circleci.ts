@@ -30,6 +30,7 @@ export const CircleCiJob = z
         post: z.array(CircleCiStep).optional()
       })
       .optional(),
+    splitIntoMatrix: z.boolean().optional(),
     custom: CircleCiCustom.optional()
   })
   .partial()
