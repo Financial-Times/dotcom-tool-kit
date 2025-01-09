@@ -420,6 +420,13 @@
     * @dotcom-tool-kit/base bumped from ^1.1.3 to ^1.1.4
     * @dotcom-tool-kit/config bumped from ^1.0.6 to ^1.0.7
 
+## [4.3.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.4...dotcom-tool-kit-v4.3.5) (2025-01-09)
+
+
+### Bug Fixes
+
+* imports aren't always plain objects ([096f826](https://github.com/Financial-Times/dotcom-tool-kit/commit/096f82631308ccedab96de474c633ad5edd93c9b))
+
 ## [4.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.2...dotcom-tool-kit-v4.3.3) (2025-01-09)
 
 
