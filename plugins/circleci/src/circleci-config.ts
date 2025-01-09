@@ -396,7 +396,7 @@ const generateWorkflowJobs = (
             return `${requiredOrb}-${splitIntoMatrix ? '<< matrix.executor >>' : 'node'}`
           })
         },
-        workflow.runOnRelease && job.runOnRelease ? tagFilter(tagFilterRegex) : {},
+        workflow.runOnRelease && (job.runOnRelease ?? true) ? tagFilter(tagFilterRegex) : {},
         job.custom
       )
     }
@@ -418,7 +418,7 @@ const attachWorkspaceStep = {
 
 const generateJob = (job: CircleCiJob): JobConfig => ({
   steps: [
-    ...(job.workspace?.attach ? [attachWorkspaceStep] : []),
+    ...(job.workspace?.attach ?? true ? [attachWorkspaceStep] : []),
     ...(job.steps?.pre ?? []),
     {
       run: {
@@ -427,7 +427,7 @@ const generateJob = (job: CircleCiJob): JobConfig => ({
       }
     },
     ...(job.steps?.post ?? []),
-    ...(job.workspace?.persist ? [persistWorkspaceStep] : [])
+    ...(job.workspace?.persist ?? true ? [persistWorkspaceStep] : [])
   ],
   ...job.custom
 })

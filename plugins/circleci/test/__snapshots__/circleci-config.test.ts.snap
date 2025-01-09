@@ -41,10 +41,16 @@ workflows:
           executor: node
           requires:
             - tool-kit/setup
+          filters:
+            tags:
+              only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
       - tool-kit/test:
           executor: node
           requires:
             - tool-kit/build
+          filters:
+            tags:
+              only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
   nightly:
     when:
       and:
