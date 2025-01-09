@@ -7,8 +7,8 @@ const DockerImageSchema = z.object({
     .describe('The path to the Dockerfile definition file for this image'),
   platform: z
     .string()
-    .default('linux/amd64')
-    .describe('The platform to target when building the Docker image, e.g. linux/amd64 or linux/arm64'),
+    .default('linux/arm64')
+    .describe('The platform to target when building the Docker image, e.g. linux/arm64 or linux/amd64'),
   registry: z
     .string()
     .default('docker.packages.ft.com/cp-container-registry')
