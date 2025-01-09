@@ -169,6 +169,13 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.4.0 to ^1.5.0
 
+## [4.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v4.2.1...n-test-v4.2.2) (2025-01-09)
+
+
+### Bug Fixes
+
+* stop adding CWD to the n-test config path ([7ef1f68](https://github.com/Financial-Times/dotcom-tool-kit/commit/7ef1f68511e0e423fcc166c67dc7912e8deebe65))
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v4.1.1...n-test-v4.2.0) (2025-01-02)
 
 
