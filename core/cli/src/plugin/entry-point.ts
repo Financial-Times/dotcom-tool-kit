@@ -4,6 +4,7 @@ import type { Base } from '@dotcom-tool-kit/base'
 import type { EntryPoint } from '@dotcom-tool-kit/plugin'
 import { Validated, invalid } from '@dotcom-tool-kit/validated'
 import { isPlainObject } from 'lodash'
+import { __importDefault } from 'tslib'
 import { indentReasons } from '../messages'
 
 const isPlainObjectGuard = (value: unknown): value is Record<string, unknown> => isPlainObject(value)
@@ -36,25 +37,23 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
     ])
   }
 
-  if (
-    isPlainObjectGuard(pluginModule) &&
-    'default' in pluginModule &&
-    typeof pluginModule.default === 'function'
-  ) {
-    const name = pluginModule.default.name
+  if (isPlainObjectGuard(pluginModule)) {
+    const defaultExport = __importDefault(pluginModule).default
 
-    return type
-      .isCompatible<T>(pluginModule.default)
-      .mapError((reasons) => [
-        `the ${type.name.toLowerCase()} ${s.hook(name)} is not a compatible instance of ${s.code(
-          type.name
-        )}:\n  - ${reasons.join('\n  - ')}`
-      ])
-  } else {
-    return invalid([
-      `entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
-        entryPoint.plugin.id
-      )} does not have a ${s.code('default')} export`
-    ])
+    if (typeof defaultExport === 'function') {
+      return type
+        .isCompatible<T>(defaultExport)
+        .mapError((reasons) => [
+          `the ${type.name.toLowerCase()} ${s.hook(
+            defaultExport.name
+          )} is not a compatible instance of ${s.code(type.name)}:\n  - ${reasons.join('\n  -  ')}`
+        ])
+    }
   }
+
+  return invalid([
+    `entrypoint ${s.filepath(entryPoint.modulePath)} in plugin ${s.plugin(
+      entryPoint.plugin.id
+    )} does not export a class as its ${s.code('default')} export or ${s.code('module.exports')}`
+  ])
 }
