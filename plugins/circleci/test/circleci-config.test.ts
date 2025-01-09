@@ -7,7 +7,6 @@ import type {
 import { describe, expect, it } from '@jest/globals'
 import path from 'path'
 import winston, { Logger } from 'winston'
-import * as YAML from 'yaml'
 
 import CircleCi from '../src/circleci-config'
 
@@ -21,6 +20,12 @@ const testJob: CircleCiJob = {
 const testWorkflowJob: CircleCiWorkflowJob = {
   name: 'test-job',
   requires: ['that-job'],
+  splitIntoMatrix: false
+}
+
+const dependedWorkflowJob: CircleCiWorkflowJob = {
+  name: 'that-job',
+  requires: [],
   splitIntoMatrix: false
 }
 
@@ -43,7 +48,7 @@ const anotherTestWorkflowJob: CircleCiWorkflowJob = {
 }
 
 const configWithWorkflowJob: CircleCiOptions = {
-  workflows: [{ name: 'tool-kit', jobs: [testWorkflowJob] }],
+  workflows: [{ name: 'tool-kit', jobs: [dependedWorkflowJob, testWorkflowJob] }],
   disableBaseConfig: true
 }
 
@@ -129,6 +134,12 @@ describe('CircleCI config hook', () => {
             "tool-kit": {
               "jobs": [
                 {
+                  "tool-kit/that-job": {
+                    "executor": "node",
+                    "requires": [],
+                  },
+                },
+                {
                   "tool-kit/test-job": {
                     "executor": "node",
                     "requires": [
@@ -154,6 +165,7 @@ describe('CircleCI config hook', () => {
         {
           "jobs": {
             "test-job": {
+              "executor": "node",
               "steps": [
                 {
                   "run": {
@@ -182,13 +194,11 @@ describe('CircleCI config hook', () => {
               "jobs": [
                 {
                   "another/orb": {
-                    "executor": "node",
                     "requires": [],
                   },
                 },
                 {
                   "slack/approval-notification": {
-                    "executor": "node",
                     "requires": [
                       "another/orb",
                     ],
@@ -220,6 +230,7 @@ describe('CircleCI config hook', () => {
         {
           "jobs": {
             "test-job": {
+              "executor": "node",
               "steps": [
                 {
                   "run": {
@@ -234,8 +245,13 @@ describe('CircleCI config hook', () => {
             "tool-kit": {
               "jobs": [
                 {
-                  "test-job": {
+                  "tool-kit/that-job": {
                     "executor": "node",
+                    "requires": [],
+                  },
+                },
+                {
+                  "test-job": {
                     "requires": [
                       "tool-kit/that-job",
                     ],
@@ -278,7 +294,9 @@ describe('CircleCI config hook', () => {
           forHook: 'CircleCi',
           hookConstructor: CircleCi,
           options: {
-            workflows: [{ name: 'test-workflow', jobs: [testWorkflowJob], runOnRelease: true }]
+            workflows: [
+              { name: 'test-workflow', jobs: [dependedWorkflowJob, testWorkflowJob], runOnRelease: true }
+            ]
           }
         }
       ]
@@ -297,7 +315,9 @@ describe('CircleCI config hook', () => {
               }
             ],
             jobs: [testJob],
-            workflows: [{ name: 'test-workflow', jobs: [testWorkflowJob], runOnRelease: true }]
+            workflows: [
+              { name: 'test-workflow', jobs: [dependedWorkflowJob, testWorkflowJob], runOnRelease: true }
+            ]
           })
         }
       ])
@@ -322,7 +342,9 @@ describe('CircleCI config hook', () => {
           hookConstructor: CircleCi,
           options: {
             jobs: [testJob],
-            workflows: [{ name: 'test-workflow', jobs: [testWorkflowJob], runOnRelease: true }]
+            workflows: [
+              { name: 'test-workflow', jobs: [dependedWorkflowJob, testWorkflowJob], runOnRelease: true }
+            ]
           }
         }
       ]
@@ -335,7 +357,11 @@ describe('CircleCI config hook', () => {
           options: expect.objectContaining({
             jobs: [overriddenTestJob],
             workflows: [
-              { name: 'test-workflow', jobs: [testWorkflowJob, anotherTestWorkflowJob], runOnRelease: true }
+              {
+                name: 'test-workflow',
+                jobs: [dependedWorkflowJob, testWorkflowJob, anotherTestWorkflowJob],
+                runOnRelease: true
+              }
             ]
           })
         }
