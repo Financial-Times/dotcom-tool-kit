@@ -1,6 +1,6 @@
 {
-  "core/cli": "4.3.2",
-  "core/create": "4.2.2",
+  "core/cli": "4.3.3",
+  "core/create": "4.2.3",
   "lib/error": "4.1.0",
   "lib/logger": "4.1.0",
   "plugins/package-json-hook": "5.1.1",
