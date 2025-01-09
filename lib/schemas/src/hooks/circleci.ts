@@ -20,22 +20,16 @@ export const CircleCiJob = z
     command: z.string(),
     workspace: z
       .object({
-        persist: z.boolean().default(true),
-        attach: z.boolean().default(true)
+        persist: z.boolean().optional(),
+        attach: z.boolean().optional()
       })
-      .default({
-        persist: true,
-        attach: true
-      }),
+      .optional(),
     steps: z
       .object({
-        pre: z.array(CircleCiStep).default([]),
-        post: z.array(CircleCiStep).default([])
+        pre: z.array(CircleCiStep).optional(),
+        post: z.array(CircleCiStep).optional()
       })
-      .default({
-        pre: [],
-        post: []
-      }),
+      .optional(),
     custom: CircleCiCustom.optional()
   })
   .partial()
@@ -47,7 +41,7 @@ export const CircleCiWorkflowJob = z
     name: z.string(),
     requires: z.array(z.string()),
     splitIntoMatrix: z.boolean().optional(),
-    runOnRelease: z.boolean().default(true),
+    runOnRelease: z.boolean().optional(),
     custom: CircleCiCustom.optional()
   })
   .partial()

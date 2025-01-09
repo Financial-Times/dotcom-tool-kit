@@ -158,9 +158,22 @@ describe('CircleCI config hook', () => {
             "test-job": {
               "steps": [
                 {
+                  "attach-workspace": {
+                    "at": ".",
+                  },
+                },
+                {
                   "run": {
                     "command": "npx dotcom-tool-kit test:local",
                     "name": "test-job",
+                  },
+                },
+                {
+                  "persist_to_workspace": {
+                    "paths": [
+                      ".",
+                    ],
+                    "root": ".",
                   },
                 },
               ],
@@ -218,9 +231,22 @@ describe('CircleCI config hook', () => {
             "test-job": {
               "steps": [
                 {
+                  "attach-workspace": {
+                    "at": ".",
+                  },
+                },
+                {
                   "run": {
                     "command": "npx dotcom-tool-kit test:local",
                     "name": "test-job",
+                  },
+                },
+                {
+                  "persist_to_workspace": {
+                    "paths": [
+                      ".",
+                    ],
+                    "root": ".",
                   },
                 },
               ],
