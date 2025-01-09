@@ -27,7 +27,7 @@ export function getImageTagsFromEnvironment({
 
   const gitTag = process.env.CIRCLE_TAG
   if (gitTag) {
-    tags.push(`git-${gitTag}`)
+    tags.push(`release-${gitTag}`)
   }
 
   const buildNumber = process.env.CIRCLE_BUILD_NUM
@@ -35,6 +35,11 @@ export function getImageTagsFromEnvironment({
     tags.push(`ci-${buildNumber}`)
   } else {
     tags.push(`local-${process.env.USER || 'unknown'}`)
+  }
+
+  const branchName = process.env.CIRCLE_BRANCH
+  if (branchName) {
+    tags.push(`branch-${branchName}`)
   }
 
   const imageName = buildImageName({ registry, name })
