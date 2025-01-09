@@ -25,7 +25,7 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
     ])
   }
 
-  let pluginModule: unknown
+  let pluginModule: any
   try {
     pluginModule = require(resolvedPath)
   } catch (e) {
@@ -37,18 +37,16 @@ export async function importEntryPoint<T extends { name: string } & Omit<typeof 
     ])
   }
 
-  if (isPlainObjectGuard(pluginModule)) {
-    const defaultExport = __importDefault(pluginModule).default
+  const defaultExport = __importDefault(pluginModule).default
 
-    if (typeof defaultExport === 'function') {
-      return type
-        .isCompatible<T>(defaultExport)
-        .mapError((reasons) => [
-          `the ${type.name.toLowerCase()} ${s.hook(
-            defaultExport.name
-          )} is not a compatible instance of ${s.code(type.name)}:\n  - ${reasons.join('\n  -  ')}`
-        ])
-    }
+  if (typeof defaultExport === 'function') {
+    return type
+      .isCompatible<T>(defaultExport)
+      .mapError((reasons) => [
+        `the ${type.name.toLowerCase()} ${s.hook(
+          defaultExport.name
+        )} is not a compatible instance of ${s.code(type.name)}:\n  - ${reasons.join('\n  -  ')}`
+      ])
   }
 
   return invalid([
