@@ -11,13 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/conflict": "^1.0.0",
+    "@dotcom-tool-kit/logger": "^4.1.0",
     "@dotcom-tool-kit/validated": "^1.0.2",
     "semver": "^7.5.4",
     "winston": "^3.11.0"
   },
   "devDependencies": {
     "@dotcom-tool-kit/config": "^1.0.7",
-    "@dotcom-tool-kit/logger": "^4.1.0",
     "@dotcom-tool-kit/plugin": "^1.0.0",
     "type-fest": "^4.29.1",
     "winston": "^3.11.0",
