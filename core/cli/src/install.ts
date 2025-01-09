@@ -85,12 +85,15 @@ export const loadHookInstallations = async (
   })
 
   return installationsWithoutConflicts.map((installations) => {
-    return installations.map(
-      ({ hookConstructor, forHook, options }) => {
-        const hookPlugin = config.hooks[forHook].plugin
-        return new hookConstructor(logger, forHook, options, config.pluginOptions[hookPlugin.id as keyof PluginOptions]?.options)
-      }
-    )
+    return installations.map(({ hookConstructor, forHook, options }) => {
+      const hookPlugin = config.hooks[forHook].plugin
+      return new hookConstructor(
+        logger,
+        forHook,
+        options,
+        config.pluginOptions[hookPlugin.id as keyof PluginOptions]?.options
+      )
+    })
   })
 }
 
@@ -159,9 +162,7 @@ export default async function installHooks(logger: Logger): Promise<ValidConfig>
   }
 
   if (errors.length) {
-    const error = new ToolKitError('could not automatically install hooks:')
-    error.details = errors.map((error) => `- ${error.message}`).join('\n')
-    throw error
+    throw new AggregateError(errors, 'could not automatically install hooks')
   }
 
   await updateHashes(config)
