@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.5.0...schemas-v1.6.0) (2025-01-09)
+
+
+### Features
+
+* **schemas:** build on arm64 by default ([632c35d](https://github.com/Financial-Times/dotcom-tool-kit/commit/632c35d830671ff727600654e7e7cb15cd7c3894))
+
 ## [1.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.4.0...schemas-v1.5.0) (2025-01-08)
 
 

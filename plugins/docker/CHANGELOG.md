@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.1.0...docker-v0.2.0) (2025-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **docker:** build on arm64 by default
+
+### Features
+
+* **docker:** build on arm64 by default ([ff4fa5d](https://github.com/Financial-Times/dotcom-tool-kit/commit/ff4fa5defbd3e726de44275d2dbf82bf006f27f4))
+* tweak docker labels ([90ec26a](https://github.com/Financial-Times/dotcom-tool-kit/commit/90ec26aeb37a1607eaf576cda92e08623f15e94d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.3 to ^1.1.4
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.5.0 to ^1.6.0
+
 ## 0.1.0 (2025-01-08)
 
 

@@ -12,6 +12,12 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.2 to ^1.1.3
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.3 to ^1.1.4
+
 ## [1.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v1.1.1...commitlint-v1.2.0) (2025-01-02)
 
 
