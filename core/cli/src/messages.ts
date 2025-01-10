@@ -100,7 +100,11 @@ const formatPlugin = (plugin: Plugin): string =>
 export type InvalidOption = [string, z.ZodError]
 
 export const formatInvalidOption = ([id, error]: InvalidOption): string =>
-  fromZodError(error, { prefix: `${s.warning(pluralize('issue', error.issues.length, true))} in ${s.plugin(id)}`, prefixSeparator: ':\n- ', issueSeparator: '\n- ' }).message
+  fromZodError(error, {
+    prefix: `${s.warning(pluralize('issue', error.issues.length, true))} in ${s.plugin(id)}`,
+    prefixSeparator: ':\n- ',
+    issueSeparator: '\n- '
+  }).message
 
 export const formatInvalidPluginOptions = (
   invalidOptions: InvalidOption[]
@@ -210,32 +214,41 @@ export function formatPluginTree(plugin: Plugin): string[] {
 
 export const indentReasons = (reasons: string): string => reasons.replace(/\n/g, '\n  ')
 
-export function formatError(error: Error) {
-	let output = `${styles.error(error.name)}: ${error.message}\n`
+// instanceof is unreliable across packages because of version mismatches so also use a heuristic to guess if it's a ToolKitError so we always log the details field if present
+const guessIfToolKitError = (error: Error): error is ToolKitError =>
+  error instanceof ToolKitError || 'details' in error
 
-	if(error instanceof AggregateError) {
-		output += error.errors
-			.map(formatError)
-			.map((message, messageIndex) => {
-				const lines = message.split('\n')
+export function formatError(error: Error) {
+  let output = `${styles.error(error.name)}: ${error.message}\n`
+
+  if (error instanceof AggregateError) {
+    output += error.errors
+      .map(formatError)
+      .map((message, messageIndex) => {
+        const lines = message.split('\n')
 
         // TODO:KB:20241125 refactor the tree formatter from this and formatPluginTree into a shared function
-				return lines.map(
-					(line, lineIndex) => (
-						messageIndex === error.errors.length - 1 ? (
-							lineIndex === 0 ? '╰─' : '  '
-						) : lineIndex === 0 ? '├─' : '│ '
-					) + line
-				).join('\n')
-			})
-			.join('\n')
-	} else if(error instanceof ToolKitError) {
-		if(error.details) {
-			output += styles.info(error.details)
-		}
-	} else if(error.stack) {
-		output += error.stack.split('\n').slice(1).join('\n')
-	}
+        return lines
+          .map(
+            (line, lineIndex) =>
+              (messageIndex === error.errors.length - 1
+                ? lineIndex === 0
+                  ? '╰─'
+                  : '  '
+                : lineIndex === 0
+                ? '├─'
+                : '│ ') + line
+          )
+          .join('\n')
+      })
+      .join('\n')
+  } else if (guessIfToolKitError(error)) {
+    if (error.details) {
+      output += styles.info(error.details)
+    }
+  } else if (error.stack) {
+    output += error.stack.split('\n').slice(1).join('\n')
+  }
 
-	return output + '\n'
+  return output + '\n'
 }
