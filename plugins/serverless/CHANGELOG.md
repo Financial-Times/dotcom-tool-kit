@@ -126,6 +126,12 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.5.0 to ^1.6.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.4 to ^1.1.5
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v3.1.1...serverless-v3.2.0) (2025-01-02)
 
 
