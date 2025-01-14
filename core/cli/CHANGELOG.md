@@ -420,6 +420,22 @@
     * @dotcom-tool-kit/base bumped from ^1.1.3 to ^1.1.4
     * @dotcom-tool-kit/config bumped from ^1.0.6 to ^1.0.7
 
+## [4.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.5...dotcom-tool-kit-v4.3.6) (2025-01-14)
+
+
+### Bug Fixes
+
+* **cli:** try to always log ToolKitError details if present ([0d4f2b4](https://github.com/Financial-Times/dotcom-tool-kit/commit/0d4f2b4cf7de12a290b19c13ad7be27b41197896))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.4 to ^1.1.5
+    * @dotcom-tool-kit/config bumped from ^1.0.7 to ^1.0.8
+    * @dotcom-tool-kit/logger bumped from ^4.1.0 to ^4.1.1
+
 ## [4.3.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.4...dotcom-tool-kit-v4.3.5) (2025-01-09)
 
 

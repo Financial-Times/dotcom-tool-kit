@@ -1,5 +1,14 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.4 to ^1.1.5
+    * @dotcom-tool-kit/logger bumped from ^4.1.0 to ^4.1.1
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.6.0 to ^1.6.1
+
 ## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.1.0...docker-v0.2.0) (2025-01-09)
 
 

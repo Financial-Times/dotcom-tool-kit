@@ -1,5 +1,11 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^4.1.0 to ^4.1.1
+
 ## [1.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.5.0...schemas-v1.6.0) (2025-01-09)
 
 

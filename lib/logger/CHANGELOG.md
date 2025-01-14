@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
 
+## [4.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v4.1.0...logger-v4.1.1) (2025-01-14)
+
+
+### Bug Fixes
+
+* stop using chalk as a transitive dependency ([1ce9a35](https://github.com/Financial-Times/dotcom-tool-kit/commit/1ce9a35d75f192a49d36954a56169e5a5852a2b1))
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v4.0.1...logger-v4.1.0) (2025-01-02)
 
 
