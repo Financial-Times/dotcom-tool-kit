@@ -1,44 +1,59 @@
 import { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { isConflict } from '@dotcom-tool-kit/conflict'
 import { OptionsForPlugin, RCFile, type Plugin } from '@dotcom-tool-kit/plugin'
+// HACK:IM:20250217 preserve backwards compatibility with older plugins without
+// a colocated schema by falling back to the obsolete schemas library if no
+// schema found
 import { type PluginOptions, PluginSchemas, legacyPluginOptions } from '@dotcom-tool-kit/schemas'
 import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
 
 import type { Logger } from 'winston'
-import { ZodError, ZodIssueCode } from 'zod'
+import * as z from 'zod'
 import { styles } from '@dotcom-tool-kit/logger'
 
 import { toolKitIfDefinedIdent, toolKitOptionIdent } from '../rc-file'
 import { InvalidOption } from '../messages'
+import { importSchemaEntryPoint } from './entry-point'
 
-export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig): InvalidOption[] => {
+export const validatePluginOptions = async (
+  logger: Logger,
+  config: ValidPluginsConfig
+): Promise<InvalidOption[]> => {
   const invalidOptions: InvalidOption[] = []
 
   for (const [id, plugin] of Object.entries(config.plugins)) {
-    const pluginId = id as keyof PluginOptions
-    const pluginOptions = config.pluginOptions[pluginId]
+    const pluginOptions = config.pluginOptions[id]
     if (pluginOptions && isConflict(pluginOptions)) {
       continue
     }
 
-    const pluginSchema = PluginSchemas[pluginId]
+    let pluginSchema: z.ZodSchema | undefined
+    const schemaEntrypoint = plugin.rcFile?.optionsSchema
+    if (schemaEntrypoint) {
+      const schema = await importSchemaEntryPoint({ plugin, modulePath: schemaEntrypoint })
+      if (!schema.valid) {
+        invalidOptions.push([id, new z.ZodError([])])
+        continue
+      }
+      pluginSchema = schema.value
+    } else {
+      pluginSchema = PluginSchemas[id as keyof PluginOptions]
+    }
 
     if (!pluginSchema) {
-      logger.silly(`skipping validation of ${pluginId} plugin as no schema can be found`)
+      logger.silly(`skipping validation of ${id} plugin as no schema can be found`)
 
       // TODO:KB:20240412 remove legacyPluginOptions in a future major version
-      if (pluginOptions && pluginId in legacyPluginOptions) {
-        const movedToTask = legacyPluginOptions[pluginId]
+      if (pluginOptions && id in legacyPluginOptions) {
+        const movedToTask = legacyPluginOptions[id]
         invalidOptions.push([
           id,
-          new ZodError([
+          new z.ZodError([
             {
-              message: `options for the ${styles.plugin(
-                id
-              )} plugin have moved to ${styles.code(
+              message: `options for the ${styles.plugin(id)} plugin have moved to ${styles.code(
                 `options.tasks.${styles.task(movedToTask)}`
               )}`,
-              code: ZodIssueCode.custom,
+              code: z.ZodIssueCode.custom,
               path: []
             }
           ])
@@ -53,7 +68,7 @@ export const validatePluginOptions = (logger: Logger, config: ValidPluginsConfig
       // Set up options entry for plugins that don't have options specified
       // explicitly. They could still have default options that are set by zod.
       if (!pluginOptions) {
-        config.pluginOptions[pluginId] = {
+        config.pluginOptions[id] = {
           options: result.data,
           plugin: config.plugins['app root'],
           forPlugin: plugin

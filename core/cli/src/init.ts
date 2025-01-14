@@ -5,11 +5,13 @@ import type { Logger } from 'winston'
 import { importEntryPoint } from './plugin/entry-point'
 
 const loadInitEntrypoints = async (logger: Logger, config: ValidConfig): Promise<Validated<Init[]>> => {
-  const initClassResults = reduceValidated(
+  const initModuleResults = reduceValidated(
     await Promise.all(config.inits.map((entryPoint) => importEntryPoint(Init as InitClass, entryPoint)))
   )
 
-  return initClassResults.map((initClasses) => initClasses.map((initClass) => new initClass(logger)))
+  return initModuleResults.map((initModules) =>
+    initModules.map((initModule) => new initModule.baseClass(logger))
+  )
 }
 
 export async function runInit(logger: Logger, config: ValidConfig): Promise<void> {

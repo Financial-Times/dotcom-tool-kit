@@ -10,7 +10,8 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 import { formatInvalidOption } from './messages'
-import { PluginOptions, type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
+import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
+import type { RootOptions } from '@dotcom-tool-kit/schemas/src/plugins/dotcom-tool-kit'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import pluralize from 'pluralize'
 
@@ -29,20 +30,21 @@ const loadTasks = async (
       const entryPoint = config.tasks[taskId]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
-      return taskResult.flatMap<Task>((Task) => {
-        const taskSchema = TaskSchemas[taskId as keyof TaskOptions]
+      return taskResult.flatMap<Task>((taskModule) => {
         const configOptions = config.taskOptions[taskId]?.options ?? {}
         const mergedOptions = { ...configOptions, ...options }
-        const parsedOptions = taskSchema?.safeParse(mergedOptions) ?? {
+        const parsedOptions = (taskModule.schema ?? TaskSchemas[taskId as keyof TaskOptions])?.safeParse(
+          mergedOptions
+        ) ?? {
           success: true,
           data: mergedOptions
         }
 
         if (parsedOptions.success) {
-          const task = new (Task as unknown as TaskConstructor)(
+          const task = new (taskModule.baseClass as unknown as TaskConstructor)(
             logger,
             taskId,
-            config.pluginOptions[entryPoint.plugin.id as keyof PluginOptions]?.options ?? {},
+            config.pluginOptions[entryPoint.plugin.id]?.options ?? {},
             parsedOptions.data
           )
           return valid(task)
@@ -66,7 +68,7 @@ export async function runTasksFromConfig(
   await checkInstall(logger, config)
 
   if (
-    shouldDisableNativeFetch(config.pluginOptions['app root'].options) &&
+    shouldDisableNativeFetch(config.pluginOptions['app root'].options as RootOptions) &&
     !process.execArgv.includes('--no-experimental-fetch')
   ) {
     process.execArgv.push('--no-experimental-fetch')

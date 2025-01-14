@@ -1,5 +1,4 @@
 import * as path from 'path'
-import type { z } from 'zod'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import groupBy from 'lodash/groupBy'
@@ -9,9 +8,8 @@ import { hasConfigChanged, updateHashes } from './config/hash'
 import type { ValidConfig } from '@dotcom-tool-kit/config'
 import { Hook, HookClass } from '@dotcom-tool-kit/base'
 import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
-import { reducePluginHookInstallations } from './plugin/reduce-installations'
+import { HookModule, reducePluginHookInstallations } from './plugin/reduce-installations'
 import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/conflict'
-import { PluginOptions } from '@dotcom-tool-kit/schemas'
 import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
 import { runInit } from './init'
@@ -36,12 +34,14 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
 const loadHookEntrypoints = async (
   logger: Logger,
   config: ValidConfig
-): Promise<Validated<Record<string, HookClass>>> => {
+): Promise<Validated<Record<string, HookModule>>> => {
   const hookResultEntries = reduceValidated(
     await Promise.all(
       Object.entries(config.hooks).map(async ([hookName, entryPoint]) => {
-        const hookResult = await importEntryPoint(Hook, entryPoint)
-        return hookResult.map((hookClass) => [hookName, hookClass as HookClass] as const)
+        const hookModule = await importEntryPoint(Hook, entryPoint)
+        return hookModule.map(
+          ({ baseClass, schema }) => [hookName, { hookClass: baseClass as HookClass, schema }] as const
+        )
       })
     )
   )
@@ -87,12 +87,7 @@ export const loadHookInstallations = async (
   return installationsWithoutConflicts.map((installations) => {
     return installations.map(({ hookConstructor, forHook, options }) => {
       const hookPlugin = config.hooks[forHook].plugin
-      return new hookConstructor(
-        logger,
-        forHook,
-        options,
-        config.pluginOptions[hookPlugin.id as keyof PluginOptions]?.options
-      )
+      return new hookConstructor(logger, forHook, options, config.pluginOptions[hookPlugin.id]?.options)
     })
   })
 }

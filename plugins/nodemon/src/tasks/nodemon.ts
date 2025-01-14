@@ -1,6 +1,7 @@
 import { hookFork } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { NodemonSchema } from '@dotcom-tool-kit/schemas/lib/tasks/nodemon'
+import type { RootOptions } from '@dotcom-tool-kit/schemas/lib/plugins/dotcom-tool-kit'
 import { writeState } from '@dotcom-tool-kit/state'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import getPort from 'get-port'
@@ -15,7 +16,11 @@ export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
     let dopplerEnv = {}
 
     if (useDoppler) {
-      const doppler = new DopplerEnvVars(this.logger, 'dev', config.pluginOptions['@dotcom-tool-kit/doppler']?.options)
+      const doppler = new DopplerEnvVars(
+        this.logger,
+        'dev',
+        config.pluginOptions['@dotcom-tool-kit/doppler']?.options
+      )
 
       dopplerEnv = await doppler.get()
     }
@@ -37,7 +42,7 @@ export default class Nodemon extends Task<{ task: typeof NodemonSchema }> {
     const nodemonConfig: nodemon.Settings = { script: entry, env, stdout: false, configFile: configPath }
     // nodemon isn't forwarded process.execArgv so we need to pass the
     // --no-experimental-fetch flag explicitly the node process nodemon invokes
-    if (shouldDisableNativeFetch(config.pluginOptions['app root'].options)) {
+    if (shouldDisableNativeFetch(config.pluginOptions['app root'].options as RootOptions)) {
       nodemonConfig.execMap = { js: 'node --no-experimental-fetch' }
     }
     nodemon(nodemonConfig)

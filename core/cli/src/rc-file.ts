@@ -115,6 +115,7 @@ export async function loadToolKitRC(logger: Logger, root: string): Promise<RCFil
           hooks: config.options.hooks ?? []
         }
       : { plugins: {}, tasks: {}, hooks: [] },
+    optionsSchema: config.optionsSchema ?? undefined,
     hooks: config.hooks ?? undefined,
     init: config.init ?? []
   }
