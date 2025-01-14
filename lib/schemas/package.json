@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/schemas",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "",
   "main": "lib",
   "devDependencies": {
@@ -18,6 +18,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/logger": "^4.1.0"
+    "@dotcom-tool-kit/logger": "^4.1.1"
   }
 }

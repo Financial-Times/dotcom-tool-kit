@@ -177,6 +177,15 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.5.0 to ^1.6.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.4 to ^1.1.5
+    * @dotcom-tool-kit/logger bumped from ^4.1.0 to ^4.1.1
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.6.0 to ^1.6.1
+
 ## [4.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v4.2.1...n-test-v4.2.2) (2025-01-09)
 
 
