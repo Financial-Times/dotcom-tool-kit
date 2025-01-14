@@ -27,6 +27,23 @@
   * devDependencies
     * @dotcom-tool-kit/config bumped from ^1.0.6 to ^1.0.7
 
+## [1.1.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.1.4...base-v1.1.5) (2025-01-14)
+
+
+### Bug Fixes
+
+* **base:** move logger dependency to prod ([c1c8a57](https://github.com/Financial-Times/dotcom-tool-kit/commit/c1c8a57e2e459e13b37efd519a80ff60835bde72))
+* **cli:** try to always log ToolKitError details if present ([0d4f2b4](https://github.com/Financial-Times/dotcom-tool-kit/commit/0d4f2b4cf7de12a290b19c13ad7be27b41197896))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^4.1.0 to ^4.1.1
+  * devDependencies
+    * @dotcom-tool-kit/config bumped from ^1.0.7 to ^1.0.8
+
 ## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.0.0...base-v1.1.0) (2024-12-09)
 
 
