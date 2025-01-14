@@ -16,6 +16,9 @@
     },
     {
       "path": "../../lib/schemas"
+    },
+    {
+      "path": "../../lib/state"
     }
   ],
   "include": ["src/**/*"]

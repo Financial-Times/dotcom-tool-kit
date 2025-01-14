@@ -1,3 +1,4 @@
+import { readState } from '@dotcom-tool-kit/state'
 import { join as joinPath } from 'node:path'
 
 export function buildImageName({ registry, name }: { registry: string; name: string }) {
@@ -19,25 +20,26 @@ export function getImageTagsFromEnvironment({
   name: string
 }): string[] {
   const tags = []
+  const ciState = readState('ci')
 
-  const gitCommit = process.env.CIRCLE_SHA1
+  const gitCommit = ciState?.version
   if (gitCommit) {
     tags.push(`git-${gitCommit.slice(0, 7)}`)
   }
 
-  const gitTag = process.env.CIRCLE_TAG
+  const gitTag = ciState?.tag
   if (gitTag) {
     tags.push(`release-${gitTag}`)
   }
 
-  const buildNumber = process.env.CIRCLE_BUILD_NUM
+  const buildNumber = ciState?.buildNumber
   if (buildNumber) {
     tags.push(`ci-${buildNumber}`)
   } else {
     tags.push(`local-${process.env.USER || 'unknown'}`)
   }
 
-  const branchName = process.env.CIRCLE_BRANCH
+  const branchName = ciState?.branch
   if (branchName) {
     tags.push(`branch-${branchName}`)
   }

@@ -13,6 +13,7 @@
     "@dotcom-tool-kit/base": "^1.1.5",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",
+    "@dotcom-tool-kit/state": "^4.1.0",
     "tslib": "^2.3.1"
   },
   "repository": {
