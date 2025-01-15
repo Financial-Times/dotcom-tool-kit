@@ -36,6 +36,7 @@ export const CircleCiJob = z
         pre: [],
         post: []
       }),
+    splitIntoMatrix: z.boolean().optional(),
     custom: CircleCiCustom.optional()
   })
   .partial()
