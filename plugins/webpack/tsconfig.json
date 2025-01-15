@@ -11,9 +11,6 @@
     },
     {
       "path": "../../lib/base"
-    },
-    {
-      "path": "../../lib/schemas"
     }
   ]
 }
