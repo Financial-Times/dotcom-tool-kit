@@ -1,9 +1,19 @@
 import { AssumeRoleWithWebIdentityCommand, STSClient } from '@aws-sdk/client-sts'
-import { type AwsAssumeRoleSchema } from '@dotcom-tool-kit/schemas/lib/tasks/aws-assume-role'
 import { randomUUID } from 'node:crypto'
+import * as z from 'zod'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, writeState } from '@dotcom-tool-kit/state'
+
+const AwsAssumeRoleSchema = z
+  .object({
+    roleArn: z
+      .string()
+      .regex(/^arn:aws:iam::\d+:role\//, 'Role ARN must be a full IAM role ARN including account number')
+      .describe('the ARN of an IAM role to assume')
+  })
+  .describe('Assume an AWS IAM role for use in future tasks')
+export { AwsAssumeRoleSchema as schema }
 
 export default class AwsAssumeRole extends Task<{ task: typeof AwsAssumeRoleSchema }> {
   async run() {

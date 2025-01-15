@@ -1,12 +1,37 @@
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
-import type { TypeScriptSchema } from '@dotcom-tool-kit/schemas/lib/tasks/typescript'
 import { fork } from 'child_process'
+import * as z from 'zod'
 
 const tscPath = require.resolve('typescript/bin/tsc')
 
+const TypeScriptSchema = z
+  .object({
+    configPath: z
+      .string()
+      .optional()
+      .describe(
+        "to the [TypeScript config file](https://www.typescriptlang.org/tsconfig). Uses TypeScript's own [tsconfig.json resolution](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#using-tsconfigjson-or-jsconfigjson) by default"
+      ),
+    build: z
+      .literal(true)
+      .optional()
+      .describe(
+        'Run Typescript in [build mode](https://www.typescriptlang.org/docs/handbook/project-references.html#build-mode-for-typescript).'
+      ),
+    watch: z.literal(true).optional().describe('Run Typescript in watch mode.'),
+    noEmit: z
+      .literal(true)
+      .optional()
+      .describe(
+        'Run Typescript with `--noEmit`, for checking your types without outputting compiled Javascript.'
+      )
+  })
+  .describe('Compile code with `tsc`.')
+export { TypeScriptSchema as schema }
+
 export default class TypeScript extends Task<{ task: typeof TypeScriptSchema }> {
-  async run({cwd}: TaskRunContext): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     const args = []
 
     // TODO:KB:20240408 refactor this

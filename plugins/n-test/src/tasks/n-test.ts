@@ -1,9 +1,25 @@
 import { styles } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
-import { SmokeTestSchema } from '@dotcom-tool-kit/schemas/lib/tasks/n-test'
 import { SmokeTest } from '@financial-times/n-test'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import * as z from 'zod'
+
+const SmokeTestSchema = z
+  .object({
+    browsers: z.string().array().optional().describe('Selenium browsers to run the test against'),
+    host: z
+      .string()
+      .optional()
+      .describe(
+        'Set the hostname to use for all tests. If running in an environment such as a review or staging app build that has Tool Kit state with a URL for an app to run against, that will override this option.'
+      ),
+    config: z.string().optional().describe('Path to config file used to test'),
+    interactive: z.boolean().optional().describe('Interactively choose which tests to run'),
+    header: z.record(z.string()).optional().describe('Request headers to be sent with every request')
+  })
+  .describe('Run [n-test](https://github.com/financial-times/n-test) smoke tests against your application.')
+export { SmokeTestSchema as schema }
 
 export default class NTest extends Task<{ task: typeof SmokeTestSchema }> {
   async run({ cwd }: TaskRunContext): Promise<void> {

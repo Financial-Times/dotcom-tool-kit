@@ -1,11 +1,26 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
-import { ServerlessRunSchema } from '@dotcom-tool-kit/schemas/src/tasks/serverless-run'
 import { spawn } from 'child_process'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
+import * as z from 'zod'
+
+const ServerlessRunSchema = z
+  .object({
+    ports: z
+      .number()
+      .array()
+      .default([3001, 3002, 3003])
+      .describe('ports to try to bind to for this application'),
+    useDoppler: z
+      .boolean()
+      .default(true)
+      .describe('run the application with environment variables from Doppler')
+  })
+  .describe('Run serverless functions locally')
+export { ServerlessRunSchema as schema }
 
 export default class ServerlessRun extends Task<{
   task: typeof ServerlessRunSchema
@@ -18,7 +33,11 @@ export default class ServerlessRun extends Task<{
     let dopplerEnv = {}
 
     if (useDoppler) {
-      const doppler = new DopplerEnvVars(this.logger, 'dev', config.pluginOptions['@dotcom-tool-kit/doppler']?.options)
+      const doppler = new DopplerEnvVars(
+        this.logger,
+        'dev',
+        config.pluginOptions['@dotcom-tool-kit/doppler']?.options
+      )
 
       dopplerEnv = await doppler.get()
     }

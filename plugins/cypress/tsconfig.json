@@ -16,9 +16,6 @@
     },
     {
       "path": "../../lib/doppler"
-    },
-    {
-      "path": "../../lib/schemas"
     }
   ],
   "include": ["src/**/*"]

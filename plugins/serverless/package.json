@@ -31,7 +31,8 @@
     "@dotcom-tool-kit/state": "^4.3.1",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1",
-    "wait-port": "^0.2.9"
+    "wait-port": "^0.2.9",
+    "zod": "^3.24.1"
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"

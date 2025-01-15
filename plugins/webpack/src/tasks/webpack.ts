@@ -1,12 +1,26 @@
-import { type WebpackSchema } from '@dotcom-tool-kit/schemas/lib/tasks/webpack'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { fork } from 'child_process'
+import * as z from 'zod'
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 
+const WebpackSchema = z
+  .object({
+    configPath: z
+      .string()
+      .optional()
+      .describe('path to a Webpack config file. Webpack will default to `webpack.config.js`.'),
+    envName: z
+      .union([z.literal('production'), z.literal('development')])
+      .describe("set Webpack's [mode](https://webpack.js.org/configuration/mode/)."),
+    watch: z.boolean().optional().describe('run Webpack in watch mode')
+  })
+  .describe('Bundle code with `webpack`.')
+export { WebpackSchema as schema }
+
 export default class Webpack extends Task<{ task: typeof WebpackSchema }> {
-  async run({cwd}: TaskRunContext): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     this.logger.info('starting Webpack...')
     const args = ['build', '--color', `--mode=${this.options.envName}`]
 

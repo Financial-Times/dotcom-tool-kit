@@ -1,8 +1,8 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
-import { JestSchema } from '@dotcom-tool-kit/schemas/lib/tasks/jest'
 import { fork } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
+import * as z from 'zod'
 
 const jestCLIPath = require.resolve('jest-cli/bin/jest')
 
@@ -29,8 +29,24 @@ async function guessVCpus(): Promise<number> {
   }
 }
 
+const JestSchema = z
+  .object({
+    configPath: z
+      .string()
+      .optional()
+      .describe(
+        "Path to the [Jest config file](https://jestjs.io/docs/27.x/configuration). Use Jest's own [config resolution](https://jestjs.io/docs/configuration/) by default."
+      ),
+    ci: z
+      .literal(true)
+      .optional()
+      .describe('Whether to run Jest in [CI mode](https://jestjs.io/docs/cli#--ci).')
+  })
+  .describe('Runs `jest` to execute tests.')
+export { JestSchema as schema }
+
 export default class Jest extends Task<{ task: typeof JestSchema }> {
-  async run({cwd}: TaskRunContext): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     const args = ['--colors', this.options.configPath ? `--config=${this.options.configPath}` : '']
 
     if (this.options.ci) {

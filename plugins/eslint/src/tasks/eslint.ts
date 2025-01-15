@@ -1,8 +1,28 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
-import { ESLintSchema } from '@dotcom-tool-kit/schemas/lib/tasks/eslint'
 import { ESLint } from 'eslint'
+import * as z from 'zod'
+
+const ESLintSchema = z
+  .object({
+    configPath: z
+      .string()
+      .optional()
+      .describe(
+        'Path to the [ESLint config file](https://eslint.org/docs/v8.x/use/configure/configuration-files) to use.'
+      ),
+    files: z
+      .string()
+      .array()
+      .or(z.string())
+      .default(['**/*.js'])
+      .describe(
+        'The glob patterns for lint target files. This can either be a string or an array of strings.'
+      )
+  })
+  .describe('Runs `eslint` to lint and format target files.')
+export { ESLintSchema as schema }
 
 export default class Eslint extends Task<{ task: typeof ESLintSchema }> {
   async run({ files, cwd }: TaskRunContext): Promise<void> {

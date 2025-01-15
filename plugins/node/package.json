@@ -11,12 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/base": "^1.1.9",
+    "@dotcom-tool-kit/doppler": "^2.1.7",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/state": "^4.3.1",
-    "@dotcom-tool-kit/doppler": "^2.1.7",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1",
-    "wait-port": "^0.2.9"
+    "wait-port": "^0.2.9",
+    "zod": "^3.24.1"
   },
   "repository": {
     "type": "git",
@@ -34,8 +35,5 @@
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"
-  },
-  "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.9.0"
   }
 }

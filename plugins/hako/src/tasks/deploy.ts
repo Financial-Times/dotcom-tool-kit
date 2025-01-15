@@ -1,15 +1,26 @@
 import { spawn } from 'child_process'
+import { z } from 'zod'
 import { hookFork, waitOnExit, styles } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { HakoDeploySchema, HakoEnvironmentNames } from '@dotcom-tool-kit/schemas/lib/tasks/hako-deploy'
 
-const hakoEnvironments: Record<string, string> = {
+const HakoEnvironmentNames = z.enum(['ft-com-prod-eu', 'ft-com-prod-us', 'ft-com-test-eu'])
+type HakoEnvironmentNames = (typeof HakoEnvironmentNames.options)[number]
+
+const HakoDeploySchema = z
+  .object({
+    environments: z.array(HakoEnvironmentNames).describe('the Hako environments to deploy an image to')
+  })
+  .describe('Deploy to ECS via the Hako CLI')
+
+const hakoEnvironments: Record<HakoEnvironmentNames, string> = {
   'ft-com-prod-eu': 'eu-west-1',
   'ft-com-prod-us': 'us-east-1',
   'ft-com-test-eu': 'eu-west-1'
 }
+
+export { HakoDeploySchema as schema }
 
 export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> {
   async run() {
