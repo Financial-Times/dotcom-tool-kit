@@ -9,6 +9,22 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.6.0 to ^1.6.1
 
+## [0.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.2.1...docker-v0.2.2) (2025-01-16)
+
+
+### Features
+
+* **docker:** read ci build info from state instead of using env vars directly ([599bc16](https://github.com/Financial-Times/dotcom-tool-kit/commit/599bc1627a9223473443d7facb10e493746bfaae))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.5 to ^1.1.6
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.6.1 to ^1.6.2
+
 ## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.1.0...docker-v0.2.0) (2025-01-09)
 
 

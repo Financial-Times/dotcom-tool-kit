@@ -146,6 +146,22 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.6.0 to ^1.6.1
 
+## [7.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.3.3...circleci-v7.3.4) (2025-01-16)
+
+
+### Bug Fixes
+
+* use nullish coalescing instead of zod defaults for circleci hook options with defaults ([02ca200](https://github.com/Financial-Times/dotcom-tool-kit/commit/02ca20067dee9d7941cd0471613181b10db5e1d7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.5 to ^1.1.6
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.6.1 to ^1.6.2
+
 ## [7.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.2.0...circleci-v7.3.0) (2025-01-02)
 
 
