@@ -119,9 +119,6 @@
       "path": "plugins/serverless"
     },
     {
-      "path": "lib/schemas"
-    },
-    {
       "path": "plugins/docker"
     },
     {
