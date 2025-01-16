@@ -285,6 +285,21 @@
     * @dotcom-tool-kit/circleci bumped from ^7.3.2 to ^7.3.3
     * @dotcom-tool-kit/npm bumped from ^4.2.2 to ^4.2.3
 
+## [6.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.1.3...circleci-npm-v6.1.4) (2025-01-16)
+
+
+### Bug Fixes
+
+* use nullish coalescing instead of zod defaults for circleci hook options with defaults ([02ca200](https://github.com/Financial-Times/dotcom-tool-kit/commit/02ca20067dee9d7941cd0471613181b10db5e1d7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.3.3 to ^7.3.4
+    * @dotcom-tool-kit/npm bumped from ^4.2.3 to ^4.2.4
+
 ## [6.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.0.5...circleci-npm-v6.1.0) (2025-01-02)
 
 

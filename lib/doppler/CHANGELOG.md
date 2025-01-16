@@ -78,6 +78,12 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.6.0 to ^1.6.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.6.1 to ^1.6.2
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v2.0.4...doppler-v2.1.0) (2025-01-02)
 
 

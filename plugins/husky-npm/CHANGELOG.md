@@ -42,6 +42,12 @@
   * dependencies
     * @dotcom-tool-kit/package-json-hook bumped from ^5.1.2 to ^5.1.3
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.1.3 to ^5.1.4
+
 ## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v5.0.4...husky-npm-v5.1.0) (2025-01-02)
 
 
