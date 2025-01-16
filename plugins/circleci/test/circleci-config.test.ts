@@ -1,9 +1,5 @@
 import { type HookInstallation } from '@dotcom-tool-kit/base'
-import {
-  type CircleCiWorkflowJob,
-  type CircleCiJob,
-  type CircleCiOptions
-} from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
+import { type CircleCiWorkflowJob, type CircleCiJob, type CircleCiOptions } from '../lib/schema'
 import { describe, expect, it } from '@jest/globals'
 import path from 'path'
 import winston, { Logger } from 'winston'

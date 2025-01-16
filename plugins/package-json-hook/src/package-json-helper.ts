@@ -9,8 +9,9 @@ import update from 'lodash/update'
 import merge from 'lodash/merge'
 import path from 'path'
 
-import { PackageJsonSchema } from '@dotcom-tool-kit/schemas/lib/hooks/package-json'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+
+import { PackageJsonSchema } from './schema'
 
 interface PackageJsonContents {
   [field: string]: PackageJsonContents | string
@@ -94,6 +95,8 @@ function mergeInstallationResults(
 function splitAndUnescapePath(path: string): string[] {
   return path.split(/(?<!\\)\./).map((component) => component.replace('\\.', '.'))
 }
+
+export { PackageJsonSchema as schema }
 
 export default class PackageJson extends Hook<{ hook: typeof PackageJsonSchema }, PackageJsonState> {
   private _packageJson?: PackageJsonContents

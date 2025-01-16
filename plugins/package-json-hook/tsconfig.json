@@ -9,9 +9,6 @@
       "path": "../../lib/base"
     },
     {
-      "path": "../../lib/schemas"
-    },
-    {
       "path": "../../lib/conflict"
     },
     {
