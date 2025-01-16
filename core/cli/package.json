@@ -36,6 +36,7 @@
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",
     "@dotcom-tool-kit/plugin": "^1.0.0",
+    "@dotcom-tool-kit/schemas": "^1.9.0",
     "@dotcom-tool-kit/state": "^4.3.1",
     "@dotcom-tool-kit/validated": "^1.0.2",
     "@dotcom-tool-kit/wait-for-ok": "^4.1.0",

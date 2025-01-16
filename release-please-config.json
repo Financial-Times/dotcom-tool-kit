@@ -14,7 +14,6 @@
     "lib/error": {},
     "lib/logger": {},
     "lib/plugin": {},
-    "lib/schemas": {},
     "lib/state": {},
     "lib/validated": {},
     "lib/wait-for-ok": {},

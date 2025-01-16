@@ -3,7 +3,7 @@ import { isConflict } from '@dotcom-tool-kit/conflict'
 import { OptionsForPlugin, RCFile, type Plugin } from '@dotcom-tool-kit/plugin'
 import { RootSchema } from '@dotcom-tool-kit/plugin/lib/root-schema'
 // HACK:IM:20250217 preserve backwards compatibility with older plugins without
-// a colocated schema by falling back to the obsolete schemas library if no
+// a colocated schema by falling back to the now-deleted schemas library if no
 // schema found
 import { type PluginOptions, PluginSchemas, legacyPluginOptions } from '@dotcom-tool-kit/schemas'
 import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
