@@ -4,4 +4,6 @@ tasks:
   ServerlessProvision: './lib/tasks/provision'
   ServerlessTeardown: './lib/tasks/teardown'
 
+optionsSchema: './lib/schema'
+
 version: 2
