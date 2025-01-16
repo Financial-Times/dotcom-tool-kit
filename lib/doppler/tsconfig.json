@@ -6,9 +6,6 @@
     },
     {
       "path": "../logger"
-    },
-    {
-      "path": "../schemas"
     }
   ],
   "compilerOptions": {

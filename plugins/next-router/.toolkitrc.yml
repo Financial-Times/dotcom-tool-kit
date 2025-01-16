@@ -8,4 +8,6 @@ commands:
   run:local:
     - NextRouter
 
+optionsSchema: './lib/schema'
+
 version: 2

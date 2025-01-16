@@ -17,9 +17,6 @@
       "path": "../../lib/plugin"
     },
     {
-      "path": "../../lib/schemas"
-    },
-    {
       "path": "../../lib/state"
     }
   ],
@@ -27,7 +24,5 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

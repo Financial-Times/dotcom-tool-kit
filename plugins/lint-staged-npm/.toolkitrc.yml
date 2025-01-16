@@ -3,6 +3,8 @@ plugins:
   - '@dotcom-tool-kit/husky-npm'
   - '@dotcom-tool-kit/package-json-hook'
 
+optionsSchema: './lib/schema'
+
 options:
   hooks:
     - PackageJson:
