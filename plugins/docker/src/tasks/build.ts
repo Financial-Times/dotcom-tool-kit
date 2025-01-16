@@ -1,5 +1,5 @@
 import { buildImageName, getImageTagsFromEnvironment } from '../image-info'
-import { DockerSchema } from '@dotcom-tool-kit/schemas/lib/plugins/docker'
+import DockerSchema from '../schema'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { spawn } from 'node:child_process'

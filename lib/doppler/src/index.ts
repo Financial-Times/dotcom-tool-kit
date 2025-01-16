@@ -1,14 +1,18 @@
 import { spawn } from 'node:child_process'
 
 import type { Logger } from 'winston'
+import type * as z from 'zod'
 
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles, waitOnExit } from '@dotcom-tool-kit/logger'
-import type { DopplerOptions } from '@dotcom-tool-kit/schemas/lib/plugins/doppler'
+
+import type DopplerSchema from './schema'
 
 export type Environment = 'prod' | 'ci' | 'dev'
 
 export type DopplerSecrets = Record<string, string>
+
+type DopplerOptions = z.infer<typeof DopplerSchema>
 
 export class DopplerEnvVars {
   options: Required<DopplerOptions>

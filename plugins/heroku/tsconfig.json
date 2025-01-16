@@ -24,16 +24,11 @@
     },
     {
       "path": "../../lib/logger"
-    },
-    {
-      "path": "../../lib/schemas"
     }
   ],
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

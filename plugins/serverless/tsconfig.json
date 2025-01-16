@@ -13,12 +13,7 @@
     },
     {
       "path": "../../lib/logger"
-    },
-    {
-      "path": "../../lib/schemas"
     }
   ],
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

@@ -1,12 +1,12 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
-import { ServerlessSchema } from '@dotcom-tool-kit/schemas/lib/plugins/serverless'
 import { readState } from '@dotcom-tool-kit/state'
 import { spawn } from 'child_process'
+import type ServerlessSchema from '../schema'
 
 export default class ServerlessTeardown extends Task<{ plugin: typeof ServerlessSchema }> {
-  async run({cwd}: TaskRunContext): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     const { configPath, regions, systemCode } = this.pluginOptions
 
     const reviewState = readState('review')

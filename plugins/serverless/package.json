@@ -28,6 +28,7 @@
     "@dotcom-tool-kit/base": "^1.1.9",
     "@dotcom-tool-kit/doppler": "^2.1.7",
     "@dotcom-tool-kit/error": "^4.1.0",
+    "@dotcom-tool-kit/logger": "^4.1.1",
     "@dotcom-tool-kit/state": "^4.3.1",
     "get-port": "^5.1.1",
     "tslib": "^2.3.1",
@@ -36,8 +37,5 @@
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"
-  },
-  "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.9.0"
   }
 }

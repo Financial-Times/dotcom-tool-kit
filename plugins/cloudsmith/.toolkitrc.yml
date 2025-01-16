@@ -3,6 +3,8 @@ version: 2
 plugins:
   - '@dotcom-tool-kit/circleci-deploy'
 
+optionsSchema: './lib/schema'
+
 options:
   hooks:
     - CircleCi:

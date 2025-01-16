@@ -12,6 +12,8 @@ tasks:
 commands:
   'cleanup:remote': NpmPrune
 
+optionsSchema: './lib/schema'
+
 options:
   hooks:
     - PackageJson:

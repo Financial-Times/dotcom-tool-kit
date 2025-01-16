@@ -4,8 +4,8 @@ import {
   CircleCiSchema,
   type CircleCiWorkflow,
   type CircleCiWorkflowJob
-} from './schema'
-import type { CircleCISchema as CircleCiPluginSchema } from '@dotcom-tool-kit/schemas/lib/plugins/circleci'
+} from './schemas/hook'
+import type CircleCiPluginSchema from './schemas/plugin'
 import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
 import { type Plugin } from '@dotcom-tool-kit/plugin'

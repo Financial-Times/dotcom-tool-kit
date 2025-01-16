@@ -3,4 +3,6 @@ tasks:
   DockerBuild: './lib/tasks/build'
   DockerPush: './lib/tasks/push'
 
+optionsSchema: './lib/schema'
+
 version: 2
