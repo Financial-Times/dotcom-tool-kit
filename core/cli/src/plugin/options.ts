@@ -1,6 +1,7 @@
 import { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { isConflict } from '@dotcom-tool-kit/conflict'
 import { OptionsForPlugin, RCFile, type Plugin } from '@dotcom-tool-kit/plugin'
+import { RootSchema } from '@dotcom-tool-kit/plugin/lib/root-schema'
 // HACK:IM:20250217 preserve backwards compatibility with older plugins without
 // a colocated schema by falling back to the obsolete schemas library if no
 // schema found
@@ -36,6 +37,8 @@ export const validatePluginOptions = async (
         continue
       }
       pluginSchema = schema.value
+    } else if (id === 'app root') {
+      pluginSchema = RootSchema
     } else {
       pluginSchema = PluginSchemas[id as keyof PluginOptions]
     }

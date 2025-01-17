@@ -11,8 +11,8 @@ import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 import { formatInvalidOption } from './messages'
 import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
-import type { RootOptions } from '@dotcom-tool-kit/schemas/src/plugins/dotcom-tool-kit'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
+import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 import pluralize from 'pluralize'
 
 type ErrorSummary = {
