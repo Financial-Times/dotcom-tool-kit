@@ -6,7 +6,6 @@
   "bump-patch-for-minor-pre-major": true,
   "packages": {
     "core/cli": {},
-    "core/create": {},
     "lib/base": {},
     "lib/config": {},
     "lib/conflict": {},
