@@ -1,6 +1,7 @@
 import { ValidPluginsConfig } from '@dotcom-tool-kit/config'
 import { isConflict } from '@dotcom-tool-kit/conflict'
 import { OptionsForPlugin, RCFile, type Plugin } from '@dotcom-tool-kit/plugin'
+import { RootSchema } from '@dotcom-tool-kit/plugin/lib/root-schema'
 import { type PluginOptions, PluginSchemas, legacyPluginOptions } from '@dotcom-tool-kit/schemas'
 import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
 
@@ -33,6 +34,8 @@ export const validatePluginOptions = async (
         continue
       }
       pluginSchema = schema.value
+    } else if (id === 'app root') {
+      pluginSchema = RootSchema
     } else {
       pluginSchema = PluginSchemas[id as keyof PluginOptions]
     }

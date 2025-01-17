@@ -1,6 +1,6 @@
 import { hookFork } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
-import type { RootOptions } from '@dotcom-tool-kit/schemas/lib/plugins/dotcom-tool-kit'
+import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 import { writeState } from '@dotcom-tool-kit/state'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import getPort from 'get-port'
