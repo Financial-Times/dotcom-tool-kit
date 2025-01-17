@@ -56,9 +56,6 @@
       "path": "plugins/circleci-deploy"
     },
     {
-      "path": "core/create"
-    },
-    {
       "path": "lib/config"
     },
     {
