@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`loadConfig should load a config from a root 1`] = `
-{
+"{
   "commandTasks": {
     "test:ci": {
       "id": "test:ci",
@@ -25,6 +25,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -50,6 +51,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -75,6 +77,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -117,6 +120,7 @@ exports[`loadConfig should load a config from a root 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -150,6 +154,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Eslint": "./lib/tasks/eslint",
@@ -175,6 +180,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Mocha": "./lib/tasks/mocha",
@@ -200,6 +206,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "NTest": "./lib/tasks/n-test",
@@ -242,6 +249,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   },
                 },
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/eslint",
                 "@dotcom-tool-kit/mocha",
@@ -276,6 +284,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Eslint": "./lib/tasks/eslint",
@@ -301,6 +310,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Mocha": "./lib/tasks/mocha",
@@ -326,6 +336,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "NTest": "./lib/tasks/n-test",
@@ -368,6 +379,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   },
                 },
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/eslint",
                 "@dotcom-tool-kit/mocha",
@@ -404,6 +416,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -429,6 +442,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -454,6 +468,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -496,6 +511,7 @@ exports[`loadConfig should load a config from a root 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -529,6 +545,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Eslint": "./lib/tasks/eslint",
@@ -554,6 +571,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Mocha": "./lib/tasks/mocha",
@@ -579,6 +597,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "NTest": "./lib/tasks/n-test",
@@ -621,6 +640,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   },
                 },
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/eslint",
                 "@dotcom-tool-kit/mocha",
@@ -655,6 +675,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Eslint": "./lib/tasks/eslint",
@@ -680,6 +701,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Mocha": "./lib/tasks/mocha",
@@ -705,6 +727,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "NTest": "./lib/tasks/n-test",
@@ -747,6 +770,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   },
                 },
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/eslint",
                 "@dotcom-tool-kit/mocha",
@@ -786,6 +810,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -811,6 +836,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -854,6 +880,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -877,6 +904,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "NTest": "./lib/tasks/n-test",
@@ -911,6 +939,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Eslint": "./lib/tasks/eslint",
@@ -936,6 +965,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Mocha": "./lib/tasks/mocha",
@@ -979,6 +1009,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     },
                   },
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/eslint",
                   "@dotcom-tool-kit/mocha",
@@ -1002,6 +1033,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -1039,6 +1071,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -1064,6 +1097,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "NTest": "./lib/tasks/n-test",
@@ -1106,6 +1140,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -1130,6 +1165,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Eslint": "./lib/tasks/eslint",
@@ -1164,6 +1200,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Mocha": "./lib/tasks/mocha",
@@ -1189,6 +1226,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "NTest": "./lib/tasks/n-test",
@@ -1231,6 +1269,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     },
                   },
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/eslint",
                   "@dotcom-tool-kit/mocha",
@@ -1255,6 +1294,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -1292,6 +1332,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -1317,6 +1358,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -1360,6 +1402,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -1383,6 +1426,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "NTest": "./lib/tasks/n-test",
@@ -1417,6 +1461,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Eslint": "./lib/tasks/eslint",
@@ -1442,6 +1487,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Mocha": "./lib/tasks/mocha",
@@ -1485,6 +1531,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                     },
                   },
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/eslint",
                   "@dotcom-tool-kit/mocha",
@@ -1508,6 +1555,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -1546,6 +1594,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -1571,6 +1620,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -1596,6 +1646,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -1638,6 +1689,7 @@ exports[`loadConfig should load a config from a root 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -1671,6 +1723,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -1696,6 +1749,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -1721,6 +1775,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -1763,6 +1818,7 @@ exports[`loadConfig should load a config from a root 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -1806,6 +1862,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -1831,6 +1888,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "NTest": "./lib/tasks/n-test",
@@ -1873,6 +1931,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -1897,6 +1956,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Eslint": "./lib/tasks/eslint",
@@ -1936,6 +1996,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -1962,6 +2023,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "NTest": "./lib/tasks/n-test",
@@ -2004,6 +2066,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -2027,6 +2090,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Mocha": "./lib/tasks/mocha",
@@ -2066,6 +2130,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -2091,6 +2156,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -2134,6 +2200,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -2157,6 +2224,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "NTest": "./lib/tasks/n-test",
@@ -2193,6 +2261,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -2218,6 +2287,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -2243,6 +2313,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -2285,6 +2356,7 @@ exports[`loadConfig should load a config from a root 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -2346,6 +2418,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -2371,6 +2444,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -2396,6 +2470,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -2438,6 +2513,7 @@ exports[`loadConfig should load a config from a root 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -2474,6 +2550,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -2499,6 +2576,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -2524,6 +2602,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -2566,6 +2645,7 @@ exports[`loadConfig should load a config from a root 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -2602,6 +2682,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -2627,6 +2708,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -2652,6 +2734,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -2694,6 +2777,7 @@ exports[`loadConfig should load a config from a root 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -2733,6 +2817,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -2758,6 +2843,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "NTest": "./lib/tasks/n-test",
@@ -2800,6 +2886,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -2824,6 +2911,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Eslint": "./lib/tasks/eslint",
@@ -2858,6 +2946,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -2884,6 +2973,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "NTest": "./lib/tasks/n-test",
@@ -2926,6 +3016,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -2949,6 +3040,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Mocha": "./lib/tasks/mocha",
@@ -2983,6 +3075,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -3008,6 +3101,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -3051,6 +3145,7 @@ exports[`loadConfig should load a config from a root 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -3074,6 +3169,7 @@ exports[`loadConfig should load a config from a root 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "NTest": "./lib/tasks/n-test",
@@ -3084,11 +3180,11 @@ exports[`loadConfig should load a config from a root 1`] = `
       },
     },
   },
-}
+}"
 `;
 
 exports[`loadConfig should load a config from a root and validate it 1`] = `
-{
+"{
   "commandTasks": {
     "test:ci": {
       "id": "test:ci",
@@ -3112,6 +3208,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -3137,6 +3234,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -3162,6 +3260,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -3204,6 +3303,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -3237,6 +3337,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Eslint": "./lib/tasks/eslint",
@@ -3262,6 +3363,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Mocha": "./lib/tasks/mocha",
@@ -3287,6 +3389,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "NTest": "./lib/tasks/n-test",
@@ -3329,6 +3432,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   },
                 },
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/eslint",
                 "@dotcom-tool-kit/mocha",
@@ -3363,6 +3467,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Eslint": "./lib/tasks/eslint",
@@ -3388,6 +3493,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Mocha": "./lib/tasks/mocha",
@@ -3413,6 +3519,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "NTest": "./lib/tasks/n-test",
@@ -3455,6 +3562,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   },
                 },
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/eslint",
                 "@dotcom-tool-kit/mocha",
@@ -3491,6 +3599,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -3516,6 +3625,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -3541,6 +3651,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -3583,6 +3694,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -3616,6 +3728,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Eslint": "./lib/tasks/eslint",
@@ -3641,6 +3754,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Mocha": "./lib/tasks/mocha",
@@ -3666,6 +3780,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "NTest": "./lib/tasks/n-test",
@@ -3708,6 +3823,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   },
                 },
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/eslint",
                 "@dotcom-tool-kit/mocha",
@@ -3742,6 +3858,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Eslint": "./lib/tasks/eslint",
@@ -3767,6 +3884,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Mocha": "./lib/tasks/mocha",
@@ -3792,6 +3910,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "NTest": "./lib/tasks/n-test",
@@ -3834,6 +3953,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   },
                 },
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/eslint",
                 "@dotcom-tool-kit/mocha",
@@ -3873,6 +3993,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -3898,6 +4019,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -3941,6 +4063,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -3964,6 +4087,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "NTest": "./lib/tasks/n-test",
@@ -3998,6 +4122,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Eslint": "./lib/tasks/eslint",
@@ -4023,6 +4148,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Mocha": "./lib/tasks/mocha",
@@ -4066,6 +4192,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     },
                   },
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/eslint",
                   "@dotcom-tool-kit/mocha",
@@ -4089,6 +4216,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -4126,6 +4254,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -4151,6 +4280,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "NTest": "./lib/tasks/n-test",
@@ -4193,6 +4323,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -4217,6 +4348,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Eslint": "./lib/tasks/eslint",
@@ -4251,6 +4383,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Mocha": "./lib/tasks/mocha",
@@ -4276,6 +4409,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "NTest": "./lib/tasks/n-test",
@@ -4318,6 +4452,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     },
                   },
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/eslint",
                   "@dotcom-tool-kit/mocha",
@@ -4342,6 +4477,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -4379,6 +4515,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -4404,6 +4541,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -4447,6 +4585,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -4470,6 +4609,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "NTest": "./lib/tasks/n-test",
@@ -4504,6 +4644,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Eslint": "./lib/tasks/eslint",
@@ -4529,6 +4670,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Mocha": "./lib/tasks/mocha",
@@ -4572,6 +4714,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                     },
                   },
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/eslint",
                   "@dotcom-tool-kit/mocha",
@@ -4595,6 +4738,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -4633,6 +4777,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -4658,6 +4803,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -4683,6 +4829,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -4725,6 +4872,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -4758,6 +4906,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -4783,6 +4932,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -4808,6 +4958,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -4850,6 +5001,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -4886,6 +5038,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -4911,6 +5064,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -4953,6 +5107,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -4977,6 +5132,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
           "plugins": {},
           "tasks": {},
         },
+        "optionsSchema": undefined,
         "plugins": [],
         "tasks": {
           "Eslint": "./lib/tasks/eslint",
@@ -5008,6 +5164,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -5034,6 +5191,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -5076,6 +5234,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -5099,6 +5258,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
           "plugins": {},
           "tasks": {},
         },
+        "optionsSchema": undefined,
         "plugins": [],
         "tasks": {
           "Mocha": "./lib/tasks/mocha",
@@ -5130,6 +5290,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -5155,6 +5316,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -5198,6 +5360,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -5221,6 +5384,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
           "plugins": {},
           "tasks": {},
         },
+        "optionsSchema": undefined,
         "plugins": [],
         "tasks": {
           "NTest": "./lib/tasks/n-test",
@@ -5249,6 +5413,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [],
             "tasks": {
               "Eslint": "./lib/tasks/eslint",
@@ -5274,6 +5439,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [],
             "tasks": {
               "Mocha": "./lib/tasks/mocha",
@@ -5299,6 +5465,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [],
             "tasks": {
               "NTest": "./lib/tasks/n-test",
@@ -5341,6 +5508,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             },
           },
         },
+        "optionsSchema": undefined,
         "plugins": [
           "@dotcom-tool-kit/eslint",
           "@dotcom-tool-kit/mocha",
@@ -5401,6 +5569,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -5426,6 +5595,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -5451,6 +5621,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -5493,6 +5664,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -5529,6 +5701,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -5554,6 +5727,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -5579,6 +5753,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -5621,6 +5796,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -5657,6 +5833,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Eslint": "./lib/tasks/eslint",
@@ -5682,6 +5859,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Mocha": "./lib/tasks/mocha",
@@ -5707,6 +5885,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "NTest": "./lib/tasks/n-test",
@@ -5749,6 +5928,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               },
             },
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/eslint",
             "@dotcom-tool-kit/mocha",
@@ -5788,6 +5968,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -5813,6 +5994,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "NTest": "./lib/tasks/n-test",
@@ -5855,6 +6037,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -5879,6 +6062,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Eslint": "./lib/tasks/eslint",
@@ -5913,6 +6097,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -5939,6 +6124,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "NTest": "./lib/tasks/n-test",
@@ -5981,6 +6167,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -6004,6 +6191,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Mocha": "./lib/tasks/mocha",
@@ -6038,6 +6226,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Eslint": "./lib/tasks/eslint",
@@ -6063,6 +6252,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Mocha": "./lib/tasks/mocha",
@@ -6106,6 +6296,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 },
               },
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/eslint",
               "@dotcom-tool-kit/mocha",
@@ -6129,6 +6320,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "NTest": "./lib/tasks/n-test",
@@ -6139,11 +6331,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
       },
     },
   },
-}
+}"
 `;
 
 exports[`loadConfig should load an invalid config when not validating 1`] = `
-{
+"{
   "commandTasks": {
     "build:ci": {
       "conflicting": [
@@ -6173,6 +6365,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Babel": "./lib/tasks/babel",
@@ -6204,6 +6397,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -6233,6 +6427,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/package-json-hook",
                     ],
@@ -6321,6 +6516,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": "./lib/schemas/plugin",
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -6458,6 +6654,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/circleci",
                     ],
@@ -6479,6 +6676,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/webpack",
                   "@dotcom-tool-kit/babel",
@@ -6522,6 +6720,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Webpack": "./lib/tasks/webpack",
@@ -6559,6 +6758,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {
                           "Babel": "./lib/tasks/babel",
@@ -6590,6 +6790,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": undefined,
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -6619,6 +6820,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/package-json-hook",
                         ],
@@ -6707,6 +6909,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": "./lib/schemas/plugin",
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -6844,6 +7047,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/circleci",
                         ],
@@ -6865,6 +7069,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/webpack",
                       "@dotcom-tool-kit/babel",
@@ -6908,6 +7113,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -6963,6 +7169,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Webpack": "./lib/tasks/webpack",
@@ -6995,6 +7202,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -7024,6 +7232,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/package-json-hook",
                     ],
@@ -7112,6 +7321,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": "./lib/schemas/plugin",
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -7249,6 +7459,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/circleci",
                     ],
@@ -7270,6 +7481,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/webpack",
                   "@dotcom-tool-kit/babel",
@@ -7295,6 +7507,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Babel": "./lib/tasks/babel",
@@ -7347,6 +7560,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {
                           "Webpack": "./lib/tasks/webpack",
@@ -7379,6 +7593,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": undefined,
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -7408,6 +7623,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/package-json-hook",
                         ],
@@ -7496,6 +7712,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": "./lib/schemas/plugin",
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -7633,6 +7850,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/circleci",
                         ],
@@ -7654,6 +7872,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/webpack",
                       "@dotcom-tool-kit/babel",
@@ -7679,6 +7898,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -7733,6 +7953,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -7765,6 +7986,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -7794,6 +8016,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -7882,6 +8105,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -8019,6 +8243,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -8040,6 +8265,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -8065,6 +8291,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Babel": "./lib/tasks/babel",
@@ -8102,6 +8329,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Babel": "./lib/tasks/babel",
@@ -8133,6 +8361,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -8162,6 +8391,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/package-json-hook",
                     ],
@@ -8250,6 +8480,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": "./lib/schemas/plugin",
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -8387,6 +8618,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/circleci",
                     ],
@@ -8408,6 +8640,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/webpack",
                   "@dotcom-tool-kit/babel",
@@ -8451,6 +8684,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Webpack": "./lib/tasks/webpack",
@@ -8488,6 +8722,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {
                           "Babel": "./lib/tasks/babel",
@@ -8519,6 +8754,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": undefined,
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -8548,6 +8784,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/package-json-hook",
                         ],
@@ -8636,6 +8873,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": "./lib/schemas/plugin",
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -8773,6 +9011,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/circleci",
                         ],
@@ -8794,6 +9033,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/webpack",
                       "@dotcom-tool-kit/babel",
@@ -8837,6 +9077,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -8892,6 +9133,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Webpack": "./lib/tasks/webpack",
@@ -8924,6 +9166,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -8953,6 +9196,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/package-json-hook",
                     ],
@@ -9041,6 +9285,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": "./lib/schemas/plugin",
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -9178,6 +9423,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/circleci",
                     ],
@@ -9199,6 +9445,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/webpack",
                   "@dotcom-tool-kit/babel",
@@ -9224,6 +9471,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Babel": "./lib/tasks/babel",
@@ -9276,6 +9524,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {
                           "Webpack": "./lib/tasks/webpack",
@@ -9308,6 +9557,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": undefined,
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -9337,6 +9587,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/package-json-hook",
                         ],
@@ -9425,6 +9676,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": "./lib/schemas/plugin",
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -9562,6 +9814,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/circleci",
                         ],
@@ -9583,6 +9836,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/webpack",
                       "@dotcom-tool-kit/babel",
@@ -9608,6 +9862,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -9662,6 +9917,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -9694,6 +9950,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -9723,6 +9980,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -9811,6 +10069,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -9948,6 +10207,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -9969,6 +10229,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -9994,6 +10255,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Babel": "./lib/tasks/babel",
@@ -10031,6 +10293,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Babel": "./lib/tasks/babel",
@@ -10062,6 +10325,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -10091,6 +10355,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/package-json-hook",
                     ],
@@ -10179,6 +10444,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": "./lib/schemas/plugin",
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -10316,6 +10582,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/circleci",
                     ],
@@ -10337,6 +10604,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/webpack",
                   "@dotcom-tool-kit/babel",
@@ -10380,6 +10648,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Webpack": "./lib/tasks/webpack",
@@ -10417,6 +10686,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {
                           "Babel": "./lib/tasks/babel",
@@ -10448,6 +10718,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": undefined,
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -10477,6 +10748,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/package-json-hook",
                         ],
@@ -10565,6 +10837,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": "./lib/schemas/plugin",
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -10702,6 +10975,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/circleci",
                         ],
@@ -10723,6 +10997,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/webpack",
                       "@dotcom-tool-kit/babel",
@@ -10766,6 +11041,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -10821,6 +11097,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Webpack": "./lib/tasks/webpack",
@@ -10853,6 +11130,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -10882,6 +11160,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/package-json-hook",
                     ],
@@ -10970,6 +11249,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": "./lib/schemas/plugin",
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -11107,6 +11387,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/circleci",
                     ],
@@ -11128,6 +11409,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/webpack",
                   "@dotcom-tool-kit/babel",
@@ -11153,6 +11435,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Babel": "./lib/tasks/babel",
@@ -11205,6 +11488,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {
                           "Webpack": "./lib/tasks/webpack",
@@ -11237,6 +11521,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": undefined,
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -11266,6 +11551,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/package-json-hook",
                         ],
@@ -11354,6 +11640,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "plugins": {},
                               "tasks": {},
                             },
+                            "optionsSchema": "./lib/schemas/plugin",
                             "plugins": [],
                             "tasks": {},
                             "version": 2,
@@ -11491,6 +11778,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [
                           "@dotcom-tool-kit/circleci",
                         ],
@@ -11512,6 +11800,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/webpack",
                       "@dotcom-tool-kit/babel",
@@ -11537,6 +11826,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -11591,6 +11881,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -11623,6 +11914,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -11652,6 +11944,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -11740,6 +12033,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -11877,6 +12171,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -11898,6 +12193,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -11923,6 +12219,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Babel": "./lib/tasks/babel",
@@ -11958,6 +12255,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Babel": "./lib/tasks/babel",
@@ -11989,6 +12287,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -12018,6 +12317,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -12106,6 +12406,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -12243,6 +12544,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -12264,6 +12566,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -12307,6 +12610,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Webpack": "./lib/tasks/webpack",
@@ -12345,6 +12649,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {
                       "Babel": "./lib/tasks/babel",
@@ -12376,6 +12681,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": undefined,
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -12405,6 +12711,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/package-json-hook",
                     ],
@@ -12493,6 +12800,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "plugins": {},
                           "tasks": {},
                         },
+                        "optionsSchema": "./lib/schemas/plugin",
                         "plugins": [],
                         "tasks": {},
                         "version": 2,
@@ -12630,6 +12938,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [
                       "@dotcom-tool-kit/circleci",
                     ],
@@ -12651,6 +12960,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/webpack",
                   "@dotcom-tool-kit/babel",
@@ -12694,6 +13004,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Webpack": "./lib/tasks/webpack",
@@ -12760,6 +13071,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -12786,6 +13098,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -12817,6 +13130,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                         "plugins": {},
                         "tasks": {},
                       },
+                      "optionsSchema": undefined,
                       "plugins": [],
                       "tasks": {},
                       "version": 2,
@@ -12846,6 +13160,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [
                     "@dotcom-tool-kit/package-json-hook",
                   ],
@@ -12871,6 +13186,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/webpack",
                 "@dotcom-tool-kit/babel",
@@ -13010,6 +13326,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/circleci",
             ],
@@ -13089,6 +13406,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": "./lib/schemas/plugin",
           "plugins": [],
           "tasks": {},
           "version": 2,
@@ -13144,6 +13462,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -13170,6 +13489,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -13256,6 +13576,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                         "plugins": {},
                         "tasks": {},
                       },
+                      "optionsSchema": "./lib/schemas/plugin",
                       "plugins": [],
                       "tasks": {},
                       "version": 2,
@@ -13393,6 +13714,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [
                     "@dotcom-tool-kit/circleci",
                   ],
@@ -13414,6 +13736,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/webpack",
                 "@dotcom-tool-kit/babel",
@@ -13445,6 +13768,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/package-json-hook",
             ],
@@ -13473,6 +13797,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {},
           "version": 2,
@@ -13530,6 +13855,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -13556,6 +13882,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -13587,6 +13914,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                         "plugins": {},
                         "tasks": {},
                       },
+                      "optionsSchema": undefined,
                       "plugins": [],
                       "tasks": {},
                       "version": 2,
@@ -13616,6 +13944,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [
                     "@dotcom-tool-kit/package-json-hook",
                   ],
@@ -13641,6 +13970,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/webpack",
                 "@dotcom-tool-kit/babel",
@@ -13780,6 +14110,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/circleci",
             ],
@@ -13859,6 +14190,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": "./lib/schemas/plugin",
           "plugins": [],
           "tasks": {},
           "version": 2,
@@ -13915,6 +14247,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -13941,6 +14274,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -13972,6 +14306,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                         "plugins": {},
                         "tasks": {},
                       },
+                      "optionsSchema": undefined,
                       "plugins": [],
                       "tasks": {},
                       "version": 2,
@@ -14001,6 +14336,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [
                     "@dotcom-tool-kit/package-json-hook",
                   ],
@@ -14026,6 +14362,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/webpack",
                 "@dotcom-tool-kit/babel",
@@ -14165,6 +14502,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/circleci",
             ],
@@ -14244,6 +14582,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": "./lib/schemas/plugin",
           "plugins": [],
           "tasks": {},
           "version": 2,
@@ -14294,6 +14633,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Webpack": "./lib/tasks/webpack",
@@ -14320,6 +14660,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Babel": "./lib/tasks/babel",
@@ -14351,6 +14692,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {},
                   "version": 2,
@@ -14380,6 +14722,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/package-json-hook",
               ],
@@ -14468,6 +14811,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": "./lib/schemas/plugin",
                   "plugins": [],
                   "tasks": {},
                   "version": 2,
@@ -14605,6 +14949,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/circleci",
               ],
@@ -14626,6 +14971,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/webpack",
             "@dotcom-tool-kit/babel",
@@ -14677,6 +15023,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Webpack": "./lib/tasks/webpack",
@@ -14703,6 +15050,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Babel": "./lib/tasks/babel",
@@ -14734,6 +15082,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {},
                   "version": 2,
@@ -14763,6 +15112,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/package-json-hook",
               ],
@@ -14851,6 +15201,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": "./lib/schemas/plugin",
                   "plugins": [],
                   "tasks": {},
                   "version": 2,
@@ -14988,6 +15339,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/circleci",
               ],
@@ -15009,6 +15361,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/webpack",
             "@dotcom-tool-kit/babel",
@@ -15061,6 +15414,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Webpack": "./lib/tasks/webpack",
@@ -15087,6 +15441,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Babel": "./lib/tasks/babel",
@@ -15118,6 +15473,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {},
                   "version": 2,
@@ -15147,6 +15503,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/package-json-hook",
               ],
@@ -15235,6 +15592,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": "./lib/schemas/plugin",
                   "plugins": [],
                   "tasks": {},
                   "version": 2,
@@ -15372,6 +15730,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/circleci",
               ],
@@ -15393,6 +15752,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/webpack",
             "@dotcom-tool-kit/babel",
@@ -15455,6 +15815,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -15487,6 +15848,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -15516,6 +15878,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -15604,6 +15967,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -15741,6 +16105,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -15762,6 +16127,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -15787,6 +16153,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Babel": "./lib/tasks/babel",
@@ -15849,6 +16216,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -15875,6 +16243,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -15906,6 +16275,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                         "plugins": {},
                         "tasks": {},
                       },
+                      "optionsSchema": undefined,
                       "plugins": [],
                       "tasks": {},
                       "version": 2,
@@ -15935,6 +16305,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [
                     "@dotcom-tool-kit/package-json-hook",
                   ],
@@ -15960,6 +16331,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/webpack",
                 "@dotcom-tool-kit/babel",
@@ -16099,6 +16471,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/circleci",
             ],
@@ -16178,6 +16551,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": "./lib/schemas/plugin",
           "plugins": [],
           "tasks": {},
           "version": 2,
@@ -16269,6 +16643,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": "./lib/schemas/plugin",
               "plugins": [],
               "tasks": {},
               "version": 2,
@@ -16315,6 +16690,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -16341,6 +16717,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Babel": "./lib/tasks/babel",
@@ -16372,6 +16749,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -16401,6 +16779,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -16426,6 +16805,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -16565,6 +16945,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/circleci",
           ],
@@ -16604,6 +16985,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {},
               "version": 2,
@@ -16650,6 +17032,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -16676,6 +17059,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Babel": "./lib/tasks/babel",
@@ -16762,6 +17146,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -16899,6 +17284,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -16920,6 +17306,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -16951,6 +17338,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/package-json-hook",
           ],
@@ -17016,6 +17404,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Webpack": "./lib/tasks/webpack",
@@ -17042,6 +17431,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {
                     "Babel": "./lib/tasks/babel",
@@ -17128,6 +17518,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                         "plugins": {},
                         "tasks": {},
                       },
+                      "optionsSchema": "./lib/schemas/plugin",
                       "plugins": [],
                       "tasks": {},
                       "version": 2,
@@ -17265,6 +17656,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [
                     "@dotcom-tool-kit/circleci",
                   ],
@@ -17286,6 +17678,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/webpack",
                 "@dotcom-tool-kit/babel",
@@ -17317,6 +17710,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/package-json-hook",
             ],
@@ -17345,6 +17739,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {},
           "version": 2,
@@ -17383,6 +17778,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Babel": "./lib/tasks/babel",
@@ -17414,6 +17810,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -17443,6 +17840,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -17531,6 +17929,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -17668,6 +18067,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -17689,6 +18089,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -17732,6 +18133,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Webpack": "./lib/tasks/webpack",
@@ -17786,6 +18188,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Webpack": "./lib/tasks/webpack",
@@ -17812,6 +18215,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {
                 "Babel": "./lib/tasks/babel",
@@ -17843,6 +18247,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": undefined,
                   "plugins": [],
                   "tasks": {},
                   "version": 2,
@@ -17872,6 +18277,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/package-json-hook",
               ],
@@ -17960,6 +18366,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "plugins": {},
                     "tasks": {},
                   },
+                  "optionsSchema": "./lib/schemas/plugin",
                   "plugins": [],
                   "tasks": {},
                   "version": 2,
@@ -18097,6 +18504,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [
                 "@dotcom-tool-kit/circleci",
               ],
@@ -18118,6 +18526,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/webpack",
             "@dotcom-tool-kit/babel",
@@ -18207,6 +18616,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -18239,6 +18649,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -18268,6 +18679,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -18356,6 +18768,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -18493,6 +18906,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -18514,6 +18928,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -18539,6 +18954,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Babel": "./lib/tasks/babel",
@@ -18573,6 +18989,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {},
               "version": 2,
@@ -18619,6 +19036,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -18645,6 +19063,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Babel": "./lib/tasks/babel",
@@ -18731,6 +19150,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -18868,6 +19288,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -18889,6 +19310,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -18920,6 +19342,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/package-json-hook",
           ],
@@ -18957,6 +19380,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "plugins": {},
                 "tasks": {},
               },
+              "optionsSchema": undefined,
               "plugins": [],
               "tasks": {},
               "version": 2,
@@ -19003,6 +19427,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Webpack": "./lib/tasks/webpack",
@@ -19029,6 +19454,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Babel": "./lib/tasks/babel",
@@ -19115,6 +19541,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -19252,6 +19679,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -19273,6 +19701,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -19304,6 +19733,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [
             "@dotcom-tool-kit/package-json-hook",
           ],
@@ -19342,6 +19772,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [],
                 "tasks": {
                   "Babel": "./lib/tasks/babel",
@@ -19373,6 +19804,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": undefined,
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -19402,6 +19834,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/package-json-hook",
                 ],
@@ -19490,6 +19923,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "plugins": {},
                       "tasks": {},
                     },
+                    "optionsSchema": "./lib/schemas/plugin",
                     "plugins": [],
                     "tasks": {},
                     "version": 2,
@@ -19627,6 +20061,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   "plugins": {},
                   "tasks": {},
                 },
+                "optionsSchema": undefined,
                 "plugins": [
                   "@dotcom-tool-kit/circleci",
                 ],
@@ -19648,6 +20083,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
               "plugins": {},
               "tasks": {},
             },
+            "optionsSchema": undefined,
             "plugins": [
               "@dotcom-tool-kit/webpack",
               "@dotcom-tool-kit/babel",
@@ -19691,6 +20127,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "plugins": {},
             "tasks": {},
           },
+          "optionsSchema": undefined,
           "plugins": [],
           "tasks": {
             "Webpack": "./lib/tasks/webpack",
@@ -19701,5 +20138,5 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
       },
     },
   },
-}
+}"
 `;
