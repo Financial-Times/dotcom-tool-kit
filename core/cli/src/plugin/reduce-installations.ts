@@ -12,6 +12,11 @@ import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/val
 
 import { formatInvalidOption, formatUnusedHookOptions } from '../messages'
 
+export interface HookModule {
+  hookClass: HookClass
+  schema?: z.ZodTypeAny
+}
+
 const extractForHook = (installation: HookInstallation | Conflict<HookInstallation>): string =>
   isConflict(installation) ? installation.conflicting[0].forHook : installation.forHook
 
@@ -44,7 +49,7 @@ const extractForHook = (installation: HookInstallation | Conflict<HookInstallati
 export async function reducePluginHookInstallations(
   logger: Logger,
   config: ValidConfig,
-  hookClasses: Record<string, HookClass>,
+  hookModules: Record<string, HookModule>,
   plugin: Plugin
 ): Promise<Validated<(HookInstallation | Conflict<HookInstallation>)[]>> {
   if (!plugin.rcFile || config.resolutionTrackers.reducedInstallationPlugins.has(plugin.id)) {
@@ -55,7 +60,7 @@ export async function reducePluginHookInstallations(
   const rawChildInstallations = reduceValidated(
     await Promise.all(
       (plugin.children ?? []).map((child) =>
-        reducePluginHookInstallations(logger, config, hookClasses, child)
+        reducePluginHookInstallations(logger, config, hookModules, child)
       )
     )
   ).map((installations) => installations.flat())
@@ -66,7 +71,7 @@ export async function reducePluginHookInstallations(
 
   const childInstallations = Object.entries(groupBy(rawChildInstallations.value, extractForHook)).flatMap(
     ([forHook, installations]) => {
-      const hookClass = hookClasses[forHook]
+      const { hookClass } = hookModules[forHook]
 
       return hookClass.mergeChildInstallations(plugin, installations)
     }
@@ -77,19 +82,19 @@ export async function reducePluginHookInstallations(
   }
   const unusedHookOptions = plugin.rcFile.options.hooks
     .flatMap(Object.keys)
-    .filter((hookId) => !(hookId in hookClasses))
+    .filter((hookId) => !(hookId in hookModules))
     .map((hookId) => styles.hook(hookId))
   if (unusedHookOptions.length > 0) {
-    return invalid([formatUnusedHookOptions(unusedHookOptions, Object.keys(hookClasses))])
+    return invalid([formatUnusedHookOptions(unusedHookOptions, Object.keys(hookModules))])
   }
 
   const validatedInstallations = plugin.rcFile.options.hooks.flatMap((hookEntry) =>
     Object.entries(hookEntry).map<Validated<(HookInstallation | Conflict<HookInstallation>)[]>>(
       ([id, configHookOptions]) => {
-        const hookClass = hookClasses[id]
-        const parsedOptions = (HookSchemas as Record<string, z.ZodSchema | undefined>)[id]?.safeParse(
-          configHookOptions
-        )
+        const hookModule = hookModules[id]
+        const parsedOptions = (
+          hookModule.schema ?? (HookSchemas as Record<string, z.ZodSchema | undefined>)[id]
+        )?.safeParse(configHookOptions)
         if (parsedOptions && !parsedOptions.success) {
           return invalid([formatInvalidOption([styles.hook(id), parsedOptions.error])])
         }
@@ -98,13 +103,15 @@ export async function reducePluginHookInstallations(
           options: parsedOptions?.data ?? configHookOptions,
           plugin,
           forHook: id,
-          hookConstructor: hookClass
+          hookConstructor: hookModule.hookClass
         }
 
         const childInstallationsForHook = childInstallations.filter(
           (childInstallation) => id === extractForHook(childInstallation)
         )
-        return valid(hookClass.overrideChildInstallations(plugin, installation, childInstallationsForHook))
+        return valid(
+          hookModule.hookClass.overrideChildInstallations(plugin, installation, childInstallationsForHook)
+        )
       }
     )
   )

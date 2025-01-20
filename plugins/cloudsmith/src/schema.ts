@@ -1,6 +1,6 @@
-import { z } from 'zod'
+import * as z from 'zod'
 
-export const CloudsmithSchema = z.object({
+export default z.object({
   serviceAccount: z
     .string()
     .optional()

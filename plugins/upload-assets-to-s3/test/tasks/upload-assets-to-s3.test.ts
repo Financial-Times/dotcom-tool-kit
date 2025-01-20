@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from '@jest/globals'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
-import type { UploadAssetsToS3Options } from '@dotcom-tool-kit/schemas/lib/tasks/upload-assets-to-s3'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
-import UploadAssetsToS3 from '../../src/tasks/upload-assets-to-s3'
+import type * as z from 'zod'
+import UploadAssetsToS3, { type UploadAssetsToS3Schema } from '../../src/tasks/upload-assets-to-s3'
 jest.mock('@aws-sdk/client-s3')
 
 const mockedS3Client = jest.mocked(S3Client, true)
@@ -12,7 +12,7 @@ const logger = winston as unknown as Logger
 
 const testDirectory = path.join(__dirname, '../files')
 
-const defaults: UploadAssetsToS3Options = {
+const defaults: z.infer<typeof UploadAssetsToS3Schema> = {
   accessKeyIdEnvVar: 'AWS_ACCESS_HASHED_ASSETS',
   secretAccessKeyEnvVar: 'AWS_SECRET_HASHED_ASSETS',
   directory: 'public',
@@ -161,6 +161,8 @@ describe('upload-assets-to-s3', () => {
     process.env.AWS_ACCESS_HASHED_ASSETS = 'access'
     process.env.AWS_SECRET_HASHED_ASSETS = 'secret'
 
-    await expect(task.run({ command: 'release:remote', cwd: '' })).rejects.toThrow('ft-next-hashed-assets-prod failed')
+    await expect(task.run({ command: 'release:remote', cwd: '' })).rejects.toThrow(
+      'ft-next-hashed-assets-prod failed'
+    )
   })
 })

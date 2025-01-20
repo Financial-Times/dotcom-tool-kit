@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 
 export const CircleCiCustom = z.record(z.unknown())
 export type CircleCiCustom = z.infer<typeof CircleCiCustom>
@@ -98,5 +98,3 @@ Options provided in your repository's \`.toolkitrc.yml\` for this hook are merge
 Unless they conflict, your options are appended to options from plugins, allowing you to define custom CircleCI jobs and workflows in your repository that work alongside those from plugins.`)
 
 export type CircleCiOptions = z.infer<typeof CircleCiSchema>
-
-export const Schema = CircleCiSchema

@@ -6,7 +6,6 @@
   "bump-patch-for-minor-pre-major": true,
   "packages": {
     "core/cli": {},
-    "core/create": {},
     "lib/base": {},
     "lib/config": {},
     "lib/conflict": {},
@@ -14,7 +13,6 @@
     "lib/error": {},
     "lib/logger": {},
     "lib/plugin": {},
-    "lib/schemas": {},
     "lib/state": {},
     "lib/validated": {},
     "lib/wait-for-ok": {},

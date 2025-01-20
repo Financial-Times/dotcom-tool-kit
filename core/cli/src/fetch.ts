@@ -1,4 +1,4 @@
-import { RootOptions } from '@dotcom-tool-kit/schemas/src/plugins/dotcom-tool-kit'
+import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 
 // function that plugins can check if they need to implement their own logic to
 // disable Node 18's native fetch

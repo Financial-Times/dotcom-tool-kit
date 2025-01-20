@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 
 const DockerImageSchema = z.object({
   definition: z
@@ -19,10 +19,6 @@ const DockerImageSchema = z.object({
     .describe('The name of the image, excluding a tag')
 })
 
-export const DockerSchema = z.object({
+export default z.object({
   images: z.record(z.string(), DockerImageSchema)
 })
-
-export type DockerOptions = z.infer<typeof DockerSchema>
-
-export const Schema = DockerSchema

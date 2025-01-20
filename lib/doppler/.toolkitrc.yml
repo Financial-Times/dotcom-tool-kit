@@ -1,1 +1,3 @@
 version: 2
+
+optionsSchema: './lib/schema'

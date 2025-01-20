@@ -1,6 +1,6 @@
-import { z } from 'zod'
+import * as z from 'zod'
 
-export const CircleCISchema = z.object({
+export default z.object({
   cimgNodeVersions: z
     .string()
     .array()
@@ -21,6 +21,3 @@ export const CircleCISchema = z.object({
       'the regular expression used to match tags for jobs that should run on tag workflows. by default, matches tags that look like `v1.2.3`; if your releases use a different tag format, change this option to match your tags.'
     )
 })
-export type CircleCIOptions = z.infer<typeof CircleCISchema>
-
-export const Schema = CircleCISchema
