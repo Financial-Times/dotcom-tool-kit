@@ -1,9 +1,10 @@
-import { buildImageName } from '../image-info'
+import { buildImageName, getDeployTag } from '../image-info'
 import { DockerSchema } from '@dotcom-tool-kit/schemas/lib/plugins/docker'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { spawn } from 'node:child_process'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { readState, writeState } from '@dotcom-tool-kit/state'
 
 export default class DockerPush extends Task<{
   plugin: typeof DockerSchema
@@ -23,6 +24,8 @@ export default class DockerPush extends Task<{
   }
 
   async run() {
+    const pushedImages = []
+
     // Iterate over different image types like web, worker, etc
     for (const [imageIdentifier, imageOptions] of Object.entries(this.pluginOptions.images)) {
       try {
@@ -50,6 +53,11 @@ export default class DockerPush extends Task<{
         const child = spawn('docker', ['push', '--all-tags', imageName])
         hookFork(this.logger, 'docker-push', child)
         await waitOnExit('docker-push', child)
+        pushedImages.push({
+          name: imageOptions.name,
+          tag: getDeployTag(readState('ci')),
+          fullyQualifiedName: imageName
+        })
       } catch (err) {
         if (err instanceof Error) {
           const error = new ToolKitError('docker push failed to run')
@@ -60,5 +68,7 @@ export default class DockerPush extends Task<{
         }
       }
     }
+
+    writeState('ci', { pushedImages })
   }
 }
