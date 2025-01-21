@@ -1,6 +1,7 @@
 import { buildImageName, getImageTagsFromEnvironment } from '../image-info'
 import { DockerSchema } from '@dotcom-tool-kit/schemas/lib/plugins/docker'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
+import { readState } from '@dotcom-tool-kit/state'
 import { spawn } from 'node:child_process'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
@@ -12,7 +13,13 @@ export default class DockerBuild extends Task<{
     // Iterate over different image types like web, worker, etc
     for (const [imageIdentifier, imageOptions] of Object.entries(this.pluginOptions.images)) {
       const imageName = buildImageName(imageOptions)
-      const imageTags = [imageName, ...getImageTagsFromEnvironment(imageOptions)]
+      const imageTags = [
+        imageName,
+        ...getImageTagsFromEnvironment({
+          ciState: readState('ci'),
+          ...imageOptions
+        })
+      ]
       this.logger.info(`Building image "${imageIdentifier}": with tags ${imageTags.join(', ')}`)
       try {
         // We need to create a builder so that we're not limited to

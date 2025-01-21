@@ -6,12 +6,19 @@ const stateDir = target ? path.join(target, '.toolkitstate') : '.toolkitstate'
 
 type InstallState = Record<string, string>
 
-interface CIState {
+interface DockerImage {
+  fullyQualifiedName: string
+  name: string
+  tag: string
+}
+
+export interface CIState {
   repo: string
   branch: string
   version: string
   tag: string
   buildNumber: string
+  pushedImages: DockerImage[]
 }
 
 export interface ReviewState {
