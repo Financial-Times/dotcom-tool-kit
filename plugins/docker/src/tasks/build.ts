@@ -15,8 +15,23 @@ export default class DockerBuild extends Task<{
       const imageTags = [imageName, ...getImageTagsFromEnvironment(imageOptions)]
       this.logger.info(`Building image "${imageIdentifier}": with tags ${imageTags.join(', ')}`)
       try {
-        const child = spawn('docker', [
+        // We need to create a builder so that we're not limited to
+        // building AMD64 images due to the platform our CircleCI
+        // builds run on
+        const childCreate = spawn('docker', [
+          'buildx',
+          'create',
+          '--platform',
+          imageOptions.platform,
+          '--use' // This is a shortcut that prevents us having to run `docker buildx use`
+        ])
+        hookFork(this.logger, 'docker-build-create', childCreate)
+        await waitOnExit('docker-build-create', childCreate)
+
+        const childBuild = spawn('docker', [
+          'buildx',
           'build',
+          '--load', // Without this, the image is not stored and so we can't push it later
           '--platform',
           imageOptions.platform,
           ...imageTags.flatMap((tag) => ['--tag', tag]),
@@ -24,8 +39,8 @@ export default class DockerBuild extends Task<{
           imageOptions.definition,
           process.cwd()
         ])
-        hookFork(this.logger, 'docker-build', child)
-        await waitOnExit('docker-build', child)
+        hookFork(this.logger, 'docker-build', childBuild)
+        await waitOnExit('docker-build', childBuild)
       } catch (err) {
         if (err instanceof Error) {
           const error = new ToolKitError('docker build failed to run')
