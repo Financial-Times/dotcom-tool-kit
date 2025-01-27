@@ -9,8 +9,7 @@
     "clean-up-packages": "./scripts/clean-up-packages.sh",
     "build": "tsc --build --verbose tsconfig.json",
     "watch": "tsc --build --watch --verbose tsconfig.json",
-    "test": "jest --silent --runInBand",
-    "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine"
+    "test": "jest --silent --runInBand"
   },
   "lint-staged": {
     "**/*.{ts,js,json}": "prettier --write",
