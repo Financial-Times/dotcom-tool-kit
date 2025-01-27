@@ -115,6 +115,12 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.6.1 to ^1.6.2
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^4.1.0 to ^4.2.0
+
 ## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v5.1.1...cypress-v5.2.0) (2025-01-02)
 
 

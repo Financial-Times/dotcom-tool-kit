@@ -427,6 +427,12 @@
     * @dotcom-tool-kit/base bumped from ^1.1.5 to ^1.1.6
     * @dotcom-tool-kit/config bumped from ^1.0.8 to ^1.0.9
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^4.1.0 to ^4.2.0
+
 ## [4.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.5...dotcom-tool-kit-v4.3.6) (2025-01-14)
 
 

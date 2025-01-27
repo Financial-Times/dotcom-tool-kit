@@ -174,6 +174,13 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.6.1 to ^1.6.2
 
+## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v4.2.4...mocha-v4.3.0) (2025-01-27)
+
+
+### Features
+
+* widen semver range for mocha ([a267b08](https://github.com/Financial-Times/dotcom-tool-kit/commit/a267b0859439d874de34ee52de7921075978062a))
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v4.1.1...mocha-v4.2.0) (2025-01-02)
 
 

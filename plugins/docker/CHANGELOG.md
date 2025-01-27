@@ -9,6 +9,25 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.6.0 to ^1.6.1
 
+## [0.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.2.2...docker-v0.2.3) (2025-01-27)
+
+
+### Features
+
+* store pushed Docker images in state ([ade6eba](https://github.com/Financial-Times/dotcom-tool-kit/commit/ade6eba1f9c76796936f8d6aae66687a55578555))
+
+
+### Bug Fixes
+
+* allow building ARM64 images in AMD CI jobs ([9944ffe](https://github.com/Financial-Times/dotcom-tool-kit/commit/9944ffe706c36baa476af017de3e953e1240b27d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^4.1.0 to ^4.2.0
+
 ## [0.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.2.1...docker-v0.2.2) (2025-01-16)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v4.1.0...state-v4.2.0) (2025-01-27)
+
+
+### Features
+
+* store pushed Docker images in state ([ade6eba](https://github.com/Financial-Times/dotcom-tool-kit/commit/ade6eba1f9c76796936f8d6aae66687a55578555))
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v4.0.0...state-v4.1.0) (2025-01-02)
 
 

@@ -146,6 +146,12 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.6.0 to ^1.6.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^4.1.0 to ^4.2.0
+
 ## [7.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.3.3...circleci-v7.3.4) (2025-01-16)
 
 
