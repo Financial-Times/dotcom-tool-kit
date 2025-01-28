@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.2.0...orb-v5.2.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* **orb:** automatically use latest patch version of cloudsmith-oidc orb ([2b4ed3c](https://github.com/Financial-Times/dotcom-tool-kit/commit/2b4ed3c6c05e7b4110bfd42964bb34101219ee7c))
+
 ## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.1.0...orb-v5.2.0) (2025-01-02)
 
 
