@@ -433,6 +433,21 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.1.0 to ^4.2.0
 
+## [4.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.8...dotcom-tool-kit-v4.4.0) (2025-01-28)
+
+
+### Features
+
+* **cli:** throw an aggregate error when hook installation fails ([99866f7](https://github.com/Financial-Times/dotcom-tool-kit/commit/99866f71d4b8fdcf7e6e752ce57cf2905e6daa8e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.6 to ^1.1.7
+    * @dotcom-tool-kit/config bumped from ^1.0.9 to ^1.0.10
+
 ## [4.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.5...dotcom-tool-kit-v4.3.6) (2025-01-14)
 
 

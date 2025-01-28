@@ -152,6 +152,29 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.1.0 to ^4.2.0
 
+## [7.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.3.5...circleci-v7.4.0) (2025-01-28)
+
+
+### Features
+
+* **circleci:** add splitIntoMatrix option to custom jobs ([a3b0a7a](https://github.com/Financial-Times/dotcom-tool-kit/commit/a3b0a7afd487e8fa2f96aeed87b385ef72da7f44))
+* **cli:** throw an aggregate error when hook installation fails ([99866f7](https://github.com/Financial-Times/dotcom-tool-kit/commit/99866f71d4b8fdcf7e6e752ce57cf2905e6daa8e))
+
+
+### Bug Fixes
+
+* **circleci:** don't prefix approval jobs ([8d853a5](https://github.com/Financial-Times/dotcom-tool-kit/commit/8d853a5f540df332c4c61f47d06230cd84a534db))
+* **circleci:** pass executors to generated jobs ([1298da4](https://github.com/Financial-Times/dotcom-tool-kit/commit/1298da475e0f74f44ae9c90bec6a410fabf395cb))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.6 to ^1.1.7
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.6.2 to ^1.7.0
+
 ## [7.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.3.3...circleci-v7.3.4) (2025-01-16)
 
 

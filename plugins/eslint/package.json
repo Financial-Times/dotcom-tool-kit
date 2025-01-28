@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/eslint",
-  "version": "4.2.4",
+  "version": "4.2.5",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.6",
+    "@dotcom-tool-kit/base": "^1.1.7",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",
     "tslib": "^2.3.1"
@@ -23,7 +23,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/eslint",
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.6.2",
+    "@dotcom-tool-kit/schemas": "^1.7.0",
     "@jest/globals": "^27.4.6",
     "@types/eslint": "^7.2.13",
     "@types/temp": "^0.9.4",

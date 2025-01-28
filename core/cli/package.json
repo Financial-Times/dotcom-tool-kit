@@ -1,6 +1,6 @@
 {
   "name": "dotcom-tool-kit",
-  "version": "4.3.8",
+  "version": "4.4.0",
   "description": "modern, maintainable, modular developer tooling for FT.com projects",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -30,8 +30,8 @@
     "zod": "^3.22.4"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.6",
-    "@dotcom-tool-kit/config": "^1.0.9",
+    "@dotcom-tool-kit/base": "^1.1.7",
+    "@dotcom-tool-kit/config": "^1.0.10",
     "@dotcom-tool-kit/conflict": "^1.0.0",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",

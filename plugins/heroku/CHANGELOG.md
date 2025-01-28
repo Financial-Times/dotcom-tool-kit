@@ -276,6 +276,17 @@
     * @dotcom-tool-kit/npm bumped from ^4.2.4 to ^4.2.5
     * @dotcom-tool-kit/state bumped from ^4.1.0 to ^4.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.6 to ^1.1.7
+    * @dotcom-tool-kit/doppler bumped from ^2.1.4 to ^2.1.5
+    * @dotcom-tool-kit/npm bumped from ^4.2.5 to ^4.2.6
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.1.4 to ^5.1.5
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.6.2 to ^1.7.0
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v4.0.4...heroku-v4.1.0) (2025-01-02)
 
 

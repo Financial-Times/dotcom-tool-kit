@@ -6,6 +6,14 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.0 to ^4.1.1
 
+## [1.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.6.2...schemas-v1.7.0) (2025-01-28)
+
+
+### Features
+
+* **circleci:** add splitIntoMatrix option to custom jobs ([a3b0a7a](https://github.com/Financial-Times/dotcom-tool-kit/commit/a3b0a7afd487e8fa2f96aeed87b385ef72da7f44))
+* **cli:** throw an aggregate error when hook installation fails ([99866f7](https://github.com/Financial-Times/dotcom-tool-kit/commit/99866f71d4b8fdcf7e6e752ce57cf2905e6daa8e))
+
 ## [1.6.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.6.1...schemas-v1.6.2) (2025-01-16)
 
 
