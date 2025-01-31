@@ -12,6 +12,12 @@ interface DockerImage {
   tag: string
 }
 
+interface AwsCredentials {
+  accessKeyId?: string
+  secretAccessKey?: string
+  sessionToken?: string
+}
+
 export interface CIState {
   repo: string
   branch: string
@@ -19,6 +25,7 @@ export interface CIState {
   tag: string
   buildNumber: string
   pushedImages: DockerImage[]
+  awsCredentials: AwsCredentials
 }
 
 export interface ReviewState {
