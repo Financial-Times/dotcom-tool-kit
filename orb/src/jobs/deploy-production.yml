@@ -28,6 +28,7 @@ steps:
   - attach-workspace
   - setup_remote_docker:
       docker_layer_caching: true
+  - aws-cli/install
   - when:
       condition:
         and:
