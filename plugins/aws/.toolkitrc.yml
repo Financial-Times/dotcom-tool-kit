@@ -1,0 +1,4 @@
+tasks:
+  AwsAssumeRole: './lib/tasks/assume-role'
+
+version: 2

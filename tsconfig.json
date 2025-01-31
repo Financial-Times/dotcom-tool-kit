@@ -123,6 +123,9 @@
     },
     {
       "path": "plugins/docker"
+    },
+    {
+      "path": "plugins/aws"
     }
   ]
 }
