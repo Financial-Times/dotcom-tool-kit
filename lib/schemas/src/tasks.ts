@@ -1,4 +1,5 @@
 import { type InferSchemaOptions } from './infer'
+import { AwsAssumeRoleSchema } from './tasks/aws-assume-role'
 import { BabelSchema } from './tasks/babel'
 import { ESLintSchema } from './tasks/eslint'
 import { JestSchema } from './tasks/jest'
@@ -16,6 +17,7 @@ import { ServerlessRunSchema } from './tasks/serverless-run'
 import { z } from 'zod'
 
 export const TaskSchemas = {
+  AwsAssumeRole: AwsAssumeRoleSchema,
   Babel: BabelSchema,
   Commitlint: z.object({}).describe('Lint commit messages.'),
   Cypress: CypressSchema,
