@@ -9,19 +9,20 @@ export default class AwsAssumeRole extends Task<{ task: typeof AwsAssumeRoleSche
   async run() {
     try {
       this.logger.info(`Assuming AWS role "${this.options.roleArn}"`)
-      const ciState = readState('ci');
+      const ciState = readState('ci')
 
       const RoleArn = this.options.roleArn
       const RoleSessionName = ciState?.repo ? `tool-kit-${ciState.repo}` : 'tool-kit'
       const WebIdentityToken = process.env.CIRCLE_OIDC_TOKEN_V2
 
+      // Note: hard-coded region because STSClient requires it despite IAM roles being global
       const client = new STSClient({ region: 'eu-west-1' })
       const { Credentials } = await client.send(
         new AssumeRoleWithWebIdentityCommand({ RoleArn, RoleSessionName, WebIdentityToken })
       )
 
       if (!Credentials) {
-        throw new Error('Assuming role with web identity did not return credentials');
+        throw new Error('Assuming role with web identity did not return credentials')
       }
 
       const awsCredentials = {
