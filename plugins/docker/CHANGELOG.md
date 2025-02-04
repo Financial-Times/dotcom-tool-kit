@@ -17,6 +17,27 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.6.2 to ^1.7.0
 
+## [0.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.2.4...docker-v0.3.0) (2025-02-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* move docker auth to a new task
+
+### Features
+
+* move docker auth to a new task ([441dc13](https://github.com/Financial-Times/dotcom-tool-kit/commit/441dc13adf1b722dfa5f86c51f79cff73f066932))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.7 to ^1.1.8
+    * @dotcom-tool-kit/state bumped from ^4.2.0 to ^4.3.0
+  * devDependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.7.0 to ^1.8.0
+
 ## [0.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.2.2...docker-v0.2.3) (2025-01-27)
 
 

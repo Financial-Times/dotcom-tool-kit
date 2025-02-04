@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.738.0",
-    "@dotcom-tool-kit/base": "^1.1.7",
+    "@dotcom-tool-kit/base": "^1.1.8",
     "@dotcom-tool-kit/error": "^4.1.0",
-    "@dotcom-tool-kit/state": "^4.2.0"
+    "@dotcom-tool-kit/state": "^4.3.0"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.7.0"
+    "@dotcom-tool-kit/schemas": "^1.8.0"
   }
 }
