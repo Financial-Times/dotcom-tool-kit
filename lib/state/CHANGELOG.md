@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v4.2.0...state-v4.3.0) (2025-02-04)
+
+
+### Features
+
+* allow storing AWS credentials in CI state ([9ec28e0](https://github.com/Financial-Times/dotcom-tool-kit/commit/9ec28e03925433afbeb87eccd154c3b8ee58d920))
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v4.1.0...state-v4.2.0) (2025-01-27)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/n-test",
-  "version": "4.2.7",
+  "version": "4.2.8",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,10 +10,10 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.7",
+    "@dotcom-tool-kit/base": "^1.1.8",
     "@dotcom-tool-kit/logger": "^4.1.1",
     "@dotcom-tool-kit/error": "^4.1.0",
-    "@dotcom-tool-kit/state": "^4.2.0",
+    "@dotcom-tool-kit/state": "^4.3.0",
     "@financial-times/n-test": "^6.1.0-beta.1",
     "tslib": "^2.3.1"
   },
@@ -25,7 +25,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/n-test",
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.7.0",
+    "@dotcom-tool-kit/schemas": "^1.8.0",
     "@jest/globals": "^27.4.6",
     "@types/jest": "^27.4.0",
     "winston": "^3.5.1"

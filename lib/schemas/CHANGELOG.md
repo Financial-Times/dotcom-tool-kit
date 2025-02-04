@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.0 to ^4.1.1
 
+## [1.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.7.0...schemas-v1.8.0) (2025-02-04)
+
+
+### Features
+
+* add a schema for the AWS Assume Role task ([f799623](https://github.com/Financial-Times/dotcom-tool-kit/commit/f79962386e9133952ff92a007f1a53d7530de533))
+
 ## [1.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.6.2...schemas-v1.7.0) (2025-01-28)
 
 
