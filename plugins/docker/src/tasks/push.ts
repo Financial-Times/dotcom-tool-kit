@@ -9,20 +9,6 @@ import { readState, writeState } from '@dotcom-tool-kit/state'
 export default class DockerPush extends Task<{
   plugin: typeof DockerSchema
 }> {
-  getRegistryAuth(registryName: string) {
-    let auth
-
-    if (registryName.startsWith('docker.packages.ft.com')) {
-      auth = {
-        username: process.env.CLOUDSMITH_SERVICE_ACCOUNT || '',
-        password: process.env.CLOUDSMITH_OIDC_TOKEN || '',
-        registry: 'docker.packages.ft.com'
-      }
-    }
-
-    return auth
-  }
-
   async run() {
     const pushedImages = []
 
@@ -31,25 +17,6 @@ export default class DockerPush extends Task<{
       try {
         const imageName = buildImageName(imageOptions)
         this.logger.info(`Pushing image "${imageIdentifier}" to ${imageName}`)
-
-        const auth = this.getRegistryAuth(imageOptions.registry)
-
-        if (auth) {
-          this.logger.info(`Authenticating with ${auth.registry}`)
-          const childLogin = spawn('docker', [
-            'login',
-            '--username',
-            auth.username,
-            '--password-stdin',
-            auth.registry
-          ])
-          childLogin.stdin.setDefaultEncoding('utf-8')
-          childLogin.stdin.write(auth.password)
-          childLogin.stdin.end()
-          hookFork(this.logger, 'docker-login', childLogin)
-          await waitOnExit('docker-login', childLogin)
-        }
-
         const child = spawn('docker', ['push', '--all-tags', imageName])
         hookFork(this.logger, 'docker-push', child)
         await waitOnExit('docker-push', child)
