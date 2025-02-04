@@ -1,4 +1,5 @@
 tasks:
+  DockerAuthCloudsmith: './lib/tasks/auth-cloudsmith'
   DockerBuild: './lib/tasks/build'
   DockerPush: './lib/tasks/push'
 
