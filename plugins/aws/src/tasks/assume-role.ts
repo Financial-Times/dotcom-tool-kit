@@ -3,15 +3,16 @@ import { type AwsAssumeRoleSchema } from '@dotcom-tool-kit/schemas/lib/tasks/aws
 import { randomUUID } from 'node:crypto'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import { writeState } from '@dotcom-tool-kit/state'
+import { readState, writeState } from '@dotcom-tool-kit/state'
 
 export default class AwsAssumeRole extends Task<{ task: typeof AwsAssumeRoleSchema }> {
   async run() {
     try {
       this.logger.info(`Assuming AWS role "${this.options.roleArn}"`)
+      const ciState = readState('ci');
 
       const RoleArn = this.options.roleArn
-      const RoleSessionName = `toolkit-${randomUUID()}`
+      const RoleSessionName = ciState?.repo ? `tool-kit-${ciState.repo}` : 'tool-kit'
       const WebIdentityToken = process.env.CIRCLE_OIDC_TOKEN_V2
 
       const client = new STSClient({ region: 'eu-west-1' })
