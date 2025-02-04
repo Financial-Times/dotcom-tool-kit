@@ -20,10 +20,14 @@ export default class AwsAssumeRole extends Task<{ task: typeof AwsAssumeRoleSche
         new AssumeRoleWithWebIdentityCommand({ RoleArn, RoleSessionName, WebIdentityToken })
       )
 
+      if (!Credentials) {
+        throw new Error('Assuming role with web identity did not return credentials');
+      }
+
       const awsCredentials = {
-        accessKeyId: Credentials?.AccessKeyId,
-        secretAccessKey: Credentials?.SecretAccessKey,
-        sessionToken: Credentials?.SessionToken
+        accessKeyId: Credentials.AccessKeyId,
+        secretAccessKey: Credentials.SecretAccessKey,
+        sessionToken: Credentials.SessionToken
       }
       writeState('ci', { awsCredentials })
       this.logger.info(`Saved AWS credentials to "ci" state with session name "${RoleSessionName}"`)
