@@ -36,6 +36,7 @@
     "plugins/docker": {},
     "plugins/eslint": {},
     "plugins/frontend-app": {},
+    "plugins/hako": {},
     "plugins/heroku": {},
     "plugins/husky-npm": {},
     "plugins/jest": {},
