@@ -126,6 +126,9 @@
     },
     {
       "path": "plugins/aws"
+    },
+    {
+      "path": "plugins/hako"
     }
   ]
 }
