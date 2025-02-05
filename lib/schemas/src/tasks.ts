@@ -3,6 +3,7 @@ import { AwsAssumeRoleSchema } from './tasks/aws-assume-role'
 import { BabelSchema } from './tasks/babel'
 import { ESLintSchema } from './tasks/eslint'
 import { JestSchema } from './tasks/jest'
+import { HakoDeploySchema } from './tasks/hako-deploy'
 import { MochaSchema } from './tasks/mocha'
 import { NodeSchema } from './tasks/node'
 import { NodemonSchema } from './tasks/nodemon'
@@ -27,6 +28,7 @@ export const TaskSchemas = {
   HerokuStaging: z.object({}).describe('Deploy to the Heroku staging app.'),
   HerokuTeardown: z.object({}).describe("Scale down the Heroku staging app once it's no longer needed."),
   Jest: JestSchema,
+  HakoDeploy: HakoDeploySchema,
   LintStaged: z.object({}).describe('Run `lint-staged` in your repo, for use with git hooks.'),
   Mocha: MochaSchema,
   Node: NodeSchema,
