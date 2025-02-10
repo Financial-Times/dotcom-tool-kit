@@ -42,10 +42,13 @@ async function requireEntrypoint(entryPoint: EntryPoint): Promise<Validated<any>
   return valid(requiredModule)
 }
 
-export async function importSchemaEntryPoint(entryPoint: EntryPoint): Promise<Validated<z.ZodSchema>> {
+export async function importSchemaEntryPoint(
+  entryPoint: EntryPoint,
+  exportName?: string
+): Promise<Validated<z.ZodSchema>> {
   const schemaResult = await requireEntrypoint(entryPoint)
   return schemaResult.flatMap((schemaModule) => {
-    const schema: unknown = __importDefault(schemaModule).default
+    const schema: unknown = exportName ? schemaModule[exportName] : __importDefault(schemaModule).default
     return guessIsZodSchema(schema)
       ? valid(schema)
       : invalid([
