@@ -4,7 +4,9 @@ import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 
 const commitlintCLIPath = require.resolve('.bin/commitlint')
 
-module.exports = class Commitlint extends Task {
+export default class Commitlint extends Task {
+  static description = 'Lint commit messages.'
+
   async run({ cwd }: TaskRunContext): Promise<void> {
     const child = fork(commitlintCLIPath, ['--edit'], { silent: true, cwd })
     hookFork(this.logger, 'commitlint', child)

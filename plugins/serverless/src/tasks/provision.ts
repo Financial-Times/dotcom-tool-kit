@@ -6,6 +6,8 @@ import { readState, writeState } from '@dotcom-tool-kit/state'
 import type ServerlessSchema from '../schema'
 
 export default class ServerlessProvision extends Task<{ plugin: typeof ServerlessSchema }> {
+  static description = 'Provision a review serverless function'
+
   async run({ cwd }: TaskRunContext): Promise<void> {
     const { configPath, systemCode, regions } = this.pluginOptions
     const ciState = readState('ci')

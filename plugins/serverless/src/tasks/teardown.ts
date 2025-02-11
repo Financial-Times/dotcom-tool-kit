@@ -6,6 +6,8 @@ import { spawn } from 'child_process'
 import type ServerlessSchema from '../schema'
 
 export default class ServerlessTeardown extends Task<{ plugin: typeof ServerlessSchema }> {
+  static description = 'Tear down existing serverless functions'
+
   async run({ cwd }: TaskRunContext): Promise<void> {
     const { configPath, regions, systemCode } = this.pluginOptions
 

@@ -4,6 +4,8 @@ import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { spawn } from 'node:child_process'
 
 export default class NpmPrune extends Task {
+  static description = 'Prune development npm dependencies.'
+
   async run({ cwd }: TaskRunContext): Promise<void> {
     try {
       this.logger.verbose('pruning dev dependencies...')

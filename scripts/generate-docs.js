@@ -1,10 +1,12 @@
 const { loadToolKitRC } = require('../core/cli/lib/rc-file')
-const { importSchemaEntryPoint } = require('../core/cli/lib/plugin/entry-point')
-const { reduceValidated } = require('../lib/validated')
+const { importEntryPoint, importSchemaEntryPoint } = require('../core/cli/lib/plugin/entry-point')
+const { Task } = require('../lib/base')
+const { invalid, reduceValidated, valid } = require('../lib/validated')
 const { default: $t } = require('endent')
 const logger = require('winston')
 const path = require('path')
 const fs = require('fs/promises')
+const z = require('zod')
 const { convertSchemas, formatModelsAsMarkdown } = require('zod2md')
 
 function formatSchemas(title, schemas) {
@@ -41,11 +43,19 @@ async function formatPluginSchemas(plugin) {
   const pluginSchema = pluginValidSchema?.valid ? pluginValidSchema.value : undefined
   const tasksWithSchemas = (
     await Promise.all(
-      Object.entries(rcFile.tasks).map(async ([taskName, taskPath]) =>
-        (
-          await importSchemaEntryPoint({ plugin: pluginShim, modulePath: taskPath }, 'schema')
-        ).map((taskSchema) => [taskName, taskSchema])
-      )
+      Object.entries(rcFile.tasks).map(async ([taskName, taskPath]) => {
+        const taskEntryPoint = { plugin: pluginShim, modulePath: taskPath }
+        const taskSchema = await importSchemaEntryPoint(taskEntryPoint, 'schema')
+        if (taskSchema.valid) {
+          return valid([taskName, taskSchema.value])
+        } else {
+          return (await importEntryPoint(Task, taskEntryPoint)).flatMap((task) => {
+            return task.entryPoint.description
+              ? valid([taskName, z.object({}).describe(task.entryPoint.description)])
+              : invalid(['no description'])
+          })
+        }
+      })
     )
   )
     .filter((validated) => validated.valid)
