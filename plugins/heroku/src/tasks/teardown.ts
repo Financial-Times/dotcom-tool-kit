@@ -5,6 +5,8 @@ import { scaleDyno } from '../scaleDyno'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 export default class HerokuTeardown extends Task {
+  static description = "Scale down the Heroku staging app once it's no longer needed."
+
   async run(): Promise<void> {
     //scale down staging
     const state = readState('staging')

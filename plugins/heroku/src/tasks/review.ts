@@ -9,6 +9,8 @@ import type HerokuSchema from '../schema'
 import type { HerokuApiResPipeline } from 'heroku-client'
 
 export default class HerokuReview extends Task<{ plugin: typeof HerokuSchema }> {
+  static description = 'Create and deploy a Heroku review app.'
+
   async run(): Promise<void> {
     try {
       const pipeline = await herokuClient

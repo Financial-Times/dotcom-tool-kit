@@ -10,6 +10,8 @@ import type HerokuSchema from '../schema'
 import { setStagingSlug } from '../setStagingSlug'
 
 export default class HerokuStaging extends Task<{ plugin: typeof HerokuSchema }> {
+  static description = 'Deploy to the Heroku staging app.'
+
   async run(): Promise<void> {
     try {
       this.logger.verbose(`retrieving pipeline details...`)
