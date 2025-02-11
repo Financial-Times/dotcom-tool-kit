@@ -1,5 +1,5 @@
 import { spawn } from 'child_process'
-import { hookFork, waitOnExit , styles } from '@dotcom-tool-kit/logger'
+import { hookFork, waitOnExit, styles } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
@@ -38,24 +38,20 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
 
       this.logger.info('Pulling hako-cli image')
 
-      const child = spawn('docker', [
-        'pull',
-        '--platform',
-        'linux/amd64',
-        'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.8-alpha'
-      ])
+      const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.8-alpha'
+
+      const child = spawn('docker', ['pull', '--platform', 'linux/amd64', hakoImageName])
 
       hookFork(this.logger, 'hako-pull', child)
       await waitOnExit('hako-pull', child)
 
       // store the async promises and promise.all() once for-loop completes
       const deploys: Promise<void>[] = []
-      const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.8-alpha'
 
       for (const { name, tag } of pushedImages) {
         for (const environment of deployEnvironments) {
           this.logger.info(`Deploying image "${name}" with tag "${tag}" to environment "${environment}"`)
-          const awsRegion = hakoEnvironments[environment as HakoEnvironmentNames]
+          const awsRegion = hakoEnvironments[environment]
           const child = spawn('docker', [
             'run',
             '--env',
