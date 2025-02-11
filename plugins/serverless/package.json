@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/serverless",
-  "version": "3.2.7",
+  "version": "3.2.8",
   "description": "a plugin to manage and deploy apps using AWS Serverless",
   "main": "lib",
   "scripts": {
@@ -25,8 +25,8 @@
     "serverless-offline": "^12.0.4"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.8",
-    "@dotcom-tool-kit/doppler": "^2.1.6",
+    "@dotcom-tool-kit/base": "^1.1.9",
+    "@dotcom-tool-kit/doppler": "^2.1.7",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/state": "^4.3.0",
     "get-port": "^5.1.1",
@@ -37,6 +37,6 @@
     "node": "18.x || 20.x || 22.x"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.8.0"
+    "@dotcom-tool-kit/schemas": "^1.9.0"
   }
 }

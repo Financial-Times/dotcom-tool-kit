@@ -6,6 +6,16 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.0 to ^4.1.1
 
+## [1.9.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.8.0...schemas-v1.9.0) (2025-02-11)
+
+
+### Features
+
+* add a schema for the Hako Deploy task ([a91472d](https://github.com/Financial-Times/dotcom-tool-kit/commit/a91472dcf3ece75409936dc04f89591201454e26))
+* replace hako image text with variable, remove hakoEnv type hinting ([bf9199c](https://github.com/Financial-Times/dotcom-tool-kit/commit/bf9199cb43b3331b17086265ac8dda651e30f824))
+* throw a helpful validation error on legacy nodeVersion option ([92064a1](https://github.com/Financial-Times/dotcom-tool-kit/commit/92064a1b913e8b5d7e27d4761fdd29926301069b))
+* update schema for hakoDeploy based on PR feedback ([27b6495](https://github.com/Financial-Times/dotcom-tool-kit/commit/27b6495c1e8ad244230155d97f6f421b0b3bf9bd))
+
 ## [1.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/schemas-v1.7.0...schemas-v1.8.0) (2025-02-04)
 
 

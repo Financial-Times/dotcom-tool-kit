@@ -68,6 +68,12 @@
   * dependencies
     * @dotcom-tool-kit/schemas bumped from ^1.7.0 to ^1.8.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
+
 ## 1.0.0 (2024-09-10)
 
 

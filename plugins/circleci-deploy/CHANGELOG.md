@@ -150,6 +150,12 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^7.4.0 to ^7.4.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.4.1 to ^7.4.2
+
 ## [4.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.1.3...circleci-deploy-v4.1.4) (2025-01-16)
 
 

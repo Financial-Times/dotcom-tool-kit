@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/docker",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.8",
+    "@dotcom-tool-kit/base": "^1.1.9",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",
     "@dotcom-tool-kit/state": "^4.3.0",
@@ -24,7 +24,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/docker",
   "devDependencies": {
-    "@dotcom-tool-kit/schemas": "^1.8.0"
+    "@dotcom-tool-kit/schemas": "^1.9.0"
   },
   "files": [
     "/lib",

@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/babel",
-  "version": "4.2.6",
+  "version": "4.2.7",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.8",
+    "@dotcom-tool-kit/base": "^1.1.9",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",
     "fast-glob": "^3.2.11",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
-    "@dotcom-tool-kit/schemas": "^1.8.0",
+    "@dotcom-tool-kit/schemas": "^1.9.0",
     "@jest/globals": "^27.4.6",
     "winston": "^3.5.1"
   },
