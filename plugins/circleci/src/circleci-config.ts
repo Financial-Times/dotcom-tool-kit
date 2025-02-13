@@ -480,17 +480,12 @@ const generateWorkflowJobs = (
 }
 
 const persistWorkspaceStep = {
-  persist_to_workspace: {
-    root: '.',
-    paths: ['.']
+  'tool-kit/persist-workspace': {
+    path: '.'
   }
 }
 
-const attachWorkspaceStep = {
-  'attach-workspace': {
-    at: '.'
-  }
-}
+const attachWorkspaceStep = 'tool-kit/attach-workspace'
 
 const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => ({
   ...((job.splitIntoMatrix ?? true) && nodeVersions.length > 1

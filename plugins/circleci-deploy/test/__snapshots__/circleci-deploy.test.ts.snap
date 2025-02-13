@@ -14,10 +14,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+      - tool-kit/persist-workspace:
+          path: .
 workflows:
   tool-kit:
     when:
