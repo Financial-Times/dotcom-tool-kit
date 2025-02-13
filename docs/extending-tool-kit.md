@@ -134,3 +134,32 @@ commands:
   'build:ci': Rollup
   'build:remote': Rollup
 ```
+
+### Defining options
+
+It can sometimes be useful to allow for parameterisation in custom Tool Kit plugins. You might want to reuse the same task but have it read different config files in different commands, for instance. Or perhaps you're planning on eventually integrating your custom plugin into the main Tool Kit repository and you want to design it to be more flexible in advance. Tool Kit supports defining and using options in custom plugins in just like it does for plugins in the main repository, including defining your own schemas.
+
+For example, let's update the Rollup plugin to allow the user to customise the file path to load the config from. All options are passed to the `Task` in the `options` property.
+
+```js
+const config = path.join(process.cwd(), this.options.configPath)
+const { options, warnings } = await loadConfigFile(config)
+```
+
+Then we can pass the option value in the config:
+
+```yml
+options:
+  task:
+    Rollup:
+      configPath: rollup.config.js
+```
+
+Additionally, we can define an options schema to ensure that the options passed to task are as we expect them to be, with the correct names and correct types. We use [`zod`](https://zod.dev/) to define our schemas. For plugin options, you should export your schema as the default object in a separate file and specify its path as a top-level `optionsSchema` option in your `.toolkitrc.yml`. For tasks and hooks, you should export your schema as a `schema` object in the same file as you export your task/hook. We could define a `zod` schema for the Rollup task like so:
+
+```js
+const z = require('zod')
+
+const RollupSchema = z.object({ configPath: z.string() })
+module.exports.schema = RollupSchema
+```
