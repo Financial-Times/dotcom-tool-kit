@@ -25,6 +25,21 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+## [0.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.3.1...docker-v0.3.2) (2025-02-14)
+
+
+### Bug Fixes
+
+* use a new "docker" state for pushed images ([b0b9350](https://github.com/Financial-Times/dotcom-tool-kit/commit/b0b9350128faa5a2eef644a264da527c39fd93f5))
+* use nullish coalescing operators ([85510f5](https://github.com/Financial-Times/dotcom-tool-kit/commit/85510f583f1cd6b4c80908c3f26b5bb249384249))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
+
 ## [0.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.2.4...docker-v0.3.0) (2025-02-04)
 
 
