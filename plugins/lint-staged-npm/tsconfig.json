@@ -4,12 +4,6 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "references": [
-    {
-      "path": "../lint-staged"
-    }
-  ],
-  "include": [
-    "src/**/*"
-  ]
+  "references": [],
+  "include": ["src/**/*"]
 }

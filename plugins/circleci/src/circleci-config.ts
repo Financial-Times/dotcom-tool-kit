@@ -1,11 +1,11 @@
-import type {
-  CircleCiJob,
-  CircleCiOptions,
+import {
+  type CircleCiJob,
+  type CircleCiOptions,
   CircleCiSchema,
-  CircleCiWorkflow,
-  CircleCiWorkflowJob
-} from '@dotcom-tool-kit/schemas/lib/hooks/circleci'
-import type { CircleCISchema as CircleCiPluginSchema } from '@dotcom-tool-kit/schemas/lib/plugins/circleci'
+  type CircleCiWorkflow,
+  type CircleCiWorkflowJob
+} from './schemas/hook'
+import type CircleCiPluginSchema from './schemas/plugin'
 import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
 import { type Plugin } from '@dotcom-tool-kit/plugin'
@@ -513,6 +513,8 @@ const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => ({
   ],
   ...job.custom
 })
+
+export const schema = CircleCiSchema
 
 export default class CircleCi extends Hook<
   { hook: typeof CircleCiSchema; plugin: typeof CircleCiPluginSchema },

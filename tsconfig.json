@@ -56,9 +56,6 @@
       "path": "plugins/circleci-deploy"
     },
     {
-      "path": "core/create"
-    },
-    {
       "path": "lib/config"
     },
     {
@@ -119,9 +116,6 @@
       "path": "plugins/serverless"
     },
     {
-      "path": "lib/schemas"
-    },
-    {
       "path": "plugins/docker"
     },
     {
@@ -129,6 +123,9 @@
     },
     {
       "path": "plugins/hako"
+    },
+    {
+      "path": "plugins/cloudsmith"
     }
   ]
 }

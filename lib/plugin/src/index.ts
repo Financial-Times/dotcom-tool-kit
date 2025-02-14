@@ -19,6 +19,7 @@ export type RCFile = {
     tasks: { [id: string]: Record<string, unknown> }
     hooks: { [id: string]: Record<string, unknown> }[]
   }
+  optionsSchema?: string
   init: string[]
 }
 

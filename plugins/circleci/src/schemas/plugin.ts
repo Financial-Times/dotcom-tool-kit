@@ -1,7 +1,7 @@
-import { z } from 'zod'
 import { styles as s } from '@dotcom-tool-kit/logger'
+import * as z from 'zod'
 
-export const CircleCISchema = z
+export default z
   .object({
     cimgNodeVersions: z
       .string()
@@ -26,7 +26,3 @@ export const CircleCISchema = z
   .refine((options) => !('nodeVersion' in options), {
     message: `the option ${s.code('nodeVersion')} has been replaced by ${s.code('cimgNodeVersions')}`
   })
-
-export type CircleCIOptions = z.infer<typeof CircleCISchema>
-
-export const Schema = CircleCISchema

@@ -1,11 +1,12 @@
 const { loadToolKitRC } = require('../core/cli/lib/rc-file')
-const { TaskSchemas } = require('../lib/schemas/lib/tasks')
-const { HookSchemas } = require('../lib/schemas/lib/hooks')
-const { PluginSchemas } = require('../lib/schemas/lib/plugins')
+const { importEntryPoint, importSchemaEntryPoint } = require('../core/cli/lib/plugin/entry-point')
+const { Task } = require('../lib/base')
+const { invalid, reduceValidated, valid } = require('../lib/validated')
 const { default: $t } = require('endent')
 const logger = require('winston')
 const path = require('path')
 const fs = require('fs/promises')
+const z = require('zod')
 const { convertSchemas, formatModelsAsMarkdown } = require('zod2md')
 
 function formatSchemas(title, schemas) {
@@ -27,21 +28,58 @@ function formatSchemas(title, schemas) {
 }
 
 async function formatPluginSchemas(plugin) {
-  const rcFile = await loadToolKitRC(logger, path.join('plugins', plugin), false)
+  const pluginRoot = path.join('plugins', plugin)
+  const rcFile = await loadToolKitRC(logger, pluginRoot, false)
   const pluginPackage = `@dotcom-tool-kit/${plugin}`
-  const hooks = Object.keys(rcFile.installs)
-  const tasks = Object.keys(rcFile.tasks)
+  const pluginShim = { id: pluginPackage, root: pluginRoot }
 
-  const tasksWithSchemas = tasks.filter((task) => TaskSchemas[task])
-  const hooksWithSchemas = hooks.filter((hook) => HookSchemas[hook])
+  const pluginSchemaPath = rcFile.optionsSchema
+  const pluginValidSchema = pluginSchemaPath
+    ? await importSchemaEntryPoint({
+        plugin: pluginShim,
+        modulePath: pluginSchemaPath
+      })
+    : undefined
+  const pluginSchema = pluginValidSchema?.valid ? pluginValidSchema.value : undefined
+  const tasksWithSchemas = (
+    await Promise.all(
+      Object.entries(rcFile.tasks).map(async ([taskName, taskPath]) => {
+        const taskEntryPoint = { plugin: pluginShim, modulePath: taskPath }
+        const taskSchema = await importSchemaEntryPoint(taskEntryPoint, 'schema')
+        if (taskSchema.valid) {
+          return valid([taskName, taskSchema.value])
+        } else {
+          return (await importEntryPoint(Task, taskEntryPoint)).flatMap((task) => {
+            return task.entryPoint.description
+              ? valid([taskName, z.object({}).describe(task.entryPoint.description)])
+              : invalid(['no description'])
+          })
+        }
+      })
+    )
+  )
+    .filter((validated) => validated.valid)
+    .map((validated) => validated.value)
+  const hooksWithSchemas = (
+    await Promise.all(
+      Object.entries(rcFile.installs).map(async ([hookName, hookPath]) =>
+        (
+          await importSchemaEntryPoint({ plugin: pluginShim, modulePath: hookPath.entryPoint }, 'schema')
+        ).map((hookSchema) => [hookName, hookSchema])
+      )
+    )
+  )
+    .filter((validated) => validated.valid)
+    .map((validated) => validated.value)
+
   return $t`
     ${
       tasksWithSchemas.length
         ? formatSchemas(
             'Tasks',
-            tasksWithSchemas.map((task) => ({
-              name: task,
-              schema: TaskSchemas[task].describe((TaskSchemas[task].description ?? '') + '\n### Task options')
+            tasksWithSchemas.map(([name, schema]) => ({
+              name,
+              schema: schema.describe((schema.description ?? '') + '\n### Task options')
             }))
           )
         : ''
@@ -50,19 +88,19 @@ async function formatPluginSchemas(plugin) {
       hooksWithSchemas.length
         ? formatSchemas(
             'Hooks',
-            hooksWithSchemas.map((hook) => ({
-              name: hook,
-              schema: HookSchemas[hook].describe((HookSchemas[hook].description ?? '') + '\n### Hook options')
+            hooksWithSchemas.map(([name, schema]) => ({
+              name,
+              schema: schema.describe((schema.description ?? '') + '\n### Hook options')
             }))
           )
         : ''
     }
     ${
-      PluginSchemas[pluginPackage]
+      pluginSchema
         ? formatSchemas('Plugin-wide options', [
             {
               name: pluginPackage,
-              schema: PluginSchemas[pluginPackage]
+              schema: pluginSchema
             }
           ])
         : ''

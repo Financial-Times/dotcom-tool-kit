@@ -5,10 +5,10 @@ import { readState } from '@dotcom-tool-kit/state'
 import { hookConsole, hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { fork } from 'child_process'
-import { NextRouterSchema } from '@dotcom-tool-kit/schemas/lib/plugins/next-router'
+import type NextRouterSchema from '../schema'
 
 export default class NextRouter extends Task<{ plugin: typeof NextRouterSchema }> {
-  async run({cwd}: TaskRunContext): Promise<void> {
+  async run({ cwd }: TaskRunContext): Promise<void> {
     const doppler = new DopplerEnvVars(this.logger, 'dev', {
       project: 'next-router'
     })

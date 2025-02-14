@@ -96,8 +96,7 @@ export function validateConfig(config: ValidPluginsConfig): ValidConfig {
 
   const unusedPluginOptions = Object.entries(config.pluginOptions)
     .filter(
-      ([, option]) =>
-        option && !isConflict(option) && !option.forPlugin && option.plugin.root === config.root
+      ([, option]) => option && !isConflict(option) && !option.forPlugin && option.plugin.root === config.root
     )
     .map(([id]) => id)
 
@@ -148,11 +147,7 @@ export async function loadConfig(
   const config = createConfig(root)
 
   // start loading config and child plugins, starting from the consumer app directory
-  const rootPlugin = await loadPlugin(
-    'app root',
-    config,
-    logger,
-  )
+  const rootPlugin = await loadPlugin('app root', config, logger)
   const validRootPlugin = rootPlugin.unwrap('root plugin was not valid!')
 
   const validatedPluginConfig = validatePlugins(config)
@@ -162,9 +157,11 @@ export async function loadConfig(
   // start with options so we can substitute resolved values into other parts
   // of the config
   resolvePluginOptions(validRootPlugin, validPluginConfig)
-  const invalidOptions = validatePluginOptions(logger, validPluginConfig)
+  const invalidOptions = await validatePluginOptions(logger, validPluginConfig)
   if (invalidOptions.length > 0 && validate) {
-    const error = new ToolKitError(`There are options in your ${s.filepath('.toolkitrc.yml')} that aren't what Tool Kit expected.`)
+    const error = new ToolKitError(
+      `There are options in your ${s.filepath('.toolkitrc.yml')} that aren't what Tool Kit expected.`
+    )
     error.details = formatInvalidPluginOptions(invalidOptions)
     throw error
   }

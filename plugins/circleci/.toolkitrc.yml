@@ -4,6 +4,8 @@ installs:
     managesFiles:
       - '.circleci/config.yml'
 
+optionsSchema: './lib/schemas/plugin'
+
 options:
   hooks:
     - CircleCi:

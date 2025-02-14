@@ -36,6 +36,7 @@
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",
     "@dotcom-tool-kit/plugin": "^1.0.0",
+    "@dotcom-tool-kit/schemas": "^1.9.0",
     "@dotcom-tool-kit/state": "^4.3.0",
     "@dotcom-tool-kit/validated": "^1.0.2",
     "@dotcom-tool-kit/wait-for-ok": "^4.1.0",
@@ -43,6 +44,7 @@
     "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "pluralize": "^8.0.0",
+    "pretty-format": "^29.7.0",
     "tslib": "^2.3.1",
     "yaml": "^2.4.1",
     "zod-validation-error": "^2.1.0"

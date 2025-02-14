@@ -6,10 +6,12 @@ import { repeatedCheckForBuildSuccess } from '../repeatedCheckForBuildSuccess'
 import { scaleDyno } from '../scaleDyno'
 import { gtg } from '../gtg'
 import { getPipelineCouplings } from '../getPipelineCouplings'
-import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
+import type HerokuSchema from '../schema'
 import { setStagingSlug } from '../setStagingSlug'
 
 export default class HerokuStaging extends Task<{ plugin: typeof HerokuSchema }> {
+  static description = 'Deploy to the Heroku staging app.'
+
   async run(): Promise<void> {
     try {
       this.logger.verbose(`retrieving pipeline details...`)

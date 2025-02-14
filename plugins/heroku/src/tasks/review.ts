@@ -3,12 +3,14 @@ import { getHerokuReviewApp } from '../getHerokuReviewApp'
 import { buildHerokuReviewApp } from '../buildHerokuReviewApp'
 import { gtg } from '../gtg'
 import { writeState } from '@dotcom-tool-kit/state'
-import { HerokuSchema } from '@dotcom-tool-kit/schemas/lib/plugins/heroku'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import herokuClient, { extractHerokuError } from '../herokuClient'
+import type HerokuSchema from '../schema'
 import type { HerokuApiResPipeline } from 'heroku-client'
 
 export default class HerokuReview extends Task<{ plugin: typeof HerokuSchema }> {
+  static description = 'Create and deploy a Heroku review app.'
+
   async run(): Promise<void> {
     try {
       const pipeline = await herokuClient
