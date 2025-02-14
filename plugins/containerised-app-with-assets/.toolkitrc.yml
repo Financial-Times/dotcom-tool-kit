@@ -1,0 +1,39 @@
+plugins:
+  - '@dotcom-tool-kit/containerised-app'
+  - '@dotcom-tool-kit/upload-assets-to-s3'
+  - '@dotcom-tool-kit/webpack'
+
+commands:
+  'run:local':
+    - Webpack:
+        envName: development # run a webpack compile before starting the server because dotcom-server-asset-loader expects a manifest to exist
+    - Node
+    - Webpack:
+        envName: development
+        watch: true
+  'deploy:review': [] # Coming soon, see https://financialtimes.atlassian.net/browse/CPREL-1280
+  'deploy:staging':
+    - Webpack:
+        envName: production
+    - UploadAssetsToS3
+    - DockerAuthCloudsmith
+    - DockerBuild
+    - DockerPush
+    - AwsAssumeRole:
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app-with-assets.awsRoleArnStaging'
+    - HakoDeploy:
+        environments:
+          - ft-com-test-eu
+  'deploy:production':
+    - DockerAuthCloudsmith
+    - AwsAssumeRole:
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app-with-assets.awsRoleArnProduction'
+    - HakoDeploy:
+        environments:
+          - ft-com-prod-eu
+        !toolkit/if-defined '@dotcom-tool-kit/containerised-app-with-assets.multiregion':
+          environments:
+            - ft-com-prod-eu
+            - ft-com-prod-us
+
+version: 2
