@@ -30,6 +30,8 @@
     "plugins/cloudsmith": {},
     "plugins/commitlint": {},
     "plugins/component": {},
+    "plugins/containerised-app": {},
+    "plugins/containerised-app-with-assets": {},
     "plugins/cypress": {},
     "plugins/docker": {},
     "plugins/eslint": {},
