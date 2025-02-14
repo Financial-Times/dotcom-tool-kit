@@ -24,8 +24,11 @@ export interface CIState {
   version: string
   tag: string
   buildNumber: string
-  pushedImages: DockerImage[]
   awsCredentials: AwsCredentials
+}
+
+export interface DockerState {
+  pushedImages: DockerImage[]
 }
 
 export interface ReviewState {
@@ -52,6 +55,7 @@ interface LocalState {
 
 export interface State {
   ci: CIState
+  docker: DockerState
   review: ReviewState
   staging: StagingState
   production: ProductionState

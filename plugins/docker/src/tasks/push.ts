@@ -36,6 +36,6 @@ export default class DockerPush extends Task<{
       }
     }
 
-    writeState('ci', { pushedImages })
+    writeState('docker', { pushedImages })
   }
 }
