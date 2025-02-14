@@ -1,0 +1,34 @@
+{
+  "name": "@dotcom-tool-kit/containerised-app-with-assets",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
+  "license": "ISC",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/financial-times/dotcom-tool-kit.git",
+    "directory": "plugins/containerised-app-with-assets"
+  },
+  "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
+  "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/containerised-app-with-assets",
+  "files": [
+    ".toolkitrc.yml",
+    "index.js"
+  ],
+  "engines": {
+    "node": "18.x || 20.x || 22.x"
+  },
+  "peerDependencies": {
+    "dotcom-tool-kit": "4.x"
+  },
+  "dependencies": {
+    "@dotcom-tool-kit/containerised-app": "^0.0.0",
+    "@dotcom-tool-kit/upload-assets-to-s3": "^4.2.7",
+    "@dotcom-tool-kit/webpack": "^4.2.7",
+    "zod": "^3.24.1"
+  }
+}
