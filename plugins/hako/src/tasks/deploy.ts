@@ -15,9 +15,8 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
   async run() {
     this.logger.info('Deploying to Hako')
     try {
-      const ciState = readState('ci')
-      const awsCredentials = ciState?.awsCredentials || {}
-      const pushedImages = ciState?.pushedImages || []
+      const awsCredentials = readState('ci')?.awsCredentials || {}
+      const pushedImages = readState('docker')?.pushedImages || []
       const deployEnvironments = this.options.environments
 
       if (!awsCredentials.accessKeyId || !awsCredentials.secretAccessKey || !awsCredentials.sessionToken) {
