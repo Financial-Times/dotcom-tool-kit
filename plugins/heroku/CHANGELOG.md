@@ -310,6 +310,13 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/npm bumped from ^4.2.8 to ^4.2.9
+    * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v4.0.4...heroku-v4.1.0) (2025-01-02)
 
 
