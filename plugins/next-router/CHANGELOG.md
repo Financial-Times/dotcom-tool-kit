@@ -292,6 +292,21 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v4.2.9...next-router-v4.3.0) (2025-02-17)
+
+
+### Features
+
+* move plugin options schemas into plugins ([f0b482b](https://github.com/Financial-Times/dotcom-tool-kit/commit/f0b482bc89c1728aebc96b78aed68e4a15d0f8dc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+    * @dotcom-tool-kit/doppler bumped from ^2.1.7 to ^2.2.0
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v4.1.1...next-router-v4.2.0) (2025-01-02)
 
 

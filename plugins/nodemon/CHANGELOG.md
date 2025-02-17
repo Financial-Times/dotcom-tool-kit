@@ -276,6 +276,23 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v4.1.9...nodemon-v4.2.0) (2025-02-17)
+
+
+### Features
+
+* allow option schemas to be loaded from plugins ([58310c8](https://github.com/Financial-Times/dotcom-tool-kit/commit/58310c88077e332473b36dacf142881f20700c2a))
+* move task schemas into plugins ([76b96e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/76b96e54ea0c9880bbedcc708ffde77638c8c267))
+* support special case of root plugin option schema ([b6b5edb](https://github.com/Financial-Times/dotcom-tool-kit/commit/b6b5edb2be5bd16b2b44d5f46288dc19c4b3e6a1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+    * @dotcom-tool-kit/doppler bumped from ^2.1.7 to ^2.2.0
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v4.0.4...nodemon-v4.1.0) (2025-01-02)
 
 

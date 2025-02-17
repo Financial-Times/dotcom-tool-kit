@@ -253,6 +253,22 @@
     * @dotcom-tool-kit/lint-staged bumped from ^5.2.6 to ^5.2.7
     * @dotcom-tool-kit/package-json-hook bumped from ^5.1.6 to ^5.1.7
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v4.1.7...lint-staged-npm-v4.2.0) (2025-02-17)
+
+
+### Features
+
+* move plugin options schemas into plugins ([f0b482b](https://github.com/Financial-Times/dotcom-tool-kit/commit/f0b482bc89c1728aebc96b78aed68e4a15d0f8dc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/husky-npm bumped from ^5.1.7 to ^5.1.8
+    * @dotcom-tool-kit/lint-staged bumped from ^5.2.7 to ^5.2.8
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.1.7 to ^5.2.0
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v4.0.4...lint-staged-npm-v4.1.0) (2025-01-02)
 
 

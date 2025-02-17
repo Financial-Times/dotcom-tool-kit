@@ -51,6 +51,15 @@
   * devDependencies
     * @dotcom-tool-kit/config bumped from ^1.0.11 to ^1.0.12
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/conflict bumped from ^1.0.0 to ^1.0.1
+  * devDependencies
+    * @dotcom-tool-kit/config bumped from ^1.0.12 to ^1.1.0
+    * @dotcom-tool-kit/plugin bumped from ^1.0.0 to ^1.1.0
+
 ## [1.1.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.1.4...base-v1.1.5) (2025-01-14)
 
 

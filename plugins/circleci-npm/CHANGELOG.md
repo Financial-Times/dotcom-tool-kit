@@ -320,6 +320,21 @@
     * @dotcom-tool-kit/circleci bumped from ^7.4.2 to ^7.4.3
     * @dotcom-tool-kit/npm bumped from ^4.2.8 to ^4.2.9
 
+## [6.1.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.1.9...circleci-npm-v6.1.10) (2025-02-17)
+
+
+### Bug Fixes
+
+* **circleci:** use correct Tool Kit workspace commands ([af8f651](https://github.com/Financial-Times/dotcom-tool-kit/commit/af8f651702bfd078a9e5c87b32e03d11ba91f53e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.4.3 to ^7.5.0
+    * @dotcom-tool-kit/npm bumped from ^4.2.9 to ^4.2.10
+
 ## [6.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.1.3...circleci-npm-v6.1.4) (2025-01-16)
 
 

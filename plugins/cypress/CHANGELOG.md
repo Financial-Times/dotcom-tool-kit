@@ -158,6 +158,22 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [5.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v5.2.9...cypress-v5.3.0) (2025-02-17)
+
+
+### Features
+
+* move task schemas into plugins ([76b96e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/76b96e54ea0c9880bbedcc708ffde77638c8c267))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+    * @dotcom-tool-kit/doppler bumped from ^2.1.7 to ^2.2.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.1.7 to ^5.2.0
+
 ## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v5.1.1...cypress-v5.2.0) (2025-01-02)
 
 

@@ -49,6 +49,20 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.8 to ^1.1.9
 
+## [1.2.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v1.2.7...commitlint-v1.2.8) (2025-02-17)
+
+
+### Bug Fixes
+
+* use static description field for tasks without a schema ([c01a545](https://github.com/Financial-Times/dotcom-tool-kit/commit/c01a545528fd04231b24ac62742a6156ff6915db))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+
 ## [1.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v1.1.1...commitlint-v1.2.0) (2025-01-02)
 
 

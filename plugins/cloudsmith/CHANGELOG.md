@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.0.1...cloudsmith-v1.1.0) (2025-02-17)
+
+
+### Features
+
+* move plugin options schemas into plugins ([f0b482b](https://github.com/Financial-Times/dotcom-tool-kit/commit/f0b482bc89c1728aebc96b78aed68e4a15d0f8dc))
+
 ## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.0.0...cloudsmith-v1.0.1) (2025-01-06)
 
 

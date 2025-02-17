@@ -197,6 +197,21 @@
     * @dotcom-tool-kit/base bumped from ^1.1.8 to ^1.1.9
     * @dotcom-tool-kit/package-json-hook bumped from ^5.1.6 to ^5.1.7
 
+## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v4.2.7...prettier-v4.3.0) (2025-02-17)
+
+
+### Features
+
+* move task schemas into plugins ([76b96e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/76b96e54ea0c9880bbedcc708ffde77638c8c267))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.1.7 to ^5.2.0
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v4.1.1...prettier-v4.2.0) (2025-01-02)
 
 

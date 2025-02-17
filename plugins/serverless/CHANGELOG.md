@@ -184,6 +184,27 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v3.2.9...serverless-v3.3.0) (2025-02-17)
+
+
+### Features
+
+* move plugin options schemas into plugins ([f0b482b](https://github.com/Financial-Times/dotcom-tool-kit/commit/f0b482bc89c1728aebc96b78aed68e4a15d0f8dc))
+* move task schemas into plugins ([76b96e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/76b96e54ea0c9880bbedcc708ffde77638c8c267))
+
+
+### Bug Fixes
+
+* use static description field for tasks without a schema ([c01a545](https://github.com/Financial-Times/dotcom-tool-kit/commit/c01a545528fd04231b24ac62742a6156ff6915db))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+    * @dotcom-tool-kit/doppler bumped from ^2.1.7 to ^2.2.0
+
 ## [3.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v3.1.1...serverless-v3.2.0) (2025-01-02)
 
 

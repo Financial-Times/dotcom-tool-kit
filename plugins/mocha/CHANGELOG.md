@@ -198,6 +198,20 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+## [4.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v4.3.3...mocha-v4.4.0) (2025-02-17)
+
+
+### Features
+
+* move task schemas into plugins ([76b96e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/76b96e54ea0c9880bbedcc708ffde77638c8c267))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+
 ## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v4.2.4...mocha-v4.3.0) (2025-01-27)
 
 

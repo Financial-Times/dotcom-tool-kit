@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/plugin-v1.0.0...plugin-v1.1.0) (2025-02-17)
+
+
+### Features
+
+* allow option schemas to be loaded from plugins ([58310c8](https://github.com/Financial-Times/dotcom-tool-kit/commit/58310c88077e332473b36dacf142881f20700c2a))
+* support special case of root plugin option schema ([b6b5edb](https://github.com/Financial-Times/dotcom-tool-kit/commit/b6b5edb2be5bd16b2b44d5f46288dc19c4b3e6a1))
+
 ## 1.0.0 (2024-09-10)
 
 
