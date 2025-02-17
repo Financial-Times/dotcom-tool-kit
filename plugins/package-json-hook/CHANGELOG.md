@@ -84,6 +84,22 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v5.1.7...package-json-hook-v5.2.0) (2025-02-17)
+
+
+### Features
+
+* move hook schemas into plugins ([41db1f7](https://github.com/Financial-Times/dotcom-tool-kit/commit/41db1f7ca49b90bcc3ed1276a24cdd56adacd468))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+    * @dotcom-tool-kit/conflict bumped from ^1.0.0 to ^1.0.1
+    * @dotcom-tool-kit/plugin bumped from ^1.0.0 to ^1.1.0
+
 ## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v5.0.4...package-json-hook-v5.1.0) (2025-01-02)
 
 

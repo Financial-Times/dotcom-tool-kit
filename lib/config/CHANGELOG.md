@@ -74,6 +74,21 @@
   * dependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/config-v1.0.12...config-v1.1.0) (2025-02-17)
+
+
+### Features
+
+* allow option schemas to be loaded from plugins ([58310c8](https://github.com/Financial-Times/dotcom-tool-kit/commit/58310c88077e332473b36dacf142881f20700c2a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/conflict bumped from ^1.0.0 to ^1.0.1
+    * @dotcom-tool-kit/plugin bumped from ^1.0.0 to ^1.1.0
+
 ## 1.0.0 (2024-09-10)
 
 

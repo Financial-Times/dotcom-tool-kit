@@ -175,6 +175,29 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [7.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.4.3...circleci-v7.5.0) (2025-02-17)
+
+
+### Features
+
+* move hook schemas into plugins ([41db1f7](https://github.com/Financial-Times/dotcom-tool-kit/commit/41db1f7ca49b90bcc3ed1276a24cdd56adacd468))
+* move plugin options schemas into plugins ([f0b482b](https://github.com/Financial-Times/dotcom-tool-kit/commit/f0b482bc89c1728aebc96b78aed68e4a15d0f8dc))
+
+
+### Bug Fixes
+
+* **circleci:** use correct Tool Kit workspace commands ([af8f651](https://github.com/Financial-Times/dotcom-tool-kit/commit/af8f651702bfd078a9e5c87b32e03d11ba91f53e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+    * @dotcom-tool-kit/conflict bumped from ^1.0.0 to ^1.0.1
+  * devDependencies
+    * @dotcom-tool-kit/plugin bumped from ^1.0.0 to ^1.1.0
+
 ## [7.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.3.5...circleci-v7.4.0) (2025-01-28)
 
 

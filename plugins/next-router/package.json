@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/next-router",
-  "version": "4.2.9",
+  "version": "4.3.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.1.9",
-    "@dotcom-tool-kit/doppler": "^2.1.7",
+    "@dotcom-tool-kit/base": "^1.1.10",
+    "@dotcom-tool-kit/doppler": "^2.2.0",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",
     "@dotcom-tool-kit/state": "^4.3.1",

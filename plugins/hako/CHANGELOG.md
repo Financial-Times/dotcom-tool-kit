@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.1...hako-v0.1.2) (2025-02-17)
+
+
+### Features
+
+* move task schemas into plugins ([76b96e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/76b96e54ea0c9880bbedcc708ffde77638c8c267))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+
 ## [0.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.0...hako-v0.1.1) (2025-02-14)
 
 

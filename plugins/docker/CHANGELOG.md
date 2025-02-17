@@ -25,6 +25,20 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+## [0.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.3.2...docker-v0.3.3) (2025-02-17)
+
+
+### Features
+
+* move plugin options schemas into plugins ([f0b482b](https://github.com/Financial-Times/dotcom-tool-kit/commit/f0b482bc89c1728aebc96b78aed68e4a15d0f8dc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+
 ## [0.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.3.1...docker-v0.3.2) (2025-02-14)
 
 

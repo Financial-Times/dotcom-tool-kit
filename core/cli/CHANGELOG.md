@@ -454,6 +454,24 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [4.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.4.3...dotcom-tool-kit-v4.5.0) (2025-02-17)
+
+
+### Features
+
+* allow option schemas to be loaded from plugins ([58310c8](https://github.com/Financial-Times/dotcom-tool-kit/commit/58310c88077e332473b36dacf142881f20700c2a))
+* support special case of root plugin option schema ([b6b5edb](https://github.com/Financial-Times/dotcom-tool-kit/commit/b6b5edb2be5bd16b2b44d5f46288dc19c4b3e6a1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.9 to ^1.1.10
+    * @dotcom-tool-kit/config bumped from ^1.0.12 to ^1.1.0
+    * @dotcom-tool-kit/conflict bumped from ^1.0.0 to ^1.0.1
+    * @dotcom-tool-kit/plugin bumped from ^1.0.0 to ^1.1.0
+
 ## [4.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.3.8...dotcom-tool-kit-v4.4.0) (2025-01-28)
 
 

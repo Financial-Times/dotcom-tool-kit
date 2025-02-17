@@ -102,6 +102,13 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v2.1.7...doppler-v2.2.0) (2025-02-17)
+
+
+### Features
+
+* move plugin options schemas into plugins ([f0b482b](https://github.com/Financial-Times/dotcom-tool-kit/commit/f0b482bc89c1728aebc96b78aed68e4a15d0f8dc))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/doppler-v2.0.4...doppler-v2.1.0) (2025-01-02)
 
 
