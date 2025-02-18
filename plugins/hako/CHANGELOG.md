@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.2...hako-v0.1.3) (2025-02-18)
+
+
+### Bug Fixes
+
+* migrate to hako v0.1.10-alpha ([cf34ec8](https://github.com/Financial-Times/dotcom-tool-kit/commit/cf34ec8ed9a8887e6fa2babbdb3b48203babf4a7))
+
 ## [0.1.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.1...hako-v0.1.2) (2025-02-17)
 
 
