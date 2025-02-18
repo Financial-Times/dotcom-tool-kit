@@ -49,9 +49,9 @@ async function formatPluginSchemas(plugin) {
         if (taskSchema.valid) {
           return valid([taskName, taskSchema.value])
         } else {
-          return (await importEntryPoint(Task, taskEntryPoint)).flatMap((task) => {
-            return task.entryPoint.description
-              ? valid([taskName, z.object({}).describe(task.entryPoint.description)])
+          return (await importEntryPoint(Task, taskEntryPoint)).flatMap(({ baseClass: TaskClass }) => {
+            return TaskClass.description
+              ? valid([taskName, z.object({}).describe(TaskClass.description)])
               : invalid(['no description'])
           })
         }
