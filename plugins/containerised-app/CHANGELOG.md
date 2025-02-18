@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.1.0...containerised-app-v0.1.1) (2025-02-18)
+
+
+### Bug Fixes
+
+* depend on the circleci-deploy plugin ([7a1469e](https://github.com/Financial-Times/dotcom-tool-kit/commit/7a1469e890549612b221ad56f780f37402f6979a))
+
 ## 0.1.0 (2025-02-18)
 
 
