@@ -20,24 +20,23 @@ commands:
     - DockerBuild
     - DockerPush
     - AwsAssumeRole:
-        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app-with-assets.awsRoleArnStaging'
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app.awsRoleArnStaging'
     - HakoDeploy:
         environments:
           - ft-com-test-eu
   'deploy:production':
     - DockerAuthCloudsmith
     - AwsAssumeRole:
-        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app-with-assets.awsRoleArnProduction'
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app.awsRoleArnProduction'
     # HACK: the `environments` property under `HakoDeploy` gets fully overridden by the `environments`
     # property under the !toolkit/if-defined if multiregion is true. We'll refactor this later when
     # we decide what new YAML tags we need
     - HakoDeploy:
         environments:
           - ft-com-prod-eu
-        !toolkit/if-defined '@dotcom-tool-kit/containerised-app-with-assets.multiregion':
+        !toolkit/if-defined '@dotcom-tool-kit/containerised-app.multiregion':
           environments:
             - ft-com-prod-eu
             - ft-com-prod-us
 
-optionsSchema: ./schema
 version: 2
