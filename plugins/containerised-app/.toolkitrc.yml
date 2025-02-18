@@ -1,5 +1,6 @@
 plugins:
   - '@dotcom-tool-kit/aws'
+  - '@dotcom-tool-kit/circleci-deploy'
   - '@dotcom-tool-kit/cloudsmith'
   - '@dotcom-tool-kit/docker'
   - '@dotcom-tool-kit/doppler'
