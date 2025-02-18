@@ -12,7 +12,6 @@ module.exports = z.object({
   // HACK: must be either `true` or `undefined` because of the way !toolkit/if-defined works
   multiregion: z
     .literal(true)
-    .or(z.undefined())
-    .default(undefined)
+    .optional()
     .describe('Whether the app is deployed across both EU and US regions')
 })
