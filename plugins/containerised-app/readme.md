@@ -9,7 +9,7 @@ A bootstrap plugin that provides the minimum required Tool Kit plugins for a con
   - [`@dotcom-tool-kit/hako`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/hako)
   - [`@dotcom-tool-kit/node`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/node)
 
-This bootstrap plugin is also preconfigured to run the `Node` task on the hook `run:local`.
+This bootstrap plugin is also preconfigured to run the `Node` task on the command `run:local`.
 
 ## Installation & Usage
 

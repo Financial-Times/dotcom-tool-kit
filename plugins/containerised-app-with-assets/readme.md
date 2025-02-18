@@ -6,7 +6,7 @@ A bootstrap plugin that provides the required Tool Kit plugins for a containeris
   - [`@dotcom-tool-kit/upload-assets-to-s3`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/upload-assets-to-s3)
   - [`@dotcom-tool-kit/webpack`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/webpack)
 
-This bootstrap plugin is also preconfigured to run the `Node` task on the hook `run:local`.
+This bootstrap plugin is also preconfigured to run the `Webpack` and `Node` tasks on the command `run:local`.
 
 ## Installation & Usage
 
