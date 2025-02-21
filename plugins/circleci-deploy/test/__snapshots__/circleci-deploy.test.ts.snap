@@ -61,6 +61,8 @@ workflows:
           requires:
             - tool-kit/setup
           filters:
+            tags:
+              only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
             branches:
               only: main
       - tool-kit/e2e-test-review:
@@ -71,12 +73,17 @@ workflows:
           executor: node
           requires:
             - tool-kit/deploy-staging
+          filters:
+            tags:
+              only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
       - tool-kit/deploy-production:
           executor: node
           requires:
             - tool-kit/test
             - tool-kit/e2e-test-staging
           filters:
+            tags:
+              only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
             branches:
               only: main
   nightly:

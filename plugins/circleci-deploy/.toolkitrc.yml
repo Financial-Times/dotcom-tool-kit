@@ -34,7 +34,7 @@ options:
                 requires:
                   - 'setup'
                 splitIntoMatrix: false
-                runOnRelease: false
+                runOnRelease: true
                 custom:
                   filters:
                     branches:
@@ -52,7 +52,7 @@ options:
                     system-code: !toolkit/option '@dotcom-tool-kit/serverless.systemCode'
               - name: 'e2e-test-staging'
                 splitIntoMatrix: false
-                runOnRelease: false
+                runOnRelease: true
                 requires:
                   - 'deploy-staging'
                 custom:
@@ -63,7 +63,7 @@ options:
                   - 'test'
                   - 'e2e-test-staging'
                 splitIntoMatrix: false
-                runOnRelease: false
+                runOnRelease: true
                 custom:
                   filters:
                     branches:

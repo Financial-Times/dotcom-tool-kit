@@ -6587,7 +6587,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "setup",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -6605,7 +6605,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "deploy-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -6621,7 +6621,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                       "test",
                                       "e2e-test-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                 ],
@@ -6980,7 +6980,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "setup",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -6998,7 +6998,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "deploy-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -7014,7 +7014,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                           "test",
                                           "e2e-test-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                     ],
@@ -7392,7 +7392,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "setup",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -7410,7 +7410,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "deploy-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -7426,7 +7426,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                       "test",
                                       "e2e-test-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                 ],
@@ -7783,7 +7783,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "setup",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -7801,7 +7801,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "deploy-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -7817,7 +7817,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                           "test",
                                           "e2e-test-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                     ],
@@ -8176,7 +8176,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -8194,7 +8194,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -8210,7 +8210,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -8551,7 +8551,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "setup",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -8569,7 +8569,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "deploy-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -8585,7 +8585,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                       "test",
                                       "e2e-test-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                 ],
@@ -8944,7 +8944,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "setup",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -8962,7 +8962,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "deploy-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -8978,7 +8978,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                           "test",
                                           "e2e-test-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                     ],
@@ -9356,7 +9356,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "setup",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -9374,7 +9374,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "deploy-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -9390,7 +9390,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                       "test",
                                       "e2e-test-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                 ],
@@ -9747,7 +9747,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "setup",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -9765,7 +9765,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "deploy-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -9781,7 +9781,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                           "test",
                                           "e2e-test-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                     ],
@@ -10140,7 +10140,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -10158,7 +10158,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -10174,7 +10174,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -10515,7 +10515,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "setup",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -10533,7 +10533,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "deploy-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -10549,7 +10549,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                       "test",
                                       "e2e-test-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                 ],
@@ -10908,7 +10908,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "setup",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -10926,7 +10926,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "deploy-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -10942,7 +10942,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                           "test",
                                           "e2e-test-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                     ],
@@ -11320,7 +11320,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "setup",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -11338,7 +11338,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "deploy-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -11354,7 +11354,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                       "test",
                                       "e2e-test-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                 ],
@@ -11711,7 +11711,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "setup",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -11729,7 +11729,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "requires": [
                                           "deploy-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                       {
@@ -11745,7 +11745,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                           "test",
                                           "e2e-test-staging",
                                         ],
-                                        "runOnRelease": false,
+                                        "runOnRelease": true,
                                         "splitIntoMatrix": false,
                                       },
                                     ],
@@ -12104,7 +12104,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -12122,7 +12122,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -12138,7 +12138,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -12477,7 +12477,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -12495,7 +12495,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -12511,7 +12511,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -12871,7 +12871,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "setup",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -12889,7 +12889,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "requires": [
                                       "deploy-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                   {
@@ -12905,7 +12905,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                       "test",
                                       "e2e-test-staging",
                                     ],
-                                    "runOnRelease": false,
+                                    "runOnRelease": true,
                                     "splitIntoMatrix": false,
                                   },
                                 ],
@@ -13259,7 +13259,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "requires": [
                               "setup",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                           {
@@ -13277,7 +13277,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "requires": [
                               "deploy-staging",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                           {
@@ -13293,7 +13293,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "test",
                               "e2e-test-staging",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                         ],
@@ -13647,7 +13647,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "requires": [
                                     "setup",
                                   ],
-                                  "runOnRelease": false,
+                                  "runOnRelease": true,
                                   "splitIntoMatrix": false,
                                 },
                                 {
@@ -13665,7 +13665,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "requires": [
                                     "deploy-staging",
                                   ],
-                                  "runOnRelease": false,
+                                  "runOnRelease": true,
                                   "splitIntoMatrix": false,
                                 },
                                 {
@@ -13681,7 +13681,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "test",
                                     "e2e-test-staging",
                                   ],
-                                  "runOnRelease": false,
+                                  "runOnRelease": true,
                                   "splitIntoMatrix": false,
                                 },
                               ],
@@ -14043,7 +14043,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "requires": [
                               "setup",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                           {
@@ -14061,7 +14061,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "requires": [
                               "deploy-staging",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                           {
@@ -14077,7 +14077,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "test",
                               "e2e-test-staging",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                         ],
@@ -14435,7 +14435,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "requires": [
                               "setup",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                           {
@@ -14453,7 +14453,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "requires": [
                               "deploy-staging",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                           {
@@ -14469,7 +14469,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "test",
                               "e2e-test-staging",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                         ],
@@ -14882,7 +14882,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "requires": [
                                 "setup",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                             {
@@ -14900,7 +14900,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "requires": [
                                 "deploy-staging",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                             {
@@ -14916,7 +14916,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "test",
                                 "e2e-test-staging",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                           ],
@@ -15272,7 +15272,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "requires": [
                                 "setup",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                             {
@@ -15290,7 +15290,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "requires": [
                                 "deploy-staging",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                             {
@@ -15306,7 +15306,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "test",
                                 "e2e-test-staging",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                           ],
@@ -15663,7 +15663,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "requires": [
                                 "setup",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                             {
@@ -15681,7 +15681,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "requires": [
                                 "deploy-staging",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                             {
@@ -15697,7 +15697,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "test",
                                 "e2e-test-staging",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                           ],
@@ -16038,7 +16038,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -16056,7 +16056,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -16072,7 +16072,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -16404,7 +16404,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "requires": [
                               "setup",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                           {
@@ -16422,7 +16422,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "requires": [
                               "deploy-staging",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                           {
@@ -16438,7 +16438,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "test",
                               "e2e-test-staging",
                             ],
-                            "runOnRelease": false,
+                            "runOnRelease": true,
                             "splitIntoMatrix": false,
                           },
                         ],
@@ -16878,7 +16878,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "requires": [
                             "setup",
                           ],
-                          "runOnRelease": false,
+                          "runOnRelease": true,
                           "splitIntoMatrix": false,
                         },
                         {
@@ -16896,7 +16896,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "requires": [
                             "deploy-staging",
                           ],
-                          "runOnRelease": false,
+                          "runOnRelease": true,
                           "splitIntoMatrix": false,
                         },
                         {
@@ -16912,7 +16912,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             "test",
                             "e2e-test-staging",
                           ],
-                          "runOnRelease": false,
+                          "runOnRelease": true,
                           "splitIntoMatrix": false,
                         },
                       ],
@@ -17217,7 +17217,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -17235,7 +17235,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -17251,7 +17251,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -17589,7 +17589,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "requires": [
                                     "setup",
                                   ],
-                                  "runOnRelease": false,
+                                  "runOnRelease": true,
                                   "splitIntoMatrix": false,
                                 },
                                 {
@@ -17607,7 +17607,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "requires": [
                                     "deploy-staging",
                                   ],
-                                  "runOnRelease": false,
+                                  "runOnRelease": true,
                                   "splitIntoMatrix": false,
                                 },
                                 {
@@ -17623,7 +17623,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "test",
                                     "e2e-test-staging",
                                   ],
-                                  "runOnRelease": false,
+                                  "runOnRelease": true,
                                   "splitIntoMatrix": false,
                                 },
                               ],
@@ -18000,7 +18000,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -18018,7 +18018,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -18034,7 +18034,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -18437,7 +18437,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "requires": [
                                 "setup",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                             {
@@ -18455,7 +18455,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "requires": [
                                 "deploy-staging",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                             {
@@ -18471,7 +18471,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "test",
                                 "e2e-test-staging",
                               ],
-                              "runOnRelease": false,
+                              "runOnRelease": true,
                               "splitIntoMatrix": false,
                             },
                           ],
@@ -18839,7 +18839,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -18857,7 +18857,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -18873,7 +18873,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -19221,7 +19221,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -19239,7 +19239,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -19255,7 +19255,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -19612,7 +19612,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -19630,7 +19630,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -19646,7 +19646,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
@@ -19994,7 +19994,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "setup",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -20012,7 +20012,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "requires": [
                                   "deploy-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                               {
@@ -20028,7 +20028,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "test",
                                   "e2e-test-staging",
                                 ],
-                                "runOnRelease": false,
+                                "runOnRelease": true,
                                 "splitIntoMatrix": false,
                               },
                             ],
