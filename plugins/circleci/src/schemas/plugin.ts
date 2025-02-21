@@ -16,6 +16,12 @@ export default z
       .describe(
         "the Cypress docker image to use. see https://github.com/cypress-io/cypress-docker-images for available images and tags. if this option is present, and you're using the [`circleci-deploy`](../circleci-deploy) plugin, this will override the default `node` executor for the `e2e-test-review` and `e2e-test-staging` jobs."
       ),
+    runOnTag: z
+      .boolean()
+      .default(true)
+      .describe(
+        "whether you want to run any workflow jobs when a tag is created. you may want to disable this if you don't do versioned releases and you want to keep the generated config simple."
+      ),
     tagFilterRegex: z
       .string()
       .default(/^v\d+\.\d+\.\d+(-.+)?/.toString())

@@ -128,7 +128,7 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
     }
   })
 
-const getBaseConfig = (nodeVersions: string[], tagFilterRegex: string): CircleCIState => {
+const getBaseConfig = (nodeVersions: string[], tagFilterRegex?: string): CircleCIState => {
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   const setupMatrix = runsOnMultipleNodeVersions
     ? matrixBoilerplate('tool-kit/setup', nodeVersions)
@@ -162,12 +162,12 @@ const getBaseConfig = (nodeVersions: string[], tagFilterRegex: string): CircleCI
           }
         },
         jobs: [
-          { checkout: tagFilter(tagFilterRegex) },
+          tagFilterRegex ? { checkout: tagFilter(tagFilterRegex) } : 'checkout',
           {
             'tool-kit/setup': {
               ...setupMatrix,
               requires: ['checkout'],
-              ...tagFilter(tagFilterRegex)
+              ...(tagFilterRegex ? tagFilter(tagFilterRegex) : {})
             }
           }
         ]
@@ -360,7 +360,7 @@ type ExecutorCount = 'none' | 'one' | 'matrix'
 const generateWorkflowJobs = (
   workflow: CircleCiWorkflow,
   nodeVersions: string[],
-  tagFilterRegex: string,
+  tagFilterRegex?: string,
   customJobs?: CircleCiJob[]
 ): WorkflowJob[] | undefined => {
   // HACK:20250106:IM We were previously implicitly prepending a tool-kit/
@@ -472,7 +472,9 @@ const generateWorkflowJobs = (
             }
           })
         },
-        workflow.runOnRelease && (job.runOnRelease ?? true) ? tagFilter(tagFilterRegex) : {},
+        tagFilterRegex && workflow.runOnRelease && (job.runOnRelease ?? true)
+          ? tagFilter(tagFilterRegex)
+          : {},
         job.custom
       )
     }
@@ -587,6 +589,7 @@ export default class CircleCi extends Hook<
 
   generateConfig(): CircleCIState {
     const { cimgNodeVersions: nodeVersions, tagFilterRegex } = this.pluginOptions
+    const configuredTagFilterRegex = this.pluginOptions.runOnTag ? tagFilterRegex : undefined
 
     if (!this.generatedConfig) {
       const generated: CircleCIStatePartial = {}
@@ -608,7 +611,7 @@ export default class CircleCi extends Hook<
         generated.workflows = Object.fromEntries(
           this.options.workflows.map((workflow) => {
             const generatedJobs = {
-              jobs: generateWorkflowJobs(workflow, nodeVersions, tagFilterRegex, this.options.jobs)
+              jobs: generateWorkflowJobs(workflow, nodeVersions, configuredTagFilterRegex, this.options.jobs)
             }
             return [workflow.name, mergeWithConcatenatedArrays(generatedJobs, workflow.custom)]
           })
@@ -616,7 +619,7 @@ export default class CircleCi extends Hook<
       }
       const generatedConfig = mergeWithConcatenatedArrays(
         {},
-        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions, tagFilterRegex),
+        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions, configuredTagFilterRegex),
         generated,
         this.options.custom ?? {}
       )
