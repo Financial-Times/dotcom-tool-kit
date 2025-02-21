@@ -12,7 +12,7 @@ Install `@dotcom-tool-kit/node` as a `devDependency` in your app:
 npm install --save-dev @dotcom-tool-kit/node
 ```
 
-Add the plugin to your [Tool Kit configuration](https://github.com/financial-times/dotcom-tool-kit/blob/main/readme.md#configuration):
+Add the plugin to your [Tool Kit configuration](https://github.com/financial-times/dotcom-tool-kit/blob/main/readme.md#configuring-tool-kit):
 
 ```yaml
 plugins:

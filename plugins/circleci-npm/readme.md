@@ -14,7 +14,7 @@ Install `@dotcom-tool-kit/circleci-npm` as a `devDependency` in your app:
 npm install --save-dev @dotcom-tool-kit/circleci-npm
 ```
 
-Add the plugin to your [Tool Kit configuration](https://github.com/financial-times/dotcom-tool-kit/blob/main/readme.md#configuration):
+Add the plugin to your [Tool Kit configuration](https://github.com/financial-times/dotcom-tool-kit/blob/main/readme.md#configuring-tool-kit):
 
 ```yaml
 plugins:

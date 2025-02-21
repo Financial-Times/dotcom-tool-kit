@@ -15,7 +15,7 @@ Install `@dotcom-tool-kit/package-json-hook` as a `devDependency` in your app:
 npm install --save-dev @dotcom-tool-kit/package-json-hook
 ```
 
-Add the plugin to your [Tool Kit configuration](https://github.com/financial-times/dotcom-tool-kit/blob/main/readme.md#configuration):
+Add the plugin to your [Tool Kit configuration](https://github.com/financial-times/dotcom-tool-kit/blob/main/readme.md#configuring-tool-kit):
 
 ```yaml
 plugins:
