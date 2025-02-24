@@ -48,7 +48,7 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
 
       this.logger.info('Pulling hako-cli image')
 
-      const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.10-alpha'
+      const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.11-alpha'
 
       const child = spawn('docker', ['pull', '--platform', 'linux/amd64', hakoImageName])
 
