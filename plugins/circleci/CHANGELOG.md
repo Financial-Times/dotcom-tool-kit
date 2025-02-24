@@ -175,6 +175,13 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [7.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.5.0...circleci-v7.6.0) (2025-02-24)
+
+
+### Features
+
+* **circleci:** add option to simplify config if releases not tagged ([6b8b552](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b8b5528e7947756c416a0e067ff8a2f71a64975))
+
 ## [7.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.4.3...circleci-v7.5.0) (2025-02-17)
 
 
