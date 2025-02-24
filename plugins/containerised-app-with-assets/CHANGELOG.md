@@ -12,6 +12,12 @@
   * dependencies
     * @dotcom-tool-kit/containerised-app bumped from ^0.1.1 to ^0.1.2
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/containerised-app bumped from ^0.1.2 to ^0.1.3
+
 ## 0.1.0 (2025-02-18)
 
 
