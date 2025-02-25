@@ -16,8 +16,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/containerised-app-with-assets",
   "files": [
-    ".toolkitrc.yml",
-    "index.js"
+    ".toolkitrc.yml"
   ],
   "engines": {
     "node": "18.x || 20.x || 22.x"

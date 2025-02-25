@@ -17,7 +17,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/containerised-app",
   "files": [
     ".toolkitrc.yml",
-    "index.js"
+    "schema.js"
   ],
   "engines": {
     "node": "18.x || 20.x || 22.x"
