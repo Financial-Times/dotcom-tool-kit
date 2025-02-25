@@ -50,6 +50,6 @@
   "plugins/docker": "0.3.3",
   "plugins/aws": "0.1.3",
   "plugins/hako": "0.1.4",
-  "plugins/containerised-app": "0.1.3",
-  "plugins/containerised-app-with-assets": "0.1.3"
+  "plugins/containerised-app": "0.1.4",
+  "plugins/containerised-app-with-assets": "0.1.4"
 }
