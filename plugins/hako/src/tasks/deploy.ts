@@ -1,9 +1,11 @@
 import { spawn } from 'child_process'
 import { z } from 'zod'
 import { hookFork, waitOnExit, styles } from '@dotcom-tool-kit/logger'
-import { readState } from '@dotcom-tool-kit/state'
+import { CIState, readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+
+const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.11-alpha'
 
 const HakoEnvironmentNames = z.enum(['ft-com-prod-eu', 'ft-com-prod-us', 'ft-com-test-eu'])
 type HakoEnvironmentNames = (typeof HakoEnvironmentNames.options)[number]
@@ -22,7 +24,45 @@ const hakoEnvironments: Record<HakoEnvironmentNames, string> = {
 
 export { HakoDeploySchema as schema }
 
+interface DeploymentOptions {
+  awsCredentials: CIState['awsCredentials']
+  environment: HakoEnvironmentNames
+  name: string
+  tag: string
+}
+
 export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> {
+  async deployApp({ awsCredentials, environment, name, tag }: DeploymentOptions): Promise<void> {
+    this.logger.info(`Deploying image "${name}" with tag "${tag}" to environment "${environment}"`)
+    const awsRegion = hakoEnvironments[environment]
+    const child = spawn('docker', [
+      'run',
+      '--env',
+      `AWS_REGION=${awsRegion}`,
+      '--env',
+      `AWS_ACCESS_KEY_ID=${awsCredentials.accessKeyId}`,
+      '--env',
+      `AWS_SECRET_ACCESS_KEY=${awsCredentials.secretAccessKey}`,
+      '--env',
+      `AWS_SESSION_TOKEN=${awsCredentials.sessionToken}`,
+      '--platform',
+      'linux/amd64',
+      hakoImageName,
+      'image',
+      'deploy',
+      '--image-name',
+      name,
+      '--image-tag',
+      tag,
+      '--app',
+      name, // NOTE: the app name MUST match the image name (for now)
+      '--env',
+      environment
+    ])
+    hookFork(this.logger, 'hako-deploy', child)
+    await waitOnExit('hako-deploy', child)
+  }
+
   async run() {
     this.logger.info('Deploying to Hako')
     try {
@@ -48,8 +88,6 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
 
       this.logger.info('Pulling hako-cli image')
 
-      const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.11-alpha'
-
       const child = spawn('docker', ['pull', '--platform', 'linux/amd64', hakoImageName])
 
       hookFork(this.logger, 'hako-pull', child)
@@ -60,34 +98,7 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
 
       for (const { name, tag } of pushedImages) {
         for (const environment of deployEnvironments) {
-          this.logger.info(`Deploying image "${name}" with tag "${tag}" to environment "${environment}"`)
-          const awsRegion = hakoEnvironments[environment]
-          const child = spawn('docker', [
-            'run',
-            '--env',
-            `AWS_REGION=${awsRegion}`,
-            '--env',
-            `AWS_ACCESS_KEY_ID=${awsCredentials.accessKeyId}`,
-            '--env',
-            `AWS_SECRET_ACCESS_KEY=${awsCredentials.secretAccessKey}`,
-            '--env',
-            `AWS_SESSION_TOKEN=${awsCredentials.sessionToken}`,
-            '--platform',
-            'linux/amd64',
-            hakoImageName,
-            'image',
-            'deploy',
-            '--image-name',
-            name,
-            '--image-tag',
-            tag,
-            '--app',
-            name, // NOTE: the app name MUST match the image name (for now)
-            '--env',
-            environment
-          ])
-          hookFork(this.logger, 'hako-run', child)
-          deploys.push(waitOnExit('hako-run', child))
+          deploys.push(this.deployApp({ awsCredentials, environment, name, tag }))
         }
       }
 
