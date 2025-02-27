@@ -1,4 +1,4 @@
-import { buildImageName, getImageTagsFromEnvironment } from '../image-info'
+import { buildImageName, generateImageLabels, getDeployTag } from '../image-info'
 import DockerSchema from '../schema'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
@@ -12,15 +12,10 @@ export default class DockerBuild extends Task<{
   async run() {
     // Iterate over different image types like web, worker, etc
     for (const [imageIdentifier, imageOptions] of Object.entries(this.pluginOptions.images)) {
-      const imageName = buildImageName(imageOptions)
-      const imageTags = [
-        imageName,
-        ...getImageTagsFromEnvironment({
-          ciState: readState('ci'),
-          ...imageOptions
-        })
-      ]
-      this.logger.info(`Building image "${imageIdentifier}": with tags ${imageTags.join(', ')}`)
+      const imageName = imageOptions.name
+      const fullImageName = buildImageName(imageOptions)
+      const deployTag = getDeployTag(readState('ci'))
+      this.logger.info(`Building image "${imageIdentifier}" with tag "${deployTag}"`)
       try {
         // We need to create a builder so that we're not limited to
         // building AMD64 images due to the platform our CircleCI
@@ -35,13 +30,21 @@ export default class DockerBuild extends Task<{
         hookFork(this.logger, 'docker-build-create', childCreate)
         await waitOnExit('docker-build-create', childCreate)
 
+        const labels = Object.entries(generateImageLabels(imageName))
+          .filter(([, value]) => value)
+          .flatMap(([label, value]) => {
+            return ['--label', `${label}=${value}`]
+          })
+
         const childBuild = spawn('docker', [
           'buildx',
           'build',
           '--load', // Without this, the image is not stored and so we can't push it later
           '--platform',
           imageOptions.platform,
-          ...imageTags.flatMap((tag) => ['--tag', tag]),
+          '--tag',
+          `${fullImageName}:${deployTag}`,
+          ...labels,
           '--file',
           imageOptions.definition,
           process.cwd()
