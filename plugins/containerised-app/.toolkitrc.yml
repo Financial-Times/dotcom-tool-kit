@@ -10,7 +10,16 @@ plugins:
 commands:
   'run:local':
     - Node
-  'deploy:review': [] # Coming soon, see https://financialtimes.atlassian.net/browse/CPREL-1280
+  'deploy:review':
+    - DockerAuthCloudsmith
+    - DockerBuild
+    - DockerPush
+    - AwsAssumeRole:
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app.awsRoleArnStaging'
+    - HakoDeploy:
+        asReviewApp: true
+        environments:
+          - ft-com-test-eu
   'deploy:staging':
     - DockerAuthCloudsmith
     - DockerBuild
