@@ -20,7 +20,7 @@ interface ImageLabels {
 export function generateImageLabels(systemCode: string): ImageLabels {
   return {
     'org.opencontainers.image.created': new Date().toISOString(),
-    'org.opencontainers.image.vendor': 'The Financial Times Ltd',
+    'org.opencontainers.image.vendor': 'Financial Times',
     'org.opencontainers.image.source': process.env.CIRCLE_REPOSITORY_URL,
     'org.opencontainers.image.revision': process.env.CIRCLE_SHA1
       ? process.env.CIRCLE_SHA1.slice(0, 7)
