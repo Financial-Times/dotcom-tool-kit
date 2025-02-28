@@ -4,14 +4,20 @@ import { hookFork, waitOnExit, styles } from '@dotcom-tool-kit/logger'
 import { CIState, readState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 
-const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.11-alpha'
+const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.1.12-alpha'
 
 const HakoEnvironmentNames = z.enum(['ft-com-prod-eu', 'ft-com-prod-us', 'ft-com-test-eu'])
 type HakoEnvironmentNames = (typeof HakoEnvironmentNames.options)[number]
 
 const HakoDeploySchema = z
   .object({
+    asReviewApp: z
+      .boolean()
+      .default(false)
+      .describe('whether to deploy as a temporary review app, used for code review'),
     environments: z.array(HakoEnvironmentNames).describe('the Hako environments to deploy an image to')
   })
   .describe('Deploy to ECS via the Hako CLI')
@@ -35,8 +41,9 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
   async deployApp({ awsCredentials, environment, name, tag }: DeploymentOptions): Promise<void> {
     this.logger.info(`Deploying image "${name}" with tag "${tag}" to environment "${environment}"`)
     const awsRegion = hakoEnvironments[environment]
-    const child = spawn('docker', [
+    const commandArgs = [
       'run',
+      '--interactive',
       '--env',
       `AWS_REGION=${awsRegion}`,
       '--env',
@@ -58,7 +65,29 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
       name, // NOTE: the app name MUST match the image name (for now)
       '--env',
       environment
-    ])
+    ]
+    if (this.options.asReviewApp) {
+      commandArgs.push('--ephemeral')
+      if (process.env.CIRCLE_PR_NUMBER) {
+        commandArgs.push('--pr-number', process.env.CIRCLE_PR_NUMBER)
+      }
+    }
+    const child = spawn('docker', commandArgs)
+
+    // Because we can't mount volumes in Docker images on CircleCI we have to
+    // pass the hako config via STDIN
+    if (this.options.asReviewApp) {
+      const hakoConfigPath = join(process.cwd(), 'hako-config', 'apps', name, environment, 'app.yaml')
+      try {
+        const hakoConfig = await readFile(hakoConfigPath, 'utf-8')
+        child.stdin.setDefaultEncoding('utf-8')
+        child.stdin.write(hakoConfig)
+      } catch (error) {
+        child.kill('SIGTERM')
+        throw new Error(`Hako config not found at ${hakoConfigPath}`)
+      }
+    }
+    child.stdin.end()
     hookFork(this.logger, 'hako-deploy', child)
     await waitOnExit('hako-deploy', child)
   }

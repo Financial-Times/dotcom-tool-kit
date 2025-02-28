@@ -11,7 +11,19 @@ commands:
     - Webpack:
         envName: development
         watch: true
-  'deploy:review': [] # Coming soon, see https://financialtimes.atlassian.net/browse/CPREL-1280
+  'deploy:review':
+    - Webpack:
+        envName: production
+    - UploadAssetsToS3
+    - DockerAuthCloudsmith
+    - DockerBuild
+    - DockerPush
+    - AwsAssumeRole:
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app.awsRoleArnStaging'
+    - HakoDeploy:
+        asReviewApp: true
+        environments:
+          - ft-com-test-eu
   'deploy:staging':
     - Webpack:
         envName: production
