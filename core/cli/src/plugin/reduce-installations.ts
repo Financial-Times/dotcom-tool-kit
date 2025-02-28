@@ -80,8 +80,8 @@ export async function reducePluginHookInstallations(
   if (plugin.rcFile.options.hooks.length === 0) {
     return valid(childInstallations)
   }
-  const unusedHookOptions = plugin.rcFile.options.hooks
-    .flatMap(Object.keys)
+  const pluginHookIds = plugin.rcFile.options.hooks.flatMap(Object.keys)
+  const unusedHookOptions = pluginHookIds
     .filter((hookId) => !(hookId in hookModules))
     .map((hookId) => styles.hook(hookId))
   if (unusedHookOptions.length > 0) {
@@ -115,6 +115,10 @@ export async function reducePluginHookInstallations(
       }
     )
   )
-
-  return reduceValidated(validatedInstallations).map((installations) => installations.flat())
+  return reduceValidated(validatedInstallations).map((installations) => [
+    ...installations.flat(),
+    ...childInstallations.filter(
+      (childInstallation) => !pluginHookIds.includes(extractForHook(childInstallation))
+    )
+  ])
 }

@@ -15,7 +15,7 @@ describe('circleci-npm', () => {
         validated.unwrap('hooks were invalid')
       )
 
-      await expect(hookInstallationsPromise).resolves.toEqual([expect.any(CircleCi)])
+      await expect(hookInstallationsPromise).resolves.toEqual(expect.arrayContaining([expect.any(CircleCi)]))
 
       const installation = (await hookInstallationsPromise)[0]
 
