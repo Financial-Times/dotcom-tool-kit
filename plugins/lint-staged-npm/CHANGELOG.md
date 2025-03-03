@@ -253,6 +253,14 @@
     * @dotcom-tool-kit/lint-staged bumped from ^5.2.6 to ^5.2.7
     * @dotcom-tool-kit/package-json-hook bumped from ^5.1.6 to ^5.1.7
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/husky-npm bumped from ^5.1.8 to ^5.1.9
+    * @dotcom-tool-kit/lint-staged bumped from ^5.2.8 to ^5.2.9
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.0 to ^5.2.1
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v4.1.7...lint-staged-npm-v4.2.0) (2025-02-17)
 
 

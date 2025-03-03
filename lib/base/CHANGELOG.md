@@ -60,6 +60,13 @@
     * @dotcom-tool-kit/config bumped from ^1.0.12 to ^1.1.0
     * @dotcom-tool-kit/plugin bumped from ^1.0.0 to ^1.1.0
 
+## [1.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.1.10...base-v1.2.0) (2025-03-03)
+
+
+### Features
+
+* **base:** pass cwd into init method ([b6cc028](https://github.com/Financial-Times/dotcom-tool-kit/commit/b6cc028129138869866f88860d544f5056668080))
+
 ## [1.1.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.1.4...base-v1.1.5) (2025-01-14)
 
 

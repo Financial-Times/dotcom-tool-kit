@@ -12,6 +12,16 @@
   * dependencies
     * @dotcom-tool-kit/hako bumped from ^0.1.3 to ^0.1.4
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/aws bumped from ^0.1.2 to ^0.1.4
+    * @dotcom-tool-kit/circleci-deploy bumped from ^4.1.11 to ^4.1.12
+    * @dotcom-tool-kit/docker bumped from ^0.3.2 to ^0.4.0
+    * @dotcom-tool-kit/hako bumped from ^0.1.4 to ^0.1.5
+    * @dotcom-tool-kit/node bumped from ^4.2.9 to ^4.3.1
+
 ## [0.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.1.3...containerised-app-v0.1.4) (2025-02-25)
 
 

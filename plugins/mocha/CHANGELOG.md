@@ -198,6 +198,12 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
+
 ## [4.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v4.3.3...mocha-v4.4.0) (2025-02-17)
 
 

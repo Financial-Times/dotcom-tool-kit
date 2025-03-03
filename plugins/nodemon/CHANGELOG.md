@@ -276,6 +276,20 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [4.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v4.2.0...nodemon-v4.2.1) (2025-03-03)
+
+
+### Bug Fixes
+
+* **nodemon:** prevent running nodemon in non-root directories ([cc19f3e](https://github.com/Financial-Times/dotcom-tool-kit/commit/cc19f3e964ae3f871164a7cdd657658e4027d8f6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v4.1.9...nodemon-v4.2.0) (2025-02-17)
 
 
