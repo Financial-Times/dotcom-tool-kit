@@ -43,6 +43,7 @@
     "plugins/lint-staged": {},
     "plugins/lint-staged-npm": {},
     "plugins/mocha": {},
+    "plugins/monorepo": {},
     "plugins/n-test": {},
     "plugins/next-router": {},
     "plugins/node": {},
