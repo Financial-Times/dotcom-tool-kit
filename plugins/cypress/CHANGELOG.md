@@ -158,6 +158,13 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.0 to ^5.2.1
+
 ## [5.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v5.2.9...cypress-v5.3.0) (2025-02-17)
 
 

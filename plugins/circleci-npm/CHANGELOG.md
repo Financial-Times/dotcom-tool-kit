@@ -326,6 +326,21 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^7.5.0 to ^7.6.0
 
+## [6.1.12](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.1.11...circleci-npm-v6.1.12) (2025-03-03)
+
+
+### Bug Fixes
+
+* **cli:** make sure to run all hooks when options are set at root ([cbeb453](https://github.com/Financial-Times/dotcom-tool-kit/commit/cbeb4534225813f528ff8aa0295e005d57cec895))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.6.0 to ^7.6.1
+    * @dotcom-tool-kit/npm bumped from ^4.2.10 to ^4.2.11
+
 ## [6.1.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.1.9...circleci-npm-v6.1.10) (2025-02-17)
 
 

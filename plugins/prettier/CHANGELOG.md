@@ -197,6 +197,13 @@
     * @dotcom-tool-kit/base bumped from ^1.1.8 to ^1.1.9
     * @dotcom-tool-kit/package-json-hook bumped from ^5.1.6 to ^5.1.7
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.0 to ^5.2.1
+
 ## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v4.2.7...prettier-v4.3.0) (2025-02-17)
 
 

@@ -1,5 +1,11 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
+
 ## [0.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.3...hako-v0.1.4) (2025-02-24)
 
 

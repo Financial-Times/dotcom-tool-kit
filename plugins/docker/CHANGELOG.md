@@ -25,6 +25,29 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+## [0.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.3.3...docker-v0.4.0) (2025-03-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* adopt standard labels for container images
+
+### Features
+
+* adopt standard labels for container images ([24edde4](https://github.com/Financial-Times/dotcom-tool-kit/commit/24edde4a5e76d27eb7bb9757550bac56a59353b5))
+
+
+### Bug Fixes
+
+* use the standard "Financial Times" vendor ([674bdb4](https://github.com/Financial-Times/dotcom-tool-kit/commit/674bdb48561c20ab6008a29f5c5c926dfb837798))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
+
 ## [0.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.3.2...docker-v0.3.3) (2025-02-17)
 
 

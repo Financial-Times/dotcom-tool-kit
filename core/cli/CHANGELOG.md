@@ -454,6 +454,26 @@
   * dependencies
     * @dotcom-tool-kit/state bumped from ^4.3.0 to ^4.3.1
 
+## [4.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.6.0...dotcom-tool-kit-v4.7.0) (2025-03-03)
+
+
+### Features
+
+* **base:** pass cwd into init method ([b6cc028](https://github.com/Financial-Times/dotcom-tool-kit/commit/b6cc028129138869866f88860d544f5056668080))
+
+
+### Bug Fixes
+
+* **cli:** make sure to run all hooks when options are set at root ([cbeb453](https://github.com/Financial-Times/dotcom-tool-kit/commit/cbeb4534225813f528ff8aa0295e005d57cec895))
+* **cli:** run init before printing help ([1c336b0](https://github.com/Financial-Times/dotcom-tool-kit/commit/1c336b0354bd6ae788f2692e46723cfeb3b4bac2))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
+
 ## [4.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.5.0...dotcom-tool-kit-v4.6.0) (2025-02-24)
 
 
