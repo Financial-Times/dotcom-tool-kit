@@ -190,6 +190,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v3.3.1...serverless-v3.4.0) (2025-03-04)
+
+
+### Features
+
+* **serverless:** widen dependency range for serverless-offline ([37b8f85](https://github.com/Financial-Times/dotcom-tool-kit/commit/37b8f857630242cbe8f4ed72e649938b83528334))
+
 ## [3.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v3.2.9...serverless-v3.3.0) (2025-02-17)
 
 
