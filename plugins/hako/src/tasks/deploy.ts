@@ -28,6 +28,11 @@ const hakoEnvironments: Record<HakoEnvironmentNames, string> = {
   'ft-com-prod-us': 'us-east-1',
   'ft-com-test-eu': 'eu-west-1'
 }
+const hakoDomains: Record<HakoEnvironmentNames, string> = {
+  'ft-com-prod-eu': 'ft-com-prod.ftweb.tech',
+  'ft-com-prod-us': 'ft-com-prod.ftweb.tech',
+  'ft-com-test-eu': 'ft-com-test.ftweb.tech'
+}
 
 export { HakoDeploySchema as schema }
 
@@ -67,6 +72,7 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
       '--env',
       environment
     ]
+    const domain = hakoDomains[environment]
     if (this.options.asReviewApp) {
       if (!process.env.CIRCLE_BRANCH) {
         throw new Error(
@@ -75,9 +81,9 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
       }
       const hash = createHash('sha256').update(process.env.CIRCLE_BRANCH).digest('hex').slice(0, 6)
       commandArgs.push('--ephemeral', '--ephemeral-id', hash)
-      writeState('review', { url: `https://${name}-${hash}.${awsRegion}.${environment}.ftweb.tech` })
+      writeState('review', { url: `https://${name}-${hash}.${awsRegion}.${domain}` })
     } else {
-      writeState('staging', { url: `https://${name}.${awsRegion}.${environment}.ftweb.tech` })
+      writeState('staging', { url: `https://${name}.${awsRegion}.${domain}` })
     }
 
     const child = spawn('docker', commandArgs)
