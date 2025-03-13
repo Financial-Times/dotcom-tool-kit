@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.6...hako-v0.1.7) (2025-03-13)
+
+
+### Bug Fixes
+
+* make review app URLs predictable ([569515b](https://github.com/Financial-Times/dotcom-tool-kit/commit/569515ba94c00fd57d2b0dc88728c6fc5c41a5e9))
+
 ## [0.1.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.5...hako-v0.1.6) (2025-03-03)
 
 
