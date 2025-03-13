@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.7...hako-v0.1.8) (2025-03-13)
+
+
+### Bug Fixes
+
+* **hako:** use correct load balancer URL based on environment ([319072f](https://github.com/Financial-Times/dotcom-tool-kit/commit/319072fe693fd342527c68b269714f83993cc254))
+
 ## [0.1.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.6...hako-v0.1.7) (2025-03-13)
 
 
