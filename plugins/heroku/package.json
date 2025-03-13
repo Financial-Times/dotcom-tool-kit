@@ -18,7 +18,7 @@
     "@dotcom-tool-kit/package-json-hook": "^5.2.1",
     "@dotcom-tool-kit/state": "^4.3.1",
     "@dotcom-tool-kit/wait-for-ok": "^4.1.0",
-    "@octokit/request": "^8.4.0",
+    "@octokit/request": "^8.4.1",
     "@octokit/request-error": "^5.1.0",
     "heroku-client": "^3.1.0",
     "p-retry": "^4.5.0",
