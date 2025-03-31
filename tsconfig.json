@@ -129,6 +129,9 @@
     },
     {
       "path": "plugins/monorepo"
+    },
+    {
+      "path": "plugins/node-test"
     }
   ]
 }
