@@ -69,7 +69,7 @@ fs.writeFileSync('.toolkitrc.yml', 'version: 2\n')
 console.log('📖 adding simple README')
 fs.writeFileSync(
   'readme.md',
-  `#dotcom-tool-kit/${name}
+  `# @dotcom-tool-kit/${name}
 
 ## Installation & Usage
 
