@@ -52,5 +52,6 @@
   "plugins/hako": "0.1.8",
   "plugins/containerised-app": "0.1.8",
   "plugins/containerised-app-with-assets": "0.1.8",
-  "plugins/monorepo": "0.1.0"
+  "plugins/monorepo": "0.1.0",
+  "plugins/node-test": "1.0.0"
 }
