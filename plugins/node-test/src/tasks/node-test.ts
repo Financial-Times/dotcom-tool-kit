@@ -72,15 +72,11 @@ export default class NodeTest extends Task<{ task: typeof NodeTestSchema }> {
       const files = await glob(filePatterns, { cwd, ignore })
 
       let success = true
-      const testStream = run(Object.assign({ concurrency, files, forceExit, watch }, customOptions));
+      const testStream = run(Object.assign({ concurrency, files, forceExit, watch }, customOptions))
       testStream.on('test:fail', () => {
-        success = false;
+        success = false
       })
-      await pipeline(
-        testStream,
-        new spec(),
-        process.stdout
-      )
+      await pipeline(testStream, new spec(), process.stdout, { end: false })
       if (!success) {
         throw new ToolKitError('some tests did not pass, error output has been logged above ☝️')
       }
