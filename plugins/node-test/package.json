@@ -1,5 +1,5 @@
 {
-  "name": "@dotcom-tool-kit/test",
+  "name": "@dotcom-tool-kit/node-test",
   "version": "0.1.0",
   "main": "lib",
   "scripts": {
