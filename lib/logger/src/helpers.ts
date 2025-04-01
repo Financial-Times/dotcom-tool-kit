@@ -1,5 +1,6 @@
 import { ChildProcess } from 'child_process'
-import { Readable, Transform } from 'stream'
+import { Readable, Transform, Writable } from 'stream'
+import { StringDecoder } from 'string_decoder'
 import { Logger } from 'winston'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { rootLogger } from './logger'
@@ -47,6 +48,35 @@ function stripAnsiReset(message: string): string {
 // when multiple tasks are running in a Tool Kit hook
 function cleanupLogs(message: string): string {
   return stripAnsiReset(ansiTrim(message))
+}
+
+// This function converts a winston Logger into a Writable stream that can
+// receive string data. Winston loggers already are a Writable stream but are
+// in object mode so expect structured logs. This function converts a logger
+// into a more flexible Writable that's not in object mode that you could use
+// as the last argument to stream.pipeline, for example. Note that the passed
+// logger will not be ended if the returned Writable is ended, as loggers tend
+// to be longer lasting.
+export function createWritableLogger(logger: Logger, process: string, level = 'info'): Writable {
+  const decoder = new StringDecoder('utf8')
+  const transform = new Transform({
+    readableObjectMode: true,
+    transform: (message, _enc, callback) => {
+      // add the log level and wrap the message for the winston stream to
+      // consume. we preserve newlines here as, unlike other cases, this
+      // logger can be called in the middle of a line depending on when
+      // the stream is flushed.
+      callback(null, { level, message: stripAnsiReset(decoder.write(message)) })
+    }
+  })
+  transform.pipe(logger.child({ process }), { end: false })
+  return transform
+}
+
+// This function hooks winston into Reaable Node streams. Can be used when you
+// want to log a stream's content.
+export function hookStream(logger: Logger, process: string, stream: Readable, level = 'info') {
+  stream.pipe(createWritableLogger(logger, process, level))
 }
 
 // This function hooks winston into console.log statements. Most useful for when
@@ -104,25 +134,6 @@ export function hookFork(
   child: Pick<ChildProcess, 'stdout' | 'stderr'>,
   logStdErr = true
 ): void {
-  function hookStream(stream: Readable, level: string) {
-    stream.setEncoding('utf8')
-    stream
-      .pipe(
-        new Transform({
-          decodeStrings: false,
-          readableObjectMode: true,
-          transform: (message, _enc, callback) => {
-            // add the log level and wrap the message for the winston stream to
-            // consume. we preserve newlines here as, unlike other cases, this
-            // logger can be called in the middle of a line depending on when
-            // the stream is flushed.
-            callback(null, { level, message: stripAnsiReset(message) })
-          }
-        })
-      )
-      .pipe(logger.child({ process }), { end: false })
-  }
-
   if (!child.stdout) {
     const error = new ToolKitError(`failed to hook into forked ${process} process`)
     error.details = `Did you make sure to pipe the stdout to the parent, such as by setting ${s.dim(
@@ -130,9 +141,9 @@ export function hookFork(
     )} in ${s.dim('fork')}?`
     throw error
   }
-  hookStream(child.stdout, 'info')
+  hookStream(logger, process, child.stdout, 'info')
   if (logStdErr && child.stderr) {
-    hookStream(child.stderr, 'warn')
+    hookStream(logger, process, child.stderr, 'warn')
   }
 }
 
