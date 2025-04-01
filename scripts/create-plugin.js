@@ -16,13 +16,13 @@ process.chdir(directory)
 console.log('📦 initialising package')
 execSync('npm init -y --scope @dotcom-tool-kit')
 
-console.log('📥 installing dependencies')
-execSync('npm install @dotcom-tool-kit/base')
-
 console.log('🔣 adding metadata to package.json')
 
 const pkg = JSON.parse(fs.readFileSync('package.json'))
 
+// npm init 'helpfully' strips out node- prefixes from package names which can
+// lead to plugin names not matching package names
+pkg.name = `@dotcom-tool-kit/${name}`
 pkg.main = 'lib'
 pkg.version = '0.1.0'
 pkg.repository = {
@@ -45,6 +45,9 @@ pkg.peerDependencies = {
 }
 
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
+
+console.log('📥 installing dependencies')
+execSync('npm install @dotcom-tool-kit/base')
 
 console.log('⌨️ creating tsconfig')
 const tsconfig = {
