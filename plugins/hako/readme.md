@@ -1,4 +1,4 @@
-#dotcom-tool-kit/hako
+# @dotcom-tool-kit/hako
 
 ## Installation & Usage
 
