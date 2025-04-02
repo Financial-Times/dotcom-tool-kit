@@ -13,12 +13,16 @@ const ansiOrWhitespaceRegexText = `(?:(?:${ansiRegexText})|\\n)+`
 const startRegex = new RegExp(`^${ansiOrWhitespaceRegexText}`)
 const endRegex = new RegExp(`${ansiOrWhitespaceRegexText}$`)
 
-// RIS escape code to effectively do a clear (^L) on the terminal. TypeScript's
-// watch mode does this and it's annoying to have the logs shunted around when
-// tracking multiple tasks.
+/**
+ * RIS escape code to effectively do a clear (^L) on the terminal. TypeScript's
+ * watch mode does this and it's annoying to have the logs shunted around when
+ * tracking multiple tasks.
+ */
 const ansiReset = /\x1Bc/g
 
-// Trim newlines whilst preserving ANSI escape codes
+/**
+ * Trim newlines whilst preserving ANSI escape codes.
+ */
 function ansiTrim(message: string): string {
   let start = 0
   let ansiStart = ''
@@ -37,26 +41,32 @@ function ansiTrim(message: string): string {
   return ansiStart.replace('\n', '') + message.slice(start, end) + ansiEnd.replace('\n', '')
 }
 
-// Remove ANSI escape codes that mess with the terminal state. This selectively
-// only deletes escape codes we've seen causing issues so that other
-// functionality (particularly colouring) passes through fine.
+/**
+ * Remove ANSI escape codes that mess with the terminal state. This selectively
+ * only deletes escape codes we've seen causing issues so that other
+ * functionality (particularly colouring) passes through fine.
+ */
 function stripAnsiReset(message: string): string {
   return message.replace(ansiReset, '')
 }
 
-// Collection of functions to make the hooked logs more readable, especially
-// when multiple tasks are running in a Tool Kit hook
+/**
+ * Collection of functions to make the hooked logs more readable, especially
+ * when multiple tasks are running in a Tool Kit hook.
+ */
 function cleanupLogs(message: string): string {
   return stripAnsiReset(ansiTrim(message))
 }
 
-// This function converts a winston Logger into a Writable stream that can
-// receive string data. Winston loggers already are a Writable stream but are
-// in object mode so expect structured logs. This function converts a logger
-// into a more flexible Writable that's not in object mode that you could use
-// as the last argument to stream.pipeline, for example. Note that the passed
-// logger will not be ended if the returned Writable is ended, as loggers tend
-// to be longer lasting.
+/**
+ * Converts a winston `Logger` into a `Writable` stream that can receive string
+ * data. Winston loggers already are a `Writable` stream but are in object mode
+ * so expect structured logs. This function converts a `logger` into a more
+ * flexible `Writable` that's not in object mode that you could use as the last
+ * argument to `stream.pipeline`, for example. Note that the passed
+ * `logger` will not be ended if the returned `Writable` is ended, as loggers
+ * tend to be longer lasting.
+ */
 export function createWritableLogger(logger: Logger, process: string, level = 'info'): Writable {
   const decoder = new StringDecoder('utf8')
   const transform = new Transform({
@@ -73,15 +83,18 @@ export function createWritableLogger(logger: Logger, process: string, level = 'i
   return transform
 }
 
-// This function hooks winston into Reaable Node streams. Can be used when you
-// want to log a stream's content.
+/**
+ * Hooks winston into `Readable` Node streams. Can be used when you want to log
+ * a stream's content.
+ */
 export function hookStream(logger: Logger, process: string, stream: Readable, level = 'info') {
   stream.pipe(createWritableLogger(logger, process, level))
 }
 
-// This function hooks winston into console.log statements. Most useful for when
-// calling functions from external libraries that you expect will do their own
-// logging.
+/**
+ * Hooks winston into `console.log` statements. Most useful for when calling
+ * functions from external libraries that you expect will do their own logging.
+ */
 export function hookConsole(logger: Logger, processName: string): () => void {
   function wrapWrite(stream: NodeJS.WriteStream, level: string): NodeJS.WriteStream['write'] {
     const { write: originalWrite } = stream
@@ -126,8 +139,10 @@ export function hookConsole(logger: Logger, processName: string): () => void {
   }
 }
 
-// This function hooks winston into the stdout and stderr of child processes
-// that we have spawned forked. Useful for when you need to invoke a CLI tool.
+/**
+ * Hooks winston into the `stdout` and `stderr` of child processes that we have
+ * `fork`'ed. Useful for when you need to invoke a CLI tool.
+ */
 export function hookFork(
   logger: Logger,
   process: string,
@@ -147,9 +162,11 @@ export function hookFork(
   }
 }
 
-// Wait for a child process to finish, returning successfully if they terminate
-// with an exit code of 0, else throwing an error with the contents of their
-// stderr as the error details.
+/**
+ * Wait for a child process to finish, returning successfully if they terminate
+ * with an exit code of `0`, else throwing an error with the contents of their
+ * `stderr` as the error details.
+ */
 export function waitOnExit(process: string, child: ChildProcess): Promise<void> {
   return new Promise((resolve, reject) => {
     child.on('error', (error) => {
