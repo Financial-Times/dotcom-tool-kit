@@ -7,6 +7,7 @@ import { run } from 'node:test'
 import { spec } from 'node:test/reporters'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
+import { createWritableLogger } from '@dotcom-tool-kit/logger'
 import { z } from 'zod'
 
 // We need to maintain this list of file patterns if we want to make this plugin work consistently
@@ -76,7 +77,8 @@ export default class NodeTest extends Task<{ task: typeof NodeTestSchema }> {
       testStream.on('test:fail', () => {
         success = false
       })
-      await pipeline(testStream, new spec(), process.stdout, { end: false })
+
+      await pipeline(testStream, new spec(), createWritableLogger(this.logger, 'node-test'))
       if (!success) {
         throw new ToolKitError('some tests did not pass, error output has been logged above ☝️')
       }

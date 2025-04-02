@@ -10,6 +10,9 @@
     },
     {
       "path": "../../lib/error"
+    },
+    {
+      "path": "../../lib/logger"
     }
   ],
   "include": ["src/**/*"]
