@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/lint-staged",
-  "version": "5.2.9",
+  "version": "5.2.10",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.2.0",
-    "@dotcom-tool-kit/package-json-hook": "^5.2.1",
-    "@dotcom-tool-kit/logger": "^4.1.1",
+    "@dotcom-tool-kit/base": "^1.2.1",
+    "@dotcom-tool-kit/package-json-hook": "^5.2.2",
+    "@dotcom-tool-kit/logger": "^4.2.0",
     "lint-staged": "^11.2.3",
     "tslib": "^2.3.1"
   },

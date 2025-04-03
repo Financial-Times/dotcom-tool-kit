@@ -275,6 +275,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
+    * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
+
 ## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v4.2.9...node-v4.3.0) (2025-02-17)
 
 

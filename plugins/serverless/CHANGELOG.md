@@ -190,6 +190,14 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
+    * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
+    * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
+
 ## [3.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v3.3.1...serverless-v3.4.0) (2025-03-04)
 
 

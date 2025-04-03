@@ -60,6 +60,12 @@
     * @dotcom-tool-kit/config bumped from ^1.0.12 to ^1.1.0
     * @dotcom-tool-kit/plugin bumped from ^1.0.0 to ^1.1.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
+
 ## [1.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.1.10...base-v1.2.0) (2025-03-03)
 
 

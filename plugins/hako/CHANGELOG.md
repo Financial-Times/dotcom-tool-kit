@@ -6,6 +6,21 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.8...hako-v0.1.9) (2025-04-03)
+
+
+### Bug Fixes
+
+* **hako:** bump to latest hako image ([2cafa28](https://github.com/Financial-Times/dotcom-tool-kit/commit/2cafa28caeb76bbd8043abba6b3dd7a9f79c6829))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
+    * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
+
 ## [0.1.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.7...hako-v0.1.8) (2025-03-13)
 
 

@@ -90,6 +90,12 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
+
 ## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v5.1.7...package-json-hook-v5.2.0) (2025-02-17)
 
 

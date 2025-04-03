@@ -25,6 +25,13 @@
   * devDependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
+    * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
+
 ## [0.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.3.3...docker-v0.4.0) (2025-03-03)
 
 
