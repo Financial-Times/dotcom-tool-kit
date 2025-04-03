@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/upload-assets-to-s3",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,9 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.256.0",
-    "@dotcom-tool-kit/base": "^1.2.0",
+    "@dotcom-tool-kit/base": "^1.2.1",
     "@dotcom-tool-kit/error": "^4.1.0",
-    "@dotcom-tool-kit/logger": "^4.1.1",
+    "@dotcom-tool-kit/logger": "^4.2.0",
     "glob": "^7.1.6",
     "mime": "^2.5.2",
     "tslib": "^2.3.1",

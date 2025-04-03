@@ -1,5 +1,12 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
+    * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.2.0
+
 ## 0.1.0 (2025-03-03)
 
 

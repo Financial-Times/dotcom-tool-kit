@@ -6,6 +6,18 @@
   * dependencies
     * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v4.1.1...logger-v4.2.0) (2025-04-03)
+
+
+### Features
+
+* **logger:** add logger helpers for Readable streams ([85c2e95](https://github.com/Financial-Times/dotcom-tool-kit/commit/85c2e95e5bdf234ea98015322f255dbfd53d3ee6))
+
+
+### Bug Fixes
+
+* **node-test:** write Node test results to winston logger ([8ae7d7c](https://github.com/Financial-Times/dotcom-tool-kit/commit/8ae7d7cfb4fd456f3d473c8ac7836bd4ed3c42ac))
+
 ## [4.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v4.1.0...logger-v4.1.1) (2025-01-14)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/typescript",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -25,8 +25,8 @@
     "typescript": "3.x || 4.x || 5.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.2.0",
-    "@dotcom-tool-kit/logger": "^4.1.1",
+    "@dotcom-tool-kit/base": "^1.2.1",
+    "@dotcom-tool-kit/logger": "^4.2.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
