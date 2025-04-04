@@ -14,6 +14,7 @@ const jestCLIPath = require.resolve('jest-cli/bin/jest')
 // appropriate for the CPU time that is allocated to the container, slowing
 // down test times.
 async function guessVCpus(): Promise<number> {
+  let coreCount
   try {
     // We can guess the number of vCPUs by reading this virtual file in the
     // cimg images running on Linux. This is a non-standard path so may well
@@ -21,12 +22,16 @@ async function guessVCpus(): Promise<number> {
     // a try/catch statement.
     const cpuShare = await readFile('/sys/fs/cgroup/cpu/cpu.shares', 'utf8')
     // the CPU share should be a multiple of 1024
-    return Math.max(Math.floor(Number(cpuShare) / 1024), 2)
+    coreCount = Math.max(Math.floor(Number(cpuShare) / 1024), 1)
   } catch {
     // assume we're running on a medium resource class execution environment
     // with 2 vCPUs if we fail to find the CPU share
-    return 2
+    coreCount = 2
   }
+
+  // double the core count to account for the two logical cores available on
+  // each physical core
+  return coreCount * 2
 }
 
 const JestSchema = z
