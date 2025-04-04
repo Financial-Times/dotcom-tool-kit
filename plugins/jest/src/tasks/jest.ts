@@ -13,25 +13,30 @@ const jestCLIPath = require.resolve('jest-cli/bin/jest')
 // This means that Jest will typically create far more worker threads than is
 // appropriate for the CPU time that is allocated to the container, slowing
 // down test times.
-async function guessVCpus(): Promise<number> {
-  let coreCount
+async function guessCircleCiThreads(): Promise<number> {
   try {
-    // We can guess the number of vCPUs by reading this virtual file in the
-    // cimg images running on Linux. This is a non-standard path so may well
-    // not be present in other images/execution contexts so wrap everything in
-    // a try/catch statement.
+    // Machines running cgroupv1 should export the number of physical cores in
+    // a virtual file. This file is not exported when using cgroupv2 so can be
+    // also used as a way to ascertain which API is currently being used.
     const cpuShare = await readFile('/sys/fs/cgroup/cpu/cpu.shares', 'utf8')
     // the CPU share should be a multiple of 1024
-    coreCount = Math.max(Math.floor(Number(cpuShare) / 1024), 1)
+    const coreCount = Math.max(Math.floor(Number(cpuShare) / 1024), 1)
+    // double the core count to account for the two logical cores available on
+    // each physical core
+    return coreCount * 2
   } catch {
-    // assume we're running on a medium resource class execution environment
-    // with 2 vCPUs if we fail to find the CPU share
-    coreCount = 2
+    try {
+      // machines using cgroupv2 will only list the procinfo for the logical
+      // cores available to us
+      const procFile = await readFile('/proc/cpuinfo', 'utf8')
+      return procFile.split('\n').filter((line) => line.includes('processor')).length
+    } catch {
+      // assume we're running on a medium resource class execution environment
+      // with 2 vCPUs with 2 logical cores each if we fail to find the CPU
+      // share
+      return 4
+    }
   }
-
-  // double the core count to account for the two logical cores available on
-  // each physical core
-  return coreCount * 2
 }
 
 const JestSchema = z
@@ -59,9 +64,9 @@ export default class Jest extends Task<{ task: typeof JestSchema }> {
       // only relevant if running on CircleCI, other CI environments might handle
       // virtualisation completely differently
       if (process.env.CIRCLECI) {
-        // leave one vCPU free for the main thread, same as the default Jest
+        // leave one thread free for the main thread, same as the default Jest
         // logic
-        const maxWorkers = (await guessVCpus()) - 1
+        const maxWorkers = (await guessCircleCiThreads()) - 1
         args.push(`--max-workers=${maxWorkers}`)
       }
     }
