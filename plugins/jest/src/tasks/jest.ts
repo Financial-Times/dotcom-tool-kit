@@ -6,6 +6,11 @@ import * as z from 'zod'
 
 const jestCLIPath = require.resolve('jest-cli/bin/jest')
 
+// TODO:IM:20250407 This function has been copied wholesale to
+// plugins/node-test/src/tasks/node-test.ts. There isn't a clear shared library
+// to put it in but something should be worked out if it needs to be
+// modified/copied again.
+//
 // By default Jest will choose the number of worker threads based on the number
 // of reported CPUs. However, when running within Docker in CircleCI, the
 // number of reported CPUs is taken from the host machine rather than the

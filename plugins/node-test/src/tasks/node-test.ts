@@ -1,4 +1,5 @@
 import { glob } from 'glob'
+import { readFile } from 'node:fs/promises'
 import { pipeline } from 'node:stream/promises'
 import { run } from 'node:test'
 // Ignored because `node:test/reporters` is available in Node.js 20 but the root ESLint config
@@ -25,6 +26,44 @@ const defaultFilePatterns = [
 
 // We don't want to run tests against files under "node_modules"
 const defaultIgnorePatterns = ['**/node_modules/**']
+
+// TODO:IM:20250407 This function has been copied wholesale from
+// plugins/jest/src/tasks/jest.ts. There isn't a clear shared library to put it
+// in but something should be worked out if it needs to be modified/copied
+// again.
+//
+// By default Jest will choose the number of worker threads based on the number
+// of reported CPUs. However, when running within Docker in CircleCI, the
+// number of reported CPUs is taken from the host machine rather than the
+// number of virtual CPUs your CircleCI resource class has allocated for you.
+// This means that Jest will typically create far more worker threads than is
+// appropriate for the CPU time that is allocated to the container, slowing
+// down test times.
+async function guessCircleCiThreads(): Promise<number> {
+  try {
+    // Machines running cgroupv1 should export the number of physical cores in
+    // a virtual file. This file is not exported when using cgroupv2 so can be
+    // also used as a way to ascertain which API is currently being used.
+    const cpuShare = await readFile('/sys/fs/cgroup/cpu/cpu.shares', 'utf8')
+    // the CPU share should be a multiple of 1024
+    const coreCount = Math.max(Math.floor(Number(cpuShare) / 1024), 1)
+    // double the core count to account for the two logical cores available on
+    // each physical core
+    return coreCount * 2
+  } catch {
+    try {
+      // machines using cgroupv2 will only list the procinfo for the logical
+      // cores available to us
+      const procFile = await readFile('/proc/cpuinfo', 'utf8')
+      return procFile.split('\n').filter((line) => line.includes('processor')).length
+    } catch {
+      // assume we're running on a medium resource class execution environment
+      // with 2 vCPUs with 2 logical cores each if we fail to find the CPU
+      // share
+      return 4
+    }
+  }
+}
 
 const NodeTestSchema = z
   .object({
@@ -69,7 +108,12 @@ export { NodeTestSchema as schema }
 export default class NodeTest extends Task<{ task: typeof NodeTestSchema }> {
   async run({ cwd }: TaskRunContext) {
     try {
-      const { concurrency, customOptions, files: filePatterns, forceExit, ignore, watch } = this.options
+      const { customOptions, files: filePatterns, forceExit, ignore, watch } = this.options
+      let { concurrency } = this.options
+      // the default concurrency limit needs to be corrected in CircleCI
+      if (concurrency === true && process.env.CIRCLECI) {
+        concurrency = (await guessCircleCiThreads()) - 1
+      }
       const files = await glob(filePatterns, { cwd, ignore })
 
       let success = true
