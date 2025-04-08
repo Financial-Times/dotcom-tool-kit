@@ -1,3 +1,7 @@
 # See https://help.github.com/articles/about-codeowners/ for more information about this file.
 
 * @financial-times/platforms
+
+
+# Allow Dependency Auto-Merger to approve dependency bump PRs
+**/package*.json @ft-dependency-auto-merger @financial-times/platforms
