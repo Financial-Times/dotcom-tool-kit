@@ -130,11 +130,11 @@ jobs:
       - *attach_workspace
       - run:
           name: Update release-please release PR
-          command: npx release-please@15 release-pr --token=${RELEASE_PLEASE_GITHUB_TOKEN}
+          command: npx release-please@17 release-pr --token=${RELEASE_PLEASE_GITHUB_TOKEN}
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
       - run:
           name: Release any unreleased PR merges
-          command: npx release-please@15 github-release
+          command: npx release-please@17 github-release
             --token=${RELEASE_PLEASE_GITHUB_TOKEN}
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             --monorepo-tags
