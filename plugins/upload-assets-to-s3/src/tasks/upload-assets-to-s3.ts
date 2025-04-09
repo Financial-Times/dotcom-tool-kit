@@ -75,9 +75,9 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
     let currentBucket = ''
 
     try {
-      if (typeof bucketByEnv === 'string') {
+      for (const bucket of bucketByEnv) {
         const params = {
-          Bucket: bucketByEnv,
+          Bucket: bucket,
           Key: key,
           Body: body,
           ACL: 'public-read',
@@ -88,21 +88,6 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
         currentBucket = params.Bucket
         await s3.send(new PutObjectCommand(params))
         this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(currentBucket)}`)
-      } else {
-        for (const bucket of bucketByEnv) {
-          const params = {
-            Bucket: bucket,
-            Key: key,
-            Body: body,
-            ACL: 'public-read',
-            ContentType: `${type}; charset=utf-8`,
-            ContentEncoding: encoding,
-            CacheControl: this.options.cacheControl
-          }
-          currentBucket = params.Bucket
-          await s3.send(new PutObjectCommand(params))
-          this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(currentBucket)}`)
-        }
       }
     } catch (err) {
       const error = new ToolKitError(`Upload of ${filepath} to ${currentBucket} failed`)
