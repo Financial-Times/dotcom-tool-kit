@@ -27,7 +27,7 @@
     "dotcom-tool-kit": "4.x"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.738.0",
+    "@aws-sdk/client-sts": "^3.782.0",
     "@dotcom-tool-kit/base": "^1.2.1",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/state": "^4.3.1",
