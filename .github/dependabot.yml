@@ -16,6 +16,8 @@ updates:
           - 'patch'
       development-dependencies:
         dependency-type: 'development'
+        exclude-patterns:
+          - '@types/*'
         update-types:
           - 'minor'
           - 'patch'
