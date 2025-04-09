@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^27.4.6",
-    "@types/lodash": "^4.14.185",
+    "@types/lodash": "^4.17.16",
     "winston": "^3.5.1"
   },
   "files": [

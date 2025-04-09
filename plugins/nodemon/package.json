@@ -34,7 +34,7 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
-    "@types/nodemon": "^1.19.1"
+    "@types/nodemon": "^1.19.6"
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"
