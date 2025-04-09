@@ -1,6 +1,6 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import * as fs from 'fs'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client, PutObjectCommand, type PutObjectCommandInput } from '@aws-sdk/client-s3'
 import path from 'path'
 import mime from 'mime'
 import { glob } from 'glob'
@@ -84,7 +84,7 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
           ContentType: `${type}; charset=utf-8`,
           ContentEncoding: encoding,
           CacheControl: this.options.cacheControl
-        }
+        } satisfies PutObjectCommandInput
         currentBucket = params.Bucket
         await s3.send(new PutObjectCommand(params))
         this.logger.info(`Uploaded ${styles.filepath(filepath)} to ${styles.URL(currentBucket)}`)
