@@ -12,7 +12,7 @@
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.2.0",
     "@dotcom-tool-kit/state": "^4.3.1",
-    "jest-diff": "^29.5.0",
+    "jest-diff": "^29.7.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1",
     "type-fest": "^3.5.4",
