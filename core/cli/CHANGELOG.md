@@ -461,6 +461,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.7.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.7.1...dotcom-tool-kit-v4.7.2) (2025-04-10)
+
+
+### Bug Fixes
+
+* bump minimist from 1.2.6 to 1.2.8 ([6a598d2](https://github.com/Financial-Times/dotcom-tool-kit/commit/6a598d2b82856f3decc2b25f5298f7cdb184ea70))
+
 ## [4.7.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.6.0...dotcom-tool-kit-v4.7.0) (2025-03-03)
 
 

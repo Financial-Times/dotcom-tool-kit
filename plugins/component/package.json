@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/component",
-  "version": "5.1.13",
+  "version": "5.1.14",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -20,7 +20,7 @@
     "dotcom-tool-kit": "4.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/circleci-npm": "^6.1.13",
+    "@dotcom-tool-kit/circleci-npm": "^6.1.14",
     "@dotcom-tool-kit/npm": "^4.2.12"
   },
   "engines": {

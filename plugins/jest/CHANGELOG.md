@@ -224,6 +224,22 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v4.3.2...jest-v4.3.3) (2025-04-10)
+
+
+### Bug Fixes
+
+* **jest:** account for logical cores when guessing Jest workers ([d98f993](https://github.com/Financial-Times/dotcom-tool-kit/commit/d98f99353015aa6f32fae4bb231f6e931a6aef7c))
+* **jest:** add support for guessing thread count of cgroupv2 executors ([8265ff4](https://github.com/Financial-Times/dotcom-tool-kit/commit/8265ff456a9c4ea166d692097babafc35f2cc9f0))
+* **node-test:** use correct concurrency count in CircleCI ([a79408b](https://github.com/Financial-Times/dotcom-tool-kit/commit/a79408bde27521be5534842627b4ddfaef8119ce))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.2
+
 ## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/jest-v4.2.7...jest-v4.3.0) (2025-02-17)
 
 

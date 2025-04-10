@@ -211,6 +211,21 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v4.3.2...upload-assets-to-s3-v4.3.3) (2025-04-10)
+
+
+### Bug Fixes
+
+* bump the aws-sdk group with 4 updates ([d88e746](https://github.com/Financial-Times/dotcom-tool-kit/commit/d88e746bfadf8a8ddcd4d1692de07897cd796822))
+* **upload-assets-to-s3:** remove obsolete AWS SDK code ([ecbac28](https://github.com/Financial-Times/dotcom-tool-kit/commit/ecbac28ccdd2bcf076ad6f2c965de9542f87c6bb))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.2
+
 ## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v4.2.7...upload-assets-to-s3-v4.3.0) (2025-02-17)
 
 
