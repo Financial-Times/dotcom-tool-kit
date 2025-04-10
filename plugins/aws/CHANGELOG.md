@@ -26,6 +26,20 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
 
+## [0.1.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/aws-v0.1.5...aws-v0.1.6) (2025-04-10)
+
+
+### Bug Fixes
+
+* bump the aws-sdk group with 4 updates ([d88e746](https://github.com/Financial-Times/dotcom-tool-kit/commit/d88e746bfadf8a8ddcd4d1692de07897cd796822))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.2
+
 ## [0.1.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/aws-v0.1.2...aws-v0.1.3) (2025-02-17)
 
 

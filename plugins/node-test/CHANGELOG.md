@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-test-v1.0.1...node-test-v1.0.2) (2025-04-10)
+
+
+### Bug Fixes
+
+* **node-test:** use correct concurrency count in CircleCI ([a79408b](https://github.com/Financial-Times/dotcom-tool-kit/commit/a79408bde27521be5534842627b4ddfaef8119ce))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.2
+
 ## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-test-v1.0.0...node-test-v1.0.1) (2025-04-03)
 
 

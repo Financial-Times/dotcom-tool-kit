@@ -188,6 +188,20 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [7.6.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.2...circleci-v7.6.3) (2025-04-10)
+
+
+### Bug Fixes
+
+* bump jest-diff from 29.5.0 to 29.7.0 ([4644d65](https://github.com/Financial-Times/dotcom-tool-kit/commit/4644d6596c0c6f8b3525a9d57a36d8258f86a34d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.2
+
 ## [7.6.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.5.0...circleci-v7.6.0) (2025-02-24)
 
 

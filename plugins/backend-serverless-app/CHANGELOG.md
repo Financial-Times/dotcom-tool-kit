@@ -387,6 +387,17 @@
     * @dotcom-tool-kit/npm bumped from ^4.2.11 to ^4.2.12
     * @dotcom-tool-kit/serverless bumped from ^3.4.0 to ^3.4.1
 
+## [4.1.15](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v4.1.14...backend-serverless-app-v4.1.15) (2025-04-10)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^4.1.13 to ^4.1.14
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.2
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v4.0.4...backend-serverless-app-v4.1.0) (2025-01-02)
 
 

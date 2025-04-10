@@ -212,6 +212,20 @@
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [4.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v4.3.2...prettier-v4.3.3) (2025-04-10)
+
+
+### Bug Fixes
+
+* bump fast-glob from 3.2.11 to 3.3.3 ([7702412](https://github.com/Financial-Times/dotcom-tool-kit/commit/7702412ef62475a037f25ca2c70ab66e87b0eeec))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.2
+
 ## [4.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v4.2.7...prettier-v4.3.0) (2025-02-17)
 
 
