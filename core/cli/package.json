@@ -46,7 +46,7 @@
     "pluralize": "^8.0.0",
     "pretty-format": "^29.7.0",
     "tslib": "^2.3.1",
-    "yaml": "^2.4.1",
+    "yaml": "^2.7.1",
     "zod-validation-error": "^2.1.0"
   },
   "engines": {
