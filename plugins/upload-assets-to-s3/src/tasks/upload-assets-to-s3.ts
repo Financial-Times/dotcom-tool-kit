@@ -105,7 +105,7 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
       : this.options.extensions
     const globFile = `**/*${extensions}`
     const resolvedDirectory = path.resolve(cwd, this.options.directory)
-    const files = glob.sync(globFile, { cwd: resolvedDirectory, nodir: true })
+    const files = await glob(globFile, { cwd: resolvedDirectory, nodir: true })
 
     if (files.length === 0) {
       throw new ToolKitError(`no files found at the provided directory: ${resolvedDirectory}`)
