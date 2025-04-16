@@ -15,7 +15,6 @@
     "jest-diff": "^29.7.0",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1",
-    "type-fest": "^3.5.4",
     "yaml": "^2.7.1",
     "zod": "^3.22.4"
   },
@@ -35,6 +34,7 @@
     "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.3",
     "@types/lodash": "^4.14.185",
+    "type-fest": "^3.5.4",
     "winston": "^3.5.1"
   },
   "files": [
