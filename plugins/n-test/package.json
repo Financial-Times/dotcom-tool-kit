@@ -27,7 +27,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/n-test",
   "devDependencies": {
     "@jest/globals": "^27.4.6",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^29.5.14",
     "winston": "^3.5.1"
   },
   "files": [
