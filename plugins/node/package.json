@@ -15,7 +15,7 @@
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/state": "^4.3.1",
     "get-port": "^5.1.1",
-    "tslib": "^2.3.1",
+    "tslib": "^2.8.1",
     "wait-port": "^1.1.0",
     "zod": "^3.24.1"
   },
