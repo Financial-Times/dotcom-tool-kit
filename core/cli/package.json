@@ -24,7 +24,7 @@
     "@types/lodash": "^4.14.185",
     "@types/pluralize": "^0.0.33",
     "chai": "^4.3.4",
-    "globby": "^10.0.2",
+    "globby": "^14.1.0",
     "ts-node": "^8.10.2",
     "winston": "^3.5.1",
     "zod": "^3.22.4"
