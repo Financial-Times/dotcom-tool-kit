@@ -24,7 +24,7 @@
     "@dotcom-reliability-kit/eslint-config": "^2.0.0",
     "@financial-times/eslint-config-next": "^6.0.0",
     "@tsconfig/node18": "^18.2.4",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^18.19.55",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
