@@ -2,7 +2,6 @@ import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { glob } from 'glob'
 import { fork } from 'child_process'
-import { promisify } from 'util'
 import * as z from 'zod'
 const mochaCLIPath = require.resolve('mocha/bin/mocha')
 
@@ -21,7 +20,7 @@ export { MochaSchema as schema }
 
 export default class Mocha extends Task<{ task: typeof MochaSchema }> {
   async run({ cwd }: TaskRunContext): Promise<void> {
-    const files = await promisify(glob)(this.options.files)
+    const files = await glob(this.options.files, { cwd })
 
     const args = ['--color', ...files]
     if (this.options.configPath) {
