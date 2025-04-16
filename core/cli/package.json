@@ -23,7 +23,6 @@
     "@jest/globals": "^27.4.6",
     "@types/lodash": "^4.14.185",
     "@types/pluralize": "^0.0.33",
-    "chai": "^4.3.4",
     "globby": "^10.0.2",
     "ts-node": "^8.10.2",
     "winston": "^3.5.1",
