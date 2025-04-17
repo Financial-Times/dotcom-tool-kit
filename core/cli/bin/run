@@ -5,7 +5,7 @@
  */
 
 const argv = require('minimist')(process.argv.slice(2), {
-  boolean: ['help', 'install', 'listPlugins'],
+  boolean: ['help', 'install', 'validate', 'listPlugins'],
   '--': true
 })
 
@@ -17,6 +17,9 @@ async function main() {
     if (argv.install) {
       const installHooks = require('../lib/install').default
       await installHooks(rootLogger)
+    } else if (argv.validate) {
+      const validateConfig = require('../lib/validate').default
+      await validateConfig(rootLogger)
     } else if (argv.listPlugins) {
       const { listPlugins } = require('../lib')
       await listPlugins(rootLogger)
