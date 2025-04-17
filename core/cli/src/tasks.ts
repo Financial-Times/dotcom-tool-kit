@@ -20,7 +20,7 @@ type ErrorSummary = {
   error: Error
 }
 
-const loadTasks = async (
+export const loadTasks = async (
   logger: Logger,
   tasks: OptionsForTask[],
   config: ValidConfig
