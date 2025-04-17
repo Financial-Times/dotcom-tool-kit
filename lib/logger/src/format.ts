@@ -9,7 +9,7 @@ let lastLabel: string | undefined
 
 export const createFormatter = (thisLogger: winston.Logger) =>
   winston.format.printf((info) => {
-    let { message } = info
+    let message = String(info.message)
 
     if (!info.skipformat) {
       let labels = ''
