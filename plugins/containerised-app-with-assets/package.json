@@ -28,6 +28,6 @@
     "@dotcom-tool-kit/containerised-app": "^0.1.11",
     "@dotcom-tool-kit/upload-assets-to-s3": "^4.3.3",
     "@dotcom-tool-kit/webpack": "^4.3.2",
-    "zod": "^3.24.1"
+    "zod": "^3.24.3"
   }
 }
