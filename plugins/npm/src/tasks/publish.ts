@@ -42,7 +42,7 @@ export default class NpmPublish extends Task {
 
     new PassThroughStream()
       .end(tarball)
-      .pipe(tar.t({ onentry: (entry) => this.logger.info(`- ${styles.filepath(entry.path)}`) }))
+      .pipe(tar.list({ onReadEntry: (entry) => this.logger.info(`- ${styles.filepath(entry.path)}`) }))
   }
 
   async run({ cwd }: TaskRunContext): Promise<void> {
