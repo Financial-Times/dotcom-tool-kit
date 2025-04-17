@@ -33,7 +33,7 @@
     "@jest/globals": "^27.4.6",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.14.185",
-    "type-fest": "^3.5.4",
+    "type-fest": "^4.40.0",
     "winston": "^3.5.1"
   },
   "files": [
