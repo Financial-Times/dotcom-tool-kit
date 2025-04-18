@@ -39,7 +39,7 @@
     "prettier": "^2.8.8",
     "release-please": "^17.0.0",
     "ts-jest": "^29.3.2",
-    "typescript": "~5.4.5",
+    "typescript": "~5.8.3",
     "winston": "^3.13.0",
     "zod2md": "^0.1.5"
   },
