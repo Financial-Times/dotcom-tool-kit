@@ -20,7 +20,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/wait-for-ok",
   "devDependencies": {
-    "winston": "^3.5.1"
+    "winston": "^3.17.0"
   },
   "files": [
     "/lib",
