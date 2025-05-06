@@ -240,6 +240,27 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [4.2.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v4.2.12...npm-v4.2.13) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tar from 6.2.1 to 7.4.3 ([157e233](https://github.com/Financial-Times/dotcom-tool-kit/commit/157e2337c5a051ea0c407dadc6079bd96db00dd2))
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+* **npm:** update tar usage to use new major version features ([cee2f22](https://github.com/Financial-Times/dotcom-tool-kit/commit/cee2f22c2d159d32b99847e53658af2572f0e2f2))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.1 to ^1.2.2
+    * @dotcom-tool-kit/error bumped from ^4.1.0 to ^4.1.1
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.2 to ^5.2.3
+    * @dotcom-tool-kit/state bumped from ^4.3.1 to ^4.3.2
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [4.2.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v4.2.9...npm-v4.2.10) (2025-02-17)
 
 

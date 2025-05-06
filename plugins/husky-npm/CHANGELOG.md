@@ -84,6 +84,22 @@
   * dependencies
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [5.1.11](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v5.1.10...husky-npm-v5.1.11) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.2 to ^5.2.3
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/husky-npm-v5.0.4...husky-npm-v5.1.0) (2025-01-02)
 
 

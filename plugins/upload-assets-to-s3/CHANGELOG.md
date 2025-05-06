@@ -211,6 +211,27 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v4.3.3...upload-assets-to-s3-v4.3.4) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump glob from 7.2.0 to 10.4.5 ([6e95100](https://github.com/Financial-Times/dotcom-tool-kit/commit/6e951007f7b6a3a4b5f708d4992bc741a7682608))
+* bump the aws-sdk group with 3 updates ([708fb60](https://github.com/Financial-Times/dotcom-tool-kit/commit/708fb60a1bf718bbf81b89493dd410e2976ce1d3))
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+* bump zod from 3.24.2 to 3.24.3 ([21ecd2c](https://github.com/Financial-Times/dotcom-tool-kit/commit/21ecd2ccaf42f11a78e0b6f06f5ef2352aa91703))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.1 to ^1.2.2
+    * @dotcom-tool-kit/error bumped from ^4.1.0 to ^4.1.1
+    * @dotcom-tool-kit/logger bumped from ^4.2.0 to ^4.2.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [4.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v4.3.2...upload-assets-to-s3-v4.3.3) (2025-04-10)
 
 

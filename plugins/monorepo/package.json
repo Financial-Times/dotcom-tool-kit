@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/monorepo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -31,15 +31,15 @@
     "dotcom-tool-kit": "4.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^1.2.1",
-    "@dotcom-tool-kit/logger": "^4.2.0",
+    "@dotcom-tool-kit/base": "^1.2.2",
+    "@dotcom-tool-kit/logger": "^4.2.1",
     "@npmcli/map-workspaces": "^3.0.6",
     "minimatch": "^10.0.1",
     "pluralize": "^8.0.0",
     "zod": "^3.24.3"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/config": "^1.1.0",
+    "@dotcom-tool-kit/config": "^1.1.1",
     "@relmify/jest-serializer-strip-ansi": "^1.0.2",
     "@types/npmcli__map-workspaces": "^3.0.4",
     "@types/pluralize": "^0.0.33"

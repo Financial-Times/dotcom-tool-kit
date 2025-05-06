@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v4.1.0...wait-for-ok-v4.1.1) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v4.0.0...wait-for-ok-v4.1.0) (2025-01-02)
 
 

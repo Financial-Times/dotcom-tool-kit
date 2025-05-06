@@ -212,6 +212,24 @@
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [5.2.11](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v5.2.10...lint-staged-v5.2.11) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.1 to ^1.2.2
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.2 to ^5.2.3
+    * @dotcom-tool-kit/logger bumped from ^4.2.0 to ^4.2.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [5.2.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-v5.2.7...lint-staged-v5.2.8) (2025-02-17)
 
 
