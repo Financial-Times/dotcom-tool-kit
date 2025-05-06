@@ -49,9 +49,9 @@
   "plugins/cloudsmith": "1.1.1",
   "plugins/docker": "0.4.2",
   "plugins/aws": "0.1.7",
-  "plugins/hako": "0.1.11",
-  "plugins/containerised-app": "0.1.12",
-  "plugins/containerised-app-with-assets": "0.1.12",
+  "plugins/hako": "0.1.12",
+  "plugins/containerised-app": "0.1.13",
+  "plugins/containerised-app-with-assets": "0.1.13",
   "plugins/monorepo": "0.1.2",
   "plugins/node-test": "1.0.3"
 }
