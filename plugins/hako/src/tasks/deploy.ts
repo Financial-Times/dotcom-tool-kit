@@ -8,7 +8,7 @@ import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { createHash } from 'node:crypto'
 
-const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.2.5-beta'
+const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.2.6-beta'
 
 const HakoEnvironmentNames = z.enum(['ft-com-prod-eu', 'ft-com-prod-us', 'ft-com-test-eu'])
 type HakoEnvironmentNames = (typeof HakoEnvironmentNames.options)[number]
