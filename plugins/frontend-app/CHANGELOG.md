@@ -440,6 +440,19 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/webpack bumped from ^4.3.1 to ^4.3.2
 
+## [4.1.15](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v4.1.14...frontend-app-v4.1.15) (2025-05-06)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^4.1.14 to ^4.1.15
+    * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.3 to ^4.3.4
+    * @dotcom-tool-kit/webpack bumped from ^4.3.2 to ^4.3.3
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [4.1.14](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v4.1.13...frontend-app-v4.1.14) (2025-04-10)
 
 

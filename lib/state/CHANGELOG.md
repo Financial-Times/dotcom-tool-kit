@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v4.3.1...state-v4.3.2) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+
 ## [4.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/state-v4.3.0...state-v4.3.1) (2025-02-14)
 
 

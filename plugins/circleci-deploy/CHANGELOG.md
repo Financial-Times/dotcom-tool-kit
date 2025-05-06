@@ -174,6 +174,22 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^7.6.1 to ^7.6.2
 
+## [4.1.15](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.1.14...circleci-deploy-v4.1.15) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.6.3 to ^7.6.4
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [4.1.14](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.1.13...circleci-deploy-v4.1.14) (2025-04-10)
 
 

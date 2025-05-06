@@ -74,6 +74,15 @@
   * dependencies
     * @dotcom-tool-kit/schemas bumped from ^1.8.0 to ^1.9.0
 
+## [1.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/config-v1.1.0...config-v1.1.1) (2025-05-06)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/validated bumped from ^1.0.2 to ^1.0.3
+
 ## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/config-v1.0.12...config-v1.1.0) (2025-02-17)
 
 

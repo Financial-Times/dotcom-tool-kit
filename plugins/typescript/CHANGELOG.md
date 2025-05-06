@@ -156,6 +156,23 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [3.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v3.3.2...typescript-v3.3.3) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump zod from 3.24.2 to 3.24.3 ([21ecd2c](https://github.com/Financial-Times/dotcom-tool-kit/commit/21ecd2ccaf42f11a78e0b6f06f5ef2352aa91703))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.1 to ^1.2.2
+    * @dotcom-tool-kit/logger bumped from ^4.2.0 to ^4.2.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [3.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v3.3.0...typescript-v3.3.1) (2025-03-03)
 
 

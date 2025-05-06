@@ -6,6 +6,22 @@
   * dependencies
     * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
 
+## [4.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v4.2.0...logger-v4.2.1) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+* bump winston-transport from 4.7.1 to 4.9.0 ([58ff0a4](https://github.com/Financial-Times/dotcom-tool-kit/commit/58ff0a403c835d2e181a64c895e1b22160ce65ed))
+* **logger:** explicitly coerce formatting messages into strings ([70ac636](https://github.com/Financial-Times/dotcom-tool-kit/commit/70ac6362a0f9067471e2f55c2d74f13944ee81e3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/error bumped from ^4.1.0 to ^4.1.1
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v4.1.1...logger-v4.2.0) (2025-04-03)
 
 

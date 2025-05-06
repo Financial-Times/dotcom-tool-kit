@@ -66,6 +66,23 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [1.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.2.1...base-v1.2.2) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump zod from 3.24.2 to 3.24.3 ([21ecd2c](https://github.com/Financial-Times/dotcom-tool-kit/commit/21ecd2ccaf42f11a78e0b6f06f5ef2352aa91703))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/logger bumped from ^4.2.0 to ^4.2.1
+    * @dotcom-tool-kit/validated bumped from ^1.0.2 to ^1.0.3
+  * devDependencies
+    * @dotcom-tool-kit/config bumped from ^1.1.0 to ^1.1.1
+
 ## [1.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.1.10...base-v1.2.0) (2025-03-03)
 
 

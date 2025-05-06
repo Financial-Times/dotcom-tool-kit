@@ -212,6 +212,27 @@
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [4.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v4.3.3...prettier-v4.3.4) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+* bump zod from 3.24.2 to 3.24.3 ([21ecd2c](https://github.com/Financial-Times/dotcom-tool-kit/commit/21ecd2ccaf42f11a78e0b6f06f5ef2352aa91703))
+* delete unused dependencies ([b87b72c](https://github.com/Financial-Times/dotcom-tool-kit/commit/b87b72ca1826c4278862cf4eb714e7bff79fe7ff))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.1 to ^1.2.2
+    * @dotcom-tool-kit/error bumped from ^4.1.0 to ^4.1.1
+    * @dotcom-tool-kit/logger bumped from ^4.2.0 to ^4.2.1
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.2 to ^5.2.3
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [4.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/prettier-v4.3.2...prettier-v4.3.3) (2025-04-10)
 
 

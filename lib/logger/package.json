@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/logger",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@apaleslimghost/boxen": "^5.1.3",
-    "@dotcom-tool-kit/error": "^4.1.0",
+    "@dotcom-tool-kit/error": "^4.1.1",
     "ansi-regex": "^5.0.1",
     "chalk": "^4.1.0",
     "triple-beam": "^1.3.0",

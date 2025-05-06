@@ -62,6 +62,18 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [1.2.11](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v1.2.10...commitlint-v1.2.11) (2025-05-06)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.1 to ^1.2.2
+    * @dotcom-tool-kit/logger bumped from ^4.2.0 to ^4.2.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [1.2.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v1.2.7...commitlint-v1.2.8) (2025-02-17)
 
 

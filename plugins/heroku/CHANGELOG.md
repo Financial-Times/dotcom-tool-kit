@@ -335,6 +335,30 @@
     * @dotcom-tool-kit/npm bumped from ^4.2.11 to ^4.2.12
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [4.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v4.2.2...heroku-v4.2.3) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+* bump zod from 3.24.2 to 3.24.3 ([21ecd2c](https://github.com/Financial-Times/dotcom-tool-kit/commit/21ecd2ccaf42f11a78e0b6f06f5ef2352aa91703))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.1 to ^1.2.2
+    * @dotcom-tool-kit/doppler bumped from ^2.2.1 to ^2.2.2
+    * @dotcom-tool-kit/error bumped from ^4.1.0 to ^4.1.1
+    * @dotcom-tool-kit/logger bumped from ^4.2.0 to ^4.2.1
+    * @dotcom-tool-kit/npm bumped from ^4.2.12 to ^4.2.13
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.2 to ^5.2.3
+    * @dotcom-tool-kit/state bumped from ^4.3.1 to ^4.3.2
+    * @dotcom-tool-kit/wait-for-ok bumped from ^4.1.0 to ^4.1.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/heroku-v4.1.9...heroku-v4.2.0) (2025-02-17)
 
 

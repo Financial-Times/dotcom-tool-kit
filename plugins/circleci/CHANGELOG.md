@@ -188,6 +188,29 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [7.6.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.3...circleci-v7.6.4) (2025-05-06)
+
+
+### Bug Fixes
+
+* bump tslib from 2.4.1 to 2.8.1 ([e96041f](https://github.com/Financial-Times/dotcom-tool-kit/commit/e96041fd539954bf26652a35e3d86330e47deeb6))
+* bump yaml from 2.1.3 to 2.7.1 ([a495313](https://github.com/Financial-Times/dotcom-tool-kit/commit/a495313baa15881537ad3a4e61011bad1a62ce1a))
+* bump zod from 3.24.2 to 3.24.3 ([21ecd2c](https://github.com/Financial-Times/dotcom-tool-kit/commit/21ecd2ccaf42f11a78e0b6f06f5ef2352aa91703))
+* **circleci:** move type-fest to devDependencies ([037a5c3](https://github.com/Financial-Times/dotcom-tool-kit/commit/037a5c308e6c52b2f12cdb2ceda0f6a09108a872))
+* delete unused dependencies ([b87b72c](https://github.com/Financial-Times/dotcom-tool-kit/commit/b87b72ca1826c4278862cf4eb714e7bff79fe7ff))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.1 to ^1.2.2
+    * @dotcom-tool-kit/error bumped from ^4.1.0 to ^4.1.1
+    * @dotcom-tool-kit/logger bumped from ^4.2.0 to ^4.2.1
+    * @dotcom-tool-kit/state bumped from ^4.3.1 to ^4.3.2
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.7.3
+
 ## [7.6.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.2...circleci-v7.6.3) (2025-04-10)
 
 
