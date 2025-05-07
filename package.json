@@ -21,7 +21,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^16.0.0",
-    "@dotcom-reliability-kit/eslint-config": "^2.0.0",
+    "@dotcom-reliability-kit/eslint-config": "^4.0.0",
     "@financial-times/eslint-config-next": "^7.1.0",
     "@tsconfig/node18": "^18.2.4",
     "@types/jest": "^29.5.14",
