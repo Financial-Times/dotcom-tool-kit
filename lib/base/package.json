@@ -14,13 +14,13 @@
     "@dotcom-tool-kit/logger": "^4.2.1",
     "@dotcom-tool-kit/validated": "^1.0.3",
     "semver": "^7.5.4",
-    "winston": "^3.11.0"
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@dotcom-tool-kit/config": "^1.1.1",
     "@dotcom-tool-kit/plugin": "^1.1.0",
     "type-fest": "^4.41.0",
-    "winston": "^3.11.0",
+    "winston": "^3.17.0",
     "zod": "^3.24.3"
   },
   "peerDependencies": {

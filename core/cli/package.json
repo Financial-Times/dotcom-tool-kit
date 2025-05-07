@@ -25,7 +25,7 @@
     "@types/pluralize": "^0.0.33",
     "globby": "^10.0.2",
     "ts-node": "^8.10.2",
-    "winston": "^3.5.1",
+    "winston": "^3.17.0",
     "zod": "^3.24.3"
   },
   "dependencies": {
