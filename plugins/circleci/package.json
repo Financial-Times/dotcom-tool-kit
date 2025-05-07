@@ -30,7 +30,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/circleci",
   "devDependencies": {
     "@dotcom-tool-kit/plugin": "^1.1.0",
-    "@jest/globals": "^27.4.6",
+    "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.14.185",
     "type-fest": "^4.41.0",
