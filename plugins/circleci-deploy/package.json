@@ -28,7 +28,7 @@
     "extends": "../../package.json"
   },
   "devDependencies": {
-    "winston": "^3.5.1"
+    "winston": "^3.17.0"
   },
   "peerDependencies": {
     "dotcom-tool-kit": "4.x"

@@ -32,7 +32,7 @@
     "@jest/globals": "^27.4.6",
     "ts-node": "^10.0.0",
     "webpack": "^5.99.5",
-    "winston": "^3.5.1"
+    "winston": "^3.17.0"
   },
   "files": [
     "/lib",
