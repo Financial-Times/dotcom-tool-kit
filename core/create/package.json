@@ -18,7 +18,7 @@
     "@dotcom-tool-kit/logger": "^4.1.1",
     "@dotcom-tool-kit/plugin": "^1.0.0",
     "@dotcom-tool-kit/schemas": "^1.9.0",
-    "@octokit/rest": "^19.0.5",
+    "@octokit/rest": "^21.1.1",
     "@quarterto/parse-makefile-rules": "^1.1.0",
     "cli-highlight": "^2.1.11",
     "code-suggester": "^5.0.0",
