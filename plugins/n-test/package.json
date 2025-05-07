@@ -26,7 +26,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/n-test",
   "devDependencies": {
-    "@jest/globals": "^27.4.6",
+    "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.14",
     "winston": "^3.17.0"
   },
