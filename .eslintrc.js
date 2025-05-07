@@ -42,5 +42,10 @@ module.exports = {
         'no-undef': 'off'
       }
     }
-  ]
+  ],
+  settings: {
+    // eslint-plugin-import can't seem to handle the dynamic export of
+    // prettier's API
+    'import/core-modules': ['prettier']
+  }
 }
