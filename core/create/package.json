@@ -11,8 +11,8 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-iam": "^3.787.0",
-    "@aws-sdk/client-sts": "^3.787.0",
+    "@aws-sdk/client-iam": "^3.804.0",
+    "@aws-sdk/client-sts": "^3.804.0",
     "@dotcom-tool-kit/doppler": "^2.1.7",
     "@dotcom-tool-kit/error": "^4.1.0",
     "@dotcom-tool-kit/logger": "^4.1.1",
