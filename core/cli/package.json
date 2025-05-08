@@ -25,7 +25,7 @@
     "@types/pluralize": "^0.0.33",
     "globby": "^10.0.2",
     "winston": "^3.17.0",
-    "zod": "^3.24.3"
+    "zod": "^3.24.4"
   },
   "dependencies": {
     "@dotcom-tool-kit/base": "^1.2.2",

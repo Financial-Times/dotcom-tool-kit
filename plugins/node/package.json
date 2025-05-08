@@ -17,7 +17,7 @@
     "get-port": "^5.1.1",
     "tslib": "^2.8.1",
     "wait-port": "^1.1.0",
-    "zod": "^3.24.3"
+    "zod": "^3.24.4"
   },
   "repository": {
     "type": "git",
