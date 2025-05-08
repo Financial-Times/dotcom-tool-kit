@@ -19,9 +19,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
-    "@dotcom-reliability-kit/eslint-config": "^4.0.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@dotcom-reliability-kit/eslint-config": "^4.1.0",
     "@financial-times/eslint-config-next": "^7.1.0",
     "@tsconfig/node18": "^18.2.4",
     "@types/jest": "^29.5.14",
@@ -41,7 +41,7 @@
     "ts-jest": "^29.3.2",
     "typescript": "~5.8.3",
     "winston": "^3.17.0",
-    "zod2md": "^0.1.5"
+    "zod2md": "^0.1.7"
   },
   "workspaces": [
     "core/*",
