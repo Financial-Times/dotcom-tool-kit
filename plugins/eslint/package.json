@@ -25,9 +25,9 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/eslint",
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@types/eslint": "^7.2.13",
+    "@types/eslint": "^9.6.1",
     "@types/temp": "^0.9.4",
-    "eslint": "^8.15.0",
+    "eslint": "^9.26.0",
     "temp": "^0.9.4",
     "winston": "^3.17.0"
   },
