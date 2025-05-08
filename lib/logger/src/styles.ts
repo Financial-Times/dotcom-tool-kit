@@ -27,7 +27,7 @@ export const styles = {
   info: (string: string): string => styles.infoHighlight(' i ') + ' ' + string,
   helpHighlight: colours.bgGreen.black,
   help: (string: string): string => styles.helpHighlight(' ? ') + ' ' + string,
-  ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2)),
+  ruler: (): string => styles.dim('─'.repeat(Math.floor(process.stdout.columns / 2))),
   box: (string: string, options: Partial<boxen.Options>) =>
     boxen(string, {
       borderStyle: 'round',
