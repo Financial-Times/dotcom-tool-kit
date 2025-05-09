@@ -58,7 +58,7 @@
     }
   },
   "dependencies": {
-    "@types/superagent": "^4.1.10"
+    "@types/superagent": "^8.1.9"
   },
   "volta": {
     "node": "22.12.0"
