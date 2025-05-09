@@ -1,16 +1,16 @@
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
-interface Mixin<T> {
-  map<U>(f: (val: T) => U): Validated<U>
-  mapError(f: (reasons: string[]) => string[]): Validated<T>
-  flatMap<U>(f: (val: T) => Validated<U>): Validated<U>
-  awaitValue(): Promise<Validated<Awaited<T>>>
+interface Mixin<T, E> {
+  map<U>(f: (val: T) => U): Validated<U, E>
+  mapError<U>(f: (reasons: E[]) => U[]): Validated<T, U>
+  flatMap<U>(f: (val: T) => Validated<U, E>): Validated<U, E>
+  awaitValue(): Promise<Validated<Awaited<T>, E>>
   unwrap(message?: string): T
 }
 
-export type Invalid = {
+export type Invalid<E = string> = {
   valid: false
-  reasons: string[]
+  reasons: E[]
 }
 
 export type Valid<T> = {
@@ -18,12 +18,12 @@ export type Valid<T> = {
   value: T
 }
 
-export type Validated<T> = (Invalid | Valid<T>) & Mixin<T>
+export type Validated<T, E = string> = (Valid<T> | Invalid<E>) & Mixin<T, E>
 
-export const invalid = <T>(reasons: string[]) => mixin<T>({ valid: false, reasons })
-export const valid = <T>(value: T) => mixin({ valid: true, value })
+export const invalid = <T, E = string>(reasons: E[]) => mixin<T, E>({ valid: false, reasons })
+export const valid = <T, E = string>(value: T) => mixin<T, E>({ valid: true, value })
 
-const mixin = <T>(validated: Invalid | Valid<T>): Validated<T> => ({
+const mixin = <T, E>(validated: Valid<T> | Invalid<E>): Validated<T, E> => ({
   ...validated,
 
   map(f) {
@@ -69,8 +69,8 @@ const mixin = <T>(validated: Invalid | Valid<T>): Validated<T> => ({
   }
 })
 
-export function reduceValidated<T>(validated: Validated<T>[]): Validated<T[]> {
-  let sequenced: Validated<T[]> = valid([])
+export function reduceValidated<T, E = string>(validated: Validated<T, E>[]): Validated<T[], E> {
+  let sequenced: Validated<T[], E> = valid([])
   for (const val of validated) {
     if (sequenced.valid) {
       if (val.valid) {
