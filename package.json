@@ -27,7 +27,7 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^18.19.55",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
-    "@typescript-eslint/parser": "^5.57.0",
+    "@typescript-eslint/parser": "^8.32.0",
     "check-engines": "^1.6.0",
     "endent": "^2.1.0",
     "eslint": "^8.37.0",
