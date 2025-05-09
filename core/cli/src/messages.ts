@@ -250,5 +250,5 @@ export function formatError(error: Error) {
     output += error.stack.split('\n').slice(1).join('\n')
   }
 
-  return output + '\n'
+  return output
 }
