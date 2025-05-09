@@ -6,6 +6,7 @@ interface Mixin<T, E> {
   flatMap<U>(f: (val: T) => Validated<U, E>): Validated<U, E>
   awaitValue(): Promise<Validated<Awaited<T>, E>>
   unwrap(message?: string): T
+  context(message?: string): Validated<T, Error>
 }
 
 export type Invalid<E = string> = {
@@ -50,24 +51,42 @@ const mixin = <T, E>(validated: Valid<T> | Invalid<E>): Validated<T, E> => ({
     }
   },
 
-  unwrap(message = '') {
-    if (validated.valid) {
-      return validated.value
-    } else {
-      const error = new ToolKitError(message)
-      error.details = validated.reasons.join('\n\n')
-      throw error
-    }
-  },
-
   async awaitValue() {
     if (validated.valid) {
       return valid(await validated.value)
     } else {
       return invalid(validated.reasons)
     }
+  },
+
+  unwrap(message = '') {
+    if (validated.valid) {
+      return validated.value
+    } else {
+      const error = reasonsToError(message, validated.reasons)
+      throw error
+    }
+  },
+
+  context(message = '') {
+    if (validated.valid) {
+      return mixin(validated)
+    } else {
+      const error = reasonsToError(message, validated.reasons)
+      return invalid([error])
+    }
   }
 })
+
+const reasonsToError = (message: string, reasons: unknown[]): Error => {
+  if (reasons[0] instanceof Error) {
+    return new AggregateError(reasons, message)
+  } else {
+    const error = new ToolKitError(message)
+    error.details = reasons.join('\n\n')
+    return error
+  }
+}
 
 export function reduceValidated<T, E = string>(validated: Validated<T, E>[]): Validated<T[], E> {
   let sequenced: Validated<T[], E> = valid([])
