@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/base",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/conflict": "^1.0.1",
-    "@dotcom-tool-kit/logger": "^4.2.1",
+    "@dotcom-tool-kit/logger": "^4.2.2",
     "@dotcom-tool-kit/validated": "^1.0.3",
     "semver": "^7.7.2",
     "winston": "^3.17.0"
