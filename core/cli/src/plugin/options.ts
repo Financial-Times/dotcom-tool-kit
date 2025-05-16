@@ -113,8 +113,9 @@ export const substituteOptionTags = (plugin: Plugin, config: ValidPluginsConfig)
       const substituted: Validated<[string, unknown]>[] = []
       for (const entry of entries) {
         const subbedEntry = reduceValidated(
-          // allow both keys and (string) values to be substituted by options
-          entry.map((val) => {
+          // allow both keys and values to be substituted by options
+          entry.map((val, i) => {
+            const isKey = i === 0
             if (typeof val === 'string' && val.startsWith(toolKitOptionIdent)) {
               // check the tag path each time so that we can have a separate
               // error for each incorrect use of the tag
@@ -126,14 +127,14 @@ export const substituteOptionTags = (plugin: Plugin, config: ValidPluginsConfig)
                 // identifier
                 const optionPath = val.slice(toolKitOptionIdent.length)
                 const resolvedOption = resolveOptionPath(optionPath)
-                if (typeof resolvedOption === 'string') {
-                  return valid(resolvedOption)
-                } else {
+                if (isKey && typeof resolvedOption !== 'string') {
                   return invalid([
-                    `Option '${optionPath}' referenced at path '${path.join(
+                    `Option '${optionPath}' for the key at path '${path.join(
                       '.'
                     )}' does not resolve to a string (resolved to ${resolvedOption})`
                   ])
+                } else {
+                  return valid(resolvedOption)
                 }
               }
             } else {
@@ -195,7 +196,9 @@ export const substituteOptionTags = (plugin: Plugin, config: ValidPluginsConfig)
   }
   if (plugin.rcFile) {
     plugin.rcFile = deeplySubstitute(plugin.rcFile, []).unwrap(
-      'cannot reference plugin options when specifying options'
+      `error when subsituting options (i.e., resolving ${styles.code('!toolkit/option')} and ${styles.code(
+        '!toolkit/if-defined'
+      )} tags)`
     ) as RCFile
   }
   config.resolutionTrackers.substitutedPlugins.add(plugin.id)

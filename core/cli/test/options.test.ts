@@ -102,8 +102,10 @@ options:
 `)
     )
 
-    expect(loadConfig(logger, { validate: false, root: process.cwd() })).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"cannot reference plugin options when specifying options"`
+    expect(
+      loadConfig(logger, { validate: false, root: process.cwd() })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"error when subsituting options (i.e., resolving [90m[3m!toolkit/option[23m[39m and [90m[3m!toolkit/if-defined[23m[39m tags)"`
     )
   })
 
