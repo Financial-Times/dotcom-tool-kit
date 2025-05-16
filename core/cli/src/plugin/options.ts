@@ -109,7 +109,7 @@ export const substituteOptionTags = (plugin: Plugin, config: ValidPluginsConfig)
     if (Array.isArray(node)) {
       return reduceValidated(node.map((item, i) => deeplySubstitute(item, [...path, i])))
     } else if (node && typeof node === 'object') {
-      const entries = Object.entries(node)
+      const entries: [string, unknown][] = Object.entries(node)
       const substituted: Validated<[string, unknown]>[] = []
       for (const entry of entries) {
         const subbedEntry = reduceValidated(
@@ -141,12 +141,9 @@ export const substituteOptionTags = (plugin: Plugin, config: ValidPluginsConfig)
               return valid(val)
             }
           })
-        )
+        ) as Validated<[string, unknown]>
         if (!subbedEntry.valid) {
-          /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
-           * Invalid objects don't need to match the inner type
-           **/
-          substituted.push(subbedEntry as Validated<any>)
+          substituted.push(subbedEntry)
           continue
         }
 
@@ -168,10 +165,9 @@ export const substituteOptionTags = (plugin: Plugin, config: ValidPluginsConfig)
             if (subbedValues.valid) {
               substituted.push(...Object.entries(subbedValues.value as object).map((v) => valid(v)))
             } else {
-              /* eslint-disable-next-line @typescript-eslint/no-explicit-any --
-               * Invalid objects don't need to match the inner type
-               **/
-              substituted.push(subbedValues as Validated<any>)
+              // safe to cast as invalid objects don't need to match the inner
+              // type
+              substituted.push(subbedValues as Validated<[string, unknown]>)
             }
           }
         } else {
