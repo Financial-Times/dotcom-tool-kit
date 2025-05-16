@@ -32,6 +32,7 @@
     "@dotcom-tool-kit/docker": "^0.4.2",
     "@dotcom-tool-kit/doppler": "^2.2.2",
     "@dotcom-tool-kit/hako": "^0.1.12",
+    "@dotcom-tool-kit/logger": "^4.2.1",
     "@dotcom-tool-kit/node": "^4.3.3",
     "zod": "^3.24.4"
   }

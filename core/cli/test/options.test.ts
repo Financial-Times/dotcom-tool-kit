@@ -5,12 +5,15 @@ import * as fs from 'node:fs/promises'
 import type { Valid } from '@dotcom-tool-kit/validated'
 import type { Plugin } from '@dotcom-tool-kit/plugin'
 
+import { stripAnsi } from '@relmify/jest-serializer-strip-ansi'
 import winston, { type Logger } from 'winston'
 
 const logger = winston as unknown as Logger
 
 jest.mock('node:fs/promises')
 const mockedFs = jest.mocked(fs)
+
+expect.addSnapshotSerializer(stripAnsi)
 
 // convince text editors (well, nvim) to highlight strings as YAML
 const yaml = (str) => str
@@ -102,8 +105,10 @@ options:
 `)
     )
 
-    expect(loadConfig(logger, { validate: false, root: process.cwd() })).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"cannot reference plugin options when specifying options"`
+    expect(
+      loadConfig(logger, { validate: false, root: process.cwd() })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"error when subsituting options (i.e., resolving !toolkit/option and !toolkit/if-defined tags)"`
     )
   })
 
