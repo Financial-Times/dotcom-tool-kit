@@ -7,6 +7,7 @@ import type { Plugin } from '@dotcom-tool-kit/plugin'
 
 import { stripAnsi } from '@relmify/jest-serializer-strip-ansi'
 import winston, { type Logger } from 'winston'
+import * as YAML from 'yaml'
 
 const logger = winston as unknown as Logger
 
@@ -19,23 +20,29 @@ expect.addSnapshotSerializer(stripAnsi)
 const yaml = (str) => str
 
 describe('option substitution', () => {
-  it('should substitute option tag with option value', async () => {
+  it.each([
+    { type: 'string', value: 'bar' },
+    { type: 'number', value: 137 },
+    { type: 'boolean', value: true },
+    { type: 'array', value: ['apple', 'pear'] },
+    { type: 'object', value: { apple: 1, pear: true } }
+  ])('should substitute option tag with $type value', async ({ value }) => {
     mockedFs.readFile.mockResolvedValueOnce(
-      yaml(`
+      `
 options:
   plugins:
     test:
-      foo: bar
+      foo: ${YAML.stringify(value, { collectionStyle: 'flow' })}
   hooks:
     - Test:
         baz: !toolkit/option 'test.foo'
-`)
+`
     )
 
     const config = await loadConfig(logger, { validate: false, root: process.cwd() })
     const plugin = config.plugins['app root']
     expect(plugin.valid).toBe(true)
-    expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.baz).toEqual('bar')
+    expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.baz).toEqual(value)
   })
 
   it('should substitute defined tag with value when defined', async () => {
@@ -105,11 +112,39 @@ options:
 `)
     )
 
-    expect(
-      loadConfig(logger, { validate: false, root: process.cwd() })
-    ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"error when subsituting options (i.e., resolving !toolkit/option and !toolkit/if-defined tags)"`
+    expect.assertions(1)
+    try {
+      await loadConfig(logger, { validate: false, root: process.cwd() })
+    } catch (error) {
+      expect(error.details).toMatchInlineSnapshot(
+        `"YAML tag referencing options used at path 'options.plugins.test.foo'"`
+      )
+    }
+  })
+
+  it('should disallow option tag with non-string value in key position', async () => {
+    mockedFs.readFile.mockResolvedValueOnce(
+      yaml(`
+options:
+  plugins:
+    test:
+      foo:
+        - apple
+        - pear
+  hooks:
+    - Test:
+        !toolkit/option 'test.foo': baz
+`)
     )
+
+    expect.assertions(1)
+    try {
+      await loadConfig(logger, { validate: false, root: process.cwd() })
+    } catch (error) {
+      expect(error.details).toMatchInlineSnapshot(
+        `"Option 'test.foo' for the key at path 'options.hooks.0.Test' does not resolve to a string (resolved to apple,pear)"`
+      )
+    }
   })
 
   it('should print multiple invalid tags in error', async () => {
