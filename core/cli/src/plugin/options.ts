@@ -18,7 +18,8 @@ import { importSchemaEntryPoint } from './entry-point'
 
 export const validatePluginOptions = async (
   logger: Logger,
-  config: ValidPluginsConfig
+  config: ValidPluginsConfig,
+  strictOptions = false
 ): Promise<InvalidOption[]> => {
   const invalidOptions: InvalidOption[] = []
 
@@ -73,6 +74,10 @@ export const validatePluginOptions = async (
       }
 
       continue
+    }
+
+    if (strictOptions) {
+      pluginSchema = deeplyStrict(pluginSchema)
     }
 
     const result = pluginSchema.safeParse(pluginOptions?.options ?? {})
