@@ -33,7 +33,16 @@ export const validatePluginOptions = async (
     if (schemaEntrypoint) {
       const schema = await importSchemaEntryPoint({ plugin, modulePath: schemaEntrypoint })
       if (!schema.valid) {
-        invalidOptions.push([id, new z.ZodError([])])
+        invalidOptions.push([
+          id,
+          new z.ZodError([
+            {
+              message: schema.reasons.join('\n'),
+              code: z.ZodIssueCode.custom,
+              path: []
+            }
+          ])
+        ])
         continue
       }
       pluginSchema = schema.value
