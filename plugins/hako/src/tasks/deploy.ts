@@ -10,8 +10,23 @@ import { createHash } from 'node:crypto'
 
 const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.2.6-beta'
 
-const HakoEnvironmentNames = z.enum(['ft-com-prod-eu', 'ft-com-prod-us', 'ft-com-test-eu'])
-type HakoEnvironmentNames = (typeof HakoEnvironmentNames.options)[number]
+export const HakoEnvironmentName = z.string().transform((val, ctx) => {
+  const match = val.match(/-(prod|test)-(eu|us)$/)
+  if (!match) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.invalid_string,
+      validation: 'regex',
+      message: 'Hako environment name must end with a stage and region, e.g., -prod-eu'
+    })
+    return z.NEVER
+  }
+  return {
+    name: val,
+    stage: match[1],
+    region: match[2]
+  }
+})
+export type HakoEnvironment = z.output<typeof HakoEnvironmentName>
 
 const HakoDeploySchema = z
   .object({
@@ -19,34 +34,32 @@ const HakoDeploySchema = z
       .boolean()
       .default(false)
       .describe('whether to deploy as a temporary review app, used for code review'),
-    environments: z.array(HakoEnvironmentNames).describe('the Hako environments to deploy an image to')
+    environments: z.array(HakoEnvironmentName).describe('the Hako environments to deploy an image to')
   })
   .describe('Deploy to ECS via the Hako CLI')
 
-const hakoEnvironments: Record<HakoEnvironmentNames, string> = {
-  'ft-com-prod-eu': 'eu-west-1',
-  'ft-com-prod-us': 'us-east-1',
-  'ft-com-test-eu': 'eu-west-1'
+const hakoRegions: Record<string, string> = {
+  eu: 'eu-west-1',
+  us: 'us-east-1'
 }
-const hakoDomains: Record<HakoEnvironmentNames, string> = {
-  'ft-com-prod-eu': 'ft-com-prod.ftweb.tech',
-  'ft-com-prod-us': 'ft-com-prod.ftweb.tech',
-  'ft-com-test-eu': 'ft-com-test.ftweb.tech'
+const hakoDomains: Record<string, string> = {
+  prod: 'ft-com-prod.ftweb.tech',
+  test: 'ft-com-test.ftweb.tech'
 }
 
 export { HakoDeploySchema as schema }
 
 interface DeploymentOptions {
   awsCredentials: CIState['awsCredentials']
-  environment: HakoEnvironmentNames
+  environment: HakoEnvironment
   name: string
   tag: string
 }
 
 export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> {
   async deployApp({ awsCredentials, environment, name, tag }: DeploymentOptions): Promise<void> {
-    this.logger.info(`Deploying image "${name}" with tag "${tag}" to environment "${environment}"`)
-    const awsRegion = hakoEnvironments[environment]
+    this.logger.info(`Deploying image "${name}" with tag "${tag}" to environment "${environment.name}"`)
+    const awsRegion = hakoRegions[environment.region]
     const commandArgs = [
       'run',
       '--interactive',
@@ -70,9 +83,9 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
       '--app',
       name, // NOTE: the app name MUST match the image name (for now)
       '--env',
-      environment
+      environment.name
     ]
-    const domain = hakoDomains[environment]
+    const domain = hakoDomains[environment.stage]
     if (this.options.asReviewApp) {
       if (!process.env.CIRCLE_BRANCH) {
         throw new Error(
@@ -91,7 +104,7 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
     // Because we can't mount volumes in Docker images on CircleCI we have to
     // pass the hako config via STDIN
     if (this.options.asReviewApp) {
-      const hakoConfigPath = join(process.cwd(), 'hako-config', 'apps', name, environment, 'app.yaml')
+      const hakoConfigPath = join(process.cwd(), 'hako-config', 'apps', name, environment.name, 'app.yaml')
       try {
         const hakoConfig = await readFile(hakoConfigPath, 'utf-8')
         child.stdin.setDefaultEncoding('utf-8')
