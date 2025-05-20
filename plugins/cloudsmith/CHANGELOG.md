@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.1.1...cloudsmith-v1.1.2) (2025-05-20)
+
+
+### Bug Fixes
+
+* bump zod from 3.24.3 to 3.24.4 ([2059a64](https://github.com/Financial-Times/dotcom-tool-kit/commit/2059a64ff9ab1b246f5b4e6b5b66f465be596b9e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.8.0
+
 ## [1.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.1.0...cloudsmith-v1.1.1) (2025-05-06)
 
 

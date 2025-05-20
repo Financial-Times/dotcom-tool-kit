@@ -46,6 +46,33 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/webpack bumped from ^4.3.1 to ^4.3.2
 
+## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v0.1.13...containerised-app-with-assets-v0.2.0) (2025-05-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **containerised-app:** allow hako environments to be configured
+
+### Features
+
+* **containerised-app:** allow hako environments to be configured ([5102027](https://github.com/Financial-Times/dotcom-tool-kit/commit/51020278da3ab64ea51dd261507c46e64209420c))
+
+
+### Bug Fixes
+
+* bump zod from 3.24.3 to 3.24.4 ([2059a64](https://github.com/Financial-Times/dotcom-tool-kit/commit/2059a64ff9ab1b246f5b4e6b5b66f465be596b9e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/containerised-app bumped from ^0.1.13 to ^0.2.0
+    * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.4 to ^4.3.5
+    * @dotcom-tool-kit/webpack bumped from ^4.3.3 to ^4.3.4
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.8.0
+
 ## [0.1.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v0.1.12...containerised-app-with-assets-v0.1.13) (2025-05-06)
 
 

@@ -6,6 +6,14 @@
   * dependencies
     * @dotcom-tool-kit/error bumped from ^4.0.0 to ^4.0.1
 
+## [4.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v4.2.1...logger-v4.2.2) (2025-05-20)
+
+
+### Bug Fixes
+
+* bump triple-beam and @types/triple-beam ([3e7a27c](https://github.com/Financial-Times/dotcom-tool-kit/commit/3e7a27c0f7da5441e1afee06f72740df6c3194ac))
+* bump winston from 3.14.2 to 3.17.0 ([c0bc4c7](https://github.com/Financial-Times/dotcom-tool-kit/commit/c0bc4c71af06ac26323c826f24896e735591ac1a))
+
 ## [4.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/logger-v4.2.0...logger-v4.2.1) (2025-05-06)
 
 

@@ -45,6 +45,38 @@
     * @dotcom-tool-kit/hako bumped from ^0.1.8 to ^0.1.9
     * @dotcom-tool-kit/node bumped from ^4.3.1 to ^4.3.2
 
+## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.1.13...containerised-app-v0.2.0) (2025-05-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **containerised-app:** allow hako environments to be configured
+
+### Features
+
+* **containerised-app:** allow hako environments to be configured ([5102027](https://github.com/Financial-Times/dotcom-tool-kit/commit/51020278da3ab64ea51dd261507c46e64209420c))
+
+
+### Bug Fixes
+
+* bump zod from 3.24.3 to 3.24.4 ([2059a64](https://github.com/Financial-Times/dotcom-tool-kit/commit/2059a64ff9ab1b246f5b4e6b5b66f465be596b9e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/aws bumped from ^0.1.7 to ^0.1.8
+    * @dotcom-tool-kit/circleci-deploy bumped from ^4.1.15 to ^4.1.16
+    * @dotcom-tool-kit/cloudsmith bumped from ^1.1.1 to ^1.1.2
+    * @dotcom-tool-kit/docker bumped from ^0.4.2 to ^0.4.3
+    * @dotcom-tool-kit/doppler bumped from ^2.2.2 to ^2.2.3
+    * @dotcom-tool-kit/hako bumped from ^0.1.12 to ^0.1.13
+    * @dotcom-tool-kit/logger bumped from ^4.2.1 to ^4.2.2
+    * @dotcom-tool-kit/node bumped from ^4.3.3 to ^4.3.4
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.8.0
+
 ## [0.1.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.1.12...containerised-app-v0.1.13) (2025-05-06)
 
 

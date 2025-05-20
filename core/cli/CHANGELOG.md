@@ -461,6 +461,29 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.7.3...dotcom-tool-kit-v4.8.0) (2025-05-20)
+
+
+### Features
+
+* **cli:** support non-string config option values ([b39e572](https://github.com/Financial-Times/dotcom-tool-kit/commit/b39e5727ee26e008179f0b4e15290e0a9c15db73))
+
+
+### Bug Fixes
+
+* bump winston from 3.14.2 to 3.17.0 ([c0bc4c7](https://github.com/Financial-Times/dotcom-tool-kit/commit/c0bc4c71af06ac26323c826f24896e735591ac1a))
+* bump zod from 3.24.3 to 3.24.4 ([2059a64](https://github.com/Financial-Times/dotcom-tool-kit/commit/2059a64ff9ab1b246f5b4e6b5b66f465be596b9e))
+* **cli:** correctly bubble up errors when importing schemas ([402e06c](https://github.com/Financial-Times/dotcom-tool-kit/commit/402e06ce0e4e29d3b08ca60b309d438e85b41610))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.2 to ^1.2.3
+    * @dotcom-tool-kit/logger bumped from ^4.2.1 to ^4.2.2
+    * @dotcom-tool-kit/wait-for-ok bumped from ^4.1.1 to ^4.1.2
+
 ## [4.7.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.7.2...dotcom-tool-kit-v4.7.3) (2025-05-06)
 
 

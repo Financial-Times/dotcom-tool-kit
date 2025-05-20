@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v4.1.1...wait-for-ok-v4.1.2) (2025-05-20)
+
+
+### Bug Fixes
+
+* bump winston from 3.14.2 to 3.17.0 ([c0bc4c7](https://github.com/Financial-Times/dotcom-tool-kit/commit/c0bc4c71af06ac26323c826f24896e735591ac1a))
+
 ## [4.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/wait-for-ok-v4.1.0...wait-for-ok-v4.1.1) (2025-05-06)
 
 
