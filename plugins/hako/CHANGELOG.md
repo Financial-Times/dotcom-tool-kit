@@ -6,6 +6,28 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.13](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.12...hako-v0.1.13) (2025-05-20)
+
+
+### Features
+
+* **hako:** be more permissive with environment names ([2ee3990](https://github.com/Financial-Times/dotcom-tool-kit/commit/2ee39900038dbee4b8aec9e9597b10588f454573))
+
+
+### Bug Fixes
+
+* bump zod from 3.24.3 to 3.24.4 ([2059a64](https://github.com/Financial-Times/dotcom-tool-kit/commit/2059a64ff9ab1b246f5b4e6b5b66f465be596b9e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.2 to ^1.2.3
+    * @dotcom-tool-kit/logger bumped from ^4.2.1 to ^4.2.2
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.8.0
+
 ## [0.1.12](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.11...hako-v0.1.12) (2025-05-06)
 
 

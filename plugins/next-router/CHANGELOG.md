@@ -306,6 +306,25 @@
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v4.3.3...next-router-v4.3.4) (2025-05-20)
+
+
+### Bug Fixes
+
+* bump ft-next-router from 4.0.0 to 4.0.2 ([96638b4](https://github.com/Financial-Times/dotcom-tool-kit/commit/96638b43f9fa6b46838876b6d5624518c0a2960a))
+* bump zod from 3.24.3 to 3.24.4 ([2059a64](https://github.com/Financial-Times/dotcom-tool-kit/commit/2059a64ff9ab1b246f5b4e6b5b66f465be596b9e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.2 to ^1.2.3
+    * @dotcom-tool-kit/doppler bumped from ^2.2.2 to ^2.2.3
+    * @dotcom-tool-kit/logger bumped from ^4.2.1 to ^4.2.2
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.8.0
+
 ## [4.3.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v4.3.2...next-router-v4.3.3) (2025-05-06)
 
 

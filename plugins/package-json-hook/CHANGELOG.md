@@ -96,6 +96,21 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
 
+## [5.2.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v5.2.3...package-json-hook-v5.2.4) (2025-05-20)
+
+
+### Bug Fixes
+
+* bump winston from 3.14.2 to 3.17.0 ([c0bc4c7](https://github.com/Financial-Times/dotcom-tool-kit/commit/c0bc4c71af06ac26323c826f24896e735591ac1a))
+* bump zod from 3.24.3 to 3.24.4 ([2059a64](https://github.com/Financial-Times/dotcom-tool-kit/commit/2059a64ff9ab1b246f5b4e6b5b66f465be596b9e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.2 to ^1.2.3
+
 ## [5.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v5.2.2...package-json-hook-v5.2.3) (2025-05-06)
 
 
