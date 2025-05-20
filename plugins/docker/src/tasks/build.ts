@@ -1,13 +1,29 @@
 import { buildImageName, generateImageLabels, getDeployTag } from '../image-info'
 import DockerSchema from '../schema'
+
+import * as z from 'zod'
+
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { spawn } from 'node:child_process'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
+const DockerBuildSchema = z
+  .object({
+    ssh: z
+      .boolean()
+      .default(false)
+      .describe(
+        "whether to forward host's SSH agent, see https://docs.docker.com/reference/cli/docker/buildx/build/#ssh"
+      )
+  })
+  .describe('Run `docker build` to create Docker images.')
+export { DockerBuildSchema as schema }
+
 export default class DockerBuild extends Task<{
   plugin: typeof DockerSchema
+  task: typeof DockerBuildSchema
 }> {
   async run() {
     // Iterate over different image types like web, worker, etc
@@ -42,6 +58,7 @@ export default class DockerBuild extends Task<{
           '--load', // Without this, the image is not stored and so we can't push it later
           '--platform',
           imageOptions.platform,
+          ...(this.options.ssh ? ['--ssh', 'default'] : []),
           '--tag',
           `${fullImageName}:${deployTag}`,
           ...labels,
