@@ -26,7 +26,7 @@
     "@tsconfig/node18": "^18.2.4",
     "@types/jest": "^29.5.14",
     "@types/node": "^18.19.55",
-    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^5.57.0",
     "check-engines": "^1.6.0",
     "endent": "^2.1.0",
