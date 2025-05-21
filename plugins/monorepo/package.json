@@ -33,7 +33,7 @@
   "dependencies": {
     "@dotcom-tool-kit/base": "^1.2.3",
     "@dotcom-tool-kit/logger": "^4.2.2",
-    "@npmcli/map-workspaces": "^3.0.6",
+    "@npmcli/map-workspaces": "^4.0.2",
     "minimatch": "^10.0.1",
     "pluralize": "^8.0.0",
     "zod": "^3.24.4"
