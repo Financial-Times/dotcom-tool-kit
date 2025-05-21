@@ -27,7 +27,7 @@
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.8",
     "ordinal": "^1.0.3",
-    "pacote": "^13.0.3",
+    "pacote": "^21.0.0",
     "prompts": "^2.4.1",
     "simple-git": "^3.27.0",
     "tslib": "^2.8.1",
