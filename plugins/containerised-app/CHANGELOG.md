@@ -45,6 +45,23 @@
     * @dotcom-tool-kit/hako bumped from ^0.1.8 to ^0.1.9
     * @dotcom-tool-kit/node bumped from ^4.3.1 to ^4.3.2
 
+## [0.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.2.1...containerised-app-v0.2.2) (2025-05-21)
+
+
+### Bug Fixes
+
+* **containerised-app:** require Tool Kit version which supports array ([6ff8491](https://github.com/Financial-Times/dotcom-tool-kit/commit/6ff849154953f94264680d602a10125adc67dc5c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/aws bumped from ^0.1.8 to ^0.1.9
+    * @dotcom-tool-kit/circleci-deploy bumped from ^4.1.16 to ^4.1.17
+  * peerDependencies
+    * dotcom-tool-kit bumped from ^4.8.0 to ^4.8.1
+
 ## [0.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.2.0...containerised-app-v0.2.1) (2025-05-21)
 
 

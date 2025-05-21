@@ -7,6 +7,20 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.2.0
 
+## [0.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/monorepo-v0.1.3...monorepo-v0.1.4) (2025-05-21)
+
+
+### Bug Fixes
+
+* bump @npmcli/map-workspaces from 3.0.6 to 4.0.2 ([4eb762d](https://github.com/Financial-Times/dotcom-tool-kit/commit/4eb762d62f70b484a69f8511aa7bc2204ccdc823))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.8.1
+
 ## [0.1.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/monorepo-v0.1.2...monorepo-v0.1.3) (2025-05-20)
 
 
