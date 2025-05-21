@@ -461,6 +461,14 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.8.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.8.0...dotcom-tool-kit-v4.8.1) (2025-05-21)
+
+
+### Bug Fixes
+
+* bump yaml from 2.7.1 to 2.8.0 ([a655b4b](https://github.com/Financial-Times/dotcom-tool-kit/commit/a655b4b14b181628d7738c0a2c842391eb33d31d))
+* bump zod-validation-error from 2.1.0 to 3.4.1 ([82bb3b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/82bb3b5500c7dc2fbe1442f56d6d5559ddce7cf7))
+
 ## [4.8.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.7.3...dotcom-tool-kit-v4.8.0) (2025-05-20)
 
 
