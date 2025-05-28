@@ -2,3 +2,5 @@ version: 2
 
 tasks:
   HakoDeploy: './lib/tasks/deploy'
+  HakoDelete: './lib/tasks/delete'
+

@@ -8,25 +8,11 @@ import { readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { createHash } from 'node:crypto'
 
-const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.2.7-beta'
-
-export const HakoEnvironmentName = z.string().transform((val, ctx) => {
-  const match = val.match(/-(prod|test)-(eu|us)$/)
-  if (!match) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.invalid_string,
-      validation: 'regex',
-      message: 'Hako environment name must end with a stage and region, e.g., -prod-eu'
-    })
-    return z.NEVER
-  }
-  return {
-    name: val,
-    stage: match[1],
-    region: match[2]
-  }
-})
-export type HakoEnvironment = z.output<typeof HakoEnvironmentName>
+import { HakoEnvironment, HakoEnvironmentName, hakoDomains, hakoImageName, hakoRegions } from '../hako'
+// HACK:IM:20250528 reexport this function from the shared library to maintain
+// backwards-compatibility as the docker plugin schema depends on it being here
+// oops
+export { HakoEnvironmentName }
 
 const HakoDeploySchema = z
   .object({
@@ -49,15 +35,6 @@ const HakoDeploySchema = z
     environments: z.array(HakoEnvironmentName).describe('the Hako environments to deploy an image to')
   })
   .describe('Deploy to ECS via the Hako CLI')
-
-const hakoRegions: Record<string, string> = {
-  eu: 'eu-west-1',
-  us: 'us-east-1'
-}
-const hakoDomains: Record<string, string> = {
-  prod: 'ft-com-prod.ftweb.tech',
-  test: 'ft-com-test.ftweb.tech'
-}
 
 export { HakoDeploySchema as schema }
 
