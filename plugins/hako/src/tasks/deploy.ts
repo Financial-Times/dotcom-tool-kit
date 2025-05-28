@@ -5,7 +5,7 @@ import { CIState, readState, writeState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
 import { createHash } from 'node:crypto'
 
 const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.2.7-beta'
@@ -33,7 +33,19 @@ const HakoDeploySchema = z
     asReviewApp: z
       .boolean()
       .default(false)
-      .describe('whether to deploy as a temporary review app, used for code review'),
+      .describe(
+        'whether to deploy as a temporary review app, used for code review. overrides the `customEphemeralId` option with its own hash of the git branch.'
+      ),
+    customEphemeralId: z
+      .string()
+      .optional()
+      .describe('ID that is used by Hako to identify a particular ephemeral app'),
+    customEphemeralManifest: z
+      .string()
+      .optional()
+      .describe(
+        'path to another app.yaml manifest used to set custom parameters for an ephemeral app. if not set the manifest from the default path for the given environment will be used.'
+      ),
     environments: z.array(HakoEnvironmentName).describe('the Hako environments to deploy an image to')
   })
   .describe('Deploy to ECS via the Hako CLI')
@@ -86,15 +98,21 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
       environment.name
     ]
     const domain = hakoDomains[environment.stage]
+
+    let reviewAppHash
     if (this.options.asReviewApp) {
       if (!process.env.CIRCLE_BRANCH) {
         throw new Error(
           `CIRCLE_BRANCH environment variable not found. This is required to create a review app`
         )
       }
-      const hash = createHash('sha256').update(process.env.CIRCLE_BRANCH).digest('hex').slice(0, 6)
-      commandArgs.push('--ephemeral', '--ephemeral-id', hash)
-      writeState('review', { url: `https://${name}-${hash}.${awsRegion}.${domain}` })
+      reviewAppHash = createHash('sha256').update(process.env.CIRCLE_BRANCH).digest('hex').slice(0, 6)
+      writeState('review', { url: `https://${name}-${reviewAppHash}.${awsRegion}.${domain}` })
+    }
+
+    const ephemeralId = reviewAppHash ?? this.options.customEphemeralId
+    if (ephemeralId) {
+      commandArgs.push('--ephemeral', '--ephemeral-id', ephemeralId)
     } else {
       writeState('staging', { url: `https://${name}.${awsRegion}.${domain}` })
     }
@@ -102,16 +120,21 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
     const child = spawn('docker', commandArgs)
 
     // Because we can't mount volumes in Docker images on CircleCI we have to
-    // pass the hako config via STDIN
-    if (this.options.asReviewApp) {
-      const hakoConfigPath = join(process.cwd(), 'hako-config', 'apps', name, environment.name, 'app.yaml')
+    // pass the hako config via stdin. This is only required for ephemeral apps
+    // as typical deployments will use the options from the already-created
+    // app.
+    if (ephemeralId) {
+      const hakoConfigPath =
+        this.options.customEphemeralManifest ??
+        join('hako-config', 'apps', name, environment.name, 'app.yaml')
+      const absoluteHakoConfigPath = resolve(hakoConfigPath)
       try {
-        const hakoConfig = await readFile(hakoConfigPath, 'utf-8')
+        const hakoConfig = await readFile(absoluteHakoConfigPath, 'utf-8')
         child.stdin.setDefaultEncoding('utf-8')
         child.stdin.write(hakoConfig)
       } catch (error) {
         child.kill('SIGTERM')
-        throw new Error(`Hako config not found at ${hakoConfigPath}`)
+        throw new Error(`Hako config not found at ${absoluteHakoConfigPath}`)
       }
     }
     child.stdin.end()
