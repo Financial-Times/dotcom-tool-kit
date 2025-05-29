@@ -160,13 +160,13 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
 
       await Promise.all(deploys)
     } catch (err) {
-      if (err instanceof Error) {
-        const error = new ToolKitError('hako deploy failed to run')
-        error.details = err.message
+      // We wrap non-ToolKitError errors to ensure that they exit the process
+      if (err instanceof Error && !(err instanceof ToolKitError)) {
+        const error = new ToolKitError(err.message)
+        error.exitCode = 1
         throw error
-      } else {
-        throw err
       }
+      throw err
     }
   }
 }

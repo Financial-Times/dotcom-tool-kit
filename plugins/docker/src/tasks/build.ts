@@ -69,13 +69,13 @@ export default class DockerBuild extends Task<{
         hookFork(this.logger, 'docker-build', childBuild)
         await waitOnExit('docker-build', childBuild)
       } catch (err) {
-        if (err instanceof Error) {
-          const error = new ToolKitError('docker build failed to run')
-          error.details = err.message
+        // We wrap non-ToolKitError errors to ensure that they exit the process
+        if (err instanceof Error && !(err instanceof ToolKitError)) {
+          const error = new ToolKitError(err.message)
+          error.exitCode = 1
           throw error
-        } else {
-          throw err
         }
+        throw err
       }
     }
   }

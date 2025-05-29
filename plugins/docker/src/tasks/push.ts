@@ -26,13 +26,13 @@ export default class DockerPush extends Task<{
           fullyQualifiedName: imageName
         })
       } catch (err) {
-        if (err instanceof Error) {
-          const error = new ToolKitError('docker push failed to run')
-          error.details = err.message
+        // We wrap non-ToolKitError errors to ensure that they exit the process
+        if (err instanceof Error && !(err instanceof ToolKitError)) {
+          const error = new ToolKitError(err.message)
+          error.exitCode = 1
           throw error
-        } else {
-          throw err
         }
+        throw err
       }
     }
 
