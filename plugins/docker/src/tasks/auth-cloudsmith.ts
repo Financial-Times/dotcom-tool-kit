@@ -28,6 +28,7 @@ export default class DockerAuthCloudsmith extends Task {
       if (err instanceof Error) {
         const error = new ToolKitError('docker auth with cloudsmith failed to run')
         error.details = err.message
+        error.exitCode = 1
         throw error
       } else {
         throw err

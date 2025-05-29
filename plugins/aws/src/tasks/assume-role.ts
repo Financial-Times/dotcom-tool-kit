@@ -46,6 +46,7 @@ export default class AwsAssumeRole extends Task<{ task: typeof AwsAssumeRoleSche
       if (err instanceof Error) {
         const error = new ToolKitError('failed to assume AWS role')
         error.details = err.message
+        error.exitCode = 1
         throw error
       } else {
         throw err

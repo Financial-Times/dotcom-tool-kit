@@ -163,6 +163,7 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
       if (err instanceof Error) {
         const error = new ToolKitError('hako deploy failed to run')
         error.details = err.message
+        error.exitCode = 1
         throw error
       } else {
         throw err

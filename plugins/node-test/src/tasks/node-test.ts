@@ -130,6 +130,7 @@ export default class NodeTest extends Task<{ task: typeof NodeTestSchema }> {
       if (err instanceof Error) {
         const error = new ToolKitError('node test failed to run')
         error.details = err.message
+        error.exitCode = 1
         throw error
       } else {
         throw err

@@ -29,6 +29,7 @@ export default class DockerPush extends Task<{
         if (err instanceof Error) {
           const error = new ToolKitError('docker push failed to run')
           error.details = err.message
+          error.exitCode = 1
           throw error
         } else {
           throw err
