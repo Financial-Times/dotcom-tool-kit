@@ -107,33 +107,23 @@ export { NodeTestSchema as schema }
 
 export default class NodeTest extends Task<{ task: typeof NodeTestSchema }> {
   async run({ cwd }: TaskRunContext) {
-    try {
-      const { customOptions, files: filePatterns, forceExit, ignore, watch } = this.options
-      let { concurrency } = this.options
-      // the default concurrency limit needs to be corrected in CircleCI
-      if (concurrency === true && process.env.CIRCLECI) {
-        concurrency = (await guessCircleCiThreads()) - 1
-      }
-      const files = await glob(filePatterns, { cwd, ignore })
+    const { customOptions, files: filePatterns, forceExit, ignore, watch } = this.options
+    let { concurrency } = this.options
+    // the default concurrency limit needs to be corrected in CircleCI
+    if (concurrency === true && process.env.CIRCLECI) {
+      concurrency = (await guessCircleCiThreads()) - 1
+    }
+    const files = await glob(filePatterns, { cwd, ignore })
 
-      let success = true
-      const testStream = run(Object.assign({ concurrency, files, forceExit, watch }, customOptions))
-      testStream.on('test:fail', () => {
-        success = false
-      })
+    let success = true
+    const testStream = run(Object.assign({ concurrency, files, forceExit, watch }, customOptions))
+    testStream.on('test:fail', () => {
+      success = false
+    })
 
-      await pipeline(testStream, new spec(), createWritableLogger(this.logger, 'node-test'))
-      if (!success) {
-        throw new ToolKitError('some tests did not pass, error output has been logged above ☝️')
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        const error = new ToolKitError('node test failed to run')
-        error.details = err.message
-        throw error
-      } else {
-        throw err
-      }
+    await pipeline(testStream, new spec(), createWritableLogger(this.logger, 'node-test'))
+    if (!success) {
+      throw new ToolKitError('some tests did not pass, error output has been logged above ☝️')
     }
   }
 }
