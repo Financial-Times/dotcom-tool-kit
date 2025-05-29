@@ -43,13 +43,13 @@ export default class AwsAssumeRole extends Task<{ task: typeof AwsAssumeRoleSche
       writeState('ci', { awsCredentials })
       this.logger.info(`Saved AWS credentials to "ci" state with session name "${RoleSessionName}"`)
     } catch (err) {
-      if (err instanceof Error) {
-        const error = new ToolKitError('failed to assume AWS role')
-        error.details = err.message
+      // We wrap non-ToolKitError errors to ensure that they exit the process
+      if (err instanceof Error && !(err instanceof ToolKitError)) {
+        const error = new ToolKitError(err.message)
+        error.exitCode = 1
         throw error
-      } else {
-        throw err
       }
+      throw err
     }
   }
 }
