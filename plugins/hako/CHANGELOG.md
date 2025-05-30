@@ -6,6 +6,19 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.15](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.14...hako-v0.1.15) (2025-05-30)
+
+
+### Features
+
+* **hako:** add HakoDelete task ([2b1fd2b](https://github.com/Financial-Times/dotcom-tool-kit/commit/2b1fd2beac8bcbfcc410d5700771a5c24d65f1a9))
+* **hako:** allow specifying custom ephemeral IDs and manifest files ([8dee8d4](https://github.com/Financial-Times/dotcom-tool-kit/commit/8dee8d489cb432bd5a5435c2e676d9a338c45bfc))
+
+
+### Bug Fixes
+
+* ensure tasks exit the command on failure ([267750e](https://github.com/Financial-Times/dotcom-tool-kit/commit/267750e0baa467e513e95cbf69e8d53db5c886c1))
+
 ## [0.1.14](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.13...hako-v0.1.14) (2025-05-21)
 
 
