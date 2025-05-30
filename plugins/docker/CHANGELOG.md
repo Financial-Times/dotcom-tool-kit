@@ -32,6 +32,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [0.4.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.4.3...docker-v0.4.4) (2025-05-30)
+
+
+### Bug Fixes
+
+* ensure tasks exit the command on failure ([267750e](https://github.com/Financial-Times/dotcom-tool-kit/commit/267750e0baa467e513e95cbf69e8d53db5c886c1))
+
 ## [0.4.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.4.2...docker-v0.4.3) (2025-05-20)
 
 

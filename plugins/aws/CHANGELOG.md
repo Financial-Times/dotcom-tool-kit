@@ -26,6 +26,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
 
+## [0.1.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/aws-v0.1.9...aws-v0.1.10) (2025-05-30)
+
+
+### Bug Fixes
+
+* ensure tasks exit the command on failure ([267750e](https://github.com/Financial-Times/dotcom-tool-kit/commit/267750e0baa467e513e95cbf69e8d53db5c886c1))
+
 ## [0.1.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/aws-v0.1.8...aws-v0.1.9) (2025-05-21)
 
 

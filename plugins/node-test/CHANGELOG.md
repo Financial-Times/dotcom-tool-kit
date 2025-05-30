@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-test-v1.0.4...node-test-v1.0.5) (2025-05-30)
+
+
+### Bug Fixes
+
+* remove a redundant try/catch ([1f3988e](https://github.com/Financial-Times/dotcom-tool-kit/commit/1f3988e417ffe3399d088b603bbc19ee4b107913))
+
 ## [1.0.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-test-v1.0.3...node-test-v1.0.4) (2025-05-20)
 
 
