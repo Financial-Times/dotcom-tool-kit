@@ -20,7 +20,7 @@ plugins:
 
 ### `DockerBuild`
 
-
+Run `docker build` to create Docker images.
 #### Task options
 
 | Property | Description                                                                                             | Type      | Default |
