@@ -120,7 +120,7 @@ export const formatUnusedPluginOptions = (
 
 ${unusedOptions.map((optionName) => `- ${s.plugin(optionName)}`).join('\n')}
 
-They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
+They could be misspelt, placed at the wrong level of YAML indentation, or defined by a Tool Kit plugin that isn't used by this app.
 
 ${
   definedPlugins.length > 0
@@ -138,7 +138,7 @@ export const formatUnusedTaskOptions = (
 
 ${unusedOptions.map((optionName) => `- ${s.task(optionName)}`).join('\n')}
 
-They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
+They could be misspelt, placed at the wrong level of YAML indentation, or defined by a Tool Kit plugin that isn't used by this app.
 
 ${
   definedTasks.length > 0
@@ -156,7 +156,7 @@ export const formatUnusedHookOptions = (
 
 ${unusedOptions.map((optionName) => `- ${s.hook(optionName)}`).join('\n')}
 
-They could be misspelt, or defined by a Tool Kit plugin that isn't installed in this app.
+They could be misspelt, placed at the wrong level of YAML indentation, or defined by a Tool Kit plugin that isn't used by this app.
 
 ${
   definedHooks.length > 0
