@@ -34,7 +34,7 @@
     "@dotcom-tool-kit/base": "^1.2.3",
     "@dotcom-tool-kit/logger": "^4.2.2",
     "@npmcli/map-workspaces": "^4.0.2",
-    "minimatch": "^10.0.1",
+    "minimatch": "^10.0.2",
     "pluralize": "^8.0.0",
     "zod": "^3.24.4"
   },
