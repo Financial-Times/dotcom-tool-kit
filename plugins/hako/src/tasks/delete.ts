@@ -44,7 +44,7 @@ export default class HakoDelete extends Task<{ task: typeof HakoDeleteSchema }> 
       '--platform',
       'linux/amd64',
       hakoImageName,
-      'image',
+      'app',
       'delete',
       '--app',
       name,
