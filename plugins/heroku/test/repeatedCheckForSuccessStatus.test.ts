@@ -35,7 +35,7 @@ describe('repeatedCheckForSuccessStatus', () => {
   it('throws an error if the app was deleted', async () => {
     reviewApp.status = 'deleted'
 
-    await expect(repeatedCheckForSuccessStatus(logger, reviewAppId)).rejects.toThrowError()
+    await expect(repeatedCheckForSuccessStatus(logger, reviewAppId)).rejects.toThrow()
   })
 
   it('returns true if the review app is successfully polled', async () => {

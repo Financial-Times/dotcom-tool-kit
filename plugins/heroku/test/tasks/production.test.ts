@@ -29,7 +29,7 @@ describe('staging', () => {
     const task = new Production(logger, 'HerokuProduction', pluginOptions, productionOptions)
     await task.run()
 
-    expect(utils.promoteStagingToProduction).toBeCalledWith(expect.anything(), 'slug-id')
+    expect(utils.promoteStagingToProduction).toHaveBeenCalledWith(expect.anything(), 'slug-id')
   })
 
   it('should resolve when completed successfully', async () => {
@@ -40,6 +40,6 @@ describe('staging', () => {
   it('should throw if it completes unsuccessfully', async () => {
     mockPromoteStagingToProduction.mockImplementation(() => Promise.reject())
     const task = new Production(logger, 'HerokuProduction', pluginOptions, productionOptions)
-    await expect(task.run()).rejects.toThrowError()
+    await expect(task.run()).rejects.toThrow()
   })
 })

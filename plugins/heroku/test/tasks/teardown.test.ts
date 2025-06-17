@@ -33,6 +33,6 @@ describe('teardown', () => {
   it('should return a rejected promise if it completes unsuccessfully', async () => {
     mockScaleDyno.mockImplementationOnce(() => Promise.reject())
     const task = new Teardown(logger, 'HerokuTeardown', {})
-    await expect(task.run()).rejects.toThrowError()
+    await expect(task.run()).rejects.toThrow()
   })
 })

@@ -35,16 +35,16 @@ describe('setStagingSlug', () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(buildInfo))
     await createBuild(logger, appName)
 
-    expect(getRepoDetails).toBeCalledTimes(1)
-    expect(getRepoDetails).toBeCalledWith(logger)
+    expect(getRepoDetails).toHaveBeenCalledTimes(1)
+    expect(getRepoDetails).toHaveBeenCalledWith(logger)
   })
 
   it('creates a new build for the app', async () => {
     mockHerokuPost.mockImplementationOnce(async () => Promise.resolve(buildInfo))
     await createBuild(logger, appName)
 
-    expect(heroku.post).toBeCalledTimes(1)
-    expect(heroku.post).toBeCalledWith(`/apps/${appName}/builds`, {
+    expect(heroku.post).toHaveBeenCalledTimes(1)
+    expect(heroku.post).toHaveBeenCalledWith(`/apps/${appName}/builds`, {
       body: { source_blob: { ...repo.source_blob, checksum: null } }
     })
   })

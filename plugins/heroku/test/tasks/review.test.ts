@@ -57,8 +57,8 @@ describe('review', () => {
 
     await task.run()
 
-    expect(heroku.get).toBeCalledTimes(1)
-    expect(heroku.get).toBeCalledWith(`/pipelines/${pipeline}`)
+    expect(heroku.get).toHaveBeenCalledTimes(1)
+    expect(heroku.get).toHaveBeenCalledWith(`/pipelines/${pipeline}`)
   })
 
   it('should return review app id from get heroku review app', async () => {
@@ -66,8 +66,8 @@ describe('review', () => {
 
     await task.run()
 
-    expect(getHerokuReviewApp).toBeCalledTimes(1)
-    expect(getHerokuReviewApp).toBeCalledWith(expect.anything(), 'test-pipeline-id')
+    expect(getHerokuReviewApp).toHaveBeenCalledTimes(1)
+    expect(getHerokuReviewApp).toHaveBeenCalledWith(expect.anything(), 'test-pipeline-id')
   })
 
   it('should fail if either doppler option is missing', async () => {
@@ -101,7 +101,7 @@ describe('review', () => {
 
     await task.run()
 
-    expect(gtg).toBeCalledWith(expect.anything(), appId, 'review')
+    expect(gtg).toHaveBeenCalledWith(expect.anything(), appId, 'review')
   })
 
   it('should throw an error if it fails', async () => {

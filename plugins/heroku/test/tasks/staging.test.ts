@@ -72,8 +72,8 @@ describe('staging', () => {
 
     await task.run()
 
-    expect(getPipelineCouplings).toBeCalledTimes(1)
-    expect(getPipelineCouplings).toBeCalledWith(expect.anything(), pipeline)
+    expect(getPipelineCouplings).toHaveBeenCalledTimes(1)
+    expect(getPipelineCouplings).toHaveBeenCalledWith(expect.anything(), pipeline)
   })
 
   it('should return appName from get heroku staging', async () => {
@@ -81,8 +81,8 @@ describe('staging', () => {
 
     await task.run()
 
-    expect(getHerokuStagingApp).toBeCalledTimes(1)
-    expect(getHerokuStagingApp).toReturnWith(appName)
+    expect(getHerokuStagingApp).toHaveBeenCalledTimes(1)
+    expect(getHerokuStagingApp).toHaveReturnedWith(appName)
   })
 
   it('should call createBuild with app name', async () => {
@@ -90,21 +90,21 @@ describe('staging', () => {
 
     await task.run()
 
-    expect(createBuild).toBeCalledWith(expect.anything(), appName)
+    expect(createBuild).toHaveBeenCalledWith(expect.anything(), appName)
   })
 
   it(`should call repeatedCheckForBuildSuccess if the slug id isn't present`, async () => {
     const task = new Staging(logger, 'HerokuStaging', { pipeline }, { scaling: {} })
     await task.run()
 
-    expect(repeatedCheckForBuildSuccess).toBeCalledWith(expect.anything(), appName, buildInfo.id)
+    expect(repeatedCheckForBuildSuccess).toHaveBeenCalledWith(expect.anything(), appName, buildInfo.id)
   })
 
   it('should call setStagingSlug with app name and slug id', async () => {
     const task = new Staging(logger, 'HerokuStaging', { pipeline }, { scaling: {} })
     await task.run()
 
-    expect(setStagingSlug).toBeCalledWith(expect.anything(), appName, slugId)
+    expect(setStagingSlug).toHaveBeenCalledWith(expect.anything(), appName, slugId)
   })
 
   it('should call scaleDyno', async () => {
@@ -112,7 +112,7 @@ describe('staging', () => {
 
     await task.run()
 
-    expect(scaleDyno).toBeCalledTimes(1)
+    expect(scaleDyno).toHaveBeenCalledTimes(1)
   })
 
   it('should call gtg with appName', async () => {
@@ -120,7 +120,7 @@ describe('staging', () => {
 
     await task.run()
 
-    expect(gtg).toBeCalledWith(expect.anything(), appName, 'staging')
+    expect(gtg).toHaveBeenCalledWith(expect.anything(), appName, 'staging')
   })
 
   it('should resolve successfully when complete', async () => {

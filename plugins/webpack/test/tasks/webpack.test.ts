@@ -28,7 +28,7 @@ describe('webpack', () => {
       const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'development' })
       await task.run({ command: 'build:local', cwd: '' })
 
-      expect(fork).toBeCalledWith(
+      expect(fork).toHaveBeenCalledWith(
         webpackCLIPath,
         ['build', '--color', '--mode=development', '--config=webpack.config.js'],
         { silent: true, cwd: '', execArgv: expect.arrayContaining([]) }
@@ -42,7 +42,7 @@ describe('webpack', () => {
       const task = new Webpack(logger, 'Webpack', {}, { configPath, envName: 'production' })
       await task.run({ command: 'build:local', cwd: '' })
 
-      expect(fork).toBeCalledWith(
+      expect(fork).toHaveBeenCalledWith(
         webpackCLIPath,
         ['build', '--color', '--mode=production', '--config=webpack.config.js'],
         { silent: true, cwd: '', execArgv: expect.arrayContaining([]) }

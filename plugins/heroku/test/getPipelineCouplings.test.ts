@@ -73,6 +73,6 @@ describe('getPipelineCouplings', () => {
   it('throws when unsuccessful', async () => {
     const wrongPipelineName = 'wrong-test-pipeline-name'
 
-    await expect(getPipelineCouplings(logger, wrongPipelineName)).rejects.toThrowError()
+    await expect(getPipelineCouplings(logger, wrongPipelineName)).rejects.toThrow()
   })
 })

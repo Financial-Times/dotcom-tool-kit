@@ -22,7 +22,7 @@ describe('jest plugin', () => {
     const jest = new Jest(logger, 'Jest', {}, {})
     await jest.run({ command: 'test:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(
+    expect(fork).toHaveBeenCalledWith(
       expect.any(String),
       expect.not.arrayContaining([expect.stringContaining('--config')]),
       { silent: true, cwd: '' }
@@ -33,7 +33,7 @@ describe('jest plugin', () => {
     const jest = new Jest(logger, 'Jest', {}, { configPath: './src/jest.config.js' })
     await jest.run({ command: 'test:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(
+    expect(fork).toHaveBeenCalledWith(
       expect.any(String),
       expect.arrayContaining(['--config=./src/jest.config.js']),
       {
@@ -47,7 +47,7 @@ describe('jest plugin', () => {
     const jest = new Jest(logger, 'Jest', {}, { ci: true })
     await jest.run({ command: 'test:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(expect.any(String), expect.arrayContaining(['--ci']), {
+    expect(fork).toHaveBeenCalledWith(expect.any(String), expect.arrayContaining(['--ci']), {
       silent: true,
       cwd: ''
     })

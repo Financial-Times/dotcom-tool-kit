@@ -54,14 +54,14 @@ describe('getHerokuReviewApp', () => {
   it('gets calls heroku api with its pipeline id', async () => {
     await getHerokuReviewApp(logger, pipelineId)
 
-    expect(heroku.get).toBeCalledTimes(1)
-    expect(heroku.get).toBeCalledWith(`/pipelines/${pipelineId}/review-apps`)
+    expect(heroku.get).toHaveBeenCalledTimes(1)
+    expect(heroku.get).toHaveBeenCalledWith(`/pipelines/${pipelineId}/review-apps`)
   })
 
   it('checks for success if the review app is creating', async () => {
     await getHerokuReviewApp(logger, pipelineId)
 
-    expect(repeatedCheckForSuccessStatus).toBeCalledTimes(1)
+    expect(repeatedCheckForSuccessStatus).toHaveBeenCalledTimes(1)
   })
 
   it(`doesn't check for success if the review app has been created`, async () => {
@@ -69,7 +69,7 @@ describe('getHerokuReviewApp', () => {
 
     await getHerokuReviewApp(logger, pipelineId)
 
-    expect(repeatedCheckForSuccessStatus).toBeCalledTimes(0)
+    expect(repeatedCheckForSuccessStatus).toHaveBeenCalledTimes(0)
   })
 
   it('returns the review app id if successful', async () => {

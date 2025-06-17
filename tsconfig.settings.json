@@ -4,6 +4,7 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "isolatedModules": true
   }
 }

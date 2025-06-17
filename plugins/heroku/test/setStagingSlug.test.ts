@@ -14,13 +14,13 @@ describe('setStagingSlug', () => {
 
     await setStagingSlug(logger, appName, slug)
 
-    expect(heroku.post).toBeCalledWith(`/apps/${appName}/releases`, { body: { slug } })
+    expect(heroku.post).toHaveBeenCalledWith(`/apps/${appName}/releases`, { body: { slug } })
   })
 
   it('throws an error if unsuccessful', async () => {
     mockHerokuPost.mockImplementation(async () => Promise.reject())
 
-    await expect(setStagingSlug(logger, appName, slug)).rejects.toThrowError()
+    await expect(setStagingSlug(logger, appName, slug)).rejects.toThrow()
   })
 
   it('resolves if successful', async () => {

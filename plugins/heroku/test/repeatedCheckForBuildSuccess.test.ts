@@ -30,7 +30,7 @@ describe('repeatedCheckForBuildSuccess', () => {
   it('throws an error if unsuccessful', async () => {
     mockHerokuGet.mockImplementationOnce(async () => Promise.reject())
 
-    await expect(repeatedCheckForBuildSuccess(logger, appName, buildId)).rejects.toThrowError()
+    await expect(repeatedCheckForBuildSuccess(logger, appName, buildId)).rejects.toThrow()
   })
 
   it('returns slug id if the build is successful', async () => {

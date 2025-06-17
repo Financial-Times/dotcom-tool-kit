@@ -83,9 +83,9 @@ describe('NpmPublish', () => {
     const task = new NpmPublish(logger, 'NpmPublish', {}, {})
     await task.run({ command: 'publish:tag', cwd: '' })
 
-    expect(listPackedFilesSpy).toBeCalled()
-    expect(pack).toBeCalled()
-    expect(publish).toBeCalled()
+    expect(listPackedFilesSpy).toHaveBeenCalled()
+    expect(pack).toHaveBeenCalled()
+    expect(publish).toHaveBeenCalled()
   })
 
   it('should write the version tag to the package.json file', async () => {
@@ -100,6 +100,6 @@ describe('NpmPublish', () => {
       path.resolve(process.cwd(), 'package.json'),
       expect.stringContaining(`${MOCK_CIRCLE_TAG.replace(/^v/, '')}`)
     )
-    expect(publish).toBeCalled()
+    expect(publish).toHaveBeenCalled()
   })
 })

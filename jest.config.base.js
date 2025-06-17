@@ -1,6 +1,5 @@
 const tsJestConfig = {
-  tsconfig: 'tsconfig.settings.json',
-  isolatedModules: true
+  tsconfig: 'tsconfig.settings.json'
 }
 module.exports.tsJestConfig = tsJestConfig
 

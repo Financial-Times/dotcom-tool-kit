@@ -47,17 +47,17 @@ describe('gtg', () => {
   it('writes app url to state file', async () => {
     await gtg(logger, appName, 'staging')
 
-    expect(writeState).toBeCalledWith('staging', expect.objectContaining({ url: makeUrl(appName) }))
+    expect(writeState).toHaveBeenCalledWith('staging', expect.objectContaining({ url: makeUrl(appName) }))
   })
 
   it('calls wait for ok with the correct url', async () => {
     await gtg(logger, appName, 'staging')
 
-    expect(waitForOk).toBeCalledWith(logger, makeUrl(appName) + '__gtg')
+    expect(waitForOk).toHaveBeenCalledWith(logger, makeUrl(appName) + '__gtg')
   })
 
   it('throws an error if the app fails to respond', async () => {
-    await expect(gtg(logger, 'wrong-app-name', 'staging')).rejects.toThrowError()
+    await expect(gtg(logger, 'wrong-app-name', 'staging')).rejects.toThrow()
   })
 
   it('resolves if successful', async () => {

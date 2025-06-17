@@ -111,7 +111,7 @@ describe('Validated', () => {
     })
 
     it('should throw message and reasons for invalid', () => {
-      expect(() => invalid(['hello', 'there']).unwrap('invalid!')).toThrowError(
+      expect(() => invalid(['hello', 'there']).unwrap('invalid!')).toThrow(
         expect.objectContaining({
           message: 'invalid!',
           details: 'hello\n\nthere'

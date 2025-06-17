@@ -27,14 +27,14 @@ describe('getHerokuStagingApp', () => {
 
     await getHerokuStagingApp()
 
-    expect(readState).toBeCalledTimes(1)
+    expect(readState).toHaveBeenCalledTimes(1)
   })
 
   it('writes app name to state', async () => {
     mockHerokuGet.mockImplementationOnce(async () => Promise.resolve({ name }))
     await getHerokuStagingApp()
 
-    expect(writeState).toBeCalledWith('staging', { appName: 'staging-app-name' })
+    expect(writeState).toHaveBeenCalledWith('staging', { appName: 'staging-app-name' })
   })
 
   it('returns the app name', async () => {

@@ -26,28 +26,28 @@ describe('typescript', () => {
     const task = new TypeScript(logger, 'TypeScript', {}, { configPath })
     await task.run({ command: 'build:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(tscPath, ['--project', configPath], { silent: true, cwd: '' })
+    expect(fork).toHaveBeenCalledWith(tscPath, ['--project', configPath], { silent: true, cwd: '' })
   })
 
   it('watch option should run tsc with --watch arg', async () => {
     const task = new TypeScript(logger, 'TypeScript', {}, { configPath, watch: true })
     await task.run({ command: 'build:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(tscPath, ['--watch', '--project', configPath], { silent: true, cwd: '' })
+    expect(fork).toHaveBeenCalledWith(tscPath, ['--watch', '--project', configPath], { silent: true, cwd: '' })
   })
 
   it('noEmit option should run tsc with --noEmit arg', async () => {
     const task = new TypeScript(logger, 'TypeScript', {}, { configPath, noEmit: true })
     await task.run({ command: 'build:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(tscPath, ['--noEmit', '--project', configPath], { silent: true, cwd: '' })
+    expect(fork).toHaveBeenCalledWith(tscPath, ['--noEmit', '--project', configPath], { silent: true, cwd: '' })
   })
 
   it('build option should run tsc with --build arg', async () => {
     const task = new TypeScript(logger, 'TypeScript', {}, { configPath, build: true })
     await task.run({ command: 'build:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(tscPath, ['--build', '--project', configPath], { silent: true, cwd: '' })
+    expect(fork).toHaveBeenCalledWith(tscPath, ['--build', '--project', configPath], { silent: true, cwd: '' })
   })
 
   it('can combine options', async () => {
@@ -59,7 +59,7 @@ describe('typescript', () => {
     )
     await task.run({ command: 'build:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(tscPath, ['--build', '--watch', '--noEmit', '--project', configPath], {
+    expect(fork).toHaveBeenCalledWith(tscPath, ['--build', '--watch', '--noEmit', '--project', configPath], {
       silent: true,
       cwd: ''
     })
