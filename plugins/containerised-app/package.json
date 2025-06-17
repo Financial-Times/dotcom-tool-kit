@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/containerised-app",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -31,7 +31,7 @@
     "@dotcom-tool-kit/cloudsmith": "^1.1.2",
     "@dotcom-tool-kit/docker": "^0.4.4",
     "@dotcom-tool-kit/doppler": "^2.2.3",
-    "@dotcom-tool-kit/hako": "^0.1.15",
+    "@dotcom-tool-kit/hako": "^0.1.16",
     "@dotcom-tool-kit/logger": "^4.2.2",
     "@dotcom-tool-kit/node": "^4.3.4",
     "zod": "^3.24.4"

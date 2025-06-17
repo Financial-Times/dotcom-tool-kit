@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.16](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.15...hako-v0.1.16) (2025-06-17)
+
+
+### Bug Fixes
+
+* **hako:** correct hako argument to delete ephemeral app ([a16a6cf](https://github.com/Financial-Times/dotcom-tool-kit/commit/a16a6cf249714e4c772c32474393d646f7c430d9))
+
 ## [0.1.15](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.14...hako-v0.1.15) (2025-05-30)
 
 
