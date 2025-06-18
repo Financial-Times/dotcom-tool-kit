@@ -240,6 +240,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [4.2.16](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v4.2.15...npm-v4.2.16) (2025-06-18)
+
+
+### Bug Fixes
+
+* bump libnpmpack from 9.0.3 to 9.0.5 ([2d1caa5](https://github.com/Financial-Times/dotcom-tool-kit/commit/2d1caa5061f627a6985a4d0557d59892d0950ac3))
+
 ## [4.2.15](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v4.2.14...npm-v4.2.15) (2025-05-21)
 
 
