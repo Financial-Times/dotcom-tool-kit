@@ -1,6 +1,6 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
-import { fork } from 'child_process'
+import { ChildProcess, fork } from 'child_process'
 import * as z from 'zod'
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
@@ -20,6 +20,8 @@ const WebpackSchema = z
 export { WebpackSchema as schema }
 
 export default class Webpack extends Task<{ task: typeof WebpackSchema }> {
+  child?: ChildProcess
+
   async run({ cwd }: TaskRunContext): Promise<void> {
     this.logger.info('starting Webpack...')
     const args = ['build', '--color', `--mode=${this.options.envName}`]
@@ -39,8 +41,15 @@ export default class Webpack extends Task<{ task: typeof WebpackSchema }> {
       execArgv = [...execArgv, '--openssl-legacy-provider']
     }
 
-    const child = fork(webpackCLIPath, args, { silent: true, execArgv, cwd })
-    hookFork(this.logger, 'webpack', child)
-    return waitOnExit('webpack', child)
+    this.child = fork(webpackCLIPath, args, { silent: true, execArgv, cwd })
+    hookFork(this.logger, 'webpack', this.child)
+    return waitOnExit('webpack', this.child)
+  }
+
+  async stop() {
+    if (this.child && (this.child.exitCode === null || !this.child.killed)) {
+      // SIGINT instead of SIGKILL so the process gets chance to exit gracefully
+      this.child.kill('SIGINT')
+    }
   }
 }
