@@ -1,11 +1,12 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import type ServerlessSchema from '../schema'
-import { spawn } from 'child_process'
+import { ChildProcess, spawn } from 'child_process'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 import * as z from 'zod'
+import { writeState } from '@dotcom-tool-kit/state'
 
 const ServerlessRunSchema = z
   .object({
@@ -26,6 +27,8 @@ export default class ServerlessRun extends Task<{
   task: typeof ServerlessRunSchema
   plugin: typeof ServerlessSchema
 }> {
+  child?: ChildProcess
+
   async run({ cwd, config }: TaskRunContext): Promise<void> {
     const { useDoppler, ports } = this.options
     const { configPath } = this.pluginOptions
@@ -54,7 +57,7 @@ export default class ServerlessRun extends Task<{
       args.push('--config', './serverless.yml')
     }
 
-    const child = spawn('serverless', args, {
+    this.child = spawn('serverless', args, {
       env: {
         ...dopplerEnv,
         PORT: port.toString(),
@@ -63,16 +66,20 @@ export default class ServerlessRun extends Task<{
       cwd
     })
 
-    hookFork(this.logger, 'serverless', child)
+    hookFork(this.logger, 'serverless', this.child)
 
     const unhook = hookConsole(this.logger, 'wait-port')
     try {
       await waitPort({
         host: 'localhost',
-        port: port
+        port
       })
     } finally {
       unhook()
     }
+
+    writeState('local', { port })
+
+    await waitOnExit('serverless', this.child)
   }
 }
