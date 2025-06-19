@@ -15,7 +15,7 @@ import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 import pluralize from 'pluralize'
 
-type ErrorSummary = {
+export type ErrorSummary = {
   task: string
   error: Error
 }
