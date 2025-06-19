@@ -82,4 +82,11 @@ export default class ServerlessRun extends Task<{
 
     await waitOnExit('serverless', this.child)
   }
+
+  async stop() {
+    if (this.child && (this.child.exitCode === null || !this.child.killed)) {
+      // SIGINT instead of SIGKILL so the process gets chance to exit gracefully
+      this.child.kill('SIGINT')
+    }
+  }
 }
