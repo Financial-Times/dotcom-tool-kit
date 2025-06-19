@@ -1,6 +1,6 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import type ServerlessSchema from '../schema'
-import { spawn } from 'child_process'
+import { ChildProcess, spawn } from 'child_process'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
@@ -26,6 +26,8 @@ export default class ServerlessRun extends Task<{
   task: typeof ServerlessRunSchema
   plugin: typeof ServerlessSchema
 }> {
+  child?: ChildProcess
+
   async run({ cwd, config }: TaskRunContext): Promise<void> {
     const { useDoppler, ports } = this.options
     const { configPath } = this.pluginOptions
@@ -54,7 +56,7 @@ export default class ServerlessRun extends Task<{
       args.push('--config', './serverless.yml')
     }
 
-    const child = spawn('serverless', args, {
+    this.child = spawn('serverless', args, {
       env: {
         ...dopplerEnv,
         PORT: port.toString(),
@@ -63,7 +65,7 @@ export default class ServerlessRun extends Task<{
       cwd
     })
 
-    hookFork(this.logger, 'serverless', child)
+    hookFork(this.logger, 'serverless', this.child)
 
     const unhook = hookConsole(this.logger, 'wait-port')
     try {
@@ -73,6 +75,13 @@ export default class ServerlessRun extends Task<{
       })
     } finally {
       unhook()
+    }
+  }
+
+  async stop() {
+    if (this.child && (this.child.exitCode === null || !this.child.killed)) {
+      // SIGINT instead of SIGKILL so the process gets chance to exit gracefully
+      this.child.kill('SIGINT')
     }
   }
 }
