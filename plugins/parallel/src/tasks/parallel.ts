@@ -39,6 +39,8 @@ An optional \`boolean\`, defaulting to \`false\`. If \`true\`, when one of the p
 export { ParallelSchema as schema }
 
 export default class Parallel extends Task<{ task: typeof ParallelSchema }> {
+  taskInstances: Task<any>[] = []
+
   async run(context: TaskRunContext) {
     const tasks = this.options.tasks.flatMap((entry) =>
       Object.entries(entry).map(([task, options]) => ({ task, options, plugin: this.plugin }))
@@ -56,22 +58,15 @@ ${tasks
 `)
 
     // HACK:KB:20250619 loadTasks expects config to be mutable, in TaskRunContext it's readonly, just cast it idc
-    const taskInstances = (
+    this.taskInstances = (
       await loadTasks(this.logger, tasks, context.config as WritableDeep<ValidConfig>)
     ).unwrap('tasks are invalid!')
 
     if (this.options.stopOnError) {
       try {
-        await Promise.all(taskInstances.map((task) => task.run(context)))
+        await Promise.all(this.taskInstances.map((task) => task.run(context)))
       } catch (error) {
-        await Promise.all(
-          taskInstances.map((task) =>
-            task.stop().catch((error) => {
-              this.logger.warn(`error stopping ${styles.task(this.id)}:
-  ${error.message}`)
-            })
-          )
-        )
+        this.stop()
 
         throw error
       }
@@ -79,7 +74,7 @@ ${tasks
       const errors: ErrorSummary[] = []
 
       await Promise.all(
-        taskInstances.map((task) =>
+        this.taskInstances.map((task) =>
           task.run(context).catch((error: Error) => {
             errors.push({
               task: task.id,
@@ -93,5 +88,16 @@ ${tasks
         handleTaskErrors(errors, context.command)
       }
     }
+  }
+
+  async stop() {
+    await Promise.all(
+      this.taskInstances.map((task) =>
+        task.stop().catch((error) => {
+          this.logger.warn(`error stopping ${styles.task(task.id)}:
+${error.message}`)
+        })
+      )
+    )
   }
 }
