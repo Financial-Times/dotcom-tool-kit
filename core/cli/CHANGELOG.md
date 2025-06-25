@@ -461,6 +461,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.8.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.8.1...dotcom-tool-kit-v4.8.2) (2025-06-25)
+
+
+### Bug Fixes
+
+* **circleci-deploy:** make deployments depend on build job ([b13d284](https://github.com/Financial-Times/dotcom-tool-kit/commit/b13d2849ef550d5e25227b9ae730a7a7f6f0091d))
+
 ## [4.8.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.8.0...dotcom-tool-kit-v4.8.1) (2025-05-21)
 
 
