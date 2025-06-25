@@ -7,6 +7,20 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.2.0
 
+## [0.1.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/monorepo-v0.1.4...monorepo-v0.1.5) (2025-06-25)
+
+
+### Bug Fixes
+
+* bump minimatch from 10.0.1 to 10.0.3 ([f7eee71](https://github.com/Financial-Times/dotcom-tool-kit/commit/f7eee71e90c40e0ef3df93ad1a2b4b04f077e669))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.8.2
+
 ## [0.1.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/monorepo-v0.1.3...monorepo-v0.1.4) (2025-05-21)
 
 

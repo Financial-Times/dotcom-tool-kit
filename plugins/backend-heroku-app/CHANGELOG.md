@@ -410,6 +410,19 @@
     * @dotcom-tool-kit/node bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/npm bumped from ^4.2.11 to ^4.2.12
 
+## [4.1.18](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-heroku-app-v4.1.17...backend-heroku-app-v4.1.18) (2025-06-25)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^4.1.17 to ^4.1.18
+    * @dotcom-tool-kit/heroku bumped from ^4.2.5 to ^4.2.6
+    * @dotcom-tool-kit/npm bumped from ^4.2.15 to ^4.2.16
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.8.2
+
 ## [4.1.17](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-heroku-app-v4.1.16...backend-heroku-app-v4.1.17) (2025-05-21)
 
 

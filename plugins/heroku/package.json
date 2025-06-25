@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/heroku",
-  "version": "4.2.5",
+  "version": "4.2.6",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -14,7 +14,7 @@
     "@dotcom-tool-kit/doppler": "^2.2.3",
     "@dotcom-tool-kit/error": "^4.1.1",
     "@dotcom-tool-kit/logger": "^4.2.2",
-    "@dotcom-tool-kit/npm": "^4.2.15",
+    "@dotcom-tool-kit/npm": "^4.2.16",
     "@dotcom-tool-kit/package-json-hook": "^5.2.4",
     "@dotcom-tool-kit/state": "^4.3.2",
     "@dotcom-tool-kit/wait-for-ok": "^4.1.2",
