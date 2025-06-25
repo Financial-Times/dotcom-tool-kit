@@ -6570,7 +6570,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -6585,7 +6585,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-staging",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": true,
                                     "splitIntoMatrix": false,
@@ -6639,7 +6639,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -6963,7 +6963,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -6978,7 +6978,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-staging",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": true,
                                         "splitIntoMatrix": false,
@@ -7032,7 +7032,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -7375,7 +7375,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -7390,7 +7390,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-staging",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": true,
                                     "splitIntoMatrix": false,
@@ -7444,7 +7444,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -7766,7 +7766,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -7781,7 +7781,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-staging",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": true,
                                         "splitIntoMatrix": false,
@@ -7835,7 +7835,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -8159,7 +8159,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -8174,7 +8174,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -8228,7 +8228,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -8534,7 +8534,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -8549,7 +8549,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-staging",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": true,
                                     "splitIntoMatrix": false,
@@ -8603,7 +8603,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -8927,7 +8927,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -8942,7 +8942,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-staging",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": true,
                                         "splitIntoMatrix": false,
@@ -8996,7 +8996,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -9339,7 +9339,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -9354,7 +9354,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-staging",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": true,
                                     "splitIntoMatrix": false,
@@ -9408,7 +9408,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -9730,7 +9730,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -9745,7 +9745,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-staging",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": true,
                                         "splitIntoMatrix": false,
@@ -9799,7 +9799,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -10123,7 +10123,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -10138,7 +10138,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -10192,7 +10192,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -10498,7 +10498,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -10513,7 +10513,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-staging",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": true,
                                     "splitIntoMatrix": false,
@@ -10567,7 +10567,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -10891,7 +10891,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -10906,7 +10906,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-staging",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": true,
                                         "splitIntoMatrix": false,
@@ -10960,7 +10960,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -11303,7 +11303,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -11318,7 +11318,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-staging",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": true,
                                     "splitIntoMatrix": false,
@@ -11372,7 +11372,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -11694,7 +11694,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -11709,7 +11709,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-staging",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": true,
                                         "splitIntoMatrix": false,
@@ -11763,7 +11763,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         },
                                         "name": "deploy-review",
                                         "requires": [
-                                          "setup",
+                                          "build",
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
@@ -12087,7 +12087,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -12102,7 +12102,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -12156,7 +12156,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -12460,7 +12460,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -12475,7 +12475,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -12529,7 +12529,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -12854,7 +12854,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -12869,7 +12869,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-staging",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": true,
                                     "splitIntoMatrix": false,
@@ -12923,7 +12923,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     },
                                     "name": "deploy-review",
                                     "requires": [
-                                      "setup",
+                                      "build",
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
@@ -13242,7 +13242,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-review",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
@@ -13257,7 +13257,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-staging",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": true,
                             "splitIntoMatrix": false,
@@ -13311,7 +13311,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-review",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
@@ -13630,7 +13630,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   },
                                   "name": "deploy-review",
                                   "requires": [
-                                    "setup",
+                                    "build",
                                   ],
                                   "runOnRelease": false,
                                   "splitIntoMatrix": false,
@@ -13645,7 +13645,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   },
                                   "name": "deploy-staging",
                                   "requires": [
-                                    "setup",
+                                    "build",
                                   ],
                                   "runOnRelease": true,
                                   "splitIntoMatrix": false,
@@ -13699,7 +13699,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   },
                                   "name": "deploy-review",
                                   "requires": [
-                                    "setup",
+                                    "build",
                                   ],
                                   "runOnRelease": false,
                                   "splitIntoMatrix": false,
@@ -14026,7 +14026,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-review",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
@@ -14041,7 +14041,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-staging",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": true,
                             "splitIntoMatrix": false,
@@ -14095,7 +14095,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-review",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
@@ -14418,7 +14418,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-review",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
@@ -14433,7 +14433,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-staging",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": true,
                             "splitIntoMatrix": false,
@@ -14487,7 +14487,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-review",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
@@ -14866,7 +14866,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-review",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
@@ -14881,7 +14881,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-staging",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": true,
                               "splitIntoMatrix": false,
@@ -14935,7 +14935,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-review",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
@@ -15256,7 +15256,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-review",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
@@ -15271,7 +15271,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-staging",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": true,
                               "splitIntoMatrix": false,
@@ -15325,7 +15325,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-review",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
@@ -15647,7 +15647,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-review",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
@@ -15662,7 +15662,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-staging",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": true,
                               "splitIntoMatrix": false,
@@ -15716,7 +15716,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-review",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
@@ -16022,7 +16022,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -16037,7 +16037,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -16091,7 +16091,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -16388,7 +16388,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-review",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
@@ -16403,7 +16403,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-staging",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": true,
                             "splitIntoMatrix": false,
@@ -16457,7 +16457,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             },
                             "name": "deploy-review",
                             "requires": [
-                              "setup",
+                              "build",
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
@@ -16862,7 +16862,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           },
                           "name": "deploy-review",
                           "requires": [
-                            "setup",
+                            "build",
                           ],
                           "runOnRelease": false,
                           "splitIntoMatrix": false,
@@ -16877,7 +16877,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           },
                           "name": "deploy-staging",
                           "requires": [
-                            "setup",
+                            "build",
                           ],
                           "runOnRelease": true,
                           "splitIntoMatrix": false,
@@ -16931,7 +16931,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           },
                           "name": "deploy-review",
                           "requires": [
-                            "setup",
+                            "build",
                           ],
                           "runOnRelease": false,
                           "splitIntoMatrix": false,
@@ -17201,7 +17201,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -17216,7 +17216,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -17270,7 +17270,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -17573,7 +17573,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   },
                                   "name": "deploy-review",
                                   "requires": [
-                                    "setup",
+                                    "build",
                                   ],
                                   "runOnRelease": false,
                                   "splitIntoMatrix": false,
@@ -17588,7 +17588,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   },
                                   "name": "deploy-staging",
                                   "requires": [
-                                    "setup",
+                                    "build",
                                   ],
                                   "runOnRelease": true,
                                   "splitIntoMatrix": false,
@@ -17642,7 +17642,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   },
                                   "name": "deploy-review",
                                   "requires": [
-                                    "setup",
+                                    "build",
                                   ],
                                   "runOnRelease": false,
                                   "splitIntoMatrix": false,
@@ -17984,7 +17984,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -17999,7 +17999,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -18053,7 +18053,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -18421,7 +18421,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-review",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
@@ -18436,7 +18436,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-staging",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": true,
                               "splitIntoMatrix": false,
@@ -18490,7 +18490,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               },
                               "name": "deploy-review",
                               "requires": [
-                                "setup",
+                                "build",
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
@@ -18823,7 +18823,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -18838,7 +18838,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -18892,7 +18892,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -19205,7 +19205,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -19220,7 +19220,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -19274,7 +19274,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -19596,7 +19596,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -19611,7 +19611,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -19665,7 +19665,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -19978,7 +19978,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
@@ -19993,7 +19993,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-staging",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": true,
                                 "splitIntoMatrix": false,
@@ -20047,7 +20047,7 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 },
                                 "name": "deploy-review",
                                 "requires": [
-                                  "setup",
+                                  "build",
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,

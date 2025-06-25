@@ -52,14 +52,14 @@ workflows:
       - tool-kit/deploy-review:
           executor: node
           requires:
-            - tool-kit/setup
+            - tool-kit/build
           filters:
             branches:
               ignore: main
       - tool-kit/deploy-staging:
           executor: node
           requires:
-            - tool-kit/setup
+            - tool-kit/build
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
@@ -112,7 +112,7 @@ workflows:
       - tool-kit/deploy-review:
           executor: node
           requires:
-            - tool-kit/setup
+            - tool-kit/build
           filters:
             branches:
               ignore: main

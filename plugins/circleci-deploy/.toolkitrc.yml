@@ -20,7 +20,7 @@ options:
             jobs:
               - name: 'deploy-review'
                 requires:
-                  - 'setup'
+                  - 'build'
                 splitIntoMatrix: false
                 runOnRelease: false
                 custom:
@@ -32,7 +32,7 @@ options:
                     system-code: !toolkit/option '@dotcom-tool-kit/serverless.systemCode'
               - name: 'deploy-staging'
                 requires:
-                  - 'setup'
+                  - 'build'
                 splitIntoMatrix: false
                 runOnRelease: true
                 custom:
@@ -75,7 +75,7 @@ options:
             jobs:
               - name: 'deploy-review'
                 requires:
-                  - 'setup'
+                  - 'build'
                 splitIntoMatrix: false
                 runOnRelease: false
                 custom:
