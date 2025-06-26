@@ -2,10 +2,11 @@ import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import type ServerlessSchema from '../schema'
 import { ChildProcess, spawn } from 'child_process'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
-import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 import * as z from 'zod'
+import { writeState } from '@dotcom-tool-kit/state'
 
 const ServerlessRunSchema = z
   .object({
@@ -71,11 +72,15 @@ export default class ServerlessRun extends Task<{
     try {
       await waitPort({
         host: 'localhost',
-        port: port
+        port
       })
     } finally {
       unhook()
     }
+
+    writeState('local', { port })
+
+    await waitOnExit('serverless', this.child)
   }
 
   async stop() {

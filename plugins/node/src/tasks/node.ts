@@ -1,4 +1,4 @@
-import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
@@ -89,6 +89,8 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
 
       writeState('local', { port })
     }
+
+    await waitOnExit('node', this.child)
   }
 
   async stop() {
