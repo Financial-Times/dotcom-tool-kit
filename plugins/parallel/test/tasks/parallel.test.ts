@@ -9,6 +9,7 @@ import { valid } from '@dotcom-tool-kit/validated'
 import winston, { Logger } from 'winston'
 
 import Parallel from '../../src/tasks/parallel'
+import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const importEntryPoint = _importEntryPoint as jest.Mock
 
@@ -122,6 +123,80 @@ describe('parallel task', () => {
       await task.run({ command: 'test:command', cwd: __dirname, config })
 
       expect(events).toEqual(['start 1', 'start 2', 'finish 1', 'finish 2'])
+    })
+
+    describe('error handling', () => {
+      it('should reject with an AggregateError if some tasks fail and onError: wait-for-others', async () => {
+        const task = new Parallel(
+          logger,
+          'parallel',
+          {},
+          {
+            tasks: [
+              { TestOneOffTask: { id: 1 } },
+              { TestOneOffTask: { id: 2 } },
+              { TestOneOffTask: { id: 3 } }
+            ],
+            onError: 'wait-for-others'
+          },
+          { id: '@dotcom-tool-kit/parallel', root: path.resolve(__dirname, '../../') }
+        )
+
+        runMock.mockImplementation(async function (this: TestOneOffTask) {
+          if (this.options.id < 3) {
+            throw new ToolKitError(`error from task ${this.options.id}`)
+          }
+        })
+
+        await expect(task.run({ command: 'test:command', cwd: __dirname, config })).rejects
+          .toMatchInlineSnapshot(`
+          AggregateError "2 errors running tasks for test:command" {
+            "errors": [
+              "TestOneOffTask → ToolKitError" "error from task 1" {
+                "details": undefined,
+              },
+              "TestOneOffTask → ToolKitError" "error from task 2" {
+                "details": undefined,
+              },
+            ],
+          }
+        `)
+      })
+
+      it('should reject with first error and stop all tasks if one task fails and onError: stop-all', async () => {
+        const task = new Parallel(
+          logger,
+          'parallel',
+          {},
+          {
+            tasks: [
+              { TestOneOffTask: { id: 1 } },
+              { TestOneOffTask: { id: 2 } },
+              { TestOneOffTask: { id: 3 } }
+            ],
+            onError: 'stop-all'
+          },
+          { id: '@dotcom-tool-kit/parallel', root: path.resolve(__dirname, '../../') }
+        )
+
+        runMock.mockImplementation(async function (this: TestOneOffTask) {
+          if (this.options.id < 3) {
+            throw new ToolKitError(`error from task ${this.options.id}`)
+          }
+        })
+
+        const stopMock = jest.spyOn(TestOneOffTask.prototype, 'stop')
+
+        await expect(task.run({ command: 'test:command', cwd: __dirname, config })).rejects
+          .toMatchInlineSnapshot(`
+          "ToolKitError" "error from task 1" {
+            "details": undefined,
+          }
+        `)
+
+        expect(stopMock).toBeCalledTimes(3)
+        expect(stopMock.mock.contexts).toEqual(task.taskInstances)
+      })
     })
   })
 })
