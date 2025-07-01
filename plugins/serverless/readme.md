@@ -27,10 +27,11 @@ plugins:
 Run serverless functions locally
 #### Task options
 
-| Property     | Description                                                 | Type            | Default            |
-| :----------- | :---------------------------------------------------------- | :-------------- | :----------------- |
-| `ports`      | ports to try to bind to for this application                | `Array<number>` | `[3001,3002,3003]` |
-| `useDoppler` | run the application with environment variables from Doppler | `boolean`       | `true`             |
+| Property     | Description                                                                                                                                                                                                                                              | Type            | Default            |
+| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------- | :----------------- |
+| `ports`      | ports to try to bind to for this application                                                                                                                                                                                                             | `Array<number>` | `[3001,3002,3003]` |
+| `useDoppler` | run the application with environment variables from Doppler                                                                                                                                                                                              | `boolean`       | `true`             |
+| `background` | run the `serverless oflfine` process in the background, i.e. don't wait for it to exit before continuing to other Tool Kit tasks. set to `false` to wait for the process to exit, useful for running [multiple Tool Kit tasks in parallel](../parallel). | `boolean`       | `true`             |
 
 _All properties are optional._
 
