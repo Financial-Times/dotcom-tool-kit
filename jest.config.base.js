@@ -1,3 +1,5 @@
+const path = require('path')
+
 const tsJestConfig = {
   tsconfig: 'tsconfig.settings.json',
   isolatedModules: true
@@ -10,6 +12,11 @@ module.exports.config = {
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/*.+(spec|test).[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/', '<rootDir>/.+/lib/', '/test/files'],
   clearMocks: true,
+  snapshotSerializers: [
+    '@relmify/jest-serializer-strip-ansi/always',
+    path.resolve(__dirname, './jest/serializers/aggregate-error.js'),
+    path.resolve(__dirname, './jest/serializers/tool-kit-error.js')
+  ],
   transform: {
     '^.+\\.tsx?$': ['ts-jest', tsJestConfig]
   }
