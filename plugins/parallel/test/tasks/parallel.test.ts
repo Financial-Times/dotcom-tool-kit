@@ -123,5 +123,30 @@ describe('parallel task', () => {
 
       expect(events).toEqual(['start 1', 'start 2', 'finish 1', 'finish 2'])
     })
+
+    describe('error handling', () => {
+      it('should reject with an AggregateError if some tasks fail and onError: wait-for-others', async () => {
+        const task = new Parallel(
+          logger,
+          'parallel',
+          {},
+          {
+            tasks: [{ TestOneOffTask: { id: 1 } }, { TestOneOffTask: { id: 2 } }],
+            onError: 'wait-for-others'
+          },
+          { id: '@dotcom-tool-kit/parallel', root: path.resolve(__dirname, '../../') }
+        )
+
+        runMock.mockImplementation(async function (this: TestOneOffTask) {
+          if (this.options.id === 1) {
+            throw new Error('error from task 1')
+          }
+        })
+
+        await expect(
+          task.run({ command: 'test:command', cwd: __dirname, config })
+        ).rejects.toThrowErrorMatchingInlineSnapshot(`"1 error running tasks for [35mtest:command[39m"`)
+      })
+    })
   })
 })
