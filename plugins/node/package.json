@@ -16,8 +16,7 @@
     "@dotcom-tool-kit/state": "^4.3.2",
     "get-port": "^5.1.1",
     "tslib": "^2.8.1",
-    "wait-port": "^1.1.0",
-    "zod": "^3.24.4"
+    "wait-port": "^1.1.0"
   },
   "repository": {
     "type": "git",
@@ -31,9 +30,13 @@
     ".toolkitrc.yml"
   ],
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x"
+    "dotcom-tool-kit": "4.x",
+    "zod": "^3.25.75"
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"
+  },
+  "devDependencies": {
+    "zod": "^3.25.71"
   }
 }

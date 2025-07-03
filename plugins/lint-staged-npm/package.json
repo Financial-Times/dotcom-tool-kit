@@ -13,8 +13,7 @@
     "@dotcom-tool-kit/husky-npm": "^5.1.12",
     "@dotcom-tool-kit/lint-staged": "^5.2.12",
     "@dotcom-tool-kit/package-json-hook": "^5.2.4",
-    "tslib": "^2.8.1",
-    "zod": "^3.24.4"
+    "tslib": "^2.8.1"
   },
   "repository": {
     "type": "git",
@@ -31,9 +30,13 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x"
+    "dotcom-tool-kit": "4.x",
+    "zod": "^3.25.75"
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"
+  },
+  "devDependencies": {
+    "zod": "^3.25.71"
   }
 }
