@@ -3,7 +3,7 @@ import * as z from 'zod'
 export const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.2.9-beta'
 
 export const HakoEnvironmentName = z.string().transform((val, ctx) => {
-  const match = val.match(/-(prod|test)-(eu|us)$/)
+  const match = val.match(/-(prod|test|review)-(eu|us)$/)
   if (!match) {
     ctx.addIssue({
       code: z.ZodIssueCode.invalid_string,
