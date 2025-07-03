@@ -26,5 +26,6 @@ export const hakoRegions: Record<string, string> = {
 }
 export const hakoDomains: Record<string, string> = {
   prod: 'ft-com-prod.ftweb.tech',
-  test: 'ft-com-test.ftweb.tech'
+  test: 'ft-com-test.ftweb.tech',
+  review: 'ft-com-review.ftweb.tech'
 }
