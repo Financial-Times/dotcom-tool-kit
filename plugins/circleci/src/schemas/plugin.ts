@@ -1,5 +1,5 @@
 import { styles as s } from '@dotcom-tool-kit/logger'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 export default z
   .object({

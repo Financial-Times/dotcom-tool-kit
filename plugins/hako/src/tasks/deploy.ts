@@ -1,5 +1,5 @@
 import { spawn } from 'child_process'
-import { z } from 'zod'
+import { z } from 'zod/v3'
 import { hookFork, waitOnExit, styles } from '@dotcom-tool-kit/logger'
 import { CIState, readState, writeState } from '@dotcom-tool-kit/state'
 import { Task } from '@dotcom-tool-kit/base'

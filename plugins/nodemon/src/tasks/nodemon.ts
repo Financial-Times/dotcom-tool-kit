@@ -8,7 +8,7 @@ import getPort from 'get-port'
 import nodemon from 'nodemon'
 import { Readable } from 'stream'
 import { shouldDisableNativeFetch } from 'dotcom-tool-kit'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const NodemonSchema = z
   .object({

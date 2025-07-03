@@ -2,7 +2,7 @@ import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { fork } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const jestCLIPath = require.resolve('jest-cli/bin/jest')
 

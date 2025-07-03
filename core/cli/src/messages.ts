@@ -7,7 +7,7 @@ import type {
   OptionsForPlugin,
   OptionsForTask
 } from '@dotcom-tool-kit/plugin'
-import type { z } from 'zod'
+import type { z } from 'zod/v3'
 import { fromZodError } from 'zod-validation-error'
 import type { Conflict } from '@dotcom-tool-kit/conflict'
 import pluralize from 'pluralize'
