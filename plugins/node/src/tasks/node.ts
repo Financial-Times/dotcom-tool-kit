@@ -6,7 +6,7 @@ import { ChildProcess, fork } from 'child_process'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
 import path from 'path'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const NodeSchema = z
   .object({

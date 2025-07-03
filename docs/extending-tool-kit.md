@@ -178,7 +178,7 @@ options:
 Additionally, we can define an options schema to ensure that the options passed to task are as we expect them to be, with the correct names and correct types. We use [`zod`](https://zod.dev/) to define our schemas. For plugin options, you should export your schema as the default object in a separate file and specify its path as a top-level `optionsSchema` option in your `.toolkitrc.yml`. For tasks and hooks, you should export your schema as a `schema` object in the same file as you export your task/hook. We could define a `zod` schema for the Rollup task like so:
 
 ```js
-const z = require('zod')
+const z = require('zod/v3')
 
 const RollupSchema = z.object({ configPath: z.string() })
 module.exports.schema = RollupSchema

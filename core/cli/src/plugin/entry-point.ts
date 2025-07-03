@@ -4,7 +4,7 @@ import type { Base } from '@dotcom-tool-kit/base'
 import type { EntryPoint } from '@dotcom-tool-kit/plugin'
 import { Validated, invalid, valid } from '@dotcom-tool-kit/validated'
 import { __importDefault } from 'tslib'
-import type * as z from 'zod'
+import type * as z from 'zod/v3'
 import { indentReasons } from '../messages'
 import type { ReadonlyDeep } from 'type-fest'
 

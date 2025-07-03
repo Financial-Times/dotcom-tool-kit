@@ -1,7 +1,7 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { ChildProcess, fork } from 'child_process'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const webpackCLIPath = require.resolve('webpack-cli/bin/cli')
 

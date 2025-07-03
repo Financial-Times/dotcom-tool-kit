@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from '@jest/globals'
 
-import { z } from 'zod'
+import { z } from 'zod/v3'
 import path from 'node:path'
 import { Task } from '@dotcom-tool-kit/base'
 import { ValidConfig } from '@dotcom-tool-kit/config'

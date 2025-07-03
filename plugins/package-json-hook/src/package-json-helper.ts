@@ -1,4 +1,4 @@
-import type { z } from 'zod'
+import type { z } from 'zod/v3'
 import { Hook, HookInstallation } from '@dotcom-tool-kit/base'
 import type { Plugin } from '@dotcom-tool-kit/plugin'
 import fs from 'fs'

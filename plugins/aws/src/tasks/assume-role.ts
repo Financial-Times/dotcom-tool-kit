@@ -1,6 +1,6 @@
 import { AssumeRoleWithWebIdentityCommand, STSClient } from '@aws-sdk/client-sts'
 import { randomUUID } from 'node:crypto'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, writeState } from '@dotcom-tool-kit/state'

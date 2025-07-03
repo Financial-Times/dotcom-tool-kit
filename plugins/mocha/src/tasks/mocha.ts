@@ -2,7 +2,7 @@ import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { glob } from 'glob'
 import { fork } from 'child_process'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 const mochaCLIPath = require.resolve('mocha/bin/mocha')
 
 const MochaSchema = z

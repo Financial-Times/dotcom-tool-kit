@@ -9,7 +9,7 @@ import { type PluginOptions, PluginSchemas, legacyPluginOptions } from '@dotcom-
 import { invalid, reduceValidated, valid, Validated } from '@dotcom-tool-kit/validated'
 
 import type { Logger } from 'winston'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 import { styles } from '@dotcom-tool-kit/logger'
 
 import { toolKitIfDefinedIdent, toolKitOptionIdent } from '../rc-file'

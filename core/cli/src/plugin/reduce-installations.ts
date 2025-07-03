@@ -1,6 +1,6 @@
 import { groupBy } from 'lodash'
 import type { Logger } from 'winston'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 import type { HookClass, HookInstallation } from '@dotcom-tool-kit/base'
 import type { ValidConfig } from '@dotcom-tool-kit/config'

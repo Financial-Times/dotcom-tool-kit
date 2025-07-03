@@ -1,4 +1,4 @@
-const z = require('zod')
+const z = require('zod/v3')
 const { HakoEnvironmentName } = require('@dotcom-tool-kit/hako/lib/tasks/deploy')
 const { styles } = require('@dotcom-tool-kit/logger')
 

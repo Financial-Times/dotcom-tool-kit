@@ -1,7 +1,7 @@
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { fork } from 'child_process'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const TypeScriptSchema = z
   .object({

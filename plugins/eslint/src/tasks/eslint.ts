@@ -2,7 +2,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ESLint } from 'eslint'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const ESLintSchema = z
   .object({

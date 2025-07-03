@@ -148,7 +148,7 @@ This lets different plugins define the same abstractly labelled hooks with diffe
 Plugins can define options that a user can configure in their repo's `.toolkitrc.yml`. We use the [`zod` library](https://zod.dev) to specify the schema, which allows us to define what we expect the options to look like and use this specification to validate the options we receive as well as generate TypeScript types for them. Options are defined within plugins. For tasks and hooks you should export the `zod` schema in the same file as you export your `Task` or `Hook` class as a `schema` object. For plugin options you should define the `zod` schema in a separate file, export it as the default object, and add the path to your `.toolkitrc.yml` with the top-level `optionsSchema` option.
 
 ```typescript
-import { z } from 'zod'
+import { z } from 'zod/v3'
 
 const ESLintSchema = z.object({
   files: z.string().array().default(['**/*.js']),
