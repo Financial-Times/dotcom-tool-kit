@@ -23,6 +23,9 @@ async function main() {
     } else if (argv.printConfig) {
       const { printConfig } = require('../lib')
       await printConfig(rootLogger)
+    } else if (argv.printMergedOptions) {
+      const { printMergedOptions } = require('../lib')
+      await printMergedOptions(rootLogger)
     } else if (argv.help || argv._.length === 0) {
       const showHelp = require('../lib/help').default
       await showHelp(rootLogger, argv._)
