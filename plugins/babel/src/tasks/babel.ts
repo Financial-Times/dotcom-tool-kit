@@ -3,7 +3,7 @@ import path from 'path'
 
 import * as babel from '@babel/core'
 import fg from 'fast-glob'
-import { z } from 'zod'
+import { z } from 'zod/v3'
 
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'

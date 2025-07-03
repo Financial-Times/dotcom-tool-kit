@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from '@jest/globals'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
-import type * as z from 'zod'
+import type * as z from 'zod/v3'
 import UploadAssetsToS3, { type UploadAssetsToS3Schema } from '../../src/tasks/upload-assets-to-s3'
 jest.mock('@aws-sdk/client-s3')
 
