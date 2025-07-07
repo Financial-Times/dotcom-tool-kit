@@ -9,8 +9,7 @@
   "dependencies": {
     "@dotcom-tool-kit/error": "^4.1.1",
     "@dotcom-tool-kit/logger": "^4.2.2",
-    "tslib": "^2.8.1",
-    "zod": "^3.24.4"
+    "tslib": "^2.8.1"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -31,9 +30,13 @@
   },
   "devDependencies": {
     "spawk": "^1.8.2",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "zod": "^3.25.71"
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"
+  },
+  "peerDependencies": {
+    "zod": "^3.25.75"
   }
 }

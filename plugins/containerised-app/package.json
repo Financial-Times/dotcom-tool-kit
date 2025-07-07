@@ -23,7 +23,8 @@
     "node": "18.x || 20.x || 22.x"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "^4.8.0"
+    "dotcom-tool-kit": "^4.8.0",
+    "zod": "^3.25.75"
   },
   "dependencies": {
     "@dotcom-tool-kit/aws": "^0.1.10",
@@ -33,7 +34,9 @@
     "@dotcom-tool-kit/doppler": "^2.2.3",
     "@dotcom-tool-kit/hako": "^0.1.17",
     "@dotcom-tool-kit/logger": "^4.2.2",
-    "@dotcom-tool-kit/node": "^4.3.4",
-    "zod": "^3.24.4"
+    "@dotcom-tool-kit/node": "^4.3.4"
+  },
+  "devDependencies": {
+    "zod": "^3.25.71"
   }
 }

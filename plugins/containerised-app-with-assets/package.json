@@ -22,12 +22,15 @@
     "node": "18.x || 20.x || 22.x"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "^4.8.0"
+    "dotcom-tool-kit": "^4.8.0",
+    "zod": "^3.25.75"
   },
   "dependencies": {
     "@dotcom-tool-kit/containerised-app": "^0.2.6",
     "@dotcom-tool-kit/upload-assets-to-s3": "^4.3.6",
-    "@dotcom-tool-kit/webpack": "^4.3.4",
-    "zod": "^3.24.4"
+    "@dotcom-tool-kit/webpack": "^4.3.4"
+  },
+  "devDependencies": {
+    "zod": "^3.25.71"
   }
 }

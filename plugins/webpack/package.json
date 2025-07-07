@@ -21,17 +21,18 @@
     "@dotcom-tool-kit/error": "^4.1.1",
     "@dotcom-tool-kit/logger": "^4.2.2",
     "tslib": "^2.8.1",
-    "webpack-cli": "^4.6.0",
-    "zod": "^3.24.4"
+    "webpack-cli": "^4.6.0"
   },
   "peerDependencies": {
     "dotcom-tool-kit": "4.x",
-    "webpack": "4.x.x || 5.x.x"
+    "webpack": "4.x.x || 5.x.x",
+    "zod": "^3.25.75"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "webpack": "^5.99.9",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "zod": "^3.25.71"
   },
   "files": [
     "/lib",

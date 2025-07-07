@@ -1,4 +1,4 @@
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const CommandListSchema = z.union([z.array(z.string()), z.string()])
 export const PackageJsonSchema = z.record(
