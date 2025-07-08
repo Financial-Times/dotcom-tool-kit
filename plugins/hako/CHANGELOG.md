@@ -6,6 +6,21 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.18](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.17...hako-v0.1.18) (2025-07-08)
+
+
+### Bug Fixes
+
+* add review environment hako domain ([efc33bd](https://github.com/Financial-Times/dotcom-tool-kit/commit/efc33bdc751f884625394607365264172c68a325))
+* allow -review suffix in hako environments ([47ab3a3](https://github.com/Financial-Times/dotcom-tool-kit/commit/47ab3a33b2a068c2e51887e56da183498844551b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.9.0
+
 ## [0.1.17](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.16...hako-v0.1.17) (2025-07-02)
 
 

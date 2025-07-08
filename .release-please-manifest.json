@@ -1,5 +1,5 @@
 {
-  "core/cli": "4.8.2",
+  "core/cli": "4.9.0",
   "core/create": "4.2.12",
   "lib/error": "4.1.1",
   "lib/logger": "4.2.2",
@@ -49,9 +49,9 @@
   "plugins/cloudsmith": "1.1.2",
   "plugins/docker": "0.4.4",
   "plugins/aws": "0.1.10",
-  "plugins/hako": "0.1.17",
-  "plugins/containerised-app": "0.2.6",
-  "plugins/containerised-app-with-assets": "0.2.6",
+  "plugins/hako": "0.1.18",
+  "plugins/containerised-app": "0.2.7",
+  "plugins/containerised-app-with-assets": "0.2.7",
   "plugins/monorepo": "0.1.5",
   "plugins/node-test": "1.0.5"
 }
