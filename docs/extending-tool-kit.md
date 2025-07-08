@@ -121,6 +121,26 @@ class Rollup extends Task {
 module.exports = Rollup
 ```
 
+> [!NOTE]
+> If you're writing a task that runs something as an ongoing process, such as a server or a watch-mode build, you should also implement the `Task#stop` method to allow it to be stopped on error [when running tasks in parallel](../plugins/parallel), e.g.:
+> ```js
+> class Rollup extends Task {
+>   async run() {
+>     // ...
+>     if(this.options.watch) {
+>       this.watcher = rollup.watch(options)
+>       // ...
+>     } else {
+>       // ...
+>     }
+>   }
+>
+>   stop() {
+>     this.watcher?.close()
+>   }
+> }
+> ```
+
 Then, in the plugin's `.toolkitrc.yml`, you can provide the default commands this task will run on. It's preferable to do this in the plugin `.toolkitrc.yml` instead of your top-level `.toolkitrc.yml` so your plugin is self-contained and can be more easily moved into its own repo or Tool Kit itself, if it's something that can be shared between multiple repos/teams.
 
 ```yml
