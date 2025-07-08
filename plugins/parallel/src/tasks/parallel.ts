@@ -2,8 +2,6 @@ import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { styles } from '@dotcom-tool-kit/logger'
 import { z } from 'zod'
 import { type ErrorSummary, handleTaskErrors, loadTasks } from 'dotcom-tool-kit/lib/tasks'
-import { ValidConfig } from '@dotcom-tool-kit/config'
-import type { WritableDeep } from 'type-fest'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 
 const ParallelSchema = z.object({
@@ -67,10 +65,7 @@ ${tasks
   .join('\n')}
 `)
 
-    // HACK:KB:20250619 loadTasks expects config to be mutable, in TaskRunContext it's readonly, just cast it idc
-    this.taskInstances = (
-      await loadTasks(this.logger, tasks, context.config as WritableDeep<ValidConfig>)
-    ).unwrap('tasks are invalid!')
+    this.taskInstances = (await loadTasks(this.logger, tasks, context.config)).unwrap('tasks are invalid!')
 
     switch (this.options.onError) {
       case 'stop-all': {
