@@ -6,6 +6,7 @@ import { Validated, invalid, valid } from '@dotcom-tool-kit/validated'
 import { __importDefault } from 'tslib'
 import type * as z from 'zod'
 import { indentReasons } from '../messages'
+import type { ReadonlyDeep } from 'type-fest'
 
 function guessIsZodSchema(schema: unknown): schema is z.ZodSchema {
   return typeof schema === 'object' && schema !== null && '_def' in schema
@@ -16,7 +17,7 @@ function guessIsZodSchema(schema: unknown): schema is z.ZodSchema {
  * are the correct shape right now so let's leave this as any and hope for the
  * best.
  **/
-async function requireEntrypoint(entryPoint: EntryPoint): Promise<Validated<any>> {
+async function requireEntrypoint(entryPoint: ReadonlyDeep<EntryPoint>): Promise<Validated<any>> {
   const resolvedPath = require.resolve(entryPoint.modulePath, { paths: [entryPoint.plugin.root] })
 
   if (!resolvedPath) {
@@ -63,7 +64,7 @@ export async function importSchemaEntryPoint(
 // the constructor from the type bound here so you can actually pass in a subclass
 export async function importEntryPoint<T extends { name: string } & Omit<typeof Base, 'new'>>(
   type: T,
-  entryPoint: EntryPoint
+  entryPoint: ReadonlyDeep<EntryPoint>
 ): Promise<Validated<{ baseClass: T; schema?: z.ZodSchema }>> {
   const pluginModuleResult = await requireEntrypoint(entryPoint)
   return pluginModuleResult.flatMap((pluginModule) => {

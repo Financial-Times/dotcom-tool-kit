@@ -14,6 +14,7 @@ import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 import pluralize from 'pluralize'
+import type { ReadonlyDeep } from 'type-fest'
 
 export type ErrorSummary = {
   task: string
@@ -23,7 +24,7 @@ export type ErrorSummary = {
 export async function loadTasks(
   logger: Logger,
   tasks: OptionsForTask[],
-  config: ValidConfig
+  config: ReadonlyDeep<ValidConfig>
 ): Promise<Validated<Task[]>> {
   const taskResults = await Promise.all(
     tasks.map(async ({ task: taskId, options, plugin }) => {
