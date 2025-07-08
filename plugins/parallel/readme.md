@@ -1,6 +1,6 @@
 # @dotcom-tool-kit/parallel
 
-This plugin allows you to run Tool Kit tasks in parallel.
+This plugin allows you to run Tool Kit tasks in parallel. By default, Tool Kit tasks run sequentially in the order they are specified in a command.
 
 ## Installation
 
