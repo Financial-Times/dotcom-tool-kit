@@ -15,7 +15,8 @@ module.exports.config = {
   snapshotSerializers: [
     '@relmify/jest-serializer-strip-ansi/always',
     path.resolve(__dirname, './jest/serializers/aggregate-error.js'),
-    path.resolve(__dirname, './jest/serializers/tool-kit-error.js')
+    path.resolve(__dirname, './jest/serializers/tool-kit-error.js'),
+    path.resolve(__dirname, './jest/serializers/zod-error.js')
   ],
   transform: {
     '^.+\\.tsx?$': ['ts-jest', tsJestConfig]
