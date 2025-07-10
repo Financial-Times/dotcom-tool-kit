@@ -20,7 +20,7 @@ module.exports = z
       .describe('the ARN of an IAM role to assume when deploying to production'),
     hakoReviewEnvironments: z
       .array(HakoEnvironmentNameInner)
-      .default(['ft-com-review-eu'])
+      .default(['ft-com-test-eu'])
       .describe('the set of Hako environments to deploy to in the deploy:review command'),
     hakoStagingEnvironments: z
       .array(HakoEnvironmentNameInner)
