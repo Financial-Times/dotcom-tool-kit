@@ -45,6 +45,13 @@
     * @dotcom-tool-kit/hako bumped from ^0.1.8 to ^0.1.9
     * @dotcom-tool-kit/node bumped from ^4.3.1 to ^4.3.2
 
+## [0.2.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.2.7...containerised-app-v0.2.8) (2025-07-10)
+
+
+### Bug Fixes
+
+* **containerised-app:** Revert "feat: update default hako review environment to ft-com-review-eu" ([5a55116](https://github.com/Financial-Times/dotcom-tool-kit/commit/5a55116fe716725a6713d3a05dc60ac423513ca3))
+
 ## [0.2.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.2.6...containerised-app-v0.2.7) (2025-07-08)
 
 
