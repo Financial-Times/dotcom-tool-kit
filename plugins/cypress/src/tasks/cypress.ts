@@ -3,7 +3,7 @@ import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const CypressSchema = z
   .object({

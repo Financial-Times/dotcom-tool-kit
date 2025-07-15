@@ -6,7 +6,7 @@ import mime from 'mime'
 import { glob } from 'glob'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles } from '@dotcom-tool-kit/logger'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 export const UploadAssetsToS3Schema = z
   .object({
