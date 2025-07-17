@@ -14,19 +14,20 @@ import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 import pluralize from 'pluralize'
+import type { ReadonlyDeep } from 'type-fest'
 
-type ErrorSummary = {
+export type ErrorSummary = {
   task: string
   error: Error
 }
 
-const loadTasks = async (
+export async function loadTasks(
   logger: Logger,
   tasks: OptionsForTask[],
-  config: ValidConfig
-): Promise<Validated<Task[]>> => {
+  config: ReadonlyDeep<ValidConfig>
+): Promise<Validated<Task[]>> {
   const taskResults = await Promise.all(
-    tasks.map(async ({ task: taskId, options }) => {
+    tasks.map(async ({ task: taskId, options, plugin }) => {
       const entryPoint = config.tasks[taskId]
       const taskResult = await importEntryPoint(Task, entryPoint)
 
@@ -45,7 +46,8 @@ const loadTasks = async (
             logger,
             taskId,
             config.pluginOptions[entryPoint.plugin.id]?.options ?? {},
-            parsedOptions.data
+            parsedOptions.data,
+            plugin
           )
           return valid(task)
         } else {
@@ -58,7 +60,54 @@ const loadTasks = async (
   return reduceValidated(taskResults)
 }
 
-export async function runTasksFromConfig(
+export function handleTaskErrors(errors: ErrorSummary[], command: string) {
+  throw new AggregateError(
+    errors.map(({ task, error }) => {
+      error.name = `${styles.task(task)} → ${error.name}`
+      return error
+    }),
+    `${pluralize('error', errors.length, true)} running tasks for ${styles.command(command)}`
+  )
+}
+
+export async function runTasks(
+  logger: Logger,
+  config: ValidConfig,
+  tasks: Task[],
+  command: string,
+  files?: string[]
+) {
+  const errors: ErrorSummary[] = []
+
+  if (tasks.length === 0) {
+    logger.warn(`no task configured for ${command}: skipping assignment...`)
+  }
+
+  for (const task of tasks) {
+    try {
+      logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
+      await task.run({ files, command, cwd: config.root, config })
+    } catch (error) {
+      // if there's an exit code, that's a request from the task to exit early
+      if (error instanceof ToolKitError && error.exitCode) {
+        throw error
+      }
+
+      // if not, we allow subsequent hook tasks to run on error
+      // TODO use validated for this
+      errors.push({
+        task: task.id,
+        error: error as Error
+      })
+    }
+  }
+
+  if (errors.length > 0) {
+    handleTaskErrors(errors, command)
+  }
+}
+
+export async function runCommandsFromConfig(
   logger: Logger,
   config: ValidConfig,
   commands: string[],
@@ -90,45 +139,12 @@ export async function runTasksFromConfig(
   Object.freeze(config)
 
   for (const { command, tasks } of commandTasks) {
-    const errors: ErrorSummary[] = []
-
-    if (tasks.length === 0) {
-      logger.warn(`no task configured for ${command}: skipping assignment...`)
-    }
-
-    for (const task of tasks) {
-      try {
-        logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
-        await task.run({ files, command, cwd: config.root, config })
-      } catch (error) {
-        // if there's an exit code, that's a request from the task to exit early
-        if (error instanceof ToolKitError && error.exitCode) {
-          throw error
-        }
-
-        // if not, we allow subsequent hook tasks to run on error
-        // TODO use validated for this
-        errors.push({
-          task: task.id,
-          error: error as Error
-        })
-      }
-    }
-
-    if (errors.length > 0) {
-      throw new AggregateError(
-        errors.map(({ task, error }) => {
-          error.name = `${styles.task(task)} → ${error.name}`
-          return error
-        }),
-        `${pluralize('error', errors.length, true)} running tasks for ${styles.command(command)}`
-      )
-    }
+    await runTasks(logger, config, tasks, command, files)
   }
 }
 
-export async function runTasks(logger: Logger, commands: string[], files?: string[]): Promise<void> {
+export async function runCommands(logger: Logger, commands: string[], files?: string[]): Promise<void> {
   const config = await loadConfig(logger, { root: process.cwd() })
 
-  return runTasksFromConfig(logger, config, commands, files)
+  return runCommandsFromConfig(logger, config, commands, files)
 }
