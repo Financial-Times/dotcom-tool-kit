@@ -1,6 +1,6 @@
 # dotcom-tool-kit/containerised-app-with-assets
 
-A bootstrap plugin that provides the required Tool Kit plugins for a containerised application that's deployed to Amazon Elastic Container Service (ECS), additionally supporting building and uploading assets to S3.
+A bootstrap plugin that provides the required Tool Kit plugins for a containerised application that's deployed to Amazon Elastic Container Service (ECS,) additionally supporting building and uploading assets to S3.
 
   - [`@dotcom-tool-kit/containerised-app`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/containerised-app)
   - [`@dotcom-tool-kit/upload-assets-to-s3`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/upload-assets-to-s3)
