@@ -46,6 +46,24 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/webpack bumped from ^4.3.1 to ^4.3.2
 
+## [0.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v0.2.9...containerised-app-with-assets-v0.3.0) (2025-07-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **containerised-app-with-assets:** update default hako review environment to ft-com-review-eu
+
+### Features
+
+* **containerised-app-with-assets:** update default hako review environment to ft-com-review-eu ([fdf0356](https://github.com/Financial-Times/dotcom-tool-kit/commit/fdf03560f1f2bf0529e034dc065ecf0cb6d0f43b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/containerised-app bumped from ^0.2.9 to ^0.3.0
+
 ## [0.2.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v0.2.8...containerised-app-with-assets-v0.2.9) (2025-07-23)
 
 
