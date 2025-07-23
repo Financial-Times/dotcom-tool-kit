@@ -24,7 +24,7 @@
   "plugins/lint-staged-npm": "4.2.4",
   "plugins/mocha": "4.4.4",
   "plugins/n-test": "4.3.5",
-  "plugins/next-router": "4.3.4",
+  "plugins/next-router": "4.3.5",
   "plugins/node": "4.3.4",
   "plugins/nodemon": "4.2.4",
   "plugins/npm": "4.2.16",
@@ -49,9 +49,9 @@
   "plugins/cloudsmith": "1.1.2",
   "plugins/docker": "0.4.4",
   "plugins/aws": "0.1.10",
-  "plugins/hako": "0.1.18",
-  "plugins/containerised-app": "0.2.8",
-  "plugins/containerised-app-with-assets": "0.2.8",
+  "plugins/hako": "0.1.19",
+  "plugins/containerised-app": "0.2.9",
+  "plugins/containerised-app-with-assets": "0.2.9",
   "plugins/monorepo": "0.1.5",
   "plugins/node-test": "1.0.5"
 }

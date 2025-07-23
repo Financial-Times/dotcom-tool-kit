@@ -306,6 +306,13 @@
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.3.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v4.3.4...next-router-v4.3.5) (2025-07-23)
+
+
+### Bug Fixes
+
+* bump ft-next-router from 4.0.2 to 4.0.3 ([dd1f8de](https://github.com/Financial-Times/dotcom-tool-kit/commit/dd1f8de41147b2aa648b8c1e98ceca0725618a03))
+
 ## [4.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v4.3.3...next-router-v4.3.4) (2025-05-20)
 
 
