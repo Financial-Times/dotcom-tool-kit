@@ -36,7 +36,7 @@
     "@npmcli/map-workspaces": "^4.0.2",
     "minimatch": "^10.0.3",
     "pluralize": "^8.0.0",
-    "zod": "^3.24.4"
+    "zod": "^4.0.14"
   },
   "devDependencies": {
     "@dotcom-tool-kit/config": "^1.1.1",
