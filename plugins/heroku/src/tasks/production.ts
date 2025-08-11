@@ -7,7 +7,7 @@ import heroku, { extractHerokuError } from '../herokuClient'
 import { scaleDyno } from '../scaleDyno'
 import HerokuSchema from '../schema'
 import { promoteStagingToProduction } from '../promoteStagingToProduction'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const HerokuScalingSchema = z.record(
   z.record(

@@ -1,4 +1,4 @@
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 export const CircleCiCustom = z.record(z.unknown())
 export type CircleCiCustom = z.infer<typeof CircleCiCustom>
