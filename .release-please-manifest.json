@@ -54,5 +54,5 @@
   "plugins/containerised-app-with-assets": "0.3.2",
   "plugins/monorepo": "0.1.6",
   "plugins/node-test": "1.0.6",
-  "plugins/parallel": "1.0.0"
+  "plugins/parallel": "1.0.1"
 }
