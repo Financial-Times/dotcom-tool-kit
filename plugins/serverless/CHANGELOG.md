@@ -198,6 +198,22 @@
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [3.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v3.4.3...serverless-v3.5.0) (2025-08-12)
+
+
+### Features
+
+* **serverless:** exit child on stop ([20c7551](https://github.com/Financial-Times/dotcom-tool-kit/commit/20c7551b7a03bf242d445ac83044aec22d867e1f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.3 to ^1.3.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.0
+
 ## [3.4.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v3.4.2...serverless-v3.4.3) (2025-05-20)
 
 

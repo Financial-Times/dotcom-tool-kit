@@ -32,6 +32,17 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [0.4.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.4.4...docker-v0.4.5) (2025-08-12)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.3 to ^1.3.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.0
+
 ## [0.4.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.4.3...docker-v0.4.4) (2025-05-30)
 
 

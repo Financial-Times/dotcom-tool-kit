@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-test-v1.0.5...node-test-v1.0.6) (2025-08-12)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.3 to ^1.3.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.0
+
 ## [1.0.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-test-v1.0.4...node-test-v1.0.5) (2025-05-30)
 
 

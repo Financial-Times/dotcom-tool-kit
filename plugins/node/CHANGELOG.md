@@ -282,6 +282,22 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
 
+## [4.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v4.3.4...node-v4.4.0) (2025-08-12)
+
+
+### Features
+
+* add a Task.stop method and stop parallel tasks on error ([9d33d02](https://github.com/Financial-Times/dotcom-tool-kit/commit/9d33d02e734c04886d7e491e47bdac9f839ed509))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.3 to ^1.3.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.0
+
 ## [4.3.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v4.3.3...node-v4.3.4) (2025-05-20)
 
 
