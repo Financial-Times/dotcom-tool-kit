@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/parallel-v1.0.0...parallel-v1.0.1) (2025-08-12)
+
+
+### Bug Fixes
+
+* ensure parallel depends on version of core that exports the internals it needs ([c0c3c2e](https://github.com/Financial-Times/dotcom-tool-kit/commit/c0c3c2e3ccda27161015d75f4a2696f333f01eb9))
+
 ## 1.0.0 (2025-08-12)
 
 
