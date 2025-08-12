@@ -51,6 +51,7 @@
     "plugins/nodemon": {},
     "plugins/npm": {},
     "plugins/package-json-hook": {},
+    "plugins/parallel": {},
     "plugins/prettier": {},
     "plugins/serverless": {},
     "plugins/typescript": {},
