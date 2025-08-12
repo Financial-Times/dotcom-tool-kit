@@ -1,16 +1,16 @@
 {
   "name": "@dotcom-tool-kit/backend-serverless-app",
-  "version": "4.1.19",
+  "version": "4.1.20",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci-deploy": "^4.1.18",
-    "@dotcom-tool-kit/node": "^4.3.4",
-    "@dotcom-tool-kit/npm": "^4.2.16",
-    "@dotcom-tool-kit/serverless": "^3.4.3"
+    "@dotcom-tool-kit/circleci-deploy": "^4.1.19",
+    "@dotcom-tool-kit/node": "^4.4.0",
+    "@dotcom-tool-kit/npm": "^4.2.17",
+    "@dotcom-tool-kit/serverless": "^3.5.0"
   },
   "repository": {
     "type": "git",

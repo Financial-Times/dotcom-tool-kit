@@ -188,6 +188,17 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [7.6.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.6...circleci-v7.6.7) (2025-08-12)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.3 to ^1.3.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.0
+
 ## [7.6.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.5...circleci-v7.6.6) (2025-05-21)
 
 

@@ -240,6 +240,18 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [4.2.17](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v4.2.16...npm-v4.2.17) (2025-08-12)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.3 to ^1.3.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.4 to ^5.2.5
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.0
+
 ## [4.2.16](https://github.com/Financial-Times/dotcom-tool-kit/compare/npm-v4.2.15...npm-v4.2.16) (2025-06-25)
 
 

@@ -66,6 +66,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [1.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.2.3...base-v1.3.0) (2025-08-12)
+
+
+### Features
+
+* add a Task.stop method and stop parallel tasks on error ([9d33d02](https://github.com/Financial-Times/dotcom-tool-kit/commit/9d33d02e734c04886d7e491e47bdac9f839ed509))
+
 ## [1.2.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.2.2...base-v1.2.3) (2025-05-20)
 
 

@@ -306,6 +306,17 @@
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v4.3.5...next-router-v4.3.6) (2025-08-12)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.3 to ^1.3.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.0
+
 ## [4.3.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/next-router-v4.3.4...next-router-v4.3.5) (2025-07-23)
 
 

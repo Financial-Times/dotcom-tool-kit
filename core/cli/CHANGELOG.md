@@ -461,6 +461,20 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.10.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.9.0...dotcom-tool-kit-v4.10.0) (2025-08-12)
+
+
+### Features
+
+* **parallel:** configurable stopOnError behaviour ([791e05f](https://github.com/Financial-Times/dotcom-tool-kit/commit/791e05ffe072f9694a25e7b9309215acfc1df7e6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.2.3 to ^1.3.0
+
 ## [4.9.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.8.2...dotcom-tool-kit-v4.9.0) (2025-07-08)
 
 
