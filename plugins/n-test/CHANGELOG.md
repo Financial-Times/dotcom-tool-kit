@@ -244,6 +244,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v4.3.6...n-test-v4.4.0) (2025-08-27)
+
+
+### Features
+
+* upgrade n-test to v8.1.0 ([32260e5](https://github.com/Financial-Times/dotcom-tool-kit/commit/32260e5ebe77e8bbf37524df81b2c1e666c8176c))
+
 ## [4.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v4.3.5...n-test-v4.3.6) (2025-08-12)
 
 

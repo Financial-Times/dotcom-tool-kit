@@ -23,7 +23,7 @@
   "plugins/lint-staged": "5.2.13",
   "plugins/lint-staged-npm": "4.2.5",
   "plugins/mocha": "4.4.5",
-  "plugins/n-test": "4.3.6",
+  "plugins/n-test": "4.4.0",
   "plugins/next-router": "4.3.6",
   "plugins/node": "4.4.0",
   "plugins/nodemon": "4.2.5",
