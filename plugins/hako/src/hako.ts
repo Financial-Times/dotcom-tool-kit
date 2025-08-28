@@ -1,6 +1,7 @@
 import * as z from 'zod'
 
-export const hakoImageName = 'docker.packages.ft.com/financial-times-internal-releases/hako-cli:0.2.14-beta'
+export const hakoImageName = (tag: string) =>
+  `docker.packages.ft.com/financial-times-internal-releases/hako-cli:${tag}`
 
 export const HakoEnvironmentName = z.string().transform((val, ctx) => {
   const match = val.match(/-(prod|test|review)-(eu|us)$/)
