@@ -16,7 +16,7 @@
     "lodash": "^4.17.21",
     "tslib": "^2.8.1",
     "yaml": "^2.8.0",
-    "zod": "^3.24.4"
+    "zod": "^4.1.4"
   },
   "keywords": [],
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -45,7 +45,7 @@
   },
   "peerDependencies": {
     "dotcom-tool-kit": "4.x",
-    "zod": "^3.24.4"
+    "zod": "^4.1.4"
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"
