@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/hako",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "main": "lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

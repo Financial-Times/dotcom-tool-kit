@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.22](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.21...hako-v0.1.22) (2025-08-29)
+
+
+### Features
+
+* **hako:** support a canary env ([947036e](https://github.com/Financial-Times/dotcom-tool-kit/commit/947036e5a55f5c35a39d46ddc877a28d702fb65d))
+
 ## [0.1.21](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.20...hako-v0.1.21) (2025-08-12)
 
 
