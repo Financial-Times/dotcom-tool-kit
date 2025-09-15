@@ -49,6 +49,47 @@ options:
 
 Adding this configuration and running `npx dotcom-tool-kit --install` will install the new npm script and CircleCI job into your repo, alongside the existing configuration from your Tool Kit plugins.
 
+Some Tool Kit plugins, such as [`@dotcom-tool-kit/containerised-app-with-assets`](../plugins/containerised-app-with-assets) are **presets** that wrap other plugins for the standard Customer Products "golden path" use cases. These are intended to cover the default use case for almost all apps, and so you can't configure what's running within the plugin. If you have a use case that's not fully covered by the preset plugin, you can (partially or fully) "eject" from the preset and use its underlying plugins directly.
+
+Let's say you wanted to run an additional task when running the `deploy:review` command. Start by copying that command from [the `.toolkitrc.yml` file in `containerised-app-with-assets`](../plugins/containerised-app-with-assets/.toolkitrc.yml) into your app's `.toolkitrc.yml`:
+
+```yml
+commands:
+  'deploy:review':
+    - Webpack:
+        envName: production
+    - UploadAssetsToS3
+    - DockerAuthCloudsmith
+    - DockerBuild
+    - DockerPush
+    - AwsAssumeRole:
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app.awsRoleArnStaging'
+    - HakoDeploy:
+        asReviewApp: true
+        environments: !toolkit/option '@dotcom-tool-kit/containerised-app.hakoReviewEnvironments'
+```
+
+This will override the `deploy:review` command configured by `containerised-app-with-assets`, so you can add your own tasks to this command:
+
+```diff
+commands:
+  'deploy:review':
++   - CustomTask
+    - Webpack:
+        envName: production
+    - UploadAssetsToS3
+    - DockerAuthCloudsmith
+    - DockerBuild
+    - DockerPush
+    - AwsAssumeRole:
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app.awsRoleArnStaging'
+    - HakoDeploy:
+        asReviewApp: true
+        environments: !toolkit/option '@dotcom-tool-kit/containerised-app.hakoReviewEnvironments'
+```
+
+If you need to fully customise the preset, you can go further and copy the entirety of the `plugins`, `commands` and `options` sections from the preset's `.toolkitrc.yml`, and remove the preset from your app's `plugins`. Note that any `!toolkit/option` tags that reference the preset's options will need to be moved inline, e.g. if you're ejecting `containerised-app` you'll need to replace any references to `!toolkit/option '@dotcom-tool-kit/containerised-app.<OPTION>` with the option value from your `.toolkitrc.yml`.
+
 ## Creating a custom Tool Kit plugin
 
 If your app requires some tooling that's not provided by a first-party Tool Kit plugin, you can write a custom plugin for that feature, which works seamlessly together with the core Tool Kit plugins.
