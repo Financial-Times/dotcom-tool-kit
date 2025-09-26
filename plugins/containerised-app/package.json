@@ -34,6 +34,6 @@
     "@dotcom-tool-kit/hako": "^0.1.22",
     "@dotcom-tool-kit/logger": "^4.2.2",
     "@dotcom-tool-kit/node": "^4.4.0",
-    "zod": "^3.24.4"
+    "zod": "^3.25.76"
   }
 }

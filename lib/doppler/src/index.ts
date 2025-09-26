@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process'
 
 import type { Logger } from 'winston'
-import type * as z from 'zod'
+import type * as z from 'zod/v3'
 
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { styles, waitOnExit } from '@dotcom-tool-kit/logger'

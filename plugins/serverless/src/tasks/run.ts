@@ -5,7 +5,7 @@ import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
 import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
 import getPort from 'get-port'
 import waitPort from 'wait-port'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const ServerlessRunSchema = z
   .object({

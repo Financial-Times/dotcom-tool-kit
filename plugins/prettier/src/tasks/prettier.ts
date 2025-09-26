@@ -4,7 +4,7 @@ import fg from 'fast-glob'
 import { hookConsole } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const PrettierSchema = z
   .object({

@@ -1,6 +1,6 @@
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { styles } from '@dotcom-tool-kit/logger'
-import { z } from 'zod'
+import { z } from 'zod/v3'
 import { type ErrorSummary, handleTaskErrors, loadTasks } from 'dotcom-tool-kit/lib/tasks'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 

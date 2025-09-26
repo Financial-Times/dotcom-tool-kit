@@ -6,7 +6,7 @@ const { default: $t } = require('endent')
 const logger = require('winston')
 const path = require('path')
 const fs = require('fs/promises')
-const z = require('zod')
+const z = require('zod/v3')
 const { convertSchemas, formatModelsAsMarkdown } = require('zod2md')
 
 function formatSchemas(title, schemas) {

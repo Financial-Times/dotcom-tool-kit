@@ -1,4 +1,4 @@
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 // In theory, these fields should be required as Doppler won't work without them,
 // but not every app that pulls in the Doppler plugin actually needs to use

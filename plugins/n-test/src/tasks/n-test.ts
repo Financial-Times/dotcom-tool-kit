@@ -3,7 +3,7 @@ import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { SmokeTest } from '@financial-times/n-test'
 import { readState } from '@dotcom-tool-kit/state'
 import { ToolKitError } from '@dotcom-tool-kit/error'
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 const SmokeTestSchema = z
   .object({

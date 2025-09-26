@@ -1,7 +1,7 @@
 import { buildImageName, generateImageLabels, getDeployTag } from '../image-info'
 import DockerSchema from '../schema'
 
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 import { hookFork, waitOnExit } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'

@@ -13,7 +13,7 @@ import path from 'path'
 import prompt from 'prompts'
 import { simpleGit } from 'simple-git'
 import YAML from 'yaml'
-import { z } from 'zod'
+import { z } from 'zod/v3'
 
 // git mode indicating an object blob is a file
 const FILE_MODE = '100644' as const
@@ -254,7 +254,11 @@ export default async function oidcPrompt({ toolKitConfig }: OidcParams): Promise
         // store path using the same logic we used to use to infer the name
         // from Tool Kit vault plugin options. Pass in the options that were
         // selected during the options prompt.
-        const dopplerProjectName = new DopplerEnvVars(winstonLogger, 'prod', toolKitConfig.options.plugins['@dotcom-tool-kit/doppler']).options.project
+        const dopplerProjectName = new DopplerEnvVars(
+          winstonLogger,
+          'prod',
+          toolKitConfig.options.plugins['@dotcom-tool-kit/doppler']
+        ).options.project
         const ssmAction = 'ssm:GetParameter'
         const ssmResource = `arn:aws:ssm:eu-west-1:\${AWS::AccountId}:parameter/${dopplerProjectName}/*`
         winstonLogger.info(

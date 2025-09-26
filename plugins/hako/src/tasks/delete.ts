@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process'
 
-import * as z from 'zod'
+import * as z from 'zod/v3'
 
 import { Task } from '@dotcom-tool-kit/base'
 import { hookFork, waitOnExit, styles } from '@dotcom-tool-kit/logger'

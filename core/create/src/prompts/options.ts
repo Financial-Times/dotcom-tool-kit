@@ -7,7 +7,7 @@ import YAML from 'yaml'
 import type Logger from 'komatsu'
 import partition from 'lodash/partition'
 import prompt from 'prompts'
-import { z } from 'zod'
+import { z } from 'zod/v3'
 import type { BizOpsSystem } from '../bizOps'
 
 interface OptionSettings {

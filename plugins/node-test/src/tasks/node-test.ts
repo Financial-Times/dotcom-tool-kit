@@ -9,7 +9,7 @@ import { spec } from 'node:test/reporters'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { createWritableLogger } from '@dotcom-tool-kit/logger'
-import { z } from 'zod'
+import { z } from 'zod/v3'
 
 // We need to maintain this list of file patterns if we want to make this plugin work consistently
 // between Node.js 20 and 22. In future (when we drop Node.js 20 support) we will be able to remove
