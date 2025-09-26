@@ -7,6 +7,7 @@ import { hookFork, waitOnExit, styles } from '@dotcom-tool-kit/logger'
 import { readState } from '@dotcom-tool-kit/state'
 
 import { HakoEnvironmentName, hakoImageName, hakoRegions } from '../hako'
+import HakoSchema from '../schema'
 
 const HakoDeleteSchema = z
   .object({
@@ -22,7 +23,7 @@ const HakoDeleteSchema = z
 
 export { HakoDeleteSchema as schema }
 
-export default class HakoDelete extends Task<{ task: typeof HakoDeleteSchema }> {
+export default class HakoDelete extends Task<{ task: typeof HakoDeleteSchema; plugin: typeof HakoSchema }> {
   async run() {
     const awsCredentials = readState('ci')?.awsCredentials ?? {}
 
@@ -43,7 +44,7 @@ export default class HakoDelete extends Task<{ task: typeof HakoDeleteSchema }> 
       `AWS_SESSION_TOKEN=${awsCredentials.sessionToken}`,
       '--platform',
       'linux/amd64',
-      hakoImageName,
+      hakoImageName(this.pluginOptions.version),
       'app',
       'delete',
       '--app',

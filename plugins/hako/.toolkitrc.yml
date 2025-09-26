@@ -1,6 +1,7 @@
 version: 2
 
+optionsSchema: './lib/schema'
+
 tasks:
   HakoDeploy: './lib/tasks/deploy'
   HakoDelete: './lib/tasks/delete'
-

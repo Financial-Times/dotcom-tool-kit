@@ -9,6 +9,8 @@ import { join, resolve } from 'node:path'
 import { createHash } from 'node:crypto'
 
 import { HakoEnvironment, HakoEnvironmentName, hakoDomains, hakoImageName, hakoRegions } from '../hako'
+import HakoSchema from '../schema'
+
 // HACK:IM:20250528 reexport this function from the shared library to maintain
 // backwards-compatibility as the docker plugin schema depends on it being here
 // oops
@@ -45,11 +47,11 @@ interface DeploymentOptions {
   tag: string
 }
 
-export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> {
+export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema; plugin: typeof HakoSchema }> {
   async deployApp({ awsCredentials, environment, name, tag }: DeploymentOptions): Promise<void> {
     this.logger.info(`Deploying image "${name}" with tag "${tag}" to environment "${environment.name}"`)
     const awsRegion = hakoRegions[environment.region]
-    const commandArgs = [
+    const commandArgs: string[] = [
       'run',
       '--interactive',
       '--env',
@@ -62,7 +64,7 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
       `AWS_SESSION_TOKEN=${awsCredentials.sessionToken}`,
       '--platform',
       'linux/amd64',
-      hakoImageName,
+      hakoImageName(this.pluginOptions.version),
       'image',
       'deploy',
       '--image-name',
@@ -144,7 +146,12 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
 
       this.logger.info('Pulling hako-cli image')
 
-      const child = spawn('docker', ['pull', '--platform', 'linux/amd64', hakoImageName])
+      const child = spawn('docker', [
+        'pull',
+        '--platform',
+        'linux/amd64',
+        hakoImageName(this.pluginOptions.version)
+      ])
 
       hookFork(this.logger, 'hako-pull', child)
       await waitOnExit('hako-pull', child)
