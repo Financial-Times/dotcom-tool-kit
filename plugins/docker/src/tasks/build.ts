@@ -1,4 +1,4 @@
-import { buildImageName, generateImageLabels, getDeployTag } from '../image-info'
+import { buildImageName, generateImageLabels, getCommitHash, getDeployTag } from '../image-info'
 import DockerSchema from '../schema'
 
 import * as z from 'zod'
@@ -52,10 +52,14 @@ export default class DockerBuild extends Task<{
             return ['--label', `${label}=${value}`]
           })
 
+        const commitHash = getCommitHash(readState('ci'))
+
         const childBuild = spawn('docker', [
           'buildx',
           'build',
           '--load', // Without this, the image is not stored and so we can't push it later
+          '--build-arg',
+          `GIT_COMMIT=${commitHash}`,
           '--platform',
           imageOptions.platform,
           ...(this.options.ssh ? ['--ssh', 'default'] : []),
