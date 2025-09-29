@@ -470,7 +470,7 @@ const generateWorkflowJobs = (
             } else {
               return requiredName
             }
-          })
+          }) ?? []
         },
         tagFilterRegex && workflow.runOnRelease && (job.runOnRelease ?? true)
           ? tagFilter(tagFilterRegex)
