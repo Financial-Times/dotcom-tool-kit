@@ -188,6 +188,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [7.6.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.7...circleci-v7.6.8) (2025-09-30)
+
+
+### Bug Fixes
+
+* always output requires into .circleci/config.yml ([4848142](https://github.com/Financial-Times/dotcom-tool-kit/commit/4848142b279e7308505260ef411e628c2b006234))
+
 ## [7.6.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.6...circleci-v7.6.7) (2025-08-12)
 
 

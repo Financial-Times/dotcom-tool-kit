@@ -32,6 +32,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [0.4.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.4.5...docker-v0.4.6) (2025-09-30)
+
+
+### Features
+
+* **docker:** add build arg for GIT_COMMIT ([b294694](https://github.com/Financial-Times/dotcom-tool-kit/commit/b294694ef422440745da4ae9ae962aa8b66050a9))
+
 ## [0.4.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v0.4.4...docker-v0.4.5) (2025-08-12)
 
 
