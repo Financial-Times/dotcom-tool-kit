@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci-deploy",
-  "version": "4.1.19",
+  "version": "4.1.20",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/circleci": "^7.6.7",
+    "@dotcom-tool-kit/circleci": "^7.6.8",
     "tslib": "^2.8.1"
   },
   "repository": {
