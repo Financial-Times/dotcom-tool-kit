@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/base": "^1.3.0",
-    "@dotcom-tool-kit/logger": "^4.2.2"
+    "@dotcom-tool-kit/logger": "^4.2.2",
+    "zod": "^3.25.76"
   },
   "repository": {
     "type": "git",
