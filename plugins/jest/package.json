@@ -31,7 +31,7 @@
     ".toolkitrc.yml"
   ],
   "devDependencies": {
-    "winston": "^3.17.0"
+    "winston": "^3.18.1"
   },
   "engines": {
     "node": "18.x || 20.x || 22.x"

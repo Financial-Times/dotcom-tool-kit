@@ -34,7 +34,7 @@
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.20",
     "type-fest": "^4.41.0",
-    "winston": "^3.17.0"
+    "winston": "^3.18.1"
   },
   "files": [
     "/lib",
