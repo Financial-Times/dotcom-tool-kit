@@ -74,7 +74,7 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
       '--env',
       environment.name
     ]
-    const domain = hakoDomains[environment.stage]
+    const domain = hakoDomains[environment.name]
 
     let reviewAppHash
     if (this.options.asReviewApp) {
