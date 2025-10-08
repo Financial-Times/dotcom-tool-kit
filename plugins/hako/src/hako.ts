@@ -25,6 +25,7 @@ export const hakoRegions: Record<string, string> = {
   us: 'us-east-1'
 }
 export const hakoDomains: Record<string, string> = {
+  'cp-internal-review-eu': 'cp-internal-review.ftweb.tech',
   'ft-com-prod-eu': 'ft-com-prod.ftweb.tech',
   'ft-com-prod-us': 'ft-com-prod.ftweb.tech',
   'ft-com-test-eu': 'ft-com-test.ftweb.tech',
