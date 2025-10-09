@@ -244,6 +244,22 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.4.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v4.4.0...n-test-v4.4.1) (2025-10-09)
+
+
+### Bug Fixes
+
+* bump @financial-times/n-test from 8.1.0 to 8.2.0 ([648eccc](https://github.com/Financial-Times/dotcom-tool-kit/commit/648ecccf49ce2ba6a847c2df74df59262662c54d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.0 to ^1.3.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.1
+
 ## [4.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/n-test-v4.3.6...n-test-v4.4.0) (2025-08-27)
 
 

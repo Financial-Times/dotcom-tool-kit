@@ -66,6 +66,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [1.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.3.0...base-v1.3.1) (2025-10-09)
+
+
+### Bug Fixes
+
+* bump semver from 7.7.2 to 7.7.3 ([f37e915](https://github.com/Financial-Times/dotcom-tool-kit/commit/f37e915f184786c24dfe6095d3a54267c0738e5b))
+
 ## [1.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.2.3...base-v1.3.0) (2025-08-12)
 
 

@@ -211,6 +211,17 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.3.8](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v4.3.7...upload-assets-to-s3-v4.3.8) (2025-10-09)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.0 to ^1.3.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.1
+
 ## [4.3.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v4.3.6...upload-assets-to-s3-v4.3.7) (2025-08-12)
 
 

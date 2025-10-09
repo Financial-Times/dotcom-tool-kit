@@ -461,6 +461,15 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.10.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.10.0...dotcom-tool-kit-v4.10.1) (2025-10-09)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.0 to ^1.3.1
+
 ## [4.10.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.9.0...dotcom-tool-kit-v4.10.0) (2025-08-12)
 
 

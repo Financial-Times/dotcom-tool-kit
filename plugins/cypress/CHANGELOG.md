@@ -174,6 +174,18 @@
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [5.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v5.3.5...cypress-v5.3.6) (2025-10-09)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.0 to ^1.3.1
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.5 to ^5.2.6
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.1
+
 ## [5.3.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v5.3.4...cypress-v5.3.5) (2025-08-12)
 
 
