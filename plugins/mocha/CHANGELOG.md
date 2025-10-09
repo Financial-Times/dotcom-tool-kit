@@ -211,6 +211,17 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.4.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v4.4.5...mocha-v4.4.6) (2025-10-09)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.0 to ^1.3.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.1
+
 ## [4.4.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v4.4.4...mocha-v4.4.5) (2025-08-12)
 
 

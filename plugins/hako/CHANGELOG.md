@@ -6,6 +6,22 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [0.1.23](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.22...hako-v0.1.23) (2025-10-09)
+
+
+### Features
+
+* **hako:** add cp-internal-review-eu environment ([4605bdf](https://github.com/Financial-Times/dotcom-tool-kit/commit/4605bdf53bc7704584404b0022a58dbb798d9718))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.0 to ^1.3.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.1
+
 ## [0.1.22](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.1.21...hako-v0.1.22) (2025-08-29)
 
 

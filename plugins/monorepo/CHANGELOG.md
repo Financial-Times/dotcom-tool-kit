@@ -7,6 +7,17 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.2.0
 
+## [0.1.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/monorepo-v0.1.6...monorepo-v0.1.7) (2025-10-09)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.0 to ^1.3.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 4.10.1
+
 ## [0.1.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/monorepo-v0.1.5...monorepo-v0.1.6) (2025-08-12)
 
 
