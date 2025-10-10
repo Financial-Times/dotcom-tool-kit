@@ -376,7 +376,9 @@ const generateWorkflowJobs = (
       // approval jobs don't need to be declared as a custom job before using
       job.custom?.type === 'approval' ||
       // a slash implies an orb job so we don't want to add another prefix
-      job.name.includes('/')
+      job.name.includes('/') ||
+      // the checkout job is a special case defined by the base config in this hook
+      job.name === 'checkout'
     acc.set(job.name, shouldBeBare)
     return acc
   }, new Map<string, boolean>())
