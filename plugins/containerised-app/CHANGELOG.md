@@ -45,6 +45,15 @@
     * @dotcom-tool-kit/hako bumped from ^0.1.8 to ^0.1.9
     * @dotcom-tool-kit/node bumped from ^4.3.1 to ^4.3.2
 
+## [0.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.3.5...containerised-app-v0.3.6) (2025-10-10)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-deploy bumped from ^4.1.21 to ^4.1.22
+
 ## [0.3.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.3.4...containerised-app-v0.3.5) (2025-10-09)
 
 

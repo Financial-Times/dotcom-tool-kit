@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/circleci",
-  "version": "7.6.9",
+  "version": "7.6.10",
   "description": "",
   "main": "lib",
   "scripts": {
