@@ -333,6 +333,15 @@
     * @dotcom-tool-kit/circleci bumped from ^7.6.1 to ^7.6.2
     * @dotcom-tool-kit/npm bumped from ^4.2.11 to ^4.2.12
 
+## [6.1.22](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.1.21...circleci-npm-v6.1.22) (2025-10-10)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.6.9 to ^7.6.10
+
 ## [6.1.21](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.1.20...circleci-npm-v6.1.21) (2025-10-09)
 
 

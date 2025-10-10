@@ -188,6 +188,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [7.6.10](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.9...circleci-v7.6.10) (2025-10-10)
+
+
+### Bug Fixes
+
+* **circleci:** don't prefix checkout job referenced in custom workflow ([98311c5](https://github.com/Financial-Times/dotcom-tool-kit/commit/98311c5630aa5810883e8bfb3fdca7f7169439b5))
+
 ## [7.6.9](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.8...circleci-v7.6.9) (2025-10-09)
 
 
