@@ -1,3 +1,5 @@
+import { styles } from '@dotcom-tool-kit/logger'
+import { readState } from '@dotcom-tool-kit/state'
 import { createHash } from 'node:crypto'
 
 export function getAppDetails({
@@ -10,11 +12,17 @@ export function getAppDetails({
   asReviewApp: boolean
 }) {
   if (asReviewApp) {
-    if (!process.env.CIRCLE_BRANCH) {
-      throw new Error(`CIRCLE_BRANCH environment variable not found. This is required to create a review app`)
+    const ciState = readState('ci')
+
+    if (!ciState) {
+      throw new Error(
+        `Couldn't get CI state to generate the hashed branch name. Make sure this task is running in CI and you have a Tool Kit plugin that provides CI state, such as ${styles.plugin(
+          '@dotcom-tool-kit/circleci'
+        )}, installed.`
+      )
     }
 
-    const hash = createHash('sha256').update(process.env.CIRCLE_BRANCH).digest('hex').slice(0, 6)
+    const hash = createHash('sha256').update(ciState.branch).digest('hex').slice(0, 6)
 
     return {
       subdomain: `${name}-${hash}`,
