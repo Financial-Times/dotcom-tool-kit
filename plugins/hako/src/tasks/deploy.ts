@@ -6,9 +6,10 @@ import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
-import { createHash } from 'node:crypto'
 
 import { HakoEnvironment, HakoEnvironmentName, hakoDomains, hakoImageName, hakoRegions } from '../hako'
+import { getAppDetails } from '../get-app-details'
+
 // HACK:IM:20250528 reexport this function from the shared library to maintain
 // backwards-compatibility as the docker plugin schema depends on it being here
 // oops
@@ -76,23 +77,19 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
     ]
     const domain = hakoDomains[environment.name]
 
-    let reviewAppHash
-    if (this.options.asReviewApp) {
-      if (!process.env.CIRCLE_BRANCH) {
-        throw new Error(
-          `CIRCLE_BRANCH environment variable not found. This is required to create a review app`
-        )
-      }
-      reviewAppHash = createHash('sha256').update(process.env.CIRCLE_BRANCH).digest('hex').slice(0, 6)
-      writeState('review', { url: `https://${name}-${reviewAppHash}.${awsRegion}.${domain}` })
-    }
+    const { subdomain, ephemeralId } = getAppDetails({
+      name,
+      asReviewApp: this.options.asReviewApp,
+      ephemeralId: this.options.customEphemeralId
+    })
 
-    const ephemeralId = reviewAppHash ?? this.options.customEphemeralId
+    const appUrl = `https://${subdomain}.${awsRegion}.${domain}`
+
     if (ephemeralId) {
       commandArgs.push('--ephemeral', '--ephemeral-id', ephemeralId)
-    } else {
-      writeState('staging', { url: `https://${name}.${awsRegion}.${domain}` })
     }
+
+    writeState(this.options.asReviewApp ? 'review' : 'staging', { url: appUrl })
 
     const child = spawn('docker', commandArgs)
 
