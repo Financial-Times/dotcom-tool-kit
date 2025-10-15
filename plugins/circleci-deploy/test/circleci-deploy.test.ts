@@ -10,7 +10,7 @@ const logger = winston as unknown as Logger
 describe('circleci-deploy', () => {
   describe('config integration test', () => {
     it('should generate a .circleci/config.yml with the base config from circleci-deploy/.toolkitrc.yml', async () => {
-      const config = await loadConfig(logger, { root: path.resolve(__dirname, '..') })
+      const config = await loadConfig(logger, { root: path.resolve(__dirname, 'files', 'configs', 'base') })
       const hookInstallationsPromise = loadHookInstallations(logger, config).then((validated) =>
         validated.unwrap('hooks were invalid')
       )

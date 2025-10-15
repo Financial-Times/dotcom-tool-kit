@@ -32,6 +32,17 @@ options:
               - name: test
                 requires:
                   - 'build'
+          - name: 'pr-close'
+            custom:
+              when: |
+                pipeline.trigger_source != "scheduled_pipeline" and
+                (pipeline.event.name == "pull_request" and pipeline.event.action == "closed")
+            jobs:
+              - name: 'checkout'
+              - name: 'setup'
+                requires:
+                  - 'checkout'
+
 
 init:
   - './lib/init-env-vars'
