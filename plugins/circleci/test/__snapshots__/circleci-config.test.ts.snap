@@ -72,5 +72,18 @@ workflows:
           executor: node
           requires:
             - tool-kit/build
+  pr-close:
+    jobs:
+      - checkout:
+          requires: []
+      - tool-kit/setup:
+          executor: node
+          requires:
+            - checkout
+    when: >
+      pipeline.trigger_source != "scheduled_pipeline" and
+
+      (pipeline.event.name == "pull_request" and pipeline.event.action ==
+      "closed")
 "
 `;

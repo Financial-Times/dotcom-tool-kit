@@ -622,7 +622,7 @@ describe('CircleCI config hook', () => {
     it('should generate a .circleci/config.yml with the base config from circleci/.toolkitrc.yml', async () => {
       // uses a fixture toolkitrc that loads the circleci plugin instead of the circleci toolkitrc
       // because option parsing doesn't work if loading the circleci toolkitrc directly
-      const config = await loadConfig(logger, { root: path.resolve(__dirname, 'files') })
+      const config = await loadConfig(logger, { root: path.resolve(__dirname, 'files', 'configs', 'base') })
 
       const hookInstallationsPromise = loadHookInstallations(logger, config).then((validated) =>
         validated.unwrap('hooks were invalid')
