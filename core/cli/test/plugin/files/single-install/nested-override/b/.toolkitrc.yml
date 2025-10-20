@@ -1,0 +1,9 @@
+version: 2
+
+plugins:
+  - '../a'
+
+options:
+  hooks:
+    - TestHook:
+        b: true

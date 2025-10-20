@@ -31,7 +31,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-const loadHookEntrypoints = async (
+export const loadHookEntrypoints = async (
   logger: Logger,
   config: ValidConfig
 ): Promise<Validated<Record<string, HookModule>>> => {
