@@ -46,23 +46,19 @@ const extractForHook = (installation: HookInstallation | Conflict<HookInstallati
 //   - call `Hook.overrideChildInstallations` with the appropriate concrete Hook class, and
 
 //     the resulting installations and/or conflicts from `Hook.mergeChildInstallations` and `p`
-export async function reducePluginHookInstallations(
+export function reducePluginHookInstallations(
   logger: Logger,
   config: ValidConfig,
   hookModules: Record<string, HookModule>,
   plugin: Plugin
-): Promise<Validated<(HookInstallation | Conflict<HookInstallation>)[]>> {
+): Validated<(HookInstallation | Conflict<HookInstallation>)[]> {
   if (!plugin.rcFile || config.resolutionTrackers.reducedInstallationPlugins.has(plugin.id)) {
     return valid([])
   }
   config.resolutionTrackers.reducedInstallationPlugins.add(plugin.id)
 
   const rawChildInstallations = reduceValidated(
-    await Promise.all(
-      (plugin.children ?? []).map((child) =>
-        reducePluginHookInstallations(logger, config, hookModules, child)
-      )
-    )
+    (plugin.children ?? []).map((child) => reducePluginHookInstallations(logger, config, hookModules, child))
   ).map((installations) => installations.flat())
 
   if (!rawChildInstallations.valid) {
