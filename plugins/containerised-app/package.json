@@ -20,7 +20,7 @@
     "schema.js"
   ],
   "engines": {
-    "node": "18.x || 20.x || 22.x"
+    "node": ">=20.x"
   },
   "peerDependencies": {
     "dotcom-tool-kit": "^4.8.0"
