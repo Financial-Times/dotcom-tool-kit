@@ -105,7 +105,7 @@ export function hookConsole(logger: Logger, processName: string): () => void {
         if (typeof encoding === 'function') {
           return originalWrite(message, encoding)
         } else {
-          return originalWrite(message, encoding, writeCallback as (err?: Error) => void)
+          return originalWrite(message, encoding, writeCallback as (err?: Error | null) => void)
         }
       } else {
         if (typeof encoding === 'function') {

@@ -7,7 +7,7 @@ orbs:
 executors:
   node:
     docker:
-      - image: cimg/node:18.19-browsers
+      - image: cimg/node:20.19-browsers
 jobs:
   checkout:
     docker:

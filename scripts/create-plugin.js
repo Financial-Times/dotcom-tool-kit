@@ -35,7 +35,7 @@ pkg.homepage = `https://github.com/financial-times/dotcom-tool-kit/tree/main/${d
 pkg.author = 'FT.com Platforms Team <platforms-team.customer-products@ft.com>'
 pkg.files = ['/lib', '.toolkitrc.yml']
 pkg.engines = {
-  node: '18.x || 20.x || 22.x'
+  node: '>=20.x'
 }
 pkg.volta = {
   extends: '../../package.json'

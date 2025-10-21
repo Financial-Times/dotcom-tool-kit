@@ -23,9 +23,9 @@
     "@commitlint/config-conventional": "^19.8.1",
     "@dotcom-reliability-kit/eslint-config": "^4.1.0",
     "@financial-times/eslint-config-next": "^7.1.0",
-    "@tsconfig/node18": "^18.2.4",
+    "@tsconfig/node20": "^20.1.6",
     "@types/jest": "^29.5.14",
-    "@types/node": "^18.19.55",
+    "@types/node": "^20.19.23",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "check-engines": "^1.6.0",
@@ -61,6 +61,6 @@
     "node": "22.12.0"
   },
   "engines": {
-    "node": "18.x || 20.x || 22.x"
+    "node": ">=20.x"
   }
 }
