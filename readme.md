@@ -15,6 +15,8 @@ Your repo does not need to use Tool Kit for all of its tooling, and tooling not 
 
 ## Installing Tool Kit
 
+Firstly, you should make sure you're running a version of Node that Tool Kit supports. We're currently testing every commit on **Node 20** and **Node 22**, and can't guarantee that other Node versions will run Tool Kit as expected.
+
 Install the core of Tool Kit as a `devDependency`:
 
 ```sh
