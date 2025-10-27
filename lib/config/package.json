@@ -13,5 +13,8 @@
     "@dotcom-tool-kit/conflict": "^1.0.1",
     "@dotcom-tool-kit/plugin": "^1.1.0",
     "@dotcom-tool-kit/validated": "^1.0.3"
+  },
+  "engines": {
+    "node": ">=20.x"
   }
 }

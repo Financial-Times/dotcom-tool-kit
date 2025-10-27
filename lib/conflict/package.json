@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@dotcom-tool-kit/plugin": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=20.x"
   }
 }
