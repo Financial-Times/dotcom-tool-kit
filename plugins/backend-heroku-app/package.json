@@ -20,7 +20,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/backend-heroku-app",
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x"
+    "dotcom-tool-kit": "5.x"
   },
   "engines": {
     "node": ">=20.x"

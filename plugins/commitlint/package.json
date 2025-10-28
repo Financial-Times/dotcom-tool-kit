@@ -30,7 +30,7 @@
   },
   "peerDependencies": {
     "@commitlint/cli": ">=16.x <=19.x",
-    "dotcom-tool-kit": "4.x"
+    "dotcom-tool-kit": "5.x"
   },
   "engines": {
     "node": ">=20.x"

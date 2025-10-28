@@ -28,7 +28,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x"
+    "dotcom-tool-kit": "5.x"
   },
   "dependencies": {
     "@dotcom-tool-kit/base": "^2.0.0",

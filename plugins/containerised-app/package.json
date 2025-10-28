@@ -23,7 +23,7 @@
     "node": ">=20.x"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "^4.8.0"
+    "dotcom-tool-kit": "5.x"
   },
   "dependencies": {
     "@dotcom-tool-kit/aws": "^0.2.0",

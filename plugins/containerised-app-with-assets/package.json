@@ -22,7 +22,7 @@
     "node": ">=20.x"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "^4.8.0"
+    "dotcom-tool-kit": "5.x"
   },
   "dependencies": {
     "@dotcom-tool-kit/containerised-app": "^0.4.0",
