@@ -269,6 +269,28 @@
     * @dotcom-tool-kit/lint-staged bumped from ^5.2.9 to ^5.2.10
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v4.2.6...lint-staged-npm-v5.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/husky-npm bumped from ^5.1.14 to ^6.0.0
+    * @dotcom-tool-kit/lint-staged bumped from ^5.2.14 to ^6.0.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.6 to ^6.0.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 5.0.0
+
 ## [4.2.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/lint-staged-npm-v4.2.5...lint-staged-npm-v4.2.6) (2025-10-09)
 
 

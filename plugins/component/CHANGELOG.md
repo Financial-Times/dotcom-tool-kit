@@ -313,6 +313,27 @@
     * @dotcom-tool-kit/circleci-npm bumped from ^6.1.12 to ^6.1.13
     * @dotcom-tool-kit/npm bumped from ^4.2.11 to ^4.2.12
 
+## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v5.1.22...component-v6.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-npm bumped from ^6.1.22 to ^7.0.0
+    * @dotcom-tool-kit/npm bumped from ^4.2.18 to ^5.0.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 5.0.0
+
 ## [5.1.22](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v5.1.21...component-v5.1.22) (2025-10-10)
 
 

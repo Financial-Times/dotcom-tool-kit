@@ -96,6 +96,26 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
 
+## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v5.2.6...package-json-hook-v6.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.1 to ^2.0.0
+    * @dotcom-tool-kit/conflict bumped from ^1.0.1 to ^2.0.0
+    * @dotcom-tool-kit/plugin bumped from ^1.1.0 to ^2.0.0
+
 ## [5.2.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/package-json-hook-v5.2.5...package-json-hook-v5.2.6) (2025-10-09)
 
 

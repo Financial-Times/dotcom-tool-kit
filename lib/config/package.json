@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/config",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/conflict": "^1.0.1",
-    "@dotcom-tool-kit/plugin": "^1.1.0",
-    "@dotcom-tool-kit/validated": "^1.0.3"
+    "@dotcom-tool-kit/conflict": "^2.0.0",
+    "@dotcom-tool-kit/plugin": "^2.0.0",
+    "@dotcom-tool-kit/validated": "^2.0.0"
   },
   "engines": {
     "node": ">=20.x"

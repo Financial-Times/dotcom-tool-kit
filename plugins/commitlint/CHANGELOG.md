@@ -62,6 +62,27 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v1.3.1...commitlint-v2.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.1 to ^2.0.0
+    * @dotcom-tool-kit/logger bumped from ^4.2.2 to ^5.0.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 5.0.0
+
 ## [1.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v1.3.0...commitlint-v1.3.1) (2025-10-09)
 
 

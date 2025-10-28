@@ -174,6 +174,30 @@
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v5.3.6...cypress-v6.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.1 to ^2.0.0
+    * @dotcom-tool-kit/doppler bumped from ^2.2.3 to ^3.0.0
+    * @dotcom-tool-kit/logger bumped from ^4.2.2 to ^5.0.0
+    * @dotcom-tool-kit/package-json-hook bumped from ^5.2.6 to ^6.0.0
+    * @dotcom-tool-kit/state bumped from ^4.3.2 to ^5.0.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 5.0.0
+
 ## [5.3.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v5.3.5...cypress-v5.3.6) (2025-10-09)
 
 

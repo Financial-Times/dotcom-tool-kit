@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/containerised-app",
-  "version": "0.3.6",
+  "version": "0.4.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,14 +26,14 @@
     "dotcom-tool-kit": "^4.8.0"
   },
   "dependencies": {
-    "@dotcom-tool-kit/aws": "^0.1.12",
-    "@dotcom-tool-kit/circleci-deploy": "^4.1.22",
-    "@dotcom-tool-kit/cloudsmith": "^1.1.2",
-    "@dotcom-tool-kit/docker": "^0.4.7",
-    "@dotcom-tool-kit/doppler": "^2.2.3",
-    "@dotcom-tool-kit/hako": "^0.1.23",
-    "@dotcom-tool-kit/logger": "^4.2.2",
-    "@dotcom-tool-kit/node": "^4.4.1",
+    "@dotcom-tool-kit/aws": "^0.2.0",
+    "@dotcom-tool-kit/circleci-deploy": "^5.0.0",
+    "@dotcom-tool-kit/cloudsmith": "^2.0.0",
+    "@dotcom-tool-kit/docker": "^0.5.0",
+    "@dotcom-tool-kit/doppler": "^3.0.0",
+    "@dotcom-tool-kit/hako": "^0.2.0",
+    "@dotcom-tool-kit/logger": "^5.0.0",
+    "@dotcom-tool-kit/node": "^5.0.0",
     "zod": "^3.24.4"
   }
 }

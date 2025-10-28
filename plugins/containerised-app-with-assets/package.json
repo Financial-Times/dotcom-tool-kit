@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/containerised-app-with-assets",
-  "version": "0.3.6",
+  "version": "0.4.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,9 +25,9 @@
     "dotcom-tool-kit": "^4.8.0"
   },
   "dependencies": {
-    "@dotcom-tool-kit/containerised-app": "^0.3.6",
-    "@dotcom-tool-kit/upload-assets-to-s3": "^4.3.8",
-    "@dotcom-tool-kit/webpack": "^4.4.1",
+    "@dotcom-tool-kit/containerised-app": "^0.4.0",
+    "@dotcom-tool-kit/upload-assets-to-s3": "^5.0.0",
+    "@dotcom-tool-kit/webpack": "^5.0.0",
     "zod": "^3.24.4"
   }
 }

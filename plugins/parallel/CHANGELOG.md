@@ -1,5 +1,25 @@
 # Changelog
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/parallel-v1.0.2...parallel-v2.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^1.3.1 to ^2.0.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from ^4.10.0 to ^5.0.0
+
 ## [1.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/parallel-v1.0.1...parallel-v1.0.2) (2025-10-09)
 
 
