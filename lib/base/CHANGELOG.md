@@ -66,6 +66,29 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.3.1...base-v2.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* declare Node engines in all libraries
+
+### Features
+
+* declare Node engines in all libraries ([648d4d0](https://github.com/Financial-Times/dotcom-tool-kit/commit/648d4d0267d329655056ad38614b6659c80f5409))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/conflict bumped from ^1.0.1 to ^2.0.0
+    * @dotcom-tool-kit/logger bumped from ^4.2.2 to ^5.0.0
+    * @dotcom-tool-kit/validated bumped from ^1.0.3 to ^2.0.0
+  * devDependencies
+    * @dotcom-tool-kit/config bumped from ^1.1.1 to ^2.0.0
+    * @dotcom-tool-kit/plugin bumped from ^1.1.0 to ^2.0.0
+
 ## [1.3.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.3.0...base-v1.3.1) (2025-10-09)
 
 

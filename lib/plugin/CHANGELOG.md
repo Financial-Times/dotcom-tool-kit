@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/plugin-v1.1.0...plugin-v2.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* declare Node engines in all libraries
+
+### Features
+
+* declare Node engines in all libraries ([648d4d0](https://github.com/Financial-Times/dotcom-tool-kit/commit/648d4d0267d329655056ad38614b6659c80f5409))
+
 ## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/plugin-v1.0.0...plugin-v1.1.0) (2025-02-17)
 
 

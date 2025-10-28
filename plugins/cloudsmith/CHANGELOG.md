@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.1.2...cloudsmith-v2.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 5.0.0
+
 ## [1.1.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.1.1...cloudsmith-v1.1.2) (2025-05-20)
 
 

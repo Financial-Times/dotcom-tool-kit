@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/error-v4.1.1...error-v5.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
 ## [4.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/error-v4.1.0...error-v4.1.1) (2025-05-06)
 
 

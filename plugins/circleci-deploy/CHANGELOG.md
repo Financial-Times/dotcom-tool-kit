@@ -174,6 +174,26 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^7.6.1 to ^7.6.2
 
+## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.1.22...circleci-deploy-v5.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop node 18 support by updating related configs
+
+### Features
+
+* drop node 18 support by updating related configs ([2968f50](https://github.com/Financial-Times/dotcom-tool-kit/commit/2968f50e47a824ec3380346d81aa920dbf45b903))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^7.6.10 to ^8.0.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 4.x to 5.0.0
+
 ## [4.1.22](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v4.1.21...circleci-deploy-v4.1.22) (2025-10-10)
 
 
