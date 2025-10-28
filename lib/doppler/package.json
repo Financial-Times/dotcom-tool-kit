@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "spawk": "^1.8.2",
-    "winston": "^3.17.0"
+    "winston": "^3.18.3"
   },
   "engines": {
     "node": ">=20.x"
