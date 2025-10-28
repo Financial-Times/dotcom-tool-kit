@@ -24,7 +24,7 @@
     "node": ">=20.x"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x"
+    "dotcom-tool-kit": "5.x"
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.812.0",

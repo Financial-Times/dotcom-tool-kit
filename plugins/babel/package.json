@@ -37,7 +37,7 @@
   },
   "peerDependencies": {
     "@babel/core": "7.x",
-    "dotcom-tool-kit": "4.x"
+    "dotcom-tool-kit": "5.x"
   },
   "engines": {
     "node": ">=20.x"

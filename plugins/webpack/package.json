@@ -25,7 +25,7 @@
     "zod": "^3.24.4"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x",
+    "dotcom-tool-kit": "5.x",
     "webpack": "4.x.x || 5.x.x"
   },
   "devDependencies": {

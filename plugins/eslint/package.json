@@ -39,7 +39,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x",
+    "dotcom-tool-kit": "5.x",
     "eslint": "7.x || 8.x"
   },
   "engines": {

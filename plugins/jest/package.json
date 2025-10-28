@@ -16,7 +16,7 @@
     "zod": "^3.24.4"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x",
+    "dotcom-tool-kit": "5.x",
     "jest-cli": "27.x || 28.x || 29.x"
   },
   "repository": {

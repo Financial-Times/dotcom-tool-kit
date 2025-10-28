@@ -25,7 +25,7 @@
     "npm": "7.x || 8.x || 9.x || 10.x"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x"
+    "dotcom-tool-kit": "5.x"
   },
   "dependencies": {
     "tslib": "^2.8.1",

@@ -19,7 +19,7 @@
     "zod": "^3.24.4"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x",
+    "dotcom-tool-kit": "5.x",
     "nodemon": "2.x"
   },
   "repository": {

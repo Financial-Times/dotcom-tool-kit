@@ -38,7 +38,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "dotcom-tool-kit": "4.x",
+    "dotcom-tool-kit": "5.x",
     "mocha": ">=6.x <=11.x"
   },
   "engines": {
