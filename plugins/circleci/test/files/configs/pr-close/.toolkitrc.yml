@@ -1,0 +1,7 @@
+plugins:
+  - @dotcom-tool-kit/circleci
+
+options:
+  plugins:
+    '@dotcom-tool-kit/circleci':
+      enablePRCloseWorkflow: true
