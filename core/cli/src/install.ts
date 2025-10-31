@@ -31,7 +31,7 @@ async function asyncFilter<T>(items: T[], predicate: (item: T) => Promise<boolea
   return results.filter(({ keep }) => keep).map(({ item }) => item)
 }
 
-const loadHookEntrypoints = async (
+export const loadHookEntrypoints = async (
   logger: Logger,
   config: ValidConfig
 ): Promise<Validated<Record<string, HookModule>>> => {
@@ -54,13 +54,9 @@ export const loadHookInstallations = async (
   config: ValidConfig
 ): Promise<Validated<Hook[]>> => {
   const hookClassResults = await loadHookEntrypoints(logger, config)
-  const installationResults = (
-    await hookClassResults
-      .map((hookClasses) =>
-        reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
-      )
-      .awaitValue()
-  ).flatMap((installation) => installation)
+  const installationResults = hookClassResults.flatMap((hookClasses) =>
+    reducePluginHookInstallations(logger, config, hookClasses, config.plugins['app root'])
+  )
 
   const installationsWithoutConflicts = installationResults.flatMap((installations) => {
     const conflicts = findConflicts(installations)
