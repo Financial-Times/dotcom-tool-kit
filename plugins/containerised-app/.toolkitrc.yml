@@ -33,6 +33,13 @@ commands:
         roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app.awsRoleArnProduction'
     - HakoDeploy:
         environments: !toolkit/option '@dotcom-tool-kit/containerised-app.hakoProductionEnvironments'
+  'teardown:review':
+    - DockerAuthCloudsmith
+    - AwsAssumeRole:
+        roleArn: !toolkit/option '@dotcom-tool-kit/containerised-app.awsRoleArnStaging'
+    - HakoDelete:
+        asReviewApp: true
+        environments: !toolkit/option '@dotcom-tool-kit/containerised-app.hakoReviewEnvironments'
 
 optionsSchema: ./schema
 version: 2
