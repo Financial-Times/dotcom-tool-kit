@@ -26,7 +26,7 @@ const HakoDeleteSchema = z
       .string()
       .optional()
       .describe('ID that is used by Hako to identify a particular ephemeral app'),
-    environments: z.array(HakoEnvironmentName.describe('the Hako environments to delete apps in'))
+    environment: HakoEnvironmentName.describe('the Hako environment the ephemeral app is in')
   })
   .describe('Remove unneeded ephemeral app')
 
@@ -36,45 +36,39 @@ export default class HakoDelete extends Task<{ task: typeof HakoDeleteSchema }> 
   async run() {
     const awsCredentials = readState('ci')?.awsCredentials ?? {}
 
+    const awsRegion = hakoRegions[this.options.environment.region]
+
     const { subdomain } = getAppDetails({
       name: this.options.appName,
       ephemeralId: this.options.ephemeralId,
       asReviewApp: this.options.asReviewApp
     })
 
-    for (const environment of this.options.environments) {
-      const awsRegion = hakoRegions[environment.region]
+    this.logger.info(`Deleting ${styles.code(subdomain)} from Hako`)
 
-      this.logger.info(
-        `Deleting ${styles.code(subdomain)} from Hako environment ${environment.name} in ${
-          environment.region
-        }`
-      )
+    const child = spawn('docker', [
+      'run',
+      '--interactive',
+      '--env',
+      `AWS_REGION=${awsRegion}`,
+      '--env',
+      `AWS_ACCESS_KEY_ID=${awsCredentials.accessKeyId}`,
+      '--env',
+      `AWS_SECRET_ACCESS_KEY=${awsCredentials.secretAccessKey}`,
+      '--env',
+      `AWS_SESSION_TOKEN=${awsCredentials.sessionToken}`,
+      '--platform',
+      'linux/amd64',
+      hakoImageName,
+      'app',
+      'delete',
+      '--app',
+      subdomain,
+      '--env',
+      this.options.environment.name
+    ])
 
-      const child = spawn('docker', [
-        'run',
-        '--interactive',
-        '--env',
-        `AWS_REGION=${awsRegion}`,
-        '--env',
-        `AWS_ACCESS_KEY_ID=${awsCredentials.accessKeyId}`,
-        '--env',
-        `AWS_SECRET_ACCESS_KEY=${awsCredentials.secretAccessKey}`,
-        '--env',
-        `AWS_SESSION_TOKEN=${awsCredentials.sessionToken}`,
-        '--platform',
-        'linux/amd64',
-        hakoImageName,
-        'app',
-        'delete',
-        '--app',
-        subdomain,
-        '--env',
-        environment.name
-      ])
-
-      hookFork(this.logger, 'hako-app-delete', child)
-      await waitOnExit('hako-app-delete', child)
-    }
+    hookFork(this.logger, 'hako-app-delete', child)
+    await waitOnExit('hako-app-delete', child)
   }
 }
