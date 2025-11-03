@@ -46,6 +46,20 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/webpack bumped from ^4.3.1 to ^4.3.2
 
+## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v0.4.0...containerised-app-with-assets-v1.0.0) (2025-11-03)
+
+
+### Features
+
+* release 1.0 of AWS-related packages ([f455a4c](https://github.com/Financial-Times/dotcom-tool-kit/commit/f455a4c110c1f879d0e2e2f83b2d6ca10117124c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/containerised-app bumped from ^0.4.0 to ^1.0.0
+
 ## [0.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v0.3.6...containerised-app-with-assets-v0.4.0) (2025-10-28)
 
 

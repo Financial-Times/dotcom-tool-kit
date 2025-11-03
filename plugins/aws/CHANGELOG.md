@@ -26,6 +26,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
 
+## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/aws-v0.2.0...aws-v1.0.0) (2025-11-03)
+
+
+### Features
+
+* release 1.0 of AWS-related packages ([f455a4c](https://github.com/Financial-Times/dotcom-tool-kit/commit/f455a4c110c1f879d0e2e2f83b2d6ca10117124c))
+
 ## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/aws-v0.1.12...aws-v0.2.0) (2025-10-28)
 
 
