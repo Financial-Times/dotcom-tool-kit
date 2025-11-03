@@ -23,6 +23,9 @@
       "path": "../../lib/state"
     },
     {
+      "path": "../../lib/telemetry"
+    },
+    {
       "path": "../../lib/base"
     }
   ],

@@ -6,6 +6,7 @@ import winston, { Logger } from 'winston'
 import * as YAML from 'yaml'
 import { loadConfig } from 'dotcom-tool-kit/lib/config'
 import { loadHookInstallations } from 'dotcom-tool-kit/lib/install'
+import { MockTelemetryClient } from '@dotcom-tool-kit/telemetry'
 
 import CircleCi from '../lib/circleci-config'
 
@@ -722,7 +723,8 @@ describe('CircleCI config hook', () => {
       // because option parsing doesn't work if loading the circleci toolkitrc directly
       const config = await loadConfig(logger, { root: path.resolve(__dirname, 'files', 'configs', 'base') })
 
-      const hookInstallationsPromise = loadHookInstallations(logger, config).then((validated) =>
+      const metrics = new MockTelemetryClient()
+      const hookInstallationsPromise = loadHookInstallations(logger, metrics, config).then((validated) =>
         validated.unwrap('hooks were invalid')
       )
 

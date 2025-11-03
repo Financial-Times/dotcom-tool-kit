@@ -4,6 +4,7 @@ import { hookSymbol, typeSymbol } from './symbols'
 import type { z } from 'zod'
 import type { Plugin } from '@dotcom-tool-kit/plugin'
 import { Conflict, isConflict } from '@dotcom-tool-kit/conflict'
+import { MockTelemetryClient, type TelemetryRecorder } from '@dotcom-tool-kit/telemetry'
 import type { Default } from './type-utils'
 
 export interface HookInstallation<Options = Record<string, unknown>> {
@@ -21,6 +22,7 @@ export abstract class Hook<
   State = unknown
 > extends Base {
   logger: Logger
+  metrics: TelemetryRecorder
   // This field is used to collect hooks that share state when running their
   // install methods. All hooks in the same group will run their install method
   // one after the other, and then their commitInstall method will be run with
@@ -65,10 +67,13 @@ export abstract class Hook<
     logger: Logger,
     public id: string,
     public options: z.output<Default<Options['hook'], z.ZodObject<Record<string, never>>>>,
-    public pluginOptions: z.output<Default<Options['plugin'], z.ZodObject<Record<string, never>>>>
+    public pluginOptions: z.output<Default<Options['plugin'], z.ZodObject<Record<string, never>>>>,
+    // TODO:IM:20251215 make this a required parameter in the next major version
+    metrics: TelemetryRecorder = new MockTelemetryClient()
   ) {
     super()
     this.logger = logger.child({ hook: this.constructor.name })
+    this.metrics = metrics.scoped({ hook: this.constructor.name })
   }
 
   abstract isInstalled(): Promise<boolean>
@@ -83,7 +88,8 @@ export type HookConstructor = {
     logger: Logger,
     id: string,
     options: z.infer<O['hook']>,
-    pluginOptions: z.infer<O['plugin']>
+    pluginOptions: z.infer<O['plugin']>,
+    metrics?: TelemetryRecorder
   ): Hook<O, unknown>
 }
 

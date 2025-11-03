@@ -13,6 +13,7 @@ import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/conflict'
 import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
 import { runInit } from './init'
+import { TelemetryRecorder } from '@dotcom-tool-kit/telemetry'
 
 // implementation of the Array#every method that supports asynchronous predicates
 async function asyncEvery<T>(arr: T[], pred: (x: T) => Promise<boolean>): Promise<boolean> {
@@ -51,6 +52,7 @@ export const loadHookEntrypoints = async (
 
 export const loadHookInstallations = async (
   logger: Logger,
+  metrics: TelemetryRecorder,
   config: ValidConfig
 ): Promise<Validated<Hook[]>> => {
   const hookClassResults = await loadHookEntrypoints(logger, config)
@@ -83,17 +85,27 @@ export const loadHookInstallations = async (
   return installationsWithoutConflicts.map((installations) => {
     return installations.map(({ hookConstructor, forHook, options }) => {
       const hookPlugin = config.hooks[forHook].plugin
-      return new hookConstructor(logger, forHook, options, config.pluginOptions[hookPlugin.id]?.options)
+      return new hookConstructor(
+        logger,
+        forHook,
+        options,
+        config.pluginOptions[hookPlugin.id]?.options,
+        metrics
+      )
     })
   })
 }
 
-export async function checkInstall(logger: Logger, config: ValidConfig): Promise<void> {
+export async function checkInstall(
+  logger: Logger,
+  metrics: TelemetryRecorder,
+  config: ValidConfig
+): Promise<void> {
   if (!(await hasConfigChanged(logger, config))) {
     return
   }
 
-  const hooks = (await loadHookInstallations(logger, config)).unwrap(
+  const hooks = (await loadHookInstallations(logger, metrics, config)).unwrap(
     'hooks were found to be invalid when checking install'
   )
 
@@ -110,13 +122,13 @@ export async function checkInstall(logger: Logger, config: ValidConfig): Promise
   await updateHashes(config)
 }
 
-export default async function installHooks(logger: Logger): Promise<ValidConfig> {
+export default async function installHooks(logger: Logger, metrics: TelemetryRecorder): Promise<ValidConfig> {
   const config = await loadConfig(logger, { root: process.cwd() })
 
   await runInit(logger, config)
 
   const errors: Error[] = []
-  const hooks = (await loadHookInstallations(logger, config)).unwrap(
+  const hooks = (await loadHookInstallations(logger, metrics, config)).unwrap(
     'hooks were found to be invalid when installing'
   )
 
