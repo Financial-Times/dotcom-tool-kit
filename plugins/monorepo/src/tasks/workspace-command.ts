@@ -94,7 +94,8 @@ ${configsWithCommand.map(({ packageId }) => `- ${styles.plugin(packageId)}`).joi
             this.logger.child({ packageId }),
             config,
             [configuredCommand],
-            files
+            files,
+            this.metrics
           ).catch((error) => {
             error.name = `${styles.plugin(packageId)} → ${error.name}`
             throw error

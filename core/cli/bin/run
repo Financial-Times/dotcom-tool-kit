@@ -10,13 +10,17 @@ const argv = require('minimist')(process.argv.slice(2), {
 })
 
 const { rootLogger } = require('@dotcom-tool-kit/logger')
+const { TelemetryProcess } = require('@dotcom-tool-kit/telemetry')
 const { formatError } = require('../lib/messages')
 
 async function main() {
+  const metricsProcess = new TelemetryProcess(rootLogger)
+  const environment = process.env.CI ? 'ci' : 'local'
+  const metrics = metricsProcess.root({ environment })
   try {
     if (argv.install) {
       const installHooks = require('../lib/install').default
-      await installHooks(rootLogger)
+      await installHooks(rootLogger, metrics)
     } else if (argv.listPlugins) {
       const { listPlugins } = require('../lib')
       await listPlugins(rootLogger)
@@ -25,7 +29,7 @@ async function main() {
       await printConfig(rootLogger)
     } else if (argv.printMergedOptions) {
       const { printMergedOptions } = require('../lib')
-      await printMergedOptions(rootLogger)
+      await printMergedOptions(rootLogger, metrics)
     } else if (argv.help || argv._.length === 0) {
       const showHelp = require('../lib/help').default
       await showHelp(rootLogger, argv._)
@@ -39,14 +43,16 @@ async function main() {
         // the command becomes something like `dotcom-tool-kit test:staged --
         // index.js`. When this command is executed it runs the configured task
         // where the file path arguments would then be extracted.
-        await runCommands(rootLogger, argv._, argv['--'])
+        await runCommands(rootLogger, metrics, argv._, argv['--'])
       } else {
-        await runCommands(rootLogger, argv._)
+        await runCommands(rootLogger, metrics, argv._)
       }
     }
   } catch (error) {
     rootLogger.error(formatError(error), { skipFormat: true })
     process.exitCode = error.exitCode || 1
+  } finally {
+    metricsProcess.disconnect()
   }
 }
 
