@@ -16,6 +16,15 @@ jobs:
       - checkout
       - tool-kit/persist-workspace:
           path: .
+  teardown-review:
+    executor: node
+    steps:
+      - tool-kit/attach-workspace
+      - run:
+          name: teardown-review
+          command: npx dotcom-tool-kit teardown:review
+    environment:
+      CIRCLE_BRANCH: << pipeline.event.github.pull_request.head.ref >>
 workflows:
   tool-kit:
     when:
@@ -116,5 +125,21 @@ workflows:
           filters:
             branches:
               ignore: main
+  pr-close:
+    jobs:
+      - checkout:
+          requires: []
+      - tool-kit/setup:
+          executor: node
+          requires:
+            - checkout
+      - teardown-review:
+          requires:
+            - tool-kit/setup
+    when: >
+      pipeline.trigger_source != "scheduled_pipeline" and
+
+      (pipeline.event.name == "pull_request" and pipeline.event.action ==
+      "closed")
 "
 `;
