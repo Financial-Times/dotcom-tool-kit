@@ -1,0 +1,2 @@
+plugins:
+  - @dotcom-tool-kit/circleci-deploy
