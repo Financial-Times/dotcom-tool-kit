@@ -15,6 +15,7 @@ import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 import pluralize from 'pluralize'
 import type { ReadonlyDeep } from 'type-fest'
+import { ScopedMetricsClient, MockMetricsClient } from '@dotcom-tool-kit/telemetry'
 
 export type ErrorSummary = {
   task: string
@@ -24,7 +25,8 @@ export type ErrorSummary = {
 export async function loadTasks(
   logger: Logger,
   tasks: OptionsForTask[],
-  config: ReadonlyDeep<ValidConfig>
+  config: ReadonlyDeep<ValidConfig>,
+  metrics: ScopedMetricsClient = new MockMetricsClient()
 ): Promise<Validated<Task[]>> {
   const taskResults = await Promise.all(
     tasks.map(async ({ task: taskId, options, plugin }) => {
@@ -42,12 +44,14 @@ export async function loadTasks(
         }
 
         if (parsedOptions.success) {
+          const scoped = metrics.scoped({ plugin: entryPoint.plugin.id })
           const task = new (taskModule.baseClass as unknown as TaskConstructor)(
             logger,
             taskId,
             config.pluginOptions[entryPoint.plugin.id]?.options ?? {},
             parsedOptions.data,
-            plugin
+            plugin,
+            scoped
           )
           return valid(task)
         } else {
@@ -72,6 +76,7 @@ export function handleTaskErrors(errors: ErrorSummary[], command: string) {
 
 export async function runTasks(
   logger: Logger,
+  metrics: ScopedMetricsClient,
   config: ValidConfig,
   tasks: Task[],
   command: string,
@@ -84,9 +89,11 @@ export async function runTasks(
   }
 
   for (const task of tasks) {
+    const scoped = metrics.scoped({ task: task.id })
     try {
       logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
       await task.run({ files, command, cwd: config.root, config })
+      scoped.recordEvent('tasks.completed', { success: true })
     } catch (error) {
       // if there's an exit code, that's a request from the task to exit early
       if (error instanceof ToolKitError && error.exitCode) {
@@ -99,6 +106,7 @@ export async function runTasks(
         task: task.id,
         error: error as Error
       })
+      scoped.recordEvent('tasks.completed', { success: false })
     }
   }
 
@@ -111,10 +119,11 @@ export async function runCommandsFromConfig(
   logger: Logger,
   config: ValidConfig,
   commands: string[],
-  files?: string[]
+  files?: string[],
+  metrics: ScopedMetricsClient = new MockMetricsClient()
 ): Promise<void> {
   await runInit(logger, config)
-  await checkInstall(logger, config)
+  await checkInstall(logger, metrics, config)
 
   if (
     shouldDisableNativeFetch(config.pluginOptions['app root'].options as RootOptions) &&
@@ -127,7 +136,8 @@ export async function runCommandsFromConfig(
     await Promise.all(
       commands.map(async (command) => {
         const tasks = config.commandTasks[command]?.tasks ?? []
-        const validatedTaskInstances = await loadTasks(logger, tasks, config)
+        const scoped = metrics.scoped({ command })
+        const validatedTaskInstances = await loadTasks(logger, tasks, config, scoped)
 
         return validatedTaskInstances.map((taskInstances) => ({ command, tasks: taskInstances }))
       })
@@ -139,12 +149,18 @@ export async function runCommandsFromConfig(
   Object.freeze(config)
 
   for (const { command, tasks } of commandTasks) {
-    await runTasks(logger, config, tasks, command, files)
+    const scoped = metrics.scoped({ command })
+    await runTasks(logger, scoped, config, tasks, command, files)
   }
 }
 
-export async function runCommands(logger: Logger, commands: string[], files?: string[]): Promise<void> {
+export async function runCommands(
+  logger: Logger,
+  metrics: ScopedMetricsClient,
+  commands: string[],
+  files?: string[]
+): Promise<void> {
   const config = await loadConfig(logger, { root: process.cwd() })
 
-  return runCommandsFromConfig(logger, config, commands, files)
+  return runCommandsFromConfig(logger, config, commands, files, metrics)
 }
