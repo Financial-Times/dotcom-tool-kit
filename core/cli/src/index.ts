@@ -3,6 +3,7 @@ import type { Logger } from 'winston'
 import util from 'util'
 import { formatPluginTree } from './messages'
 import { loadHookInstallations } from './install'
+import { TelemetryRecorder } from '@dotcom-tool-kit/telemetry'
 
 export { runCommands } from './tasks'
 export { shouldDisableNativeFetch } from './fetch'
@@ -22,9 +23,9 @@ export async function printConfig(logger: Logger): Promise<void> {
   logger.info(util.inspect(config, { depth: null, colors: true }))
 }
 
-export async function printMergedOptions(logger: Logger): Promise<void> {
+export async function printMergedOptions(logger: Logger, metrics: TelemetryRecorder): Promise<void> {
   const config = await loadConfig(logger, { validate: true, root: process.cwd() })
-  const hookInstallations = (await loadHookInstallations(logger, config)).unwrap('invalid hooks')
+  const hookInstallations = (await loadHookInstallations(logger, metrics, config)).unwrap('invalid hooks')
 
   const mergedOptions = {
     hooks: hookInstallations.map((h) => h.options),
