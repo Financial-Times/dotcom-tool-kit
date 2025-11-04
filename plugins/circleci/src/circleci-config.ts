@@ -432,47 +432,48 @@ const generateWorkflowJobs = (
       [prefixedName]: merge(
         executorParameter,
         {
-          requires: job.requires?.map((required) => {
-            const getRequiredData = (): [string, ExecutorCount] => {
-              if (required === 'checkout') {
-                return [required, 'none']
+          requires:
+            job.requires?.map((required) => {
+              const getRequiredData = (): [string, ExecutorCount] => {
+                if (required === 'checkout') {
+                  return [required, 'none']
+                }
+
+                // HACK:20250106:IM allow plugins to require orb jobs using the
+                // tool-kit/ prefix as that's what we want to move towards anyway
+                const normalisedRequired = required.replace(/^tool-kit\//, '')
+                const requiredOrb = toolKitOrbPrefix(normalisedRequired)
+
+                if (requiredOrb === 'tool-kit/setup') {
+                  return [requiredOrb, runsOnMultipleNodeVersions ? 'matrix' : 'none']
+                }
+
+                /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion --
+                 * if this arrow function is running then the array is defined
+                 */
+                const workflowJobs = workflow.jobs!
+                const requiredJob = workflowJobs.find(({ name: jobName }) => normalisedRequired === jobName)
+                if (!requiredJob) {
+                  const error = new ToolKitError(
+                    `CircleCI job ${styles.code(job.name)} in workflow ${styles.code(
+                      workflow.name
+                    )} requires a job (${styles.code(required)}) that isn't defined in the workflow`
+                  )
+                  error.details = `requiring a job that isn't used in a workflow will cause CircleCI to error. valid jobs used in this workflow are:\n${workflowJobs
+                    .map(({ name }) => `- ${name}`)
+                    .join('\n')}`
+                  throw error
+                }
+                return [requiredOrb, getExecutorCount(requiredJob)]
               }
 
-              // HACK:20250106:IM allow plugins to require orb jobs using the
-              // tool-kit/ prefix as that's what we want to move towards anyway
-              const normalisedRequired = required.replace(/^tool-kit\//, '')
-              const requiredOrb = toolKitOrbPrefix(normalisedRequired)
-
-              if (requiredOrb === 'tool-kit/setup') {
-                return [requiredOrb, runsOnMultipleNodeVersions ? 'matrix' : 'none']
+              const [requiredName, requiredExecutorCount] = getRequiredData()
+              if (requiredExecutorCount === 'matrix') {
+                return `${requiredName}-${executorCount === 'matrix' ? '<< matrix.executor >>' : 'node'}`
+              } else {
+                return requiredName
               }
-
-              /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion --
-               * if this arrow function is running then the array is defined
-               */
-              const workflowJobs = workflow.jobs!
-              const requiredJob = workflowJobs.find(({ name: jobName }) => normalisedRequired === jobName)
-              if (!requiredJob) {
-                const error = new ToolKitError(
-                  `CircleCI job ${styles.code(job.name)} in workflow ${styles.code(
-                    workflow.name
-                  )} requires a job (${styles.code(required)}) that isn't defined in the workflow`
-                )
-                error.details = `requiring a job that isn't used in a workflow will cause CircleCI to error. valid jobs used in this workflow are:\n${workflowJobs
-                  .map(({ name }) => `- ${name}`)
-                  .join('\n')}`
-                throw error
-              }
-              return [requiredOrb, getExecutorCount(requiredJob)]
-            }
-
-            const [requiredName, requiredExecutorCount] = getRequiredData()
-            if (requiredExecutorCount === 'matrix') {
-              return `${requiredName}-${executorCount === 'matrix' ? '<< matrix.executor >>' : 'node'}`
-            } else {
-              return requiredName
-            }
-          }) ?? []
+            }) ?? []
         },
         tagFilterRegex && workflow.runOnRelease && (job.runOnRelease ?? true)
           ? tagFilter(tagFilterRegex)
@@ -590,8 +591,8 @@ export default class CircleCi extends Hook<
   }
 
   generateConfig(): CircleCIState {
-    const { cimgNodeVersions: nodeVersions, tagFilterRegex } = this.pluginOptions
-    const configuredTagFilterRegex = this.pluginOptions.runOnTag ? tagFilterRegex : undefined
+    const { cimgNodeVersions: nodeVersions } = this.pluginOptions
+    const configuredTagFilterRegex = this.pluginOptions.tagFilter || undefined
 
     if (!this.generatedConfig) {
       const generated: CircleCIStatePartial = {}
