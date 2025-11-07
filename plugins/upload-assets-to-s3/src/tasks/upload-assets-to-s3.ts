@@ -63,7 +63,7 @@ export const UploadAssetsToS3Schema = z
 export { UploadAssetsToS3Schema as schema }
 
 export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsToS3Schema }> {
-  async uploadFile(file: string, s3: S3Client, isReviewApp): Promise<void> {
+  async uploadFile(file: string, s3: S3Client, isReviewApp: boolean): Promise<void> {
     const type = getFileType(file)
     const encoding = getFileEncoding(file)
     const filepath = path.join(this.options.directory, file)
