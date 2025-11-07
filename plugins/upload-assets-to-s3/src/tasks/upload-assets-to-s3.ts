@@ -63,15 +63,14 @@ export const UploadAssetsToS3Schema = z
 export { UploadAssetsToS3Schema as schema }
 
 export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsToS3Schema }> {
-  async uploadFile(file: string, s3: S3Client): Promise<void> {
+  async uploadFile(file: string, s3: S3Client, isReviewApp): Promise<void> {
     const type = getFileType(file)
     const encoding = getFileEncoding(file)
     const filepath = path.join(this.options.directory, file)
     const body = fs.createReadStream(filepath)
     const key = path.posix.join(this.options.destination, file)
 
-    const bucketByEnv =
-      process.env.NODE_ENV === 'branch' ? this.options.reviewBucket : this.options.prodBucket
+    const bucketByEnv = isReviewApp ? this.options.reviewBucket : this.options.prodBucket
     let currentBucket = ''
 
     try {
@@ -98,7 +97,7 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
     }
   }
 
-  async run({ cwd }: TaskRunContext): Promise<void> {
+  async run({ cwd, command }: TaskRunContext): Promise<void> {
     // Wrap extensions in braces if there are multiple
     const extensions = this.options.extensions.includes(',')
       ? `{${this.options.extensions}}`
@@ -136,8 +135,9 @@ export default class UploadAssetsToS3 extends Task<{ task: typeof UploadAssetsTo
         secretAccessKey
       }
     })
+    const isReviewApp = process.env.NODE_ENV === 'branch' || command === 'deploy:review'
 
-    await Promise.all(files.map((file) => this.uploadFile(file, s3)))
+    await Promise.all(files.map((file) => this.uploadFile(file, s3, isReviewApp)))
   }
 }
 
