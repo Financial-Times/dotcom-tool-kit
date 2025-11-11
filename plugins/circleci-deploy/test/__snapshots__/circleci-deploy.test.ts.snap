@@ -2,8 +2,6 @@
 
 exports[`circleci-deploy config integration test should generate a .circleci/config.yml with the base config from circleci-deploy/.toolkitrc.yml 1`] = `
 "version: 2.1
-orbs:
-  tool-kit: financial-times/dotcom-tool-kit@5
 executors:
   node:
     docker:
@@ -14,12 +12,99 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - tool-kit/persist-workspace:
-          path: .
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  build:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: build
+          command: npx dotcom-tool-kit build:ci
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  test:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: test
+          command: npx dotcom-tool-kit test:ci
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  deploy-review:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: deploy-review
+          command: npx dotcom-tool-kit deploy:review
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  deploy-staging:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: deploy-staging
+          command: npx dotcom-tool-kit deploy:staging
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  e2e-test-review:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: e2e-test-review
+          command: npx dotcom-tool-kit test:review
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  e2e-test-staging:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: e2e-test-staging
+          command: npx dotcom-tool-kit test:staging
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  deploy-production:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: deploy-production
+          command: npx dotcom-tool-kit deploy:production
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   teardown-review:
     executor: node
     steps:
-      - tool-kit/attach-workspace
+      - attach_workspace:
+          at: .
       - run:
           name: teardown-review
           command: npx dotcom-tool-kit teardown:review
@@ -37,59 +122,52 @@ workflows:
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/setup:
+      - setup:
           executor: node
           requires:
             - checkout
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/build:
-          executor: node
+      - build:
           requires:
-            - tool-kit/setup
+            - setup
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/test:
-          executor: node
+      - test:
           requires:
-            - tool-kit/build
+            - build
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/deploy-review:
-          executor: node
+      - deploy-review:
           requires:
-            - tool-kit/build
+            - build
           filters:
             branches:
               ignore: main
-      - tool-kit/deploy-staging:
-          executor: node
+      - deploy-staging:
           requires:
-            - tool-kit/build
+            - build
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
             branches:
               only: main
-      - tool-kit/e2e-test-review:
-          executor: node
+      - e2e-test-review:
           requires:
-            - tool-kit/deploy-review
-      - tool-kit/e2e-test-staging:
-          executor: node
+            - deploy-review
+      - e2e-test-staging:
           requires:
-            - tool-kit/deploy-staging
+            - deploy-staging
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/deploy-production:
-          executor: node
+      - deploy-production:
           requires:
-            - tool-kit/test
-            - tool-kit/e2e-test-staging
+            - test
+            - e2e-test-staging
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
@@ -106,22 +184,19 @@ workflows:
             - << pipeline.schedule.name >>
     jobs:
       - checkout
-      - tool-kit/setup:
+      - setup:
           executor: node
           requires:
             - checkout
-      - tool-kit/build:
-          executor: node
+      - build:
           requires:
-            - tool-kit/setup
-      - tool-kit/test:
-          executor: node
+            - setup
+      - test:
           requires:
-            - tool-kit/build
-      - tool-kit/deploy-review:
-          executor: node
+            - build
+      - deploy-review:
           requires:
-            - tool-kit/build
+            - build
           filters:
             branches:
               ignore: main
@@ -129,13 +204,12 @@ workflows:
     jobs:
       - checkout:
           requires: []
-      - tool-kit/setup:
-          executor: node
+      - setup:
           requires:
             - checkout
       - teardown-review:
           requires:
-            - tool-kit/setup
+            - setup
     when: >
       pipeline.trigger_source != "scheduled_pipeline" and
 
