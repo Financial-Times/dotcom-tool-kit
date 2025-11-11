@@ -28,12 +28,6 @@ const dependedWorkflowJob: CircleCiWorkflowJob = {
   splitIntoMatrix: false
 }
 
-const testPrefixedWorkflowJob: CircleCiWorkflowJob = {
-  name: 'slack/approval-notification',
-  requires: ['another/orb'],
-  splitIntoMatrix: false
-}
-
 const overriddenTestJob: CircleCiJob = { ...testJob, command: 'test:override' }
 const anotherTestJob: CircleCiJob = {
   name: 'another-test-job',
@@ -48,11 +42,6 @@ const anotherTestWorkflowJob: CircleCiWorkflowJob = {
 
 const configWithWorkflowJob: CircleCiOptions = {
   workflows: [{ name: 'tool-kit', jobs: [dependedWorkflowJob, testWorkflowJob] }],
-  disableBaseConfig: true
-}
-
-const configWithPrefixedWorkflowJob: CircleCiOptions = {
-  workflows: [{ name: 'tool-kit', jobs: [{ name: 'another/orb', requires: [] }, testPrefixedWorkflowJob] }],
   disableBaseConfig: true
 }
 
@@ -182,37 +171,6 @@ describe('CircleCI config hook', () => {
                     root: '.',
                     paths: ['.']
                   }
-                },
-              ],
-            },
-          },
-        }
-      `)
-    })
-
-    it("shouldn't prefix a workflow job or requires with the tool kit orb if it references another orb", async () => {
-      process.chdir(path.join(__dirname, 'files', 'managed', 'without-workflow-job'))
-
-      const hook = new CircleCi(logger, 'CircleCi', configWithPrefixedWorkflowJob, {
-        cimgNodeVersions: ['16.14-browsers']
-      })
-
-      expect(await hook.install()).toMatchInlineSnapshot(`
-        {
-          "workflows": {
-            "tool-kit": {
-              "jobs": [
-                {
-                  "another/orb": {
-                    "requires": [],
-                  },
-                },
-                {
-                  "slack/approval-notification": {
-                    "requires": [
-                      "another/orb",
-                    ],
-                  },
                 },
               ],
             },

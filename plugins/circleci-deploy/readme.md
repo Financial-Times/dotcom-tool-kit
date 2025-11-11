@@ -31,7 +31,7 @@ If you are migrating your project to Tool Kit for the first time then this plugi
 
 ### Adding to a custom CircleCI `config.yml`
 
-See [manually adding jobs to your CircleCI config](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/orb#manually)
+See [extending Tool Kit](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/docs/extending-tool-kit.md#running-existing-tool-kit-tasks-in-new-scenarios)
 
 ## Hooks
 
