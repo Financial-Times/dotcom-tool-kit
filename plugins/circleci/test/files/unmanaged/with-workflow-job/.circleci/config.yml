@@ -1,10 +1,10 @@
 workflows:
   tool-kit:
     jobs:
-      - tool-kit/that-job:
+      - that-job:
           requires: []
           executor: node
-      - tool-kit/test-job:
+      - test-job:
           requires:
-            - tool-kit/that-job
+            - that-job
           executor: node

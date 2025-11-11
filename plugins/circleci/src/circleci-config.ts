@@ -50,9 +50,6 @@ type WorkflowJob = string | { [job: string]: WorkflowJobConfig }
 // moment and constantly requires updates whenever we change the code
 interface CircleConfig {
   version: 2.1
-  orbs: {
-    [orb: string]: string
-  }
   executors: {
     [executor: string]: {
       docker: { image: string }[]
@@ -68,26 +65,6 @@ interface CircleConfig {
     }
   }
 }
-
-// HACK:KB:20241210 we don't output jobs that are currently in the orb. remove this when we delete the orb
-const orbJobs = [
-  'build-test',
-  'build',
-  'deploy-production',
-  'deploy-review',
-  'deploy-staging',
-  'e2e-test-review',
-  'e2e-test-staging',
-  'heroku-promote',
-  'heroku-provision',
-  'heroku-staging',
-  'publish-tag',
-  'publish',
-  'setup',
-  'test'
-]
-
-const MAJOR_ORB_VERSION = '5'
 
 export type CircleCIState = CircleConfig
 /**
@@ -131,15 +108,10 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
 const getBaseConfig = (nodeVersions: string[], tagFilterRegex?: string): CircleCIState => {
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   const setupMatrix = runsOnMultipleNodeVersions
-    ? matrixBoilerplate('tool-kit/setup', nodeVersions)
+    ? matrixBoilerplate('setup', nodeVersions)
     : { executor: 'node' }
   return {
     version: 2.1,
-    orbs: {
-      'tool-kit': process.env.TOOL_KIT_FORCE_DEV_ORB
-        ? 'financial-times/dotcom-tool-kit@dev:alpha'
-        : `financial-times/dotcom-tool-kit@${MAJOR_ORB_VERSION}`
-    },
     executors: Object.fromEntries(
       nodeVersions.map((version, i) => [
         nodeVersionToExecutor(version, i),
@@ -164,7 +136,7 @@ const getBaseConfig = (nodeVersions: string[], tagFilterRegex?: string): CircleC
         jobs: [
           tagFilterRegex ? { checkout: tagFilter(tagFilterRegex) } : 'checkout',
           {
-            'tool-kit/setup': {
+            setup: {
               ...setupMatrix,
               requires: ['checkout'],
               ...(tagFilterRegex ? tagFilter(tagFilterRegex) : {})
@@ -183,7 +155,7 @@ const getBaseConfig = (nodeVersions: string[], tagFilterRegex?: string): CircleC
             }
           ]
         },
-        jobs: ['checkout', { 'tool-kit/setup': { ...setupMatrix, requires: ['checkout'] } }]
+        jobs: ['checkout', { setup: { ...setupMatrix, requires: ['checkout'] } }]
       }
     }
   }
@@ -361,39 +333,17 @@ const generateWorkflowJobs = (
   workflow: CircleCiWorkflow,
   nodeVersions: string[],
   tagFilterRegex?: string,
-  customJobs?: CircleCiJob[]
+  jobDefinitions?: CircleCiJob[]
 ): WorkflowJob[] | undefined => {
-  // HACK:20250106:IM We were previously implicitly prepending a tool-kit/
-  // prefix to workflow job names, as it was assumed that they all were
-  // referencing jobs from the Tool Kit orb. However, many custom plugins
-  // define custom jobs which need to be referenced too. To avoid a breaking
-  // change where we require the tool-kit/ prefix to be explicit, let's try an
-  // infer whether to prepend the prefix or not.
-  const jobsShouldBeBare = (workflow.jobs ?? []).reduce((acc, job) => {
-    const shouldBeBare =
-      // custom jobs won't want the tool-kit/ prefix
-      (!orbJobs.includes(job.name) && customJobs?.some(({ name }) => job.name === name)) ||
-      // approval jobs don't need to be declared as a custom job before using
-      job.custom?.type === 'approval' ||
-      // a slash implies an orb job so we don't want to add another prefix
-      job.name.includes('/') ||
-      // the checkout job is a special case defined by the base config in this hook
-      job.name === 'checkout'
-    acc.set(job.name, shouldBeBare)
-    return acc
-  }, new Map<string, boolean>())
-  const toolKitOrbPrefix = (job: string) => (jobsShouldBeBare.get(job) ? job : `tool-kit/${job}`)
-
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   const getExecutorCount = (workflowJob: CircleCiWorkflowJob): ExecutorCount => {
-    const prefixedName = toolKitOrbPrefix(workflowJob.name)
-    const customJob = customJobs?.find(({ name }) => workflowJob.name === name)
+    const jobDefinition = jobDefinitions?.find(({ name }) => workflowJob.name === name)
     if (
       // The job will have an executor parameter that we'll have to pass a
-      // value to if it's from the orb or if it's a custom job that needs to be
-      // run for multiple Node versions
-      prefixedName.startsWith('tool-kit/') ||
-      (runsOnMultipleNodeVersions && customJob && (customJob.splitIntoMatrix ?? true))
+      // value to if it's a job that wants to be run for multiple Node versions
+      runsOnMultipleNodeVersions &&
+      jobDefinition &&
+      (jobDefinition.splitIntoMatrix ?? true)
     ) {
       // If the job does require an executor parameter, either return a matrix
       // of all the Node versions or just the latest Node version, depending on
@@ -412,8 +362,6 @@ const generateWorkflowJobs = (
   }
 
   return workflow.jobs?.map((job) => {
-    const prefixedName = toolKitOrbPrefix(job.name)
-
     const executorCount = getExecutorCount(job)
     let executorParameter
     switch (executorCount) {
@@ -424,12 +372,12 @@ const generateWorkflowJobs = (
         executorParameter = { executor: 'node' }
         break
       case 'matrix':
-        executorParameter = matrixBoilerplate(prefixedName, nodeVersions)
+        executorParameter = matrixBoilerplate(job.name, nodeVersions)
         break
     }
 
     return {
-      [prefixedName]: merge(
+      [job.name]: merge(
         executorParameter,
         {
           requires:
@@ -439,20 +387,15 @@ const generateWorkflowJobs = (
                   return [required, 'none']
                 }
 
-                // HACK:20250106:IM allow plugins to require orb jobs using the
-                // tool-kit/ prefix as that's what we want to move towards anyway
-                const normalisedRequired = required.replace(/^tool-kit\//, '')
-                const requiredOrb = toolKitOrbPrefix(normalisedRequired)
-
-                if (requiredOrb === 'tool-kit/setup') {
-                  return [requiredOrb, runsOnMultipleNodeVersions ? 'matrix' : 'none']
+                if (required === 'setup') {
+                  return [required, runsOnMultipleNodeVersions ? 'matrix' : 'none']
                 }
 
                 /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion --
                  * if this arrow function is running then the array is defined
                  */
                 const workflowJobs = workflow.jobs!
-                const requiredJob = workflowJobs.find(({ name: jobName }) => normalisedRequired === jobName)
+                const requiredJob = workflowJobs.find(({ name: jobName }) => required === jobName)
                 if (!requiredJob) {
                   const error = new ToolKitError(
                     `CircleCI job ${styles.code(job.name)} in workflow ${styles.code(
@@ -464,7 +407,7 @@ const generateWorkflowJobs = (
                     .join('\n')}`
                   throw error
                 }
-                return [requiredOrb, getExecutorCount(requiredJob)]
+                return [required, getExecutorCount(requiredJob)]
               }
 
               const [requiredName, requiredExecutorCount] = getRequiredData()
@@ -485,12 +428,17 @@ const generateWorkflowJobs = (
 }
 
 const persistWorkspaceStep = {
-  'tool-kit/persist-workspace': {
-    path: '.'
+  persist_to_workspace: {
+    root: '.',
+    paths: ['.']
   }
 }
 
-const attachWorkspaceStep = 'tool-kit/attach-workspace'
+const attachWorkspaceStep = {
+  attach_workspace: {
+    at: '.'
+  }
+}
 
 const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => ({
   ...((job.splitIntoMatrix ?? true) && nodeVersions.length > 1
@@ -603,11 +551,9 @@ export default class CircleCi extends Hook<
       }
       if (this.options.jobs) {
         generated.jobs = Object.fromEntries(
-          this.options.jobs
-            .filter((job) => !orbJobs.includes(job.name))
-            .map((job) => {
-              return [job.name, generateJob(job, nodeVersions)]
-            })
+          this.options.jobs.map((job) => {
+            return [job.name, generateJob(job, nodeVersions)]
+          })
         )
       }
       if (this.options.workflows) {
