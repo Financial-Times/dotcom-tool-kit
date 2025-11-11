@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  orb-tools: circleci/orb-tools@10.0.5
-
 references:
   #
   # Workspace
@@ -78,15 +75,6 @@ references:
     tags:
       only:
         - /^[\w-]+-v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
-    branches:
-      ignore: /.*/
-
-  filters_orbs_release_build:
-    &filters_orbs_release_build
-    tags:
-      only:
-        # CircleCI doesn't allow prerelease versions to be published
-        - /^orb-v\d+\.\d+\.\d+$/
     branches:
       ignore: /.*/
 
@@ -310,55 +298,3 @@ workflows:
           matrix:
             parameters:
               node-version: [ '20.18', '22.12' ]
-
-  # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
-  # This workflow will run on every commit
-  orb-test-pack:
-    when:
-      not:
-        equal:
-          - scheduled_pipeline
-          - << pipeline.trigger_source >>
-    jobs:
-      # Lint Yaml files
-      - orb-tools/lint:
-          lint-dir: orb
-      # Pack orb source
-      - orb-tools/pack:
-          source-dir: orb/src
-      # Publish development version(s) of the orb.
-      - orb-tools/publish-dev:
-          context: circleci-orb-publishing
-          orb-name: financial-times/dotcom-tool-kit
-          requires:
-            - orb-tools/lint
-            - orb-tools/pack
-
-  orb-integration-test_deploy:
-    when:
-      not:
-        equal:
-          - scheduled_pipeline
-          - << pipeline.trigger_source >>
-    jobs:
-      # Lint Yaml files
-      - orb-tools/lint:
-          lint-dir: orb
-          filters:
-            <<: *filters_orbs_release_build
-      # Pack orb source
-      - orb-tools/pack:
-          source-dir: orb/src
-          filters:
-            <<: *filters_orbs_release_build
-      - orb-tools/publish:
-          context: circleci-orb-publishing
-          attach-workspace: true
-          # Strip leading 'orb-v' from git tag
-          orb-ref: financial-times/dotcom-tool-kit@${CIRCLE_TAG:5}
-          filters:
-            <<: *filters_orbs_release_build
-          requires:
-            # - integration-test-1
-            - orb-tools/lint
-            - orb-tools/pack
