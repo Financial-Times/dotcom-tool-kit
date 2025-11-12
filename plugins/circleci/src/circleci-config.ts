@@ -123,7 +123,7 @@ const getBaseConfig = (nodeVersions: string[], tagFilterRegex?: string): CircleC
     jobs: {
       checkout: {
         docker: [{ image: 'cimg/base:stable' }],
-        steps: ['checkout', persistWorkspaceStep]
+        steps: ['checkout', persistWorkspaceStep(['.'])]
       }
     },
     workflows: {
@@ -427,12 +427,12 @@ const generateWorkflowJobs = (
   })
 }
 
-const persistWorkspaceStep = {
+const persistWorkspaceStep = (paths: boolean | string[]) => ({
   persist_to_workspace: {
     root: '.',
-    paths: ['.']
+    paths: Array.isArray(paths) ? paths : ['.toolkitstate']
   }
-}
+})
 
 const attachWorkspaceStep = {
   attach_workspace: {
@@ -457,7 +457,7 @@ const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => ({
       }
     },
     ...(job.steps?.post ?? []),
-    ...(job.workspace?.persist ?? true ? [persistWorkspaceStep] : [])
+    ...(job.workspace?.persist ?? true ? [persistWorkspaceStep(job.workspace?.persist ?? true)] : [])
   ],
   ...job.custom
 })

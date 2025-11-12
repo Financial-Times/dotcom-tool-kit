@@ -123,13 +123,11 @@ describe('CircleCI config hook', () => {
               "jobs": [
                 {
                   "that-job": {
-                    "executor": "node",
                     "requires": [],
                   },
                 },
                 {
                   "test-job": {
-                    "executor": "node",
                     "requires": [
                       "that-job",
                     ],
@@ -156,9 +154,9 @@ describe('CircleCI config hook', () => {
               "executor": "node",
               "steps": [
                 {
-                  'attach_workspace': {
-                    at: '.'
-                  }
+                  "attach_workspace": {
+                    "at": ".",
+                  },
                 },
                 {
                   "run": {
@@ -167,10 +165,12 @@ describe('CircleCI config hook', () => {
                   },
                 },
                 {
-                  'persist_to_workspace': {
-                    root: '.',
-                    paths: ['.']
-                  }
+                  "persist_to_workspace": {
+                    "paths": [
+                      ".toolkitstate",
+                    ],
+                    "root": ".",
+                  },
                 },
               ],
             },
