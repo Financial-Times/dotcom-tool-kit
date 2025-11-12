@@ -6,6 +6,18 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v1.0.0...hako-v2.0.0) (2025-11-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* support multiple environments in HakoDelete
+
+### Features
+
+* **hako:** add additional review environments ([5a31325](https://github.com/Financial-Times/dotcom-tool-kit/commit/5a31325081344da8a25d8a750c26c434ab496d66))
+* support multiple environments in HakoDelete ([443e348](https://github.com/Financial-Times/dotcom-tool-kit/commit/443e348274f171f8563f30525568fd5bf1471d07))
+
 ## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.2.0...hako-v1.0.0) (2025-11-03)
 
 
