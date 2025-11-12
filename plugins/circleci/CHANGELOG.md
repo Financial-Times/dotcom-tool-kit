@@ -188,6 +188,19 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [9.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v8.0.0...circleci-v9.0.0) (2025-11-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** consolidate tagFilterRegex and runOnTag options into tagFilter
+* **circleci:** this workflow requires a repo to be using the Github Apps integration since it references the `pipeline.event` values, which will fail CircleCI config validation if using the OAuth integration
+
+### Features
+
+* **circleci:** add a `pr-close` workflow ([64da418](https://github.com/Financial-Times/dotcom-tool-kit/commit/64da418b8ff605c6e7ab52d962d81b90c7399054))
+* **circleci:** consolidate tagFilterRegex and runOnTag options into tagFilter ([49675d8](https://github.com/Financial-Times/dotcom-tool-kit/commit/49675d82df85862261840f53d1d9461977361790))
+
 ## [8.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.10...circleci-v8.0.0) (2025-10-28)
 
 
