@@ -20,7 +20,7 @@ export const CircleCiJob = z
     command: z.string(),
     workspace: z
       .object({
-        persist: z.boolean().optional(),
+        persist: z.boolean().or(z.array(z.string())).optional(),
         attach: z.boolean().optional()
       })
       .optional(),

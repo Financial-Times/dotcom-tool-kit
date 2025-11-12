@@ -27,7 +27,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
   test:
     executor: node
     steps:
@@ -39,7 +39,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
   deploy-review:
     executor: node
     steps:
@@ -51,7 +51,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
   deploy-staging:
     executor: node
     steps:
@@ -63,7 +63,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
   e2e-test-review:
     executor: node
     steps:
@@ -75,7 +75,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
   e2e-test-staging:
     executor: node
     steps:
@@ -87,7 +87,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
   deploy-production:
     executor: node
     steps:
@@ -99,7 +99,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
   teardown-review:
     executor: node
     steps:

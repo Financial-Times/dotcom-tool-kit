@@ -27,7 +27,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
   test:
     executor: node
     steps:
@@ -39,7 +39,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .
+            - .toolkitstate
 workflows:
   tool-kit:
     when:
