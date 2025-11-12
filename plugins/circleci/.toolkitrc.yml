@@ -12,6 +12,8 @@ options:
         jobs:
           - name: build
             command: 'build:ci'
+            workspace:
+              persist: ['.']
           - name: test
             command: 'test:ci'
         workflows:
