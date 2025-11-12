@@ -40,7 +40,11 @@ exports[`loadConfig should load a config from a root 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -169,7 +173,11 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "parent": [Circular],
                 "rcFile": {
                   "commands": {
-                    "test:ci": "Mocha",
+                    "test:ci": {
+                      "Mocha": {
+                        "ci": true,
+                      },
+                    },
                     "test:local": "Mocha",
                   },
                   "hooks": undefined,
@@ -299,7 +307,11 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "parent": [Circular],
                 "rcFile": {
                   "commands": {
-                    "test:ci": "Mocha",
+                    "test:ci": {
+                      "Mocha": {
+                        "ci": true,
+                      },
+                    },
                     "test:local": "Mocha",
                   },
                   "hooks": undefined,
@@ -431,7 +443,11 @@ exports[`loadConfig should load a config from a root 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -560,7 +576,11 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "parent": [Circular],
                 "rcFile": {
                   "commands": {
-                    "test:ci": "Mocha",
+                    "test:ci": {
+                      "Mocha": {
+                        "ci": true,
+                      },
+                    },
                     "test:local": "Mocha",
                   },
                   "hooks": undefined,
@@ -690,7 +710,11 @@ exports[`loadConfig should load a config from a root 1`] = `
                 "parent": [Circular],
                 "rcFile": {
                   "commands": {
-                    "test:ci": "Mocha",
+                    "test:ci": {
+                      "Mocha": {
+                        "ci": true,
+                      },
+                    },
                     "test:local": "Mocha",
                   },
                   "hooks": undefined,
@@ -825,7 +849,11 @@ exports[`loadConfig should load a config from a root 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -954,7 +982,11 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "parent": [Circular],
                   "rcFile": {
                     "commands": {
-                      "test:ci": "Mocha",
+                      "test:ci": {
+                        "Mocha": {
+                          "ci": true,
+                        },
+                      },
                       "test:local": "Mocha",
                     },
                     "hooks": undefined,
@@ -1060,7 +1092,11 @@ exports[`loadConfig should load a config from a root 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -1189,7 +1225,11 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "parent": [Circular],
                   "rcFile": {
                     "commands": {
-                      "test:ci": "Mocha",
+                      "test:ci": {
+                        "Mocha": {
+                          "ci": true,
+                        },
+                      },
                       "test:local": "Mocha",
                     },
                     "hooks": undefined,
@@ -1347,7 +1387,11 @@ exports[`loadConfig should load a config from a root 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -1476,7 +1520,11 @@ exports[`loadConfig should load a config from a root 1`] = `
                   "parent": [Circular],
                   "rcFile": {
                     "commands": {
-                      "test:ci": "Mocha",
+                      "test:ci": {
+                        "Mocha": {
+                          "ci": true,
+                        },
+                      },
                       "test:local": "Mocha",
                     },
                     "hooks": undefined,
@@ -1609,7 +1657,11 @@ exports[`loadConfig should load a config from a root 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -1738,7 +1790,11 @@ exports[`loadConfig should load a config from a root 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -1851,7 +1907,11 @@ exports[`loadConfig should load a config from a root 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -2079,7 +2139,11 @@ exports[`loadConfig should load a config from a root 1`] = `
         },
         "rcFile": {
           "commands": {
-            "test:ci": "Mocha",
+            "test:ci": {
+              "Mocha": {
+                "ci": true,
+              },
+            },
             "test:local": "Mocha",
           },
           "hooks": undefined,
@@ -2145,7 +2209,11 @@ exports[`loadConfig should load a config from a root 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -2276,7 +2344,11 @@ exports[`loadConfig should load a config from a root 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -2433,7 +2505,11 @@ exports[`loadConfig should load a config from a root 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -2565,7 +2641,11 @@ exports[`loadConfig should load a config from a root 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -2697,7 +2777,11 @@ exports[`loadConfig should load a config from a root 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -2806,7 +2890,11 @@ exports[`loadConfig should load a config from a root 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -3029,7 +3117,11 @@ exports[`loadConfig should load a config from a root 1`] = `
         },
         "rcFile": {
           "commands": {
-            "test:ci": "Mocha",
+            "test:ci": {
+              "Mocha": {
+                "ci": true,
+              },
+            },
             "test:local": "Mocha",
           },
           "hooks": undefined,
@@ -3090,7 +3182,11 @@ exports[`loadConfig should load a config from a root 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -3223,7 +3319,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -3352,7 +3452,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "parent": [Circular],
                 "rcFile": {
                   "commands": {
-                    "test:ci": "Mocha",
+                    "test:ci": {
+                      "Mocha": {
+                        "ci": true,
+                      },
+                    },
                     "test:local": "Mocha",
                   },
                   "hooks": undefined,
@@ -3482,7 +3586,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "parent": [Circular],
                 "rcFile": {
                   "commands": {
-                    "test:ci": "Mocha",
+                    "test:ci": {
+                      "Mocha": {
+                        "ci": true,
+                      },
+                    },
                     "test:local": "Mocha",
                   },
                   "hooks": undefined,
@@ -3614,7 +3722,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -3743,7 +3855,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "parent": [Circular],
                 "rcFile": {
                   "commands": {
-                    "test:ci": "Mocha",
+                    "test:ci": {
+                      "Mocha": {
+                        "ci": true,
+                      },
+                    },
                     "test:local": "Mocha",
                   },
                   "hooks": undefined,
@@ -3873,7 +3989,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                 "parent": [Circular],
                 "rcFile": {
                   "commands": {
-                    "test:ci": "Mocha",
+                    "test:ci": {
+                      "Mocha": {
+                        "ci": true,
+                      },
+                    },
                     "test:local": "Mocha",
                   },
                   "hooks": undefined,
@@ -4008,7 +4128,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -4137,7 +4261,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "parent": [Circular],
                   "rcFile": {
                     "commands": {
-                      "test:ci": "Mocha",
+                      "test:ci": {
+                        "Mocha": {
+                          "ci": true,
+                        },
+                      },
                       "test:local": "Mocha",
                     },
                     "hooks": undefined,
@@ -4243,7 +4371,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -4372,7 +4504,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "parent": [Circular],
                   "rcFile": {
                     "commands": {
-                      "test:ci": "Mocha",
+                      "test:ci": {
+                        "Mocha": {
+                          "ci": true,
+                        },
+                      },
                       "test:local": "Mocha",
                     },
                     "hooks": undefined,
@@ -4530,7 +4666,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -4659,7 +4799,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
                   "parent": [Circular],
                   "rcFile": {
                     "commands": {
-                      "test:ci": "Mocha",
+                      "test:ci": {
+                        "Mocha": {
+                          "ci": true,
+                        },
+                      },
                       "test:local": "Mocha",
                     },
                     "hooks": undefined,
@@ -4792,7 +4936,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -4921,7 +5069,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -5027,7 +5179,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -5247,7 +5403,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
       },
       "rcFile": {
         "commands": {
-          "test:ci": "Mocha",
+          "test:ci": {
+            "Mocha": {
+              "ci": true,
+            },
+          },
           "test:local": "Mocha",
         },
         "hooks": undefined,
@@ -5305,7 +5465,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -5428,7 +5592,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
           "parent": [Circular],
           "rcFile": {
             "commands": {
-              "test:ci": "Mocha",
+              "test:ci": {
+                "Mocha": {
+                  "ci": true,
+                },
+              },
               "test:local": "Mocha",
             },
             "hooks": undefined,
@@ -5584,7 +5752,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -5716,7 +5888,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -5848,7 +6024,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
             "parent": [Circular],
             "rcFile": {
               "commands": {
-                "test:ci": "Mocha",
+                "test:ci": {
+                  "Mocha": {
+                    "ci": true,
+                  },
+                },
                 "test:local": "Mocha",
               },
               "hooks": undefined,
@@ -5957,7 +6137,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
@@ -6180,7 +6364,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
         },
         "rcFile": {
           "commands": {
-            "test:ci": "Mocha",
+            "test:ci": {
+              "Mocha": {
+                "ci": true,
+              },
+            },
             "test:local": "Mocha",
           },
           "hooks": undefined,
@@ -6241,7 +6429,11 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
               "parent": [Circular],
               "rcFile": {
                 "commands": {
-                  "test:ci": "Mocha",
+                  "test:ci": {
+                    "Mocha": {
+                      "ci": true,
+                    },
+                  },
                   "test:local": "Mocha",
                 },
                 "hooks": undefined,
