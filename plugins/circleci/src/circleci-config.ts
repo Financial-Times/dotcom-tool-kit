@@ -450,12 +450,14 @@ const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => ({
   steps: [
     ...(job.workspace?.attach ?? true ? [attachWorkspaceStep] : []),
     ...(job.steps?.pre ?? []),
-    {
-      run: {
-        name: job.name,
-        command: `npx dotcom-tool-kit ${job.command}`
+    ...(job.steps?.custom ?? [
+      {
+        run: {
+          name: job.name,
+          command: `npx dotcom-tool-kit ${job.command}`
+        }
       }
-    },
+    ]),
     ...(job.steps?.post ?? []),
     ...(job.workspace?.persist ?? true ? [persistWorkspaceStep(job.workspace?.persist ?? true)] : [])
   ],
