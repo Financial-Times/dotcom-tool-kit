@@ -39,6 +39,10 @@ export abstract class Hook<
     plugin: Plugin,
     childInstallations: (HookInstallation | Conflict<HookInstallation>)[]
   ): (HookInstallation | Conflict<HookInstallation>)[] {
+    if (childInstallations.length === 1) {
+      return childInstallations
+    }
+
     return [
       {
         plugin,

@@ -1,0 +1,8 @@
+plugins:
+  - './a'
+  - './b'
+
+options:
+  hooks:
+    - TestHook:
+        c: true
