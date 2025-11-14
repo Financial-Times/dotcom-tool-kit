@@ -82,7 +82,14 @@ export default class Jest extends Task<{ task: typeof JestSchema }> {
     }
 
     this.logger.info(`running jest ${args.join(' ')}`)
-    const child = fork(jestCLIPath, args, { silent: true, cwd, env })
+    const child = fork(jestCLIPath, args, {
+      silent: true,
+      cwd,
+      env: {
+        ...env,
+        ...process.env
+      }
+    })
     hookFork(this.logger, 'jest', child)
     return waitOnExit('jest', child)
   }
