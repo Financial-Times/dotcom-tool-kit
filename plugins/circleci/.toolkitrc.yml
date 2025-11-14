@@ -9,7 +9,25 @@ optionsSchema: './lib/schemas/plugin'
 options:
   hooks:
     - CircleCi:
+        custom:
+          orbs:
+            node: circleci/node@5.0.2
         jobs:
+          - name: checkout
+            steps:
+              custom:
+                - checkout
+            custom:
+              executor: base
+            workspace:
+              persist: ['.']
+            splitIntoMatrix: false
+          - name: setup
+            steps:
+              custom:
+                - node/install-packages
+            workspace:
+              persist: ['.']
           - name: build
             command: 'build:ci'
             workspace:
@@ -18,7 +36,13 @@ options:
             command: 'test:ci'
         workflows:
           - name: 'tool-kit'
+            custom:
+              when: pipeline.trigger_source != "scheduled_pipeline"
             jobs:
+              - name: checkout
+              - name: setup
+                requires:
+                  - 'checkout'
               - name: build
                 requires:
                   - 'setup'
@@ -27,7 +51,15 @@ options:
                   - 'build'
             runOnRelease: true
           - name: 'nightly'
+            custom:
+              when: |
+                pipeline.trigger_source == "scheduled_pipeline" and
+                pipeline.schedule.name == "nightly"
             jobs:
+              - name: checkout
+              - name: setup
+                requires:
+                  - 'checkout'
               - name: build
                 requires:
                   - 'setup'
