@@ -29,7 +29,7 @@
     "extends": "../../package.json"
   },
   "peerDependencies": {
-    "@commitlint/cli": ">=16.x <=19.x",
+    "@commitlint/cli": ">=16.x <=20.x",
     "dotcom-tool-kit": "5.x"
   },
   "engines": {
