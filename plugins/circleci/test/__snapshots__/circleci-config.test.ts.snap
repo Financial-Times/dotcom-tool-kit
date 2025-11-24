@@ -3,15 +3,29 @@
 exports[`CircleCI config hook config integration test should generate a .circleci/config.yml with the base config from circleci/.toolkitrc.yml 1`] = `
 "version: 2.1
 executors:
+  base:
+    docker:
+      - image: cimg/base:stable
   node:
     docker:
       - image: cimg/node:20.19-browsers
 jobs:
   checkout:
-    docker:
-      - image: cimg/base:stable
+    executor: base
     steps:
+      - attach_workspace:
+          at: .
       - checkout
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  setup:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - node/install-packages
       - persist_to_workspace:
           root: .
           paths:
@@ -42,18 +56,13 @@ jobs:
             - .toolkitstate
 workflows:
   tool-kit:
-    when:
-      not:
-        equal:
-          - scheduled_pipeline
-          - << pipeline.trigger_source >>
     jobs:
       - checkout:
+          requires: []
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
       - setup:
-          executor: node
           requires:
             - checkout
           filters:
@@ -71,19 +80,12 @@ workflows:
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
+    when: pipeline.trigger_source != "scheduled_pipeline"
   nightly:
-    when:
-      and:
-        - equal:
-            - scheduled_pipeline
-            - << pipeline.trigger_source >>
-        - equal:
-            - nightly
-            - << pipeline.schedule.name >>
     jobs:
-      - checkout
+      - checkout:
+          requires: []
       - setup:
-          executor: node
           requires:
             - checkout
       - build:
@@ -92,6 +94,9 @@ workflows:
       - test:
           requires:
             - build
+    when: |
+      pipeline.trigger_source == "scheduled_pipeline" and
+      pipeline.schedule.name == "nightly"
   pr-close:
     jobs:
       - checkout:
@@ -104,5 +109,7 @@ workflows:
 
       (pipeline.event.name == "pull_request" and pipeline.event.action ==
       "closed")
+orbs:
+  node: circleci/node@5.0.2
 "
 `;

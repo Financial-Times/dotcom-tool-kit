@@ -105,61 +105,24 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
     }
   })
 
-const getBaseConfig = (nodeVersions: string[], tagFilterRegex?: string): CircleCIState => {
-  const runsOnMultipleNodeVersions = nodeVersions.length > 1
-  const setupMatrix = runsOnMultipleNodeVersions
-    ? matrixBoilerplate('setup', nodeVersions)
-    : { executor: 'node' }
-  return {
-    version: 2.1,
-    executors: Object.fromEntries(
+const getBaseConfig = (nodeVersions: string[]): CircleCIState => ({
+  version: 2.1,
+  executors: {
+    base: {
+      docker: [{ image: 'cimg/base:stable' }]
+    },
+    ...Object.fromEntries(
       nodeVersions.map((version, i) => [
         nodeVersionToExecutor(version, i),
         {
           docker: [{ image: `cimg/node:${version}` }]
         }
       ])
-    ),
-    jobs: {
-      checkout: {
-        docker: [{ image: 'cimg/base:stable' }],
-        steps: ['checkout', persistWorkspaceStep(['.'])]
-      }
-    },
-    workflows: {
-      'tool-kit': {
-        when: {
-          not: {
-            equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-          }
-        },
-        jobs: [
-          tagFilterRegex ? { checkout: tagFilter(tagFilterRegex) } : 'checkout',
-          {
-            setup: {
-              ...setupMatrix,
-              requires: ['checkout'],
-              ...(tagFilterRegex ? tagFilter(tagFilterRegex) : {})
-            }
-          }
-        ]
-      },
-      nightly: {
-        when: {
-          and: [
-            {
-              equal: ['scheduled_pipeline', '<< pipeline.trigger_source >>']
-            },
-            {
-              equal: ['nightly', '<< pipeline.schedule.name >>']
-            }
-          ]
-        },
-        jobs: ['checkout', { setup: { ...setupMatrix, requires: ['checkout'] } }]
-      }
-    }
-  }
-}
+    )
+  },
+  jobs: {},
+  workflows: {}
+})
 
 const rootOptionKeys = ['executors', 'jobs', 'workflows'] as const satisfies readonly (keyof Omit<
   CircleCiOptions,
@@ -570,7 +533,7 @@ export default class CircleCi extends Hook<
       }
       const generatedConfig = mergeWithConcatenatedArrays(
         {},
-        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions, configuredTagFilterRegex),
+        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions),
         generated,
         this.options.custom ?? {}
       )
