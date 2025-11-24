@@ -13,6 +13,7 @@ import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/conflict'
 import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
 import { runInit } from './init'
+import { guessSystemCode } from './systemCode'
 import { TelemetryRecorder } from '@dotcom-tool-kit/telemetry'
 
 // implementation of the Array#every method that supports asynchronous predicates
@@ -127,8 +128,14 @@ export default async function installHooks(logger: Logger, metrics: TelemetryRec
 
   await runInit(logger, config)
 
+  const systemCode = await guessSystemCode(config)
+  let scoped = metrics
+  if (systemCode) {
+    scoped = metrics.scoped({ systemCode })
+  }
+
   const errors: Error[] = []
-  const hooks = (await loadHookInstallations(logger, metrics, config)).unwrap(
+  const hooks = (await loadHookInstallations(logger, scoped, config)).unwrap(
     'hooks were found to be invalid when installing'
   )
 

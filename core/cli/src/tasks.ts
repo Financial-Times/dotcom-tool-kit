@@ -10,6 +10,7 @@ import { styles } from '@dotcom-tool-kit/logger'
 import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 import { formatInvalidOption } from './messages'
+import { guessSystemCode } from './systemCode'
 import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
@@ -168,5 +169,11 @@ export async function runCommands(
 ): Promise<void> {
   const config = await loadConfig(logger, { root: process.cwd() })
 
-  return runCommandsFromConfig(logger, config, commands, files, metrics)
+  const systemCode = await guessSystemCode(config)
+  let scoped = metrics
+  if (systemCode) {
+    scoped = metrics.scoped({ systemCode })
+  }
+
+  return runCommandsFromConfig(logger, config, commands, files, scoped)
 }
