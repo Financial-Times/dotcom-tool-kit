@@ -50,6 +50,11 @@ jobs:
       - run:
           name: test
           command: npx dotcom-tool-kit test:ci
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: test-results
       - persist_to_workspace:
           root: .
           paths:
