@@ -4,6 +4,12 @@ plugins:
 options:
   hooks:
     - CircleCi:
+        custom:
+          orbs:
+            change-api: financial-times/change-api@1.0.9
+            cloudsmith-oidc: ft-circleci-orbs/cloudsmith-oidc@1.0
+            aws-cli: circleci/aws-cli@3.1.4
+            serverless-framework: circleci/serverless-framework@2.0.2
         jobs:
           - name: deploy-review
             command: 'deploy:review'
@@ -15,6 +21,17 @@ options:
             command: 'test:staging'
           - name: deploy-production
             command: 'deploy:production'
+            workspace:
+              persist: false
+            steps:
+              pre:
+                - setup_remote_docker:
+                    docker_layer_caching: true
+              post:
+                - change-api/change-log:
+                    environment: production
+                    system-code: << parameters.system-code >>
+
           - name: teardown-review
             command: 'teardown:review'
             workspace:

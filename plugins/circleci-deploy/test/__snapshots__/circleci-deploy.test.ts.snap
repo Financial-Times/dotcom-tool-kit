@@ -3,6 +3,9 @@
 exports[`circleci-deploy config integration test should generate a .circleci/config.yml with the base config from circleci-deploy/.toolkitrc.yml 1`] = `
 "version: 2.1
 executors:
+  base:
+    docker:
+      - image: cimg/base:stable
   node:
     docker:
       - image: cimg/node:20.19-browsers
@@ -47,6 +50,11 @@ jobs:
       - run:
           name: test
           command: npx dotcom-tool-kit test:ci
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: test-results
       - persist_to_workspace:
           root: .
           paths:
@@ -104,13 +112,14 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           name: deploy-production
           command: npx dotcom-tool-kit deploy:production
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .toolkitstate
+      - change-api/change-log:
+          environment: production
+          system-code: << parameters.system-code >>
   teardown-review:
     executor: node
     steps:
@@ -219,5 +228,9 @@ workflows:
       "closed")
 orbs:
   node: circleci/node@5.0.2
+  change-api: financial-times/change-api@1.0.9
+  cloudsmith-oidc: ft-circleci-orbs/cloudsmith-oidc@1.0
+  aws-cli: circleci/aws-cli@3.1.4
+  serverless-framework: circleci/serverless-framework@2.0.2
 "
 `;
