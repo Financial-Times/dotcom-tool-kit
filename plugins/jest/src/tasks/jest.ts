@@ -63,9 +63,14 @@ export { JestSchema as schema }
 export default class Jest extends Task<{ task: typeof JestSchema }> {
   async run({ cwd }: TaskRunContext): Promise<void> {
     const args = ['--colors', this.options.configPath ? `--config=${this.options.configPath}` : '']
+    const env: Record<string, string> = {}
 
     if (this.options.ci) {
-      args.push('--ci')
+      args.push('--ci', '--reporters=default', '--reporters=jest-junit')
+
+      env.JEST_JUNIT_OUTPUT_DIR = 'test-results'
+      env.JEST_JUNIT_ADD_FILE_ATTRIBUTE = 'true'
+
       // only relevant if running on CircleCI, other CI environments might handle
       // virtualisation completely differently
       if (process.env.CIRCLECI) {
@@ -77,7 +82,14 @@ export default class Jest extends Task<{ task: typeof JestSchema }> {
     }
 
     this.logger.info(`running jest ${args.join(' ')}`)
-    const child = fork(jestCLIPath, args, { silent: true, cwd })
+    const child = fork(jestCLIPath, args, {
+      silent: true,
+      cwd,
+      env: {
+        ...env,
+        ...process.env
+      }
+    })
     hookFork(this.logger, 'jest', child)
     return waitOnExit('jest', child)
   }

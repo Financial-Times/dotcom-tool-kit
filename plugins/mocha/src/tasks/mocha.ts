@@ -13,7 +13,8 @@ const MochaSchema = z
       .optional()
       .describe(
         "Path to the [Mocha config file](https://mochajs.org/#configuring-mocha-nodejs). Uses Mocha's own [config resolution](https://mochajs.org/#priorities) by default."
-      )
+      ),
+    ci: z.literal(true).optional().describe('Set to `true` to capture JUnit test results.')
   })
   .describe('Runs `mocha` to execute tests.')
 export { MochaSchema as schema }
@@ -23,9 +24,15 @@ export default class Mocha extends Task<{ task: typeof MochaSchema }> {
     const files = await glob(this.options.files, { cwd })
 
     const args = ['--color', ...files]
+
     if (this.options.configPath) {
       args.unshift(`--config=${this.options.configPath}`)
     }
+
+    if (this.options.ci) {
+      args.push('--reporter mocha-junit-reporter', '--reporter-options mochaFile=./test-results/junit.xml')
+    }
+
     this.logger.info(`running mocha ${args.join(' ')}`)
     const child = fork(mochaCLIPath, args, { silent: true, cwd })
     hookFork(this.logger, 'mocha', child)
