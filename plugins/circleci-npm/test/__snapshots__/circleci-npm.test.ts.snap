@@ -2,92 +2,124 @@
 
 exports[`circleci-npm config integration test should generate a .circleci/config.yml with the base config from circleci-npm/.toolkitrc.yml 1`] = `
 "version: 2.1
-orbs:
-  tool-kit: financial-times/dotcom-tool-kit@5
 executors:
   node:
     docker:
       - image: cimg/node:20.19-browsers
 jobs:
   checkout:
-    docker:
-      - image: cimg/base:stable
+    executor: base
     steps:
+      - attach_workspace:
+          at: .
       - checkout
-      - tool-kit/persist-workspace:
-          path: .
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  setup:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - node/install-packages
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  build:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: build
+          command: npx dotcom-tool-kit build:ci
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  test:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: test
+          command: npx dotcom-tool-kit test:ci
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .toolkitstate
+  publish-tag:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: publish-tag
+          command: npx dotcom-tool-kit publish:tag
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .toolkitstate
 workflows:
   tool-kit:
-    when:
-      not:
-        equal:
-          - scheduled_pipeline
-          - << pipeline.trigger_source >>
     jobs:
       - checkout:
+          requires: []
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/setup:
-          executor: node
+      - setup:
           requires:
             - checkout
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/build:
-          executor: node
+      - build:
           requires:
-            - tool-kit/setup
+            - setup
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/test:
-          executor: node
+      - test:
           requires:
-            - tool-kit/build
+            - build
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
-      - tool-kit/publish-tag:
-          executor: node
+      - publish-tag:
           requires:
-            - tool-kit/test
+            - test
           filters:
             tags:
               only: /^v\\d+\\.\\d+\\.\\d+(-.+)?/
             branches:
               ignore: /.*/
           context: npm-publish-token
+    when: pipeline.trigger_source != "scheduled_pipeline"
   nightly:
-    when:
-      and:
-        - equal:
-            - scheduled_pipeline
-            - << pipeline.trigger_source >>
-        - equal:
-            - nightly
-            - << pipeline.schedule.name >>
     jobs:
-      - checkout
-      - tool-kit/setup:
-          executor: node
+      - checkout:
+          requires: []
+      - setup:
           requires:
             - checkout
-      - tool-kit/build:
-          executor: node
+      - build:
           requires:
-            - tool-kit/setup
-      - tool-kit/test:
-          executor: node
+            - setup
+      - test:
           requires:
-            - tool-kit/build
+            - build
+    when: |
+      pipeline.trigger_source == "scheduled_pipeline" and
+      pipeline.schedule.name == "nightly"
   pr-close:
     jobs:
       - checkout:
           requires: []
-      - tool-kit/setup:
-          executor: node
+      - setup:
           requires:
             - checkout
     when: >
@@ -95,5 +127,7 @@ workflows:
 
       (pipeline.event.name == "pull_request" and pipeline.event.action ==
       "closed")
+orbs:
+  node: circleci/node@5.0.2
 "
 `;

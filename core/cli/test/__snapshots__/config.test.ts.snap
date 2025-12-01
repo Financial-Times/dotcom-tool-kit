@@ -6463,10 +6463,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "hooks": [
                             {
                               "CircleCi": {
+                                "custom": {
+                                  "orbs": {
+                                    "node": "circleci/node@5.0.2",
+                                  },
+                                },
                                 "jobs": [
+                                  {
+                                    "custom": {
+                                      "executor": "base",
+                                    },
+                                    "name": "checkout",
+                                    "splitIntoMatrix": false,
+                                    "steps": {
+                                      "custom": [
+                                        "checkout",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "steps": {
+                                      "custom": [
+                                        "node/install-packages",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
                                   {
                                     "command": "build:ci",
                                     "name": "build",
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
                                   },
                                   {
                                     "command": "test:ci",
@@ -6475,7 +6515,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -6493,7 +6545,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "runOnRelease": true,
                                   },
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -6900,10 +6966,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "hooks": [
                                 {
                                   "CircleCi": {
+                                    "custom": {
+                                      "orbs": {
+                                        "node": "circleci/node@5.0.2",
+                                      },
+                                    },
                                     "jobs": [
+                                      {
+                                        "custom": {
+                                          "executor": "base",
+                                        },
+                                        "name": "checkout",
+                                        "splitIntoMatrix": false,
+                                        "steps": {
+                                          "custom": [
+                                            "checkout",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "steps": {
+                                          "custom": [
+                                            "node/install-packages",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
                                       {
                                         "command": "build:ci",
                                         "name": "build",
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
                                       },
                                       {
                                         "command": "test:ci",
@@ -6912,7 +7018,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -6930,7 +7048,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "runOnRelease": true,
                                       },
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -7356,10 +7488,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "hooks": [
                             {
                               "CircleCi": {
+                                "custom": {
+                                  "orbs": {
+                                    "node": "circleci/node@5.0.2",
+                                  },
+                                },
                                 "jobs": [
+                                  {
+                                    "custom": {
+                                      "executor": "base",
+                                    },
+                                    "name": "checkout",
+                                    "splitIntoMatrix": false,
+                                    "steps": {
+                                      "custom": [
+                                        "checkout",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "steps": {
+                                      "custom": [
+                                        "node/install-packages",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
                                   {
                                     "command": "build:ci",
                                     "name": "build",
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
                                   },
                                   {
                                     "command": "test:ci",
@@ -7368,7 +7540,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -7386,7 +7570,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "runOnRelease": true,
                                   },
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -7791,10 +7989,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "hooks": [
                                 {
                                   "CircleCi": {
+                                    "custom": {
+                                      "orbs": {
+                                        "node": "circleci/node@5.0.2",
+                                      },
+                                    },
                                     "jobs": [
+                                      {
+                                        "custom": {
+                                          "executor": "base",
+                                        },
+                                        "name": "checkout",
+                                        "splitIntoMatrix": false,
+                                        "steps": {
+                                          "custom": [
+                                            "checkout",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "steps": {
+                                          "custom": [
+                                            "node/install-packages",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
                                       {
                                         "command": "build:ci",
                                         "name": "build",
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
                                       },
                                       {
                                         "command": "test:ci",
@@ -7803,7 +8041,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -7821,7 +8071,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "runOnRelease": true,
                                       },
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -8228,10 +8492,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -8240,7 +8544,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -8258,7 +8574,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -8647,10 +8977,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "hooks": [
                             {
                               "CircleCi": {
+                                "custom": {
+                                  "orbs": {
+                                    "node": "circleci/node@5.0.2",
+                                  },
+                                },
                                 "jobs": [
+                                  {
+                                    "custom": {
+                                      "executor": "base",
+                                    },
+                                    "name": "checkout",
+                                    "splitIntoMatrix": false,
+                                    "steps": {
+                                      "custom": [
+                                        "checkout",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "steps": {
+                                      "custom": [
+                                        "node/install-packages",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
                                   {
                                     "command": "build:ci",
                                     "name": "build",
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
                                   },
                                   {
                                     "command": "test:ci",
@@ -8659,7 +9029,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -8677,7 +9059,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "runOnRelease": true,
                                   },
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -9084,10 +9480,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "hooks": [
                                 {
                                   "CircleCi": {
+                                    "custom": {
+                                      "orbs": {
+                                        "node": "circleci/node@5.0.2",
+                                      },
+                                    },
                                     "jobs": [
+                                      {
+                                        "custom": {
+                                          "executor": "base",
+                                        },
+                                        "name": "checkout",
+                                        "splitIntoMatrix": false,
+                                        "steps": {
+                                          "custom": [
+                                            "checkout",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "steps": {
+                                          "custom": [
+                                            "node/install-packages",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
                                       {
                                         "command": "build:ci",
                                         "name": "build",
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
                                       },
                                       {
                                         "command": "test:ci",
@@ -9096,7 +9532,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -9114,7 +9562,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "runOnRelease": true,
                                       },
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -9540,10 +10002,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "hooks": [
                             {
                               "CircleCi": {
+                                "custom": {
+                                  "orbs": {
+                                    "node": "circleci/node@5.0.2",
+                                  },
+                                },
                                 "jobs": [
+                                  {
+                                    "custom": {
+                                      "executor": "base",
+                                    },
+                                    "name": "checkout",
+                                    "splitIntoMatrix": false,
+                                    "steps": {
+                                      "custom": [
+                                        "checkout",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "steps": {
+                                      "custom": [
+                                        "node/install-packages",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
                                   {
                                     "command": "build:ci",
                                     "name": "build",
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
                                   },
                                   {
                                     "command": "test:ci",
@@ -9552,7 +10054,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -9570,7 +10084,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "runOnRelease": true,
                                   },
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -9975,10 +10503,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "hooks": [
                                 {
                                   "CircleCi": {
+                                    "custom": {
+                                      "orbs": {
+                                        "node": "circleci/node@5.0.2",
+                                      },
+                                    },
                                     "jobs": [
+                                      {
+                                        "custom": {
+                                          "executor": "base",
+                                        },
+                                        "name": "checkout",
+                                        "splitIntoMatrix": false,
+                                        "steps": {
+                                          "custom": [
+                                            "checkout",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "steps": {
+                                          "custom": [
+                                            "node/install-packages",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
                                       {
                                         "command": "build:ci",
                                         "name": "build",
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
                                       },
                                       {
                                         "command": "test:ci",
@@ -9987,7 +10555,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -10005,7 +10585,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "runOnRelease": true,
                                       },
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -10412,10 +11006,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -10424,7 +11058,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -10442,7 +11088,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -10831,10 +11491,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "hooks": [
                             {
                               "CircleCi": {
+                                "custom": {
+                                  "orbs": {
+                                    "node": "circleci/node@5.0.2",
+                                  },
+                                },
                                 "jobs": [
+                                  {
+                                    "custom": {
+                                      "executor": "base",
+                                    },
+                                    "name": "checkout",
+                                    "splitIntoMatrix": false,
+                                    "steps": {
+                                      "custom": [
+                                        "checkout",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "steps": {
+                                      "custom": [
+                                        "node/install-packages",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
                                   {
                                     "command": "build:ci",
                                     "name": "build",
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
                                   },
                                   {
                                     "command": "test:ci",
@@ -10843,7 +11543,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -10861,7 +11573,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "runOnRelease": true,
                                   },
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -11268,10 +11994,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "hooks": [
                                 {
                                   "CircleCi": {
+                                    "custom": {
+                                      "orbs": {
+                                        "node": "circleci/node@5.0.2",
+                                      },
+                                    },
                                     "jobs": [
+                                      {
+                                        "custom": {
+                                          "executor": "base",
+                                        },
+                                        "name": "checkout",
+                                        "splitIntoMatrix": false,
+                                        "steps": {
+                                          "custom": [
+                                            "checkout",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "steps": {
+                                          "custom": [
+                                            "node/install-packages",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
                                       {
                                         "command": "build:ci",
                                         "name": "build",
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
                                       },
                                       {
                                         "command": "test:ci",
@@ -11280,7 +12046,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -11298,7 +12076,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "runOnRelease": true,
                                       },
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -11724,10 +12516,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "hooks": [
                             {
                               "CircleCi": {
+                                "custom": {
+                                  "orbs": {
+                                    "node": "circleci/node@5.0.2",
+                                  },
+                                },
                                 "jobs": [
+                                  {
+                                    "custom": {
+                                      "executor": "base",
+                                    },
+                                    "name": "checkout",
+                                    "splitIntoMatrix": false,
+                                    "steps": {
+                                      "custom": [
+                                        "checkout",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "steps": {
+                                      "custom": [
+                                        "node/install-packages",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
                                   {
                                     "command": "build:ci",
                                     "name": "build",
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
                                   },
                                   {
                                     "command": "test:ci",
@@ -11736,7 +12568,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -11754,7 +12598,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "runOnRelease": true,
                                   },
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -12159,10 +13017,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "hooks": [
                                 {
                                   "CircleCi": {
+                                    "custom": {
+                                      "orbs": {
+                                        "node": "circleci/node@5.0.2",
+                                      },
+                                    },
                                     "jobs": [
+                                      {
+                                        "custom": {
+                                          "executor": "base",
+                                        },
+                                        "name": "checkout",
+                                        "splitIntoMatrix": false,
+                                        "steps": {
+                                          "custom": [
+                                            "checkout",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "steps": {
+                                          "custom": [
+                                            "node/install-packages",
+                                          ],
+                                        },
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
+                                      },
                                       {
                                         "command": "build:ci",
                                         "name": "build",
+                                        "workspace": {
+                                          "persist": [
+                                            ".",
+                                          ],
+                                        },
                                       },
                                       {
                                         "command": "test:ci",
@@ -12171,7 +13069,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -12189,7 +13099,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                         "runOnRelease": true,
                                       },
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                        },
                                         "jobs": [
+                                          {
+                                            "name": "checkout",
+                                          },
+                                          {
+                                            "name": "setup",
+                                            "requires": [
+                                              "checkout",
+                                            ],
+                                          },
                                           {
                                             "name": "build",
                                             "requires": [
@@ -12596,10 +13520,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -12608,7 +13572,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -12626,7 +13602,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -13013,10 +14003,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -13025,7 +14055,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -13043,7 +14085,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -13451,10 +14507,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "hooks": [
                             {
                               "CircleCi": {
+                                "custom": {
+                                  "orbs": {
+                                    "node": "circleci/node@5.0.2",
+                                  },
+                                },
                                 "jobs": [
+                                  {
+                                    "custom": {
+                                      "executor": "base",
+                                    },
+                                    "name": "checkout",
+                                    "splitIntoMatrix": false,
+                                    "steps": {
+                                      "custom": [
+                                        "checkout",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "steps": {
+                                      "custom": [
+                                        "node/install-packages",
+                                      ],
+                                    },
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
+                                  },
                                   {
                                     "command": "build:ci",
                                     "name": "build",
+                                    "workspace": {
+                                      "persist": [
+                                        ".",
+                                      ],
+                                    },
                                   },
                                   {
                                     "command": "test:ci",
@@ -13463,7 +14559,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -13481,7 +14589,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     "runOnRelease": true,
                                   },
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                    },
                                     "jobs": [
+                                      {
+                                        "name": "checkout",
+                                      },
+                                      {
+                                        "name": "setup",
+                                        "requires": [
+                                          "checkout",
+                                        ],
+                                      },
                                       {
                                         "name": "build",
                                         "requires": [
@@ -14126,10 +15248,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "hooks": [
               {
                 "CircleCi": {
+                  "custom": {
+                    "orbs": {
+                      "node": "circleci/node@5.0.2",
+                    },
+                  },
                   "jobs": [
+                    {
+                      "custom": {
+                        "executor": "base",
+                      },
+                      "name": "checkout",
+                      "splitIntoMatrix": false,
+                      "steps": {
+                        "custom": [
+                          "checkout",
+                        ],
+                      },
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
+                    },
+                    {
+                      "name": "setup",
+                      "steps": {
+                        "custom": [
+                          "node/install-packages",
+                        ],
+                      },
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
+                    },
                     {
                       "command": "build:ci",
                       "name": "build",
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
                     },
                     {
                       "command": "test:ci",
@@ -14138,7 +15300,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   ],
                   "workflows": [
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                      },
                       "jobs": [
+                        {
+                          "name": "checkout",
+                        },
+                        {
+                          "name": "setup",
+                          "requires": [
+                            "checkout",
+                          ],
+                        },
                         {
                           "name": "build",
                           "requires": [
@@ -14156,7 +15330,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "runOnRelease": true,
                     },
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                      },
                       "jobs": [
+                        {
+                          "name": "checkout",
+                        },
+                        {
+                          "name": "setup",
+                          "requires": [
+                            "checkout",
+                          ],
+                        },
                         {
                           "name": "build",
                           "requires": [
@@ -14315,10 +15503,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                         "hooks": [
                           {
                             "CircleCi": {
+                              "custom": {
+                                "orbs": {
+                                  "node": "circleci/node@5.0.2",
+                                },
+                              },
                               "jobs": [
+                                {
+                                  "custom": {
+                                    "executor": "base",
+                                  },
+                                  "name": "checkout",
+                                  "splitIntoMatrix": false,
+                                  "steps": {
+                                    "custom": [
+                                      "checkout",
+                                    ],
+                                  },
+                                  "workspace": {
+                                    "persist": [
+                                      ".",
+                                    ],
+                                  },
+                                },
+                                {
+                                  "name": "setup",
+                                  "steps": {
+                                    "custom": [
+                                      "node/install-packages",
+                                    ],
+                                  },
+                                  "workspace": {
+                                    "persist": [
+                                      ".",
+                                    ],
+                                  },
+                                },
                                 {
                                   "command": "build:ci",
                                   "name": "build",
+                                  "workspace": {
+                                    "persist": [
+                                      ".",
+                                    ],
+                                  },
                                 },
                                 {
                                   "command": "test:ci",
@@ -14327,7 +15555,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               ],
                               "workflows": [
                                 {
+                                  "custom": {
+                                    "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                  },
                                   "jobs": [
+                                    {
+                                      "name": "checkout",
+                                    },
+                                    {
+                                      "name": "setup",
+                                      "requires": [
+                                        "checkout",
+                                      ],
+                                    },
                                     {
                                       "name": "build",
                                       "requires": [
@@ -14345,7 +15585,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "runOnRelease": true,
                                 },
                                 {
+                                  "custom": {
+                                    "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                  },
                                   "jobs": [
+                                    {
+                                      "name": "checkout",
+                                    },
+                                    {
+                                      "name": "setup",
+                                      "requires": [
+                                        "checkout",
+                                      ],
+                                    },
                                     {
                                       "name": "build",
                                       "requires": [
@@ -14998,10 +16252,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "hooks": [
               {
                 "CircleCi": {
+                  "custom": {
+                    "orbs": {
+                      "node": "circleci/node@5.0.2",
+                    },
+                  },
                   "jobs": [
+                    {
+                      "custom": {
+                        "executor": "base",
+                      },
+                      "name": "checkout",
+                      "splitIntoMatrix": false,
+                      "steps": {
+                        "custom": [
+                          "checkout",
+                        ],
+                      },
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
+                    },
+                    {
+                      "name": "setup",
+                      "steps": {
+                        "custom": [
+                          "node/install-packages",
+                        ],
+                      },
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
+                    },
                     {
                       "command": "build:ci",
                       "name": "build",
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
                     },
                     {
                       "command": "test:ci",
@@ -15010,7 +16304,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   ],
                   "workflows": [
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                      },
                       "jobs": [
+                        {
+                          "name": "checkout",
+                        },
+                        {
+                          "name": "setup",
+                          "requires": [
+                            "checkout",
+                          ],
+                        },
                         {
                           "name": "build",
                           "requires": [
@@ -15028,7 +16334,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "runOnRelease": true,
                     },
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                      },
                       "jobs": [
+                        {
+                          "name": "checkout",
+                        },
+                        {
+                          "name": "setup",
+                          "requires": [
+                            "checkout",
+                          ],
+                        },
                         {
                           "name": "build",
                           "requires": [
@@ -15434,10 +16754,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "hooks": [
               {
                 "CircleCi": {
+                  "custom": {
+                    "orbs": {
+                      "node": "circleci/node@5.0.2",
+                    },
+                  },
                   "jobs": [
+                    {
+                      "custom": {
+                        "executor": "base",
+                      },
+                      "name": "checkout",
+                      "splitIntoMatrix": false,
+                      "steps": {
+                        "custom": [
+                          "checkout",
+                        ],
+                      },
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
+                    },
+                    {
+                      "name": "setup",
+                      "steps": {
+                        "custom": [
+                          "node/install-packages",
+                        ],
+                      },
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
+                    },
                     {
                       "command": "build:ci",
                       "name": "build",
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
                     },
                     {
                       "command": "test:ci",
@@ -15446,7 +16806,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   ],
                   "workflows": [
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                      },
                       "jobs": [
+                        {
+                          "name": "checkout",
+                        },
+                        {
+                          "name": "setup",
+                          "requires": [
+                            "checkout",
+                          ],
+                        },
                         {
                           "name": "build",
                           "requires": [
@@ -15464,7 +16836,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "runOnRelease": true,
                     },
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                      },
                       "jobs": [
+                        {
+                          "name": "checkout",
+                        },
+                        {
+                          "name": "setup",
+                          "requires": [
+                            "checkout",
+                          ],
+                        },
                         {
                           "name": "build",
                           "requires": [
@@ -15682,10 +17068,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "hooks": [
                       {
                         "CircleCi": {
+                          "custom": {
+                            "orbs": {
+                              "node": "circleci/node@5.0.2",
+                            },
+                          },
                           "jobs": [
+                            {
+                              "custom": {
+                                "executor": "base",
+                              },
+                              "name": "checkout",
+                              "splitIntoMatrix": false,
+                              "steps": {
+                                "custom": [
+                                  "checkout",
+                                ],
+                              },
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
+                            },
+                            {
+                              "name": "setup",
+                              "steps": {
+                                "custom": [
+                                  "node/install-packages",
+                                ],
+                              },
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
+                            },
                             {
                               "command": "build:ci",
                               "name": "build",
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
                             },
                             {
                               "command": "test:ci",
@@ -15694,7 +17120,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           ],
                           "workflows": [
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                              },
                               "jobs": [
+                                {
+                                  "name": "checkout",
+                                },
+                                {
+                                  "name": "setup",
+                                  "requires": [
+                                    "checkout",
+                                  ],
+                                },
                                 {
                                   "name": "build",
                                   "requires": [
@@ -15712,7 +17150,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "runOnRelease": true,
                             },
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                              },
                               "jobs": [
+                                {
+                                  "name": "checkout",
+                                },
+                                {
+                                  "name": "setup",
+                                  "requires": [
+                                    "checkout",
+                                  ],
+                                },
                                 {
                                   "name": "build",
                                   "requires": [
@@ -16116,10 +17568,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "hooks": [
                       {
                         "CircleCi": {
+                          "custom": {
+                            "orbs": {
+                              "node": "circleci/node@5.0.2",
+                            },
+                          },
                           "jobs": [
+                            {
+                              "custom": {
+                                "executor": "base",
+                              },
+                              "name": "checkout",
+                              "splitIntoMatrix": false,
+                              "steps": {
+                                "custom": [
+                                  "checkout",
+                                ],
+                              },
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
+                            },
+                            {
+                              "name": "setup",
+                              "steps": {
+                                "custom": [
+                                  "node/install-packages",
+                                ],
+                              },
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
+                            },
                             {
                               "command": "build:ci",
                               "name": "build",
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
                             },
                             {
                               "command": "test:ci",
@@ -16128,7 +17620,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           ],
                           "workflows": [
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                              },
                               "jobs": [
+                                {
+                                  "name": "checkout",
+                                },
+                                {
+                                  "name": "setup",
+                                  "requires": [
+                                    "checkout",
+                                  ],
+                                },
                                 {
                                   "name": "build",
                                   "requires": [
@@ -16146,7 +17650,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "runOnRelease": true,
                             },
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                              },
                               "jobs": [
+                                {
+                                  "name": "checkout",
+                                },
+                                {
+                                  "name": "setup",
+                                  "requires": [
+                                    "checkout",
+                                  ],
+                                },
                                 {
                                   "name": "build",
                                   "requires": [
@@ -16551,10 +18069,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "hooks": [
                       {
                         "CircleCi": {
+                          "custom": {
+                            "orbs": {
+                              "node": "circleci/node@5.0.2",
+                            },
+                          },
                           "jobs": [
+                            {
+                              "custom": {
+                                "executor": "base",
+                              },
+                              "name": "checkout",
+                              "splitIntoMatrix": false,
+                              "steps": {
+                                "custom": [
+                                  "checkout",
+                                ],
+                              },
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
+                            },
+                            {
+                              "name": "setup",
+                              "steps": {
+                                "custom": [
+                                  "node/install-packages",
+                                ],
+                              },
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
+                            },
                             {
                               "command": "build:ci",
                               "name": "build",
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
                             },
                             {
                               "command": "test:ci",
@@ -16563,7 +18121,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           ],
                           "workflows": [
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                              },
                               "jobs": [
+                                {
+                                  "name": "checkout",
+                                },
+                                {
+                                  "name": "setup",
+                                  "requires": [
+                                    "checkout",
+                                  ],
+                                },
                                 {
                                   "name": "build",
                                   "requires": [
@@ -16581,7 +18151,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "runOnRelease": true,
                             },
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                              },
                               "jobs": [
+                                {
+                                  "name": "checkout",
+                                },
+                                {
+                                  "name": "setup",
+                                  "requires": [
+                                    "checkout",
+                                  ],
+                                },
                                 {
                                   "name": "build",
                                   "requires": [
@@ -16970,10 +18554,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -16982,7 +18606,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -17000,7 +18636,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -17623,10 +19273,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
             "hooks": [
               {
                 "CircleCi": {
+                  "custom": {
+                    "orbs": {
+                      "node": "circleci/node@5.0.2",
+                    },
+                  },
                   "jobs": [
+                    {
+                      "custom": {
+                        "executor": "base",
+                      },
+                      "name": "checkout",
+                      "splitIntoMatrix": false,
+                      "steps": {
+                        "custom": [
+                          "checkout",
+                        ],
+                      },
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
+                    },
+                    {
+                      "name": "setup",
+                      "steps": {
+                        "custom": [
+                          "node/install-packages",
+                        ],
+                      },
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
+                    },
                     {
                       "command": "build:ci",
                       "name": "build",
+                      "workspace": {
+                        "persist": [
+                          ".",
+                        ],
+                      },
                     },
                     {
                       "command": "test:ci",
@@ -17635,7 +19325,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   ],
                   "workflows": [
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                      },
                       "jobs": [
+                        {
+                          "name": "checkout",
+                        },
+                        {
+                          "name": "setup",
+                          "requires": [
+                            "checkout",
+                          ],
+                        },
                         {
                           "name": "build",
                           "requires": [
@@ -17653,7 +19355,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "runOnRelease": true,
                     },
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                      },
                       "jobs": [
+                        {
+                          "name": "checkout",
+                        },
+                        {
+                          "name": "setup",
+                          "requires": [
+                            "checkout",
+                          ],
+                        },
                         {
                           "name": "build",
                           "requires": [
@@ -17734,10 +19450,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                 "hooks": [
                   {
                     "CircleCi": {
+                      "custom": {
+                        "orbs": {
+                          "node": "circleci/node@5.0.2",
+                        },
+                      },
                       "jobs": [
+                        {
+                          "custom": {
+                            "executor": "base",
+                          },
+                          "name": "checkout",
+                          "splitIntoMatrix": false,
+                          "steps": {
+                            "custom": [
+                              "checkout",
+                            ],
+                          },
+                          "workspace": {
+                            "persist": [
+                              ".",
+                            ],
+                          },
+                        },
+                        {
+                          "name": "setup",
+                          "steps": {
+                            "custom": [
+                              "node/install-packages",
+                            ],
+                          },
+                          "workspace": {
+                            "persist": [
+                              ".",
+                            ],
+                          },
+                        },
                         {
                           "command": "build:ci",
                           "name": "build",
+                          "workspace": {
+                            "persist": [
+                              ".",
+                            ],
+                          },
                         },
                         {
                           "command": "test:ci",
@@ -17746,7 +19502,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       ],
                       "workflows": [
                         {
+                          "custom": {
+                            "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                          },
                           "jobs": [
+                            {
+                              "name": "checkout",
+                            },
+                            {
+                              "name": "setup",
+                              "requires": [
+                                "checkout",
+                              ],
+                            },
                             {
                               "name": "build",
                               "requires": [
@@ -17764,7 +19532,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           "runOnRelease": true,
                         },
                         {
+                          "custom": {
+                            "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                          },
                           "jobs": [
+                            {
+                              "name": "checkout",
+                            },
+                            {
+                              "name": "setup",
+                              "requires": [
+                                "checkout",
+                              ],
+                            },
                             {
                               "name": "build",
                               "requires": [
@@ -18281,10 +20063,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -18293,7 +20115,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -18311,7 +20145,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -18697,10 +20545,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                         "hooks": [
                           {
                             "CircleCi": {
+                              "custom": {
+                                "orbs": {
+                                  "node": "circleci/node@5.0.2",
+                                },
+                              },
                               "jobs": [
+                                {
+                                  "custom": {
+                                    "executor": "base",
+                                  },
+                                  "name": "checkout",
+                                  "splitIntoMatrix": false,
+                                  "steps": {
+                                    "custom": [
+                                      "checkout",
+                                    ],
+                                  },
+                                  "workspace": {
+                                    "persist": [
+                                      ".",
+                                    ],
+                                  },
+                                },
+                                {
+                                  "name": "setup",
+                                  "steps": {
+                                    "custom": [
+                                      "node/install-packages",
+                                    ],
+                                  },
+                                  "workspace": {
+                                    "persist": [
+                                      ".",
+                                    ],
+                                  },
+                                },
                                 {
                                   "command": "build:ci",
                                   "name": "build",
+                                  "workspace": {
+                                    "persist": [
+                                      ".",
+                                    ],
+                                  },
                                 },
                                 {
                                   "command": "test:ci",
@@ -18709,7 +20597,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               ],
                               "workflows": [
                                 {
+                                  "custom": {
+                                    "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                  },
                                   "jobs": [
+                                    {
+                                      "name": "checkout",
+                                    },
+                                    {
+                                      "name": "setup",
+                                      "requires": [
+                                        "checkout",
+                                      ],
+                                    },
                                     {
                                       "name": "build",
                                       "requires": [
@@ -18727,7 +20627,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                   "runOnRelease": true,
                                 },
                                 {
+                                  "custom": {
+                                    "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                  },
                                   "jobs": [
+                                    {
+                                      "name": "checkout",
+                                    },
+                                    {
+                                      "name": "setup",
+                                      "requires": [
+                                        "checkout",
+                                      ],
+                                    },
                                     {
                                       "name": "build",
                                       "requires": [
@@ -19152,10 +21066,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -19164,7 +21118,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -19182,7 +21148,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -19633,10 +21613,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                     "hooks": [
                       {
                         "CircleCi": {
+                          "custom": {
+                            "orbs": {
+                              "node": "circleci/node@5.0.2",
+                            },
+                          },
                           "jobs": [
+                            {
+                              "custom": {
+                                "executor": "base",
+                              },
+                              "name": "checkout",
+                              "splitIntoMatrix": false,
+                              "steps": {
+                                "custom": [
+                                  "checkout",
+                                ],
+                              },
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
+                            },
+                            {
+                              "name": "setup",
+                              "steps": {
+                                "custom": [
+                                  "node/install-packages",
+                                ],
+                              },
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
+                            },
                             {
                               "command": "build:ci",
                               "name": "build",
+                              "workspace": {
+                                "persist": [
+                                  ".",
+                                ],
+                              },
                             },
                             {
                               "command": "test:ci",
@@ -19645,7 +21665,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           ],
                           "workflows": [
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                              },
                               "jobs": [
+                                {
+                                  "name": "checkout",
+                                },
+                                {
+                                  "name": "setup",
+                                  "requires": [
+                                    "checkout",
+                                  ],
+                                },
                                 {
                                   "name": "build",
                                   "requires": [
@@ -19663,7 +21695,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               "runOnRelease": true,
                             },
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                              },
                               "jobs": [
+                                {
+                                  "name": "checkout",
+                                },
+                                {
+                                  "name": "setup",
+                                  "requires": [
+                                    "checkout",
+                                  ],
+                                },
                                 {
                                   "name": "build",
                                   "requires": [
@@ -20079,10 +22125,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -20091,7 +22177,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -20109,7 +22207,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -20505,10 +22617,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -20517,7 +22669,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -20535,7 +22699,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -20940,10 +23118,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -20952,7 +23170,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -20970,7 +23200,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -21366,10 +23610,50 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       "hooks": [
                         {
                           "CircleCi": {
+                            "custom": {
+                              "orbs": {
+                                "node": "circleci/node@5.0.2",
+                              },
+                            },
                             "jobs": [
+                              {
+                                "custom": {
+                                  "executor": "base",
+                                },
+                                "name": "checkout",
+                                "splitIntoMatrix": false,
+                                "steps": {
+                                  "custom": [
+                                    "checkout",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
+                              {
+                                "name": "setup",
+                                "steps": {
+                                  "custom": [
+                                    "node/install-packages",
+                                  ],
+                                },
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
+                              },
                               {
                                 "command": "build:ci",
                                 "name": "build",
+                                "workspace": {
+                                  "persist": [
+                                    ".",
+                                  ],
+                                },
                               },
                               {
                                 "command": "test:ci",
@@ -21378,7 +23662,19 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline"",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [
@@ -21396,7 +23692,21 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 "runOnRelease": true,
                               },
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source == "scheduled_pipeline" and
+pipeline.schedule.name == "nightly"
+",
+                                },
                                 "jobs": [
+                                  {
+                                    "name": "checkout",
+                                  },
+                                  {
+                                    "name": "setup",
+                                    "requires": [
+                                      "checkout",
+                                    ],
+                                  },
                                   {
                                     "name": "build",
                                     "requires": [

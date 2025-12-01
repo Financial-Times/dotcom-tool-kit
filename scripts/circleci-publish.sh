@@ -9,10 +9,7 @@ if [[ ! $CIRCLE_TAG =~ $pattern ]]; then
 fi
 
 workspace=${BASH_REMATCH[1]}
-if [[ $workspace = "orb" ]]; then
-  echo "skipping orb package"
-  exit 0
-elif [[ $workspace != 'dotcom-tool-kit' ]]; then
+if [[ $workspace != 'dotcom-tool-kit' ]]; then
   workspace="@dotcom-tool-kit/$workspace"
 fi
 

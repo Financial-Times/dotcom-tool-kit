@@ -8,7 +8,6 @@
   "lib/types": "3.6.1",
   "lib/vault": "3.2.1",
   "lib/wait-for-ok": "5.0.0",
-  "orb": "5.2.1",
   "plugins/babel": "5.0.0",
   "plugins/backend-app": "3.2.6",
   "plugins/circleci": "8.0.0",
