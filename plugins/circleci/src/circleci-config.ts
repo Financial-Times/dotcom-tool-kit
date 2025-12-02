@@ -5,7 +5,7 @@ import {
   type CircleCiWorkflow,
   type CircleCiWorkflowJob
 } from './schemas/hook'
-import type CircleCiPluginSchema from './schemas/plugin'
+import CircleCiPluginSchema, { type CheckoutMethod } from './schemas/plugin'
 import { type Conflict, isConflict } from '@dotcom-tool-kit/conflict'
 import { Hook, type HookInstallation } from '@dotcom-tool-kit/base'
 import { type Plugin } from '@dotcom-tool-kit/plugin'
@@ -128,7 +128,11 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
     }
   })
 
-const getBaseConfig = (nodeVersions: string[], tagFilterRegex?: string): CircleCIState => {
+const getBaseConfig = (
+  nodeVersions: string[],
+  checkoutMethod?: CheckoutMethod,
+  tagFilterRegex?: string
+): CircleCIState => {
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   const setupMatrix = runsOnMultipleNodeVersions
     ? matrixBoilerplate('tool-kit/setup', nodeVersions)
@@ -151,7 +155,7 @@ const getBaseConfig = (nodeVersions: string[], tagFilterRegex?: string): CircleC
     jobs: {
       checkout: {
         docker: [{ image: 'cimg/base:stable' }],
-        steps: ['checkout', persistWorkspaceStep]
+        steps: [checkoutMethod ? { checkout: { method: checkoutMethod } } : 'checkout', persistWorkspaceStep]
       }
     },
     workflows: {
@@ -622,7 +626,9 @@ export default class CircleCi extends Hook<
       }
       const generatedConfig = mergeWithConcatenatedArrays(
         {},
-        this.options.disableBaseConfig ? {} : getBaseConfig(nodeVersions, configuredTagFilterRegex),
+        this.options.disableBaseConfig
+          ? {}
+          : getBaseConfig(nodeVersions, this.pluginOptions.checkoutMethod, configuredTagFilterRegex),
         generated,
         this.options.custom ?? {}
       )
