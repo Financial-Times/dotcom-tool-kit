@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/containerised-app",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
