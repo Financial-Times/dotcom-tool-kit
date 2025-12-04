@@ -140,9 +140,7 @@ const getBaseConfig = (
   return {
     version: 2.1,
     orbs: {
-      'tool-kit': process.env.TOOL_KIT_FORCE_DEV_ORB
-        ? 'financial-times/dotcom-tool-kit@dev:alpha'
-        : `financial-times/dotcom-tool-kit@${MAJOR_ORB_VERSION}`
+      'tool-kit': `financial-times/dotcom-tool-kit@${MAJOR_ORB_VERSION}`
     },
     executors: Object.fromEntries(
       nodeVersions.map((version, i) => [
