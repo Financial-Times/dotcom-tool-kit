@@ -131,7 +131,8 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
 const getBaseConfig = (
   nodeVersions: string[],
   checkoutMethod?: CheckoutMethod,
-  tagFilterRegex?: string
+  tagFilterRegex?: string,
+  orbDevVersion?: string
 ): CircleCIState => {
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   const setupMatrix = runsOnMultipleNodeVersions
@@ -140,7 +141,9 @@ const getBaseConfig = (
   return {
     version: 2.1,
     orbs: {
-      'tool-kit': `financial-times/dotcom-tool-kit@${MAJOR_ORB_VERSION}`
+      'tool-kit': orbDevVersion
+        ? `financial-times/dotcom-tool-kit@${orbDevVersion}`
+        : `financial-times/dotcom-tool-kit@${MAJOR_ORB_VERSION}`
     },
     executors: Object.fromEntries(
       nodeVersions.map((version, i) => [
@@ -626,7 +629,12 @@ export default class CircleCi extends Hook<
         {},
         this.options.disableBaseConfig
           ? {}
-          : getBaseConfig(nodeVersions, this.pluginOptions.checkoutMethod, configuredTagFilterRegex),
+          : getBaseConfig(
+              nodeVersions,
+              this.pluginOptions.checkoutMethod,
+              configuredTagFilterRegex,
+              this.pluginOptions.orbDevVersion
+            ),
         generated,
         this.options.custom ?? {}
       )

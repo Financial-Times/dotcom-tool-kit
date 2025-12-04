@@ -28,7 +28,14 @@ export default z
       ),
     checkoutMethod: CheckoutMethod.optional().describe(
       "whether to checkout the full git repository or blobless (without files unrelated to the main commit.) blobless checkouts are the default and are faster, though some projects may encounter issues if they rely on inspecting files in the git history. if you see logs like `The authenticity of host 'github.com (140.82.113.4)' can't be established.` you should try enabling full checkouts."
-    )
+    ),
+    orbDevVersion: z
+      .string()
+      .regex(/^dev:/)
+      .optional()
+      .describe(
+        'set this option to use a [development version](https://circleci.com/docs/orbs/author/orb-concepts/#development-orbs) of the Tool Kit CircleCI orb in the generated config'
+      )
   })
   .passthrough()
   .refine((options) => !('nodeVersion' in options), {
