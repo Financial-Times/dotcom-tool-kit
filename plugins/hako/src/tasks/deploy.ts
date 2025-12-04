@@ -77,9 +77,10 @@ export default class HakoDeploy extends Task<{ task: typeof HakoDeploySchema }> 
     ]
     const domain = hakoDomains[environment.name]
     if (!domain) {
-      throw new Error(
-        `No matching domain found for environment ${environment.name}. Try updating the Hako plugin version. Failing this, the environment may need to be added to the "hakoDomains" map`
-      )
+      const domainError = new ToolKitError(`No matching domain found for environment ${styles.code(environment.name)}`);
+      domainError.details = `Try updating the ${styles.plugin('hako')} plugin version. Failing this, the environment may need to be added to the ${styles.code(hakoDomains)} map.`
+      domainError.exitCode = 1;
+      throw domainError;
     }
 
     const { subdomain, ephemeralId } = getAppDetails({
