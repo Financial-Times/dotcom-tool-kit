@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "webpack": "^5.99.9",
+    "webpack": "^5.103.0",
     "winston": "^3.17.0"
   },
   "files": [
