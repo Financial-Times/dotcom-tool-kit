@@ -313,6 +313,24 @@
     * @dotcom-tool-kit/circleci-npm bumped from ^6.1.12 to ^6.1.13
     * @dotcom-tool-kit/npm bumped from ^4.2.11 to ^4.2.12
 
+## [7.0.0-beta.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v7.0.0-beta.2...component-v7.0.0-beta.3) (2025-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* release major versions of wrapper plugins
+
+### Features
+
+* release major versions of wrapper plugins ([c7fa1f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7fa1f4fb405f07ec40c8df2fd3aeb4486bb447b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci-npm bumped from ^7.0.0 to ^8.0.0-beta.3
+
 ## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/component-v5.1.22...component-v6.0.0) (2025-10-28)
 
 
