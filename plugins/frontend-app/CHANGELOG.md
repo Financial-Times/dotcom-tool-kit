@@ -440,6 +440,15 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/webpack bumped from ^4.3.1 to ^4.3.2
 
+## [6.0.0-beta.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v6.0.0-beta.3...frontend-app-v6.0.0-beta.4) (2025-12-08)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^5.1.0-beta to ^5.1.0-beta.0
+
 ## [6.0.0-beta.3](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v6.0.0-beta.2...frontend-app-v6.0.0-beta.3) (2025-12-08)
 
 
