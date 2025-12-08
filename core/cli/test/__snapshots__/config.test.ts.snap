@@ -6475,6 +6475,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                    },
                                     "jobs": [
                                       {
                                         "name": "build",
@@ -6912,6 +6918,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                        },
                                         "jobs": [
                                           {
                                             "name": "build",
@@ -7368,6 +7380,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                    },
                                     "jobs": [
                                       {
                                         "name": "build",
@@ -7803,6 +7821,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                        },
                                         "jobs": [
                                           {
                                             "name": "build",
@@ -8240,6 +8264,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -8659,6 +8689,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                    },
                                     "jobs": [
                                       {
                                         "name": "build",
@@ -9096,6 +9132,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                        },
                                         "jobs": [
                                           {
                                             "name": "build",
@@ -9552,6 +9594,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                    },
                                     "jobs": [
                                       {
                                         "name": "build",
@@ -9987,6 +10035,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                        },
                                         "jobs": [
                                           {
                                             "name": "build",
@@ -10424,6 +10478,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -10843,6 +10903,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                    },
                                     "jobs": [
                                       {
                                         "name": "build",
@@ -11280,6 +11346,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                        },
                                         "jobs": [
                                           {
                                             "name": "build",
@@ -11736,6 +11808,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                    },
                                     "jobs": [
                                       {
                                         "name": "build",
@@ -12171,6 +12249,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                     ],
                                     "workflows": [
                                       {
+                                        "custom": {
+                                          "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                        },
                                         "jobs": [
                                           {
                                             "name": "build",
@@ -12608,6 +12692,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -13025,6 +13115,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -13463,6 +13559,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                                 ],
                                 "workflows": [
                                   {
+                                    "custom": {
+                                      "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                    },
                                     "jobs": [
                                       {
                                         "name": "build",
@@ -14138,6 +14240,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   ],
                   "workflows": [
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                      },
                       "jobs": [
                         {
                           "name": "build",
@@ -14327,6 +14435,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               ],
                               "workflows": [
                                 {
+                                  "custom": {
+                                    "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                  },
                                   "jobs": [
                                     {
                                       "name": "build",
@@ -15010,6 +15124,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   ],
                   "workflows": [
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                      },
                       "jobs": [
                         {
                           "name": "build",
@@ -15446,6 +15566,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   ],
                   "workflows": [
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                      },
                       "jobs": [
                         {
                           "name": "build",
@@ -15694,6 +15820,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           ],
                           "workflows": [
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                              },
                               "jobs": [
                                 {
                                   "name": "build",
@@ -16128,6 +16260,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           ],
                           "workflows": [
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                              },
                               "jobs": [
                                 {
                                   "name": "build",
@@ -16563,6 +16701,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           ],
                           "workflows": [
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                              },
                               "jobs": [
                                 {
                                   "name": "build",
@@ -16982,6 +17126,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -17635,6 +17785,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                   ],
                   "workflows": [
                     {
+                      "custom": {
+                        "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                      },
                       "jobs": [
                         {
                           "name": "build",
@@ -17746,6 +17902,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                       ],
                       "workflows": [
                         {
+                          "custom": {
+                            "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                          },
                           "jobs": [
                             {
                               "name": "build",
@@ -18293,6 +18455,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -18709,6 +18877,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                               ],
                               "workflows": [
                                 {
+                                  "custom": {
+                                    "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                  },
                                   "jobs": [
                                     {
                                       "name": "build",
@@ -19164,6 +19338,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -19645,6 +19825,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                           ],
                           "workflows": [
                             {
+                              "custom": {
+                                "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                              },
                               "jobs": [
                                 {
                                   "name": "build",
@@ -20091,6 +20277,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -20517,6 +20709,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -20952,6 +21150,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
@@ -21378,6 +21582,12 @@ exports[`loadConfig should load an invalid config when not validating 1`] = `
                             ],
                             "workflows": [
                               {
+                                "custom": {
+                                  "when": "pipeline.trigger_source != "scheduled_pipeline" and
+(pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+and pipeline.event.action != "closed"))
+",
+                                },
                                 "jobs": [
                                   {
                                     "name": "build",
