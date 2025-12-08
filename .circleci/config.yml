@@ -46,11 +46,13 @@ references:
   #
   # Filters
   #
-  filters_only_main:
-    &filters_only_main
+
+  filters_only_main_beta:
+    &filters_only_main_beta
     branches:
       only:
         - main
+        - beta
 
   filters_ignore_main:
     &filters_ignore_main
@@ -58,12 +60,6 @@ references:
       ignore: /.*/
     branches:
       ignore: /^main$/
-
-  filters_main_branch:
-    &filters_main_branch
-    branches:
-      only:
-        - main
 
   filters_release_build:
     &filters_release_build
@@ -132,12 +128,14 @@ jobs:
           name: Update release-please release PR
           command: npx release-please@17 release-pr --token=${RELEASE_PLEASE_GITHUB_TOKEN}
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+            --target-branch=beta
       - run:
           name: Release any unreleased PR merges
           command: npx release-please@17 github-release
             --token=${RELEASE_PLEASE_GITHUB_TOKEN}
             --repo-url=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             --monorepo-tags
+            --target-branch=beta
 
   publish:
     <<: *container_config_node
@@ -204,7 +202,7 @@ workflows:
     jobs:
       - release-please:
           filters:
-            <<: *filters_only_main
+            <<: *filters_only_main_beta
 
   build-test-publish:
     when:

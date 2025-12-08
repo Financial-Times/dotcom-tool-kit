@@ -2,9 +2,11 @@
   "bootstrap-sha": "47035e3bd4e3ac399319b3421ce86a82f1c1ab21",
   "last-release-sha": "cfaa84f2a3c995a578e6c6f21d4c9d79e1be9756",
   "plugins": ["node-workspace"],
-  "prerelease": true,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
+  "prerelease": true,
+  "versioning": "prerelease",
+  "prerelease-type": "beta",
   "packages": {
     "core/cli": {},
     "lib/base": {},
@@ -17,10 +19,6 @@
     "lib/state": {},
     "lib/validated": {},
     "lib/wait-for-ok": {},
-    "orb": {
-      "package-name": "orb",
-      "release-type": "simple"
-    },
     "plugins/aws": {},
     "plugins/babel": {},
     "plugins/backend-heroku-app": {},
