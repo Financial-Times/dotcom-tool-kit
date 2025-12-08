@@ -211,6 +211,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [5.0.1-beta.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v5.0.1-beta...mocha-v5.0.1-beta.0) (2025-12-08)
+
+
+### backstage
+
+* trigger unsuffixed mocha beta ([f8a04f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/f8a04f40143f3768ee326d925d77ea755fa421d5))
+
 ## [5.0.1-beta](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v5.0.0...mocha-v5.0.1-beta) (2025-12-08)
 
 

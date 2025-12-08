@@ -211,6 +211,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [5.1.0-beta.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v5.1.0-beta...upload-assets-to-s3-v5.1.0-beta.0) (2025-12-08)
+
+
+### backstage
+
+* trigger unsuffixed upload-assets-to-s3 release ([58f343f](https://github.com/Financial-Times/dotcom-tool-kit/commit/58f343f65311862470d0b48f74c9fa9cc9b9dbf8))
+
 ## [5.1.0-beta](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v5.0.0...upload-assets-to-s3-v5.1.0-beta) (2025-12-08)
 
 
