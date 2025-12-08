@@ -16,6 +16,11 @@ options:
             command: 'test:ci'
         workflows:
           - name: 'tool-kit'
+            custom:
+              when: |
+                pipeline.trigger_source != "scheduled_pipeline" and
+                (pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+                and pipeline.event.action != "closed"))
             jobs:
               - name: build
                 requires:

@@ -18,11 +18,10 @@ jobs:
           path: .
 workflows:
   tool-kit:
-    when:
-      not:
-        equal:
-          - scheduled_pipeline
-          - << pipeline.trigger_source >>
+    when: |
+      pipeline.trigger_source != "scheduled_pipeline" and
+      (pipeline.event.name == "push" or (pipeline.event.name == "pull_request"
+      and pipeline.event.action != "closed"))
     jobs:
       - checkout:
           filters:
