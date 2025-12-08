@@ -77,7 +77,7 @@ references:
     &filters_prerelease_build
     tags:
       only:
-        - /^[\w-]+-v\d+\.\d+\.\d+(?:-\w+\.\d+)$/
+        - /^[\w-]+-v\d+\.\d+\.\d+(?:-\w+(?:\.\d+)?)$/
     branches:
       ignore: /.*/
 
