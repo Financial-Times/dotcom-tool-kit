@@ -62,6 +62,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [2.1.0-beta](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v2.0.0...commitlint-v2.1.0-beta) (2025-12-08)
+
+
+### Features
+
+* support commitlint v20 ([5c0a1ab](https://github.com/Financial-Times/dotcom-tool-kit/commit/5c0a1ab6bfa4b7329aa17d1217384aa5ecf3effd))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/commitlint-v1.3.1...commitlint-v2.0.0) (2025-10-28)
 
 

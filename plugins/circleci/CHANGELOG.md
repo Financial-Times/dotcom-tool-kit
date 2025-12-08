@@ -188,6 +188,22 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [9.0.0-beta.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.0.0-beta.3...circleci-v9.0.0-beta.4) (2025-12-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** consolidate tagFilterRegex and runOnTag options into tagFilter
+* **circleci:** this workflow requires a repo to be using the Github Apps integration since it references the `pipeline.event` values, which will fail CircleCI config validation if using the OAuth integration
+
+### Features
+
+* allow specifying a custom dev version of the orb ([51c9522](https://github.com/Financial-Times/dotcom-tool-kit/commit/51c952211c63947a8bd2e96ccb96e3909ff33b2c))
+* **circleci:** add a `pr-close` workflow ([64da418](https://github.com/Financial-Times/dotcom-tool-kit/commit/64da418b8ff605c6e7ab52d962d81b90c7399054))
+* **circleci:** add option to specify full git checkout ([a19d3b5](https://github.com/Financial-Times/dotcom-tool-kit/commit/a19d3b57b90a6290405311966ed0673ea715f6d7))
+* **circleci:** consolidate tagFilterRegex and runOnTag options into tagFilter ([49675d8](https://github.com/Financial-Times/dotcom-tool-kit/commit/49675d82df85862261840f53d1d9461977361790))
+* **circleci:** remove support for TOOL_KIT_FORCE_DEV_ORB env var ([dc95a08](https://github.com/Financial-Times/dotcom-tool-kit/commit/dc95a080a1c43caaa10802ee4d3f9d4dde95b30e))
+
 ## [8.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v7.6.10...circleci-v8.0.0) (2025-10-28)
 
 
