@@ -174,6 +174,26 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^7.6.1 to ^7.6.2
 
+## [6.0.0-beta.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v6.0.0-beta.4...circleci-deploy-v6.0.0-beta.5) (2025-12-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** don't run tool-kit workflow on pr close events
+* **circleci:** this workflow requires a repo to be using the Github Apps integration since it references the `pipeline.event` values, which will fail CircleCI config validation if using the OAuth integration
+
+### Features
+
+* **circleci:** add a `pr-close` workflow ([64da418](https://github.com/Financial-Times/dotcom-tool-kit/commit/64da418b8ff605c6e7ab52d962d81b90c7399054))
+* **circleci:** don't run tool-kit workflow on pr close events ([eba10ad](https://github.com/Financial-Times/dotcom-tool-kit/commit/eba10ad4bcd07ac302f9ab38c523e23d4095b121))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^9.0.0-beta.4 to ^9.0.0-beta.5
+
 ## [6.0.0-beta.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v6.0.0-beta.3...circleci-deploy-v6.0.0-beta.4) (2025-12-08)
 
 

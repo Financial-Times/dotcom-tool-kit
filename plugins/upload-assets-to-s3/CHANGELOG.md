@@ -211,6 +211,24 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [5.1.0-beta.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v5.1.0-beta.0...upload-assets-to-s3-v5.1.0-beta.0) (2025-12-09)
+
+
+### backstage
+
+* trigger unsuffixed upload-assets-to-s3 release ([a0cbbcb](https://github.com/Financial-Times/dotcom-tool-kit/commit/a0cbbcb9749e4ba8fad8ae6ae987e2a6d171e7dd))
+
+
+### Features
+
+* add isReviewApp to UploadAssetsToS3 to determine correct s3 bucket ([83008ea](https://github.com/Financial-Times/dotcom-tool-kit/commit/83008eaad3912655ebd3a57bffc19a2a6d01c987))
+* add type for isReviewApp ([5842ed4](https://github.com/Financial-Times/dotcom-tool-kit/commit/5842ed4be56cdf53092843dd602a7e797e4431e8))
+
+
+### Bug Fixes
+
+* bump glob from 10.4.5 to 10.5.0 ([d6896b1](https://github.com/Financial-Times/dotcom-tool-kit/commit/d6896b19367c675e8000b43a0ab7ccb4d206a380))
+
 ## [5.1.0-beta.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/upload-assets-to-s3-v5.1.0-beta...upload-assets-to-s3-v5.1.0-beta.0) (2025-12-08)
 
 

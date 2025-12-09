@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/commitlint",
-  "version": "2.1.0-beta",
+  "version": "2.1.0-beta.1",
   "description": "",
   "main": "lib",
   "scripts": {

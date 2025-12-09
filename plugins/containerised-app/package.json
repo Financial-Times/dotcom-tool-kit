@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/aws": "^1.0.0",
-    "@dotcom-tool-kit/circleci-deploy": "^6.0.0-beta.4",
-    "@dotcom-tool-kit/cloudsmith": "^2.0.0",
+    "@dotcom-tool-kit/circleci-deploy": "^6.0.0-beta.5",
+    "@dotcom-tool-kit/cloudsmith": "^2.0.1-beta",
     "@dotcom-tool-kit/docker": "^1.0.0",
     "@dotcom-tool-kit/doppler": "^3.0.0",
     "@dotcom-tool-kit/hako": "^2.0.0-beta.4",
