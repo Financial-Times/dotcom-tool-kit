@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.2.1...orb-v5.2.2) (2025-12-09)
+
+
+### Bug Fixes
+
+* don't run teardown-review unconditionally in e2e-test-review ([be96018](https://github.com/Financial-Times/dotcom-tool-kit/commit/be96018a11f00fae9d76a990c0207d6024007dcc))
+
 ## [5.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.2.0...orb-v5.2.1) (2025-01-28)
 
 
