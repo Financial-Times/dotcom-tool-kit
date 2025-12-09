@@ -46,6 +46,23 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/webpack bumped from ^4.3.1 to ^4.3.2
 
+## [2.0.0-beta.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v2.0.0-beta.5...containerised-app-with-assets-v2.0.0-beta.4) (2025-12-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* release major versions of wrapper plugins
+
+### backstage
+
+* manually release containerised-app/hako betas ([c87765e](https://github.com/Financial-Times/dotcom-tool-kit/commit/c87765eed608f5048456e4a3fdd68554c174fa5c))
+
+
+### Features
+
+* release 1.0 of AWS-related packages ([f455a4c](https://github.com/Financial-Times/dotcom-tool-kit/commit/f455a4c110c1f879d0e2e2f83b2d6ca10117124c))
+* release major versions of wrapper plugins ([c7fa1f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7fa1f4fb405f07ec40c8df2fd3aeb4486bb447b))
+
 ## [2.0.0-beta.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v2.0.0-beta.4...containerised-app-with-assets-v2.0.0-beta.5) (2025-12-08)
 
 

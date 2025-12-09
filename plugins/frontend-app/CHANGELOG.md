@@ -440,6 +440,24 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/webpack bumped from ^4.3.1 to ^4.3.2
 
+## [6.0.0-beta.5](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v6.0.0-beta.4...frontend-app-v6.0.0-beta.5) (2025-12-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* release major versions of wrapper plugins
+
+### Features
+
+* release major versions of wrapper plugins ([c7fa1f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7fa1f4fb405f07ec40c8df2fd3aeb4486bb447b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/backend-heroku-app bumped from ^6.0.0-beta.3 to ^6.0.0-beta.4
+
 ## [6.0.0-beta.4](https://github.com/Financial-Times/dotcom-tool-kit/compare/frontend-app-v6.0.0-beta.3...frontend-app-v6.0.0-beta.4) (2025-12-08)
 
 
