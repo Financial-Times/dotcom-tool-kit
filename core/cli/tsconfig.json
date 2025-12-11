@@ -26,6 +26,9 @@
       "path": "../../lib/state"
     },
     {
+      "path": "../../lib/telemetry"
+    },
+    {
       "path": "../../lib/base"
     }
   ],
@@ -33,7 +36,5 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
