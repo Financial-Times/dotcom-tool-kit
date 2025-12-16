@@ -179,7 +179,7 @@ jobs:
             ${HOME}/.npmrc
       - run:
           name: Tag and release continuous betas
-          command: ./scripts/beta-release.js
+          command: ./scripts/beta-release.mts
 
 workflows:
   version: 2
