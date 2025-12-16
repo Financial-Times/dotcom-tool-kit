@@ -14,7 +14,7 @@ references:
       - image: cimg/node:<< parameters.node-version >>
     parameters:
       node-version:
-        default: '22.12'
+        default: '22.18'
         type: string
 
   workspace_root: &workspace_root ~/project
