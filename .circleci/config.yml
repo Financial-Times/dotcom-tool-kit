@@ -90,6 +90,12 @@ references:
     branches:
       ignore: /.*/
 
+  filters_release_please_branch:
+    &filters_release_please_branch
+    branches:
+      only:
+        - release-please--branches--main
+
 jobs:
   build:
     <<: *container_config_node
@@ -162,6 +168,18 @@ jobs:
       - run:
           name: NPM publish
           command: ./scripts/circleci-publish.sh --tag=prerelease
+
+  beta-release:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Set npm auth token
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >
+            ${HOME}/.npmrc
+      - run:
+          name: Tag and release continuous betas
+          command: ./scripts/beta-release.js
 
 workflows:
   version: 2
@@ -282,6 +300,46 @@ workflows:
           context: npm-publish-token
           filters:
             <<: *filters_prerelease_build
+          requires:
+            - lint-v22.12
+            - test-v22.12
+
+  build-test-beta-release:
+    when:
+      not:
+        equal:
+          - scheduled_pipeline
+          - << pipeline.trigger_source >>
+    jobs:
+      - build:
+          filters:
+            <<: *filters_release_please_branch
+          name: build-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ '20.18', '22.12' ]
+      - test:
+          filters:
+            <<: *filters_release_please_branch
+          requires:
+            - build-v<< matrix.node-version >>
+          name: test-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ '20.18', '22.12' ]
+      - lint:
+          filters:
+            <<: *filters_release_please_branch
+          requires:
+            - build-v<< matrix.node-version >>
+          name: lint-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: [ '20.18', '22.12' ]
+      - beta-release:
+          context: npm-publish-token
+          filters:
+            <<: *filters_release_please_branch
           requires:
             - lint-v22.12
             - test-v22.12
