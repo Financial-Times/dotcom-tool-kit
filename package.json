@@ -38,6 +38,8 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.8.8",
     "release-please": "^17.0.0",
+    "semver": "^7.7.3",
+    "simple-git": "^3.30.0",
     "ts-jest": "^29.3.4",
     "typescript": "~5.8.3",
     "winston": "^3.17.0",

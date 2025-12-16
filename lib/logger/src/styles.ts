@@ -27,6 +27,8 @@ export const styles = {
   info: (string: string): string => styles.infoHighlight(' i ') + ' ' + string,
   helpHighlight: colours.bgGreen.black,
   help: (string: string): string => styles.helpHighlight(' ? ') + ' ' + string,
+  successHighlight: colours.bgGreen.black,
+  success: (string: string): string => styles.successHighlight(' ✓ ') + ' ' + string,
   ruler: (): string => styles.dim('─'.repeat(process.stdout.columns / 2)),
   box: (string: string, options: Partial<boxen.Options>) =>
     boxen(string, {
@@ -37,5 +39,5 @@ export const styles = {
   groupHeader: (string: string) => ` ╭─${'─'.repeat(stripAnsi(string).length)}─╮
 ─┤ ${string} ├─${'─'.repeat(process.stdout.columns / 2 - stripAnsi(string).length - 6)}
  ╰─${'─'.repeat(stripAnsi(string).length)}─╯`,
- strip: stripAnsi
+  strip: stripAnsi
 }
