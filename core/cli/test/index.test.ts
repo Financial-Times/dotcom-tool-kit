@@ -2,6 +2,7 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import type { Valid } from '@dotcom-tool-kit/validated'
 import type { Plugin } from '@dotcom-tool-kit/plugin'
 import type { ValidPluginsConfig } from '@dotcom-tool-kit/config'
+import { MockTelemetryClient } from '@dotcom-tool-kit/telemetry'
 import { describe, expect, it, jest } from '@jest/globals'
 import * as path from 'path'
 import winston, { Logger } from 'winston'
@@ -137,7 +138,8 @@ describe('cli', () => {
     resolvePlugin((plugin as Valid<Plugin>).value, validPluginConfig, logger)
 
     const validConfig = validateConfig(validPluginConfig)
-    const hooks = await loadHookInstallations(logger, validConfig)
+    const metrics = new MockTelemetryClient()
+    const hooks = await loadHookInstallations(logger, metrics, validConfig)
     expect(hooks.valid).toBe(true)
   })
 })

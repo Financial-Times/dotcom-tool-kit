@@ -135,6 +135,9 @@
     },
     {
       "path": "plugins/parallel"
+    },
+    {
+      "path": "lib/telemetry"
     }
   ]
 }
