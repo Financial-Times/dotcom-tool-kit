@@ -12,7 +12,7 @@
 import { exec as _exec } from 'node:child_process'
 import { promisify } from 'util'
 import { simpleGit } from 'simple-git'
-import { styles as s } from '../lib/logger/lib'
+import { styles as s } from '@dotcom-tool-kit/logger'
 import semver from 'semver'
 import path from 'path'
 import fs from 'fs/promises'
