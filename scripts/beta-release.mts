@@ -47,7 +47,7 @@ type PackageWithNextVersion = PackageWithCurrentVersions & {
 }
 
 async function getPackagesBeingReleased() {
-  const changedFiles = await git.diff(['--name-only', 'head', 'head~'])
+  const changedFiles = await git.diff(['--name-only', 'HEAD', 'HEAD~'])
 
   return changedFiles
     .split('\n')
