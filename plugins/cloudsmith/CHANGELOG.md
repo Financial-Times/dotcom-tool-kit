@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v2.0.0...cloudsmith-v2.0.1) (2025-12-18)
+
+
+### Bug Fixes
+
+* add cloudsmith config to teardown-review job ([bb769b9](https://github.com/Financial-Times/dotcom-tool-kit/commit/bb769b92f259167a4c0a7e398af5e6d685d0b1a7))
+* **cloudsmith:** set env vars directly for non-orb teardown-review job ([4335d76](https://github.com/Financial-Times/dotcom-tool-kit/commit/4335d76f455b46d5c3027df964161463fef71571))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.1.2...cloudsmith-v2.0.0) (2025-10-28)
 
 
