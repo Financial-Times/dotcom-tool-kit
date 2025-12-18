@@ -21,24 +21,23 @@ const exec = promisify(_exec)
 
 const git = simpleGit()
 
-
 type Package = {
-  path: string,
-  name: string,
+  path: string
+  name: string
 }
 
 type PackageWithJson = Package & {
   json: {
-    version: string,
+    version: string
     dependencies?: Record<string, string>
     devDependencies?: Record<string, string>
     peerDependencies?: Record<string, string>
-  },
+  }
 }
 
 type PackageWithCurrentVersions = PackageWithJson & {
-  latest: string,
-  pending: string,
+  latest: string
+  pending: string
   prerelease: string
 }
 
@@ -89,7 +88,7 @@ async function getDistTags(pkg: string) {
       .split('\n')
       .filter(Boolean)
       .map((line) => {
-        const [tag, version] =  line.split(': ')
+        const [tag, version] = line.split(': ')
         return [tag, version] as const
       })
   )
@@ -97,19 +96,23 @@ async function getDistTags(pkg: string) {
 
 function getNextPrerelease({ pending, prerelease }: PackageWithCurrentVersions) {
   const releaseVersionForPrerelease = semver.inc(prerelease, 'release')
-  if(!releaseVersionForPrerelease) throw new Error(`Could not increment ${prerelease} to release version. This should never happen`)
+  if (!releaseVersionForPrerelease) {
+    throw new Error(`Could not increment ${prerelease} to release version. This should never happen`)
+  }
 
   if (!prerelease || semver.gt(pending, releaseVersionForPrerelease)) {
     const version = semver.parse(pending)
 
-    if(!version) throw new Error(`Could not parse semver ${pending}. This should never happen`)
+    if (!version) throw new Error(`Could not parse semver ${pending}. This should never happen`)
 
     version.prerelease = ['beta.1']
     return version.format()
   }
 
   const next = semver.inc(prerelease, 'prerelease', 'beta')
-  if(!next) throw new Error(`Could not increment ${prerelease} to next prerelease version. This should never happen`)
+  if (!next) {
+    throw new Error(`Could not increment ${prerelease} to next prerelease version. This should never happen`)
+  }
 
   return next
 }
@@ -118,13 +121,14 @@ async function readPackageJson(path: string) {
   return JSON.parse(await fs.readFile(path, 'utf8'))
 }
 
-
 const releasingPackages = await getPackagesBeingReleased()
 const packagesWithVersions = await fetchCurrentPackageVersions(releasingPackages)
-const packagesWithNextVersion = packagesWithVersions.map((pkg): PackageWithNextVersion => ({
-  ...pkg,
-  nextPrerelease: getNextPrerelease(pkg)
-}))
+const packagesWithNextVersion = packagesWithVersions.map(
+  (pkg): PackageWithNextVersion => ({
+    ...pkg,
+    nextPrerelease: getNextPrerelease(pkg)
+  })
+)
 
 for (const { name, path, json, pending, nextPrerelease, latest, prerelease } of packagesWithNextVersion) {
   console.log(
