@@ -94,19 +94,27 @@ async function getDistTags(pkg: string) {
   )
 }
 
+function getInitialPrerelease(pending: string) {
+  const version = semver.parse(pending)
+
+  if (!version) throw new Error(`Could not parse semver ${pending}. This should never happen`)
+
+  version.prerelease = ['beta.1']
+  return version.format()
+}
+
 function getNextPrerelease({ pending, prerelease }: PackageWithCurrentVersions) {
+  if (!prerelease) {
+    return getInitialPrerelease(pending)
+  }
+
   const releaseVersionForPrerelease = semver.inc(prerelease, 'release')
   if (!releaseVersionForPrerelease) {
     throw new Error(`Could not increment ${prerelease} to release version. This should never happen`)
   }
 
-  if (!prerelease || semver.gt(pending, releaseVersionForPrerelease)) {
-    const version = semver.parse(pending)
-
-    if (!version) throw new Error(`Could not parse semver ${pending}. This should never happen`)
-
-    version.prerelease = ['beta.1']
-    return version.format()
+  if (semver.gt(pending, releaseVersionForPrerelease)) {
+    return getInitialPrerelease(pending)
   }
 
   const next = semver.inc(prerelease, 'prerelease', 'beta')
