@@ -41,10 +41,12 @@ options:
             jobs:
               - name: 'teardown-review'
                 requires: []
-                custom:
-                  environment:
-                    # other jobs are defined in the orb and use job parameters to set these env vars;
-                    # teardown-review is defined in a .toolkitrc.yml so we need to set them directly
-                    CLOUDSMITH_ORGANISATION: financial-times
-                    !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
-                      CLOUDSMITH_SERVICE_ACCOUNT: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
+        jobs:
+          - name: 'teardown-review'
+            custom:
+              environment:
+                # other jobs are defined in the orb and use job parameters to set these env vars;
+                # teardown-review is defined in a .toolkitrc.yml so we need to set them directly
+                CLOUDSMITH_ORGANISATION: financial-times
+                !toolkit/if-defined '@dotcom-tool-kit/cloudsmith.serviceAccount':
+                  CLOUDSMITH_SERVICE_ACCOUNT: !toolkit/option '@dotcom-tool-kit/cloudsmith.serviceAccount'
