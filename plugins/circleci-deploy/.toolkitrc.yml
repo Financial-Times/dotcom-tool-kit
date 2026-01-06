@@ -52,8 +52,6 @@ options:
                 splitIntoMatrix: false
                 runOnRelease: false
                 custom:
-                  !toolkit/if-defined '@dotcom-tool-kit/circleci.cypressImage':
-                    executor: cypress
                   !toolkit/if-defined '@dotcom-tool-kit/serverless.awsAccountId':
                     aws-account-id: !toolkit/option '@dotcom-tool-kit/serverless.awsAccountId'
                     system-code: !toolkit/option '@dotcom-tool-kit/serverless.systemCode'
@@ -62,9 +60,6 @@ options:
                 runOnRelease: true
                 requires:
                   - 'deploy-staging'
-                custom:
-                  !toolkit/if-defined '@dotcom-tool-kit/circleci.cypressImage':
-                    executor: cypress
               - name: 'deploy-production'
                 requires:
                   - 'test'
@@ -99,9 +94,5 @@ options:
                   - 'setup'
                 splitIntoMatrix: false
                 runOnRelease: false
-        !toolkit/if-defined '@dotcom-tool-kit/circleci.cypressImage':
-          executors:
-            - name: cypress
-              image: !toolkit/option '@dotcom-tool-kit/circleci.cypressImage'
 
 version: 2
