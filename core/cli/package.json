@@ -39,7 +39,6 @@
     "@dotcom-tool-kit/schemas": "^1.9.0",
     "@dotcom-tool-kit/state": "^5.0.0",
     "@dotcom-tool-kit/validated": "^2.0.0",
-    "@dotcom-tool-kit/wait-for-ok": "^5.0.0",
     "endent": "^2.1.0",
     "lodash": "^4.17.21",
     "minimist": "^1.2.8",
