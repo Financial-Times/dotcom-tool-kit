@@ -6637,7 +6637,6 @@ and pipeline.event.action != "closed"))
                                     "splitIntoMatrix": false,
                                   },
                                   {
-                                    "custom": {},
                                     "name": "e2e-test-staging",
                                     "requires": [
                                       "deploy-staging",
@@ -7080,7 +7079,6 @@ and pipeline.event.action != "closed"))
                                         "splitIntoMatrix": false,
                                       },
                                       {
-                                        "custom": {},
                                         "name": "e2e-test-staging",
                                         "requires": [
                                           "deploy-staging",
@@ -7542,7 +7540,6 @@ and pipeline.event.action != "closed"))
                                     "splitIntoMatrix": false,
                                   },
                                   {
-                                    "custom": {},
                                     "name": "e2e-test-staging",
                                     "requires": [
                                       "deploy-staging",
@@ -7983,7 +7980,6 @@ and pipeline.event.action != "closed"))
                                         "splitIntoMatrix": false,
                                       },
                                       {
-                                        "custom": {},
                                         "name": "e2e-test-staging",
                                         "requires": [
                                           "deploy-staging",
@@ -8426,7 +8422,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -8851,7 +8846,6 @@ and pipeline.event.action != "closed"))
                                     "splitIntoMatrix": false,
                                   },
                                   {
-                                    "custom": {},
                                     "name": "e2e-test-staging",
                                     "requires": [
                                       "deploy-staging",
@@ -9294,7 +9288,6 @@ and pipeline.event.action != "closed"))
                                         "splitIntoMatrix": false,
                                       },
                                       {
-                                        "custom": {},
                                         "name": "e2e-test-staging",
                                         "requires": [
                                           "deploy-staging",
@@ -9756,7 +9749,6 @@ and pipeline.event.action != "closed"))
                                     "splitIntoMatrix": false,
                                   },
                                   {
-                                    "custom": {},
                                     "name": "e2e-test-staging",
                                     "requires": [
                                       "deploy-staging",
@@ -10197,7 +10189,6 @@ and pipeline.event.action != "closed"))
                                         "splitIntoMatrix": false,
                                       },
                                       {
-                                        "custom": {},
                                         "name": "e2e-test-staging",
                                         "requires": [
                                           "deploy-staging",
@@ -10640,7 +10631,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -11065,7 +11055,6 @@ and pipeline.event.action != "closed"))
                                     "splitIntoMatrix": false,
                                   },
                                   {
-                                    "custom": {},
                                     "name": "e2e-test-staging",
                                     "requires": [
                                       "deploy-staging",
@@ -11508,7 +11497,6 @@ and pipeline.event.action != "closed"))
                                         "splitIntoMatrix": false,
                                       },
                                       {
-                                        "custom": {},
                                         "name": "e2e-test-staging",
                                         "requires": [
                                           "deploy-staging",
@@ -11970,7 +11958,6 @@ and pipeline.event.action != "closed"))
                                     "splitIntoMatrix": false,
                                   },
                                   {
-                                    "custom": {},
                                     "name": "e2e-test-staging",
                                     "requires": [
                                       "deploy-staging",
@@ -12411,7 +12398,6 @@ and pipeline.event.action != "closed"))
                                         "splitIntoMatrix": false,
                                       },
                                       {
-                                        "custom": {},
                                         "name": "e2e-test-staging",
                                         "requires": [
                                           "deploy-staging",
@@ -12854,7 +12840,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -13277,7 +13262,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -13721,7 +13705,6 @@ and pipeline.event.action != "closed"))
                                     "splitIntoMatrix": false,
                                   },
                                   {
-                                    "custom": {},
                                     "name": "e2e-test-staging",
                                     "requires": [
                                       "deploy-staging",
@@ -14134,7 +14117,6 @@ and pipeline.event.action != "closed"))
                             "splitIntoMatrix": false,
                           },
                           {
-                            "custom": {},
                             "name": "e2e-test-staging",
                             "requires": [
                               "deploy-staging",
@@ -14597,7 +14579,6 @@ and pipeline.event.action != "closed"))
                                   "splitIntoMatrix": false,
                                 },
                                 {
-                                  "custom": {},
                                   "name": "e2e-test-staging",
                                   "requires": [
                                     "deploy-staging",
@@ -15018,7 +14999,6 @@ and pipeline.event.action != "closed"))
                             "splitIntoMatrix": false,
                           },
                           {
-                            "custom": {},
                             "name": "e2e-test-staging",
                             "requires": [
                               "deploy-staging",
@@ -15460,7 +15440,6 @@ and pipeline.event.action != "closed"))
                             "splitIntoMatrix": false,
                           },
                           {
-                            "custom": {},
                             "name": "e2e-test-staging",
                             "requires": [
                               "deploy-staging",
@@ -15982,7 +15961,6 @@ and pipeline.event.action != "closed"))
                               "splitIntoMatrix": false,
                             },
                             {
-                              "custom": {},
                               "name": "e2e-test-staging",
                               "requires": [
                                 "deploy-staging",
@@ -16422,7 +16400,6 @@ and pipeline.event.action != "closed"))
                               "splitIntoMatrix": false,
                             },
                             {
-                              "custom": {},
                               "name": "e2e-test-staging",
                               "requires": [
                                 "deploy-staging",
@@ -16863,7 +16840,6 @@ and pipeline.event.action != "closed"))
                               "splitIntoMatrix": false,
                             },
                             {
-                              "custom": {},
                               "name": "e2e-test-staging",
                               "requires": [
                                 "deploy-staging",
@@ -17288,7 +17264,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -17679,7 +17654,6 @@ and pipeline.event.action != "closed"))
                             "splitIntoMatrix": false,
                           },
                           {
-                            "custom": {},
                             "name": "e2e-test-staging",
                             "requires": [
                               "deploy-staging",
@@ -18228,7 +18202,6 @@ and pipeline.event.action != "closed"))
                           "splitIntoMatrix": false,
                         },
                         {
-                          "custom": {},
                           "name": "e2e-test-staging",
                           "requires": [
                             "deploy-staging",
@@ -18617,7 +18590,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -19039,7 +19011,6 @@ and pipeline.event.action != "closed"))
                                   "splitIntoMatrix": false,
                                 },
                                 {
-                                  "custom": {},
                                   "name": "e2e-test-staging",
                                   "requires": [
                                     "deploy-staging",
@@ -19500,7 +19471,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -19987,7 +19957,6 @@ and pipeline.event.action != "closed"))
                               "splitIntoMatrix": false,
                             },
                             {
-                              "custom": {},
                               "name": "e2e-test-staging",
                               "requires": [
                                 "deploy-staging",
@@ -20439,7 +20408,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -20871,7 +20839,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -21312,7 +21279,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
@@ -21744,7 +21710,6 @@ and pipeline.event.action != "closed"))
                                 "splitIntoMatrix": false,
                               },
                               {
-                                "custom": {},
                                 "name": "e2e-test-staging",
                                 "requires": [
                                   "deploy-staging",
