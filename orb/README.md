@@ -33,10 +33,10 @@ The easiest way to use the dotcom-tool-kit orb is to delete your old `.circleci/
 
 #### Manually
 
-Alternatively, you can manually add tool-kit jobs to your CircleCI just like you would any other job, but it will look a lot terser! Take using the `heroku-provision` job in `next-static`:
+Alternatively, you can manually add tool-kit jobs to your CircleCI just like you would any other job, but it will look a lot terser! Take using the `deploy-review` job in `next-static`:
 
 ```yaml
-- tool-kit/heroku-provision:
+- tool-kit/deploy-review:
     requires:
       - tool-kit/setup
     filters:

@@ -19,11 +19,11 @@ plugins:
 
 ### Building with Webpack locally
 
-For local development, by default the `WebpackDevelopment` task runs on the `build:local` command, and `WebpackWatch` runs on `run:local`. One plugin that provides these commands is [`npm`](../npm), allowing you to run Webpack with `npm run build` and `npm start`. `WebpackWatch` runs Webpack in the background, allowing it to run alongside your other tasks that run on `run:local`, which lets you run e.g. your app with the [`node`](../node) plugin in parallel with Webpack.
+For local development, by default the `Webpack` task runs in `development` mode on the `build:local` command, and runs in `watch` mode on `run:local`. One plugin that provides these commands is [`npm`](../npm), allowing you to run Webpack with `npm run build` and `npm start`.
 
 ### Building with Webpack on CI and remote apps
 
-The `WebpackProduction` task runs on the `build:ci` and `build:remote` commands by default. `build:ci` is for compiling an app's source in CI jobs, and is provided by plugins like [`circleci`](../circleci/). `build:remote` compiles an app for running on a production or testing server, and can be provided by plugins like [`heroku`](../heroku/).
+The `Webpack` task runs in `production` mode on the `build:ci` command by default. `build:ci` is for compiling an app's source in CI jobs, and is provided by plugins like [`circleci`](../circleci/).
 
 ### Running on another command
 You can also configure Webpack to run on any other command; for example, if you want to run it with `npm run test` via the `npm` plugin, you can manually configure Webpack to run on `npm`'s `test:local` command:

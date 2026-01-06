@@ -2,7 +2,7 @@
 
 This plugin is for managing Tool Kit hooks that are run from npm scripts (such as `npm run test`).
 
-This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-heroku-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-heroku-app), and [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component) plugins so you do not need to install it separately if you are using either of those plugins.
+This plugin will be installed as a dependency of the [containerised-app-with-assets](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/containerised-app-with-assets), [containerised-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/containerised-app), and [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component) plugins so you do not need to install it separately if you are using either of those plugins.
 
 ## Installation
 

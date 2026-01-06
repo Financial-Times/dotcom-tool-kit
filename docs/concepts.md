@@ -6,7 +6,7 @@
 
 Tool Kit is a fully modular set of developer tooling. Not every project requires the same tooling, so to make sure different projects only have to install and configure what they need, Tool Kit is made up of several **plugins** that you can install separately to provide different groups of functionality, like [the `npm` plugin](plugins/npm), which lets Tool Kit manage things like `package.json` scripts.
 
-This means a project that uses Jest for its tests can install [the `jest` plugin](../plugins/jest), and a project using Mocha can install [the `mocha` plugin](plugins/mocha), and be able to run them consistently anywhere they're needed, e.g. the `npm run test` script, without having to configure that manually. Plugins can depend on other plugins, so we also publish plugins like [`frontend-app`](../plugins/frontend-app/) that bundle up most of the tooling you'll need for a particular use case  into a single package.
+This means a project that uses Jest for its tests can install [the `jest` plugin](../plugins/jest), and a project using Mocha can install [the `mocha` plugin](plugins/mocha), and be able to run them consistently anywhere they're needed, e.g. the `npm run test` script, without having to configure that manually. Plugins can depend on other plugins, so we also publish plugins like [`containerised-app`](../plugins/containerised-app/) that bundle up most of the tooling you'll need for a particular use case  into a single package.
 
 And if there's something you want to use in your repo that's not yet supported by Tool Kit, you can [extend it](./extending-tool-kit.md) by writing a custom plugin that works consistently with any officially-supported tooling.
 
@@ -22,7 +22,7 @@ Plugins can set a default command for their tasks to run on; for example, the `J
 
 ## Tasks
 
-A **task** is a lightweight abstraction for running some tooling from outside of Tool Kit. Although most tasks simply make a single call to a third-party library or CLI tool, some are more complex, orchestrating the logic for things like our deployment process for Heroku.
+A **task** is a lightweight abstraction for running some tooling from outside of Tool Kit. Although most tasks simply make a single call to a third-party library or CLI tool, some are more complex, orchestrating the logic for things like our deployment process for AWS.
 
 Tasks are written in TypeScript, so we can make use of modern Javascript-based tooling and libraries, easily provide structured logging and actionable error messages, and debug and maintain them more easily than things like Bash scripts.
 
