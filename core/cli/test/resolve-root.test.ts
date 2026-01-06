@@ -44,8 +44,8 @@ jest.mock('../src/plugin/require-resolve', () => {
 describe('plugin loading', () => {
   describe('resolveRoot', () => {
     it('should resolve a plugin specified as a node_module', () => {
-      expect(resolveRoot('@dotcom-tool-kit/heroku', process.cwd())).toEqual(
-        path.resolve(__dirname, '../../../plugins/heroku')
+      expect(resolveRoot('@dotcom-tool-kit/hako', process.cwd())).toEqual(
+        path.resolve(__dirname, '../../../plugins/hako')
       )
     })
 

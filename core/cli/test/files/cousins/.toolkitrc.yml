@@ -1,11 +1,7 @@
 plugins:
-  - '@dotcom-tool-kit/frontend-app'
+  - '@dotcom-tool-kit/containerised-app-with-assets'
   - '@dotcom-tool-kit/babel'
   - '@dotcom-tool-kit/npm'
   - '@dotcom-tool-kit/circleci-deploy'
-
-options:
-
-commands:
 
 version: 2

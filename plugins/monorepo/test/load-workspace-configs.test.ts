@@ -31,20 +31,13 @@ describe('LoadWorkspaceConfigs', () => {
         cwd: path.relative(process.cwd(), path.resolve(__dirname, './files/invalid'))
       })
     ).rejects.toMatchInlineSnapshot(`
-      AggregateError "2 errors loading .toolkitrc.yml in workspace packages" {
+      AggregateError "1 error loading .toolkitrc.yml in workspace packages" {
         "errors": [
           "@monorepo-plugin-tests/b → ToolKitError" "There are options in your .toolkitrc.yml that aren't what Tool Kit expected." {
             "details": "Please update the options so that they are the expected types.
        !  2 issues in @dotcom-tool-kit/serverless:
       - Required at "awsAccountId"
       - Required at "systemCode"
-
-      You can refer to the README for the plugin for examples and descriptions of the options used.",
-          },
-          "@monorepo-plugin-tests/c → ToolKitError" "There are options in your .toolkitrc.yml that aren't what Tool Kit expected." {
-            "details": "Please update the options so that they are the expected types.
-       !  1 issue in @dotcom-tool-kit/heroku:
-      - Required at "pipeline"
 
       You can refer to the README for the plugin for examples and descriptions of the options used.",
           },
