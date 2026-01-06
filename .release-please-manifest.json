@@ -1,6 +1,5 @@
 {
   "core/cli": "5.0.0",
-  "core/create": "4.2.12",
   "lib/error": "5.0.0",
   "lib/logger": "5.0.0",
   "plugins/package-json-hook": "6.0.0",
