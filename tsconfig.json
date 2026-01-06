@@ -11,9 +11,6 @@
       "path": "lib/doppler"
     },
     {
-      "path": "lib/wait-for-ok"
-    },
-    {
       "path": "plugins/webpack"
     },
     {
@@ -24,9 +21,6 @@
     },
     {
       "path": "plugins/n-test"
-    },
-    {
-      "path": "plugins/heroku"
     },
     {
       "path": "plugins/upload-assets-to-s3"
@@ -45,9 +39,6 @@
     },
     {
       "path": "plugins/circleci"
-    },
-    {
-      "path": "plugins/heroku"
     },
     {
       "path": "plugins/npm"

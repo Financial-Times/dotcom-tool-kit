@@ -2,9 +2,6 @@
   "extends": "../../tsconfig.settings.json",
   "references": [
     {
-      "path": "../../lib/wait-for-ok"
-    },
-    {
       "path": "../../lib/error"
     },
     {
@@ -33,7 +30,5 @@
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
