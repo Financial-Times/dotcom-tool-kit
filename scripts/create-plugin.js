@@ -4,17 +4,21 @@
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
+const semver = require('semver')
+const cliPackage = require('../core/cli/package.json')
 
 const name = process.argv[2]
 const camelCaseName = name.replace(/(^|-)./g, (char) => char.slice(-1).toUpperCase())
 const directory = path.join('plugins', name)
 
 console.log(`📂 creating folder ${directory}`)
-fs.mkdirSync(directory)
+fs.mkdirSync(directory, { recursive: true })
 process.chdir(directory)
 
-console.log('📦 initialising package')
-execSync('npm init -y --scope @dotcom-tool-kit')
+if (!fs.existsSync('package.json')) {
+  console.log('📦 initialising package')
+  execSync('npm init -y --scope @dotcom-tool-kit')
+}
 
 console.log('🔣 adding metadata to package.json')
 
@@ -41,7 +45,7 @@ pkg.volta = {
   extends: '../../package.json'
 }
 pkg.peerDependencies = {
-  'dotcom-tool-kit': '4.x'
+  'dotcom-tool-kit': semver.parse(cliPackage).major + '.x'
 }
 
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))
