@@ -1,22 +1,11 @@
 plugins:
-  - '@dotcom-tool-kit/backend-heroku-app'
-  - '@dotcom-tool-kit/heroku'
+  - '@dotcom-tool-kit/containerised-app'
+  - '@dotcom-tool-kit/hako'
 
 options:
-  plugins:
-    '@dotcom-tool-kit/heroku':
-      pipeline: tool-kit-test
-
-    '@dotcom-tool-kit/doppler':
-      project: tool-kit-test
   tasks:
-    HerokuProduction:
-      scaling:
-        tool-kit-test:
-          web:
-            size: standard-1x
-            quantity: 1
-
-commands:
+    HakoDeploy:
+      environments:
+        - ft-com-prod-eu
 
 version: 2

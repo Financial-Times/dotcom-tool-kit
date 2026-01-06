@@ -1,22 +1,6 @@
 plugins:
   - '@dotcom-tool-kit/webpack'
   - '@dotcom-tool-kit/babel'
-  - '@dotcom-tool-kit/circleci' # for build:ci hook
-  - '@dotcom-tool-kit/heroku' # for build:remote hook and build:local via npm plugin
-
-options:
-  plugins:
-    '@dotcom-tool-kit/heroku':
-      pipeline: tool-kit-test
-    '@dotcom-tool-kit/doppler':
-      project: tool-kit-test
-  tasks:
-    HerokuProduction:
-      scaling:
-        tool-kit-test:
-          web:
-            size: standard-1x
-            quantity: 1
 
 commands:
   build:local:

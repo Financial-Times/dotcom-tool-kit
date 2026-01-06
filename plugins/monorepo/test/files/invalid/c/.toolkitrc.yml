@@ -1,4 +1,4 @@
 plugins:
-  - @dotcom-tool-kit/heroku
+  - @dotcom-tool-kit/hako
 
-# deliberately missing plugin options to fail validation
+# deliberately missing task options to fail validation
