@@ -2,7 +2,7 @@
 
 This plugin manages Tool Kit commands that are run from CircleCI workflows, via a Tool Kit [`Hook`](#hooks) that automatically manages `.circleci/config.yml`. It also exposes state from the CircleCI environment for other plugins to consume generically.
 
-This plugin will be installed as a dependency of the [frontend-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/frontend-app), [backend-heroku-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/backend-heroku-app), [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component), [circleci-deploy](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-deploy), and [circleci-npm](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-npm) plugins so you do not need to install it separately if you are using any of those plugins.
+This plugin will be installed as a dependency of the [containerised-app-with-assets](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/containerised-app-with-assets), [containerised-app](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/containerised-app), [component](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/component), [circleci-deploy](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-deploy), and [circleci-npm](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/circleci-npm) plugins so you do not need to install it separately if you are using any of those plugins.
 
 ## Installation
 

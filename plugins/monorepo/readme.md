@@ -31,7 +31,7 @@ In almost all cases that will work better; for example, running Jest separately 
 
 Where tooling isn't monorepo-aware itself, or you have tooling that you only want to run in a subset of your workspace packages, the `@dotcom-tool-kit/monorepo` plugin allows the root-level `.toolkitrc.yml` to run commands from workspace-package-level `.toolkitrc.yml` files.
 
-With this plugin, each workspace package is an independent Tool Kit root, which installs separate plugins for its own use cases. For example, a monorepo with an `api` package which is deployed to Heroku would install the `@dotcom-tool-kit/heroku` plugin as a dependency of the package, not at the root level, and would then include that plugin in the package `.toolkitrc.yml`.
+With this plugin, each workspace package is an independent Tool Kit root, which installs separate plugins for its own use cases. For example, a monorepo with an `api` package which is deployed to AWS would install the `@dotcom-tool-kit/containerised-app` plugin as a dependency of the package, not at the root level, and would then include that plugin in the package `.toolkitrc.yml`.
 
 The root-level `.toolkitrc.yml` can then use the [`WorkspaceCommand`](#workspacecommand) task to forward commands such as `deploy:production` to just the workspace packages that have that command defined (in this case, the `api` package).
 
