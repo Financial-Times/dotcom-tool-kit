@@ -10,9 +10,6 @@ Tool Kit only handles common tooling use cases that are required for most apps t
 
 Your repo does not need to use Tool Kit for all of its tooling, and tooling not supported by Tool Kit can be configured directly in your repo.
 
-> [!TIP]
-> Migrating from an old version of Tool Kit to v4? Check the [migration guide](./docs/migration-guides/v4.md)
-
 ## Installing Tool Kit
 
 Firstly, you should make sure you're running a version of Node that Tool Kit supports. We're currently testing every commit on **Node 20** and **Node 22**, and can't guarantee that other Node versions will run Tool Kit as expected.
