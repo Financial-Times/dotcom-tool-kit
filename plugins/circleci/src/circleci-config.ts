@@ -40,6 +40,7 @@ type JobConfig = {
   executor?: string
   parameters?: unknown
   steps: Step[]
+  environment?: Record<string, string>
 }
 
 type Step = string | { [command: string]: Record<string, unknown> }
@@ -272,13 +273,44 @@ const workflowOptionsOverlap = (installation?: CircleCiWorkflow[], other?: Circl
   })
 }
 
+const environmentsOverlap = (installation?: Record<string, string>, other?: Record<string, string>) => {
+  if (!installation || !other) {
+    return false
+  }
+
+  return Object.entries(installation).some(([key, value]) => {
+    if (key in other) {
+      return value !== other[key]
+    }
+
+    return false
+  })
+}
+
+const jobOptionsOverlap = (installation?: CircleCiJob[], other?: CircleCiJob[]): boolean => {
+  if (!installation || !other) {
+    return false
+  }
+
+  return installation.some((installationJob) => {
+    const otherJob = other.find(({ name }) => installationJob.name === name)
+    return (
+      otherJob &&
+      (areDefinedAndUnequal(installationJob.command, otherJob.command) ||
+        areDefinedAndUnequal(installationJob.splitIntoMatrix, otherJob.splitIntoMatrix) ||
+        customOptionsOverlap(installationJob.custom, otherJob.custom) ||
+        customOptionsOverlap(installationJob.workspace, otherJob.workspace) ||
+        customOptionsOverlap(installationJob.steps, otherJob.steps) ||
+        environmentsOverlap(installationJob.environment, otherJob.environment))
+    )
+  })
+}
+
 const installationOptionsOverlap = (installation: CircleCiOptions, other: CircleCiOptions): boolean =>
   customOptionsOverlap(installation.custom, other.custom) ||
   workflowOptionsOverlap(installation.workflows, other.workflows) ||
-  rootOptionKeys.some(
-    (rootOption) =>
-      rootOption !== 'workflows' && rootOptionOverlaps(installation[rootOption], other[rootOption])
-  )
+  jobOptionsOverlap(installation.jobs, other.jobs) ||
+  rootOptionOverlaps(installation.executors, other.executors)
 
 // classify installation as either mergeable or unmergeable, and mark any other
 // installations that overlap with it as now unmergeable
@@ -516,6 +548,7 @@ const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => ({
     ...(job.steps?.post ?? []),
     ...(job.workspace?.persist ?? true ? [persistWorkspaceStep] : [])
   ],
+  environment: job.environment,
   ...job.custom
 })
 

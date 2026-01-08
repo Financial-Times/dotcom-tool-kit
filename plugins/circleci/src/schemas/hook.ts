@@ -31,6 +31,7 @@ export const CircleCiJob = z
       })
       .optional(),
     splitIntoMatrix: z.boolean().optional(),
+    environment: z.record(z.string()).optional(),
     custom: CircleCiCustom.optional()
   })
   .partial()

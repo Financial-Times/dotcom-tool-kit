@@ -40,6 +40,27 @@ const anotherTestJob: CircleCiJob = {
   command: 'test:ci'
 }
 
+const testEnvironmentJob: CircleCiJob = {
+  ...testJob,
+  environment: {
+    ENV_VAR: 'value'
+  }
+}
+
+const anotherTestEnvironmentJob: CircleCiJob = {
+  ...testJob,
+  environment: {
+    ENV_VAR: 'another value'
+  }
+}
+
+const nonconflictingTestEnvironmentJob: CircleCiJob = {
+  ...testJob,
+  environment: {
+    ANOTHER_ENV_VAR: 'another value'
+  }
+}
+
 const anotherTestWorkflowJob: CircleCiWorkflowJob = {
   name: 'another-test-job',
   requires: ['this-job'],
@@ -59,6 +80,10 @@ const configWithPrefixedWorkflowJob: CircleCiOptions = {
 const configWithJob: CircleCiOptions = {
   jobs: [testJob],
   disableBaseConfig: true
+}
+
+const jobWithEnvironment: CircleCiOptions = {
+  jobs: [{ name: 'environment-job' }]
 }
 
 describe('CircleCI config hook', () => {
@@ -164,6 +189,7 @@ describe('CircleCI config hook', () => {
         {
           "jobs": {
             "test-job": {
+              "environment": undefined,
               "executor": "node",
               "steps": [
                 "tool-kit/attach-workspace",
@@ -235,6 +261,7 @@ describe('CircleCI config hook', () => {
         {
           "jobs": {
             "test-job": {
+              "environment": undefined,
               "executor": "node",
               "steps": [
                 "tool-kit/attach-workspace",
@@ -613,6 +640,77 @@ describe('CircleCI config hook', () => {
               })
             ])
           })
+        }
+      ])
+    })
+
+    it('should merge sibling jobs setting non-overlapping environments', () => {
+      const childInstallations: HookInstallation<CircleCiOptions>[] = [
+        {
+          plugin: { id: 'a', root: 'plugins/a' },
+          forHook: 'CircleCi',
+          hookConstructor: CircleCi,
+          options: {
+            jobs: [testEnvironmentJob]
+          }
+        },
+        {
+          plugin: { id: 'b', root: 'plugins/b' },
+          forHook: 'CircleCi',
+          hookConstructor: CircleCi,
+          options: {
+            jobs: [nonconflictingTestEnvironmentJob]
+          }
+        }
+      ]
+
+      const plugin = { id: 'p', root: 'plugins/p' }
+
+      expect(CircleCi.mergeChildInstallations(plugin, childInstallations)).toEqual([
+        {
+          plugin,
+          forHook: 'CircleCi',
+          hookConstructor: CircleCi,
+          options: expect.objectContaining({
+            jobs: expect.arrayContaining([
+              expect.objectContaining({
+                name: testJob.name,
+                environment: {
+                  ENV_VAR: 'value',
+                  ANOTHER_ENV_VAR: 'another value'
+                }
+              })
+            ])
+          })
+        }
+      ])
+    })
+    it('should conflict sibling jobs setting overlapping environments', () => {
+      const childInstallations: HookInstallation<CircleCiOptions>[] = [
+        {
+          plugin: { id: 'a', root: 'plugins/a' },
+          forHook: 'CircleCi',
+          hookConstructor: CircleCi,
+          options: {
+            jobs: [testEnvironmentJob]
+          }
+        },
+        {
+          plugin: { id: 'b', root: 'plugins/b' },
+          forHook: 'CircleCi',
+          hookConstructor: CircleCi,
+          options: {
+            jobs: [anotherTestEnvironmentJob]
+          }
+        }
+      ]
+
+      const plugin = { id: 'p', root: 'plugins/p' }
+
+      expect(CircleCi.mergeChildInstallations(plugin, childInstallations)).toEqual([
+        {
+          plugin,
+          conflicting: childInstallations
         }
       ])
     })
