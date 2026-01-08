@@ -1,4 +1,4 @@
 plugins:
-  - @dotcom-tool-kit/hako
+  - '@dotcom-tool-kit/docker'
 
-# deliberately missing task options to fail validation
+# deliberately missing plugin options to fail validation
