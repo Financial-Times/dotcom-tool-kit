@@ -138,7 +138,20 @@ const packagesWithNextVersion = packagesWithVersions.map(
   })
 )
 
-for (const { name, path, json, pending, nextPrerelease, latest, prerelease } of packagesWithNextVersion) {
+const dependentsWithIncompatibleRanges = (
+  dep: PackageWithNextVersion,
+  pkgs: PackageWithNextVersion[],
+  depType: 'dependencies' | 'devDependencies' | 'peerDependencies'
+) =>
+  pkgs.filter((pkg) => {
+    if (!pkg.json[depType]) return false
+    const currentRange = pkg.json[depType][dep.name]
+
+    return !semver.satisfies(dep.nextPrerelease, currentRange)
+  })
+
+for (const pkg of packagesWithNextVersion) {
+  const { name, path, json, pending, nextPrerelease, latest, prerelease } = pkg
   console.log(
     s.info(
       `${s.plugin(name)}: ${s.code('release-please')} will release ${s.option(pending)} ${s.dim(
@@ -150,9 +163,9 @@ for (const { name, path, json, pending, nextPrerelease, latest, prerelease } of 
   console.log(`bumping ${s.filepath(path)} version to ${s.option(nextPrerelease)}`)
   json.version = nextPrerelease
 
-  const dependents = packagesWithNextVersion.filter((pkg) => (pkg.json.dependencies ?? {})[name])
-  const devDependents = packagesWithNextVersion.filter((pkg) => (pkg.json.devDependencies ?? {})[name])
-  const peerDependents = packagesWithNextVersion.filter((pkg) => (pkg.json.peerDependencies ?? {})[name])
+  const dependents = dependentsWithIncompatibleRanges(pkg, packagesWithNextVersion, 'dependencies')
+  const devDependents = dependentsWithIncompatibleRanges(pkg, packagesWithNextVersion, 'devDependencies')
+  const peerDependents = dependentsWithIncompatibleRanges(pkg, packagesWithNextVersion, 'peerDependencies')
 
   if (dependents.length) {
     console.log(`bumping dependencies in ${dependents.map((d) => s.plugin(d.name)).join(', ')}`)
