@@ -66,6 +66,13 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v2.0.0...base-v2.0.1) (2026-01-09)
+
+
+### Bug Fixes
+
+* it's not a conflict if there's only one child installation lol ([afa7863](https://github.com/Financial-Times/dotcom-tool-kit/commit/afa7863554744a65887507e9fea52b203fbb8cbb))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.3.1...base-v2.0.0) (2025-10-28)
 
 
