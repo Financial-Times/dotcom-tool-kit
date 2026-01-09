@@ -51,7 +51,9 @@ async function listenForTelemetry(mockServer: Server, metricCount: number, respo
 
 describe('attribute handling', () => {
   const metricsMock = jest.fn()
-  const mockProcessor = { child: { connected: true, send: metricsMock } } as unknown as TelemetryProcess
+  const mockProcessor = {
+    recordEvent: metricsMock
+  } as unknown as TelemetryProcess
   beforeEach(() => metricsMock.mockClear())
 
   test('event attribute included', () => {
@@ -122,12 +124,50 @@ describe('communication with child', () => {
   })
 })
 
+describe('conditionally enabled', () => {
+  const metricsMock = jest.fn()
+  jest.doMock('node:child_process', () => ({
+    fork: jest.fn(() => ({
+      connected: true,
+      send: metricsMock,
+      unref: jest.fn()
+    }))
+  }))
+  /* eslint-disable-next-line @typescript-eslint/no-var-requires --
+   * use a require here to include the mocked module
+   **/
+  const { TelemetryProcess }: typeof import('../src') = require('../lib')
+
+  beforeEach(() => metricsMock.mockClear())
+
+  test('no metrics are sent by default', () => {
+    const telemetryProcess = new TelemetryProcess(logger)
+    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    expect(metricsMock).not.toHaveBeenCalled()
+  })
+
+  test('metrics are sent when enabled', () => {
+    const telemetryProcess = new TelemetryProcess(logger, true)
+    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    expect(metricsMock).toHaveBeenCalled()
+  })
+
+  test('recorded metrics are back-sent once telemetry is enabled', () => {
+    const telemetryProcess = new TelemetryProcess(logger, false)
+    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    telemetryProcess.enable()
+    expect(metricsMock).toHaveBeenCalledTimes(3)
+  })
+})
+
 describe('metrics sent', () => {
   let mockServer: Server
   let telemetryProcess: TelemetryProcess
   beforeEach(() => {
     mockServer = createAndRegisterMockServer()
-    telemetryProcess = new TelemetryProcess(logger)
+    telemetryProcess = new TelemetryProcess(logger, true)
   })
   afterEach(() => {
     mockServer.close()

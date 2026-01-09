@@ -13,9 +13,42 @@ import type { TelemetryEvent, TelemetryAttributes, Namespace, NamespaceSchemas }
  * typically created with this class's `.root()` method.
  */
 export class TelemetryProcess {
-  child: ChildProcess
+  /** Will be set when `this.startProcess()` is called. */
+  private child: ChildProcess | undefined
+  /** Stores recorded metrics until the process has been enabled so that we can
+   * retroactively log those metrics once we know telemetry has been allowed. */
+  eventBuffer: TelemetryEvent[] = []
 
-  constructor(private logger: Logger) {
+  /**
+   * @param logger The logger to send errors from the child process to
+   * @param enabled Whether to immediately start sending metrics to a server
+   */
+  constructor(private logger: Logger, private enabled = false) {
+    if (enabled) {
+      this.startProcess()
+    }
+  }
+
+  /**
+   * Start sending metrics to a server. This isn't enabled by default to allow
+   * the process to be set up before it's been confirmed that telemetry is
+   * permissible.
+   */
+  enable() {
+    if (!this.enabled) {
+      this.startProcess()
+
+      this.enabled = true
+
+      // retroactively send all messages recorded up to this point
+      for (const event of this.eventBuffer) {
+        this.recordEvent(event)
+      }
+      this.eventBuffer = []
+    }
+  }
+
+  private startProcess() {
     // by default, we disable native fetch in the process so that all the code
     // we call out to works as we expect but we know it's safe to use fetch()
     // here
@@ -39,7 +72,7 @@ export class TelemetryProcess {
     })
     // print all errors (or anything else that's logged to stderr) as winston
     // warnings
-    this.child.stderr?.pipe(createWritableLogger(logger, 'telemetry', 'warn'))
+    this.child.stderr?.pipe(createWritableLogger(this.logger, 'telemetry', 'warn'))
     // we want to un-reference the child process so that this process can
     // terminate before it. we don't want to do that in CI though so that we
     // can ensure all the events have been recorded before ending the CI job.
@@ -55,6 +88,19 @@ export class TelemetryProcess {
     return new TelemetryRecorder(this, rootDetails)
   }
 
+  private recordEvent(event: TelemetryEvent) {
+    if (this.enabled) {
+      /* eslint-disable @typescript-eslint/no-non-null-assertion --
+       * this.child will always be defined if this.enable has been called */
+      if (this.child!.connected) {
+        this.child!.send(event)
+      }
+      /* eslint-enable @typescript-eslint/no-non-null-assertion */
+    } else {
+      this.eventBuffer.push(event)
+    }
+  }
+
   /**
    * Disconnect from the child process. All future recorded events will be
    * discarded. Calling this method is required to guarantee that the parent
@@ -63,7 +109,7 @@ export class TelemetryProcess {
    * the remaining recorded events.
    */
   disconnect() {
-    if (this.child.connected) {
+    if (this.child?.connected) {
       if (!process.env.CI) {
         this.child.stderr?.destroy()
       }
@@ -75,6 +121,17 @@ export class TelemetryProcess {
 /** Class to asynchronously record events via a `TelemetryProcess`. */
 export class TelemetryRecorder {
   constructor(private process: TelemetryProcess, public attributes: TelemetryAttributes) {}
+
+  /**
+   * Start sending metrics to a server managed by the `process`. This isn't
+   * enabled by default to allow the recorder's process to be set up before it's
+   * been confirmed that telemetry is permissible. Note that this forwards the
+   * `enable` call to the `process` and therefore will enable metrics for all
+   * of its child `TelemetryRecorder`s.
+   */
+  enable(): void {
+    this.process.enable()
+  }
 
   /**
    * Create a copy of this `TelemetryRecorder` but with new default attributes
@@ -91,15 +148,12 @@ export class TelemetryRecorder {
    * structured properly for both correctness and security purposes.
    */
   recordEvent<N extends Namespace>(namespace: N, details: NamespaceSchemas[N]) {
-    const telemetryChild = this.process.child
-    if (telemetryChild.connected) {
-      const event: TelemetryEvent = {
-        namespace: `dotcom-tool-kit.${namespace}`,
-        eventTimestamp: Date.now(),
-        data: { ...this.attributes, ...details }
-      }
-      telemetryChild.send(event)
+    const event: TelemetryEvent = {
+      namespace: `dotcom-tool-kit.${namespace}`,
+      eventTimestamp: Date.now(),
+      data: { ...this.attributes, ...details }
     }
+    this.process['recordEvent'](event)
   }
 }
 
@@ -117,6 +171,8 @@ export class MockTelemetryClient extends TelemetryRecorder {
     super(undefined as any, {})
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function -- mocked function
+  override enable() {}
   override scoped(_details: TelemetryAttributes): TelemetryRecorder {
     return this
   }
