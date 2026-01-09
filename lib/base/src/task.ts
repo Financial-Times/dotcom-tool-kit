@@ -3,6 +3,7 @@ import { Base } from './base'
 import { taskSymbol, typeSymbol } from './symbols'
 import type { Logger } from 'winston'
 import type { ValidConfig } from '@dotcom-tool-kit/config'
+import { MockTelemetryClient, type TelemetryRecorder } from '@dotcom-tool-kit/telemetry'
 import { Plugin } from '@dotcom-tool-kit/plugin'
 import type { Default } from './type-utils'
 import type { ReadonlyDeep } from 'type-fest'
@@ -29,16 +30,20 @@ export abstract class Task<
   }
 
   logger: Logger
+  metrics: TelemetryRecorder
 
   constructor(
     logger: Logger,
     public id: string,
     public pluginOptions: z.output<Default<Options['plugin'], z.ZodObject<Record<string, never>>>>,
     public options: z.output<Default<Options['task'], z.ZodObject<Record<string, never>>>>,
-    public plugin: Plugin
+    public plugin: Plugin,
+    // TODO:IM:20251215 make this a required parameter in the next major version
+    metrics: TelemetryRecorder = new MockTelemetryClient()
   ) {
     super()
     this.logger = logger.child({ task: id })
+    this.metrics = metrics.scoped({ task: id })
   }
 
   abstract run(runContext: TaskRunContext): Promise<void>
@@ -54,7 +59,8 @@ export type TaskConstructor = {
     id: string,
     pluginOptions: Partial<z.infer<O['plugin']>>,
     options: Partial<z.infer<O['task']>>,
-    plugin: Plugin
+    plugin: Plugin,
+    metrics?: TelemetryRecorder
   ): Task<O>
 }
 
