@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/monorepo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -31,7 +31,7 @@
     "dotcom-tool-kit": "5.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^2.0.0",
+    "@dotcom-tool-kit/base": "^2.0.1",
     "@dotcom-tool-kit/logger": "^5.0.0",
     "@npmcli/map-workspaces": "^4.0.2",
     "minimatch": "^10.0.3",
