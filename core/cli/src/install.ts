@@ -7,6 +7,7 @@ import { loadConfig } from './config'
 import { hasConfigChanged, updateHashes } from './config/hash'
 import type { ValidConfig } from '@dotcom-tool-kit/config'
 import { Hook, HookClass } from '@dotcom-tool-kit/base'
+import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
 import { Validated, invalid, reduceValidated, valid } from '@dotcom-tool-kit/validated'
 import { HookModule, reducePluginHookInstallations } from './plugin/reduce-installations'
 import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/conflict'
@@ -14,6 +15,7 @@ import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
 import { runInit } from './init'
 import { guessSystemCode } from './systemCode'
+import { enableTelemetry } from './telemetry'
 import { TelemetryRecorder } from '@dotcom-tool-kit/telemetry'
 
 // implementation of the Array#every method that supports asynchronous predicates
@@ -125,6 +127,7 @@ export async function checkInstall(
 
 export default async function installHooks(logger: Logger, metrics: TelemetryRecorder): Promise<ValidConfig> {
   const config = await loadConfig(logger, { root: process.cwd() })
+  enableTelemetry(metrics, config.pluginOptions['app root'].options as RootOptions)
 
   await runInit(logger, config)
 

@@ -11,6 +11,7 @@ import { shouldDisableNativeFetch } from './fetch'
 import { runInit } from './init'
 import { formatInvalidOption } from './messages'
 import { guessSystemCode } from './systemCode'
+import { enableTelemetry } from './telemetry'
 import { type TaskOptions, TaskSchemas } from '@dotcom-tool-kit/schemas'
 import { OptionsForTask } from '@dotcom-tool-kit/plugin'
 import type { RootOptions } from '@dotcom-tool-kit/plugin/src/root-schema'
@@ -168,6 +169,7 @@ export async function runCommands(
   files?: string[]
 ): Promise<void> {
   const config = await loadConfig(logger, { root: process.cwd() })
+  enableTelemetry(metrics, config.pluginOptions['app root'].options as RootOptions)
 
   const systemCode = await guessSystemCode(config)
   let scoped = metrics
