@@ -751,6 +751,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
           },
           "options": {
             "allowNativeFetch": false,
+            "enableTelemetry": false,
           },
           "plugin": {
             "children": [
@@ -1543,6 +1544,7 @@ exports[`LoadWorkspaceConfigs should load multiple tool kit configs from workspa
           },
           "options": {
             "allowNativeFetch": false,
+            "enableTelemetry": false,
           },
           "plugin": {
             "children": [

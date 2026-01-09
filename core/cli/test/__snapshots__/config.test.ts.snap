@@ -1702,6 +1702,7 @@ exports[`loadConfig should load a config from a root 1`] = `
       },
       "options": {
         "allowNativeFetch": false,
+        "enableTelemetry": false,
       },
       "plugin": {
         "children": [
@@ -4885,6 +4886,7 @@ exports[`loadConfig should load a config from a root and validate it 1`] = `
       },
       "options": {
         "allowNativeFetch": false,
+        "enableTelemetry": false,
       },
       "plugin": {
         "children": [
@@ -16502,6 +16504,7 @@ and pipeline.event.action != "closed"))
       },
       "options": {
         "allowNativeFetch": false,
+        "enableTelemetry": false,
       },
       "plugin": {
         "children": [
