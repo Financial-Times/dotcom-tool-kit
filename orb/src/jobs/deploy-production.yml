@@ -11,6 +11,14 @@ parameters:
       The system-code of the system being changed. Defaults to the repository
       name.
     type: string
+  slack-channels:
+    default: ''
+    type: string
+    description: >-
+      Comma-separated list of Slack channel names for Change API notifications
+      (e.g. 'apps-announce' or 'apps-announce, ft-tech-incidents').
+      Production changes automatically notify #ft-changes. This parameter is for
+      additional channels. Leave empty for the default #ft-changes channel only.
   cloudsmith-org:
     default: 'financial-times'
     type: string
@@ -47,6 +55,16 @@ steps:
   - run:
       name: Deploy to production
       command: npx dotcom-tool-kit deploy:production
-  - change-api/change-log:
-      environment: production
-      system-code: << parameters.system-code >>
+  - when:
+      condition: << parameters.slack-channels >>
+      steps:
+        - change-api/change-log:
+            environment: production
+            system-code: << parameters.system-code >>
+            slack-channels: << parameters.slack-channels >>
+  - unless:
+      condition: << parameters.slack-channels >>
+      steps:
+        - change-api/change-log:
+            environment: production
+            system-code: << parameters.system-code >>
