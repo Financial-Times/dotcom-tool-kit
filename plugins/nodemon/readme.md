@@ -2,6 +2,9 @@
 
 Tool Kit plugin to run an application with [Nodemon](https://nodemon.io).
 
+> [!WARNING]
+> This plugin is deprecated and not recommended for new projects. Use the [`Node`](../node) task with `watch: true` instead.
+
 ## Installation & usage
 
 With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-and-using-tool-kit), install this plugin as a dev dependency:
