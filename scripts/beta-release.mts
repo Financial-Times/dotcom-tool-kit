@@ -187,7 +187,7 @@ for (const pkg of packagesWithNextVersion) {
     console.log(`bumping peerDependencies in ${peerDependents.map((d) => s.plugin(d.name)).join(', ')}`)
     for (const dep of peerDependents) {
       // if we are here, then dep.json.peerDependencies must already exist
-      dep.json.peerDependencies![name] = '^' + nextPrerelease
+      dep.json.peerDependencies![name] = dep.json.peerDependencies![name] + ' || ^' + nextPrerelease
     }
   }
   console.log()
