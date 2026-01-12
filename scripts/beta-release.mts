@@ -144,7 +144,7 @@ const dependentsWithIncompatibleRanges = (
   depType: 'dependencies' | 'devDependencies' | 'peerDependencies'
 ) =>
   pkgs.filter((pkg) => {
-    if (!pkg.json[depType]) return false
+    if (!pkg.json[depType] || !pkg.json[depType][dep.name]) return false
     const currentRange = pkg.json[depType][dep.name]
 
     return !semver.satisfies(dep.nextPrerelease, currentRange)
