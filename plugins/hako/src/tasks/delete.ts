@@ -36,19 +36,18 @@ export default class HakoDelete extends Task<{ task: typeof HakoDeleteSchema }> 
   async run() {
     const awsCredentials = readState('ci')?.awsCredentials ?? {}
 
-    const { subdomain } = getAppDetails({
+    const { subdomain, ephemeralId } = getAppDetails({
       name: this.options.appName,
       ephemeralId: this.options.ephemeralId,
       asReviewApp: this.options.asReviewApp
     })
+    const appName = ephemeralId ? `${subdomain}-${ephemeralId}` : subdomain
 
     for (const environment of this.options.environments) {
       const awsRegion = hakoRegions[environment.region]
 
       this.logger.info(
-        `Deleting ${styles.code(subdomain)} from Hako environment ${environment.name} in ${
-          environment.region
-        }`
+        `Deleting ${styles.code(appName)} from Hako environment ${environment.name} in ${environment.region}`
       )
 
       const child = spawn('docker', [
@@ -68,7 +67,7 @@ export default class HakoDelete extends Task<{ task: typeof HakoDeleteSchema }> 
         'app',
         'delete',
         '--app',
-        subdomain,
+        appName,
         '--env',
         environment.name
       ])
