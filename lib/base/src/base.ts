@@ -45,7 +45,7 @@ export abstract class Base {
     // this lets e.g. a CLI that includes types@2.2.0 load any plugin
     // that depends on any higher minor version of types.
     const range = `^${this.version}`
-    if (semver.satisfies(objectToCheck.version, range)) {
+    if (semver.satisfies(objectToCheck.version, range, { includePrerelease: true })) {
       return valid(objectToCheck as T)
     } else {
       return invalid([
