@@ -14,12 +14,15 @@ import { promisify } from 'util'
 import { simpleGit } from 'simple-git'
 import { styles as s } from '@dotcom-tool-kit/logger'
 import semver from 'semver'
+import mapWorkspaces from '@npmcli/map-workspaces'
 import path from 'path'
 import fs from 'fs/promises'
 
 const exec = promisify(_exec)
 
 const git = simpleGit()
+
+const rootPkg = await readPackageJson(path.join(process.cwd(), 'package.json'))
 
 type Package = {
   path: string
@@ -36,9 +39,9 @@ type PackageWithJson = Package & {
 }
 
 type PackageWithCurrentVersions = PackageWithJson & {
-  latest: string
+  latest: string | undefined
   pending: string
-  prerelease: string
+  prerelease: string | undefined
 }
 
 type PackageWithNextVersion = PackageWithCurrentVersions & {
@@ -46,17 +49,29 @@ type PackageWithNextVersion = PackageWithCurrentVersions & {
 }
 
 async function getPackagesBeingReleased() {
-  const changedFiles = await git.diff(['--name-only', 'HEAD', 'HEAD~'])
+  const workspacePackageDirs = Array.from(
+    (
+      await mapWorkspaces({
+        cwd: process.cwd(),
+        pkg: rootPkg
+      })
+    ).values(),
+    (dir) => path.relative(process.cwd(), dir)
+  )
 
-  return changedFiles
-    .split('\n')
-    .filter((file) => file.endsWith('/package.json'))
-    .map((file) => ({
-      path: file,
-      name:
-        file === 'core/cli/package.json'
-          ? 'dotcom-tool-kit'
-          : '@dotcom-tool-kit/' + path.basename(path.dirname(file))
+  const changedFiles = await git.diff(['--name-only', 'HEAD', 'HEAD~'])
+  const changedPackageDirs = new Set(
+    changedFiles
+      .split('\n')
+      .filter((file) => file.endsWith('/CHANGELOG.md'))
+      .map((file) => path.dirname(file))
+  )
+
+  return workspacePackageDirs
+    .filter((dir) => changedPackageDirs.has(dir))
+    .map((dir) => ({
+      path: path.join(dir, 'package.json'),
+      name: dir === 'core/cli' ? 'dotcom-tool-kit' : '@dotcom-tool-kit/' + path.basename(dir)
     }))
 }
 
@@ -79,19 +94,23 @@ function fetchCurrentPackageVersions(packages: Package[]): Promise<PackageWithCu
 }
 
 async function getDistTags(pkg: string) {
-  const { stdout } = await exec(`npm dist-tag ls ${pkg}`, {
-    encoding: 'utf8'
-  })
+  try {
+    const { stdout } = await exec(`npm dist-tag ls ${pkg}`, {
+      encoding: 'utf8'
+    })
 
-  return Object.fromEntries(
-    stdout
-      .split('\n')
-      .filter(Boolean)
-      .map((line) => {
-        const [tag, version] = line.split(': ')
-        return [tag, version] as const
-      })
-  )
+    return Object.fromEntries(
+      stdout
+        .split('\n')
+        .filter(Boolean)
+        .map((line) => {
+          const [tag, version] = line.split(': ')
+          return [tag, version] as const
+        })
+    )
+  } catch {
+    return { latest: undefined, prerelease: undefined }
+  }
 }
 
 function getInitialPrerelease(pending: string) {
