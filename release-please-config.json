@@ -15,6 +15,7 @@
     "lib/logger": {},
     "lib/plugin": {},
     "lib/state": {},
+    "lib/telemetry": {},
     "lib/validated": {},
     "orb": {
       "package-name": "orb",
