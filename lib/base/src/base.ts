@@ -49,9 +49,9 @@ export abstract class Base {
       return valid(objectToCheck as T)
     } else {
       return invalid([
-        `object is from an outdated version of ${s.plugin(
+        `object is from version ${s.heading(objectToCheck.version)} of ${s.plugin(
           '@dotcom-tool-kit/base'
-        )}, make sure you're using at least version ${s.heading(this.version)} of the plugin`
+        )} which is incompatible with ${s.plugin('dotcom-tool-kit')}'s ${s.heading(range)}.`
       ])
     }
   }
