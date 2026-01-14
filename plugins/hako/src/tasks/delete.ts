@@ -36,12 +36,12 @@ export default class HakoDelete extends Task<{ task: typeof HakoDeleteSchema }> 
   async run() {
     const awsCredentials = readState('ci')?.awsCredentials ?? {}
 
-    const { subdomain, ephemeralId } = getAppDetails({
+    const { ephemeralId } = getAppDetails({
       name: this.options.appName,
       ephemeralId: this.options.ephemeralId,
       asReviewApp: this.options.asReviewApp
     })
-    const appName = ephemeralId ? `${subdomain}-${ephemeralId}` : subdomain
+    const appName = ephemeralId ? `${this.options.appName}-${ephemeralId}` : this.options.appName
 
     for (const environment of this.options.environments) {
       const awsRegion = hakoRegions[environment.region]
