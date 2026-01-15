@@ -6,6 +6,34 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v1.0.0...hako-v2.0.0) (2026-01-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* support multiple environments in HakoDelete
+
+### Features
+
+* **hako:** add additional review environments ([5a31325](https://github.com/Financial-Times/dotcom-tool-kit/commit/5a31325081344da8a25d8a750c26c434ab496d66))
+* support multiple environments in HakoDelete ([443e348](https://github.com/Financial-Times/dotcom-tool-kit/commit/443e348274f171f8563f30525568fd5bf1471d07))
+
+
+### Bug Fixes
+
+* **hako:** correctly delete non-review Hako apps with an ephemeral ID ([66810b3](https://github.com/Financial-Times/dotcom-tool-kit/commit/66810b3c366d83e720bfcb36d545e776280e9546))
+* **hako:** fix behaviour for deleting review apps ([2212315](https://github.com/Financial-Times/dotcom-tool-kit/commit/2212315707f281a6b977d62966cc7bff61bf85c0))
+* throw if the Hako environment has no domain ([b984865](https://github.com/Financial-Times/dotcom-tool-kit/commit/b9848654f564e401b32ce76de94711e9d209e4ff))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^2.0.0 to ^2.1.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v0.2.0...hako-v1.0.0) (2025-11-03)
 
 

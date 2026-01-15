@@ -461,6 +461,25 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v5.0.0...dotcom-tool-kit-v5.1.0) (2026-01-15)
+
+
+### Features
+
+* **core:** try to infer system code for metrics attribute ([44b89bf](https://github.com/Financial-Times/dotcom-tool-kit/commit/44b89bfc1b08f6259013e59c3b18f8e80f585210))
+* **telemetry:** add option to opt-in to telemetry ([2cccf95](https://github.com/Financial-Times/dotcom-tool-kit/commit/2cccf957604a94dcc2baf3335c4b304631c98b65))
+* **telemetry:** add package to send client side metrics ([fcdea77](https://github.com/Financial-Times/dotcom-tool-kit/commit/fcdea779f0f95e635a100fbf62a1b7e3d31a45d4))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^2.0.0 to ^2.1.0
+    * @dotcom-tool-kit/config bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/conflict bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/plugin bumped from ^2.0.0 to ^2.1.0
+
 ## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v4.10.1...dotcom-tool-kit-v5.0.0) (2025-10-28)
 
 

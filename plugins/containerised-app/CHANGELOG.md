@@ -45,6 +45,32 @@
     * @dotcom-tool-kit/hako bumped from ^0.1.8 to ^0.1.9
     * @dotcom-tool-kit/node bumped from ^4.3.1 to ^4.3.2
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v1.0.0...containerised-app-v2.0.0) (2026-01-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* release major versions of wrapper plugins
+
+### Features
+
+* **containerised-app:** configure teardown:review command to run HakoDelete ([a4d3524](https://github.com/Financial-Times/dotcom-tool-kit/commit/a4d3524695fe7f9843e1e0c7a3385bcd3ac9c26a))
+* release major versions of wrapper plugins ([c7fa1f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7fa1f4fb405f07ec40c8df2fd3aeb4486bb447b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/aws bumped from ^1.0.0 to ^1.0.1
+    * @dotcom-tool-kit/circleci-deploy bumped from ^5.0.0 to ^6.0.0
+    * @dotcom-tool-kit/cloudsmith bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/docker bumped from ^1.0.0 to ^1.0.1
+    * @dotcom-tool-kit/hako bumped from ^1.0.0 to ^2.0.0
+    * @dotcom-tool-kit/node bumped from ^5.0.0 to ^5.0.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v0.4.0...containerised-app-v1.0.0) (2025-11-03)
 
 

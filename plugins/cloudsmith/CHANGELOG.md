@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v2.0.0...cloudsmith-v2.0.1) (2026-01-15)
+
+
+### Bug Fixes
+
+* add cloudsmith config to teardown-review job ([bb769b9](https://github.com/Financial-Times/dotcom-tool-kit/commit/bb769b92f259167a4c0a7e398af5e6d685d0b1a7))
+* **cloudsmith:** authenticate with oidc before teardown-review ([1685a17](https://github.com/Financial-Times/dotcom-tool-kit/commit/1685a173ca547b9bc99ea214cb606bbf123beecc))
+* **cloudsmith:** can't put environment in a workflow job smh ([a37587a](https://github.com/Financial-Times/dotcom-tool-kit/commit/a37587ad50a05cab569015a3f4c4b7dc6bdc6bd8))
+* **cloudsmith:** set env vars directly for non-orb teardown-review job ([4335d76](https://github.com/Financial-Times/dotcom-tool-kit/commit/4335d76f455b46d5c3027df964161463fef71571))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cloudsmith-v1.1.2...cloudsmith-v2.0.0) (2025-10-28)
 
 

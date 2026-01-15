@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/hako",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,7 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^2.0.0",
+    "@dotcom-tool-kit/base": "^2.1.0",
     "@dotcom-tool-kit/error": "^5.0.0",
     "@dotcom-tool-kit/logger": "^5.0.0",
     "@dotcom-tool-kit/state": "^5.0.0",

@@ -283,6 +283,17 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
 
+## [5.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v5.0.0...nodemon-v5.0.1) (2026-01-15)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^2.0.0 to ^2.1.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/nodemon-v4.2.6...nodemon-v5.0.0) (2025-10-28)
 
 

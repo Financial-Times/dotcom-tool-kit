@@ -333,6 +333,30 @@
     * @dotcom-tool-kit/circleci bumped from ^7.6.1 to ^7.6.2
     * @dotcom-tool-kit/npm bumped from ^4.2.11 to ^4.2.12
 
+## [8.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v7.0.0...circleci-npm-v8.0.0) (2026-01-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **circleci:** don't run tool-kit workflow on pr close events
+* release major versions of wrapper plugins
+
+### Features
+
+* **circleci:** don't run tool-kit workflow on pr close events ([eba10ad](https://github.com/Financial-Times/dotcom-tool-kit/commit/eba10ad4bcd07ac302f9ab38c523e23d4095b121))
+* release major versions of wrapper plugins ([c7fa1f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7fa1f4fb405f07ec40c8df2fd3aeb4486bb447b))
+* **telemetry:** add package to send client side metrics ([fcdea77](https://github.com/Financial-Times/dotcom-tool-kit/commit/fcdea779f0f95e635a100fbf62a1b7e3d31a45d4))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/circleci bumped from ^8.0.0 to ^9.0.0
+    * @dotcom-tool-kit/npm bumped from ^5.0.0 to ^5.0.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [7.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-npm-v6.1.22...circleci-npm-v7.0.0) (2025-10-28)
 
 

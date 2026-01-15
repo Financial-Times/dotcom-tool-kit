@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/npm",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "ISC",
   "dependencies": {
-    "@dotcom-tool-kit/base": "^2.0.0",
+    "@dotcom-tool-kit/base": "^2.1.0",
     "@dotcom-tool-kit/error": "^5.0.0",
-    "@dotcom-tool-kit/package-json-hook": "^6.0.0",
+    "@dotcom-tool-kit/package-json-hook": "^6.0.1",
     "@dotcom-tool-kit/state": "^5.0.0",
     "libnpmpack": "^9.0.5",
     "libnpmpublish": "^5.0.1",

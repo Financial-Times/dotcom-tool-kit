@@ -66,6 +66,30 @@
   * dependencies
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v2.0.0...base-v2.1.0) (2026-01-15)
+
+
+### Features
+
+* **telemetry:** add package to send client side metrics ([fcdea77](https://github.com/Financial-Times/dotcom-tool-kit/commit/fcdea779f0f95e635a100fbf62a1b7e3d31a45d4))
+
+
+### Bug Fixes
+
+* consider prereleases of base as compatible ([eb508b1](https://github.com/Financial-Times/dotcom-tool-kit/commit/eb508b1c76f8201478277c487c14e15e097d94ab))
+* it's not a conflict if there's only one child installation lol ([afa7863](https://github.com/Financial-Times/dotcom-tool-kit/commit/afa7863554744a65887507e9fea52b203fbb8cbb))
+* make base's incompatibility error more accurate ([82610b0](https://github.com/Financial-Times/dotcom-tool-kit/commit/82610b0459ccab9ba04e0f0fa7972c9970d5acc2))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/conflict bumped from ^2.0.0 to ^2.0.1
+  * devDependencies
+    * @dotcom-tool-kit/config bumped from ^2.0.0 to ^2.0.1
+    * @dotcom-tool-kit/plugin bumped from ^2.0.0 to ^2.1.0
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/base-v1.3.1...base-v2.0.0) (2025-10-28)
 
 

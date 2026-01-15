@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/babel",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
   "license": "MIT",
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "@dotcom-tool-kit/base": "^2.0.0",
+    "@dotcom-tool-kit/base": "^2.1.0",
     "@dotcom-tool-kit/error": "^5.0.0",
     "@dotcom-tool-kit/logger": "^5.0.0",
     "fast-glob": "^3.3.3",

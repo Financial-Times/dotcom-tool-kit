@@ -1,14 +1,14 @@
 {
   "name": "@dotcom-tool-kit/circleci",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "description": "",
   "main": "lib",
   "scripts": {
     "test": "cd ../../ ; npx jest --silent --projects plugins/circleci"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^2.0.0",
-    "@dotcom-tool-kit/conflict": "^2.0.0",
+    "@dotcom-tool-kit/base": "^2.1.0",
+    "@dotcom-tool-kit/conflict": "^2.0.1",
     "@dotcom-tool-kit/error": "^5.0.0",
     "@dotcom-tool-kit/logger": "^5.0.0",
     "@dotcom-tool-kit/state": "^5.0.0",
@@ -29,7 +29,7 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/circleci",
   "devDependencies": {
-    "@dotcom-tool-kit/plugin": "^2.0.0",
+    "@dotcom-tool-kit/plugin": "^2.1.0",
     "@dotcom-tool-kit/telemetry": "^1.0.0",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.14",
