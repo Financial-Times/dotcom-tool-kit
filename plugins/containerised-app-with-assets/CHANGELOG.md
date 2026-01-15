@@ -46,6 +46,28 @@
     * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^4.3.1 to ^4.3.2
     * @dotcom-tool-kit/webpack bumped from ^4.3.1 to ^4.3.2
 
+## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v1.0.0...containerised-app-with-assets-v2.0.0) (2026-01-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* release major versions of wrapper plugins
+
+### Features
+
+* release major versions of wrapper plugins ([c7fa1f4](https://github.com/Financial-Times/dotcom-tool-kit/commit/c7fa1f4fb405f07ec40c8df2fd3aeb4486bb447b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/containerised-app bumped from ^1.0.0 to ^2.0.0
+    * @dotcom-tool-kit/upload-assets-to-s3 bumped from ^5.0.0 to ^5.1.0
+    * @dotcom-tool-kit/webpack bumped from ^5.0.0 to ^5.0.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-with-assets-v0.4.0...containerised-app-with-assets-v1.0.0) (2025-11-03)
 
 

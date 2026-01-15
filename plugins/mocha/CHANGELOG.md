@@ -211,6 +211,22 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [5.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v5.0.0...mocha-v5.0.1) (2026-01-15)
+
+
+### Bug Fixes
+
+* bump glob from 10.4.5 to 10.5.0 ([d6896b1](https://github.com/Financial-Times/dotcom-tool-kit/commit/d6896b19367c675e8000b43a0ab7ccb4d206a380))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^2.0.0 to ^2.1.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [5.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/mocha-v4.4.6...mocha-v5.0.0) (2025-10-28)
 
 

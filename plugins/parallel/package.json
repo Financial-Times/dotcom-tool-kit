@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/parallel",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "lib",
   "scripts": {
@@ -30,7 +30,7 @@
     "dotcom-tool-kit": "5.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^2.0.0",
+    "@dotcom-tool-kit/base": "^2.1.0",
     "zod": "^3.25.67"
   }
 }

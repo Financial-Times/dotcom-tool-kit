@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/plugin-v2.0.0...plugin-v2.1.0) (2026-01-15)
+
+
+### Features
+
+* **plugin:** add systemCode option to root Tool Kit options ([49bc3e9](https://github.com/Financial-Times/dotcom-tool-kit/commit/49bc3e97195f35f3504c4d042bfd7951e8ebf291))
+* **telemetry:** add option to opt-in to telemetry ([2cccf95](https://github.com/Financial-Times/dotcom-tool-kit/commit/2cccf957604a94dcc2baf3335c4b304631c98b65))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/plugin-v1.1.0...plugin-v2.0.0) (2025-10-28)
 
 

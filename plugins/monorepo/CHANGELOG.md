@@ -7,6 +7,24 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.0.0 to ^4.2.0
 
+## [0.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/monorepo-v0.2.0...monorepo-v0.2.1) (2026-01-15)
+
+
+### Features
+
+* **telemetry:** add package to send client side metrics ([fcdea77](https://github.com/Financial-Times/dotcom-tool-kit/commit/fcdea779f0f95e635a100fbf62a1b7e3d31a45d4))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^2.0.0 to ^2.1.0
+  * devDependencies
+    * @dotcom-tool-kit/config bumped from ^2.0.0 to ^2.0.1
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [0.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/monorepo-v0.1.7...monorepo-v0.2.0) (2025-10-28)
 
 

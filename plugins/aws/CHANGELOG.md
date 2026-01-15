@@ -26,6 +26,17 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
 
+## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/aws-v1.0.0...aws-v1.0.1) (2026-01-15)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/base bumped from ^2.0.0 to ^2.1.0
+  * peerDependencies
+    * dotcom-tool-kit bumped from 5.x to 5.1.0
+
 ## [1.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/aws-v0.2.0...aws-v1.0.0) (2025-11-03)
 
 

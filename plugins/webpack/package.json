@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/webpack",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "main": "lib",
   "description": "",
   "author": "FT.com Platforms Team <platforms-team.customer-products@ft.com>",
@@ -17,7 +17,7 @@
     "test": "cd ../../ ; npx jest --silent --projects plugins/webpack"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^2.0.0",
+    "@dotcom-tool-kit/base": "^2.1.0",
     "@dotcom-tool-kit/error": "^5.0.0",
     "@dotcom-tool-kit/logger": "^5.0.0",
     "tslib": "^2.8.1",

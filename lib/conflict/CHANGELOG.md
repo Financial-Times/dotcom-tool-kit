@@ -6,6 +6,15 @@
   * dependencies
     * @dotcom-tool-kit/plugin bumped from ^1.0.0 to ^1.1.0
 
+## [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/conflict-v2.0.0...conflict-v2.0.1) (2026-01-15)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/plugin bumped from ^2.0.0 to ^2.1.0
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/conflict-v1.0.1...conflict-v2.0.0) (2025-10-28)
 
 

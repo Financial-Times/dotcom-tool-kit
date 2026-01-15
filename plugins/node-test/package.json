@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/node-test",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,7 +30,7 @@
     "dotcom-tool-kit": "5.x"
   },
   "dependencies": {
-    "@dotcom-tool-kit/base": "^2.0.0",
+    "@dotcom-tool-kit/base": "^2.1.0",
     "@dotcom-tool-kit/error": "^5.0.0",
     "@dotcom-tool-kit/logger": "^5.0.0",
     "glob": "^10.4.5",

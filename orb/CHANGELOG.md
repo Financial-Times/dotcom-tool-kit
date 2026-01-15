@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.2.1...orb-v5.3.0) (2026-01-15)
+
+
+### Features
+
+* **orb:** delete legacy heroku jobs ([90ec194](https://github.com/Financial-Times/dotcom-tool-kit/commit/90ec1945f26e386c82b1e50ceacb19c1d1aec55c))
+
+
+### Bug Fixes
+
+* don't run teardown-review unconditionally in e2e-test-review ([be96018](https://github.com/Financial-Times/dotcom-tool-kit/commit/be96018a11f00fae9d76a990c0207d6024007dcc))
+
 ## [5.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.2.0...orb-v5.2.1) (2025-01-28)
 
 
