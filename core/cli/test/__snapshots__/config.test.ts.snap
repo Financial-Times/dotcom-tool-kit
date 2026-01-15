@@ -6694,6 +6694,15 @@ and pipeline.event.action != "closed"))
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
+                                    "steps": {
+                                      "pre": [
+                                        {
+                                          "setup_remote_docker": {
+                                            "docker_layer_caching": true,
+                                          },
+                                        },
+                                      ],
+                                    },
                                   },
                                 ],
                                 "name": "pr-close",
@@ -7136,6 +7145,15 @@ and pipeline.event.action != "closed"))
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
+                                        "steps": {
+                                          "pre": [
+                                            {
+                                              "setup_remote_docker": {
+                                                "docker_layer_caching": true,
+                                              },
+                                            },
+                                          ],
+                                        },
                                       },
                                     ],
                                     "name": "pr-close",
@@ -7597,6 +7615,15 @@ and pipeline.event.action != "closed"))
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
+                                    "steps": {
+                                      "pre": [
+                                        {
+                                          "setup_remote_docker": {
+                                            "docker_layer_caching": true,
+                                          },
+                                        },
+                                      ],
+                                    },
                                   },
                                 ],
                                 "name": "pr-close",
@@ -8037,6 +8064,15 @@ and pipeline.event.action != "closed"))
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
+                                        "steps": {
+                                          "pre": [
+                                            {
+                                              "setup_remote_docker": {
+                                                "docker_layer_caching": true,
+                                              },
+                                            },
+                                          ],
+                                        },
                                       },
                                     ],
                                     "name": "pr-close",
@@ -8479,6 +8515,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -8903,6 +8948,15 @@ and pipeline.event.action != "closed"))
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
+                                    "steps": {
+                                      "pre": [
+                                        {
+                                          "setup_remote_docker": {
+                                            "docker_layer_caching": true,
+                                          },
+                                        },
+                                      ],
+                                    },
                                   },
                                 ],
                                 "name": "pr-close",
@@ -9345,6 +9399,15 @@ and pipeline.event.action != "closed"))
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
+                                        "steps": {
+                                          "pre": [
+                                            {
+                                              "setup_remote_docker": {
+                                                "docker_layer_caching": true,
+                                              },
+                                            },
+                                          ],
+                                        },
                                       },
                                     ],
                                     "name": "pr-close",
@@ -9806,6 +9869,15 @@ and pipeline.event.action != "closed"))
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
+                                    "steps": {
+                                      "pre": [
+                                        {
+                                          "setup_remote_docker": {
+                                            "docker_layer_caching": true,
+                                          },
+                                        },
+                                      ],
+                                    },
                                   },
                                 ],
                                 "name": "pr-close",
@@ -10246,6 +10318,15 @@ and pipeline.event.action != "closed"))
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
+                                        "steps": {
+                                          "pre": [
+                                            {
+                                              "setup_remote_docker": {
+                                                "docker_layer_caching": true,
+                                              },
+                                            },
+                                          ],
+                                        },
                                       },
                                     ],
                                     "name": "pr-close",
@@ -10688,6 +10769,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -11112,6 +11202,15 @@ and pipeline.event.action != "closed"))
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
+                                    "steps": {
+                                      "pre": [
+                                        {
+                                          "setup_remote_docker": {
+                                            "docker_layer_caching": true,
+                                          },
+                                        },
+                                      ],
+                                    },
                                   },
                                 ],
                                 "name": "pr-close",
@@ -11554,6 +11653,15 @@ and pipeline.event.action != "closed"))
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
+                                        "steps": {
+                                          "pre": [
+                                            {
+                                              "setup_remote_docker": {
+                                                "docker_layer_caching": true,
+                                              },
+                                            },
+                                          ],
+                                        },
                                       },
                                     ],
                                     "name": "pr-close",
@@ -12015,6 +12123,15 @@ and pipeline.event.action != "closed"))
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
+                                    "steps": {
+                                      "pre": [
+                                        {
+                                          "setup_remote_docker": {
+                                            "docker_layer_caching": true,
+                                          },
+                                        },
+                                      ],
+                                    },
                                   },
                                 ],
                                 "name": "pr-close",
@@ -12455,6 +12572,15 @@ and pipeline.event.action != "closed"))
                                         ],
                                         "runOnRelease": false,
                                         "splitIntoMatrix": false,
+                                        "steps": {
+                                          "pre": [
+                                            {
+                                              "setup_remote_docker": {
+                                                "docker_layer_caching": true,
+                                              },
+                                            },
+                                          ],
+                                        },
                                       },
                                     ],
                                     "name": "pr-close",
@@ -12897,6 +13023,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -13319,6 +13454,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -13762,6 +13906,15 @@ and pipeline.event.action != "closed"))
                                     ],
                                     "runOnRelease": false,
                                     "splitIntoMatrix": false,
+                                    "steps": {
+                                      "pre": [
+                                        {
+                                          "setup_remote_docker": {
+                                            "docker_layer_caching": true,
+                                          },
+                                        },
+                                      ],
+                                    },
                                   },
                                 ],
                                 "name": "pr-close",
@@ -14174,6 +14327,15 @@ and pipeline.event.action != "closed"))
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
+                            "steps": {
+                              "pre": [
+                                {
+                                  "setup_remote_docker": {
+                                    "docker_layer_caching": true,
+                                  },
+                                },
+                              ],
+                            },
                           },
                         ],
                         "name": "pr-close",
@@ -14636,6 +14798,15 @@ and pipeline.event.action != "closed"))
                                   ],
                                   "runOnRelease": false,
                                   "splitIntoMatrix": false,
+                                  "steps": {
+                                    "pre": [
+                                      {
+                                        "setup_remote_docker": {
+                                          "docker_layer_caching": true,
+                                        },
+                                      },
+                                    ],
+                                  },
                                 },
                               ],
                               "name": "pr-close",
@@ -15056,6 +15227,15 @@ and pipeline.event.action != "closed"))
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
+                            "steps": {
+                              "pre": [
+                                {
+                                  "setup_remote_docker": {
+                                    "docker_layer_caching": true,
+                                  },
+                                },
+                              ],
+                            },
                           },
                         ],
                         "name": "pr-close",
@@ -15497,6 +15677,15 @@ and pipeline.event.action != "closed"))
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
+                            "steps": {
+                              "pre": [
+                                {
+                                  "setup_remote_docker": {
+                                    "docker_layer_caching": true,
+                                  },
+                                },
+                              ],
+                            },
                           },
                         ],
                         "name": "pr-close",
@@ -16018,6 +16207,15 @@ and pipeline.event.action != "closed"))
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
+                              "steps": {
+                                "pre": [
+                                  {
+                                    "setup_remote_docker": {
+                                      "docker_layer_caching": true,
+                                    },
+                                  },
+                                ],
+                              },
                             },
                           ],
                           "name": "pr-close",
@@ -16457,6 +16655,15 @@ and pipeline.event.action != "closed"))
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
+                              "steps": {
+                                "pre": [
+                                  {
+                                    "setup_remote_docker": {
+                                      "docker_layer_caching": true,
+                                    },
+                                  },
+                                ],
+                              },
                             },
                           ],
                           "name": "pr-close",
@@ -16898,6 +17105,15 @@ and pipeline.event.action != "closed"))
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
+                              "steps": {
+                                "pre": [
+                                  {
+                                    "setup_remote_docker": {
+                                      "docker_layer_caching": true,
+                                    },
+                                  },
+                                ],
+                              },
                             },
                           ],
                           "name": "pr-close",
@@ -17322,6 +17538,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -17712,6 +17937,15 @@ and pipeline.event.action != "closed"))
                             ],
                             "runOnRelease": false,
                             "splitIntoMatrix": false,
+                            "steps": {
+                              "pre": [
+                                {
+                                  "setup_remote_docker": {
+                                    "docker_layer_caching": true,
+                                  },
+                                },
+                              ],
+                            },
                           },
                         ],
                         "name": "pr-close",
@@ -18260,6 +18494,15 @@ and pipeline.event.action != "closed"))
                           ],
                           "runOnRelease": false,
                           "splitIntoMatrix": false,
+                          "steps": {
+                            "pre": [
+                              {
+                                "setup_remote_docker": {
+                                  "docker_layer_caching": true,
+                                },
+                              },
+                            ],
+                          },
                         },
                       ],
                       "name": "pr-close",
@@ -18648,6 +18891,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -19069,6 +19321,15 @@ and pipeline.event.action != "closed"))
                                   ],
                                   "runOnRelease": false,
                                   "splitIntoMatrix": false,
+                                  "steps": {
+                                    "pre": [
+                                      {
+                                        "setup_remote_docker": {
+                                          "docker_layer_caching": true,
+                                        },
+                                      },
+                                    ],
+                                  },
                                 },
                               ],
                               "name": "pr-close",
@@ -19529,6 +19790,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -20015,6 +20285,15 @@ and pipeline.event.action != "closed"))
                               ],
                               "runOnRelease": false,
                               "splitIntoMatrix": false,
+                              "steps": {
+                                "pre": [
+                                  {
+                                    "setup_remote_docker": {
+                                      "docker_layer_caching": true,
+                                    },
+                                  },
+                                ],
+                              },
                             },
                           ],
                           "name": "pr-close",
@@ -20466,6 +20745,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -20897,6 +21185,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -21337,6 +21634,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
@@ -21768,6 +22074,15 @@ and pipeline.event.action != "closed"))
                                 ],
                                 "runOnRelease": false,
                                 "splitIntoMatrix": false,
+                                "steps": {
+                                  "pre": [
+                                    {
+                                      "setup_remote_docker": {
+                                        "docker_layer_caching": true,
+                                      },
+                                    },
+                                  ],
+                                },
                               },
                             ],
                             "name": "pr-close",
