@@ -92,6 +92,10 @@ options:
               - name: 'teardown-review'
                 requires:
                   - 'setup'
+                steps:
+                  pre:
+                    - setup_remote_docker:
+                        docker_layer_caching: true
                 splitIntoMatrix: false
                 runOnRelease: false
 
