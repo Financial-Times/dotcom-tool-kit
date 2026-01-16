@@ -30,6 +30,7 @@ type RawRCFile = {
 // that won't be used normally
 export const toolKitOptionIdent = '__toolkit/option__'
 export const toolKitIfDefinedIdent = '__toolkit/if-defined__'
+export const toolKitEnvIdent = '__toolkit/env__'
 
 // minimally define the two custom tags' identify callback so that yaml will
 // parse them without warning but will never be use them when stringifying
@@ -48,6 +49,12 @@ const toolKitIfDefined = {
   // a YAML.visit later
   resolve: (value) => value
 } satisfies YAML.ScalarTag
+const toolKitEnv = {
+  identify: () => false,
+  tag: '!toolkit/env',
+
+  resolve: (envVar) => process.env[envVar]
+} satisfies YAML.ScalarTag
 
 export async function loadToolKitRC(logger: Logger, root: string): Promise<RCFile> {
   const configPath = path.join(root, '.toolkitrc.yml')
@@ -62,7 +69,9 @@ export async function loadToolKitRC(logger: Logger, root: string): Promise<RCFil
     }
   }
 
-  const configDoc = YAML.parseDocument(rawConfig, { customTags: [toolKitOption, toolKitIfDefined] })
+  const configDoc = YAML.parseDocument(rawConfig, {
+    customTags: [toolKitOption, toolKitIfDefined, toolKitEnv]
+  })
   // go back and search for the parsed if-defined tag and include a string
   // identifier so we can resolve all the tags in a JS object once we've loaded
   // plugin options
