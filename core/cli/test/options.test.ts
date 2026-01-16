@@ -175,21 +175,43 @@ options:
     }
   })
 
-  it('should substitute env tag with the enviroment value', async () => {
+  describe('!toolkit/env', () => {
     const varEnv = 'varEnv'
-    process.env[varEnv] = 'my env'
-    mockedFs.readFile.mockResolvedValueOnce(
-      yaml(`
+
+    afterEach(() => {
+      delete process.env[varEnv]
+    })
+
+    it('should substitute env tag with the environment value', async () => {
+      process.env[varEnv] = 'my env'
+      mockedFs.readFile.mockResolvedValueOnce(
+        yaml(`
 options:
   hooks:
     - Test:
-        baz: !toolkit/env 'varEnv'
+        baz: !toolkit/env '${varEnv}'
       `)
-    )
+      )
 
-    const config = await loadConfig(logger, { validate: false, root: process.cwd() })
-    const plugin = config.plugins['app root']
-    expect(plugin.valid).toBe(true)
-    expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.baz).toEqual('my env')
+      const config = await loadConfig(logger, { validate: false, root: process.cwd() })
+      const plugin = config.plugins['app root']
+      expect(plugin.valid).toBe(true)
+      expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.baz).toEqual('my env')
+    })
+
+    it('should return undefined if environment variable is not present ', async () => {
+      mockedFs.readFile.mockResolvedValueOnce(
+        yaml(`
+  options:
+    hooks:
+      - Test:
+          baz: !toolkit/env '${varEnv}'
+        `)
+      )
+      const config = await loadConfig(logger, { validate: false, root: process.cwd() })
+      const plugin = config.plugins['app root']
+      expect(plugin.valid).toBe(true)
+      expect((plugin as Valid<Plugin>).value.rcFile?.options.hooks[0].Test.baz).toBeUndefined()
+    })
   })
 })
