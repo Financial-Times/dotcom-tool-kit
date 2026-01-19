@@ -20,6 +20,8 @@ jobs:
     executor: node
     steps:
       - tool-kit/attach-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           name: teardown-review
           command: npx dotcom-tool-kit teardown:review
