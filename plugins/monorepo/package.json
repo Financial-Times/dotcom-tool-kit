@@ -21,8 +21,7 @@
     ".toolkitrc.yml"
   ],
   "engines": {
-    "node": ">=20.x",
-    "npm": "7.x || 8.x || 9.x"
+    "node": ">=20.x"
   },
   "volta": {
     "extends": "../../package.json"
