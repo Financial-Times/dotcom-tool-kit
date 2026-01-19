@@ -174,6 +174,13 @@
   * dependencies
     * @dotcom-tool-kit/circleci bumped from ^7.6.1 to ^7.6.2
 
+## [6.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v6.0.0...circleci-deploy-v6.0.1) (2026-01-19)
+
+
+### Bug Fixes
+
+* **circleci-deploy:** steps.pre goes in jobs, not workflow.jobs ([b1176b1](https://github.com/Financial-Times/dotcom-tool-kit/commit/b1176b1ef288e539461c86efe06132ce48c183b7))
+
 ## [6.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-deploy-v5.0.0...circleci-deploy-v6.0.0) (2026-01-15)
 
 
