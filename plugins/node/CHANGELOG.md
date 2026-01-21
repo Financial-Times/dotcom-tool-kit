@@ -282,6 +282,14 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
 
+## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v5.0.1...node-v5.1.0) (2026-01-21)
+
+
+### Features
+
+* log a warning if node process didn't listen ([fcae68e](https://github.com/Financial-Times/dotcom-tool-kit/commit/fcae68e2b738e46fb86242da2aaf90044d152ff9))
+* **node:** add a portTimeout option so users can tell wait-port not to ([d6252aa](https://github.com/Financial-Times/dotcom-tool-kit/commit/d6252aa284201237406214c9df1d25f8d5c73c3c))
+
 ## [5.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-v5.0.0...node-v5.0.1) (2026-01-15)
 
 

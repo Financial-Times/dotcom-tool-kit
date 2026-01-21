@@ -387,6 +387,15 @@
     * @dotcom-tool-kit/npm bumped from ^4.2.11 to ^4.2.12
     * @dotcom-tool-kit/serverless bumped from ^3.4.0 to ^3.4.1
 
+## [6.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v6.0.1...backend-serverless-app-v6.0.2) (2026-01-21)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/node bumped from ^5.0.1 to ^5.1.0
+
 ## [6.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/backend-serverless-app-v6.0.0...backend-serverless-app-v6.0.1) (2026-01-19)
 
 
