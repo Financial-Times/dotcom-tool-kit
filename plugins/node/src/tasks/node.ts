@@ -1,4 +1,4 @@
-import { hookConsole, hookFork } from '@dotcom-tool-kit/logger'
+import { hookConsole, hookFork, styles } from '@dotcom-tool-kit/logger'
 import { writeState } from '@dotcom-tool-kit/state'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { DopplerEnvVars } from '@dotcom-tool-kit/doppler'
@@ -85,11 +85,19 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
     if (port) {
       const unhook = hookConsole(this.logger, 'wait-port')
       try {
-        await waitPort({
+        const { open } = await waitPort({
           host: 'localhost',
           port,
           timeout: this.options.portTimeout
         })
+
+        if (this.options.portTimeout && !open) {
+          this.logger.warn(
+            `Node process didn't listen on port ${styles.code(port)} within ${styles.code(
+              this.options.portTimeout
+            )}ms`
+          )
+        }
       } finally {
         unhook()
       }
