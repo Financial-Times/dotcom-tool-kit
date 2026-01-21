@@ -22,6 +22,12 @@ const NodeSchema = z
       .describe(
         "ports to try to bind to for this application. set to `false` for an entry point that wouldn't bind to a port, such as a worker process or one-off script."
       ),
+    portTimeout: z
+      .number()
+      .default(0)
+      .describe(
+        'how long (in milliseconds) to wait for the app to listen on its port for before exiting. if `0` (the default), will wait forever.'
+      ),
     watch: z
       .boolean()
       .optional()
@@ -81,7 +87,8 @@ export default class Node extends Task<{ task: typeof NodeSchema }> {
       try {
         await waitPort({
           host: 'localhost',
-          port
+          port,
+          timeout: this.options.portTimeout
         })
       } finally {
         unhook()
