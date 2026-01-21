@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.3.0...orb-v5.4.0) (2026-01-21)
+
+
+### Features
+
+* **circleci:** added a parameter that will allow the change-api to send notificiation to additional channels ([9eeb5f3](https://github.com/Financial-Times/dotcom-tool-kit/commit/9eeb5f3d59b26f7df990fd89bbf871af04c808bf))
+
 ## [5.3.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.2.1...orb-v5.3.0) (2026-01-15)
 
 
