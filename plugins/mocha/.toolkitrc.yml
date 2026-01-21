@@ -3,6 +3,8 @@ tasks:
 
 commands:
   'test:local': Mocha
-  'test:ci': Mocha
+  'test:ci':
+    Mocha:
+      ci: true
 
 version: 2

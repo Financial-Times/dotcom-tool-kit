@@ -25,7 +25,7 @@ describe('jest plugin', () => {
     expect(fork).toBeCalledWith(
       expect.any(String),
       expect.not.arrayContaining([expect.stringContaining('--config')]),
-      { silent: true, cwd: '' }
+      expect.objectContaining({ silent: true, cwd: '' })
     )
   })
 
@@ -36,10 +36,10 @@ describe('jest plugin', () => {
     expect(fork).toBeCalledWith(
       expect.any(String),
       expect.arrayContaining(['--config=./src/jest.config.js']),
-      {
+      expect.objectContaining({
         silent: true,
         cwd: ''
-      }
+      })
     )
   })
 
@@ -47,9 +47,29 @@ describe('jest plugin', () => {
     const jest = new Jest(logger, 'Jest', {}, { ci: true })
     await jest.run({ command: 'test:local', cwd: '' })
 
-    expect(fork).toBeCalledWith(expect.any(String), expect.arrayContaining(['--ci']), {
-      silent: true,
-      cwd: ''
-    })
+    expect(fork).toBeCalledWith(
+      expect.any(String),
+      expect.arrayContaining(['--ci']),
+      expect.objectContaining({
+        silent: true,
+        cwd: ''
+      })
+    )
+  })
+
+  it('should call jest cli with reporter options if ci is passed in', async () => {
+    const jest = new Jest(logger, 'Jest', {}, { ci: true })
+    await jest.run({ command: 'test:local', cwd: '' })
+
+    expect(fork).toBeCalledWith(
+      expect.any(String),
+      expect.arrayContaining(['--reporters=default', '--reporters=jest-junit']),
+      expect.objectContaining({
+        env: expect.objectContaining({
+          JEST_JUNIT_OUTPUT_DIR: 'test-results',
+          JEST_JUNIT_ADD_FILE_ATTRIBUTE: 'true'
+        })
+      })
+    )
   })
 })
