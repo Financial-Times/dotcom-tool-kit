@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v2.0.0...hako-v2.1.0) (2026-01-22)
+
+
+### Features
+
+* update hako CLI to 0.2.28 ([1efe2ba](https://github.com/Financial-Times/dotcom-tool-kit/commit/1efe2ba4fd41df1674ca5627c27f13c79094cbd5))
+
 ## [2.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v1.0.0...hako-v2.0.0) (2026-01-15)
 
 
