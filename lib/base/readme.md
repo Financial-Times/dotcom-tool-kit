@@ -20,7 +20,7 @@ If you try to load a plugin from an incompatible version of `base`, you'll get a
 
 ```
 ℹ️ the task Webpack is not a compatible instance of Task:
- - object is from an outdated version of @dotcom-tool-kit/base, make sure you're using at least version 2.0.0 of the plugin
+ - object is from version 2.0.0 of @dotcom-tool-kit/base, which is incompatible with dotcom-tool-kit's ^2.1.0
 ```
 
 Check where the incompatible version is coming from with `npm ls @dotcom-tool-kit/base`, and update the intermediate dependencies that lead to the old version of `base` to their latest versions.
