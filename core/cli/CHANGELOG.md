@@ -461,6 +461,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [5.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v5.1.0...dotcom-tool-kit-v5.2.0) (2026-01-26)
+
+
+### Features
+
+* implement toolkit env yaml tag ([7e4bfff](https://github.com/Financial-Times/dotcom-tool-kit/commit/7e4bfffe0a285d4c0d40255b0c2ae3e87dd71e98))
+
 ## [5.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/dotcom-tool-kit-v5.0.0...dotcom-tool-kit-v5.1.0) (2026-01-15)
 
 
