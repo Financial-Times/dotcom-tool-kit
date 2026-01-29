@@ -17,7 +17,7 @@ const DockerBuildSchema = z
       .describe(
         "whether to forward host's SSH agent, see https://docs.docker.com/reference/cli/docker/buildx/build/#ssh"
       ),
-    buildArgs: z.record(z.string(), z.string()).describe('BuildArgs key/value pair')
+    buildArgs: z.record(z.string(), z.string()).default(false).describe('BuildArgs key/value pair')
   })
   .describe('Run `docker build` to create Docker images.')
 export { DockerBuildSchema as schema }
