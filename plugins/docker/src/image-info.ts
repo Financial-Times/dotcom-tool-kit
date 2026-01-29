@@ -32,10 +32,6 @@ export function generateImageLabels(systemCode: string): ImageLabels {
   }
 }
 
-export function getCommitHash(ciState: CIState | null): string {
-  return ciState?.version || ''
-}
-
 export function getDeployTag(ciState: CIState | null): string {
   return ciState?.buildNumber
     ? `ci-${ciState.buildNumber}`

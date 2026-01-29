@@ -1,4 +1,4 @@
-import { buildImageName, generateImageLabels, getCommitHash, getDeployTag } from '../image-info'
+import { buildImageName, generateImageLabels, getDeployTag } from '../image-info'
 import DockerSchema from '../schema'
 
 import * as z from 'zod'
@@ -16,7 +16,8 @@ const DockerBuildSchema = z
       .default(false)
       .describe(
         "whether to forward host's SSH agent, see https://docs.docker.com/reference/cli/docker/buildx/build/#ssh"
-      )
+      ),
+    buildArgs: z.record(z.string(), z.string()).describe('BuildArgs key/value pair')
   })
   .describe('Run `docker build` to create Docker images.')
 export { DockerBuildSchema as schema }
@@ -52,14 +53,11 @@ export default class DockerBuild extends Task<{
             return ['--label', `${label}=${value}`]
           })
 
-        const commitHash = getCommitHash(readState('ci'))
-
         const childBuild = spawn('docker', [
           'buildx',
           'build',
           '--load', // Without this, the image is not stored and so we can't push it later
-          '--build-arg',
-          `GIT_COMMIT=${commitHash}`,
+          '--build-args',
           '--platform',
           imageOptions.platform,
           ...(this.options.ssh ? ['--ssh', 'default'] : []),
