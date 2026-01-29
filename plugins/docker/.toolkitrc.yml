@@ -5,4 +5,7 @@ tasks:
 
 optionsSchema: './lib/schema'
 
+options:
+  buildArgs: !toolkit/env
+
 version: 2
