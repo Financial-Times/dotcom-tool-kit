@@ -24,11 +24,12 @@ plugins:
 Run `docker build` to create Docker images.
 #### Task options
 
-| Property | Description                                                                                             | Type      | Default |
-| :------- | :------------------------------------------------------------------------------------------------------ | :-------- | :------ |
-| `ssh`    | whether to forward host's SSH agent, see https://docs.docker.com/reference/cli/docker/buildx/build/#ssh | `boolean` | `false` |
+| Property             | Description                                                                                             | Type                     | Default |
+| :------------------- | :------------------------------------------------------------------------------------------------------ | :----------------------- | :------ |
+| `ssh`                | whether to forward host's SSH agent, see https://docs.docker.com/reference/cli/docker/buildx/build/#ssh | `boolean`                | `false` |
+| **`buildArgs`** (\*) | BuildArgs key/value pair                                                                                | `Record<string, string>` |         |
 
-_All properties are optional._
+_(\*) Required._
 
 
 ## Plugin-wide options
