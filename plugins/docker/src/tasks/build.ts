@@ -17,7 +17,12 @@ const DockerBuildSchema = z
       .describe(
         "whether to forward host's SSH agent, see https://docs.docker.com/reference/cli/docker/buildx/build/#ssh"
       ),
-    buildArgs: z.record(z.string(), z.string()).default(false).describe('BuildArgs key/value pair')
+    buildArgs: z
+      .record(z.string(), z.string())
+      .default({})
+      .describe(
+        'An object of Docker [build variables](https://docs.docker.com/build/building/variables/) to include when building the image. To use values from Tool Kit\'s environment (since we usually build Docker images on CircleCI, this would be the CI environment), you can use the `!toolkit/env` tag, e.g. `buildArgs: { GIT_COMMIT: !toolkit/env "GIT_COMMIT" }`'
+      )
   })
   .describe('Run `docker build` to create Docker images.')
 export { DockerBuildSchema as schema }
@@ -53,11 +58,15 @@ export default class DockerBuild extends Task<{
             return ['--label', `${label}=${value}`]
           })
 
+        const buildArgs = Object.entries(this.options.buildArgs).flatMap(([key, value]) => {
+          return ['--build-arg', `${key}=${value}`]
+        })
+
         const childBuild = spawn('docker', [
           'buildx',
           'build',
           '--load', // Without this, the image is not stored and so we can't push it later
-          '--build-args',
+          ...buildArgs,
           '--platform',
           imageOptions.platform,
           ...(this.options.ssh ? ['--ssh', 'default'] : []),
