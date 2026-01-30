@@ -24,9 +24,10 @@ plugins:
 Run `docker build` to create Docker images.
 #### Task options
 
-| Property | Description                                                                                             | Type      | Default |
-| :------- | :------------------------------------------------------------------------------------------------------ | :-------- | :------ |
-| `ssh`    | whether to forward host's SSH agent, see https://docs.docker.com/reference/cli/docker/buildx/build/#ssh | `boolean` | `false` |
+| Property    | Description                                                                                                                                                                                                                                                                                                                                                  | Type                     | Default |
+| :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------- | :------ |
+| `ssh`       | whether to forward host's SSH agent, see https://docs.docker.com/reference/cli/docker/buildx/build/#ssh                                                                                                                                                                                                                                                      | `boolean`                | `false` |
+| `buildArgs` | An object of Docker [build variables](https://docs.docker.com/build/building/variables/) to include when building the image. To use values from Tool Kit's environment (since we usually build Docker images on CircleCI, this would be the CI environment), you can use the `!toolkit/env` tag, e.g. `buildArgs: { GIT_COMMIT: !toolkit/env "GIT_COMMIT" }` | `Record<string, string>` | `{}`    |
 
 _All properties are optional._
 
