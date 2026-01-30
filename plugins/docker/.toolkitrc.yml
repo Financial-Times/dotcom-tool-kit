@@ -6,6 +6,7 @@ tasks:
 optionsSchema: './lib/schema'
 
 options:
-  buildArgs: !toolkit/env
+  buildArgs:
+    GIT_COMMIT: !toolkit/env 'GIT_COMMIT'
 
 version: 2
