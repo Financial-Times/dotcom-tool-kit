@@ -1,5 +1,5 @@
 {
-  "core/cli": "5.1.0",
+  "core/cli": "5.2.0",
   "lib/error": "5.0.0",
   "lib/logger": "5.0.0",
   "plugins/package-json-hook": "6.0.1",
