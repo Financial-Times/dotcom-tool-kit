@@ -7,14 +7,15 @@ import type DopplerSchema from '@dotcom-tool-kit/doppler/src/schema'
 import type * as z from 'zod'
 
 export async function guessSystemCode(config: ValidConfig): Promise<string | undefined> {
-  const systemCodeFromRoot = (config.pluginOptions['app root']?.options as RootOptions).systemCode
+  const systemCodeFromRoot = (config.pluginOptions['app root']?.options as RootOptions | undefined)
+    ?.systemCode
   if (systemCodeFromRoot) {
     return systemCodeFromRoot
   }
 
   const systemCodeFromDoppler = (
-    config.pluginOptions['@dotcom-tool-kit/doppler']?.options as z.infer<typeof DopplerSchema>
-  ).project
+    config.pluginOptions['@dotcom-tool-kit/doppler']?.options as z.infer<typeof DopplerSchema> | undefined
+  )?.project
   if (systemCodeFromDoppler && !systemCodeFromDoppler.startsWith('repo_')) {
     return systemCodeFromDoppler
   }
