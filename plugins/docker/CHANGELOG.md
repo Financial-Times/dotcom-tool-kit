@@ -32,6 +32,20 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v1.0.1...docker-v1.1.0) (2026-02-05)
+
+
+### Features
+
+* add buildArgs to docker ([419fd2f](https://github.com/Financial-Times/dotcom-tool-kit/commit/419fd2f73133ba15ebbffb923a5fae44c8d31242))
+* implement buildArgs option using tool kit env yaml tag ([3ab45b3](https://github.com/Financial-Times/dotcom-tool-kit/commit/3ab45b377fe78dfc865ce0b3329e0a7a6cbef77f))
+
+
+### Bug Fixes
+
+* make build args optional ([82edd7b](https://github.com/Financial-Times/dotcom-tool-kit/commit/82edd7b7f25f7617ec31e70b1375e76ea8444328))
+* update toolkitrc.yml in how buildArgs are referenced under options ([4c21aa4](https://github.com/Financial-Times/dotcom-tool-kit/commit/4c21aa438118183dd6aba85be1d130dd24ebbdbb))
+
 ## [1.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v1.0.0...docker-v1.0.1) (2026-01-15)
 
 
