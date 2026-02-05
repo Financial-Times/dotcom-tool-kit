@@ -89,6 +89,11 @@ export async function runTasks(
 ) {
   const errors: ErrorSummary[] = []
 
+  // TODO:CC:20260205: Remove the default dotcom-tool-kit once the systemCode is a required option
+  // (see TODO in root schema) but at the moment we can't have it undefined
+  // because it is required by the client-metrics-server
+  const systemCode = (await guessSystemCode(config)) || 'dotcom-tool-kit'
+
   if (tasks.length === 0) {
     logger.warn(`no task configured for ${command}: skipping assignment...`)
   }
@@ -98,7 +103,7 @@ export async function runTasks(
     try {
       logger.info(styles.taskHeader(`running ${styles.task(task.id)} task`))
       await task.run({ files, command, cwd: config.root, config })
-      scoped.recordEvent('tasks.completed', { success: true })
+      scoped.recordEvent('tasks.completed', systemCode, { success: true })
     } catch (error) {
       // if there's an exit code, that's a request from the task to exit early
       if (error instanceof ToolKitError && error.exitCode) {
@@ -111,7 +116,7 @@ export async function runTasks(
         task: task.id,
         error: error as Error
       })
-      scoped.recordEvent('tasks.completed', { success: false })
+      scoped.recordEvent('tasks.completed', systemCode, { success: false })
     }
   }
 
@@ -171,11 +176,5 @@ export async function runCommands(
   const config = await loadConfig(logger, { root: process.cwd() })
   enableTelemetry(metrics, config.pluginOptions['app root'].options as RootOptions)
 
-  const systemCode = await guessSystemCode(config)
-  let scoped = metrics
-  if (systemCode) {
-    scoped = metrics.scoped({ systemCode })
-  }
-
-  return runCommandsFromConfig(logger, config, commands, files, scoped)
+  return runCommandsFromConfig(logger, config, commands, files, metrics)
 }
