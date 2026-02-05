@@ -6,7 +6,8 @@ tasks:
 optionsSchema: './lib/schema'
 
 options:
-  buildArgs:
-    GIT_COMMIT: !toolkit/env 'GIT_COMMIT'
-
+  tasks:
+    DockerBuild:
+      buildArgs:
+        GIT_COMMIT: !toolkit/env 'GIT_COMMIT'
 version: 2
