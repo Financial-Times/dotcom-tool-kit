@@ -58,7 +58,7 @@ describe('attribute handling', () => {
 
   test('event attribute included', () => {
     const recorder = new TelemetryRecorder(mockProcessor, { foo: 'bar' })
-    recorder.recordEvent('tasks.completed', { success: true })
+    recorder.recordEvent('tasks.completed', 'mock-system-code', { success: true })
     expect(metricsMock).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ foo: 'bar' }) })
     )
@@ -67,7 +67,7 @@ describe('attribute handling', () => {
   test('parent attributes inherited', () => {
     const recorder = new TelemetryRecorder(mockProcessor, { foo: 'bar' })
     const child = recorder.scoped({ baz: 'qux' })
-    child.recordEvent('tasks.completed', { success: true })
+    child.recordEvent('tasks.completed', 'mock-system-code', { success: true })
     expect(metricsMock).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ foo: 'bar', baz: 'qux' }) })
     )
@@ -76,7 +76,7 @@ describe('attribute handling', () => {
   test('grandparent attributes inherited', () => {
     const recorder = new TelemetryRecorder(mockProcessor, { foo: 'bar' })
     const grandchild = recorder.scoped({ baz: 'qux' }).scoped({ test: 'pass' })
-    grandchild.recordEvent('tasks.completed', { success: true })
+    grandchild.recordEvent('tasks.completed', 'mock-system-code', { success: true })
     expect(metricsMock).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ foo: 'bar', baz: 'qux', test: 'pass' }) })
     )
@@ -85,7 +85,7 @@ describe('attribute handling', () => {
   test('parent attributes overridable', () => {
     const recorder = new TelemetryRecorder(mockProcessor, { foo: 'bar' })
     const child = recorder.scoped({ foo: 'baz' })
-    child.recordEvent('tasks.completed', { success: true })
+    child.recordEvent('tasks.completed', 'mock-system-code', { success: true })
     expect(metricsMock).toHaveBeenCalledWith(
       expect.objectContaining({ data: expect.objectContaining({ foo: 'baz' }) })
     )
@@ -93,7 +93,7 @@ describe('attribute handling', () => {
 
   test("can't override event metadata", () => {
     const recorder = new TelemetryRecorder(mockProcessor, { namespace: 'foo', eventTimestamp: '137' })
-    recorder.recordEvent('tasks.completed', { success: true })
+    recorder.recordEvent('tasks.completed', 'mock-system-code', { success: true })
     expect(metricsMock).toHaveBeenCalledWith(
       expect.objectContaining({ namespace: 'dotcom-tool-kit.tasks.completed' })
     )
@@ -142,21 +142,21 @@ describe('conditionally enabled', () => {
 
   test('no metrics are sent by default', () => {
     const telemetryProcess = new TelemetryProcess(logger)
-    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', 'mock-system-code', { success: true })
     expect(metricsMock).not.toHaveBeenCalled()
   })
 
   test('metrics are sent when enabled', () => {
     const telemetryProcess = new TelemetryProcess(logger, true)
-    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', 'mock-system-code', { success: true })
     expect(metricsMock).toHaveBeenCalled()
   })
 
   test('recorded metrics are back-sent once telemetry is enabled', () => {
     const telemetryProcess = new TelemetryProcess(logger, false)
-    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
-    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
-    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', 'mock-system-code', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', 'mock-system-code', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', 'mock-system-code', { success: true })
     telemetryProcess.enable()
     expect(metricsMock).toHaveBeenCalledTimes(3)
   })
@@ -177,7 +177,7 @@ describe('metrics sent', () => {
 
   test('a metric is sent successfully', async () => {
     const listeningPromise = listenForTelemetry(mockServer, 1)
-    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', 'mock-system-code', { success: true })
     const metrics = await listeningPromise
     expect(metrics).toEqual([[expect.objectContaining({ namespace: 'dotcom-tool-kit.tasks.completed' })]])
   })
@@ -186,8 +186,8 @@ describe('metrics sent', () => {
   test.skip('metrics of different types are sent successfully', async () => {
     const listeningPromise = listenForTelemetry(mockServer, 2)
     const recorder = telemetryProcess.root()
-    recorder.recordEvent('tasks.completed', { success: true })
-    recorder.recordEvent('tasks.completed', { success: true })
+    recorder.recordEvent('tasks.completed', 'mock-system-code', { success: true })
+    recorder.recordEvent('tasks.completed', 'mock-system-code', { success: true })
     const metrics = await listeningPromise
     expect(metrics.flat()).toEqual([
       expect.objectContaining({ namespace: 'dotcom-tool-kit.tasks.completed' }),
@@ -198,9 +198,9 @@ describe('metrics sent', () => {
   test('buffers multiple metrics sent together', async () => {
     const listeningPromise = listenForTelemetry(mockServer, 3, 10)
     const recorder = telemetryProcess.root()
-    recorder.recordEvent('tasks.completed', { success: true })
-    recorder.recordEvent('tasks.completed', { success: true })
-    recorder.recordEvent('tasks.completed', { success: true })
+    recorder.recordEvent('tasks.completed', 'mock-system-code', { success: true })
+    recorder.recordEvent('tasks.completed', 'mock-system-code', { success: true })
+    recorder.recordEvent('tasks.completed', 'mock-system-code', { success: true })
     const metrics = await listeningPromise
     expect(metrics[1]).toHaveLength(2)
   })
@@ -208,7 +208,7 @@ describe('metrics sent', () => {
   test('uses timestamp from when recorded, not sent', async () => {
     jest.useFakeTimers({ now: 0 })
     const listeningPromise = listenForTelemetry(mockServer, 1)
-    telemetryProcess.root().recordEvent('tasks.completed', { success: true })
+    telemetryProcess.root().recordEvent('tasks.completed', 'mock-system-code', { success: true })
     jest.setSystemTime(20)
     const metrics = await listeningPromise
     expect(metrics[0][0].eventTimestamp).toBe(0)
