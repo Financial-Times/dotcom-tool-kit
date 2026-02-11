@@ -9,5 +9,6 @@ options:
   tasks:
     DockerBuild:
       buildArgs:
-        GIT_COMMIT: !toolkit/env 'GIT_COMMIT'
+        GIT_COMMIT: !toolkit/env CIRCLE_SHA1
+
 version: 2
