@@ -32,6 +32,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [1.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v1.1.0...docker-v1.1.1) (2026-02-11)
+
+
+### Bug Fixes
+
+* **docker:** use correct environment variable name for git commit ([c50c150](https://github.com/Financial-Times/dotcom-tool-kit/commit/c50c1505006aeeb9b73a12e4a95045493ea0d736))
+
 ## [1.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v1.0.1...docker-v1.1.0) (2026-02-05)
 
 
