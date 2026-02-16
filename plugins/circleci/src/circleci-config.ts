@@ -526,28 +526,36 @@ const persistWorkspaceStep = {
 
 const attachWorkspaceStep = 'tool-kit/attach-workspace'
 
-const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => ({
-  ...((job.splitIntoMatrix ?? true) && nodeVersions.length > 1
-    ? {
-        parameters: { executor: { default: 'node', type: 'executor' } },
-        executor: '<< parameters.executor >>'
-      }
-    : { executor: 'node' }),
-  steps: [
-    ...(job.workspace?.attach ?? true ? [attachWorkspaceStep] : []),
-    ...(job.steps?.pre ?? []),
-    {
-      run: {
-        name: job.name,
-        command: `npx dotcom-tool-kit ${job.command}`
-      }
-    },
-    ...(job.steps?.post ?? []),
-    ...(job.workspace?.persist ?? true ? [persistWorkspaceStep] : [])
-  ],
-  environment: job.environment,
-  ...job.custom
-})
+const generateJob = (job: CircleCiJob, nodeVersions: string[]): JobConfig => {
+  const generatedJob: JobConfig = {
+    ...((job.splitIntoMatrix ?? true) && nodeVersions.length > 1
+      ? {
+          parameters: { executor: { default: 'node', type: 'executor' } },
+          executor: '<< parameters.executor >>'
+        }
+      : { executor: 'node' }),
+    steps: [
+      ...(job.workspace?.attach ?? true ? [attachWorkspaceStep] : []),
+      ...(job.steps?.pre ?? []),
+      {
+        run: {
+          name: job.name,
+          command: `npx dotcom-tool-kit ${job.command}`
+        }
+      },
+      ...(job.steps?.post ?? []),
+      ...(job.workspace?.persist ?? true ? [persistWorkspaceStep] : [])
+    ],
+    ...job.custom
+  }
+  if (job.environment) {
+    // only include environment field if it's defined as the `isMatch` test in
+    // isInstalled starts to fail otherwise as it considers {} !=
+    // { environment: undefined }
+    generatedJob.environment = job.environment
+  }
+  return generatedJob
+}
 
 export { CircleCiSchema as schema }
 

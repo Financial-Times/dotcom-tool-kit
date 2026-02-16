@@ -190,7 +190,6 @@ describe('CircleCI config hook', () => {
         {
           "jobs": {
             "test-job": {
-              "environment": undefined,
               "executor": "node",
               "steps": [
                 "tool-kit/attach-workspace",
@@ -262,7 +261,6 @@ describe('CircleCI config hook', () => {
         {
           "jobs": {
             "test-job": {
-              "environment": undefined,
               "executor": "node",
               "steps": [
                 "tool-kit/attach-workspace",
