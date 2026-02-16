@@ -179,7 +179,14 @@ describe('metrics sent', () => {
     const listeningPromise = listenForTelemetry(mockServer, 1)
     telemetryProcess.root().recordEvent('tasks.completed', 'mock-system-code', { success: true })
     const metrics = await listeningPromise
-    expect(metrics).toEqual([[expect.objectContaining({ namespace: 'dotcom-tool-kit.tasks.completed' })]])
+    expect(metrics).toEqual([
+      [
+        expect.objectContaining({
+          namespace: 'dotcom-tool-kit.tasks.completed',
+          systemCode: 'mock-system-code'
+        })
+      ]
+    ])
   })
 
   // TODO:IM:20260107 enable this test once we have multiple different metric types
@@ -190,8 +197,14 @@ describe('metrics sent', () => {
     recorder.recordEvent('tasks.completed', 'mock-system-code', { success: true })
     const metrics = await listeningPromise
     expect(metrics.flat()).toEqual([
-      expect.objectContaining({ namespace: 'dotcom-tool-kit.tasks.completed' }),
-      expect.objectContaining({ namespace: 'dotcom-tool-kit.tasks.completed' })
+      expect.objectContaining({
+        namespace: 'dotcom-tool-kit.tasks.completed',
+        systemCode: 'mock-system-code'
+      }),
+      expect.objectContaining({
+        namespace: 'dotcom-tool-kit.tasks.completed',
+        systemCode: 'mock-system-code'
+      })
     ])
   })
 
