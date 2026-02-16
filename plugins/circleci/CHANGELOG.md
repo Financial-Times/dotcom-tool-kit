@@ -188,6 +188,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [9.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.0.0...circleci-v9.0.1) (2026-02-16)
+
+
+### Bug Fixes
+
+* **circleci:** fix undefined environment causing spurious installation failures ([23da0db](https://github.com/Financial-Times/dotcom-tool-kit/commit/23da0db9c38c5a5e77183155321169e8d885146a))
+
 ## [9.0.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v8.0.0...circleci-v9.0.0) (2026-01-15)
 
 
