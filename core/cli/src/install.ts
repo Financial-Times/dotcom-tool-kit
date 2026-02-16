@@ -14,7 +14,6 @@ import { findConflicts, withoutConflicts } from '@dotcom-tool-kit/conflict'
 import { formatUninstalledHooks } from './messages'
 import { importEntryPoint } from './plugin/entry-point'
 import { runInit } from './init'
-import { guessSystemCode } from './systemCode'
 import { enableTelemetry } from './telemetry'
 import { TelemetryRecorder } from '@dotcom-tool-kit/telemetry'
 
