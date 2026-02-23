@@ -22,7 +22,7 @@
   ],
   "peerDependencies": {
     "dotcom-tool-kit": "5.x",
-    "serverless-offline": "12.x || 13.x"
+    "serverless-offline": "12.x || 13.x || 14.x"
   },
   "dependencies": {
     "@dotcom-tool-kit/base": "^2.1.0",
