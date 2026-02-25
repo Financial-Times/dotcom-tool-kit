@@ -147,9 +147,10 @@ export class TelemetryRecorder {
    * per-namespace as our backend server validates that the events are
    * structured properly for both correctness and security purposes.
    */
-  recordEvent<N extends Namespace>(namespace: N, details: NamespaceSchemas[N]) {
+  recordEvent<N extends Namespace>(namespace: N, systemCode: string, details: NamespaceSchemas[N]) {
     const event: TelemetryEvent = {
       namespace: `dotcom-tool-kit.${namespace}`,
+      systemCode,
       eventTimestamp: Date.now(),
       data: { ...this.attributes, ...details }
     }
@@ -177,7 +178,7 @@ export class MockTelemetryClient extends TelemetryRecorder {
     return this
   }
   // eslint-disable-next-line @typescript-eslint/no-empty-function -- mocked function
-  override recordEvent(_namespace: string, _details: NamespaceSchemas[Namespace]) {}
+  override recordEvent(_namespace: string, _systemCode: string, _details: NamespaceSchemas[Namespace]) {}
 }
 
 export { TelemetryEvent }
