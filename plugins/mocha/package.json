@@ -39,7 +39,8 @@
   },
   "peerDependencies": {
     "dotcom-tool-kit": "5.x",
-    "mocha": ">=6.x <=11.x"
+    "mocha": ">=6.x <=11.x",
+    "mocha-junit-reporter": "<=3.x"
   },
   "engines": {
     "node": ">=20.x"
