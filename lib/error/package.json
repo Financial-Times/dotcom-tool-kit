@@ -17,7 +17,8 @@
   "bugs": "https://github.com/financial-times/dotcom-tool-kit/issues",
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/error",
   "files": [
-    "/lib"
+    "/lib",
+    "/src"
   ],
   "volta": {
     "extends": "../../package.json"

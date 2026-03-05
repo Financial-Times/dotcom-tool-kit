@@ -23,6 +23,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/circleci-npm",
   "files": [
     "/lib",
+    "/src",
     ".toolkitrc.yml"
   ],
   "peerDependencies": {

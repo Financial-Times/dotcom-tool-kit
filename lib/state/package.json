@@ -18,6 +18,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/lib/state",
   "files": [
     "/lib",
+    "/src",
     ".toolkitrc.yml"
   ],
   "volta": {

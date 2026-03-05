@@ -18,6 +18,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/serverless",
   "files": [
     "/lib",
+    "/src",
     ".toolkitrc.yml"
   ],
   "peerDependencies": {

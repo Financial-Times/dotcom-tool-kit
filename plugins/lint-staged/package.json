@@ -25,6 +25,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/lint-staged",
   "files": [
     "/lib",
+    "/src",
     ".toolkitrc.yml"
   ],
   "volta": {

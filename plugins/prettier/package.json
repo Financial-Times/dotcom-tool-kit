@@ -28,6 +28,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/prettier",
   "files": [
     "/lib",
+    "/src",
     ".toolkitrc.yml"
   ],
   "devDependencies": {

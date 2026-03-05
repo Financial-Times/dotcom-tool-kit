@@ -32,6 +32,7 @@
   },
   "files": [
     "/lib",
+    "/src",
     ".toolkitrc.yml"
   ],
   "volta": {

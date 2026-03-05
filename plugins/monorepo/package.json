@@ -18,6 +18,7 @@
   "homepage": "https://github.com/financial-times/dotcom-tool-kit/tree/main/plugins/monorepo",
   "files": [
     "/lib",
+    "/src",
     ".toolkitrc.yml"
   ],
   "engines": {
