@@ -2,8 +2,9 @@ import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { spawn } from 'child_process'
-import { readState, writeState } from '@dotcom-tool-kit/state'
+import { readState } from '@dotcom-tool-kit/state'
 import type ServerlessSchema from '../schema'
+import { createHash } from 'crypto'
 
 export default class ServerlessProvision extends Task<{ plugin: typeof ServerlessSchema }> {
   static description = 'Provision a review serverless function'
@@ -20,19 +21,17 @@ export default class ServerlessProvision extends Task<{ plugin: typeof Serverles
       )
     }
 
-    const buildNum = ciState?.buildNumber
+    const ciBranch = ciState?.branch
 
-    if (!buildNum) {
+    if (!ciBranch) {
       const error = new ToolKitError(
-        `the ${styles.task('ServerlessDeploy')} requires a CI build number in the CI state.`
+        `the ${styles.task('ServerlessDeploy')} requires a CI branch in the CI state.`
       )
 
       error.details = `this is provided by plugins such as ${styles.plugin(
         'circleci'
-      )}, which populates it from the CIRCLE_BUILD_NUM environment variable.`
+      )}, which populates it from the CIRCLE_BRANCH environment variable.`
     }
-
-    const stageName = `ci${buildNum}`
 
     this.logger.verbose('starting the child serverless process...')
     const args = [
@@ -40,7 +39,7 @@ export default class ServerlessProvision extends Task<{ plugin: typeof Serverles
       '--region',
       regions[0],
       '--stage',
-      stageName,
+      stageName(ciBranch),
       '--aws-profile',
       `CircleCI-role-${systemCode}`
     ]
@@ -55,8 +54,9 @@ export default class ServerlessProvision extends Task<{ plugin: typeof Serverles
 
     hookFork(this.logger, 'serverless', child)
     await waitOnExit('serverless', child)
-    writeState('review', {
-      stageName
-    })
   }
+}
+
+export function stageName(ciBranch: string) {
+  return createHash('sha256').update(ciBranch).digest('hex').slice(0, 6)
 }
