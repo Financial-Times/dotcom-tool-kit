@@ -1,4 +1,3 @@
-import { ToolKitError } from '@dotcom-tool-kit/error'
 import { hookFork, styles, waitOnExit } from '@dotcom-tool-kit/logger'
 import { Task, TaskRunContext } from '@dotcom-tool-kit/base'
 import { readState } from '@dotcom-tool-kit/state'
@@ -11,11 +10,13 @@ export default class ServerlessTeardown extends Task<{ plugin: typeof Serverless
   async run({ cwd }: TaskRunContext): Promise<void> {
     const { configPath, regions, systemCode } = this.pluginOptions
 
-    const reviewState = readState('review')
+    const ciState = readState('ci')
 
-    if (!reviewState || !reviewState.stageName) {
-      throw new ToolKitError(
-        `Could not find state for review, check that ${styles.hook('deploy:review')} ran successfully`
+    if (!ciState || !ciState.branch) {
+      throw new Error(
+        `Couldn't get CI state to generate the hashed branch name. Make sure this task is running in CI and you have a Tool Kit plugin that provides CI state, such as ${styles.plugin(
+          '@dotcom-tool-kit/circleci'
+        )}, installed.`
       )
     }
 
@@ -26,7 +27,7 @@ export default class ServerlessTeardown extends Task<{ plugin: typeof Serverless
       '--region',
       regions[0],
       '--stage',
-      reviewState.stageName,
+      ciState.branch,
       '--aws-profile',
       `CircleCI-role-${systemCode}`
     ]
