@@ -183,7 +183,7 @@ describe('metrics sent', () => {
       [
         expect.objectContaining({
           namespace: 'dotcom-tool-kit.tasks.completed',
-          systemCode: 'mock-system-code'
+          systemCode: 'dotcom-tool-kit'
         })
       ]
     ])
@@ -199,11 +199,11 @@ describe('metrics sent', () => {
     expect(metrics.flat()).toEqual([
       expect.objectContaining({
         namespace: 'dotcom-tool-kit.tasks.completed',
-        systemCode: 'mock-system-code'
+        systemCode: 'dotcom-tool-kit'
       }),
       expect.objectContaining({
         namespace: 'dotcom-tool-kit.tasks.completed',
-        systemCode: 'mock-system-code'
+        systemCode: 'dotcom-tool-kit'
       })
     ])
   })

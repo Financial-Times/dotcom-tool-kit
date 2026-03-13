@@ -148,11 +148,13 @@ export class TelemetryRecorder {
    * structured properly for both correctness and security purposes.
    */
   recordEvent<N extends Namespace>(namespace: N, details: NamespaceSchemas[N]) {
+    const { systemCode, ...attributes } = this.attributes
+
     const event: TelemetryEvent = {
       namespace: `dotcom-tool-kit.${namespace}`,
-      systemCode,
+      systemCode: systemCode || 'dotcom-tool-kit',
       eventTimestamp: Date.now(),
-      data: { ...this.attributes, ...details }
+      data: { ...attributes, ...details }
     }
     this.process['recordEvent'](event)
   }
