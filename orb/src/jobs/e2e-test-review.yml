@@ -23,7 +23,7 @@ steps:
             aws-account-id: << parameters.aws-account-id >>
             system-code: << parameters.system-code >>
   - run:
-      name: Smoke tests
+      name: Run E2E tests on review app
       command: npx dotcom-tool-kit test:review
   - store_artifacts:
       path: /root/project/e2e-test-results
