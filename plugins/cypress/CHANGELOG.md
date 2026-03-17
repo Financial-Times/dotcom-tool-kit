@@ -174,6 +174,14 @@
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
     * @dotcom-tool-kit/package-json-hook bumped from ^5.2.1 to ^5.2.2
 
+## [6.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v6.0.1...cypress-v6.1.0) (2026-03-17)
+
+
+### Features
+
+* Add Cypress task openModeOnLocal option ([6dee7a6](https://github.com/Financial-Times/dotcom-tool-kit/commit/6dee7a6c09b07d6d79fbb68104fd20e47ea29ba8))
+* Make Cypress task openMode option environment-agnostic ([6b2de7a](https://github.com/Financial-Times/dotcom-tool-kit/commit/6b2de7a2441e0570487ae7aa4c6cc6a8919a4337))
+
 ## [6.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/cypress-v6.0.0...cypress-v6.0.1) (2026-01-15)
 
 

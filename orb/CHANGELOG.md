@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.4.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.4.0...orb-v5.4.1) (2026-03-17)
+
+
+### Bug Fixes
+
+* Revise e2e-test-review + e2e-test-staging step names ([21884b1](https://github.com/Financial-Times/dotcom-tool-kit/commit/21884b17d4b009001a2096afdfe39b4eb8e27b98))
+
 ## [5.4.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.3.0...orb-v5.4.0) (2026-01-21)
 
 
