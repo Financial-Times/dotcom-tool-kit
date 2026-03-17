@@ -13,11 +13,11 @@ const CypressSchema = z
       .describe(
         'URL to run Cypress against. If running in an environment such as a review or staging app build that has Tool Kit state with a URL for an app to run against, that will override this option.'
       ),
-    openModeOnLocal: z
+    openMode: z
       .boolean()
       .optional()
       .describe(
-        'Determines whether Cypress tests run in the local environment will run in Open Mode (described here: https://docs.cypress.io/app/core-concepts/open-mode).'
+        'Determines whether Cypress tests will run in Open Mode (described here: https://docs.cypress.io/app/core-concepts/open-mode).'
       )
   })
   .describe('Run Cypress end-to-end tests')
@@ -25,7 +25,6 @@ export { CypressSchema as schema }
 
 export default class Cypress extends Task<{ task: typeof CypressSchema }> {
   async run({ cwd, config }: TaskRunContext): Promise<void> {
-    const localState = readState('local')
     const reviewState = readState('review')
     const appState = reviewState ?? readState('staging')
     const cypressEnv: Record<string, string> = {}
@@ -52,7 +51,7 @@ export default class Cypress extends Task<{ task: typeof CypressSchema }> {
 
     const args = ['run'];
 
-    if (Boolean(localState) && this.options.openModeOnLocal) {
+    if (this.options.openMode) {
       args.unshift('open');
     }
 
