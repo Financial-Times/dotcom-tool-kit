@@ -5,6 +5,18 @@ import { Task } from '@dotcom-tool-kit/base'
 import { ToolKitError } from '@dotcom-tool-kit/error'
 import { readState, writeState } from '@dotcom-tool-kit/state'
 
+interface AwsCredentials {
+  accessKeyId?: string
+  secretAccessKey?: string
+  sessionToken?: string
+}
+
+declare module '@dotcom-tool-kit/state' {
+  export interface State {
+    aws: AwsCredentials
+  }
+}
+
 const AwsAssumeRoleSchema = z
   .object({
     roleArn: z
@@ -40,7 +52,7 @@ export default class AwsAssumeRole extends Task<{ task: typeof AwsAssumeRoleSche
         secretAccessKey: Credentials.SecretAccessKey,
         sessionToken: Credentials.SessionToken
       }
-      writeState('ci', { awsCredentials })
+      writeState('aws', awsCredentials)
       this.logger.info(`Saved AWS credentials to "ci" state with session name "${RoleSessionName}"`)
     } catch (err) {
       // We wrap non-ToolKitError errors to ensure that they exit the process
