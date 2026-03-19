@@ -198,6 +198,13 @@
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v4.0.1...serverless-v4.0.2) (2026-03-19)
+
+
+### Bug Fixes
+
+* severless app to use ci branch hash for the task provision and teardown process ([9a83148](https://github.com/Financial-Times/dotcom-tool-kit/commit/9a8314898e0b6e81ecc1423df8bad6a2f7743cd2))
+
 ## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v4.0.0...serverless-v4.0.1) (2026-01-15)
 
 
