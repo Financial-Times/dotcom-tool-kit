@@ -113,7 +113,7 @@ export default class NodeTest extends Task<{ task: typeof NodeTestSchema }> {
     if (concurrency === true && process.env.CIRCLECI) {
       concurrency = (await guessCircleCiThreads()) - 1
     }
-    const files = await glob(filePatterns, { cwd, ignore })
+    const files = await glob(filePatterns, { absolute: true, cwd, ignore })
 
     let success = true
     const testStream = run(Object.assign({ concurrency, files, forceExit, watch }, customOptions))
