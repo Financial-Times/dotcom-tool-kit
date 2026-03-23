@@ -15,7 +15,7 @@ import { z } from 'zod'
 // between Node.js 20 and 22. In future (when we drop Node.js 20 support) we will be able to remove
 // this and rely on the built-in patterns.
 // See https://nodejs.org/api/test.html#running-tests-from-the-command-line
-const defaultFilePatterns = [
+export const defaultFilePatterns = [
   '**/*.test.?(c|m)js',
   '**/*-test.?(c|m)js',
   '**/*_test.?(c|m)js',
@@ -25,7 +25,7 @@ const defaultFilePatterns = [
 ]
 
 // We don't want to run tests against files under "node_modules"
-const defaultIgnorePatterns = ['**/node_modules/**']
+export const defaultIgnorePatterns = ['**/node_modules/**']
 
 // TODO:IM:20250407 This function has been copied wholesale from
 // plugins/jest/src/tasks/jest.ts. There isn't a clear shared library to put it
@@ -113,7 +113,7 @@ export default class NodeTest extends Task<{ task: typeof NodeTestSchema }> {
     if (concurrency === true && process.env.CIRCLECI) {
       concurrency = (await guessCircleCiThreads()) - 1
     }
-    const files = await glob(filePatterns, { cwd, ignore })
+    const files = await glob(filePatterns, { absolute: true, cwd, ignore })
 
     let success = true
     const testStream = run(Object.assign({ concurrency, files, forceExit, watch }, customOptions))
