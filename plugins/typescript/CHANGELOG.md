@@ -156,6 +156,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v4.0.1...typescript-v4.1.0) (2026-03-24)
+
+
+### Features
+
+* allow projects to use TypeScript v6 ([491106d](https://github.com/Financial-Times/dotcom-tool-kit/commit/491106dba7bc4b4b67667761c7a54e2523f28836))
+
 ## [4.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/typescript-v4.0.0...typescript-v4.0.1) (2026-01-15)
 
 
