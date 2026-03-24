@@ -23,7 +23,7 @@
   ],
   "peerDependencies": {
     "dotcom-tool-kit": "5.x",
-    "typescript": "3.x || 4.x || 5.x"
+    "typescript": "3.x || 4.x || 5.x || 6.x"
   },
   "dependencies": {
     "@dotcom-tool-kit/base": "^2.1.0",
