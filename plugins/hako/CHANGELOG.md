@@ -6,6 +6,13 @@
   * dependencies
     * @dotcom-tool-kit/base bumped from ^1.1.10 to ^1.2.0
 
+## [2.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v2.1.0...hako-v2.2.0) (2026-03-26)
+
+
+### Features
+
+* add syndication environments to list of known environments ([ca01eff](https://github.com/Financial-Times/dotcom-tool-kit/commit/ca01eff4642e271a55c942f4bd2b17182c7e7e2d))
+
 ## [2.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/hako-v2.0.0...hako-v2.1.0) (2026-01-22)
 
 
