@@ -45,6 +45,15 @@
     * @dotcom-tool-kit/hako bumped from ^0.1.8 to ^0.1.9
     * @dotcom-tool-kit/node bumped from ^4.3.1 to ^4.3.2
 
+## [2.0.7](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v2.0.6...containerised-app-v2.0.7) (2026-03-26)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @dotcom-tool-kit/hako bumped from ^2.1.0 to ^2.2.0
+
 ## [2.0.6](https://github.com/Financial-Times/dotcom-tool-kit/compare/containerised-app-v2.0.5...containerised-app-v2.0.6) (2026-02-16)
 
 
