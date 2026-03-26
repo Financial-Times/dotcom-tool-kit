@@ -32,5 +32,7 @@ export const hakoDomains: Record<string, string> = {
   'ft-com-prod-us': 'ft-com-prod.ftweb.tech',
   'ft-com-test-eu': 'ft-com-test.ftweb.tech',
   'ft-com-review-eu': 'ft-com-review.ftweb.tech',
-  'ft-com-canary-eu': 'ft-com-canary.ftweb.tech'
+  'ft-com-canary-eu': 'ft-com-canary.ftweb.tech',
+  'syndication-prod-eu': 'syndication-prod.ftweb.tech',
+  'syndication-test-eu': 'syndication-test.ftweb.tech'
 }
