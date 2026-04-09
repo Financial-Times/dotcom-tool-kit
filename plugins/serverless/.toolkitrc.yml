@@ -7,3 +7,19 @@ tasks:
 optionsSchema: './lib/schema'
 
 version: 2
+
+options:
+  hooks:
+    - CircleCi:
+        workflows:
+          - name: 'pr-close'
+            jobs:
+              - name: 'teardown-review'
+                requires: []
+        jobs:
+          - name: 'teardown-review'
+            steps:
+              pre:
+                - tool-kit/serverless-assume-role:
+                    aws-account-id: '@dotcom-tool-kit/serverless.awsAccountId'
+                    system-code: '@dotcom-tool-kit/serverless.systemCode'
