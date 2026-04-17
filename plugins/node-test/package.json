@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/node-test",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "lib",
   "scripts": {
     "test": "cd ../../ ; npx jest --silent --projects plugins/node-test"

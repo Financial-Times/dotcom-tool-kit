@@ -198,6 +198,13 @@
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v4.0.2...serverless-v4.1.0) (2026-04-17)
+
+
+### Features
+
+* add severless authentication using serverless assume role for PR close workflow ([9cd7314](https://github.com/Financial-Times/dotcom-tool-kit/commit/9cd731443af35ef6d4d04b5f4c46a3b750775270))
+
 ## [4.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v4.0.1...serverless-v4.0.2) (2026-03-24)
 
 
