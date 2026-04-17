@@ -21,5 +21,5 @@ options:
             steps:
               pre:
                 - tool-kit/serverless-assume-role:
-                    aws-account-id: '@dotcom-tool-kit/serverless.awsAccountId'
-                    system-code: '@dotcom-tool-kit/serverless.systemCode'
+                    aws-account-id: !toolkit/option '@dotcom-tool-kit/serverless.awsAccountId'
+                    system-code: !toolkit/option '@dotcom-tool-kit/serverless.systemCode'
