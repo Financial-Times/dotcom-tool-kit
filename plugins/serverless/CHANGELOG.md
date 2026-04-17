@@ -198,6 +198,13 @@
     * @dotcom-tool-kit/doppler bumped from ^2.2.0 to ^2.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [4.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v4.1.0...serverless-v4.2.0) (2026-04-17)
+
+
+### Features
+
+* update with toolkit/option with the serveless assume ID ([2f552c2](https://github.com/Financial-Times/dotcom-tool-kit/commit/2f552c29aebe18d7f954a9a6bf04f0f838dbfa56))
+
 ## [4.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/serverless-v4.0.2...serverless-v4.1.0) (2026-04-17)
 
 
