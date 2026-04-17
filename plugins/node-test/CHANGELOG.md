@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-test-v2.0.1...node-test-v2.0.2) (2026-04-17)
+
+
+### Bug Fixes
+
+* use absolute paths when running test files ([f88b926](https://github.com/Financial-Times/dotcom-tool-kit/commit/f88b92695d8ea4316982498fa20a9aa07edc2f49))
+
 ## [2.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/node-test-v2.0.0...node-test-v2.0.1) (2026-01-15)
 
 
