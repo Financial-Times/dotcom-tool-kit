@@ -5,7 +5,7 @@ A bootstrap plugin that provides the minimum required Tool Kit plugins for a con
   - [`@dotcom-tool-kit/aws`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/aws)
   - [`@dotcom-tool-kit/cloudsmith`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/cloudsmith)
   - [`@dotcom-tool-kit/docker`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/docker)
-  - [`@dotcom-tool-kit/doppler`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/doppler)
+  - [`@dotcom-tool-kit/doppler`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/lib/doppler)
   - [`@dotcom-tool-kit/hako`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/hako)
   - [`@dotcom-tool-kit/node`](https://github.com/Financial-Times/dotcom-tool-kit/tree/main/plugins/node)
 
