@@ -4,9 +4,9 @@
 
 <img width="240" src="../etc/plugin.svg" align="right">
 
-Tool Kit is a fully modular set of developer tooling. Not every project requires the same tooling, so to make sure different projects only have to install and configure what they need, Tool Kit is made up of several **plugins** that you can install separately to provide different groups of functionality, like [the `npm` plugin](plugins/npm), which lets Tool Kit manage things like `package.json` scripts.
+Tool Kit is a fully modular set of developer tooling. Not every project requires the same tooling, so to make sure different projects only have to install and configure what they need, Tool Kit is made up of several **plugins** that you can install separately to provide different groups of functionality, like [the `npm` plugin](../plugins/npm), which lets Tool Kit manage things like `package.json` scripts.
 
-This means a project that uses Jest for its tests can install [the `jest` plugin](../plugins/jest), and a project using Mocha can install [the `mocha` plugin](plugins/mocha), and be able to run them consistently anywhere they're needed, e.g. the `npm run test` script, without having to configure that manually. Plugins can depend on other plugins, so we also publish plugins like [`containerised-app`](../plugins/containerised-app/) that bundle up most of the tooling you'll need for a particular use case  into a single package.
+This means a project that uses Jest for its tests can install [the `jest` plugin](../plugins/jest), and a project using Mocha can install [the `mocha` plugin](../plugins/mocha), and be able to run them consistently anywhere they're needed, e.g. the `npm run test` script, without having to configure that manually. Plugins can depend on other plugins, so we also publish plugins like [`containerised-app`](../plugins/containerised-app/) that bundle up most of the tooling you'll need for a particular use case  into a single package.
 
 And if there's something you want to use in your repo that's not yet supported by Tool Kit, you can [extend it](./extending-tool-kit.md) by writing a custom plugin that works consistently with any officially-supported tooling.
 
@@ -18,7 +18,7 @@ Plugins provide **tasks**, which provide the code for running external tooling, 
 
 **Commands** are labels (like `test:local`) that you provide on the command line when running `dotcom-tool-kit`. They're assigned by `.toolkitrc.yml` files in your repo and in plugins to run [tasks](#tasks).
 
-Plugins can set a default command for their tasks to run on; for example, the `Jest` task [runs by default on the `test:local` command](./plugins/jest/.toolkitrc.yml#L5). If you've got multiple tasks trying to run on the same command by default, you'll need to [configure which you want to run](./docs/resolving-plugin-conflicts.md).
+Plugins can set a default command for their tasks to run on; for example, the `Jest` task [runs by default on the `test:local` command](../plugins/jest/.toolkitrc.yml#L5). If you've got multiple tasks trying to run on the same command by default, you'll need to [configure which you want to run](./resolving-plugin-conflicts.md).
 
 ## Tasks
 

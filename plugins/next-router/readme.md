@@ -4,7 +4,7 @@ Tool Kit plugin to run an application via the [`next-router`](https://github.com
 
 ## Installation & usage
 
-With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-and-using-tool-kit), install this plugin as a dev dependency:
+With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-tool-kit), install this plugin as a dev dependency:
 
 ```sh
 npm install --save-dev @dotcom-tool-kit/next-router
