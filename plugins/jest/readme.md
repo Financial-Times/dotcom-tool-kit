@@ -27,7 +27,7 @@ Runs `jest` to execute tests.
 
 | Property     | Description                                                                                                                                                      | Type     |
 | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- |
-| `configPath` | Path to the [Jest config file](https://jestjs.io/docs/29.7/configuration). Use Jest's own [config resolution](https://jestjs.io/docs/configuration/) by default. | `string` |
+| `configPath` | Path to the [Jest config file](https://jestjs.io/docs/27.x/configuration). Use Jest's own [config resolution](https://jestjs.io/docs/configuration/) by default. | `string` |
 | `ci`         | Whether to run Jest in [CI mode](https://jestjs.io/docs/cli#--ci).                                                                                               | `true`   |
 
 _All properties are optional._
