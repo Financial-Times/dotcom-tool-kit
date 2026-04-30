@@ -68,6 +68,15 @@ const anotherTestWorkflowJob: CircleCiWorkflowJob = {
   splitIntoMatrix: true
 }
 
+const workflowJobWithRequireStatus: CircleCiWorkflowJob = {
+  name: 'another-test-job',
+  requires: [
+    {
+      'that-job': 'terminal'
+    }
+  ]
+}
+
 const configWithWorkflowJob: CircleCiOptions = {
   workflows: [{ name: 'tool-kit', jobs: [dependedWorkflowJob, testWorkflowJob] }],
   disableBaseConfig: true
@@ -83,8 +92,9 @@ const configWithJob: CircleCiOptions = {
   disableBaseConfig: true
 }
 
-const jobWithEnvironment: CircleCiOptions = {
-  jobs: [{ name: 'environment-job' }]
+const configWithRequireStatusJob: CircleCiOptions = {
+  workflows: [{ name: 'tool-kit', jobs: [dependedWorkflowJob, workflowJobWithRequireStatus] }],
+  disableBaseConfig: true
 }
 
 describe('CircleCI config hook', () => {
@@ -291,6 +301,41 @@ describe('CircleCI config hook', () => {
                   "test-job": {
                     "requires": [
                       "tool-kit/that-job",
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        }
+      `)
+    })
+
+    it('should output require statuses', async () => {
+      process.chdir(path.join(__dirname, 'files', 'managed', 'without-workflow-job'))
+
+      const hook = new CircleCi(logger, 'CircleCi', configWithRequireStatusJob, {
+        cimgNodeVersions: ['16.14-browsers']
+      })
+
+      expect(await hook.install()).toMatchInlineSnapshot(`
+        {
+          "workflows": {
+            "tool-kit": {
+              "jobs": [
+                {
+                  "tool-kit/that-job": {
+                    "executor": "node",
+                    "requires": [],
+                  },
+                },
+                {
+                  "tool-kit/another-test-job": {
+                    "executor": "node",
+                    "requires": [
+                      {
+                        "tool-kit/that-job": "terminal",
+                      },
                     ],
                   },
                 },
