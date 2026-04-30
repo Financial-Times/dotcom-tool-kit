@@ -88,5 +88,5 @@ In this example, we grep the contents of `log.txt.` which should contain a `succ
 
 ## See:
  - [BATS Orb](https://circleci.com/orbs/registry/orb/circleci/bats)
- - [Orb Testing CircleCI Docs](https://circleci.com/docs/2.0/testing-orbs)
+ - [Orb Testing CircleCI Docs](https://circleci.com/docs/orbs/author/testing-orbs/)
  - [BATS-Core GitHub](https://github.com/bats-core/bats-core)
