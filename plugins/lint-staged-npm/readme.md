@@ -4,7 +4,7 @@ A plugin to install the [lint-staged](https://github.com/okonet/lint-staged) too
 
 ## Installation
 
-With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-and-using-tool-kit), install this plugin as a dev dependency:
+With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-tool-kit), install this plugin as a dev dependency:
 
 ```sh
 npm install --save-dev @dotcom-tool-kit/lint-staged-npm

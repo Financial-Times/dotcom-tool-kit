@@ -10,7 +10,7 @@ This bootstrap plugin is also preconfigured to run the `Webpack` and `Node` task
 
 ## Installation & Usage
 
-With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-and-using-tool-kit), install this plugin as a dev dependency:
+With Tool Kit [already set up](https://github.com/financial-times/dotcom-tool-kit#installing-tool-kit), install this plugin as a dev dependency:
 
 ```sh
 npm install --save-dev @dotcom-tool-kit/containerised-app-with-assets

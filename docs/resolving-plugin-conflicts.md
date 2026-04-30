@@ -18,7 +18,7 @@ You might not be using the conflicting plugins directly; they might be installed
 
 ## Resolving conflicts
 
-The [Tool Kit configuration](../readme.md#configuration) in your repo will override any configuration from plugins, which is treated as a default. You can provide configuration in your `.toolkitrc.yml` to specify which of the conflicting Tool Kit tasks you want to run.
+The [Tool Kit configuration](../readme.md#configuring-tool-kit) in your repo will override any configuration from plugins, which is treated as a default. You can provide configuration in your `.toolkitrc.yml` to specify which of the conflicting Tool Kit tasks you want to run.
 
 For example, if your app requires Webpack to run for `build:local` hooks, but not Babel:
 
