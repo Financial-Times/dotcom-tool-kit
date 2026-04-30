@@ -1,6 +1,7 @@
 import {
   type CircleCiJob,
   type CircleCiOptions,
+  CircleCiRequires,
   CircleCiSchema,
   type CircleCiWorkflow,
   type CircleCiWorkflowJob
@@ -29,7 +30,7 @@ type WorkflowJobConfig = {
   type?: string
   docker?: { image: string; environment?: Record<string, string> }[]
   context?: string | string[]
-  requires?: string[]
+  requires?: CircleCiRequires[]
   filters?: { branches?: { only?: string; ignore?: string }; tags?: { only?: string } }
   executor?: string
   [parameter: string]: unknown
@@ -468,17 +469,29 @@ const generateWorkflowJobs = (
         {
           requires:
             job.requires?.map((required) => {
-              const getRequiredData = (): [string, ExecutorCount] => {
-                if (required === 'checkout') {
+              const getRequiredJobName = (required: CircleCiRequires) =>
+                typeof required === 'string' ? required : Object.keys(required)[0]
+              const updateRequiredJobName = (required: CircleCiRequires, newName: string) =>
+                typeof required === 'string'
+                  ? newName
+                  : {
+                      [newName]: Object.values(required)[0]
+                    }
+
+              const getRequiredData = (): [CircleCiRequires, ExecutorCount] => {
+                const jobName = getRequiredJobName(required)
+
+                if (jobName === 'checkout') {
                   return [required, 'none']
                 }
 
                 // HACK:20250106:IM allow plugins to require orb jobs using the
                 // tool-kit/ prefix as that's what we want to move towards anyway
-                const normalisedRequired = required.replace(/^tool-kit\//, '')
-                const requiredOrb = toolKitOrbPrefix(normalisedRequired)
+                const normalisedRequired = jobName.replace(/^tool-kit\//, '')
+                const requiredOrbName = toolKitOrbPrefix(normalisedRequired)
+                const requiredOrb = updateRequiredJobName(required, requiredOrbName)
 
-                if (requiredOrb === 'tool-kit/setup') {
+                if (requiredOrbName === 'tool-kit/setup') {
                   return [requiredOrb, runsOnMultipleNodeVersions ? 'matrix' : 'none']
                 }
 
@@ -501,11 +514,16 @@ const generateWorkflowJobs = (
                 return [requiredOrb, getExecutorCount(requiredJob)]
               }
 
-              const [requiredName, requiredExecutorCount] = getRequiredData()
+              const [requiredJob, requiredExecutorCount] = getRequiredData()
+              const jobName = getRequiredJobName(requiredJob)
+
               if (requiredExecutorCount === 'matrix') {
-                return `${requiredName}-${executorCount === 'matrix' ? '<< matrix.executor >>' : 'node'}`
+                return updateRequiredJobName(
+                  requiredJob,
+                  `${jobName}-${executorCount === 'matrix' ? '<< matrix.executor >>' : 'node'}`
+                )
               } else {
-                return requiredName
+                return requiredJob
               }
             }) ?? []
         },
