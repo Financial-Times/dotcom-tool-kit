@@ -38,10 +38,23 @@ export const CircleCiJob = z
   .required({ name: true })
 export type CircleCiJob = z.infer<typeof CircleCiJob>
 
+const CircleCiRequiresStatus = z.union([
+  z.literal('success'),
+  z.literal('failed'),
+  z.literal('canceled'),
+  z.literal('unauthorized'),
+  z.literal('not_run'),
+  z.literal('terminal')
+])
+
+const CircleCiRequires = z.string().or(z.record(CircleCiRequiresStatus.or(z.array(CircleCiRequiresStatus))))
+
+export type CircleCiRequires = z.infer<typeof CircleCiRequires>
+
 export const CircleCiWorkflowJob = z
   .object({
     name: z.string(),
-    requires: z.array(z.string()),
+    requires: z.array(CircleCiRequires),
     splitIntoMatrix: z.boolean().optional(),
     runOnRelease: z.boolean().optional(),
     custom: CircleCiCustom.optional()
