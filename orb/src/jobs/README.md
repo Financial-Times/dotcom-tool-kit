@@ -1,6 +1,6 @@
 # Jobs
 
-Easily author and add [Parameterized Jobs](https://circleci.com/docs/2.0/reusing-config/#authoring-parameterized-jobs) to the `src/jobs` directory.
+Easily author and add [Parameterized Jobs](https://circleci.com/docs/reference/reusing-config/#authoring-parameterized-jobs) to the `src/jobs` directory.
 
 Each _YAML_ file within this directory will be treated as an orb job, with a name which matches its filename.
 
@@ -24,6 +24,6 @@ steps:
 ```
 
 ## See:
- - [Orb Author Intro](https://circleci.com/docs/2.0/orb-author-intro/#section=configuration)
- - [How To Author Commands](https://circleci.com/docs/2.0/reusing-config/#authoring-parameterized-jobs)
+ - [Introduction to authoring orbs](https://circleci.com/docs/orb-author/)
+ - [Authoring parameterized jobs](https://circleci.com/docs/reference/reusing-config/#authoring-parameterized-jobs)
  - [Node Orb "test" Job](https://github.com/CircleCI-Public/node-orb/blob/master/src/jobs/test.yml)
