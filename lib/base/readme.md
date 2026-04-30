@@ -26,7 +26,7 @@ If you try to load a plugin from an incompatible version of `base`, you'll get a
 Check where the incompatible version is coming from with `npm ls @dotcom-tool-kit/base`, and update the intermediate dependencies that lead to the old version of `base` to their latest versions.
 
 | Version in `dotcom-tool-kit` | Version in plugin | Compatible |
-|-|-|
+|-|-|-|
 | `1.0.0` | `1.0.0` | ✅ |
 | `1.0.0` | `1.1.0` | ✅ |
 | `1.1.0` | `1.0.0` | ❌ |
