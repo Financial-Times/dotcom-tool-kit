@@ -4,8 +4,12 @@ parameters:
     type: executor
   npm-version:
     description: This value is deprecated and no longer used. We now use Node's bundled version of npm.
-    default: ""
+    default: ''
     type: string
+  use-cloudsmith-package-registry:
+    description: Toggle to install npm packages from cloudsmith registry
+    default: false
+    type: boolean
 
 executor: << parameters.executor >>
 
@@ -14,7 +18,12 @@ steps:
   - when:
       condition: << parameters.npm-version >>
       steps:
-          - run: sudo npm install -g npm@$PARAM_NPM_VERSION
+        - run: sudo npm install -g npm@$PARAM_NPM_VERSION
+  - when:
+      condition: << parameters.use-cloudsmith-package-registry >>
+      steps:
+        - cloudsmith-npm/configure_npm:
+            repository: financial-times-internal-releases
   - node/install-packages
   - persist-workspace:
       path: .
