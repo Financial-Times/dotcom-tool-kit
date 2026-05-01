@@ -2,11 +2,20 @@ parameters:
   executor:
     default: default
     type: executor
+  use-cloudsmith-package-registry:
+    description: Toggle to publish npm packages to cloudsmith registry
+    default: false
+    type: boolean
 
 executor: << parameters.executor >>
 
 steps:
   - attach-workspace
+  - when:
+      condition: << parameters.use-cloudsmith-package-registry >>
+      steps:
+        - cloudsmith-npm/configure_npm:
+            repository: financial-times-internal-releases
   - run:
       name: Publish to npm
       command: npx dotcom-tool-kit publish:tag
