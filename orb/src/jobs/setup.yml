@@ -24,6 +24,9 @@ steps:
       steps:
         - cloudsmith-npm/configure_npm:
             repository: financial-times-internal-releases
+        - run: |
+            echo "registry=https://npm.packages.ft.com/financial-times-internal-releases/" >> .npmrc &&
+            echo "//npm.packages.ft.com/financial-times-internal-releases/:_authToken=$CLOUDSMITH_OIDC_TOKEN" >> .npmrc
   - node/install-packages
   - persist-workspace:
       path: .
