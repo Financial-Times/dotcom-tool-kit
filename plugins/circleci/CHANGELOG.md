@@ -188,6 +188,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [9.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.0.1...circleci-v9.1.0) (2026-05-01)
+
+
+### Features
+
+* **circleci:** support specifying a status for a required job ([3bf891d](https://github.com/Financial-Times/dotcom-tool-kit/commit/3bf891df5d8392bafcf8c6a485f6e90a36376956))
+
 ## [9.0.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.0.0...circleci-v9.0.1) (2026-02-16)
 
 
