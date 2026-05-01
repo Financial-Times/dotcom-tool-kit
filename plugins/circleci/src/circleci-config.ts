@@ -131,7 +131,8 @@ const getBaseConfig = (
   nodeVersions: string[],
   checkoutMethod?: CheckoutMethod,
   tagFilterRegex?: string,
-  orbDevVersion?: string
+  orbDevVersion?: string,
+  useCloudsmithNpmRegistry?: boolean
 ): CircleCIState => {
   const runsOnMultipleNodeVersions = nodeVersions.length > 1
   const setupMatrix = runsOnMultipleNodeVersions
@@ -171,7 +172,12 @@ const getBaseConfig = (
             'tool-kit/setup': {
               ...setupMatrix,
               requires: ['checkout'],
-              ...(tagFilterRegex ? tagFilter(tagFilterRegex) : {})
+              ...(tagFilterRegex ? tagFilter(tagFilterRegex) : {}),
+              ...(useCloudsmithNpmRegistry
+                ? {
+                    'use-cloudsmith-package-registry': true
+                  }
+                : {})
             }
           }
         ]
@@ -700,7 +706,8 @@ export default class CircleCi extends Hook<
               nodeVersions,
               this.pluginOptions.checkoutMethod,
               configuredTagFilterRegex,
-              this.pluginOptions.orbDevVersion
+              this.pluginOptions.orbDevVersion,
+              this.pluginOptions.useCloudsmithNpmRegistry
             ),
         generated,
         this.options.custom ?? {}
