@@ -13,6 +13,7 @@ display:
 orbs:
   node: circleci/node@5.0.2
   change-api: financial-times/change-api@1.0.9
+  cloudsmith-npm: ft-circleci-orbs/cloudsmith-npm@1.0
   cloudsmith-oidc: ft-circleci-orbs/cloudsmith-oidc@1.0
   aws-cli: circleci/aws-cli@3.1.4
   serverless-framework: circleci/serverless-framework@2.0.2

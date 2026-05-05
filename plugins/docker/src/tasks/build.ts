@@ -22,6 +22,27 @@ const DockerBuildSchema = z
       .default({})
       .describe(
         'An object of Docker [build variables](https://docs.docker.com/build/building/variables/) to include when building the image. To use values from Tool Kit\'s environment (since we usually build Docker images on CircleCI, this would be the CI environment), you can use the `!toolkit/env` tag, e.g. `buildArgs: { GIT_COMMIT: !toolkit/env "GIT_COMMIT" }`'
+      ),
+    secretEnvArgs: z
+      .record(z.string(), z.string())
+      .default({})
+      .describe(
+        `
+          An object of Docker [build secret environment variables](https://docs.docker.com/build/building/secrets/) to include when building the image.
+          The object will add \`--secret id=[KEY],env=[VALUE]\` to the docker build script. To use values from Tool Kit\'s environment (since we
+          usually build Docker images on CircleCI, this would be the CI environment), you can use the \`!toolkit/env\` tag, e.g.
+          \`secretEnvArgs: { npmtoken: !toolkit/env "NPM_TOKEN" }\`
+        `
+      ),
+    secretFileArgs: z
+      .record(z.string(), z.string())
+      .default({})
+      .describe(
+        `
+          An object of Docker [build secret files](https://docs.docker.com/build/building/secrets/) to include when building the image.
+          The object will add \`--secret id=[KEY],src=[VALUE]\` to the docker build script. You may add files that include secret
+          configuration like \`.npmrc\`.
+        `
       )
   })
   .describe('Run `docker build` to create Docker images.')
@@ -62,11 +83,21 @@ export default class DockerBuild extends Task<{
           return ['--build-arg', `${key}=${value}`]
         })
 
+        const secretEnvArgs = Object.entries(this.options.secretEnvArgs).flatMap(([key, value]) => {
+          return ['--secret', `id=${key},env=${value}`]
+        })
+
+        const secretFileArgs = Object.entries(this.options.secretFileArgs).flatMap(([key, value]) => {
+          return ['--secret', `id=${key},src=${value}`]
+        })
+
         const childBuild = spawn('docker', [
           'buildx',
           'build',
           '--load', // Without this, the image is not stored and so we can't push it later
           ...buildArgs,
+          ...secretEnvArgs,
+          ...secretFileArgs,
           '--platform',
           imageOptions.platform,
           ...(this.options.ssh ? ['--ssh', 'default'] : []),

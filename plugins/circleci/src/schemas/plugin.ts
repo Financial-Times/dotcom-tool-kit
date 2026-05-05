@@ -29,6 +29,12 @@ export default z
       .optional()
       .describe(
         'set this option to use a [development version](https://circleci.com/docs/orbs/author/orb-concepts/#development-orbs) of the Tool Kit CircleCI orb in the generated config'
+      ),
+    useCloudsmithNpmRegistry: z
+      .boolean()
+      .optional()
+      .describe(
+        'set this option to setup the [Cloudsmith npm registry](https://tech.in.ft.com/tech-topics/development-tools/package-management/cloudsmith) in the Tool Kit CircleCI orb in the generated config'
       )
   })
   .passthrough()
