@@ -491,26 +491,37 @@ const generateWorkflowJobs = (
                 const requiredOrbName = toolKitOrbPrefix(normalisedRequired)
                 const requiredOrb = updateRequiredJobName(required, requiredOrbName)
 
-                if (requiredOrbName === 'tool-kit/setup') {
-                  return [requiredOrb, runsOnMultipleNodeVersions ? 'matrix' : 'none']
-                }
-
                 /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion --
                  * if this arrow function is running then the array is defined
                  */
                 const workflowJobs = workflow.jobs!
-                const requiredJob = workflowJobs.find(({ name: jobName }) => normalisedRequired === jobName)
+                let requiredJob = workflowJobs.find(({ name: jobName }) => normalisedRequired === jobName)
+
                 if (!requiredJob) {
-                  const error = new ToolKitError(
-                    `CircleCI job ${styles.code(job.name)} in workflow ${styles.code(
-                      workflow.name
-                    )} requires a job (${styles.code(required)}) that isn't defined in the workflow`
-                  )
-                  error.details = `requiring a job that isn't used in a workflow will cause CircleCI to error. valid jobs used in this workflow are:\n${workflowJobs
-                    .map(({ name }) => `- ${name}`)
-                    .join('\n')}`
-                  throw error
+                  // HACK:KB:20260505 the setup job is magic (derogatory); it's not part of
+                  // the generated workflows but injected into the boilerplate. it's always
+                  // present in workflows, but can also be configured by apps in their config.
+                  // if it hasn't been found, that just means it's never been explicitly
+                  // configured, so use a dummy workflow job entry for it instead of erroring
+                  // so we use the rest of the logic for determining the job name based on the
+                  // configuration for whether to run it in a matrix.
+                  if (requiredOrbName === 'tool-kit/setup') {
+                    requiredJob = {
+                      name: 'tool-kit/setup'
+                    }
+                  } else {
+                    const error = new ToolKitError(
+                      `CircleCI job ${styles.code(job.name)} in workflow ${styles.code(
+                        workflow.name
+                      )} requires a job (${styles.code(required)}) that isn't defined in the workflow`
+                    )
+                    error.details = `requiring a job that isn't used in a workflow will cause CircleCI to error. valid jobs used in this workflow are:\n${workflowJobs
+                      .map(({ name }) => `- ${name}`)
+                      .join('\n')}`
+                    throw error
+                  }
                 }
+
                 return [requiredOrb, getExecutorCount(requiredJob)]
               }
 
