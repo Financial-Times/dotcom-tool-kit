@@ -188,6 +188,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [9.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.1.0...circleci-v9.1.1) (2026-05-05)
+
+
+### Bug Fixes
+
+* **circleci:** allow a non-matrix setup job in a config with multiple ([148e94d](https://github.com/Financial-Times/dotcom-tool-kit/commit/148e94df0de702cd87a619f6f531b1a293a60225))
+
 ## [9.1.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.0.1...circleci-v9.1.0) (2026-05-01)
 
 
