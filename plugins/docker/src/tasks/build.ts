@@ -23,25 +23,32 @@ const DockerBuildSchema = z
       .describe(
         'An object of Docker [build variables](https://docs.docker.com/build/building/variables/) to include when building the image. To use values from Tool Kit\'s environment (since we usually build Docker images on CircleCI, this would be the CI environment), you can use the `!toolkit/env` tag, e.g. `buildArgs: { GIT_COMMIT: !toolkit/env "GIT_COMMIT" }`'
       ),
-    secretEnvArgs: z
-      .record(z.string(), z.string())
-      .default({})
+    secrets: z
+      .array(
+        z.union([
+          z.string(),
+          z.discriminatedUnion('type', [
+            z.object({
+              id: z.string(),
+              type: z.literal('file'),
+              source: z.string()
+            }),
+            z.object({
+              id: z.string(),
+              type: z.literal('env'),
+              env: z.string()
+            })
+          ])
+        ])
+      )
+      .default([])
       .describe(
         `
-          An object of Docker [build secret environment variables](https://docs.docker.com/build/building/secrets/) to include when building the image.
-          The object will add \`--secret id=[KEY],env=[VALUE]\` to the docker build script. To use values from Tool Kit\'s environment (since we
-          usually build Docker images on CircleCI, this would be the CI environment), you can use the \`!toolkit/env\` tag, e.g.
-          \`secretEnvArgs: { npmtoken: !toolkit/env "NPM_TOKEN" }\`
-        `
-      ),
-    secretFileArgs: z
-      .record(z.string(), z.string())
-      .default({})
-      .describe(
-        `
-          An object of Docker [build secret files](https://docs.docker.com/build/building/secrets/) to include when building the image.
-          The object will add \`--secret id=[KEY],src=[VALUE]\` to the docker build script. You may add files that include secret
-          configuration like \`.npmrc\`.
+          An array of Docker [secrets](https://docs.docker.com/build/building/secrets/) to include when building the image.
+          Each item in the array will add \`--secret id=[id],env=[env]\` or \`--secret id=[id],source=[source]\` (depending on the type)
+          to the docker build script. Docker can embed secret environment variables such as \`NPM_TOKEN\` (type: env) and
+          secret files such as \`.npmrc\` (type: file)\`. You can also include a secret environment variable by adding an
+          item with just the environment name.
         `
       )
   })
@@ -83,12 +90,18 @@ export default class DockerBuild extends Task<{
           return ['--build-arg', `${key}=${value}`]
         })
 
-        const secretEnvArgs = Object.entries(this.options.secretEnvArgs).flatMap(([key, value]) => {
-          return ['--secret', `id=${key},env=${value}`]
-        })
+        const secrets = this.options.secrets.flatMap((secret) => {
+          const secretArg = ['--secret']
 
-        const secretFileArgs = Object.entries(this.options.secretFileArgs).flatMap(([key, value]) => {
-          return ['--secret', `id=${key},src=${value}`]
+          if (typeof secret === 'string') {
+            secretArg.push(`id=${secret},env=${secret}`)
+          } else if (secret.type === 'env') {
+            secretArg.push(`id=${secret.id},env=${secret.env}`)
+          } else if (secret.type === 'file') {
+            secretArg.push(`id=${secret.id},src=${secret.source}`)
+          }
+
+          return secretArg
         })
 
         const childBuild = spawn('docker', [
@@ -96,8 +109,7 @@ export default class DockerBuild extends Task<{
           'build',
           '--load', // Without this, the image is not stored and so we can't push it later
           ...buildArgs,
-          ...secretEnvArgs,
-          ...secretFileArgs,
+          ...secrets,
           '--platform',
           imageOptions.platform,
           ...(this.options.ssh ? ['--ssh', 'default'] : []),
