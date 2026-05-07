@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.5.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.4.1...orb-v5.5.0) (2026-05-07)
+
+
+### Features
+
+* **orb:** add support to install npm packages from cloudsmith ([413248b](https://github.com/Financial-Times/dotcom-tool-kit/commit/413248b9a2464b4a2b6d202a698f705e84edf599))
+* **orb:** create npmrc when configuring cloudsmith registry for docker builds ([83580c3](https://github.com/Financial-Times/dotcom-tool-kit/commit/83580c3d168988c32b25630757018685b0d282b4))
+
 ## [5.4.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/orb-v5.4.0...orb-v5.4.1) (2026-03-17)
 
 
