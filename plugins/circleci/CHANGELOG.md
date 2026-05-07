@@ -188,6 +188,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [9.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.1.1...circleci-v9.2.0) (2026-05-07)
+
+
+### Features
+
+* **circleci:** add plugin option to enable tool-kit/setup cloudsmith param ([416f1c1](https://github.com/Financial-Times/dotcom-tool-kit/commit/416f1c13796e3c7ca2431e4d20d5f887f7236095))
+
 ## [9.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.1.0...circleci-v9.1.1) (2026-05-05)
 
 

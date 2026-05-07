@@ -1,6 +1,6 @@
 {
   "name": "@dotcom-tool-kit/containerised-app",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,9 +27,9 @@
   },
   "dependencies": {
     "@dotcom-tool-kit/aws": "^1.0.1",
-    "@dotcom-tool-kit/circleci-deploy": "^6.0.4",
+    "@dotcom-tool-kit/circleci-deploy": "^6.0.5",
     "@dotcom-tool-kit/cloudsmith": "^2.0.1",
-    "@dotcom-tool-kit/docker": "^1.1.1",
+    "@dotcom-tool-kit/docker": "^1.2.0",
     "@dotcom-tool-kit/doppler": "^3.0.0",
     "@dotcom-tool-kit/hako": "^2.2.0",
     "@dotcom-tool-kit/logger": "^5.0.0",

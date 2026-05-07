@@ -32,6 +32,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [1.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v1.1.1...docker-v1.2.0) (2026-05-07)
+
+
+### Features
+
+* **docker:** add support for including secret env/files to image build ([8c7c3d0](https://github.com/Financial-Times/dotcom-tool-kit/commit/8c7c3d069d7c9e630a04b6100988f97aa26dbff4))
+
 ## [1.1.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/docker-v1.1.0...docker-v1.1.1) (2026-02-11)
 
 
