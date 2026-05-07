@@ -27,28 +27,20 @@ const DockerBuildSchema = z
       .array(
         z.union([
           z.string(),
-          z.discriminatedUnion('type', [
-            z.object({
-              id: z.string(),
-              type: z.literal('file'),
-              source: z.string()
-            }),
-            z.object({
-              id: z.string(),
-              type: z.literal('env'),
-              env: z.string()
-            })
-          ])
+          z.object({
+            id: z.string(),
+            type: z.union([z.literal('file'), z.literal('env')]).optional(),
+            source: z.string().optional()
+          })
         ])
       )
       .default([])
       .describe(
         `
           An array of Docker [secrets](https://docs.docker.com/build/building/secrets/) to include when building the image.
-          Each item in the array will add \`--secret id=[id],env=[env]\` or \`--secret id=[id],source=[source]\` (depending on the type)
-          to the docker build script. Docker can embed secret environment variables such as \`NPM_TOKEN\` (type: env) and
-          secret files such as \`.npmrc\` (type: file)\`. You can also include a secret environment variable by adding an
-          item with just the environment name.
+          Each item in the array will add \`--secret id=[id],source=[source]\` to the docker build script. Docker can embed
+          secret environment variables such as \`NPM_TOKEN\` (type: env) and secret files such as \`.npmrc\` (type: file)\`.
+          You can also include a secret environment variable by adding an item with just the environment name.
         `
       )
   })
@@ -94,11 +86,9 @@ export default class DockerBuild extends Task<{
           const secretArg = ['--secret']
 
           if (typeof secret === 'string') {
-            secretArg.push(`id=${secret},env=${secret}`)
-          } else if (secret.type === 'env') {
-            secretArg.push(`id=${secret.id},env=${secret.env}`)
-          } else if (secret.type === 'file') {
-            secretArg.push(`id=${secret.id},src=${secret.source}`)
+            secretArg.push(`id=${secret}`)
+          } else {
+            secretArg.push(Array.from(Object.entries(secret), ([key, value]) => `${key}=${value}`).join(','))
           }
 
           return secretArg
