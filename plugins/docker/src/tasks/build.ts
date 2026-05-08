@@ -30,7 +30,7 @@ const DockerBuildSchema = z
           z.object({
             id: z.string(),
             type: z.union([z.literal('file'), z.literal('env')]).optional(),
-            source: z.string().optional()
+            src: z.string().optional()
           })
         ])
       )
@@ -38,7 +38,7 @@ const DockerBuildSchema = z
       .describe(
         `
           An array of Docker [secrets](https://docs.docker.com/build/building/secrets/) to include when building the image.
-          Each item in the array will add \`--secret id=[id],source=[source]\` to the docker build script. Docker can embed
+          Each item in the array will add \`--secret id=[id],src=[src]\` to the docker build script. Docker can embed
           secret environment variables such as \`NPM_TOKEN\` (type: env) and secret files such as \`.npmrc\` (type: file)\`.
           You can also include a secret environment variable by adding an item with just the environment name.
         `
