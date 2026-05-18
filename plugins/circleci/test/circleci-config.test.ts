@@ -777,5 +777,23 @@ describe('CircleCI config hook', () => {
 
       expect(YAML.stringify(await installation.install())).toMatchSnapshot()
     })
+
+    it('should configure Cloudsmith npm registry for all setup jobs when enabled', async () => {
+      const config = await loadConfig(logger, {
+        root: path.resolve(__dirname, 'files', 'configs', 'use-cloudsmith')
+      })
+
+      const metrics = new MockTelemetryClient()
+      const hookInstallationsPromise = loadHookInstallations(logger, metrics, config).then((validated) =>
+        validated.unwrap('hooks were invalid')
+      )
+
+      await expect(hookInstallationsPromise).resolves.toEqual([expect.any(CircleCi)])
+
+      const installation = (await hookInstallationsPromise)[0]
+
+      // verify the every tool-kit/setup job has the use-cloudsmith-package-registry parameter and its value is true
+      expect(YAML.stringify(await installation.install())).toMatchSnapshot()
+    })
   })
 })

@@ -127,6 +127,10 @@ const mergeWithConcatenatedArrays = (arg0: unknown, ...args: unknown[]) =>
     }
   })
 
+const getSetupJobParameters = (useCloudsmithNpmRegistry?: boolean) => {
+  return useCloudsmithNpmRegistry ? { 'use-cloudsmith-package-registry': true } : {}
+}
+
 const getBaseConfig = (
   nodeVersions: string[],
   checkoutMethod?: CheckoutMethod,
@@ -173,11 +177,7 @@ const getBaseConfig = (
               ...setupMatrix,
               requires: ['checkout'],
               ...(tagFilterRegex ? tagFilter(tagFilterRegex) : {}),
-              ...(useCloudsmithNpmRegistry
-                ? {
-                    'use-cloudsmith-package-registry': true
-                  }
-                : {})
+              ...getSetupJobParameters(useCloudsmithNpmRegistry)
             }
           }
         ]
@@ -193,7 +193,16 @@ const getBaseConfig = (
             }
           ]
         },
-        jobs: ['checkout', { 'tool-kit/setup': { ...setupMatrix, requires: ['checkout'] } }]
+        jobs: [
+          'checkout',
+          {
+            'tool-kit/setup': {
+              ...setupMatrix,
+              requires: ['checkout'],
+              ...getSetupJobParameters(useCloudsmithNpmRegistry)
+            }
+          }
+        ]
       }
     }
   }
@@ -402,7 +411,8 @@ const generateWorkflowJobs = (
   workflow: CircleCiWorkflow,
   nodeVersions: string[],
   tagFilterRegex?: string,
-  customJobs?: CircleCiJob[]
+  customJobs?: CircleCiJob[],
+  useCloudsmithNpmRegistry?: boolean
 ): WorkflowJob[] | undefined => {
   // HACK:20250106:IM We were previously implicitly prepending a tool-kit/
   // prefix to workflow job names, as it was assumed that they all were
@@ -454,6 +464,7 @@ const generateWorkflowJobs = (
 
   return workflow.jobs?.map((job) => {
     const prefixedName = toolKitOrbPrefix(job.name)
+    const setupJobParameters = getSetupJobParameters(useCloudsmithNpmRegistry)
 
     const executorCount = getExecutorCount(job)
     let executorParameter
@@ -542,7 +553,8 @@ const generateWorkflowJobs = (
               } else {
                 return requiredJob
               }
-            }) ?? []
+            }) ?? [],
+          ...(prefixedName === 'tool-kit/setup' ? setupJobParameters : {})
         },
         tagFilterRegex && workflow.runOnRelease && (job.runOnRelease ?? true)
           ? tagFilter(tagFilterRegex)
@@ -671,6 +683,7 @@ export default class CircleCi extends Hook<
   generateConfig(): CircleCIState {
     const { cimgNodeVersions: nodeVersions } = this.pluginOptions
     const configuredTagFilterRegex = this.pluginOptions.tagFilter || undefined
+    const useCloudsmithNpmRegistry = this.pluginOptions.useCloudsmithNpmRegistry
 
     if (!this.generatedConfig) {
       const generated: CircleCIStatePartial = {}
@@ -692,7 +705,13 @@ export default class CircleCi extends Hook<
         generated.workflows = Object.fromEntries(
           this.options.workflows.map((workflow) => {
             const generatedJobs = {
-              jobs: generateWorkflowJobs(workflow, nodeVersions, configuredTagFilterRegex, this.options.jobs)
+              jobs: generateWorkflowJobs(
+                workflow,
+                nodeVersions,
+                configuredTagFilterRegex,
+                this.options.jobs,
+                useCloudsmithNpmRegistry
+              )
             }
             return [workflow.name, mergeWithConcatenatedArrays(generatedJobs, workflow.custom)]
           })
