@@ -188,6 +188,13 @@
     * @dotcom-tool-kit/base bumped from ^1.2.0 to ^1.2.1
     * @dotcom-tool-kit/logger bumped from ^4.1.1 to ^4.2.0
 
+## [9.2.1](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.2.0...circleci-v9.2.1) (2026-05-19)
+
+
+### Bug Fixes
+
+* **circleci:** configure Cloudsmith registry for all setup jobs ([8ecd33f](https://github.com/Financial-Times/dotcom-tool-kit/commit/8ecd33f4a4fba7083d1d0a4c82d5a1a7d5e0d68c))
+
 ## [9.2.0](https://github.com/Financial-Times/dotcom-tool-kit/compare/circleci-v9.1.1...circleci-v9.2.0) (2026-05-07)
 
 
