@@ -1,1 +1,1 @@
-sandbox_mode = read-only
+sandbox_mode = "read-only"
